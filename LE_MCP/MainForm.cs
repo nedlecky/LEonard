@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace LE_MCP
+namespace LEonard
 {
     public partial class MainForm : Form
     {
@@ -75,7 +76,7 @@ namespace LE_MCP
             Crawl("Stopping threads...");
             if (testThread != null)
             {
-                fAbortTestThread = true;
+                AbortTestThread = true;
 
                 testThread = null;
             }
@@ -95,9 +96,16 @@ namespace LE_MCP
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            string text = "Lecky Engineering MCP 0.1 2021-11-27";
-            this.Text = text;
-            Crawl(text + " starting...");
+            string companyName = Application.CompanyName;
+            string appName = Application.ProductName;
+            string productVersion = Application.ProductVersion;
+            string executable = Application.ExecutablePath;
+            string filename = Path.GetFileName(executable);
+            string directory = Path.GetDirectoryName(executable);
+
+            string caption = companyName + " " + appName + " " + productVersion;
+            this.Text = caption;
+            Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
             Connect();
         }
 
@@ -161,11 +169,26 @@ namespace LE_MCP
         private void TriggerDM1Btn_Click(object sender, EventArgs e)
         {
             dms[0].Trigger();
+            // TODO how to wait here for lonmg enough? Wait for some response or timeout
+            DM1DataLbl.Text = dms[0].ReadIndex + " " + dms[0].Value;
         }
 
         private void TriggerDM2Btn_Click(object sender, EventArgs e)
         {
             dms[1].Trigger();
+            // TODO how to wait here for lonmg enough? Wait for some response or timeout
+            DM2DataLbl.Text = dms[1].ReadIndex + " " + dms[1].Value;
+        }
+
+        private void TriggerDM2Btn_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TestThreadEnabledChk_CheckedChanged(object sender, EventArgs e)
+        {
+            // TODO This shold be in the thread class
+            Enabled = TestThreadEnabledChk.Checked;
         }
     }
 }

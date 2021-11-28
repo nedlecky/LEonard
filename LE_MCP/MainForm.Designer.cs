@@ -1,4 +1,4 @@
-﻿namespace LE_MCP
+﻿namespace LEonard
 {
     partial class MainForm
     {
@@ -51,10 +51,15 @@
             this.ErrorCrawlRTB = new System.Windows.Forms.RichTextBox();
             this.CloseTmr = new System.Windows.Forms.Timer(this.components);
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.TriggerDM1Btn = new System.Windows.Forms.Button();
+            this.BarcodeGrp = new System.Windows.Forms.GroupBox();
+            this.DM2DataLbl = new System.Windows.Forms.Label();
+            this.DM1DataLbl = new System.Windows.Forms.Label();
             this.TriggerDM2Btn = new System.Windows.Forms.Button();
+            this.TriggerDM1Btn = new System.Windows.Forms.Button();
+            this.TestThreadEnabledChk = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed1Pic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed2Pic)).BeginInit();
+            this.BarcodeGrp.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExitBtn
@@ -245,33 +250,75 @@
             // 
             this.CloseTmr.Tick += new System.EventHandler(this.CloseTmr_Tick);
             // 
+            // BarcodeGrp
+            // 
+            this.BarcodeGrp.Controls.Add(this.DM2DataLbl);
+            this.BarcodeGrp.Controls.Add(this.DM1DataLbl);
+            this.BarcodeGrp.Controls.Add(this.TriggerDM2Btn);
+            this.BarcodeGrp.Controls.Add(this.TriggerDM1Btn);
+            this.BarcodeGrp.Location = new System.Drawing.Point(528, 349);
+            this.BarcodeGrp.Name = "BarcodeGrp";
+            this.BarcodeGrp.Size = new System.Drawing.Size(306, 104);
+            this.BarcodeGrp.TabIndex = 22;
+            this.BarcodeGrp.TabStop = false;
+            this.BarcodeGrp.Text = "Barcode Readers";
+            // 
+            // DM2DataLbl
+            // 
+            this.DM2DataLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DM2DataLbl.Location = new System.Drawing.Point(103, 54);
+            this.DM2DataLbl.Name = "DM2DataLbl";
+            this.DM2DataLbl.Size = new System.Drawing.Size(180, 23);
+            this.DM2DataLbl.TabIndex = 25;
+            // 
+            // DM1DataLbl
+            // 
+            this.DM1DataLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DM1DataLbl.Location = new System.Drawing.Point(103, 25);
+            this.DM1DataLbl.Name = "DM1DataLbl";
+            this.DM1DataLbl.Size = new System.Drawing.Size(180, 23);
+            this.DM1DataLbl.TabIndex = 24;
+            // 
+            // TriggerDM2Btn
+            // 
+            this.TriggerDM2Btn.Location = new System.Drawing.Point(22, 54);
+            this.TriggerDM2Btn.Name = "TriggerDM2Btn";
+            this.TriggerDM2Btn.Size = new System.Drawing.Size(75, 23);
+            this.TriggerDM2Btn.TabIndex = 23;
+            this.TriggerDM2Btn.Text = "Trigger DM2";
+            this.TriggerDM2Btn.UseVisualStyleBackColor = true;
+            this.TriggerDM2Btn.Click += new System.EventHandler(this.TriggerDM2Btn_Click);
+            // 
             // TriggerDM1Btn
             // 
-            this.TriggerDM1Btn.Location = new System.Drawing.Point(323, 344);
+            this.TriggerDM1Btn.Location = new System.Drawing.Point(22, 25);
             this.TriggerDM1Btn.Name = "TriggerDM1Btn";
             this.TriggerDM1Btn.Size = new System.Drawing.Size(75, 23);
-            this.TriggerDM1Btn.TabIndex = 18;
+            this.TriggerDM1Btn.TabIndex = 22;
             this.TriggerDM1Btn.Text = "Trigger DM1";
             this.TriggerDM1Btn.UseVisualStyleBackColor = true;
             this.TriggerDM1Btn.Click += new System.EventHandler(this.TriggerDM1Btn_Click);
             // 
-            // TriggerDM2Btn
+            // TestThreadEnabledChk
             // 
-            this.TriggerDM2Btn.Location = new System.Drawing.Point(323, 373);
-            this.TriggerDM2Btn.Name = "TriggerDM2Btn";
-            this.TriggerDM2Btn.Size = new System.Drawing.Size(75, 23);
-            this.TriggerDM2Btn.TabIndex = 19;
-            this.TriggerDM2Btn.Text = "Trigger DM2";
-            this.TriggerDM2Btn.UseVisualStyleBackColor = true;
-            this.TriggerDM2Btn.Click += new System.EventHandler(this.TriggerDM2Btn_Click);
+            this.TestThreadEnabledChk.AutoSize = true;
+            this.TestThreadEnabledChk.Checked = true;
+            this.TestThreadEnabledChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.TestThreadEnabledChk.Location = new System.Drawing.Point(530, 318);
+            this.TestThreadEnabledChk.Name = "TestThreadEnabledChk";
+            this.TestThreadEnabledChk.Size = new System.Drawing.Size(126, 17);
+            this.TestThreadEnabledChk.TabIndex = 23;
+            this.TestThreadEnabledChk.Text = "Test Thread Enabled";
+            this.TestThreadEnabledChk.UseVisualStyleBackColor = true;
+            this.TestThreadEnabledChk.CheckedChanged += new System.EventHandler(this.TestThreadEnabledChk_CheckedChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1281, 773);
-            this.Controls.Add(this.TriggerDM2Btn);
-            this.Controls.Add(this.TriggerDM1Btn);
+            this.Controls.Add(this.TestThreadEnabledChk);
+            this.Controls.Add(this.BarcodeGrp);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.ErrorCrawlRTB);
@@ -297,6 +344,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Fixed1Pic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed2Pic)).EndInit();
+            this.BarcodeGrp.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -326,8 +374,12 @@
         private System.Windows.Forms.RichTextBox ErrorCrawlRTB;
         private System.Windows.Forms.Timer CloseTmr;
         private System.IO.Ports.SerialPort serialPort1;
-        private System.Windows.Forms.Button TriggerDM1Btn;
+        private System.Windows.Forms.GroupBox BarcodeGrp;
+        private System.Windows.Forms.Label DM2DataLbl;
+        private System.Windows.Forms.Label DM1DataLbl;
         private System.Windows.Forms.Button TriggerDM2Btn;
+        private System.Windows.Forms.Button TriggerDM1Btn;
+        private System.Windows.Forms.CheckBox TestThreadEnabledChk;
     }
 }
 

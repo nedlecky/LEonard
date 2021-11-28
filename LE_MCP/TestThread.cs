@@ -6,36 +6,46 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LE_MCP
+namespace LEonard
 {
     public partial class MainForm : Form
     {
 
-        static public bool fAbortTestThread = false;
-        static public bool fTestThreadRunning = false;
+        public bool AbortTestThread { get; set; } = false;
+        public bool TestThreadRunning { get; set; } = false;
+        public bool Enabled { get; set; } = true;
+        
 
-        static int loopCount = 0;
+        int loopCount = 0;
         private void TestThread()
         {
-            fAbortTestThread = false;
-            fTestThreadRunning = true;
+            AbortTestThread = false;
+            TestThreadRunning = true;
             Crawl("TestThread starting...");
 
-            while (!fAbortTestThread)
+            while (!AbortTestThread)
             {
-                var watch = System.Diagnostics.Stopwatch.StartNew();
+                if (!Enabled)
+                {
+                    Thread.Sleep(100);
+                }
+                else
+                {
+                    var watch = System.Diagnostics.Stopwatch.StartNew();
 
-                loopCount++;
-                dms[0].Trigger();
-                Thread.Sleep(100);
-                dms[1].Trigger();
-                Thread.Sleep(100);
+                    loopCount++;
+                    dms[0].Trigger();
+                    Thread.Sleep(100);
+                    dms[1].Trigger();
+                    Thread.Sleep(100);
 
-                watch.Stop();
-                CrawlVision("TestThread execution time: " + watch.ElapsedMilliseconds.ToString() + "mS abort=" + fAbortTestThread);
+                    watch.Stop();
+                    CrawlVision("TestThread execution time: " + watch.ElapsedMilliseconds.ToString() + "mS abort=" + AbortTestThread);
+                }
             }
 
             Crawl("TestThread ends.");
+            TestThreadRunning = false;
         }
     }
 }

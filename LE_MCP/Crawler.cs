@@ -8,7 +8,7 @@ using System.Threading;
 //using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LE_MCP
+namespace LEonard
 {
     public partial class MainForm : Form
     {
@@ -91,7 +91,7 @@ namespace LE_MCP
                 // Append to logfile
                 try
                 {
-                    File.AppendAllText("C:/Users/nedlecky/Desktop/LE_MCP.log", message + "\r\n");
+                    File.AppendAllText("C:/Users/nedlecky/Desktop/LEonard.log", message + "\r\n");
                 }
                 catch
                 {

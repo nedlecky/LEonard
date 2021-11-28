@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LE_MCP
+namespace LEonard
 {
     internal class TestClass
     {
@@ -20,6 +20,8 @@ namespace LE_MCP
         MainForm myForm;
         string myPortname;
         SerialPort port;
+        public string ReadIndex { get; set; }
+        public string Value { get; set; }
 
 
         public DatamanSerial(MainForm form)
@@ -36,7 +38,15 @@ namespace LE_MCP
         public void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string data = port.ReadLine();
-            myForm.Crawl("Received: " + data);
+            myForm.CrawlVision("Barcode: " + data);
+            string[] s = data.Split(',');
+            if (s.Length == 3)
+            {
+                ReadIndex = s[1];
+                Value = s[2];
+            }
+            else
+                myForm.CrawlVision("Barode ERROR");
         }
         public int Open(string portname)
         {
