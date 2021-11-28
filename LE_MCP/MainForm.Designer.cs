@@ -50,6 +50,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.ErrorCrawlRTB = new System.Windows.Forms.RichTextBox();
             this.CloseTmr = new System.Windows.Forms.Timer(this.components);
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.TriggerDM1Btn = new System.Windows.Forms.Button();
+            this.TriggerDM2Btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed1Pic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed2Pic)).BeginInit();
             this.SuspendLayout();
@@ -242,11 +245,33 @@
             // 
             this.CloseTmr.Tick += new System.EventHandler(this.CloseTmr_Tick);
             // 
+            // TriggerDM1Btn
+            // 
+            this.TriggerDM1Btn.Location = new System.Drawing.Point(323, 344);
+            this.TriggerDM1Btn.Name = "TriggerDM1Btn";
+            this.TriggerDM1Btn.Size = new System.Drawing.Size(75, 23);
+            this.TriggerDM1Btn.TabIndex = 18;
+            this.TriggerDM1Btn.Text = "Trigger DM1";
+            this.TriggerDM1Btn.UseVisualStyleBackColor = true;
+            this.TriggerDM1Btn.Click += new System.EventHandler(this.TriggerDM1Btn_Click);
+            // 
+            // TriggerDM2Btn
+            // 
+            this.TriggerDM2Btn.Location = new System.Drawing.Point(323, 373);
+            this.TriggerDM2Btn.Name = "TriggerDM2Btn";
+            this.TriggerDM2Btn.Size = new System.Drawing.Size(75, 23);
+            this.TriggerDM2Btn.TabIndex = 19;
+            this.TriggerDM2Btn.Text = "Trigger DM2";
+            this.TriggerDM2Btn.UseVisualStyleBackColor = true;
+            this.TriggerDM2Btn.Click += new System.EventHandler(this.TriggerDM2Btn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1281, 773);
+            this.Controls.Add(this.TriggerDM2Btn);
+            this.Controls.Add(this.TriggerDM1Btn);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.ErrorCrawlRTB);
@@ -300,6 +325,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox ErrorCrawlRTB;
         private System.Windows.Forms.Timer CloseTmr;
+        private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Button TriggerDM1Btn;
+        private System.Windows.Forms.Button TriggerDM2Btn;
     }
 }
 

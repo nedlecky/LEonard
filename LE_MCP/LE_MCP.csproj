@@ -64,6 +64,7 @@
     <Compile Include="Crawler.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DatamanSerial.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

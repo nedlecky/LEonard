@@ -9,12 +9,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LE_MCP
 
+namespace LE_MCP
 {
     public partial class MainForm : Form
     {
         Thread testThread;
+
+        int nDatamanSerial = 2;
+        DatamanSerial[] dms = new DatamanSerial[2];
 
         public MainForm()
         {
@@ -56,6 +59,11 @@ namespace LE_MCP
             MessageTmr.Interval = 100;
             MessageTmr.Enabled = true;
 
+            dms[0] = new DatamanSerial(this);
+            dms[1] = new DatamanSerial(this);
+            dms[0].Open("COM3");
+            dms[1].Open("COM4");
+
             testThread = new Thread(new ThreadStart(TestThread));
             testThread.Start();
 
@@ -77,6 +85,11 @@ namespace LE_MCP
         {
             Crawl("Disconnect()...");
             //HeartbeatTmr.Enabled = false;
+            for (int i = 0; i < nDatamanSerial; i++)
+            {
+                dms[i].Close();
+                dms[i] = null;
+            }
             Crawl("Disconnect() complete");
 
         }
@@ -143,6 +156,16 @@ namespace LE_MCP
                 forceClose = true;
                 this.Close();
             }
+        }
+
+        private void TriggerDM1Btn_Click(object sender, EventArgs e)
+        {
+            dms[0].Trigger();
+        }
+
+        private void TriggerDM2Btn_Click(object sender, EventArgs e)
+        {
+            dms[1].Trigger();
         }
     }
 }

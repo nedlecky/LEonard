@@ -26,12 +26,13 @@ namespace LE_MCP
                 var watch = System.Diagnostics.Stopwatch.StartNew();
 
                 loopCount++;
-                Thread.Sleep(250);
+                dms[0].Trigger();
+                Thread.Sleep(100);
+                dms[1].Trigger();
+                Thread.Sleep(100);
 
                 watch.Stop();
                 CrawlVision("TestThread execution time: " + watch.ElapsedMilliseconds.ToString() + "mS abort=" + fAbortTestThread);
-                CrawlRobot("ERROR in robot code");
-
             }
 
             Crawl("TestThread ends.");
