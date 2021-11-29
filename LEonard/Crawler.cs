@@ -121,6 +121,7 @@ namespace LEonard
 
             // TODO is this a poor place to check for commands from above??
             if (commandServer != null) commandServer.ReceiveCommand();
+            if (robotServer != null) robotServer.ReceiveCommand();
         }
     }
 }

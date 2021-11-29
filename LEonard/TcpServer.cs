@@ -162,7 +162,7 @@ namespace LEonard
         }
 
         bool fSendBusy = false;
-        void Send(string response)
+        public void Send(string response)
         {
             while (fSendBusy)
                 Thread.Sleep(10);

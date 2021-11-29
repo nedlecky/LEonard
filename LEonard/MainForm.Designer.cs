@@ -41,12 +41,12 @@
             this.MessageTmr = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.CrawlerClearBtn = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.RobotClearBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.VisionClearBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.VisionCrawlRTB = new System.Windows.Forms.RichTextBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.ErrorClearBtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.ErrorCrawlRTB = new System.Windows.Forms.RichTextBox();
             this.CloseTmr = new System.Windows.Forms.Timer(this.components);
@@ -59,6 +59,9 @@
             this.TestThreadEnabledChk = new System.Windows.Forms.CheckBox();
             this.CommandServerChk = new System.Windows.Forms.CheckBox();
             this.StartTestClientBtn = new System.Windows.Forms.Button();
+            this.RobotServerChk = new System.Windows.Forms.CheckBox();
+            this.RobotSendBtn = new System.Windows.Forms.Button();
+            this.RobotCommandTxt = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed1Pic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed2Pic)).BeginInit();
             this.BarcodeGrp.SuspendLayout();
@@ -170,15 +173,15 @@
             this.CrawlerClearBtn.UseVisualStyleBackColor = true;
             this.CrawlerClearBtn.Click += new System.EventHandler(this.CrawlerClearBtn_Click);
             // 
-            // button3
+            // RobotClearBtn
             // 
-            this.button3.Location = new System.Drawing.Point(481, 486);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(50, 23);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "Clear";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.RobotClearBtn.Location = new System.Drawing.Point(481, 486);
+            this.RobotClearBtn.Name = "RobotClearBtn";
+            this.RobotClearBtn.Size = new System.Drawing.Size(50, 23);
+            this.RobotClearBtn.TabIndex = 11;
+            this.RobotClearBtn.Text = "Clear";
+            this.RobotClearBtn.UseVisualStyleBackColor = true;
+            this.RobotClearBtn.Click += new System.EventHandler(this.RobotClearBtn_Click);
             // 
             // label2
             // 
@@ -190,15 +193,15 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "Robot";
             // 
-            // button4
+            // VisionClearBtn
             // 
-            this.button4.Location = new System.Drawing.Point(900, 486);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(50, 23);
-            this.button4.TabIndex = 14;
-            this.button4.Text = "Clear";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.VisionClearBtn.Location = new System.Drawing.Point(900, 486);
+            this.VisionClearBtn.Name = "VisionClearBtn";
+            this.VisionClearBtn.Size = new System.Drawing.Size(50, 23);
+            this.VisionClearBtn.TabIndex = 14;
+            this.VisionClearBtn.Text = "Clear";
+            this.VisionClearBtn.UseVisualStyleBackColor = true;
+            this.VisionClearBtn.Click += new System.EventHandler(this.VisionClearBtn_Click);
             // 
             // label3
             // 
@@ -219,15 +222,15 @@
             this.VisionCrawlRTB.TabIndex = 12;
             this.VisionCrawlRTB.Text = "";
             // 
-            // button5
+            // ErrorClearBtn
             // 
-            this.button5.Location = new System.Drawing.Point(900, 46);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(50, 23);
-            this.button5.TabIndex = 17;
-            this.button5.Text = "Clear";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.ErrorClearBtn.Location = new System.Drawing.Point(900, 46);
+            this.ErrorClearBtn.Name = "ErrorClearBtn";
+            this.ErrorClearBtn.Size = new System.Drawing.Size(50, 23);
+            this.ErrorClearBtn.TabIndex = 17;
+            this.ErrorClearBtn.Text = "Clear";
+            this.ErrorClearBtn.UseVisualStyleBackColor = true;
+            this.ErrorClearBtn.Click += new System.EventHandler(this.ErrorClearBtn_Click);
             // 
             // label4
             // 
@@ -317,7 +320,7 @@
             // CommandServerChk
             // 
             this.CommandServerChk.AutoSize = true;
-            this.CommandServerChk.Location = new System.Drawing.Point(528, 303);
+            this.CommandServerChk.Location = new System.Drawing.Point(631, 129);
             this.CommandServerChk.Name = "CommandServerChk";
             this.CommandServerChk.Size = new System.Drawing.Size(107, 17);
             this.CommandServerChk.TabIndex = 24;
@@ -335,22 +338,55 @@
             this.StartTestClientBtn.UseVisualStyleBackColor = true;
             this.StartTestClientBtn.Click += new System.EventHandler(this.StartTestClientBtn_Click);
             // 
+            // RobotServerChk
+            // 
+            this.RobotServerChk.AutoSize = true;
+            this.RobotServerChk.Location = new System.Drawing.Point(631, 174);
+            this.RobotServerChk.Name = "RobotServerChk";
+            this.RobotServerChk.Size = new System.Drawing.Size(89, 17);
+            this.RobotServerChk.TabIndex = 26;
+            this.RobotServerChk.Text = "Robot Server";
+            this.RobotServerChk.UseVisualStyleBackColor = true;
+            this.RobotServerChk.CheckedChanged += new System.EventHandler(this.RobotServerChk_CheckedChanged);
+            // 
+            // RobotSendBtn
+            // 
+            this.RobotSendBtn.Location = new System.Drawing.Point(759, 195);
+            this.RobotSendBtn.Name = "RobotSendBtn";
+            this.RobotSendBtn.Size = new System.Drawing.Size(75, 23);
+            this.RobotSendBtn.TabIndex = 27;
+            this.RobotSendBtn.Text = "Send";
+            this.RobotSendBtn.UseVisualStyleBackColor = true;
+            this.RobotSendBtn.Click += new System.EventHandler(this.RobotSendBtn_Click);
+            // 
+            // RobotCommandTxt
+            // 
+            this.RobotCommandTxt.Location = new System.Drawing.Point(631, 197);
+            this.RobotCommandTxt.Name = "RobotCommandTxt";
+            this.RobotCommandTxt.Size = new System.Drawing.Size(119, 20);
+            this.RobotCommandTxt.TabIndex = 28;
+            this.RobotCommandTxt.Text = "(1,0,0,0,0)";
+            this.RobotCommandTxt.TextChanged += new System.EventHandler(this.RobotCommandTxt_TextChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1281, 773);
+            this.Controls.Add(this.RobotCommandTxt);
+            this.Controls.Add(this.RobotSendBtn);
+            this.Controls.Add(this.RobotServerChk);
             this.Controls.Add(this.StartTestClientBtn);
             this.Controls.Add(this.CommandServerChk);
             this.Controls.Add(this.TestThreadEnabledChk);
             this.Controls.Add(this.BarcodeGrp);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.ErrorClearBtn);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.ErrorCrawlRTB);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.VisionClearBtn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.VisionCrawlRTB);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.RobotClearBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.CrawlerClearBtn);
             this.Controls.Add(this.label1);
@@ -389,12 +425,12 @@
         private System.Windows.Forms.Timer MessageTmr;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button CrawlerClearBtn;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button RobotClearBtn;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button VisionClearBtn;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox VisionCrawlRTB;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button ErrorClearBtn;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox ErrorCrawlRTB;
         private System.Windows.Forms.Timer CloseTmr;
@@ -407,6 +443,9 @@
         private System.Windows.Forms.CheckBox TestThreadEnabledChk;
         private System.Windows.Forms.CheckBox CommandServerChk;
         private System.Windows.Forms.Button StartTestClientBtn;
+        private System.Windows.Forms.CheckBox RobotServerChk;
+        private System.Windows.Forms.Button RobotSendBtn;
+        private System.Windows.Forms.TextBox RobotCommandTxt;
     }
 }
 

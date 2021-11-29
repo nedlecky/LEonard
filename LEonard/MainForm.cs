@@ -18,6 +18,8 @@ namespace LEonard
     public partial class MainForm : Form
     {
         TcpServer commandServer;
+        TcpServer robotServer;
+
         Thread testThread;
 
         int nDatamanSerial = 2;
@@ -75,6 +77,7 @@ namespace LEonard
 
             // This will launch the TCP command server
             CommandServerChk.Checked = true;
+            RobotServerChk.Checked = true;
         }
 
         private void StopProcessing()
@@ -146,17 +149,17 @@ namespace LEonard
             AllCrawlRTB.Clear();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void RobotClearBtn_Click(object sender, EventArgs e)
         {
             RobotCrawlRTB.Clear();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void VisionClearBtn_Click(object sender, EventArgs e)
         {
             VisionCrawlRTB.Clear();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void ErrorClearBtn_Click(object sender, EventArgs e)
         {
             ErrorCrawlRTB.Clear();
         }
@@ -217,7 +220,22 @@ namespace LEonard
                     commandServer = null;
                 }
             }
-
+        }
+        private void RobotServerChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RobotServerChk.Checked)
+            {
+                robotServer = new TcpServer(this);
+                robotServer.StartServer("192.168.0.252", "30000");
+            }
+            else
+            {
+                if (robotServer != null)
+                {
+                    robotServer.StopServer();
+                    robotServer = null;
+                }
+            }
         }
 
         // Launch command tester to assist in debugging
@@ -240,6 +258,17 @@ namespace LEonard
             {
                 CrawlError("Could not start " + start.FileName);
             }
+
+        }
+
+        private void RobotSendBtn_Click(object sender, EventArgs e)
+        {
+            if (robotServer != null)
+                robotServer.Send(RobotCommandTxt.Text);
+        }
+
+        private void RobotCommandTxt_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
