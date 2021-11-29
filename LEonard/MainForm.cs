@@ -15,6 +15,7 @@ namespace LEonard
 {
     public partial class MainForm : Form
     {
+        TcpServer commandServer;
         Thread testThread;
 
         int nDatamanSerial = 2;
@@ -69,11 +70,17 @@ namespace LEonard
             testThread.Start();
 
             Crawl("System ready.");
+
+            // This will launch the TCP command server
+            CommandServerChk.Checked = true;
         }
 
-        private void StopThreads()
+        private void StopProcessing()
         {
-            Crawl("Stopping threads...");
+            Crawl("StopProcessing()...");
+
+            CommandServerChk.Checked = false;
+
             if (testThread != null)
             {
                 AbortTestThread = true;
@@ -154,7 +161,7 @@ namespace LEonard
         {
             // First time this fires, tell all the threads to stop
             if (testThread != null)
-                StopThreads();
+                StopProcessing();
             else
             {
                 // Second time it fires, we can disconnect and shut down!
@@ -189,6 +196,24 @@ namespace LEonard
         {
             // TODO This shold be in the thread class
             Enabled = TestThreadEnabledChk.Checked;
+        }
+
+        private void CommandServerChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CommandServerChk.Checked)
+            {
+                commandServer = new TcpServer(this);
+                commandServer.StartServer("192.168.0.252", "1000");
+            }
+            else
+            {
+                if (commandServer != null)
+                {
+                    commandServer.StopServer();
+                    commandServer = null;
+                }
+            }
+
         }
     }
 }

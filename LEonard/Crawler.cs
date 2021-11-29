@@ -118,6 +118,9 @@ namespace LEonard
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
             FlushCrawl();
+
+            // TODO is this a poor place to check for commands from above??
+            if (commandServer != null) commandServer.ReceiveCommand();
         }
     }
 }

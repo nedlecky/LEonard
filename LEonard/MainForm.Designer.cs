@@ -57,6 +57,7 @@
             this.TriggerDM2Btn = new System.Windows.Forms.Button();
             this.TriggerDM1Btn = new System.Windows.Forms.Button();
             this.TestThreadEnabledChk = new System.Windows.Forms.CheckBox();
+            this.CommandServerChk = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed1Pic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed2Pic)).BeginInit();
             this.BarcodeGrp.SuspendLayout();
@@ -304,7 +305,7 @@
             this.TestThreadEnabledChk.AutoSize = true;
             this.TestThreadEnabledChk.Checked = true;
             this.TestThreadEnabledChk.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.TestThreadEnabledChk.Location = new System.Drawing.Point(530, 318);
+            this.TestThreadEnabledChk.Location = new System.Drawing.Point(528, 326);
             this.TestThreadEnabledChk.Name = "TestThreadEnabledChk";
             this.TestThreadEnabledChk.Size = new System.Drawing.Size(126, 17);
             this.TestThreadEnabledChk.TabIndex = 23;
@@ -312,11 +313,23 @@
             this.TestThreadEnabledChk.UseVisualStyleBackColor = true;
             this.TestThreadEnabledChk.CheckedChanged += new System.EventHandler(this.TestThreadEnabledChk_CheckedChanged);
             // 
+            // CommandServerChk
+            // 
+            this.CommandServerChk.AutoSize = true;
+            this.CommandServerChk.Location = new System.Drawing.Point(528, 303);
+            this.CommandServerChk.Name = "CommandServerChk";
+            this.CommandServerChk.Size = new System.Drawing.Size(107, 17);
+            this.CommandServerChk.TabIndex = 24;
+            this.CommandServerChk.Text = "Command Server";
+            this.CommandServerChk.UseVisualStyleBackColor = true;
+            this.CommandServerChk.CheckedChanged += new System.EventHandler(this.CommandServerChk_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1281, 773);
+            this.Controls.Add(this.CommandServerChk);
             this.Controls.Add(this.TestThreadEnabledChk);
             this.Controls.Add(this.BarcodeGrp);
             this.Controls.Add(this.button5);
@@ -380,6 +393,7 @@
         private System.Windows.Forms.Button TriggerDM2Btn;
         private System.Windows.Forms.Button TriggerDM1Btn;
         private System.Windows.Forms.CheckBox TestThreadEnabledChk;
+        private System.Windows.Forms.CheckBox CommandServerChk;
     }
 }
 
