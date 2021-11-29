@@ -19,6 +19,7 @@ namespace LEonard
     {
         TcpServer commandServer;
         TcpServer robotServer;
+        TcpServer visionServer;
 
         Thread testThread;
 
@@ -70,26 +71,30 @@ namespace LEonard
             dms[0].Open("COM3");
             dms[1].Open("COM4");
 
-            testThread = new Thread(new ThreadStart(TestThread));
-            testThread.Start();
+            StartThreads();
 
-            Crawl("System ready.");
-
-            // This will launch the TCP command server
+            // This will launch the TCP command servers
             CommandServerChk.Checked = true;
             RobotServerChk.Checked = true;
+            VisionServerChk.Checked = true;
+
+            Crawl("System ready.");
         }
 
-        private void StopProcessing()
+        private void StartThreads()
         {
-            Crawl("StopProcessing()...");
+            Crawl("StartThreads()...");
 
-            CommandServerChk.Checked = false;
+            testThread = new Thread(new ThreadStart(TestThread));
+            testThread.Start();
+        }
+        private void StopThreads()
+        {
+            Crawl("StopThreads()...");
 
             if (testThread != null)
             {
                 TestThreadAbort = true;
-
                 testThread = null;
             }
         }
@@ -103,6 +108,11 @@ namespace LEonard
                 dms[i].Close();
                 dms[i] = null;
             }
+
+            CommandServerChk.Checked = false;
+            RobotServerChk.Checked = false;
+            VisionServerChk.Checked = false;
+
             Crawl("Disconnect() complete");
 
         }
@@ -129,26 +139,20 @@ namespace LEonard
             TimeLbl.Text = now;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Fixed1Pic.Image = new Bitmap("../../images/Robots-Square-610x610.jpg");
-            Crawl("Btn1");
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Fixed2Pic.Image = new Bitmap("../../images/Robots-Square-610x610.jpg");
-            Crawl("Btn2");
-            CrawlError("Btn2 Error");
-            CrawlRobot("Btn2 Robot");
-            CrawlVision("Btn2 Vision");
-        }
-
         private void CrawlerClearBtn_Click(object sender, EventArgs e)
         {
             AllCrawlRTB.Clear();
         }
 
+        private void ErrorClearBtn_Click(object sender, EventArgs e)
+        {
+            ErrorCrawlRTB.Clear();
+        }
+
+        private void CommandClearBtn_Click(object sender, EventArgs e)
+        {
+            CommandCrawlRTB.Clear();
+        }
         private void RobotClearBtn_Click(object sender, EventArgs e)
         {
             RobotCrawlRTB.Clear();
@@ -158,17 +162,16 @@ namespace LEonard
         {
             VisionCrawlRTB.Clear();
         }
-
-        private void ErrorClearBtn_Click(object sender, EventArgs e)
+        private void BarcodeClearBtn_Click(object sender, EventArgs e)
         {
-            ErrorCrawlRTB.Clear();
+            BarcodeCrawlRTB.Clear();
         }
 
         private void CloseTmr_Tick(object sender, EventArgs e)
         {
             // First time this fires, tell all the threads to stop
             if (testThread != null)
-                StopProcessing();
+                StopThreads();
             else
             {
                 // Second time it fires, we can disconnect and shut down!
@@ -209,7 +212,7 @@ namespace LEonard
         {
             if (CommandServerChk.Checked)
             {
-                commandServer = new TcpServer(this);
+                commandServer = new TcpServer(this,"COMMAND: ");
                 commandServer.StartServer("192.168.0.252", "1000");
             }
             else
@@ -225,7 +228,7 @@ namespace LEonard
         {
             if (RobotServerChk.Checked)
             {
-                robotServer = new TcpServer(this);
+                robotServer = new TcpServer(this,"ROBOT: ");
                 robotServer.StartServer("192.168.0.252", "30000");
             }
             else
@@ -237,6 +240,23 @@ namespace LEonard
                 }
             }
         }
+        private void VisionServerChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (VisionServerChk.Checked)
+            {
+                visionServer = new TcpServer(this,"VISION: ");
+                visionServer.StartServer("192.168.0.252", "20000");
+            }
+            else
+            {
+                if (visionServer != null)
+                {
+                    visionServer.StopServer();
+                    visionServer = null;
+                }
+            }
+        }
+
 
         // Launch command tester to assist in debugging
         Process proc;
@@ -266,10 +286,16 @@ namespace LEonard
             if (robotServer != null)
                 robotServer.Send(RobotCommandTxt.Text);
         }
+        private void VisionSendBtn_Click(object sender, EventArgs e)
+        {
+            if (visionServer != null)
+                visionServer.Send(VisionCommandTxt.Text);
+        }
 
         private void RobotCommandTxt_TextChanged(object sender, EventArgs e)
         {
 
         }
+
     }
 }

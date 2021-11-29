@@ -27,18 +27,18 @@ namespace LEonard
         public DatamanSerial(MainForm form)
         {
             myForm = form;
-            myForm.Crawl("DatamanSerial()");
+            myForm.CrawlBarcode("DatamanSerial()");
         }
 
         ~DatamanSerial()
         {
-            myForm.Crawl("~DatamanSerial(): " + myPortname);
+            myForm.CrawlBarcode("~DatamanSerial(): " + myPortname);
         }
 
         public void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string data = port.ReadLine();
-            myForm.CrawlVision("Barcode: " + data);
+            myForm.CrawlBarcode(data);
             string[] s = data.Split(',');
             if (s.Length == 3)
             {
@@ -46,12 +46,12 @@ namespace LEonard
                 Value = s[2];
             }
             else
-                myForm.CrawlVision("Barode ERROR");
+                myForm.CrawlBarcode("Barcode ERROR");
         }
         public int Open(string portname)
         {
             myPortname = portname;
-            myForm.Crawl("DatamanSerial.Open(" + myPortname + ")");
+            myForm.CrawlBarcode("DatamanSerial.Open(" + myPortname + ")");
 
             port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
             port.Handshake = Handshake.XOnXOff;
@@ -62,14 +62,14 @@ namespace LEonard
             port.RtsEnable = true;
             port.Open();
 
-            myForm.Crawl("IsOpen=" + port.IsOpen);
+            myForm.CrawlBarcode("IsOpen=" + port.IsOpen);
 
             return 0;
         }
 
         public int Close()
         {
-            myForm.Crawl("DatamanSerial.Close(): " + myPortname);
+            myForm.CrawlBarcode("DatamanSerial.Close(): " + myPortname);
 
             port.Close();
 
@@ -78,7 +78,7 @@ namespace LEonard
 
         public void Trigger()
         {
-            //myForm.Crawl("Trigger(): " + myPortname);
+            //myForm.CrawlBarcode("Trigger(): " + myPortname);
             port.Write("+");
         }
 

@@ -44,16 +44,27 @@ namespace LEonard
         {
             Crawl("ERROR: " + message);
         }
+        public void CrawlCommand(string message)
+        {
+            Crawl("COMMAND: " + message);
+        }
 
         // Schedule a Robot message
         public void CrawlRobot(string message)
         {
             Crawl("ROBOT: " + message);
         }
+
         // Schedule a vision message
         public void CrawlVision(string message)
         {
             Crawl("VISION: " + message);
+        }
+
+        // Schedule a vision message
+        public void CrawlBarcode(string message)
+        {
+            Crawl("BARCODE: " + message);
         }
 
         // The scrolls can't grow (successfully) without bound. Cut them to maxLength chars
@@ -98,6 +109,14 @@ namespace LEonard
 
                 }
 
+                // Add message to CommandCrawlRTB well if it contains "ROBOT:"
+                if (message.Contains("COMMAND:"))
+                {
+                    LimitRTBLength(CommandCrawlRTB, maxRtbLength);
+                    CommandCrawlRTB.AppendText(message + "\n");
+                    CommandCrawlRTB.ScrollToCaret();
+                }
+
                 // Add message to RobotCrawlRTB well if it contains "ROBOT:"
                 if (message.Contains("ROBOT:"))
                 {
@@ -113,6 +132,14 @@ namespace LEonard
                     VisionCrawlRTB.AppendText(message + "\n");
                     VisionCrawlRTB.ScrollToCaret();
                 }
+
+                // Add message to BarcodeCrawlRTB well if it contains "BARCODE:"
+                if (message.Contains("BARCODE:"))
+                {
+                    LimitRTBLength(BarcodeCrawlRTB, maxRtbLength);
+                    BarcodeCrawlRTB.AppendText(message + "\n");
+                    BarcodeCrawlRTB.ScrollToCaret();
+                }
             }
         }
         private void MessageTmr_Tick(object sender, EventArgs e)
@@ -122,6 +149,7 @@ namespace LEonard
             // TODO is this a poor place to check for commands from above??
             if (commandServer != null) commandServer.ReceiveCommand();
             if (robotServer != null) robotServer.ReceiveCommand();
+            if (visionServer != null) visionServer.ReceiveCommand();
         }
     }
 }

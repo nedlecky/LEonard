@@ -17,6 +17,8 @@ namespace LEonard
         NetworkStream stream;
         string myIp;
         string myPort;
+        string crawlPrefix;
+
         public bool DryRun { get; set; } = false;
         const int inputBufferLen = 128000;
         byte[] inputBuffer = new byte[inputBufferLen];
@@ -24,9 +26,10 @@ namespace LEonard
         public int nGetStatusResponses = 0;
         public int nBadCommLenErrors = 0;
 
-        public TcpServer(MainForm form)
+        public TcpServer(MainForm form, string prefix)
         {
             myForm = form;
+            crawlPrefix = prefix;
         }
 
         public bool StartServer(string IP, string port)
@@ -34,7 +37,7 @@ namespace LEonard
             myIp = IP;
             myPort = port;
 
-            myForm.Crawl("StartServer(" + IP + ", " + port + ")");
+            myForm.Crawl(crawlPrefix + "StartServer(" + IP + ", " + port + ")");
             if (server != null) StopServer();
 
             IPAddress ipAddress = IPAddress.Parse(IP);
@@ -47,10 +50,10 @@ namespace LEonard
             }
             catch
             {
-                myForm.CrawlError("Couldn't start server");
+                myForm.CrawlError(crawlPrefix + "Couldn't start server");
                 return false;
             }
-            myForm.Crawl("Server: Waiting for client...");
+            myForm.Crawl(crawlPrefix + "Server: Waiting for client...");
             return true;
         }
 
@@ -67,7 +70,7 @@ namespace LEonard
 
         public void StopServer()
         {
-            myForm.Crawl("StopServer()");
+            myForm.Crawl(crawlPrefix + "StopServer()");
             CloseConnection();
             if (server != null)
             {
@@ -87,11 +90,11 @@ namespace LEonard
                     {
                         client = server.EndAcceptTcpClient(result);
                         stream = client.GetStream();
-                        myForm.Crawl("Client connected");
+                        myForm.Crawl(crawlPrefix + "Client connected");
                     }
                     catch
                     {
-                        ;// myForm.CrawlError("Client connection error");
+                        ;// myForm.CrawlError(crawlPrefix + "Client connection error");
                     }
                 }
             }
@@ -111,7 +114,7 @@ namespace LEonard
 
         void CloseConnection()
         {
-            myForm.Crawl("CloseConnection()");
+            myForm.Crawl(crawlPrefix + "CloseConnection()");
 
             if (stream != null)
             {
@@ -132,7 +135,7 @@ namespace LEonard
             {
                 if (!IsConnected())
                 {
-                    myForm.CrawlError("Have lost connection");
+                    myForm.CrawlError(crawlPrefix + "Lost connection");
                     StopServer();
                     StartServer(myIp, myPort);
                     return;
@@ -150,13 +153,13 @@ namespace LEonard
                 if (length > 0)
                 {
                     string command = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    myForm.Crawl("<== " + command);
+                    myForm.Crawl(crawlPrefix + "<== " + command);
 
                     // TODO Execute the command!
 
 
-                    string response = "response to: " + command;
-                    Send(response);
+                    //string response = "response to: " + command;
+                    //Send(response);
                 }
             }
         }
@@ -168,14 +171,14 @@ namespace LEonard
                 Thread.Sleep(10);
             fSendBusy = true;
             // Show responses other than GetStatus
-            myForm.Crawl("==> " + response.ToString());
+            myForm.Crawl(crawlPrefix + "==> " + response.ToString());
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(response + "\r\n"), 0, response.Length + 2);
             }
             catch
             {
-                myForm.CrawlError("TcpServer.Send() could not write to socket");
+                myForm.CrawlError(crawlPrefix + "TcpServer.Send() could not write to socket");
             }
             fSendBusy = false;
         }

@@ -50,7 +50,7 @@
             // 
             this.CrawlerRTB.Location = new System.Drawing.Point(12, 599);
             this.CrawlerRTB.Name = "CrawlerRTB";
-            this.CrawlerRTB.Size = new System.Drawing.Size(725, 446);
+            this.CrawlerRTB.Size = new System.Drawing.Size(507, 311);
             this.CrawlerRTB.TabIndex = 0;
             this.CrawlerRTB.Text = "";
             this.CrawlerRTB.WordWrap = false;
@@ -119,7 +119,7 @@
             // 
             this.CommRTB.Location = new System.Drawing.Point(12, 238);
             this.CommRTB.Name = "CommRTB";
-            this.CommRTB.Size = new System.Drawing.Size(725, 355);
+            this.CommRTB.Size = new System.Drawing.Size(507, 355);
             this.CommRTB.TabIndex = 13;
             this.CommRTB.Text = "";
             this.CommRTB.WordWrap = false;
@@ -140,7 +140,7 @@
             // 
             // ExitBtn
             // 
-            this.ExitBtn.Location = new System.Drawing.Point(677, 10);
+            this.ExitBtn.Location = new System.Drawing.Point(459, 9);
             this.ExitBtn.Name = "ExitBtn";
             this.ExitBtn.Size = new System.Drawing.Size(60, 42);
             this.ExitBtn.TabIndex = 45;
@@ -179,7 +179,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(745, 1057);
+            this.ClientSize = new System.Drawing.Size(523, 915);
             this.ControlBox = false;
             this.Controls.Add(this.LogfileTxt);
             this.Controls.Add(this.label3);

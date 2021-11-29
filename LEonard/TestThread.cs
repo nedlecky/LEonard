@@ -13,7 +13,7 @@ namespace LEonard
 
         public bool TestThreadAbort { get; set; } = false;
         public bool TestThreadRunning { get; set; } = false;
-        public bool TestThreadEnabled { get; set; } = true;
+        public bool TestThreadEnabled { get; set; } = false;
         
 
         int loopCount = 0;
@@ -21,7 +21,7 @@ namespace LEonard
         {
             TestThreadAbort = false;
             TestThreadRunning = true;
-            Crawl("TestThread starting...");
+            CrawlBarcode("TestThread starting...");
 
             while (!TestThreadAbort)
             {
@@ -40,11 +40,11 @@ namespace LEonard
                     Thread.Sleep(100);
 
                     watch.Stop();
-                    CrawlVision("TestThread execution time: " + watch.ElapsedMilliseconds.ToString() + "mS abort=" + TestThreadAbort);
+                    //CrawlBarcode("TestThread execution time: " + watch.ElapsedMilliseconds.ToString() + "mS abort=" + TestThreadAbort);
                 }
             }
 
-            Crawl("TestThread ends.");
+            CrawlBarcode("TestThread ends.");
             TestThreadRunning = false;
         }
     }
