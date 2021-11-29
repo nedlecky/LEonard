@@ -11,21 +11,21 @@ namespace LEonard
     public partial class MainForm : Form
     {
 
-        public bool AbortTestThread { get; set; } = false;
+        public bool TestThreadAbort { get; set; } = false;
         public bool TestThreadRunning { get; set; } = false;
-        public bool Enabled { get; set; } = true;
+        public bool TestThreadEnabled { get; set; } = true;
         
 
         int loopCount = 0;
         private void TestThread()
         {
-            AbortTestThread = false;
+            TestThreadAbort = false;
             TestThreadRunning = true;
             Crawl("TestThread starting...");
 
-            while (!AbortTestThread)
+            while (!TestThreadAbort)
             {
-                if (!Enabled)
+                if (!TestThreadEnabled)
                 {
                     Thread.Sleep(100);
                 }
@@ -40,7 +40,7 @@ namespace LEonard
                     Thread.Sleep(100);
 
                     watch.Stop();
-                    CrawlVision("TestThread execution time: " + watch.ElapsedMilliseconds.ToString() + "mS abort=" + AbortTestThread);
+                    CrawlVision("TestThread execution time: " + watch.ElapsedMilliseconds.ToString() + "mS abort=" + TestThreadAbort);
                 }
             }
 

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,7 +36,7 @@ namespace LEonard
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 var result = MessageBox.Show("Do you want to close the application?",
-                                    "LE MCP Confirmation",
+                                    "LEonard Confirmation",
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question);
                 e.Cancel = (result == DialogResult.No);
@@ -83,7 +85,7 @@ namespace LEonard
 
             if (testThread != null)
             {
-                AbortTestThread = true;
+                TestThreadAbort = true;
 
                 testThread = null;
             }
@@ -105,12 +107,14 @@ namespace LEonard
         {
             string companyName = Application.CompanyName;
             string appName = Application.ProductName;
-            string productVersion = Application.ProductVersion;
+            string productVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string executable = Application.ExecutablePath;
             string filename = Path.GetFileName(executable);
             string directory = Path.GetDirectoryName(executable);
-
             string caption = companyName + " " + appName + " " + productVersion;
+#if DEBUG
+            caption += " RUNNING IN DEBUG MODE";
+#endif
             this.Text = caption;
             Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
             Connect();
@@ -195,7 +199,7 @@ namespace LEonard
         private void TestThreadEnabledChk_CheckedChanged(object sender, EventArgs e)
         {
             // TODO This shold be in the thread class
-            Enabled = TestThreadEnabledChk.Checked;
+            TestThreadEnabled = TestThreadEnabledChk.Checked;
         }
 
         private void CommandServerChk_CheckedChanged(object sender, EventArgs e)
@@ -212,6 +216,29 @@ namespace LEonard
                     commandServer.StopServer();
                     commandServer = null;
                 }
+            }
+
+        }
+
+        // Launch command tester to assist in debugging
+        Process proc;
+        private void StartTestClientBtn_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.Arguments = "";
+#if DEBUG
+            start.FileName = "C:\\Users\\nedlecky\\source\\repos\\LEonard\\InterfaceTester\\bin\\Debug\\LEonardInterfaceTester.exe";
+#else
+            start.FileName = "C:\\Users\\nedlecky\\source\\repos\\LEonard\\InterfaceTester\\bin\\Release\\LEonardInterfaceTester.exe";
+#endif
+            Crawl("Starting " + start.FileName);
+            try
+            {
+                proc = Process.Start(start);
+            }
+            catch
+            {
+                CrawlError("Could not start " + start.FileName);
             }
 
         }

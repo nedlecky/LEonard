@@ -58,6 +58,7 @@
             this.TriggerDM1Btn = new System.Windows.Forms.Button();
             this.TestThreadEnabledChk = new System.Windows.Forms.CheckBox();
             this.CommandServerChk = new System.Windows.Forms.CheckBox();
+            this.StartTestClientBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed1Pic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Fixed2Pic)).BeginInit();
             this.BarcodeGrp.SuspendLayout();
@@ -65,9 +66,9 @@
             // 
             // ExitBtn
             // 
-            this.ExitBtn.Location = new System.Drawing.Point(192, 12);
+            this.ExitBtn.Location = new System.Drawing.Point(1214, 12);
             this.ExitBtn.Name = "ExitBtn";
-            this.ExitBtn.Size = new System.Drawing.Size(75, 23);
+            this.ExitBtn.Size = new System.Drawing.Size(55, 41);
             this.ExitBtn.TabIndex = 0;
             this.ExitBtn.Text = "Exit";
             this.ExitBtn.UseVisualStyleBackColor = true;
@@ -161,7 +162,7 @@
             // 
             // CrawlerClearBtn
             // 
-            this.CrawlerClearBtn.Location = new System.Drawing.Point(375, 486);
+            this.CrawlerClearBtn.Location = new System.Drawing.Point(40, 486);
             this.CrawlerClearBtn.Name = "CrawlerClearBtn";
             this.CrawlerClearBtn.Size = new System.Drawing.Size(50, 23);
             this.CrawlerClearBtn.TabIndex = 9;
@@ -171,7 +172,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(794, 486);
+            this.button3.Location = new System.Drawing.Point(481, 486);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(50, 23);
             this.button3.TabIndex = 11;
@@ -191,7 +192,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1213, 486);
+            this.button4.Location = new System.Drawing.Point(900, 486);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(50, 23);
             this.button4.TabIndex = 14;
@@ -220,7 +221,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(1216, 8);
+            this.button5.Location = new System.Drawing.Point(900, 46);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(50, 23);
             this.button5.TabIndex = 17;
@@ -232,7 +233,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(847, 15);
+            this.label4.Location = new System.Drawing.Point(847, 53);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 16);
             this.label4.TabIndex = 16;
@@ -240,10 +241,10 @@
             // 
             // ErrorCrawlRTB
             // 
-            this.ErrorCrawlRTB.Location = new System.Drawing.Point(853, 34);
+            this.ErrorCrawlRTB.Location = new System.Drawing.Point(853, 72);
             this.ErrorCrawlRTB.Name = "ErrorCrawlRTB";
             this.ErrorCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.ErrorCrawlRTB.Size = new System.Drawing.Size(413, 419);
+            this.ErrorCrawlRTB.Size = new System.Drawing.Size(413, 381);
             this.ErrorCrawlRTB.TabIndex = 15;
             this.ErrorCrawlRTB.Text = "";
             // 
@@ -324,11 +325,22 @@
             this.CommandServerChk.UseVisualStyleBackColor = true;
             this.CommandServerChk.CheckedChanged += new System.EventHandler(this.CommandServerChk_CheckedChanged);
             // 
+            // StartTestClientBtn
+            // 
+            this.StartTestClientBtn.Location = new System.Drawing.Point(365, 370);
+            this.StartTestClientBtn.Name = "StartTestClientBtn";
+            this.StartTestClientBtn.Size = new System.Drawing.Size(75, 56);
+            this.StartTestClientBtn.TabIndex = 25;
+            this.StartTestClientBtn.Text = "Start Test Client";
+            this.StartTestClientBtn.UseVisualStyleBackColor = true;
+            this.StartTestClientBtn.Click += new System.EventHandler(this.StartTestClientBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1281, 773);
+            this.Controls.Add(this.StartTestClientBtn);
             this.Controls.Add(this.CommandServerChk);
             this.Controls.Add(this.TestThreadEnabledChk);
             this.Controls.Add(this.BarcodeGrp);
@@ -394,6 +406,7 @@
         private System.Windows.Forms.Button TriggerDM1Btn;
         private System.Windows.Forms.CheckBox TestThreadEnabledChk;
         private System.Windows.Forms.CheckBox CommandServerChk;
+        private System.Windows.Forms.Button StartTestClientBtn;
     }
 }
 

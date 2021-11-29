@@ -17,7 +17,6 @@ namespace LEonard
         NetworkStream stream;
         string myIp;
         string myPort;
-        int messageIdIndex = 1; // increments for every messageId
         public bool DryRun { get; set; } = false;
         const int inputBufferLen = 128000;
         byte[] inputBuffer = new byte[inputBufferLen];
