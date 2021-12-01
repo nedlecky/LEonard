@@ -18,6 +18,7 @@ namespace LEonard
         string myIp;
         string myPort;
         string crawlPrefix;
+        public Action<string> receiveCallback { get;  set; }
 
         public bool DryRun { get; set; } = false;
         const int inputBufferLen = 128000;
@@ -129,7 +130,7 @@ namespace LEonard
             }
         }
 
-        public void ReceiveCommand()
+        public void Receive()
         {
             if (stream != null)
             {
@@ -152,11 +153,11 @@ namespace LEonard
 
                 if (length > 0)
                 {
-                    string command = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    myForm.Crawl(crawlPrefix + "<== " + command);
+                    string input = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
+                    myForm.Crawl(crawlPrefix + "<== " + input);
 
-                    // TODO Execute the command!
-
+                    if (receiveCallback != null)
+                        receiveCallback(input);
 
                     //string response = "response to: " + command;
                     //Send(response);

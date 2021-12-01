@@ -208,12 +208,21 @@ namespace LEonard
             TestThreadEnabled = TestThreadEnabledChk.Checked;
         }
 
+        void CommandCallback(string s)
+        {
+            CrawlCommand("Execute: " + s);
+
+            string response = "response to " + s;
+            commandServer.Send(response);
+
+        }
         private void CommandServerChk_CheckedChanged(object sender, EventArgs e)
         {
             if (CommandServerChk.Checked)
             {
                 commandServer = new TcpServer(this,"COMMAND: ");
                 commandServer.StartServer("192.168.0.252", "1000");
+                commandServer.receiveCallback = CommandCallback;
             }
             else
             {
