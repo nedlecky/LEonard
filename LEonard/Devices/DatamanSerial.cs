@@ -7,15 +7,7 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    internal class TestClass
-    {
-        public TestClass()
-        {
-
-        }
-    }
-
-    internal class DatamanSerial
+    public  class DatamanSerial
     {
         MainForm myForm;
         string myPortname;

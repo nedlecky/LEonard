@@ -44,11 +44,15 @@
             this.CloseTmr = new System.Windows.Forms.Timer(this.components);
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.BarcodeGrp = new System.Windows.Forms.GroupBox();
+            this.BcrEndBtn = new System.Windows.Forms.Button();
+            this.BcrtStartBtn = new System.Windows.Forms.Button();
+            this.BcrtDestroyBtn = new System.Windows.Forms.Button();
+            this.BcrtCreateBtn = new System.Windows.Forms.Button();
+            this.BarcodeReaderThreadChk = new System.Windows.Forms.CheckBox();
             this.DM2DataLbl = new System.Windows.Forms.Label();
             this.DM1DataLbl = new System.Windows.Forms.Label();
             this.TriggerDM2Btn = new System.Windows.Forms.Button();
             this.TriggerDM1Btn = new System.Windows.Forms.Button();
-            this.TestThreadEnabledChk = new System.Windows.Forms.CheckBox();
             this.CommandServerChk = new System.Windows.Forms.CheckBox();
             this.StartTestClientBtn = new System.Windows.Forms.Button();
             this.RobotServerChk = new System.Windows.Forms.CheckBox();
@@ -71,14 +75,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.Robot1Btn = new System.Windows.Forms.Button();
-            this.Robot2Btn = new System.Windows.Forms.Button();
-            this.Robot3Btn = new System.Windows.Forms.Button();
-            this.Robot4Btn = new System.Windows.Forms.Button();
-            this.Robot50Btn = new System.Windows.Forms.Button();
-            this.Robot98Btn = new System.Windows.Forms.Button();
             this.Robot99Btn = new System.Windows.Forms.Button();
+            this.Robot98Btn = new System.Windows.Forms.Button();
+            this.Robot50Btn = new System.Windows.Forms.Button();
+            this.Robot4Btn = new System.Windows.Forms.Button();
+            this.Robot3Btn = new System.Windows.Forms.Button();
+            this.Robot2Btn = new System.Windows.Forms.Button();
+            this.Robot1Btn = new System.Windows.Forms.Button();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -201,16 +205,72 @@
             // 
             // BarcodeGrp
             // 
+            this.BarcodeGrp.Controls.Add(this.BcrEndBtn);
+            this.BarcodeGrp.Controls.Add(this.BcrtStartBtn);
+            this.BarcodeGrp.Controls.Add(this.BcrtDestroyBtn);
+            this.BarcodeGrp.Controls.Add(this.BcrtCreateBtn);
+            this.BarcodeGrp.Controls.Add(this.BarcodeReaderThreadChk);
             this.BarcodeGrp.Controls.Add(this.DM2DataLbl);
             this.BarcodeGrp.Controls.Add(this.DM1DataLbl);
             this.BarcodeGrp.Controls.Add(this.TriggerDM2Btn);
             this.BarcodeGrp.Controls.Add(this.TriggerDM1Btn);
             this.BarcodeGrp.Location = new System.Drawing.Point(685, 575);
             this.BarcodeGrp.Name = "BarcodeGrp";
-            this.BarcodeGrp.Size = new System.Drawing.Size(306, 129);
+            this.BarcodeGrp.Size = new System.Drawing.Size(306, 217);
             this.BarcodeGrp.TabIndex = 22;
             this.BarcodeGrp.TabStop = false;
             this.BarcodeGrp.Text = "Barcode Reader Commands";
+            // 
+            // BcrEndBtn
+            // 
+            this.BcrEndBtn.Location = new System.Drawing.Point(103, 123);
+            this.BcrEndBtn.Name = "BcrEndBtn";
+            this.BcrEndBtn.Size = new System.Drawing.Size(75, 23);
+            this.BcrEndBtn.TabIndex = 30;
+            this.BcrEndBtn.Text = "End";
+            this.BcrEndBtn.UseVisualStyleBackColor = true;
+            this.BcrEndBtn.Click += new System.EventHandler(this.BcrtEndBtn_Click);
+            // 
+            // BcrtStartBtn
+            // 
+            this.BcrtStartBtn.Location = new System.Drawing.Point(22, 123);
+            this.BcrtStartBtn.Name = "BcrtStartBtn";
+            this.BcrtStartBtn.Size = new System.Drawing.Size(75, 23);
+            this.BcrtStartBtn.TabIndex = 29;
+            this.BcrtStartBtn.Text = "Start";
+            this.BcrtStartBtn.UseVisualStyleBackColor = true;
+            this.BcrtStartBtn.Click += new System.EventHandler(this.BcrtStartBtn_Click);
+            // 
+            // BcrtDestroyBtn
+            // 
+            this.BcrtDestroyBtn.Location = new System.Drawing.Point(103, 94);
+            this.BcrtDestroyBtn.Name = "BcrtDestroyBtn";
+            this.BcrtDestroyBtn.Size = new System.Drawing.Size(75, 23);
+            this.BcrtDestroyBtn.TabIndex = 28;
+            this.BcrtDestroyBtn.Text = "Destroy";
+            this.BcrtDestroyBtn.UseVisualStyleBackColor = true;
+            this.BcrtDestroyBtn.Click += new System.EventHandler(this.BcrtDestroyBtn_Click);
+            // 
+            // BcrtCreateBtn
+            // 
+            this.BcrtCreateBtn.Location = new System.Drawing.Point(22, 94);
+            this.BcrtCreateBtn.Name = "BcrtCreateBtn";
+            this.BcrtCreateBtn.Size = new System.Drawing.Size(75, 23);
+            this.BcrtCreateBtn.TabIndex = 27;
+            this.BcrtCreateBtn.Text = "Create";
+            this.BcrtCreateBtn.UseVisualStyleBackColor = true;
+            this.BcrtCreateBtn.Click += new System.EventHandler(this.BcrtCreateBtn_Click);
+            // 
+            // BarcodeReaderThreadChk
+            // 
+            this.BarcodeReaderThreadChk.AutoSize = true;
+            this.BarcodeReaderThreadChk.Location = new System.Drawing.Point(22, 152);
+            this.BarcodeReaderThreadChk.Name = "BarcodeReaderThreadChk";
+            this.BarcodeReaderThreadChk.Size = new System.Drawing.Size(177, 17);
+            this.BarcodeReaderThreadChk.TabIndex = 26;
+            this.BarcodeReaderThreadChk.Text = "BarcodeReaderThread Enabled";
+            this.BarcodeReaderThreadChk.UseVisualStyleBackColor = true;
+            this.BarcodeReaderThreadChk.CheckedChanged += new System.EventHandler(this.BarcodeReaderThreadChk_CheckedChanged);
             // 
             // DM2DataLbl
             // 
@@ -247,17 +307,6 @@
             this.TriggerDM1Btn.Text = "Trigger DM1";
             this.TriggerDM1Btn.UseVisualStyleBackColor = true;
             this.TriggerDM1Btn.Click += new System.EventHandler(this.TriggerDM1Btn_Click);
-            // 
-            // TestThreadEnabledChk
-            // 
-            this.TestThreadEnabledChk.AutoSize = true;
-            this.TestThreadEnabledChk.Location = new System.Drawing.Point(707, 759);
-            this.TestThreadEnabledChk.Name = "TestThreadEnabledChk";
-            this.TestThreadEnabledChk.Size = new System.Drawing.Size(126, 17);
-            this.TestThreadEnabledChk.TabIndex = 23;
-            this.TestThreadEnabledChk.Text = "Test Thread Enabled";
-            this.TestThreadEnabledChk.UseVisualStyleBackColor = true;
-            this.TestThreadEnabledChk.CheckedChanged += new System.EventHandler(this.TestThreadEnabledChk_CheckedChanged);
             // 
             // CommandServerChk
             // 
@@ -489,67 +538,15 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Robot Commands";
             // 
-            // groupBox9
+            // Robot99Btn
             // 
-            this.groupBox9.Controls.Add(this.VisionServerChk);
-            this.groupBox9.Controls.Add(this.VisionCommandTxt);
-            this.groupBox9.Controls.Add(this.VisionSendBtn);
-            this.groupBox9.Location = new System.Drawing.Point(714, 317);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(281, 213);
-            this.groupBox9.TabIndex = 60;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Vision Commands";
-            // 
-            // Robot1Btn
-            // 
-            this.Robot1Btn.Location = new System.Drawing.Point(13, 79);
-            this.Robot1Btn.Name = "Robot1Btn";
-            this.Robot1Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot1Btn.TabIndex = 29;
-            this.Robot1Btn.Text = "CMD 1";
-            this.Robot1Btn.UseVisualStyleBackColor = true;
-            this.Robot1Btn.Click += new System.EventHandler(this.Robot1Btn_Click);
-            // 
-            // Robot2Btn
-            // 
-            this.Robot2Btn.Location = new System.Drawing.Point(13, 99);
-            this.Robot2Btn.Name = "Robot2Btn";
-            this.Robot2Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot2Btn.TabIndex = 30;
-            this.Robot2Btn.Text = "CMD 2";
-            this.Robot2Btn.UseVisualStyleBackColor = true;
-            this.Robot2Btn.Click += new System.EventHandler(this.Robot2Btn_Click);
-            // 
-            // Robot3Btn
-            // 
-            this.Robot3Btn.Location = new System.Drawing.Point(13, 119);
-            this.Robot3Btn.Name = "Robot3Btn";
-            this.Robot3Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot3Btn.TabIndex = 31;
-            this.Robot3Btn.Text = "CMD 3";
-            this.Robot3Btn.UseVisualStyleBackColor = true;
-            this.Robot3Btn.Click += new System.EventHandler(this.Robot3Btn_Click);
-            // 
-            // Robot4Btn
-            // 
-            this.Robot4Btn.Location = new System.Drawing.Point(13, 138);
-            this.Robot4Btn.Name = "Robot4Btn";
-            this.Robot4Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot4Btn.TabIndex = 32;
-            this.Robot4Btn.Text = "CMD 4";
-            this.Robot4Btn.UseVisualStyleBackColor = true;
-            this.Robot4Btn.Click += new System.EventHandler(this.Robot4Btn_Click);
-            // 
-            // Robot50Btn
-            // 
-            this.Robot50Btn.Location = new System.Drawing.Point(13, 158);
-            this.Robot50Btn.Name = "Robot50Btn";
-            this.Robot50Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot50Btn.TabIndex = 33;
-            this.Robot50Btn.Text = "CMD 50";
-            this.Robot50Btn.UseVisualStyleBackColor = true;
-            this.Robot50Btn.Click += new System.EventHandler(this.Robot50Btn_Click);
+            this.Robot99Btn.Location = new System.Drawing.Point(117, 99);
+            this.Robot99Btn.Name = "Robot99Btn";
+            this.Robot99Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot99Btn.TabIndex = 35;
+            this.Robot99Btn.Text = "CMD 99";
+            this.Robot99Btn.UseVisualStyleBackColor = true;
+            this.Robot99Btn.Click += new System.EventHandler(this.Robot99Btn_Click);
             // 
             // Robot98Btn
             // 
@@ -561,15 +558,67 @@
             this.Robot98Btn.UseVisualStyleBackColor = true;
             this.Robot98Btn.Click += new System.EventHandler(this.Robot98Btn_Click);
             // 
-            // Robot99Btn
+            // Robot50Btn
             // 
-            this.Robot99Btn.Location = new System.Drawing.Point(117, 99);
-            this.Robot99Btn.Name = "Robot99Btn";
-            this.Robot99Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot99Btn.TabIndex = 35;
-            this.Robot99Btn.Text = "CMD 99";
-            this.Robot99Btn.UseVisualStyleBackColor = true;
-            this.Robot99Btn.Click += new System.EventHandler(this.Robot99Btn_Click);
+            this.Robot50Btn.Location = new System.Drawing.Point(13, 158);
+            this.Robot50Btn.Name = "Robot50Btn";
+            this.Robot50Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot50Btn.TabIndex = 33;
+            this.Robot50Btn.Text = "CMD 50";
+            this.Robot50Btn.UseVisualStyleBackColor = true;
+            this.Robot50Btn.Click += new System.EventHandler(this.Robot50Btn_Click);
+            // 
+            // Robot4Btn
+            // 
+            this.Robot4Btn.Location = new System.Drawing.Point(13, 138);
+            this.Robot4Btn.Name = "Robot4Btn";
+            this.Robot4Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot4Btn.TabIndex = 32;
+            this.Robot4Btn.Text = "CMD 4";
+            this.Robot4Btn.UseVisualStyleBackColor = true;
+            this.Robot4Btn.Click += new System.EventHandler(this.Robot4Btn_Click);
+            // 
+            // Robot3Btn
+            // 
+            this.Robot3Btn.Location = new System.Drawing.Point(13, 119);
+            this.Robot3Btn.Name = "Robot3Btn";
+            this.Robot3Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot3Btn.TabIndex = 31;
+            this.Robot3Btn.Text = "CMD 3";
+            this.Robot3Btn.UseVisualStyleBackColor = true;
+            this.Robot3Btn.Click += new System.EventHandler(this.Robot3Btn_Click);
+            // 
+            // Robot2Btn
+            // 
+            this.Robot2Btn.Location = new System.Drawing.Point(13, 99);
+            this.Robot2Btn.Name = "Robot2Btn";
+            this.Robot2Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot2Btn.TabIndex = 30;
+            this.Robot2Btn.Text = "CMD 2";
+            this.Robot2Btn.UseVisualStyleBackColor = true;
+            this.Robot2Btn.Click += new System.EventHandler(this.Robot2Btn_Click);
+            // 
+            // Robot1Btn
+            // 
+            this.Robot1Btn.Location = new System.Drawing.Point(13, 79);
+            this.Robot1Btn.Name = "Robot1Btn";
+            this.Robot1Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot1Btn.TabIndex = 29;
+            this.Robot1Btn.Text = "CMD 1";
+            this.Robot1Btn.UseVisualStyleBackColor = true;
+            this.Robot1Btn.Click += new System.EventHandler(this.Robot1Btn_Click);
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.VisionServerChk);
+            this.groupBox9.Controls.Add(this.VisionCommandTxt);
+            this.groupBox9.Controls.Add(this.VisionSendBtn);
+            this.groupBox9.Location = new System.Drawing.Point(714, 317);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(281, 213);
+            this.groupBox9.TabIndex = 60;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Vision Commands";
             // 
             // MainForm
             // 
@@ -587,7 +636,6 @@
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.TestThreadEnabledChk);
             this.Controls.Add(this.BarcodeGrp);
             this.Controls.Add(this.TimeLbl);
             this.Controls.Add(this.ExitBtn);
@@ -597,6 +645,7 @@
             this.Text = "Text Set During Load";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.BarcodeGrp.ResumeLayout(false);
+            this.BarcodeGrp.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -635,7 +684,6 @@
         private System.Windows.Forms.Label DM1DataLbl;
         private System.Windows.Forms.Button TriggerDM2Btn;
         private System.Windows.Forms.Button TriggerDM1Btn;
-        private System.Windows.Forms.CheckBox TestThreadEnabledChk;
         private System.Windows.Forms.CheckBox CommandServerChk;
         private System.Windows.Forms.Button StartTestClientBtn;
         private System.Windows.Forms.CheckBox RobotServerChk;
@@ -666,6 +714,11 @@
         private System.Windows.Forms.Button Robot99Btn;
         private System.Windows.Forms.Button Robot98Btn;
         private System.Windows.Forms.Button Robot50Btn;
+        private System.Windows.Forms.CheckBox BarcodeReaderThreadChk;
+        private System.Windows.Forms.Button BcrEndBtn;
+        private System.Windows.Forms.Button BcrtStartBtn;
+        private System.Windows.Forms.Button BcrtDestroyBtn;
+        private System.Windows.Forms.Button BcrtCreateBtn;
     }
 }
 

@@ -21,7 +21,7 @@ namespace LEonard
         TcpServer robotServer;
         TcpServer visionServer;
 
-        Thread testThread;
+        BarcodeReaderThread bcrt;
 
         int nDatamanSerial = 2;
         DatamanSerial[] dms = new DatamanSerial[2];
@@ -85,17 +85,18 @@ namespace LEonard
         {
             Crawl("StartThreads()...");
 
-            testThread = new Thread(new ThreadStart(TestThread));
-            testThread.Start();
+            bcrt = new BarcodeReaderThread(this, dms);
+            bcrt.Enable(BarcodeReaderThreadChk.Checked);
+            bcrt.Start();
         }
-        private void StopThreads()
+        private void EndThreads()
         {
-            Crawl("StopThreads()...");
+            Crawl("EndThreads()...");
 
-            if (testThread != null)
+            if (bcrt != null)
             {
-                TestThreadAbort = true;
-                testThread = null;
+                bcrt.End();
+                bcrt = null;
             }
         }
 
@@ -167,11 +168,12 @@ namespace LEonard
             BarcodeCrawlRTB.Clear();
         }
 
+        int fireCounter = 0;
         private void CloseTmr_Tick(object sender, EventArgs e)
         {
             // First time this fires, tell all the threads to stop
-            if (testThread != null)
-                StopThreads();
+            if (++fireCounter == 1)
+                EndThreads();
             else
             {
                 // Second time it fires, we can disconnect and shut down!
@@ -200,12 +202,6 @@ namespace LEonard
         private void TriggerDM2Btn_Click_1(object sender, EventArgs e)
         {
 
-        }
-
-        private void TestThreadEnabledChk_CheckedChanged(object sender, EventArgs e)
-        {
-            // TODO This shold be in the thread class
-            TestThreadEnabled = TestThreadEnabledChk.Checked;
         }
 
         void CommandCallback(string s)
@@ -358,5 +354,36 @@ namespace LEonard
             if (visionServer != null)
                 visionServer.Send(VisionCommandTxt.Text);
         }
+
+        private void BcrtCreateBtn_Click(object sender, EventArgs e)
+        {
+            if (bcrt != null)
+                bcrt.End();
+            GC.Collect();
+            bcrt = new BarcodeReaderThread(this, dms);
+        }
+
+        private void BcrtDestroyBtn_Click(object sender, EventArgs e)
+        {
+            bcrt.End();
+            bcrt = null;
+            GC.Collect();
+        }
+
+        private void BcrtStartBtn_Click(object sender, EventArgs e)
+        {
+            bcrt.Enable(BarcodeReaderThreadChk.Checked);
+            bcrt.Start();
+        }
+
+        private void BcrtEndBtn_Click(object sender, EventArgs e)
+        {
+            bcrt.End();
+        }
+        private void BarcodeReaderThreadChk_CheckedChanged(object sender, EventArgs e)
+        {
+            bcrt.Enable(BarcodeReaderThreadChk.Checked);
+        }
+
     }
 }
