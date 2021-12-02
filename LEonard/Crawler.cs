@@ -102,7 +102,7 @@ namespace LEonard
                 // Append to logfile
                 try
                 {
-                    File.AppendAllText("C:/Users/nedlecky/Desktop/LEonard.log", message + "\r\n");
+                    File.AppendAllText(LogfileTxt.Text, message + "\r\n");
                 }
                 catch
                 {

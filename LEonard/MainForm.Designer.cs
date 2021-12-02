@@ -67,6 +67,18 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.CommandClearBtn = new System.Windows.Forms.Button();
             this.CommandCrawlRTB = new System.Windows.Forms.RichTextBox();
+            this.LogfileTxt = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.Robot1Btn = new System.Windows.Forms.Button();
+            this.Robot2Btn = new System.Windows.Forms.Button();
+            this.Robot3Btn = new System.Windows.Forms.Button();
+            this.Robot4Btn = new System.Windows.Forms.Button();
+            this.Robot50Btn = new System.Windows.Forms.Button();
+            this.Robot98Btn = new System.Windows.Forms.Button();
+            this.Robot99Btn = new System.Windows.Forms.Button();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -74,11 +86,14 @@
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExitBtn
             // 
-            this.ExitBtn.Location = new System.Drawing.Point(1214, 12);
+            this.ExitBtn.Location = new System.Drawing.Point(1335, 12);
             this.ExitBtn.Name = "ExitBtn";
             this.ExitBtn.Size = new System.Drawing.Size(55, 41);
             this.ExitBtn.TabIndex = 0;
@@ -105,7 +120,7 @@
             this.AllCrawlRTB.Location = new System.Drawing.Point(6, 19);
             this.AllCrawlRTB.Name = "AllCrawlRTB";
             this.AllCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.AllCrawlRTB.Size = new System.Drawing.Size(533, 283);
+            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 283);
             this.AllCrawlRTB.TabIndex = 6;
             this.AllCrawlRTB.Text = "";
             // 
@@ -114,7 +129,7 @@
             this.RobotCrawlRTB.Location = new System.Drawing.Point(6, 15);
             this.RobotCrawlRTB.Name = "RobotCrawlRTB";
             this.RobotCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RobotCrawlRTB.Size = new System.Drawing.Size(270, 198);
+            this.RobotCrawlRTB.Size = new System.Drawing.Size(376, 198);
             this.RobotCrawlRTB.TabIndex = 7;
             this.RobotCrawlRTB.Text = "";
             // 
@@ -157,13 +172,13 @@
             this.VisionCrawlRTB.Location = new System.Drawing.Point(6, 15);
             this.VisionCrawlRTB.Name = "VisionCrawlRTB";
             this.VisionCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.VisionCrawlRTB.Size = new System.Drawing.Size(270, 198);
+            this.VisionCrawlRTB.Size = new System.Drawing.Size(376, 198);
             this.VisionCrawlRTB.TabIndex = 12;
             this.VisionCrawlRTB.Text = "";
             // 
             // ErrorClearBtn
             // 
-            this.ErrorClearBtn.Location = new System.Drawing.Point(6, 302);
+            this.ErrorClearBtn.Location = new System.Drawing.Point(6, 211);
             this.ErrorClearBtn.Name = "ErrorClearBtn";
             this.ErrorClearBtn.Size = new System.Drawing.Size(50, 23);
             this.ErrorClearBtn.TabIndex = 17;
@@ -176,7 +191,7 @@
             this.ErrorCrawlRTB.Location = new System.Drawing.Point(6, 16);
             this.ErrorCrawlRTB.Name = "ErrorCrawlRTB";
             this.ErrorCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.ErrorCrawlRTB.Size = new System.Drawing.Size(420, 286);
+            this.ErrorCrawlRTB.Size = new System.Drawing.Size(420, 189);
             this.ErrorCrawlRTB.TabIndex = 15;
             this.ErrorCrawlRTB.Text = "";
             // 
@@ -190,12 +205,12 @@
             this.BarcodeGrp.Controls.Add(this.DM1DataLbl);
             this.BarcodeGrp.Controls.Add(this.TriggerDM2Btn);
             this.BarcodeGrp.Controls.Add(this.TriggerDM1Btn);
-            this.BarcodeGrp.Location = new System.Drawing.Point(588, 349);
+            this.BarcodeGrp.Location = new System.Drawing.Point(685, 575);
             this.BarcodeGrp.Name = "BarcodeGrp";
-            this.BarcodeGrp.Size = new System.Drawing.Size(306, 104);
+            this.BarcodeGrp.Size = new System.Drawing.Size(306, 129);
             this.BarcodeGrp.TabIndex = 22;
             this.BarcodeGrp.TabStop = false;
-            this.BarcodeGrp.Text = "Barcode Readers";
+            this.BarcodeGrp.Text = "Barcode Reader Commands";
             // 
             // DM2DataLbl
             // 
@@ -236,7 +251,7 @@
             // TestThreadEnabledChk
             // 
             this.TestThreadEnabledChk.AutoSize = true;
-            this.TestThreadEnabledChk.Location = new System.Drawing.Point(588, 326);
+            this.TestThreadEnabledChk.Location = new System.Drawing.Point(707, 759);
             this.TestThreadEnabledChk.Name = "TestThreadEnabledChk";
             this.TestThreadEnabledChk.Size = new System.Drawing.Size(126, 17);
             this.TestThreadEnabledChk.TabIndex = 23;
@@ -247,7 +262,7 @@
             // CommandServerChk
             // 
             this.CommandServerChk.AutoSize = true;
-            this.CommandServerChk.Location = new System.Drawing.Point(631, 133);
+            this.CommandServerChk.Location = new System.Drawing.Point(6, 21);
             this.CommandServerChk.Name = "CommandServerChk";
             this.CommandServerChk.Size = new System.Drawing.Size(107, 17);
             this.CommandServerChk.TabIndex = 24;
@@ -257,7 +272,7 @@
             // 
             // StartTestClientBtn
             // 
-            this.StartTestClientBtn.Location = new System.Drawing.Point(759, 112);
+            this.StartTestClientBtn.Location = new System.Drawing.Point(119, 19);
             this.StartTestClientBtn.Name = "StartTestClientBtn";
             this.StartTestClientBtn.Size = new System.Drawing.Size(75, 56);
             this.StartTestClientBtn.TabIndex = 25;
@@ -268,7 +283,7 @@
             // RobotServerChk
             // 
             this.RobotServerChk.AutoSize = true;
-            this.RobotServerChk.Location = new System.Drawing.Point(631, 174);
+            this.RobotServerChk.Location = new System.Drawing.Point(6, 19);
             this.RobotServerChk.Name = "RobotServerChk";
             this.RobotServerChk.Size = new System.Drawing.Size(89, 17);
             this.RobotServerChk.TabIndex = 26;
@@ -278,7 +293,7 @@
             // 
             // RobotSendBtn
             // 
-            this.RobotSendBtn.Location = new System.Drawing.Point(759, 195);
+            this.RobotSendBtn.Location = new System.Drawing.Point(138, 39);
             this.RobotSendBtn.Name = "RobotSendBtn";
             this.RobotSendBtn.Size = new System.Drawing.Size(75, 23);
             this.RobotSendBtn.TabIndex = 27;
@@ -288,16 +303,15 @@
             // 
             // RobotCommandTxt
             // 
-            this.RobotCommandTxt.Location = new System.Drawing.Point(631, 197);
+            this.RobotCommandTxt.Location = new System.Drawing.Point(13, 42);
             this.RobotCommandTxt.Name = "RobotCommandTxt";
             this.RobotCommandTxt.Size = new System.Drawing.Size(119, 20);
             this.RobotCommandTxt.TabIndex = 28;
             this.RobotCommandTxt.Text = "(1,0,0,0,0)";
-            this.RobotCommandTxt.TextChanged += new System.EventHandler(this.RobotCommandTxt_TextChanged);
             // 
             // VisionCommandTxt
             // 
-            this.VisionCommandTxt.Location = new System.Drawing.Point(631, 261);
+            this.VisionCommandTxt.Location = new System.Drawing.Point(13, 42);
             this.VisionCommandTxt.Name = "VisionCommandTxt";
             this.VisionCommandTxt.Size = new System.Drawing.Size(119, 20);
             this.VisionCommandTxt.TabIndex = 31;
@@ -305,7 +319,7 @@
             // 
             // VisionSendBtn
             // 
-            this.VisionSendBtn.Location = new System.Drawing.Point(759, 259);
+            this.VisionSendBtn.Location = new System.Drawing.Point(141, 40);
             this.VisionSendBtn.Name = "VisionSendBtn";
             this.VisionSendBtn.Size = new System.Drawing.Size(75, 23);
             this.VisionSendBtn.TabIndex = 30;
@@ -316,7 +330,7 @@
             // VisionServerChk
             // 
             this.VisionServerChk.AutoSize = true;
-            this.VisionServerChk.Location = new System.Drawing.Point(631, 238);
+            this.VisionServerChk.Location = new System.Drawing.Point(6, 19);
             this.VisionServerChk.Name = "VisionServerChk";
             this.VisionServerChk.Size = new System.Drawing.Size(88, 17);
             this.VisionServerChk.TabIndex = 29;
@@ -330,10 +344,10 @@
             this.groupBox1.Controls.Add(this.RobotCrawlRTB);
             this.groupBox1.Location = new System.Drawing.Point(1001, 59);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(282, 252);
+            this.groupBox1.Size = new System.Drawing.Size(388, 252);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Robot";
+            this.groupBox1.Text = "Robot Messages";
             // 
             // groupBox2
             // 
@@ -341,10 +355,10 @@
             this.groupBox2.Controls.Add(this.BarcodeCrawlRTB);
             this.groupBox2.Location = new System.Drawing.Point(1001, 575);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(282, 252);
+            this.groupBox2.Size = new System.Drawing.Size(388, 252);
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Barcode";
+            this.groupBox2.Text = "Barcode Reader Messages";
             // 
             // BarcodeClearBtn
             // 
@@ -361,7 +375,7 @@
             this.BarcodeCrawlRTB.Location = new System.Drawing.Point(-4, 19);
             this.BarcodeCrawlRTB.Name = "BarcodeCrawlRTB";
             this.BarcodeCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.BarcodeCrawlRTB.Size = new System.Drawing.Size(280, 198);
+            this.BarcodeCrawlRTB.Size = new System.Drawing.Size(386, 198);
             this.BarcodeCrawlRTB.TabIndex = 7;
             this.BarcodeCrawlRTB.Text = "";
             // 
@@ -371,18 +385,18 @@
             this.groupBox3.Controls.Add(this.VisionClearBtn);
             this.groupBox3.Location = new System.Drawing.Point(1001, 317);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(282, 252);
+            this.groupBox3.Size = new System.Drawing.Size(388, 252);
             this.groupBox3.TabIndex = 34;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Vision";
+            this.groupBox3.Text = "Vision Messages";
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.CrawlerClearBtn);
             this.groupBox4.Controls.Add(this.AllCrawlRTB);
-            this.groupBox4.Location = new System.Drawing.Point(12, 496);
+            this.groupBox4.Location = new System.Drawing.Point(12, 48);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(545, 331);
+            this.groupBox4.Size = new System.Drawing.Size(438, 331);
             this.groupBox4.TabIndex = 35;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "All Messages";
@@ -391,27 +405,27 @@
             // 
             this.groupBox5.Controls.Add(this.ErrorCrawlRTB);
             this.groupBox5.Controls.Add(this.ErrorClearBtn);
-            this.groupBox5.Location = new System.Drawing.Point(563, 496);
+            this.groupBox5.Location = new System.Drawing.Point(18, 386);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(432, 331);
+            this.groupBox5.Size = new System.Drawing.Size(432, 241);
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "ERRORS";
+            this.groupBox5.Text = "All ERROR Messages";
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.CommandClearBtn);
             this.groupBox6.Controls.Add(this.CommandCrawlRTB);
-            this.groupBox6.Location = new System.Drawing.Point(12, 50);
+            this.groupBox6.Location = new System.Drawing.Point(18, 633);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(455, 331);
+            this.groupBox6.Size = new System.Drawing.Size(432, 202);
             this.groupBox6.TabIndex = 36;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Command";
+            this.groupBox6.Text = "Command Messages";
             // 
             // CommandClearBtn
             // 
-            this.CommandClearBtn.Location = new System.Drawing.Point(6, 302);
+            this.CommandClearBtn.Location = new System.Drawing.Point(6, 170);
             this.CommandClearBtn.Name = "CommandClearBtn";
             this.CommandClearBtn.Size = new System.Drawing.Size(50, 23);
             this.CommandClearBtn.TabIndex = 9;
@@ -424,29 +438,155 @@
             this.CommandCrawlRTB.Location = new System.Drawing.Point(6, 19);
             this.CommandCrawlRTB.Name = "CommandCrawlRTB";
             this.CommandCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.CommandCrawlRTB.Size = new System.Drawing.Size(443, 283);
+            this.CommandCrawlRTB.Size = new System.Drawing.Size(420, 145);
             this.CommandCrawlRTB.TabIndex = 6;
             this.CommandCrawlRTB.Text = "";
+            // 
+            // LogfileTxt
+            // 
+            this.LogfileTxt.Location = new System.Drawing.Point(382, 12);
+            this.LogfileTxt.Name = "LogfileTxt";
+            this.LogfileTxt.Size = new System.Drawing.Size(237, 20);
+            this.LogfileTxt.TabIndex = 57;
+            this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/LEonard.log";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(338, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 56;
+            this.label3.Text = "Logfile";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.StartTestClientBtn);
+            this.groupBox7.Controls.Add(this.CommandServerChk);
+            this.groupBox7.Location = new System.Drawing.Point(456, 633);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(204, 202);
+            this.groupBox7.TabIndex = 58;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Command";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.Robot99Btn);
+            this.groupBox8.Controls.Add(this.Robot98Btn);
+            this.groupBox8.Controls.Add(this.Robot50Btn);
+            this.groupBox8.Controls.Add(this.Robot4Btn);
+            this.groupBox8.Controls.Add(this.Robot3Btn);
+            this.groupBox8.Controls.Add(this.Robot2Btn);
+            this.groupBox8.Controls.Add(this.Robot1Btn);
+            this.groupBox8.Controls.Add(this.RobotSendBtn);
+            this.groupBox8.Controls.Add(this.RobotServerChk);
+            this.groupBox8.Controls.Add(this.RobotCommandTxt);
+            this.groupBox8.Location = new System.Drawing.Point(714, 59);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(281, 207);
+            this.groupBox8.TabIndex = 59;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Robot Commands";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.VisionServerChk);
+            this.groupBox9.Controls.Add(this.VisionCommandTxt);
+            this.groupBox9.Controls.Add(this.VisionSendBtn);
+            this.groupBox9.Location = new System.Drawing.Point(714, 317);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(281, 213);
+            this.groupBox9.TabIndex = 60;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Vision Commands";
+            // 
+            // Robot1Btn
+            // 
+            this.Robot1Btn.Location = new System.Drawing.Point(13, 79);
+            this.Robot1Btn.Name = "Robot1Btn";
+            this.Robot1Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot1Btn.TabIndex = 29;
+            this.Robot1Btn.Text = "CMD 1";
+            this.Robot1Btn.UseVisualStyleBackColor = true;
+            this.Robot1Btn.Click += new System.EventHandler(this.Robot1Btn_Click);
+            // 
+            // Robot2Btn
+            // 
+            this.Robot2Btn.Location = new System.Drawing.Point(13, 99);
+            this.Robot2Btn.Name = "Robot2Btn";
+            this.Robot2Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot2Btn.TabIndex = 30;
+            this.Robot2Btn.Text = "CMD 2";
+            this.Robot2Btn.UseVisualStyleBackColor = true;
+            this.Robot2Btn.Click += new System.EventHandler(this.Robot2Btn_Click);
+            // 
+            // Robot3Btn
+            // 
+            this.Robot3Btn.Location = new System.Drawing.Point(13, 119);
+            this.Robot3Btn.Name = "Robot3Btn";
+            this.Robot3Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot3Btn.TabIndex = 31;
+            this.Robot3Btn.Text = "CMD 3";
+            this.Robot3Btn.UseVisualStyleBackColor = true;
+            this.Robot3Btn.Click += new System.EventHandler(this.Robot3Btn_Click);
+            // 
+            // Robot4Btn
+            // 
+            this.Robot4Btn.Location = new System.Drawing.Point(13, 138);
+            this.Robot4Btn.Name = "Robot4Btn";
+            this.Robot4Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot4Btn.TabIndex = 32;
+            this.Robot4Btn.Text = "CMD 4";
+            this.Robot4Btn.UseVisualStyleBackColor = true;
+            this.Robot4Btn.Click += new System.EventHandler(this.Robot4Btn_Click);
+            // 
+            // Robot50Btn
+            // 
+            this.Robot50Btn.Location = new System.Drawing.Point(13, 158);
+            this.Robot50Btn.Name = "Robot50Btn";
+            this.Robot50Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot50Btn.TabIndex = 33;
+            this.Robot50Btn.Text = "CMD 50";
+            this.Robot50Btn.UseVisualStyleBackColor = true;
+            this.Robot50Btn.Click += new System.EventHandler(this.Robot50Btn_Click);
+            // 
+            // Robot98Btn
+            // 
+            this.Robot98Btn.Location = new System.Drawing.Point(117, 79);
+            this.Robot98Btn.Name = "Robot98Btn";
+            this.Robot98Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot98Btn.TabIndex = 34;
+            this.Robot98Btn.Text = "CMD 98";
+            this.Robot98Btn.UseVisualStyleBackColor = true;
+            this.Robot98Btn.Click += new System.EventHandler(this.Robot98Btn_Click);
+            // 
+            // Robot99Btn
+            // 
+            this.Robot99Btn.Location = new System.Drawing.Point(117, 99);
+            this.Robot99Btn.Name = "Robot99Btn";
+            this.Robot99Btn.Size = new System.Drawing.Size(75, 23);
+            this.Robot99Btn.TabIndex = 35;
+            this.Robot99Btn.Text = "CMD 99";
+            this.Robot99Btn.UseVisualStyleBackColor = true;
+            this.Robot99Btn.Click += new System.EventHandler(this.Robot99Btn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1292, 832);
+            this.ClientSize = new System.Drawing.Size(1402, 867);
+            this.Controls.Add(this.groupBox9);
+            this.Controls.Add(this.groupBox8);
+            this.Controls.Add(this.groupBox7);
+            this.Controls.Add(this.LogfileTxt);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.VisionCommandTxt);
-            this.Controls.Add(this.VisionSendBtn);
-            this.Controls.Add(this.VisionServerChk);
-            this.Controls.Add(this.RobotCommandTxt);
-            this.Controls.Add(this.RobotSendBtn);
-            this.Controls.Add(this.RobotServerChk);
-            this.Controls.Add(this.StartTestClientBtn);
-            this.Controls.Add(this.CommandServerChk);
             this.Controls.Add(this.TestThreadEnabledChk);
             this.Controls.Add(this.BarcodeGrp);
             this.Controls.Add(this.TimeLbl);
@@ -463,6 +603,12 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -508,6 +654,18 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button CommandClearBtn;
         private System.Windows.Forms.RichTextBox CommandCrawlRTB;
+        private System.Windows.Forms.TextBox LogfileTxt;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Button Robot4Btn;
+        private System.Windows.Forms.Button Robot3Btn;
+        private System.Windows.Forms.Button Robot2Btn;
+        private System.Windows.Forms.Button Robot1Btn;
+        private System.Windows.Forms.Button Robot99Btn;
+        private System.Windows.Forms.Button Robot98Btn;
+        private System.Windows.Forms.Button Robot50Btn;
     }
 }
 

@@ -220,7 +220,7 @@ namespace LEonard
         {
             if (CommandServerChk.Checked)
             {
-                commandServer = new TcpServer(this,"COMMAND: ");
+                commandServer = new TcpServer(this, "COMMAND: ");
                 commandServer.StartServer("192.168.0.252", "1000");
                 commandServer.receiveCallback = CommandCallback;
             }
@@ -230,38 +230,6 @@ namespace LEonard
                 {
                     commandServer.StopServer();
                     commandServer = null;
-                }
-            }
-        }
-        private void RobotServerChk_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RobotServerChk.Checked)
-            {
-                robotServer = new TcpServer(this,"ROBOT: ");
-                robotServer.StartServer("192.168.0.252", "30000");
-            }
-            else
-            {
-                if (robotServer != null)
-                {
-                    robotServer.StopServer();
-                    robotServer = null;
-                }
-            }
-        }
-        private void VisionServerChk_CheckedChanged(object sender, EventArgs e)
-        {
-            if (VisionServerChk.Checked)
-            {
-                visionServer = new TcpServer(this,"VISION: ");
-                visionServer.StartServer("192.168.0.252", "20000");
-            }
-            else
-            {
-                if (visionServer != null)
-                {
-                    visionServer.StopServer();
-                    visionServer = null;
                 }
             }
         }
@@ -290,21 +258,105 @@ namespace LEonard
 
         }
 
+        private void RobotServerChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RobotServerChk.Checked)
+            {
+                robotServer = new TcpServer(this, "ROBOT: ");
+                robotServer.StartServer("192.168.0.252", "30000");
+            }
+            else
+            {
+                if (robotServer != null)
+                {
+                    robotServer.StopServer();
+                    robotServer = null;
+                }
+            }
+        }
         private void RobotSendBtn_Click(object sender, EventArgs e)
         {
             if (robotServer != null)
                 robotServer.Send(RobotCommandTxt.Text);
+        }
+
+        private void Robot1Btn_Click(object sender, EventArgs e)
+        {
+            if (robotServer != null)
+                robotServer.Send("(1,0,0,0,0)");
+        }
+
+        private void Robot2Btn_Click(object sender, EventArgs e)
+        {
+            if (robotServer != null)
+                robotServer.Send("(2,0,0,0,0)");
+        }
+
+        private void Robot3Btn_Click(object sender, EventArgs e)
+        {
+            if (robotServer != null)
+                robotServer.Send("(3,0,0,0,0)");
+        }
+
+        private void Robot4Btn_Click(object sender, EventArgs e)
+        {
+            if (robotServer != null)
+                robotServer.Send("(4,0,0,0,0)");
+        }
+
+        private void Robot50Btn_Click(object sender, EventArgs e)
+        {
+            if (robotServer != null)
+                robotServer.Send("(50,0,0,0,0)");
+        }
+
+        private void Robot98Btn_Click(object sender, EventArgs e)
+        {
+            if (robotServer != null)
+            {
+                robotServer.Send("(98,0,0,0,0)");
+
+                // All shoud be wrapped in nice RobotServer class
+                Thread.Sleep(100);
+                robotServer.StopServer();
+                //robotServer = new TcpServer(this, "ROBOT: ");
+                robotServer.StartServer("192.168.0.252", "30000");
+            }
+        }
+
+        private void Robot99Btn_Click(object sender, EventArgs e)
+        {
+            if (robotServer != null)
+            {
+                robotServer.Send("(99,0,0,0,0)");
+
+                // All shoud be wrapped in nice RobotServer class
+                Thread.Sleep(100);
+                robotServer.StopServer();
+                //robotServer = new TcpServer(this, "ROBOT: ");
+                robotServer.StartServer("192.168.0.252", "30000");
+            }
+        }
+        private void VisionServerChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (VisionServerChk.Checked)
+            {
+                visionServer = new TcpServer(this, "VISION: ");
+                visionServer.StartServer("192.168.0.252", "20000");
+            }
+            else
+            {
+                if (visionServer != null)
+                {
+                    visionServer.StopServer();
+                    visionServer = null;
+                }
+            }
         }
         private void VisionSendBtn_Click(object sender, EventArgs e)
         {
             if (visionServer != null)
                 visionServer.Send(VisionCommandTxt.Text);
         }
-
-        private void RobotCommandTxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

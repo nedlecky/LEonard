@@ -173,7 +173,7 @@
             this.LogfileTxt.Name = "LogfileTxt";
             this.LogfileTxt.Size = new System.Drawing.Size(237, 20);
             this.LogfileTxt.TabIndex = 55;
-            this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/clientlog.log";
+            this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/LEonardClient.log";
             // 
             // ClientForm
             // 
