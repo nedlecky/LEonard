@@ -84,9 +84,22 @@
             this.Robot1Btn = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.VisionClientChk = new System.Windows.Forms.CheckBox();
             this.VisionClientCommandTxt = new System.Windows.Forms.TextBox();
             this.VisionClientSendBtn = new System.Windows.Forms.Button();
+            this.VisionClientChk = new System.Windows.Forms.CheckBox();
+            this.PersonalityTabs = new System.Windows.Forms.TabControl();
+            this.RuntimeTab = new System.Windows.Forms.TabPage();
+            this.ReportingTab = new System.Windows.Forms.TabPage();
+            this.IoTab = new System.Windows.Forms.TabPage();
+            this.DevicesTab = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.ConfigTab = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -98,11 +111,20 @@
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            this.PersonalityTabs.SuspendLayout();
+            this.IoTab.SuspendLayout();
+            this.DevicesTab.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.ConfigTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExitBtn
             // 
-            this.ExitBtn.Location = new System.Drawing.Point(1335, 12);
+            this.ExitBtn.Location = new System.Drawing.Point(1039, 12);
             this.ExitBtn.Name = "ExitBtn";
             this.ExitBtn.Size = new System.Drawing.Size(55, 41);
             this.ExitBtn.TabIndex = 0;
@@ -126,10 +148,10 @@
             // 
             // AllCrawlRTB
             // 
-            this.AllCrawlRTB.Location = new System.Drawing.Point(6, 19);
+            this.AllCrawlRTB.Location = new System.Drawing.Point(6, 48);
             this.AllCrawlRTB.Name = "AllCrawlRTB";
             this.AllCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 283);
+            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 428);
             this.AllCrawlRTB.TabIndex = 6;
             this.AllCrawlRTB.Text = "";
             // 
@@ -148,7 +170,7 @@
             // 
             // CrawlerClearBtn
             // 
-            this.CrawlerClearBtn.Location = new System.Drawing.Point(6, 302);
+            this.CrawlerClearBtn.Location = new System.Drawing.Point(6, 482);
             this.CrawlerClearBtn.Name = "CrawlerClearBtn";
             this.CrawlerClearBtn.Size = new System.Drawing.Size(50, 23);
             this.CrawlerClearBtn.TabIndex = 9;
@@ -219,7 +241,7 @@
             this.BarcodeGrp.Controls.Add(this.DM1DataLbl);
             this.BarcodeGrp.Controls.Add(this.TriggerDM2Btn);
             this.BarcodeGrp.Controls.Add(this.TriggerDM1Btn);
-            this.BarcodeGrp.Location = new System.Drawing.Point(685, 575);
+            this.BarcodeGrp.Location = new System.Drawing.Point(6, 6);
             this.BarcodeGrp.Name = "BarcodeGrp";
             this.BarcodeGrp.Size = new System.Drawing.Size(306, 217);
             this.BarcodeGrp.TabIndex = 22;
@@ -396,7 +418,7 @@
             // 
             this.groupBox1.Controls.Add(this.RobotClearBtn);
             this.groupBox1.Controls.Add(this.RobotCrawlRTB);
-            this.groupBox1.Location = new System.Drawing.Point(1001, 59);
+            this.groupBox1.Location = new System.Drawing.Point(6, 223);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(388, 252);
             this.groupBox1.TabIndex = 32;
@@ -407,7 +429,7 @@
             // 
             this.groupBox2.Controls.Add(this.BarcodeClearBtn);
             this.groupBox2.Controls.Add(this.BarcodeCrawlRTB);
-            this.groupBox2.Location = new System.Drawing.Point(1001, 575);
+            this.groupBox2.Location = new System.Drawing.Point(6, 229);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(388, 252);
             this.groupBox2.TabIndex = 33;
@@ -437,7 +459,7 @@
             // 
             this.groupBox3.Controls.Add(this.VisionCrawlRTB);
             this.groupBox3.Controls.Add(this.VisionClearBtn);
-            this.groupBox3.Location = new System.Drawing.Point(1001, 317);
+            this.groupBox3.Location = new System.Drawing.Point(6, 230);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(388, 252);
             this.groupBox3.TabIndex = 34;
@@ -446,11 +468,13 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.checkedListBox1);
+            this.groupBox4.Controls.Add(this.checkBox1);
             this.groupBox4.Controls.Add(this.CrawlerClearBtn);
             this.groupBox4.Controls.Add(this.AllCrawlRTB);
             this.groupBox4.Location = new System.Drawing.Point(12, 48);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(438, 331);
+            this.groupBox4.Size = new System.Drawing.Size(438, 511);
             this.groupBox4.TabIndex = 35;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "All Messages";
@@ -459,7 +483,7 @@
             // 
             this.groupBox5.Controls.Add(this.ErrorCrawlRTB);
             this.groupBox5.Controls.Add(this.ErrorClearBtn);
-            this.groupBox5.Location = new System.Drawing.Point(18, 386);
+            this.groupBox5.Location = new System.Drawing.Point(12, 565);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(432, 241);
             this.groupBox5.TabIndex = 36;
@@ -470,9 +494,9 @@
             // 
             this.groupBox6.Controls.Add(this.CommandClearBtn);
             this.groupBox6.Controls.Add(this.CommandCrawlRTB);
-            this.groupBox6.Location = new System.Drawing.Point(18, 633);
+            this.groupBox6.Location = new System.Drawing.Point(6, 113);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(432, 202);
+            this.groupBox6.Size = new System.Drawing.Size(602, 202);
             this.groupBox6.TabIndex = 36;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Command Messages";
@@ -498,7 +522,7 @@
             // 
             // LogfileTxt
             // 
-            this.LogfileTxt.Location = new System.Drawing.Point(382, 12);
+            this.LogfileTxt.Location = new System.Drawing.Point(68, 44);
             this.LogfileTxt.Name = "LogfileTxt";
             this.LogfileTxt.Size = new System.Drawing.Size(237, 20);
             this.LogfileTxt.TabIndex = 57;
@@ -507,7 +531,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(338, 15);
+            this.label3.Location = new System.Drawing.Point(24, 47);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 56;
@@ -517,9 +541,9 @@
             // 
             this.groupBox7.Controls.Add(this.StartTestClientBtn);
             this.groupBox7.Controls.Add(this.CommandServerChk);
-            this.groupBox7.Location = new System.Drawing.Point(456, 633);
+            this.groupBox7.Location = new System.Drawing.Point(6, 7);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(204, 202);
+            this.groupBox7.Size = new System.Drawing.Size(204, 100);
             this.groupBox7.TabIndex = 58;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Command";
@@ -536,7 +560,7 @@
             this.groupBox8.Controls.Add(this.RobotSendBtn);
             this.groupBox8.Controls.Add(this.RobotServerChk);
             this.groupBox8.Controls.Add(this.RobotCommandTxt);
-            this.groupBox8.Location = new System.Drawing.Point(714, 59);
+            this.groupBox8.Location = new System.Drawing.Point(6, 6);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(281, 207);
             this.groupBox8.TabIndex = 59;
@@ -618,7 +642,7 @@
             this.groupBox9.Controls.Add(this.VisionServerChk);
             this.groupBox9.Controls.Add(this.VisionCommandTxt);
             this.groupBox9.Controls.Add(this.VisionSendBtn);
-            this.groupBox9.Location = new System.Drawing.Point(714, 317);
+            this.groupBox9.Location = new System.Drawing.Point(6, 6);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(281, 213);
             this.groupBox9.TabIndex = 60;
@@ -630,23 +654,12 @@
             this.groupBox10.Controls.Add(this.VisionClientCommandTxt);
             this.groupBox10.Controls.Add(this.VisionClientSendBtn);
             this.groupBox10.Controls.Add(this.VisionClientChk);
-            this.groupBox10.Location = new System.Drawing.Point(462, 317);
+            this.groupBox10.Location = new System.Drawing.Point(6, 6);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(246, 213);
             this.groupBox10.TabIndex = 61;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Vision Client";
-            // 
-            // VisionClientChk
-            // 
-            this.VisionClientChk.AutoSize = true;
-            this.VisionClientChk.Location = new System.Drawing.Point(6, 20);
-            this.VisionClientChk.Name = "VisionClientChk";
-            this.VisionClientChk.Size = new System.Drawing.Size(83, 17);
-            this.VisionClientChk.TabIndex = 30;
-            this.VisionClientChk.Text = "Vision Client";
-            this.VisionClientChk.UseVisualStyleBackColor = true;
-            this.VisionClientChk.CheckedChanged += new System.EventHandler(this.VisionClientChk_CheckedChanged);
             // 
             // VisionClientCommandTxt
             // 
@@ -666,24 +679,175 @@
             this.VisionClientSendBtn.UseVisualStyleBackColor = true;
             this.VisionClientSendBtn.Click += new System.EventHandler(this.VisionClientSendBtn_Click);
             // 
+            // VisionClientChk
+            // 
+            this.VisionClientChk.AutoSize = true;
+            this.VisionClientChk.Location = new System.Drawing.Point(6, 20);
+            this.VisionClientChk.Name = "VisionClientChk";
+            this.VisionClientChk.Size = new System.Drawing.Size(83, 17);
+            this.VisionClientChk.TabIndex = 30;
+            this.VisionClientChk.Text = "Vision Client";
+            this.VisionClientChk.UseVisualStyleBackColor = true;
+            this.VisionClientChk.CheckedChanged += new System.EventHandler(this.VisionClientChk_CheckedChanged);
+            // 
+            // PersonalityTabs
+            // 
+            this.PersonalityTabs.Controls.Add(this.RuntimeTab);
+            this.PersonalityTabs.Controls.Add(this.ReportingTab);
+            this.PersonalityTabs.Controls.Add(this.IoTab);
+            this.PersonalityTabs.Controls.Add(this.ConfigTab);
+            this.PersonalityTabs.Location = new System.Drawing.Point(456, 48);
+            this.PersonalityTabs.Name = "PersonalityTabs";
+            this.PersonalityTabs.SelectedIndex = 0;
+            this.PersonalityTabs.Size = new System.Drawing.Size(642, 762);
+            this.PersonalityTabs.TabIndex = 62;
+            // 
+            // RuntimeTab
+            // 
+            this.RuntimeTab.Location = new System.Drawing.Point(4, 22);
+            this.RuntimeTab.Name = "RuntimeTab";
+            this.RuntimeTab.Padding = new System.Windows.Forms.Padding(3);
+            this.RuntimeTab.Size = new System.Drawing.Size(634, 736);
+            this.RuntimeTab.TabIndex = 0;
+            this.RuntimeTab.Text = "Runtime";
+            this.RuntimeTab.UseVisualStyleBackColor = true;
+            // 
+            // ReportingTab
+            // 
+            this.ReportingTab.Location = new System.Drawing.Point(4, 22);
+            this.ReportingTab.Name = "ReportingTab";
+            this.ReportingTab.Padding = new System.Windows.Forms.Padding(3);
+            this.ReportingTab.Size = new System.Drawing.Size(634, 736);
+            this.ReportingTab.TabIndex = 1;
+            this.ReportingTab.Text = "Reporting";
+            this.ReportingTab.UseVisualStyleBackColor = true;
+            // 
+            // IoTab
+            // 
+            this.IoTab.Controls.Add(this.DevicesTab);
+            this.IoTab.Location = new System.Drawing.Point(4, 22);
+            this.IoTab.Name = "IoTab";
+            this.IoTab.Padding = new System.Windows.Forms.Padding(3);
+            this.IoTab.Size = new System.Drawing.Size(634, 736);
+            this.IoTab.TabIndex = 2;
+            this.IoTab.Text = "I/O";
+            this.IoTab.UseVisualStyleBackColor = true;
+            // 
+            // DevicesTab
+            // 
+            this.DevicesTab.Controls.Add(this.tabPage1);
+            this.DevicesTab.Controls.Add(this.tabPage2);
+            this.DevicesTab.Controls.Add(this.tabPage3);
+            this.DevicesTab.Controls.Add(this.tabPage4);
+            this.DevicesTab.Controls.Add(this.tabPage5);
+            this.DevicesTab.Location = new System.Drawing.Point(6, 6);
+            this.DevicesTab.Name = "DevicesTab";
+            this.DevicesTab.SelectedIndex = 0;
+            this.DevicesTab.Size = new System.Drawing.Size(622, 724);
+            this.DevicesTab.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox7);
+            this.tabPage1.Controls.Add(this.groupBox6);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(614, 698);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Command";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.groupBox8);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(614, 698);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "UR-5e Robot";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupBox9);
+            this.tabPage3.Controls.Add(this.groupBox3);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(614, 698);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Sherlock Vision";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.groupBox10);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(614, 698);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "HALCON Vision";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.groupBox2);
+            this.tabPage5.Controls.Add(this.BarcodeGrp);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(614, 698);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Cognex Dataman";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // ConfigTab
+            // 
+            this.ConfigTab.Controls.Add(this.label3);
+            this.ConfigTab.Controls.Add(this.LogfileTxt);
+            this.ConfigTab.Location = new System.Drawing.Point(4, 22);
+            this.ConfigTab.Name = "ConfigTab";
+            this.ConfigTab.Padding = new System.Windows.Forms.Padding(3);
+            this.ConfigTab.Size = new System.Drawing.Size(634, 736);
+            this.ConfigTab.TabIndex = 3;
+            this.ConfigTab.Text = "Config";
+            this.ConfigTab.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 25);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 10;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "ROBOT:",
+            "VISION:",
+            "BARCODE:",
+            "ERROR:"});
+            this.checkedListBox1.Location = new System.Drawing.Point(117, 8);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 34);
+            this.checkedListBox1.TabIndex = 11;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1402, 867);
-            this.Controls.Add(this.groupBox10);
-            this.Controls.Add(this.groupBox9);
-            this.Controls.Add(this.groupBox8);
-            this.Controls.Add(this.groupBox7);
-            this.Controls.Add(this.LogfileTxt);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.groupBox6);
+            this.ClientSize = new System.Drawing.Size(1104, 818);
+            this.Controls.Add(this.PersonalityTabs);
             this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.BarcodeGrp);
             this.Controls.Add(this.TimeLbl);
             this.Controls.Add(this.ExitBtn);
             this.MaximizeBox = false;
@@ -697,6 +861,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
@@ -707,8 +872,17 @@
             this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            this.PersonalityTabs.ResumeLayout(false);
+            this.IoTab.ResumeLayout(false);
+            this.DevicesTab.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.ConfigTab.ResumeLayout(false);
+            this.ConfigTab.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -772,6 +946,19 @@
         private System.Windows.Forms.CheckBox VisionClientChk;
         private System.Windows.Forms.TextBox VisionClientCommandTxt;
         private System.Windows.Forms.Button VisionClientSendBtn;
+        private System.Windows.Forms.TabControl PersonalityTabs;
+        private System.Windows.Forms.TabPage RuntimeTab;
+        private System.Windows.Forms.TabPage ReportingTab;
+        private System.Windows.Forms.TabPage IoTab;
+        private System.Windows.Forms.TabControl DevicesTab;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage ConfigTab;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
