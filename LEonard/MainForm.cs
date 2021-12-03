@@ -243,9 +243,9 @@ namespace LEonard
             ProcessStartInfo start = new ProcessStartInfo();
             start.Arguments = "";
 #if DEBUG
-            start.FileName = "C:\\Users\\nedlecky\\source\\repos\\LEonard\\InterfaceTester\\bin\\Debug\\LEonardInterfaceTester.exe";
+            start.FileName = "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\InterfaceTester\\bin\\Debug\\LEonardInterfaceTester.exe";
 #else
-            start.FileName = "C:\\Users\\nedlecky\\source\\repos\\LEonard\\InterfaceTester\\bin\\Release\\LEonardInterfaceTester.exe";
+            start.FileName = "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\InterfaceTester\\bin\\Release\\LEonardInterfaceTester.exe";
 #endif
             Crawl("Starting " + start.FileName);
             try
