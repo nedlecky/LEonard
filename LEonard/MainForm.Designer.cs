@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ExitBtn = new System.Windows.Forms.Button();
-            this.TimeLbl = new System.Windows.Forms.Label();
             this.HeartbeatTmr = new System.Windows.Forms.Timer(this.components);
             this.AllCrawlRTB = new System.Windows.Forms.RichTextBox();
             this.RobotCrawlRTB = new System.Windows.Forms.RichTextBox();
@@ -67,6 +65,8 @@
             this.BarcodeCrawlRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.CommandClearBtn = new System.Windows.Forms.Button();
@@ -90,16 +90,32 @@
             this.PersonalityTabs = new System.Windows.Forms.TabControl();
             this.RuntimeTab = new System.Windows.Forms.TabPage();
             this.ReportingTab = new System.Windows.Forms.TabPage();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.IoTab = new System.Windows.Forms.TabPage();
-            this.DevicesTab = new System.Windows.Forms.TabControl();
+            this.StaticDevicesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ConfigTab = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -112,35 +128,21 @@
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.PersonalityTabs.SuspendLayout();
+            this.ReportingTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.IoTab.SuspendLayout();
-            this.DevicesTab.SuspendLayout();
+            this.StaticDevicesTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.ConfigTab.SuspendLayout();
+            this.menuStrip.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // ExitBtn
-            // 
-            this.ExitBtn.Location = new System.Drawing.Point(1039, 12);
-            this.ExitBtn.Name = "ExitBtn";
-            this.ExitBtn.Size = new System.Drawing.Size(55, 41);
-            this.ExitBtn.TabIndex = 0;
-            this.ExitBtn.Text = "Exit";
-            this.ExitBtn.UseVisualStyleBackColor = true;
-            this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
-            // 
-            // TimeLbl
-            // 
-            this.TimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.TimeLbl.Location = new System.Drawing.Point(12, 12);
-            this.TimeLbl.Name = "TimeLbl";
-            this.TimeLbl.Size = new System.Drawing.Size(174, 26);
-            this.TimeLbl.TabIndex = 1;
-            this.TimeLbl.Text = "???";
-            this.TimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // HeartbeatTmr
             // 
@@ -151,7 +153,7 @@
             this.AllCrawlRTB.Location = new System.Drawing.Point(6, 48);
             this.AllCrawlRTB.Name = "AllCrawlRTB";
             this.AllCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 428);
+            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 345);
             this.AllCrawlRTB.TabIndex = 6;
             this.AllCrawlRTB.Text = "";
             // 
@@ -170,7 +172,7 @@
             // 
             // CrawlerClearBtn
             // 
-            this.CrawlerClearBtn.Location = new System.Drawing.Point(6, 482);
+            this.CrawlerClearBtn.Location = new System.Drawing.Point(6, 399);
             this.CrawlerClearBtn.Name = "CrawlerClearBtn";
             this.CrawlerClearBtn.Size = new System.Drawing.Size(50, 23);
             this.CrawlerClearBtn.TabIndex = 9;
@@ -472,18 +474,41 @@
             this.groupBox4.Controls.Add(this.checkBox1);
             this.groupBox4.Controls.Add(this.CrawlerClearBtn);
             this.groupBox4.Controls.Add(this.AllCrawlRTB);
-            this.groupBox4.Location = new System.Drawing.Point(12, 48);
+            this.groupBox4.Location = new System.Drawing.Point(12, 27);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(438, 511);
+            this.groupBox4.Size = new System.Drawing.Size(438, 433);
             this.groupBox4.TabIndex = 35;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "All Messages";
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "ROBOT:",
+            "VISION:",
+            "BARCODE:",
+            "ERROR:"});
+            this.checkedListBox1.Location = new System.Drawing.Point(117, 8);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 34);
+            this.checkedListBox1.TabIndex = 11;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 25);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 10;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.ErrorCrawlRTB);
             this.groupBox5.Controls.Add(this.ErrorClearBtn);
-            this.groupBox5.Location = new System.Drawing.Point(12, 565);
+            this.groupBox5.Location = new System.Drawing.Point(12, 548);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(432, 241);
             this.groupBox5.TabIndex = 36;
@@ -696,7 +721,7 @@
             this.PersonalityTabs.Controls.Add(this.ReportingTab);
             this.PersonalityTabs.Controls.Add(this.IoTab);
             this.PersonalityTabs.Controls.Add(this.ConfigTab);
-            this.PersonalityTabs.Location = new System.Drawing.Point(456, 48);
+            this.PersonalityTabs.Location = new System.Drawing.Point(462, 27);
             this.PersonalityTabs.Name = "PersonalityTabs";
             this.PersonalityTabs.SelectedIndex = 0;
             this.PersonalityTabs.Size = new System.Drawing.Size(642, 762);
@@ -714,6 +739,9 @@
             // 
             // ReportingTab
             // 
+            this.ReportingTab.Controls.Add(this.dataGridView3);
+            this.ReportingTab.Controls.Add(this.dataGridView2);
+            this.ReportingTab.Controls.Add(this.dataGridView1);
             this.ReportingTab.Location = new System.Drawing.Point(4, 22);
             this.ReportingTab.Name = "ReportingTab";
             this.ReportingTab.Padding = new System.Windows.Forms.Padding(3);
@@ -722,9 +750,34 @@
             this.ReportingTab.Text = "Reporting";
             this.ReportingTab.UseVisualStyleBackColor = true;
             // 
+            // dataGridView3
+            // 
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Location = new System.Drawing.Point(50, 484);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.Size = new System.Drawing.Size(558, 198);
+            this.dataGridView3.TabIndex = 2;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(50, 261);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(558, 198);
+            this.dataGridView2.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(50, 42);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(558, 186);
+            this.dataGridView1.TabIndex = 0;
+            // 
             // IoTab
             // 
-            this.IoTab.Controls.Add(this.DevicesTab);
+            this.IoTab.Controls.Add(this.StaticDevicesTab);
+            this.IoTab.Controls.Add(this.menuStrip1);
             this.IoTab.Location = new System.Drawing.Point(4, 22);
             this.IoTab.Name = "IoTab";
             this.IoTab.Padding = new System.Windows.Forms.Padding(3);
@@ -733,18 +786,18 @@
             this.IoTab.Text = "I/O";
             this.IoTab.UseVisualStyleBackColor = true;
             // 
-            // DevicesTab
+            // StaticDevicesTab
             // 
-            this.DevicesTab.Controls.Add(this.tabPage1);
-            this.DevicesTab.Controls.Add(this.tabPage2);
-            this.DevicesTab.Controls.Add(this.tabPage3);
-            this.DevicesTab.Controls.Add(this.tabPage4);
-            this.DevicesTab.Controls.Add(this.tabPage5);
-            this.DevicesTab.Location = new System.Drawing.Point(6, 6);
-            this.DevicesTab.Name = "DevicesTab";
-            this.DevicesTab.SelectedIndex = 0;
-            this.DevicesTab.Size = new System.Drawing.Size(622, 724);
-            this.DevicesTab.TabIndex = 0;
+            this.StaticDevicesTab.Controls.Add(this.tabPage1);
+            this.StaticDevicesTab.Controls.Add(this.tabPage2);
+            this.StaticDevicesTab.Controls.Add(this.tabPage3);
+            this.StaticDevicesTab.Controls.Add(this.tabPage4);
+            this.StaticDevicesTab.Controls.Add(this.tabPage5);
+            this.StaticDevicesTab.Location = new System.Drawing.Point(6, 6);
+            this.StaticDevicesTab.Name = "StaticDevicesTab";
+            this.StaticDevicesTab.SelectedIndex = 0;
+            this.StaticDevicesTab.Size = new System.Drawing.Size(622, 511);
+            this.StaticDevicesTab.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -753,7 +806,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(614, 698);
+            this.tabPage1.Size = new System.Drawing.Size(614, 485);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Command";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -765,7 +818,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(614, 698);
+            this.tabPage2.Size = new System.Drawing.Size(614, 485);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "UR-5e Robot";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -777,7 +830,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(614, 698);
+            this.tabPage3.Size = new System.Drawing.Size(614, 485);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Sherlock Vision";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -788,7 +841,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(614, 698);
+            this.tabPage4.Size = new System.Drawing.Size(614, 485);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "HALCON Vision";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -800,10 +853,18 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(614, 698);
+            this.tabPage5.Size = new System.Drawing.Size(614, 485);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Cognex Dataman";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(628, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // ConfigTab
             // 
@@ -817,39 +878,131 @@
             this.ConfigTab.Text = "Config";
             this.ConfigTab.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // menuStrip
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 25);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(1104, 24);
+            this.menuStrip.TabIndex = 63;
+            this.menuStrip.Text = "menuStrip";
             // 
-            // checkedListBox1
+            // fileToolStripMenuItem
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "ROBOT:",
-            "VISION:",
-            "BARCODE:",
-            "ERROR:"});
-            this.checkedListBox1.Location = new System.Drawing.Point(117, 8);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 34);
-            this.checkedListBox1.TabIndex = 11;
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As...";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2});
+            this.statusStrip.Location = new System.Drawing.Point(0, 797);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1104, 22);
+            this.statusStrip.TabIndex = 64;
+            this.statusStrip.Text = "statusStrip";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(375, 485);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 65;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(375, 519);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 66;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1104, 818);
+            this.ClientSize = new System.Drawing.Size(1104, 819);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.PersonalityTabs);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.TimeLbl);
-            this.Controls.Add(this.ExitBtn);
+            this.Controls.Add(this.menuStrip);
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -873,8 +1026,13 @@
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.PersonalityTabs.ResumeLayout(false);
+            this.ReportingTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.IoTab.ResumeLayout(false);
-            this.DevicesTab.ResumeLayout(false);
+            this.IoTab.PerformLayout();
+            this.StaticDevicesTab.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -882,14 +1040,16 @@
             this.tabPage5.ResumeLayout(false);
             this.ConfigTab.ResumeLayout(false);
             this.ConfigTab.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button ExitBtn;
-        private System.Windows.Forms.Label TimeLbl;
         private System.Windows.Forms.Timer HeartbeatTmr;
         private System.Windows.Forms.RichTextBox AllCrawlRTB;
         private System.Windows.Forms.RichTextBox RobotCrawlRTB;
@@ -950,7 +1110,7 @@
         private System.Windows.Forms.TabPage RuntimeTab;
         private System.Windows.Forms.TabPage ReportingTab;
         private System.Windows.Forms.TabPage IoTab;
-        private System.Windows.Forms.TabControl DevicesTab;
+        private System.Windows.Forms.TabControl StaticDevicesTab;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
@@ -959,6 +1119,24 @@
         private System.Windows.Forms.TabPage ConfigTab;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.Button button2;
     }
 }
 
