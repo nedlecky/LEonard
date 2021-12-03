@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    internal class TcpServer
+    public class LeTcpServer
     {
         static MainForm myForm;
         TcpListener server;
@@ -27,7 +27,7 @@ namespace LEonard
         public int nGetStatusResponses = 0;
         public int nBadCommLenErrors = 0;
 
-        public TcpServer(MainForm form, string prefix)
+        public LeTcpServer(MainForm form, string prefix)
         {
             myForm = form;
             crawlPrefix = prefix;

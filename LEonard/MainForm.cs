@@ -17,9 +17,10 @@ namespace LEonard
 {
     public partial class MainForm : Form
     {
-        TcpServer commandServer;
-        TcpServer robotServer;
-        TcpServer visionServer;
+        LeTcpServer commandServer;
+        LeTcpServer robotServer;
+        LeTcpServer visionServer;
+        LeTcpClient visionClient;
 
         BarcodeReaderThread bcrt;
 
@@ -77,6 +78,7 @@ namespace LEonard
             CommandServerChk.Checked = true;
             RobotServerChk.Checked = true;
             VisionServerChk.Checked = true;
+            VisionClientChk.Checked = true;
 
             Crawl("System ready.");
         }
@@ -110,9 +112,12 @@ namespace LEonard
                 dms[i] = null;
             }
 
+            // Close the TCP connections
+            // TODO this is a hoakey way to do that
             CommandServerChk.Checked = false;
             RobotServerChk.Checked = false;
             VisionServerChk.Checked = false;
+            VisionClientChk.Checked = false;
 
             Crawl("Disconnect() complete");
 
@@ -216,7 +221,7 @@ namespace LEonard
         {
             if (CommandServerChk.Checked)
             {
-                commandServer = new TcpServer(this, "COMMAND: ");
+                commandServer = new LeTcpServer(this, "COMMAND: ");
                 commandServer.StartServer("192.168.0.252", "1000");
                 commandServer.receiveCallback = CommandCallback;
             }
@@ -258,7 +263,7 @@ namespace LEonard
         {
             if (RobotServerChk.Checked)
             {
-                robotServer = new TcpServer(this, "ROBOT: ");
+                robotServer = new LeTcpServer(this, "ROBOT: ");
                 robotServer.StartServer("192.168.0.252", "30000");
             }
             else
@@ -337,7 +342,7 @@ namespace LEonard
         {
             if (VisionServerChk.Checked)
             {
-                visionServer = new TcpServer(this, "VISION: ");
+                visionServer = new LeTcpServer(this, "VISION: ");
                 visionServer.StartServer("192.168.0.252", "20000");
             }
             else
@@ -353,6 +358,28 @@ namespace LEonard
         {
             if (visionServer != null)
                 visionServer.Send(VisionCommandTxt.Text);
+        }
+
+        private void VisionClientChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (VisionClientChk.Checked)
+            {
+                visionClient = new LeTcpClient(this, "VISION: ");
+                visionClient.Connect("192.168.0.252", "21000");
+            }
+            else
+            {
+                if (visionServer != null)
+                {
+                    visionClient.Disconnect();
+                    visionClient = null;
+                }
+            }
+        }
+        private void VisionClientSendBtn_Click(object sender, EventArgs e)
+        {
+            if (visionClient != null)
+                visionClient.Send(VisionClientCommandTxt.Text);
         }
 
         private void BcrtCreateBtn_Click(object sender, EventArgs e)

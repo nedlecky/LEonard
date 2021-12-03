@@ -83,6 +83,10 @@
             this.Robot2Btn = new System.Windows.Forms.Button();
             this.Robot1Btn = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.VisionClientChk = new System.Windows.Forms.CheckBox();
+            this.VisionClientCommandTxt = new System.Windows.Forms.TextBox();
+            this.VisionClientSendBtn = new System.Windows.Forms.Button();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -93,6 +97,7 @@
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExitBtn
@@ -620,11 +625,53 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Vision Commands";
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.VisionClientCommandTxt);
+            this.groupBox10.Controls.Add(this.VisionClientSendBtn);
+            this.groupBox10.Controls.Add(this.VisionClientChk);
+            this.groupBox10.Location = new System.Drawing.Point(462, 317);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(246, 213);
+            this.groupBox10.TabIndex = 61;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Vision Client";
+            // 
+            // VisionClientChk
+            // 
+            this.VisionClientChk.AutoSize = true;
+            this.VisionClientChk.Location = new System.Drawing.Point(6, 20);
+            this.VisionClientChk.Name = "VisionClientChk";
+            this.VisionClientChk.Size = new System.Drawing.Size(83, 17);
+            this.VisionClientChk.TabIndex = 30;
+            this.VisionClientChk.Text = "Vision Client";
+            this.VisionClientChk.UseVisualStyleBackColor = true;
+            this.VisionClientChk.CheckedChanged += new System.EventHandler(this.VisionClientChk_CheckedChanged);
+            // 
+            // VisionClientCommandTxt
+            // 
+            this.VisionClientCommandTxt.Location = new System.Drawing.Point(15, 43);
+            this.VisionClientCommandTxt.Name = "VisionClientCommandTxt";
+            this.VisionClientCommandTxt.Size = new System.Drawing.Size(119, 20);
+            this.VisionClientCommandTxt.TabIndex = 33;
+            this.VisionClientCommandTxt.Text = "test1";
+            // 
+            // VisionClientSendBtn
+            // 
+            this.VisionClientSendBtn.Location = new System.Drawing.Point(149, 43);
+            this.VisionClientSendBtn.Name = "VisionClientSendBtn";
+            this.VisionClientSendBtn.Size = new System.Drawing.Size(75, 23);
+            this.VisionClientSendBtn.TabIndex = 32;
+            this.VisionClientSendBtn.Text = "Send";
+            this.VisionClientSendBtn.UseVisualStyleBackColor = true;
+            this.VisionClientSendBtn.Click += new System.EventHandler(this.VisionClientSendBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1402, 867);
+            this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
@@ -658,6 +705,8 @@
             this.groupBox8.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -719,6 +768,10 @@
         private System.Windows.Forms.Button BcrtStartBtn;
         private System.Windows.Forms.Button BcrtDestroyBtn;
         private System.Windows.Forms.Button BcrtCreateBtn;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.CheckBox VisionClientChk;
+        private System.Windows.Forms.TextBox VisionClientCommandTxt;
+        private System.Windows.Forms.Button VisionClientSendBtn;
     }
 }
 
