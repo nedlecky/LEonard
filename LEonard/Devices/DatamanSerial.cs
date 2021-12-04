@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public  class DatamanSerial
+    public class DatamanSerial : LeDeviceInterface
     {
         MainForm myForm;
         string myPortname;
@@ -16,7 +16,7 @@ namespace LEonard
         public string Value { get; set; }
 
 
-        public DatamanSerial(MainForm form)
+        public DatamanSerial(MainForm form) 
         {
             myForm = form;
             myForm.CrawlBarcode("DatamanSerial()");
@@ -25,6 +25,44 @@ namespace LEonard
         ~DatamanSerial()
         {
             myForm.CrawlBarcode("~DatamanSerial(): " + myPortname);
+        }
+        public int Connect(string portname)
+        {
+            myPortname = portname;
+            myForm.CrawlBarcode("DatamanSerial.Connect(" + myPortname + ")");
+
+            port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
+            port.Handshake = Handshake.XOnXOff;
+            port.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
+            port.WriteTimeout = 100;
+            port.DtrEnable = true;
+            port.RtsEnable = true;
+            port.Open();
+
+            myForm.CrawlBarcode("IsOpen=" + port.IsOpen);
+
+            return 0;
+        }
+
+        public int Disconnect()
+        {
+            myForm.CrawlBarcode("DatamanSerial.Disconnect(): " + myPortname);
+
+            port.Close();
+
+            return 0;
+        }
+
+        public int Send(string message)
+        {
+            //myForm.CrawlBarcode("Trigger(): " + myPortname);
+            port.Write(message);
+            return 0;
+        }
+        public string Receive()
+        {
+            //myForm.CrawlBarcode("Trigger(): " + myPortname);
+            return port.ReadLine();
         }
 
         public void DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -39,39 +77,6 @@ namespace LEonard
             }
             else
                 myForm.CrawlBarcode("Barcode ERROR");
-        }
-        public int Open(string portname)
-        {
-            myPortname = portname;
-            myForm.CrawlBarcode("DatamanSerial.Open(" + myPortname + ")");
-
-            port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
-            port.Handshake = Handshake.XOnXOff;
-            port.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
-            //port.Encoding = Encoding.ASCII;
-            port.WriteTimeout = 100;
-            port.DtrEnable = true;
-            port.RtsEnable = true;
-            port.Open();
-
-            myForm.CrawlBarcode("IsOpen=" + port.IsOpen);
-
-            return 0;
-        }
-
-        public int Close()
-        {
-            myForm.CrawlBarcode("DatamanSerial.Close(): " + myPortname);
-
-            port.Close();
-
-            return 0;
-        }
-
-        public void Trigger()
-        {
-            //myForm.CrawlBarcode("Trigger(): " + myPortname);
-            port.Write("+");
         }
 
     }

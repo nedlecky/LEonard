@@ -543,7 +543,7 @@
             // 
             // LogfileTxt
             // 
-            this.LogfileTxt.Location = new System.Drawing.Point(68, 44);
+            this.LogfileTxt.Location = new System.Drawing.Point(59, 6);
             this.LogfileTxt.Name = "LogfileTxt";
             this.LogfileTxt.Size = new System.Drawing.Size(237, 20);
             this.LogfileTxt.TabIndex = 57;
@@ -552,7 +552,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 47);
+            this.label3.Location = new System.Drawing.Point(15, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 56;
@@ -853,7 +853,7 @@
             // 
             // DefaultDevicesBtn
             // 
-            this.DefaultDevicesBtn.Location = new System.Drawing.Point(59, 292);
+            this.DefaultDevicesBtn.Location = new System.Drawing.Point(6, 280);
             this.DefaultDevicesBtn.Name = "DefaultDevicesBtn";
             this.DefaultDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.DefaultDevicesBtn.TabIndex = 61;
@@ -863,7 +863,7 @@
             // 
             // ReloadDevicesBtn
             // 
-            this.ReloadDevicesBtn.Location = new System.Drawing.Point(140, 292);
+            this.ReloadDevicesBtn.Location = new System.Drawing.Point(87, 280);
             this.ReloadDevicesBtn.Name = "ReloadDevicesBtn";
             this.ReloadDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.ReloadDevicesBtn.TabIndex = 60;
@@ -873,7 +873,7 @@
             // 
             // SaveDevicesBtn
             // 
-            this.SaveDevicesBtn.Location = new System.Drawing.Point(221, 292);
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(168, 280);
             this.SaveDevicesBtn.Name = "SaveDevicesBtn";
             this.SaveDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveDevicesBtn.TabIndex = 59;
@@ -884,9 +884,9 @@
             // DeviceGrid
             // 
             this.DeviceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DeviceGrid.Location = new System.Drawing.Point(59, 120);
+            this.DeviceGrid.Location = new System.Drawing.Point(6, 32);
             this.DeviceGrid.Name = "DeviceGrid";
-            this.DeviceGrid.Size = new System.Drawing.Size(483, 166);
+            this.DeviceGrid.Size = new System.Drawing.Size(620, 242);
             this.DeviceGrid.TabIndex = 58;
             // 
             // menuStrip

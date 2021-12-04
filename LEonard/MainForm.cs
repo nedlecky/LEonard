@@ -66,8 +66,8 @@ namespace LEonard
 
             dms[0] = new DatamanSerial(this);
             dms[1] = new DatamanSerial(this);
-            dms[0].Open("COM3");
-            dms[1].Open("COM4");
+            dms[0].Connect("COM3");
+            dms[1].Connect("COM4");
 
             StartThreads();
 
@@ -105,7 +105,7 @@ namespace LEonard
             //HeartbeatTmr.Enabled = false;
             for (int i = 0; i < nDatamanSerial; i++)
             {
-                dms[i].Close();
+                dms[i].Disconnect();
                 dms[i] = null;
             }
 
@@ -190,15 +190,15 @@ namespace LEonard
 
         private void TriggerDM1Btn_Click(object sender, EventArgs e)
         {
-            dms[0].Trigger();
-            // TODO how to wait here for lonmg enough? Wait for some response or timeout
+            dms[0].Send("+");
+            // TODO how to wait here for long enough? Wait for some response or timeout
             DM1DataLbl.Text = dms[0].ReadIndex + " " + dms[0].Value;
         }
 
         private void TriggerDM2Btn_Click(object sender, EventArgs e)
         {
-            dms[1].Trigger();
-            // TODO how to wait here for lonmg enough? Wait for some response or timeout
+            dms[1].Send("+");
+            // TODO how to wait here for long enough? Wait for some response or timeout
             DM2DataLbl.Text = dms[1].ReadIndex + " " + dms[1].Value;
         }
 
@@ -215,14 +215,14 @@ namespace LEonard
             if (CommandServerChk.Checked)
             {
                 commandServer = new LeTcpServer(this, "COMMAND: ");
-                commandServer.StartServer("192.168.0.252", "1000");
+                commandServer.Connect("192.168.0.252:1000");
                 commandServer.receiveCallback = CommandCallback;
             }
             else
             {
                 if (commandServer != null)
                 {
-                    commandServer.StopServer();
+                    commandServer.Disconnect();
                     commandServer = null;
                 }
             }
@@ -257,13 +257,13 @@ namespace LEonard
             if (RobotServerChk.Checked)
             {
                 robotServer = new LeTcpServer(this, "ROBOT: ");
-                robotServer.StartServer("192.168.0.252", "30000");
+                robotServer.Connect("192.168.0.252:30000");
             }
             else
             {
                 if (robotServer != null)
                 {
-                    robotServer.StopServer();
+                    robotServer.Disconnect();
                     robotServer = null;
                 }
             }
@@ -312,9 +312,9 @@ namespace LEonard
 
                 // All shoud be wrapped in nice RobotServer class
                 Thread.Sleep(100);
-                robotServer.StopServer();
+                robotServer.Disconnect();
                 //robotServer = new TcpServer(this, "ROBOT: ");
-                robotServer.StartServer("192.168.0.252", "30000");
+                robotServer.Connect("192.168.0.252:30000");
             }
         }
 
@@ -326,9 +326,9 @@ namespace LEonard
 
                 // All shoud be wrapped in nice RobotServer class
                 Thread.Sleep(100);
-                robotServer.StopServer();
+                robotServer.Disconnect();
                 //robotServer = new TcpServer(this, "ROBOT: ");
-                robotServer.StartServer("192.168.0.252", "30000");
+                robotServer.Connect("192.168.0.252:30000");
             }
         }
         private void VisionServerChk_CheckedChanged(object sender, EventArgs e)
@@ -336,13 +336,13 @@ namespace LEonard
             if (VisionServerChk.Checked)
             {
                 visionServer = new LeTcpServer(this, "VISION: ");
-                visionServer.StartServer("192.168.0.252", "20000");
+                visionServer.Connect("192.168.0.252:20000");
             }
             else
             {
                 if (visionServer != null)
                 {
-                    visionServer.StopServer();
+                    visionServer.Disconnect();
                     visionServer = null;
                 }
             }
@@ -419,6 +419,9 @@ namespace LEonard
             devices.Columns.Add("Running", typeof(System.Boolean));
             devices.Columns.Add("DeviceType", typeof(System.String));
             devices.Columns.Add("Address", typeof(System.String));
+
+            //devices.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //devices.Columns[0].
 
             devices.PrimaryKey = new DataColumn[] { nameColumn };
 

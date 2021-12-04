@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public class LeTcpClient
+    public class LeTcpClient :LeDeviceInterface
     {
         MainForm myForm;
         string crawlPrefix;
@@ -37,7 +37,12 @@ namespace LEonard
             return ip;
         }
 
-        public bool Connect(string IP, string port)
+        public int Connect(string IPport)
+        {
+            string[] s = IPport.Split(':');
+            return Connect(s[0], s[1]);
+        }
+        public int Connect(string IP, string port)
         {
             myIp = IP;
             myPort = port;
@@ -54,7 +59,7 @@ namespace LEonard
             catch
             {
                 myForm.CrawlError(crawlPrefix + "Ping failed");
-                return false;
+                return 1;
             }
 
             IPAddress ipAddress = IPAddress.Parse(myIp);
@@ -69,14 +74,14 @@ namespace LEonard
             catch
             {
                 myForm.CrawlError(crawlPrefix + "Could not connect");
-                return false;
+                return 2;
             }
 
             myForm.Crawl(crawlPrefix + "Connected");
-            return true;
+            return 0;
 
         }
-        public void Disconnect()
+        public int Disconnect()
         {
             myForm.Crawl(crawlPrefix + "Disconnect()");
 
@@ -90,11 +95,12 @@ namespace LEonard
                 client.Close();
                 client = null;
             }
+            return 0;
         }
 
         int sendErrorCount = 0;
         bool fSendBusy = false;
-        public void Send(string request)
+        public int Send(string request)
         {
             while (fSendBusy)
                 Thread.Sleep(10);
@@ -111,7 +117,7 @@ namespace LEonard
                     sendErrorCount = 0;
                 }
                 fSendBusy = false;
-                return;
+                return 1;
             }
 
             myForm.Crawl(crawlPrefix + "==> " + request.ToString());
@@ -132,9 +138,10 @@ namespace LEonard
                 }
             }
             fSendBusy = false;
+            return 0;
         }
 
-        public void Receive()
+        public string Receive()
         {
             if (stream != null)
             {
@@ -153,8 +160,10 @@ namespace LEonard
                     myForm.Crawl(crawlPrefix + "<== " + response);
 
                     // TODO Analyze the response!
+                    return response;
                 }
             }
+            return "";
         }
 
     }

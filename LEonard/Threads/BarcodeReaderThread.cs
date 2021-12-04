@@ -25,8 +25,8 @@ namespace LEonard
 
         void BarcodeWorker()
         {
-            myDms[0].Trigger();
-            myDms[1].Trigger();
+            myDms[0].Send("+");
+            myDms[1].Send("+");
         }
     }
 }

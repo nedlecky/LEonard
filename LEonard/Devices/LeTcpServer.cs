@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public class LeTcpServer
+    public class LeTcpServer : LeDeviceInterface
     {
         static MainForm myForm;
         TcpListener server;
@@ -33,13 +33,18 @@ namespace LEonard
             crawlPrefix = prefix;
         }
 
-        public bool StartServer(string IP, string port)
+        public int Connect(string IPport)
+        {
+            string[] s = IPport.Split(':');
+            return Connect(s[0], s[1]);
+        }
+        public int Connect(string IP, string port)
         {
             myIp = IP;
             myPort = port;
 
-            myForm.Crawl(crawlPrefix + "StartServer(" + IP + ", " + port + ")");
-            if (server != null) StopServer();
+            myForm.Crawl(crawlPrefix + "Connect(" + IP + ", " + port + ")");
+            if (server != null) Disconnect();
 
             IPAddress ipAddress = IPAddress.Parse(IP);
             IPEndPoint remoteEP = new IPEndPoint(IPAddressToLong(ipAddress), Int32.Parse(port));
@@ -52,10 +57,10 @@ namespace LEonard
             catch
             {
                 myForm.CrawlError(crawlPrefix + "Couldn't start server");
-                return false;
+                return 1;
             }
             myForm.Crawl(crawlPrefix + "Server: Waiting for client...");
-            return true;
+            return 0;
         }
 
         private long IPAddressToLong(IPAddress address)
@@ -69,15 +74,16 @@ namespace LEonard
             return ip;
         }
 
-        public void StopServer()
+        public int Disconnect()
         {
-            myForm.Crawl(crawlPrefix + "StopServer()");
+            myForm.Crawl(crawlPrefix + "Disconnect()");
             CloseConnection();
             if (server != null)
             {
                 server.Stop();
                 server = null;
             }
+            return 0;
         }
 
         void ClientConnected(IAsyncResult result)
@@ -130,16 +136,16 @@ namespace LEonard
             }
         }
 
-        public void Receive()
+        public string Receive()
         {
             if (stream != null)
             {
                 if (!IsConnected())
                 {
                     myForm.CrawlError(crawlPrefix + "Lost connection");
-                    StopServer();
-                    StartServer(myIp, myPort);
-                    return;
+                    Disconnect();
+                    Connect(myIp, myPort);
+                    return "";
                 }
 
                 int length = 0;
@@ -159,14 +165,17 @@ namespace LEonard
                     if (receiveCallback != null)
                         receiveCallback(input);
 
+                    return input;
+
                     //string response = "response to: " + command;
                     //Send(response);
                 }
             }
+            return "";
         }
 
         bool fSendBusy = false;
-        public void Send(string response)
+        public int Send(string response)
         {
             while (fSendBusy)
                 Thread.Sleep(10);
@@ -182,6 +191,7 @@ namespace LEonard
                 myForm.CrawlError(crawlPrefix + "TcpServer.Send() could not write to socket");
             }
             fSendBusy = false;
+            return 0;
         }
     }
 
