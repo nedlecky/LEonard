@@ -63,11 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comm\LeTcpClient.cs" />
-    <Compile Include="LEonardDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LEonardDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Threads\BarcodeReaderThread.cs" />
     <Compile Include="Util\Crawler.cs">
       <SubType>Form</SubType>
@@ -97,17 +92,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="LEonardDataSet.xsc">
-      <DependentUpon>LEonardDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="LEonardDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>LEonardDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LEonardDataSet.xss">
-      <DependentUpon>LEonardDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

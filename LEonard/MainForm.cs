@@ -17,6 +17,7 @@ namespace LEonard
 {
     public partial class MainForm : Form
     {
+        DataTable devices;
         LeTcpServer commandServer;
         LeTcpServer robotServer;
         LeTcpServer visionServer;
@@ -409,85 +410,41 @@ namespace LEonard
             this.Close();
         }
 
-        DataSet ds = new DataSet();
-        private static DataTable GetCustomers()
+        private void DefaultDevicesBtn_Click(object sender, EventArgs e)
         {
-            DataTable table = new DataTable("Customers");
+            devices = new DataTable("Devices");
 
-            DataColumn idColumn = table.Columns.Add("ID", typeof(System.Int32));
-            table.Columns.Add("Name", typeof(System.String));
+            DataColumn nameColumn = devices.Columns.Add("Name", typeof(System.String));
+            devices.Columns.Add("Enabled", typeof(System.Boolean));
+            devices.Columns.Add("Running", typeof(System.Boolean));
+            devices.Columns.Add("DeviceType", typeof(System.String));
+            devices.Columns.Add("Address", typeof(System.String));
 
-            table.PrimaryKey = new DataColumn[] { idColumn };
+            devices.PrimaryKey = new DataColumn[] { nameColumn };
 
-            table.Rows.Add(new object[] { 1, "Mary" });
-            table.Rows.Add(new object[] { 2, "Andy" });
-            table.Rows.Add(new object[] { 3, "Peter" });
-            table.Rows.Add(new object[] { 4, "Russ" });
-            table.AcceptChanges();
-            return table;
+
+            devices.Rows.Add(new object[] { "UR-5e", true, false, "Socket", "192.168.0.2:30000" });
+            devices.Rows.Add(new object[] { "Sherlock", true, false, "TCPserver", "192.168.0.2:20000" });
+            devices.Rows.Add(new object[] { "HALCON", true, false, "TCPclient", "192.168.0.2:21000" });
+            devices.Rows.Add(new object[] { "Command", true, false, "TCPserver", "192.168.0.2:1000" });
+            devices.Rows.Add(new object[] { "Dataman 1", true, false, "Serial", "COM3" });
+            devices.Rows.Add(new object[] { "Dataman 2", true, false, "Serial", "COM4" });
+
+            DeviceGrid.DataSource = devices;
         }
 
-        private static DataTable GetOrders()
+        private void ReloadDevicesBtn_Click(object sender, EventArgs e)
         {
-            DataTable table = new DataTable("Orders");
-
-            table.Columns.Add(new DataColumn("OrderID", typeof(System.Int32)));
-            table.Columns.Add(new DataColumn("CustomerID", typeof(System.Int32)));
-            table.Columns.Add(new DataColumn("OrderDate", typeof(System.DateTime)));
-
-            table.PrimaryKey = new DataColumn[] { table.Columns[0] };
-
-            table.Rows.Add(new object[] { 1, 1, "12/2/2003" });
-            table.Rows.Add(new object[] { 2, 1, "1/3/2004" });
-            table.Rows.Add(new object[] { 3, 2, "11/13/2004" });
-            table.Rows.Add(new object[] { 4, 3, "5/16/2004" });
-            table.Rows.Add(new object[] { 5, 3, "5/22/2004" });
-            table.Rows.Add(new object[] { 6, 4, "6/15/2004" });
-            table.AcceptChanges();
-            return table;
+            devices.Clear();
+            devices.ReadXmlSchema("devices_schema.xml");
+            devices.ReadXml("devices.xml");
+        }
+        private void SaveDevicesBtn_Click(object sender, EventArgs e)
+        {
+            devices.AcceptChanges();
+            devices.WriteXmlSchema("devices_schema.xml");
+            devices.WriteXml("devices.xml");
         }
 
-
-        private void TableSetup()
-        {
-            DataTable customerTable = GetCustomers();
-            DataTable orderTable = GetOrders();
-
-            ds.Relations.Clear();
-            ds.Tables.Clear();
-            ds.Tables.Add(customerTable);
-            ds.Tables.Add(orderTable);
-            //ds.Relations.Add("CustomerOrder",
-            //    new DataColumn[] { customerTable.Columns[0] },
-            //    new DataColumn[] { orderTable.Columns[1] }, true);
-
-            ds.WriteXmlSchema("ds_schema.xml");
-            ds.WriteXml("ds.xml");
-
-            //writer = new System.IO.StringWriter();
-            //customerTable.WriteXml(writer, XmlWriteMode.WriteSchema, true);
-            //PrintOutput(writer, "Customer table, with hierarchy");
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            TableSetup();
-            dataGridView1.DataSource = ds.Tables["Customers"];
-            dataGridView2.DataSource = ds.Tables["Orders"];
-            dataGridView3.DataSource = ds.Relations["CustomerOrder"];
-
-            Crawl("Complete");
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            ds.Clear();
-            ds.ReadXmlSchema("ds_schema.xml");
-            ds.ReadXml("ds.xml");
-
-            dataGridView1.DataSource = ds.Tables["Customers"];
-            dataGridView2.DataSource = ds.Tables["Orders"];
-            dataGridView3.DataSource = ds.Relations["CustomerOrder"];
-
-        }
     }
 }

@@ -90,9 +90,6 @@
             this.PersonalityTabs = new System.Windows.Forms.TabControl();
             this.RuntimeTab = new System.Windows.Forms.TabPage();
             this.ReportingTab = new System.Windows.Forms.TabPage();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.IoTab = new System.Windows.Forms.TabPage();
             this.StaticDevicesTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -102,6 +99,10 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ConfigTab = new System.Windows.Forms.TabPage();
+            this.DefaultDevicesBtn = new System.Windows.Forms.Button();
+            this.ReloadDevicesBtn = new System.Windows.Forms.Button();
+            this.SaveDevicesBtn = new System.Windows.Forms.Button();
+            this.DeviceGrid = new System.Windows.Forms.DataGridView();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -114,8 +115,6 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -128,10 +127,6 @@
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.PersonalityTabs.SuspendLayout();
-            this.ReportingTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.IoTab.SuspendLayout();
             this.StaticDevicesTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -140,6 +135,7 @@
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.ConfigTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DeviceGrid)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -739,9 +735,6 @@
             // 
             // ReportingTab
             // 
-            this.ReportingTab.Controls.Add(this.dataGridView3);
-            this.ReportingTab.Controls.Add(this.dataGridView2);
-            this.ReportingTab.Controls.Add(this.dataGridView1);
             this.ReportingTab.Location = new System.Drawing.Point(4, 22);
             this.ReportingTab.Name = "ReportingTab";
             this.ReportingTab.Padding = new System.Windows.Forms.Padding(3);
@@ -749,30 +742,6 @@
             this.ReportingTab.TabIndex = 1;
             this.ReportingTab.Text = "Reporting";
             this.ReportingTab.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView3
-            // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(50, 484);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(558, 198);
-            this.dataGridView3.TabIndex = 2;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(50, 261);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(558, 198);
-            this.dataGridView2.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(50, 42);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(558, 186);
-            this.dataGridView1.TabIndex = 0;
             // 
             // IoTab
             // 
@@ -868,6 +837,10 @@
             // 
             // ConfigTab
             // 
+            this.ConfigTab.Controls.Add(this.DefaultDevicesBtn);
+            this.ConfigTab.Controls.Add(this.ReloadDevicesBtn);
+            this.ConfigTab.Controls.Add(this.SaveDevicesBtn);
+            this.ConfigTab.Controls.Add(this.DeviceGrid);
             this.ConfigTab.Controls.Add(this.label3);
             this.ConfigTab.Controls.Add(this.LogfileTxt);
             this.ConfigTab.Location = new System.Drawing.Point(4, 22);
@@ -877,6 +850,44 @@
             this.ConfigTab.TabIndex = 3;
             this.ConfigTab.Text = "Config";
             this.ConfigTab.UseVisualStyleBackColor = true;
+            // 
+            // DefaultDevicesBtn
+            // 
+            this.DefaultDevicesBtn.Location = new System.Drawing.Point(59, 292);
+            this.DefaultDevicesBtn.Name = "DefaultDevicesBtn";
+            this.DefaultDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.DefaultDevicesBtn.TabIndex = 61;
+            this.DefaultDevicesBtn.Text = "Default";
+            this.DefaultDevicesBtn.UseVisualStyleBackColor = true;
+            this.DefaultDevicesBtn.Click += new System.EventHandler(this.DefaultDevicesBtn_Click);
+            // 
+            // ReloadDevicesBtn
+            // 
+            this.ReloadDevicesBtn.Location = new System.Drawing.Point(140, 292);
+            this.ReloadDevicesBtn.Name = "ReloadDevicesBtn";
+            this.ReloadDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.ReloadDevicesBtn.TabIndex = 60;
+            this.ReloadDevicesBtn.Text = "Reload";
+            this.ReloadDevicesBtn.UseVisualStyleBackColor = true;
+            this.ReloadDevicesBtn.Click += new System.EventHandler(this.ReloadDevicesBtn_Click);
+            // 
+            // SaveDevicesBtn
+            // 
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(221, 292);
+            this.SaveDevicesBtn.Name = "SaveDevicesBtn";
+            this.SaveDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveDevicesBtn.TabIndex = 59;
+            this.SaveDevicesBtn.Text = "Save";
+            this.SaveDevicesBtn.UseVisualStyleBackColor = true;
+            this.SaveDevicesBtn.Click += new System.EventHandler(this.SaveDevicesBtn_Click);
+            // 
+            // DeviceGrid
+            // 
+            this.DeviceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DeviceGrid.Location = new System.Drawing.Point(59, 120);
+            this.DeviceGrid.Name = "DeviceGrid";
+            this.DeviceGrid.Size = new System.Drawing.Size(483, 166);
+            this.DeviceGrid.TabIndex = 58;
             // 
             // menuStrip
             // 
@@ -970,33 +981,11 @@
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(375, 485);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 65;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(375, 519);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 66;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1104, 819);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.PersonalityTabs);
             this.Controls.Add(this.groupBox5);
@@ -1026,10 +1015,6 @@
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.PersonalityTabs.ResumeLayout(false);
-            this.ReportingTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.IoTab.ResumeLayout(false);
             this.IoTab.PerformLayout();
             this.StaticDevicesTab.ResumeLayout(false);
@@ -1040,6 +1025,7 @@
             this.tabPage5.ResumeLayout(false);
             this.ConfigTab.ResumeLayout(false);
             this.ConfigTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DeviceGrid)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -1132,11 +1118,10 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView DeviceGrid;
+        private System.Windows.Forms.Button SaveDevicesBtn;
+        private System.Windows.Forms.Button ReloadDevicesBtn;
+        private System.Windows.Forms.Button DefaultDevicesBtn;
     }
 }
 
