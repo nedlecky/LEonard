@@ -62,6 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevicesUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Devices\LeTcpClient.cs" />
     <Compile Include="Devices\LeDeviceInterface.cs" />
     <Compile Include="Threads\BarcodeReaderThread.cs" />

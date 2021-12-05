@@ -85,34 +85,38 @@ namespace LEonard
             {
                 string message = crawlMessages.Dequeue();
 
-                // Add message to ErrorCrawlRTB and make color red if it contains "ERROR"
-                if (message.Contains("ERROR"))
-                {
-                    LimitRTBLength(ErrorCrawlRTB, maxRtbLength);
-                    AllCrawlRTB.SelectionColor = Color.Red;
-                    ErrorCrawlRTB.AppendText(message + "\n");
-                }
-
-                // Add message to AllCrawlRTB
-                AllCrawlRTB.AppendText(message + "\n");
-                AllCrawlRTB.ScrollToCaret();
-                AllCrawlRTB.SelectionColor = System.Drawing.Color.Black;
-                LimitRTBLength(AllCrawlRTB, maxRtbLength);
-                
                 // Append to logfile
                 try
                 {
-                    File.AppendAllText(LogfileTxt.Text, message + "\r\n");
+                    File.AppendAllText(Path.Combine(LEonardRoot,"LEonard.log"), message + "\r\n");
                 }
                 catch
                 {
 
                 }
 
-                // Add message to CommandCrawlRTB well if it contains "ROBOT:"
+                // Add message to ErrorCrawlRTB and make color red if it contains "ERROR"
+                Color messageColor = Color.Black;
+                if (message.Contains("ERROR"))
+                {
+                    messageColor = Color.Red;
+                    LimitRTBLength(ErrorCrawlRTB, maxRtbLength);
+                    ErrorCrawlRTB.SelectionColor = messageColor;
+                    ErrorCrawlRTB.AppendText(message + "\n");
+                    ErrorCrawlRTB.ScrollToCaret();
+                }
+
+                // Add message to AllCrawlRTB
+                LimitRTBLength(AllCrawlRTB, maxRtbLength);
+                AllCrawlRTB.SelectionColor = messageColor;
+                AllCrawlRTB.AppendText(message + "\n");
+                AllCrawlRTB.ScrollToCaret();
+                
+                // Add message to CommandCrawlRTB well if it contains "COMMAND:"
                 if (message.Contains("COMMAND:"))
                 {
                     LimitRTBLength(CommandCrawlRTB, maxRtbLength);
+                    CommandCrawlRTB.SelectionColor = messageColor;
                     CommandCrawlRTB.AppendText(message + "\n");
                     CommandCrawlRTB.ScrollToCaret();
                 }
@@ -121,6 +125,7 @@ namespace LEonard
                 if (message.Contains("ROBOT:"))
                 {
                     LimitRTBLength(RobotCrawlRTB, maxRtbLength);
+                    RobotCrawlRTB.SelectionColor = messageColor;
                     RobotCrawlRTB.AppendText(message + "\n");
                     RobotCrawlRTB.ScrollToCaret();
                 }
@@ -129,6 +134,7 @@ namespace LEonard
                 if (message.Contains("VISION:"))
                 {
                     LimitRTBLength(VisionCrawlRTB, maxRtbLength);
+                    VisionCrawlRTB.SelectionColor = messageColor;
                     VisionCrawlRTB.AppendText(message + "\n");
                     VisionCrawlRTB.ScrollToCaret();
                 }
@@ -137,6 +143,7 @@ namespace LEonard
                 if (message.Contains("BARCODE:"))
                 {
                     LimitRTBLength(BarcodeCrawlRTB, maxRtbLength);
+                    BarcodeCrawlRTB.SelectionColor = messageColor;
                     BarcodeCrawlRTB.AppendText(message + "\n");
                     BarcodeCrawlRTB.ScrollToCaret();
                 }

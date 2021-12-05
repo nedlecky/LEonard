@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,7 @@ namespace LEonard
 {
     public partial class MainForm : Form
     {
+        string LEonardRoot = "./";
         DataTable devices;
         LeTcpServer commandServer;
         LeTcpServer robotServer;
@@ -31,6 +33,37 @@ namespace LEonard
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            string companyName = Application.CompanyName;
+            string appName = Application.ProductName;
+            string productVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string executable = Application.ExecutablePath;
+            string filename = Path.GetFileName(executable);
+            string directory = Path.GetDirectoryName(executable);
+            string caption = companyName + " " + appName + " " + productVersion;
+#if DEBUG
+            caption += " RUNNING IN DEBUG MODE";
+#endif
+            this.Text = caption;
+
+            LoadConfigBtn_Click(null, null);
+
+            Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
+
+
+            if(AutoLoadChk.Checked)
+            {
+                LoadDevicesFile(StartupDevicesLbl.Text);
+            }
+
+
+
+
+
+            Connect();
         }
 
         bool forceClose = false;
@@ -80,24 +113,6 @@ namespace LEonard
             Crawl("System ready.");
         }
 
-        private void StartThreads()
-        {
-            Crawl("StartThreads()...");
-
-            bcrt = new BarcodeReaderThread(this, dms);
-            bcrt.Enable(BarcodeReaderThreadChk.Checked);
-            bcrt.Start();
-        }
-        private void EndThreads()
-        {
-            Crawl("EndThreads()...");
-
-            if (bcrt != null)
-            {
-                bcrt.End();
-                bcrt = null;
-            }
-        }
 
         private void Disconnect()
         {
@@ -119,21 +134,23 @@ namespace LEonard
             Crawl("Disconnect() complete");
 
         }
-        private void MainForm_Load(object sender, EventArgs e)
+        private void StartThreads()
         {
-            string companyName = Application.CompanyName;
-            string appName = Application.ProductName;
-            string productVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string executable = Application.ExecutablePath;
-            string filename = Path.GetFileName(executable);
-            string directory = Path.GetDirectoryName(executable);
-            string caption = companyName + " " + appName + " " + productVersion;
-#if DEBUG
-            caption += " RUNNING IN DEBUG MODE";
-#endif
-            this.Text = caption;
-            Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
-            Connect();
+            Crawl("StartThreads()...");
+
+            bcrt = new BarcodeReaderThread(this, dms);
+            bcrt.Enable(BarcodeReaderThreadChk.Checked);
+            bcrt.Start();
+        }
+        private void EndThreads()
+        {
+            Crawl("EndThreads()...");
+
+            if (bcrt != null)
+            {
+                bcrt.End();
+                bcrt = null;
+            }
         }
 
         private void HeartbeatTmr_Tick(object sender, EventArgs e)
@@ -184,6 +201,7 @@ namespace LEonard
                 MessageTmr_Tick(null, null);
                 CloseTmr.Enabled = false;
                 forceClose = true;
+                SaveConfigBtn_Click(null, null);
                 this.Close();
             }
         }
@@ -408,45 +426,6 @@ namespace LEonard
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void DefaultDevicesBtn_Click(object sender, EventArgs e)
-        {
-            devices = new DataTable("Devices");
-
-            DataColumn nameColumn = devices.Columns.Add("Name", typeof(System.String));
-            devices.Columns.Add("Enabled", typeof(System.Boolean));
-            devices.Columns.Add("Running", typeof(System.Boolean));
-            devices.Columns.Add("DeviceType", typeof(System.String));
-            devices.Columns.Add("Address", typeof(System.String));
-
-            //devices.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //devices.Columns[0].
-
-            devices.PrimaryKey = new DataColumn[] { nameColumn };
-
-
-            devices.Rows.Add(new object[] { "UR-5e", true, false, "Socket", "192.168.0.2:30000" });
-            devices.Rows.Add(new object[] { "Sherlock", true, false, "TCPserver", "192.168.0.2:20000" });
-            devices.Rows.Add(new object[] { "HALCON", true, false, "TCPclient", "192.168.0.2:21000" });
-            devices.Rows.Add(new object[] { "Command", true, false, "TCPserver", "192.168.0.2:1000" });
-            devices.Rows.Add(new object[] { "Dataman 1", true, false, "Serial", "COM3" });
-            devices.Rows.Add(new object[] { "Dataman 2", true, false, "Serial", "COM4" });
-
-            DeviceGrid.DataSource = devices;
-        }
-
-        private void ReloadDevicesBtn_Click(object sender, EventArgs e)
-        {
-            devices.Clear();
-            devices.ReadXmlSchema("devices_schema.xml");
-            devices.ReadXml("devices.xml");
-        }
-        private void SaveDevicesBtn_Click(object sender, EventArgs e)
-        {
-            devices.AcceptChanges();
-            devices.WriteXmlSchema("devices_schema.xml");
-            devices.WriteXml("devices.xml");
         }
 
     }

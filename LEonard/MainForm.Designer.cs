@@ -71,8 +71,6 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.CommandClearBtn = new System.Windows.Forms.Button();
             this.CommandCrawlRTB = new System.Windows.Forms.RichTextBox();
-            this.LogfileTxt = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.Robot99Btn = new System.Windows.Forms.Button();
@@ -83,10 +81,10 @@
             this.Robot2Btn = new System.Windows.Forms.Button();
             this.Robot1Btn = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.VisionClientCommandTxt = new System.Windows.Forms.TextBox();
             this.VisionClientSendBtn = new System.Windows.Forms.Button();
             this.VisionClientChk = new System.Windows.Forms.CheckBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.PersonalityTabs = new System.Windows.Forms.TabControl();
             this.RuntimeTab = new System.Windows.Forms.TabPage();
             this.ReportingTab = new System.Windows.Forms.TabPage();
@@ -99,8 +97,22 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ConfigTab = new System.Windows.Forms.TabPage();
+            this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
+            this.DevicesFilenameLbl = new System.Windows.Forms.Label();
+            this.ConfigGrp = new System.Windows.Forms.GroupBox();
+            this.AutoStartChk = new System.Windows.Forms.CheckBox();
+            this.AutoLoadChk = new System.Windows.Forms.CheckBox();
+            this.ChangeStartupDevicesBtn = new System.Windows.Forms.Button();
+            this.StartupDevicesLbl = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ChangeLEonardRootBtn = new System.Windows.Forms.Button();
+            this.LEonardRootLbl = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.DefaultConfigBtn = new System.Windows.Forms.Button();
+            this.LoadConfigBtn = new System.Windows.Forms.Button();
+            this.SaveConfigBtn = new System.Windows.Forms.Button();
             this.DefaultDevicesBtn = new System.Windows.Forms.Button();
-            this.ReloadDevicesBtn = new System.Windows.Forms.Button();
+            this.LoadDevicesBtn = new System.Windows.Forms.Button();
             this.SaveDevicesBtn = new System.Windows.Forms.Button();
             this.DeviceGrid = new System.Windows.Forms.DataGridView();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -125,16 +137,12 @@
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            this.groupBox10.SuspendLayout();
             this.PersonalityTabs.SuspendLayout();
             this.IoTab.SuspendLayout();
             this.StaticDevicesTab.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             this.ConfigTab.SuspendLayout();
+            this.ConfigGrp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceGrid)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -149,7 +157,7 @@
             this.AllCrawlRTB.Location = new System.Drawing.Point(6, 48);
             this.AllCrawlRTB.Name = "AllCrawlRTB";
             this.AllCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 345);
+            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 294);
             this.AllCrawlRTB.TabIndex = 6;
             this.AllCrawlRTB.Text = "";
             // 
@@ -168,7 +176,7 @@
             // 
             // CrawlerClearBtn
             // 
-            this.CrawlerClearBtn.Location = new System.Drawing.Point(6, 399);
+            this.CrawlerClearBtn.Location = new System.Drawing.Point(362, 50);
             this.CrawlerClearBtn.Name = "CrawlerClearBtn";
             this.CrawlerClearBtn.Size = new System.Drawing.Size(50, 23);
             this.CrawlerClearBtn.TabIndex = 9;
@@ -207,7 +215,7 @@
             // 
             // ErrorClearBtn
             // 
-            this.ErrorClearBtn.Location = new System.Drawing.Point(6, 211);
+            this.ErrorClearBtn.Location = new System.Drawing.Point(362, 19);
             this.ErrorClearBtn.Name = "ErrorClearBtn";
             this.ErrorClearBtn.Size = new System.Drawing.Size(50, 23);
             this.ErrorClearBtn.TabIndex = 17;
@@ -220,7 +228,7 @@
             this.ErrorCrawlRTB.Location = new System.Drawing.Point(6, 16);
             this.ErrorCrawlRTB.Name = "ErrorCrawlRTB";
             this.ErrorCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.ErrorCrawlRTB.Size = new System.Drawing.Size(420, 189);
+            this.ErrorCrawlRTB.Size = new System.Drawing.Size(420, 218);
             this.ErrorCrawlRTB.TabIndex = 15;
             this.ErrorCrawlRTB.Text = "";
             // 
@@ -239,7 +247,7 @@
             this.BarcodeGrp.Controls.Add(this.DM1DataLbl);
             this.BarcodeGrp.Controls.Add(this.TriggerDM2Btn);
             this.BarcodeGrp.Controls.Add(this.TriggerDM1Btn);
-            this.BarcodeGrp.Location = new System.Drawing.Point(6, 6);
+            this.BarcodeGrp.Location = new System.Drawing.Point(1108, 577);
             this.BarcodeGrp.Name = "BarcodeGrp";
             this.BarcodeGrp.Size = new System.Drawing.Size(306, 217);
             this.BarcodeGrp.TabIndex = 22;
@@ -346,7 +354,7 @@
             // 
             // StartTestClientBtn
             // 
-            this.StartTestClientBtn.Location = new System.Drawing.Point(119, 19);
+            this.StartTestClientBtn.Location = new System.Drawing.Point(6, 44);
             this.StartTestClientBtn.Name = "StartTestClientBtn";
             this.StartTestClientBtn.Size = new System.Drawing.Size(75, 56);
             this.StartTestClientBtn.TabIndex = 25;
@@ -416,7 +424,7 @@
             // 
             this.groupBox1.Controls.Add(this.RobotClearBtn);
             this.groupBox1.Controls.Add(this.RobotCrawlRTB);
-            this.groupBox1.Location = new System.Drawing.Point(6, 223);
+            this.groupBox1.Location = new System.Drawing.Point(1358, 52);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(388, 252);
             this.groupBox1.TabIndex = 32;
@@ -427,7 +435,7 @@
             // 
             this.groupBox2.Controls.Add(this.BarcodeClearBtn);
             this.groupBox2.Controls.Add(this.BarcodeCrawlRTB);
-            this.groupBox2.Location = new System.Drawing.Point(6, 229);
+            this.groupBox2.Location = new System.Drawing.Point(1433, 580);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(388, 252);
             this.groupBox2.TabIndex = 33;
@@ -457,7 +465,7 @@
             // 
             this.groupBox3.Controls.Add(this.VisionCrawlRTB);
             this.groupBox3.Controls.Add(this.VisionClearBtn);
-            this.groupBox3.Location = new System.Drawing.Point(6, 230);
+            this.groupBox3.Location = new System.Drawing.Point(1416, 322);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(388, 252);
             this.groupBox3.TabIndex = 34;
@@ -472,7 +480,7 @@
             this.groupBox4.Controls.Add(this.AllCrawlRTB);
             this.groupBox4.Location = new System.Drawing.Point(12, 27);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(438, 433);
+            this.groupBox4.Size = new System.Drawing.Size(438, 348);
             this.groupBox4.TabIndex = 35;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "All Messages";
@@ -502,11 +510,11 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.ErrorCrawlRTB);
             this.groupBox5.Controls.Add(this.ErrorClearBtn);
+            this.groupBox5.Controls.Add(this.ErrorCrawlRTB);
             this.groupBox5.Location = new System.Drawing.Point(12, 548);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(432, 241);
+            this.groupBox5.Size = new System.Drawing.Size(438, 241);
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "All ERROR Messages";
@@ -515,16 +523,16 @@
             // 
             this.groupBox6.Controls.Add(this.CommandClearBtn);
             this.groupBox6.Controls.Add(this.CommandCrawlRTB);
-            this.groupBox6.Location = new System.Drawing.Point(6, 113);
+            this.groupBox6.Location = new System.Drawing.Point(148, 381);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(602, 202);
+            this.groupBox6.Size = new System.Drawing.Size(302, 161);
             this.groupBox6.TabIndex = 36;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Command Messages";
             // 
             // CommandClearBtn
             // 
-            this.CommandClearBtn.Location = new System.Drawing.Point(6, 170);
+            this.CommandClearBtn.Location = new System.Drawing.Point(226, 21);
             this.CommandClearBtn.Name = "CommandClearBtn";
             this.CommandClearBtn.Size = new System.Drawing.Size(50, 23);
             this.CommandClearBtn.TabIndex = 9;
@@ -537,34 +545,17 @@
             this.CommandCrawlRTB.Location = new System.Drawing.Point(6, 19);
             this.CommandCrawlRTB.Name = "CommandCrawlRTB";
             this.CommandCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.CommandCrawlRTB.Size = new System.Drawing.Size(420, 145);
+            this.CommandCrawlRTB.Size = new System.Drawing.Size(284, 120);
             this.CommandCrawlRTB.TabIndex = 6;
             this.CommandCrawlRTB.Text = "";
-            // 
-            // LogfileTxt
-            // 
-            this.LogfileTxt.Location = new System.Drawing.Point(59, 6);
-            this.LogfileTxt.Name = "LogfileTxt";
-            this.LogfileTxt.Size = new System.Drawing.Size(237, 20);
-            this.LogfileTxt.TabIndex = 57;
-            this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/LEonard.log";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 56;
-            this.label3.Text = "Logfile";
             // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.StartTestClientBtn);
             this.groupBox7.Controls.Add(this.CommandServerChk);
-            this.groupBox7.Location = new System.Drawing.Point(6, 7);
+            this.groupBox7.Location = new System.Drawing.Point(12, 381);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(204, 100);
+            this.groupBox7.Size = new System.Drawing.Size(130, 161);
             this.groupBox7.TabIndex = 58;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Command";
@@ -581,9 +572,9 @@
             this.groupBox8.Controls.Add(this.RobotSendBtn);
             this.groupBox8.Controls.Add(this.RobotServerChk);
             this.groupBox8.Controls.Add(this.RobotCommandTxt);
-            this.groupBox8.Location = new System.Drawing.Point(6, 6);
+            this.groupBox8.Location = new System.Drawing.Point(1110, 49);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(281, 207);
+            this.groupBox8.Size = new System.Drawing.Size(227, 207);
             this.groupBox8.TabIndex = 59;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Robot Commands";
@@ -660,31 +651,22 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.VisionClientCommandTxt);
             this.groupBox9.Controls.Add(this.VisionServerChk);
+            this.groupBox9.Controls.Add(this.VisionClientSendBtn);
             this.groupBox9.Controls.Add(this.VisionCommandTxt);
+            this.groupBox9.Controls.Add(this.VisionClientChk);
             this.groupBox9.Controls.Add(this.VisionSendBtn);
-            this.groupBox9.Location = new System.Drawing.Point(6, 6);
+            this.groupBox9.Location = new System.Drawing.Point(1110, 322);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(281, 213);
             this.groupBox9.TabIndex = 60;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Vision Commands";
             // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.VisionClientCommandTxt);
-            this.groupBox10.Controls.Add(this.VisionClientSendBtn);
-            this.groupBox10.Controls.Add(this.VisionClientChk);
-            this.groupBox10.Location = new System.Drawing.Point(6, 6);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(246, 213);
-            this.groupBox10.TabIndex = 61;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Vision Client";
-            // 
             // VisionClientCommandTxt
             // 
-            this.VisionClientCommandTxt.Location = new System.Drawing.Point(15, 43);
+            this.VisionClientCommandTxt.Location = new System.Drawing.Point(13, 109);
             this.VisionClientCommandTxt.Name = "VisionClientCommandTxt";
             this.VisionClientCommandTxt.Size = new System.Drawing.Size(119, 20);
             this.VisionClientCommandTxt.TabIndex = 33;
@@ -692,7 +674,7 @@
             // 
             // VisionClientSendBtn
             // 
-            this.VisionClientSendBtn.Location = new System.Drawing.Point(149, 43);
+            this.VisionClientSendBtn.Location = new System.Drawing.Point(141, 106);
             this.VisionClientSendBtn.Name = "VisionClientSendBtn";
             this.VisionClientSendBtn.Size = new System.Drawing.Size(75, 23);
             this.VisionClientSendBtn.TabIndex = 32;
@@ -703,13 +685,22 @@
             // VisionClientChk
             // 
             this.VisionClientChk.AutoSize = true;
-            this.VisionClientChk.Location = new System.Drawing.Point(6, 20);
+            this.VisionClientChk.Location = new System.Drawing.Point(6, 86);
             this.VisionClientChk.Name = "VisionClientChk";
             this.VisionClientChk.Size = new System.Drawing.Size(83, 17);
             this.VisionClientChk.TabIndex = 30;
             this.VisionClientChk.Text = "Vision Client";
             this.VisionClientChk.UseVisualStyleBackColor = true;
             this.VisionClientChk.CheckedChanged += new System.EventHandler(this.VisionClientChk_CheckedChanged);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Location = new System.Drawing.Point(6, 6);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(246, 213);
+            this.groupBox10.TabIndex = 61;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Vision Client";
             // 
             // PersonalityTabs
             // 
@@ -770,8 +761,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -782,8 +771,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -794,8 +781,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.groupBox9);
-            this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -817,8 +802,6 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.groupBox2);
-            this.tabPage5.Controls.Add(this.BarcodeGrp);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -837,12 +820,13 @@
             // 
             // ConfigTab
             // 
+            this.ConfigTab.Controls.Add(this.SaveAsDevicesBtn);
+            this.ConfigTab.Controls.Add(this.DevicesFilenameLbl);
+            this.ConfigTab.Controls.Add(this.ConfigGrp);
             this.ConfigTab.Controls.Add(this.DefaultDevicesBtn);
-            this.ConfigTab.Controls.Add(this.ReloadDevicesBtn);
+            this.ConfigTab.Controls.Add(this.LoadDevicesBtn);
             this.ConfigTab.Controls.Add(this.SaveDevicesBtn);
             this.ConfigTab.Controls.Add(this.DeviceGrid);
-            this.ConfigTab.Controls.Add(this.label3);
-            this.ConfigTab.Controls.Add(this.LogfileTxt);
             this.ConfigTab.Location = new System.Drawing.Point(4, 22);
             this.ConfigTab.Name = "ConfigTab";
             this.ConfigTab.Padding = new System.Windows.Forms.Padding(3);
@@ -851,9 +835,157 @@
             this.ConfigTab.Text = "Config";
             this.ConfigTab.UseVisualStyleBackColor = true;
             // 
+            // SaveAsDevicesBtn
+            // 
+            this.SaveAsDevicesBtn.Enabled = false;
+            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(251, 470);
+            this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
+            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveAsDevicesBtn.TabIndex = 64;
+            this.SaveAsDevicesBtn.Text = "Save As...";
+            this.SaveAsDevicesBtn.UseVisualStyleBackColor = true;
+            this.SaveAsDevicesBtn.Click += new System.EventHandler(this.SaveAsDevicesBtn_Click);
+            // 
+            // DevicesFilenameLbl
+            // 
+            this.DevicesFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DevicesFilenameLbl.Location = new System.Drawing.Point(6, 196);
+            this.DevicesFilenameLbl.Name = "DevicesFilenameLbl";
+            this.DevicesFilenameLbl.Size = new System.Drawing.Size(622, 23);
+            this.DevicesFilenameLbl.TabIndex = 63;
+            this.DevicesFilenameLbl.Text = "Untitled";
+            // 
+            // ConfigGrp
+            // 
+            this.ConfigGrp.Controls.Add(this.AutoStartChk);
+            this.ConfigGrp.Controls.Add(this.AutoLoadChk);
+            this.ConfigGrp.Controls.Add(this.ChangeStartupDevicesBtn);
+            this.ConfigGrp.Controls.Add(this.StartupDevicesLbl);
+            this.ConfigGrp.Controls.Add(this.label3);
+            this.ConfigGrp.Controls.Add(this.ChangeLEonardRootBtn);
+            this.ConfigGrp.Controls.Add(this.LEonardRootLbl);
+            this.ConfigGrp.Controls.Add(this.label1);
+            this.ConfigGrp.Controls.Add(this.DefaultConfigBtn);
+            this.ConfigGrp.Controls.Add(this.LoadConfigBtn);
+            this.ConfigGrp.Controls.Add(this.SaveConfigBtn);
+            this.ConfigGrp.Location = new System.Drawing.Point(6, 6);
+            this.ConfigGrp.Name = "ConfigGrp";
+            this.ConfigGrp.Size = new System.Drawing.Size(622, 175);
+            this.ConfigGrp.TabIndex = 62;
+            this.ConfigGrp.TabStop = false;
+            this.ConfigGrp.Text = "Config";
+            // 
+            // AutoStartChk
+            // 
+            this.AutoStartChk.AutoSize = true;
+            this.AutoStartChk.Location = new System.Drawing.Point(265, 73);
+            this.AutoStartChk.Name = "AutoStartChk";
+            this.AutoStartChk.Size = new System.Drawing.Size(177, 17);
+            this.AutoStartChk.TabIndex = 72;
+            this.AutoStartChk.Text = "Auto Start All Devices on Load?";
+            this.AutoStartChk.UseVisualStyleBackColor = true;
+            this.AutoStartChk.CheckedChanged += new System.EventHandler(this.AutoStartChk_CheckedChanged);
+            // 
+            // AutoLoadChk
+            // 
+            this.AutoLoadChk.AutoSize = true;
+            this.AutoLoadChk.Location = new System.Drawing.Point(138, 74);
+            this.AutoLoadChk.Name = "AutoLoadChk";
+            this.AutoLoadChk.Size = new System.Drawing.Size(121, 17);
+            this.AutoLoadChk.TabIndex = 71;
+            this.AutoLoadChk.Text = "Auto Load on Start?";
+            this.AutoLoadChk.UseVisualStyleBackColor = true;
+            this.AutoLoadChk.CheckedChanged += new System.EventHandler(this.AutoLoadChk_CheckedChanged);
+            // 
+            // ChangeStartupDevicesBtn
+            // 
+            this.ChangeStartupDevicesBtn.Location = new System.Drawing.Point(504, 42);
+            this.ChangeStartupDevicesBtn.Name = "ChangeStartupDevicesBtn";
+            this.ChangeStartupDevicesBtn.Size = new System.Drawing.Size(24, 23);
+            this.ChangeStartupDevicesBtn.TabIndex = 70;
+            this.ChangeStartupDevicesBtn.Text = "...";
+            this.ChangeStartupDevicesBtn.UseVisualStyleBackColor = true;
+            this.ChangeStartupDevicesBtn.Click += new System.EventHandler(this.ChangeStartupDevicesBtn_Click);
+            // 
+            // StartupDevicesLbl
+            // 
+            this.StartupDevicesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.StartupDevicesLbl.Location = new System.Drawing.Point(122, 42);
+            this.StartupDevicesLbl.Name = "StartupDevicesLbl";
+            this.StartupDevicesLbl.Size = new System.Drawing.Size(385, 23);
+            this.StartupDevicesLbl.TabIndex = 69;
+            this.StartupDevicesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 47);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 13);
+            this.label3.TabIndex = 68;
+            this.label3.Text = "Startup Devices File";
+            // 
+            // ChangeLEonardRootBtn
+            // 
+            this.ChangeLEonardRootBtn.Location = new System.Drawing.Point(504, 17);
+            this.ChangeLEonardRootBtn.Name = "ChangeLEonardRootBtn";
+            this.ChangeLEonardRootBtn.Size = new System.Drawing.Size(24, 23);
+            this.ChangeLEonardRootBtn.TabIndex = 67;
+            this.ChangeLEonardRootBtn.Text = "...";
+            this.ChangeLEonardRootBtn.UseVisualStyleBackColor = true;
+            this.ChangeLEonardRootBtn.Click += new System.EventHandler(this.ChangeLEonardRootBtn_Click);
+            // 
+            // LEonardRootLbl
+            // 
+            this.LEonardRootLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LEonardRootLbl.Location = new System.Drawing.Point(122, 19);
+            this.LEonardRootLbl.Name = "LEonardRootLbl";
+            this.LEonardRootLbl.Size = new System.Drawing.Size(385, 23);
+            this.LEonardRootLbl.TabIndex = 66;
+            this.LEonardRootLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(43, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(73, 13);
+            this.label1.TabIndex = 64;
+            this.label1.Text = "LEonard Root";
+            // 
+            // DefaultConfigBtn
+            // 
+            this.DefaultConfigBtn.Location = new System.Drawing.Point(6, 146);
+            this.DefaultConfigBtn.Name = "DefaultConfigBtn";
+            this.DefaultConfigBtn.Size = new System.Drawing.Size(75, 23);
+            this.DefaultConfigBtn.TabIndex = 63;
+            this.DefaultConfigBtn.Text = "Default";
+            this.DefaultConfigBtn.UseVisualStyleBackColor = true;
+            this.DefaultConfigBtn.Click += new System.EventHandler(this.DefaultConfigBtn_Click);
+            // 
+            // LoadConfigBtn
+            // 
+            this.LoadConfigBtn.Location = new System.Drawing.Point(87, 146);
+            this.LoadConfigBtn.Name = "LoadConfigBtn";
+            this.LoadConfigBtn.Size = new System.Drawing.Size(75, 23);
+            this.LoadConfigBtn.TabIndex = 62;
+            this.LoadConfigBtn.Text = "Load";
+            this.LoadConfigBtn.UseVisualStyleBackColor = true;
+            this.LoadConfigBtn.Click += new System.EventHandler(this.LoadConfigBtn_Click);
+            // 
+            // SaveConfigBtn
+            // 
+            this.SaveConfigBtn.Location = new System.Drawing.Point(168, 146);
+            this.SaveConfigBtn.Name = "SaveConfigBtn";
+            this.SaveConfigBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveConfigBtn.TabIndex = 58;
+            this.SaveConfigBtn.Text = "Save";
+            this.SaveConfigBtn.UseVisualStyleBackColor = true;
+            this.SaveConfigBtn.Click += new System.EventHandler(this.SaveConfigBtn_Click);
+            // 
             // DefaultDevicesBtn
             // 
-            this.DefaultDevicesBtn.Location = new System.Drawing.Point(6, 280);
+            this.DefaultDevicesBtn.Location = new System.Drawing.Point(8, 470);
             this.DefaultDevicesBtn.Name = "DefaultDevicesBtn";
             this.DefaultDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.DefaultDevicesBtn.TabIndex = 61;
@@ -861,19 +993,20 @@
             this.DefaultDevicesBtn.UseVisualStyleBackColor = true;
             this.DefaultDevicesBtn.Click += new System.EventHandler(this.DefaultDevicesBtn_Click);
             // 
-            // ReloadDevicesBtn
+            // LoadDevicesBtn
             // 
-            this.ReloadDevicesBtn.Location = new System.Drawing.Point(87, 280);
-            this.ReloadDevicesBtn.Name = "ReloadDevicesBtn";
-            this.ReloadDevicesBtn.Size = new System.Drawing.Size(75, 23);
-            this.ReloadDevicesBtn.TabIndex = 60;
-            this.ReloadDevicesBtn.Text = "Reload";
-            this.ReloadDevicesBtn.UseVisualStyleBackColor = true;
-            this.ReloadDevicesBtn.Click += new System.EventHandler(this.ReloadDevicesBtn_Click);
+            this.LoadDevicesBtn.Location = new System.Drawing.Point(89, 470);
+            this.LoadDevicesBtn.Name = "LoadDevicesBtn";
+            this.LoadDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.LoadDevicesBtn.TabIndex = 60;
+            this.LoadDevicesBtn.Text = "Load";
+            this.LoadDevicesBtn.UseVisualStyleBackColor = true;
+            this.LoadDevicesBtn.Click += new System.EventHandler(this.LoadDevicesBtn_Click);
             // 
             // SaveDevicesBtn
             // 
-            this.SaveDevicesBtn.Location = new System.Drawing.Point(168, 280);
+            this.SaveDevicesBtn.Enabled = false;
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(170, 470);
             this.SaveDevicesBtn.Name = "SaveDevicesBtn";
             this.SaveDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveDevicesBtn.TabIndex = 59;
@@ -884,10 +1017,11 @@
             // DeviceGrid
             // 
             this.DeviceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DeviceGrid.Location = new System.Drawing.Point(6, 32);
+            this.DeviceGrid.Location = new System.Drawing.Point(8, 222);
             this.DeviceGrid.Name = "DeviceGrid";
             this.DeviceGrid.Size = new System.Drawing.Size(620, 242);
             this.DeviceGrid.TabIndex = 58;
+            this.DeviceGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DeviceGrid_UserDeletingRow);
             // 
             // menuStrip
             // 
@@ -897,7 +1031,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1104, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1908, 24);
             this.menuStrip.TabIndex = 63;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -965,7 +1099,7 @@
             this.toolStripStatusLabel2});
             this.statusStrip.Location = new System.Drawing.Point(0, 797);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1104, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1908, 22);
             this.statusStrip.TabIndex = 64;
             this.statusStrip.Text = "statusStrip";
             // 
@@ -985,8 +1119,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1104, 819);
+            this.ClientSize = new System.Drawing.Size(1908, 819);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.BarcodeGrp);
+            this.Controls.Add(this.groupBox9);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox8);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.PersonalityTabs);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -1012,19 +1154,14 @@
             this.groupBox8.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
             this.PersonalityTabs.ResumeLayout(false);
             this.IoTab.ResumeLayout(false);
             this.IoTab.PerformLayout();
             this.StaticDevicesTab.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
             this.ConfigTab.ResumeLayout(false);
-            this.ConfigTab.PerformLayout();
+            this.ConfigGrp.ResumeLayout(false);
+            this.ConfigGrp.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceGrid)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -1071,8 +1208,6 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button CommandClearBtn;
         private System.Windows.Forms.RichTextBox CommandCrawlRTB;
-        private System.Windows.Forms.TextBox LogfileTxt;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.GroupBox groupBox9;
@@ -1120,8 +1255,22 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.DataGridView DeviceGrid;
         private System.Windows.Forms.Button SaveDevicesBtn;
-        private System.Windows.Forms.Button ReloadDevicesBtn;
+        private System.Windows.Forms.Button LoadDevicesBtn;
         private System.Windows.Forms.Button DefaultDevicesBtn;
+        private System.Windows.Forms.GroupBox ConfigGrp;
+        private System.Windows.Forms.Button DefaultConfigBtn;
+        private System.Windows.Forms.Button LoadConfigBtn;
+        private System.Windows.Forms.Button SaveConfigBtn;
+        private System.Windows.Forms.Label DevicesFilenameLbl;
+        private System.Windows.Forms.Button ChangeLEonardRootBtn;
+        private System.Windows.Forms.Label LEonardRootLbl;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button SaveAsDevicesBtn;
+        private System.Windows.Forms.Button ChangeStartupDevicesBtn;
+        private System.Windows.Forms.Label StartupDevicesLbl;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox AutoStartChk;
+        private System.Windows.Forms.CheckBox AutoLoadChk;
     }
 }
 
