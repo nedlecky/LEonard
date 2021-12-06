@@ -47,15 +47,9 @@
             this.BcrtDestroyBtn = new System.Windows.Forms.Button();
             this.BcrtCreateBtn = new System.Windows.Forms.Button();
             this.BarcodeReaderThreadChk = new System.Windows.Forms.CheckBox();
-            this.DM2DataLbl = new System.Windows.Forms.Label();
-            this.DM1DataLbl = new System.Windows.Forms.Label();
-            this.TriggerDM2Btn = new System.Windows.Forms.Button();
-            this.TriggerDM1Btn = new System.Windows.Forms.Button();
             this.StartTestClientBtn = new System.Windows.Forms.Button();
-            this.RobotSendBtn = new System.Windows.Forms.Button();
-            this.RobotCommandTxt = new System.Windows.Forms.TextBox();
-            this.VisionCommandTxt = new System.Windows.Forms.TextBox();
-            this.VisionSendBtn = new System.Windows.Forms.Button();
+            this.SendMessageBtn = new System.Windows.Forms.Button();
+            this.MessageToSendTxt = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BarcodeClearBtn = new System.Windows.Forms.Button();
@@ -77,20 +71,20 @@
             this.Robot2Btn = new System.Windows.Forms.Button();
             this.Robot1Btn = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.VisionClientCommandTxt = new System.Windows.Forms.TextBox();
-            this.VisionClientSendBtn = new System.Windows.Forms.Button();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.PersonalityTabs = new System.Windows.Forms.TabControl();
             this.RuntimeTab = new System.Windows.Forms.TabPage();
             this.ReportingTab = new System.Windows.Forms.TabPage();
-            this.IoTab = new System.Windows.Forms.TabPage();
-            this.StaticDevicesTab = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.VariablesTab = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.WriteInt32VariableBtn = new System.Windows.Forms.Button();
+            this.ReadVariableBtn = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.WriteStringValueTxt = new System.Windows.Forms.Button();
+            this.WriteInt32ValueTxt = new System.Windows.Forms.TextBox();
+            this.VariableNameTxt = new System.Windows.Forms.TextBox();
+            this.ClearVariablesBtn = new System.Windows.Forms.Button();
+            this.DefaultVariablesBtn = new System.Windows.Forms.Button();
+            this.VariablesGrd = new System.Windows.Forms.DataGridView();
             this.ConfigTab = new System.Windows.Forms.TabPage();
             this.DeviceControlGrp = new System.Windows.Forms.GroupBox();
             this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
@@ -110,7 +104,7 @@
             this.DefaultDevicesBtn = new System.Windows.Forms.Button();
             this.LoadDevicesBtn = new System.Windows.Forms.Button();
             this.SaveDevicesBtn = new System.Windows.Forms.Button();
-            this.DeviceGrid = new System.Windows.Forms.DataGridView();
+            this.DevicesGrid = new System.Windows.Forms.DataGridView();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,14 +125,14 @@
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.PersonalityTabs.SuspendLayout();
-            this.IoTab.SuspendLayout();
-            this.StaticDevicesTab.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.VariablesTab.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).BeginInit();
             this.ConfigTab.SuspendLayout();
+            this.DeviceControlGrp.SuspendLayout();
             this.ConfigGrp.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeviceGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -238,10 +232,6 @@
             this.BarcodeGrp.Controls.Add(this.BcrtDestroyBtn);
             this.BarcodeGrp.Controls.Add(this.BcrtCreateBtn);
             this.BarcodeGrp.Controls.Add(this.BarcodeReaderThreadChk);
-            this.BarcodeGrp.Controls.Add(this.DM2DataLbl);
-            this.BarcodeGrp.Controls.Add(this.DM1DataLbl);
-            this.BarcodeGrp.Controls.Add(this.TriggerDM2Btn);
-            this.BarcodeGrp.Controls.Add(this.TriggerDM1Btn);
             this.BarcodeGrp.Location = new System.Drawing.Point(1110, 541);
             this.BarcodeGrp.Name = "BarcodeGrp";
             this.BarcodeGrp.Size = new System.Drawing.Size(306, 252);
@@ -300,42 +290,6 @@
             this.BarcodeReaderThreadChk.UseVisualStyleBackColor = true;
             this.BarcodeReaderThreadChk.CheckedChanged += new System.EventHandler(this.BarcodeReaderThreadChk_CheckedChanged);
             // 
-            // DM2DataLbl
-            // 
-            this.DM2DataLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DM2DataLbl.Location = new System.Drawing.Point(103, 54);
-            this.DM2DataLbl.Name = "DM2DataLbl";
-            this.DM2DataLbl.Size = new System.Drawing.Size(180, 23);
-            this.DM2DataLbl.TabIndex = 25;
-            // 
-            // DM1DataLbl
-            // 
-            this.DM1DataLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DM1DataLbl.Location = new System.Drawing.Point(103, 25);
-            this.DM1DataLbl.Name = "DM1DataLbl";
-            this.DM1DataLbl.Size = new System.Drawing.Size(180, 23);
-            this.DM1DataLbl.TabIndex = 24;
-            // 
-            // TriggerDM2Btn
-            // 
-            this.TriggerDM2Btn.Location = new System.Drawing.Point(22, 54);
-            this.TriggerDM2Btn.Name = "TriggerDM2Btn";
-            this.TriggerDM2Btn.Size = new System.Drawing.Size(75, 23);
-            this.TriggerDM2Btn.TabIndex = 23;
-            this.TriggerDM2Btn.Text = "Trigger DM2";
-            this.TriggerDM2Btn.UseVisualStyleBackColor = true;
-            this.TriggerDM2Btn.Click += new System.EventHandler(this.TriggerDM2Btn_Click);
-            // 
-            // TriggerDM1Btn
-            // 
-            this.TriggerDM1Btn.Location = new System.Drawing.Point(22, 25);
-            this.TriggerDM1Btn.Name = "TriggerDM1Btn";
-            this.TriggerDM1Btn.Size = new System.Drawing.Size(75, 23);
-            this.TriggerDM1Btn.TabIndex = 22;
-            this.TriggerDM1Btn.Text = "Trigger DM1";
-            this.TriggerDM1Btn.UseVisualStyleBackColor = true;
-            this.TriggerDM1Btn.Click += new System.EventHandler(this.TriggerDM1Btn_Click);
-            // 
             // StartTestClientBtn
             // 
             this.StartTestClientBtn.Location = new System.Drawing.Point(254, 21);
@@ -346,41 +300,23 @@
             this.StartTestClientBtn.UseVisualStyleBackColor = true;
             this.StartTestClientBtn.Click += new System.EventHandler(this.StartTestClientBtn_Click);
             // 
-            // RobotSendBtn
+            // SendMessageBtn
             // 
-            this.RobotSendBtn.Location = new System.Drawing.Point(138, 39);
-            this.RobotSendBtn.Name = "RobotSendBtn";
-            this.RobotSendBtn.Size = new System.Drawing.Size(75, 23);
-            this.RobotSendBtn.TabIndex = 27;
-            this.RobotSendBtn.Text = "Send";
-            this.RobotSendBtn.UseVisualStyleBackColor = true;
-            this.RobotSendBtn.Click += new System.EventHandler(this.RobotSendBtn_Click);
+            this.SendMessageBtn.Location = new System.Drawing.Point(136, 58);
+            this.SendMessageBtn.Name = "SendMessageBtn";
+            this.SendMessageBtn.Size = new System.Drawing.Size(75, 23);
+            this.SendMessageBtn.TabIndex = 27;
+            this.SendMessageBtn.Text = "Send";
+            this.SendMessageBtn.UseVisualStyleBackColor = true;
+            this.SendMessageBtn.Click += new System.EventHandler(this.SendMessageBtn_Click);
             // 
-            // RobotCommandTxt
+            // MessageToSendTxt
             // 
-            this.RobotCommandTxt.Location = new System.Drawing.Point(13, 42);
-            this.RobotCommandTxt.Name = "RobotCommandTxt";
-            this.RobotCommandTxt.Size = new System.Drawing.Size(119, 20);
-            this.RobotCommandTxt.TabIndex = 28;
-            this.RobotCommandTxt.Text = "(1,0,0,0,0)";
-            // 
-            // VisionCommandTxt
-            // 
-            this.VisionCommandTxt.Location = new System.Drawing.Point(13, 42);
-            this.VisionCommandTxt.Name = "VisionCommandTxt";
-            this.VisionCommandTxt.Size = new System.Drawing.Size(119, 20);
-            this.VisionCommandTxt.TabIndex = 31;
-            this.VisionCommandTxt.Text = "test1";
-            // 
-            // VisionSendBtn
-            // 
-            this.VisionSendBtn.Location = new System.Drawing.Point(141, 40);
-            this.VisionSendBtn.Name = "VisionSendBtn";
-            this.VisionSendBtn.Size = new System.Drawing.Size(75, 23);
-            this.VisionSendBtn.TabIndex = 30;
-            this.VisionSendBtn.Text = "Send Server";
-            this.VisionSendBtn.UseVisualStyleBackColor = true;
-            this.VisionSendBtn.Click += new System.EventHandler(this.VisionSendBtn_Click);
+            this.MessageToSendTxt.Location = new System.Drawing.Point(6, 58);
+            this.MessageToSendTxt.Name = "MessageToSendTxt";
+            this.MessageToSendTxt.Size = new System.Drawing.Size(119, 20);
+            this.MessageToSendTxt.TabIndex = 28;
+            this.MessageToSendTxt.Text = "(1,0,0,0,0)";
             // 
             // groupBox1
             // 
@@ -521,8 +457,6 @@
             this.groupBox8.Controls.Add(this.Robot3Btn);
             this.groupBox8.Controls.Add(this.Robot2Btn);
             this.groupBox8.Controls.Add(this.Robot1Btn);
-            this.groupBox8.Controls.Add(this.RobotSendBtn);
-            this.groupBox8.Controls.Add(this.RobotCommandTxt);
             this.groupBox8.Location = new System.Drawing.Point(1110, 49);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(306, 224);
@@ -602,10 +536,6 @@
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.VisionClientCommandTxt);
-            this.groupBox9.Controls.Add(this.VisionClientSendBtn);
-            this.groupBox9.Controls.Add(this.VisionCommandTxt);
-            this.groupBox9.Controls.Add(this.VisionSendBtn);
             this.groupBox9.Location = new System.Drawing.Point(1110, 283);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(306, 252);
@@ -613,38 +543,11 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Vision Commands";
             // 
-            // VisionClientCommandTxt
-            // 
-            this.VisionClientCommandTxt.Location = new System.Drawing.Point(13, 109);
-            this.VisionClientCommandTxt.Name = "VisionClientCommandTxt";
-            this.VisionClientCommandTxt.Size = new System.Drawing.Size(119, 20);
-            this.VisionClientCommandTxt.TabIndex = 33;
-            this.VisionClientCommandTxt.Text = "test1";
-            // 
-            // VisionClientSendBtn
-            // 
-            this.VisionClientSendBtn.Location = new System.Drawing.Point(141, 106);
-            this.VisionClientSendBtn.Name = "VisionClientSendBtn";
-            this.VisionClientSendBtn.Size = new System.Drawing.Size(75, 23);
-            this.VisionClientSendBtn.TabIndex = 32;
-            this.VisionClientSendBtn.Text = "Send Client";
-            this.VisionClientSendBtn.UseVisualStyleBackColor = true;
-            this.VisionClientSendBtn.Click += new System.EventHandler(this.VisionClientSendBtn_Click);
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Location = new System.Drawing.Point(6, 6);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(246, 213);
-            this.groupBox10.TabIndex = 61;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Vision Client";
-            // 
             // PersonalityTabs
             // 
             this.PersonalityTabs.Controls.Add(this.RuntimeTab);
             this.PersonalityTabs.Controls.Add(this.ReportingTab);
-            this.PersonalityTabs.Controls.Add(this.IoTab);
+            this.PersonalityTabs.Controls.Add(this.VariablesTab);
             this.PersonalityTabs.Controls.Add(this.ConfigTab);
             this.PersonalityTabs.Location = new System.Drawing.Point(462, 27);
             this.PersonalityTabs.Name = "PersonalityTabs";
@@ -672,89 +575,116 @@
             this.ReportingTab.Text = "Reporting";
             this.ReportingTab.UseVisualStyleBackColor = true;
             // 
-            // IoTab
+            // VariablesTab
             // 
-            this.IoTab.Controls.Add(this.StaticDevicesTab);
-            this.IoTab.Controls.Add(this.menuStrip1);
-            this.IoTab.Location = new System.Drawing.Point(4, 22);
-            this.IoTab.Name = "IoTab";
-            this.IoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.IoTab.Size = new System.Drawing.Size(634, 736);
-            this.IoTab.TabIndex = 2;
-            this.IoTab.Text = "I/O";
-            this.IoTab.UseVisualStyleBackColor = true;
+            this.VariablesTab.Controls.Add(this.groupBox7);
+            this.VariablesTab.Controls.Add(this.ClearVariablesBtn);
+            this.VariablesTab.Controls.Add(this.DefaultVariablesBtn);
+            this.VariablesTab.Controls.Add(this.VariablesGrd);
+            this.VariablesTab.Location = new System.Drawing.Point(4, 22);
+            this.VariablesTab.Name = "VariablesTab";
+            this.VariablesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.VariablesTab.Size = new System.Drawing.Size(634, 736);
+            this.VariablesTab.TabIndex = 2;
+            this.VariablesTab.Text = "Variables";
+            this.VariablesTab.UseVisualStyleBackColor = true;
             // 
-            // StaticDevicesTab
+            // groupBox7
             // 
-            this.StaticDevicesTab.Controls.Add(this.tabPage1);
-            this.StaticDevicesTab.Controls.Add(this.tabPage2);
-            this.StaticDevicesTab.Controls.Add(this.tabPage3);
-            this.StaticDevicesTab.Controls.Add(this.tabPage4);
-            this.StaticDevicesTab.Controls.Add(this.tabPage5);
-            this.StaticDevicesTab.Location = new System.Drawing.Point(6, 6);
-            this.StaticDevicesTab.Name = "StaticDevicesTab";
-            this.StaticDevicesTab.SelectedIndex = 0;
-            this.StaticDevicesTab.Size = new System.Drawing.Size(622, 511);
-            this.StaticDevicesTab.TabIndex = 0;
+            this.groupBox7.Controls.Add(this.WriteInt32VariableBtn);
+            this.groupBox7.Controls.Add(this.ReadVariableBtn);
+            this.groupBox7.Controls.Add(this.textBox3);
+            this.groupBox7.Controls.Add(this.WriteStringValueTxt);
+            this.groupBox7.Controls.Add(this.WriteInt32ValueTxt);
+            this.groupBox7.Controls.Add(this.VariableNameTxt);
+            this.groupBox7.Location = new System.Drawing.Point(143, 586);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(339, 136);
+            this.groupBox7.TabIndex = 9;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Manual";
             // 
-            // tabPage1
+            // WriteInt32VariableBtn
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(614, 485);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Command";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.WriteInt32VariableBtn.Location = new System.Drawing.Point(130, 62);
+            this.WriteInt32VariableBtn.Name = "WriteInt32VariableBtn";
+            this.WriteInt32VariableBtn.Size = new System.Drawing.Size(75, 23);
+            this.WriteInt32VariableBtn.TabIndex = 3;
+            this.WriteInt32VariableBtn.Text = "Write Int32";
+            this.WriteInt32VariableBtn.UseVisualStyleBackColor = true;
+            this.WriteInt32VariableBtn.Click += new System.EventHandler(this.WriteInt32VariableBtn_Click);
             // 
-            // tabPage2
+            // ReadVariableBtn
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(614, 485);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "UR-5e Robot";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.ReadVariableBtn.Location = new System.Drawing.Point(130, 33);
+            this.ReadVariableBtn.Name = "ReadVariableBtn";
+            this.ReadVariableBtn.Size = new System.Drawing.Size(75, 23);
+            this.ReadVariableBtn.TabIndex = 2;
+            this.ReadVariableBtn.Text = "Read";
+            this.ReadVariableBtn.UseVisualStyleBackColor = true;
+            this.ReadVariableBtn.Click += new System.EventHandler(this.ReadVariableBtn_Click);
             // 
-            // tabPage3
+            // textBox3
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(614, 485);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Sherlock Vision";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.textBox3.Location = new System.Drawing.Point(211, 93);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.TabIndex = 7;
+            this.textBox3.Text = "Test String";
             // 
-            // tabPage4
+            // WriteStringValueTxt
             // 
-            this.tabPage4.Controls.Add(this.groupBox10);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(614, 485);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "HALCON Vision";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.WriteStringValueTxt.Location = new System.Drawing.Point(130, 91);
+            this.WriteStringValueTxt.Name = "WriteStringValueTxt";
+            this.WriteStringValueTxt.Size = new System.Drawing.Size(75, 23);
+            this.WriteStringValueTxt.TabIndex = 4;
+            this.WriteStringValueTxt.Text = "Write String";
+            this.WriteStringValueTxt.UseVisualStyleBackColor = true;
+            this.WriteStringValueTxt.Click += new System.EventHandler(this.WriteStringValueTxt_Click);
             // 
-            // tabPage5
+            // WriteInt32ValueTxt
             // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(614, 485);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Cognex Dataman";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.WriteInt32ValueTxt.Location = new System.Drawing.Point(211, 62);
+            this.WriteInt32ValueTxt.Name = "WriteInt32ValueTxt";
+            this.WriteInt32ValueTxt.Size = new System.Drawing.Size(100, 20);
+            this.WriteInt32ValueTxt.TabIndex = 6;
+            this.WriteInt32ValueTxt.Text = "123";
             // 
-            // menuStrip1
+            // VariableNameTxt
             // 
-            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(628, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.VariableNameTxt.Location = new System.Drawing.Point(24, 35);
+            this.VariableNameTxt.Name = "VariableNameTxt";
+            this.VariableNameTxt.Size = new System.Drawing.Size(100, 20);
+            this.VariableNameTxt.TabIndex = 5;
+            this.VariableNameTxt.Text = "X";
+            // 
+            // ClearVariablesBtn
+            // 
+            this.ClearVariablesBtn.Location = new System.Drawing.Point(14, 663);
+            this.ClearVariablesBtn.Name = "ClearVariablesBtn";
+            this.ClearVariablesBtn.Size = new System.Drawing.Size(75, 23);
+            this.ClearVariablesBtn.TabIndex = 8;
+            this.ClearVariablesBtn.Text = "Clear";
+            this.ClearVariablesBtn.UseVisualStyleBackColor = true;
+            this.ClearVariablesBtn.Click += new System.EventHandler(this.ClearVariablesBtn_Click);
+            // 
+            // DefaultVariablesBtn
+            // 
+            this.DefaultVariablesBtn.Location = new System.Drawing.Point(14, 692);
+            this.DefaultVariablesBtn.Name = "DefaultVariablesBtn";
+            this.DefaultVariablesBtn.Size = new System.Drawing.Size(75, 23);
+            this.DefaultVariablesBtn.TabIndex = 1;
+            this.DefaultVariablesBtn.Text = "Default";
+            this.DefaultVariablesBtn.UseVisualStyleBackColor = true;
+            this.DefaultVariablesBtn.Click += new System.EventHandler(this.DefaultVariablesBtn_Click);
+            // 
+            // VariablesGrd
+            // 
+            this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.VariablesGrd.Location = new System.Drawing.Point(6, 6);
+            this.VariablesGrd.Name = "VariablesGrd";
+            this.VariablesGrd.Size = new System.Drawing.Size(622, 574);
+            this.VariablesGrd.TabIndex = 0;
             // 
             // ConfigTab
             // 
@@ -765,7 +695,7 @@
             this.ConfigTab.Controls.Add(this.DefaultDevicesBtn);
             this.ConfigTab.Controls.Add(this.LoadDevicesBtn);
             this.ConfigTab.Controls.Add(this.SaveDevicesBtn);
-            this.ConfigTab.Controls.Add(this.DeviceGrid);
+            this.ConfigTab.Controls.Add(this.DevicesGrid);
             this.ConfigTab.Location = new System.Drawing.Point(4, 22);
             this.ConfigTab.Name = "ConfigTab";
             this.ConfigTab.Padding = new System.Windows.Forms.Padding(3);
@@ -776,6 +706,8 @@
             // 
             // DeviceControlGrp
             // 
+            this.DeviceControlGrp.Controls.Add(this.MessageToSendTxt);
+            this.DeviceControlGrp.Controls.Add(this.SendMessageBtn);
             this.DeviceControlGrp.Location = new System.Drawing.Point(8, 528);
             this.DeviceControlGrp.Name = "DeviceControlGrp";
             this.DeviceControlGrp.Size = new System.Drawing.Size(620, 181);
@@ -961,18 +893,18 @@
             this.SaveDevicesBtn.UseVisualStyleBackColor = true;
             this.SaveDevicesBtn.Click += new System.EventHandler(this.SaveDevicesBtn_Click);
             // 
-            // DeviceGrid
+            // DevicesGrid
             // 
-            this.DeviceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DeviceGrid.Location = new System.Drawing.Point(8, 222);
-            this.DeviceGrid.Name = "DeviceGrid";
-            this.DeviceGrid.Size = new System.Drawing.Size(620, 242);
-            this.DeviceGrid.TabIndex = 58;
-            this.DeviceGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DeviceGrid_CellBeginEdit);
-            this.DeviceGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellContentClick);
-            this.DeviceGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellValueChanged);
-            this.DeviceGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_RowEnter);
-            this.DeviceGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DeviceGrid_UserDeletingRow);
+            this.DevicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DevicesGrid.Location = new System.Drawing.Point(8, 222);
+            this.DevicesGrid.Name = "DevicesGrid";
+            this.DevicesGrid.Size = new System.Drawing.Size(620, 242);
+            this.DevicesGrid.TabIndex = 58;
+            this.DevicesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DeviceGrid_CellBeginEdit);
+            this.DevicesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellContentClick);
+            this.DevicesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellValueChanged);
+            this.DevicesGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_RowEnter);
+            this.DevicesGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DeviceGrid_UserDeletingRow);
             // 
             // menuStrip
             // 
@@ -1083,7 +1015,6 @@
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.menuStrip);
-            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1099,18 +1030,17 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
             this.PersonalityTabs.ResumeLayout(false);
-            this.IoTab.ResumeLayout(false);
-            this.IoTab.PerformLayout();
-            this.StaticDevicesTab.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
+            this.VariablesTab.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).EndInit();
             this.ConfigTab.ResumeLayout(false);
+            this.DeviceControlGrp.ResumeLayout(false);
+            this.DeviceControlGrp.PerformLayout();
             this.ConfigGrp.ResumeLayout(false);
             this.ConfigGrp.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeviceGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -1134,15 +1064,9 @@
         private System.Windows.Forms.Timer CloseTmr;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.GroupBox BarcodeGrp;
-        private System.Windows.Forms.Label DM2DataLbl;
-        private System.Windows.Forms.Label DM1DataLbl;
-        private System.Windows.Forms.Button TriggerDM2Btn;
-        private System.Windows.Forms.Button TriggerDM1Btn;
         private System.Windows.Forms.Button StartTestClientBtn;
-        private System.Windows.Forms.Button RobotSendBtn;
-        private System.Windows.Forms.TextBox RobotCommandTxt;
-        private System.Windows.Forms.TextBox VisionCommandTxt;
-        private System.Windows.Forms.Button VisionSendBtn;
+        private System.Windows.Forms.Button SendMessageBtn;
+        private System.Windows.Forms.TextBox MessageToSendTxt;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button BarcodeClearBtn;
@@ -1167,23 +1091,13 @@
         private System.Windows.Forms.Button BcrtStartBtn;
         private System.Windows.Forms.Button BcrtDestroyBtn;
         private System.Windows.Forms.Button BcrtCreateBtn;
-        private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.TextBox VisionClientCommandTxt;
-        private System.Windows.Forms.Button VisionClientSendBtn;
         private System.Windows.Forms.TabControl PersonalityTabs;
         private System.Windows.Forms.TabPage RuntimeTab;
         private System.Windows.Forms.TabPage ReportingTab;
-        private System.Windows.Forms.TabPage IoTab;
-        private System.Windows.Forms.TabControl StaticDevicesTab;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage VariablesTab;
         private System.Windows.Forms.TabPage ConfigTab;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -1196,7 +1110,7 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.DataGridView DeviceGrid;
+        private System.Windows.Forms.DataGridView DevicesGrid;
         private System.Windows.Forms.Button SaveDevicesBtn;
         private System.Windows.Forms.Button LoadDevicesBtn;
         private System.Windows.Forms.Button DefaultDevicesBtn;
@@ -1215,6 +1129,16 @@
         private System.Windows.Forms.CheckBox AutoStartChk;
         private System.Windows.Forms.CheckBox AutoLoadChk;
         private System.Windows.Forms.GroupBox DeviceControlGrp;
+        private System.Windows.Forms.Button DefaultVariablesBtn;
+        private System.Windows.Forms.DataGridView VariablesGrd;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox WriteInt32ValueTxt;
+        private System.Windows.Forms.TextBox VariableNameTxt;
+        private System.Windows.Forms.Button WriteStringValueTxt;
+        private System.Windows.Forms.Button WriteInt32VariableBtn;
+        private System.Windows.Forms.Button ReadVariableBtn;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button ClearVariablesBtn;
     }
 }
 

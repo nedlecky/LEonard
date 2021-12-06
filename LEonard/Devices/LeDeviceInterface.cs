@@ -13,7 +13,5 @@ namespace LEonard
         int Send(string message);
         string Receive();
         Action<string> receiveCallback { get; set; }
-        string Index { get; set; }
-        string Value { get; set; }
     }
 }

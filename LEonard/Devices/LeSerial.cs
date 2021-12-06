@@ -9,13 +9,11 @@ namespace LEonard
 {
     public class LeSerial : LeDeviceInterface
     {
-        MainForm myForm;
-        string myPortname;
-        SerialPort port;
-        public string Index { get; set; }
-        public string Value { get; set; }
+        protected MainForm myForm;
+        protected string myPortname;
 
-        public Action<string> receiveCallback { get; set; }
+        public SerialPort port;
+        public Action<string> receiveCallback { get; set; } = null;
 
         public LeSerial(MainForm form) 
         {
@@ -34,10 +32,11 @@ namespace LEonard
 
             port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
             port.Handshake = Handshake.XOnXOff;
-            port.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
             port.WriteTimeout = 100;
             port.DtrEnable = true;
             port.RtsEnable = true;
+            port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedEvent);
+
             port.Open();
 
             myForm.CrawlBarcode("IsOpen=" + port.IsOpen);
@@ -68,20 +67,16 @@ namespace LEonard
             else
                 return "";
         }
-
-        public void DataReceived(object sender, SerialDataReceivedEventArgs e)
+        public void DataReceivedEvent(object sender, SerialDataReceivedEventArgs e)
         {
-            string data = port.ReadLine();
-            myForm.CrawlBarcode(data);
-            string[] s = data.Split(',');
-            if (s.Length == 3)
+            if (receiveCallback != null)
             {
-                Index = s[1];
-                Value = s[2];
+                string data = port.ReadLine();
+                myForm.CrawlBarcode("LeSerial.DataReceivedEvent "+ data);
+                receiveCallback(data);
             }
-            else
-                myForm.CrawlBarcode("Barcode ERROR");
         }
+
 
     }
 }

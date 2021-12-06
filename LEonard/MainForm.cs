@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -20,6 +21,7 @@ namespace LEonard
     {
         static string LEonardRoot = "./";
         static DataTable devices;
+        static DataTable variables;
 
         //static LeTcpServer commandServer;
         //static LeTcpServer robotServer;
@@ -159,7 +161,7 @@ namespace LEonard
             FlushCrawl();
 
             // TODO is this a poor place to check for commands from above??
-            for(int i=0; i<4; i++)
+            for (int i = 0; i < 4; i++)
                 if (interfaces[i] != null) interfaces[i].Receive();
         }
 
@@ -210,27 +212,27 @@ namespace LEonard
             }
         }
 
-        private void TriggerDM1Btn_Click(object sender, EventArgs e)
-        {
-            interfaces[4].Send("+");
-            // TODO how to wait here for long enough? Wait for some response or timeout
-            DM1DataLbl.Text = interfaces[4].Index + " " + interfaces[4].Value;
-        }
-
-        private void TriggerDM2Btn_Click(object sender, EventArgs e)
-        {
-            interfaces[5].Send("+");
-            // TODO how to wait here for long enough? Wait for some response or timeout
-            DM2DataLbl.Text = interfaces[5].Index + " " + interfaces[5].Value;
-        }
-
         void CommandCallback(string s)
         {
             CrawlCommand("Execute: " + s);
 
             string response = "response to " + s;
             interfaces[0].Send(response);
+        }
 
+        // TODO: these are not a good way to do this
+        string Index;
+        string Value;
+        void DatamanCallback(string data)
+        {
+            string[] s = data.Split(',');
+            if (s.Length == 3)
+            {
+                Index = s[1];
+                Value = s[2];
+            }
+            else
+                CrawlBarcode("Barcode string ERROR received: " + data);
         }
 
         // Launch command tester to assist in debugging
@@ -256,11 +258,6 @@ namespace LEonard
 
         }
 
-        private void RobotSendBtn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[1] != null)
-                interfaces[1].Send(RobotCommandTxt.Text);
-        }
 
         private void Robot1Btn_Click(object sender, EventArgs e)
         {
@@ -318,17 +315,6 @@ namespace LEonard
                 //robotServer = new TcpServer(this, "ROBOT: ");
                 interfaces[1].Connect("192.168.0.252:30000");
             }
-        }
-        private void VisionSendBtn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[2] != null)
-                interfaces[2].Send(VisionCommandTxt.Text);
-        }
-
-        private void VisionClientSendBtn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[3] != null)
-                interfaces[3].Send(VisionClientCommandTxt.Text);
         }
 
         private void BcrtCreateBtn_Click(object sender, EventArgs e)
@@ -512,7 +498,7 @@ namespace LEonard
             devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "BARCODE:", "dataman" });
             devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "BARCODE:", "dataman" });
 
-            DeviceGrid.DataSource = devices;
+            DevicesGrid.DataSource = devices;
 
             DefaultDevicesBtn.Enabled = false;
             LoadDevicesBtn.Enabled = true;
@@ -525,7 +511,7 @@ namespace LEonard
             Crawl("LoadDevices from " + name);
             devices = new DataTable("Devices");
             devices.ReadXml(name);
-            DeviceGrid.DataSource = devices;
+            DevicesGrid.DataSource = devices;
             DevicesFilenameLbl.Text = name;
 
             return 0;
@@ -591,14 +577,17 @@ namespace LEonard
 
         }
 
+        int currrentDevice = -1;
         private void DeviceGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            Crawl("Row Enter");
+            Crawl("Selecting Device ");
 
-            int row = e.RowIndex;
-            DeviceControlGrp.Text = devices.Rows[row].ItemArray[1].ToString();
+            currrentDevice = e.RowIndex;
 
+            // TODO: Setup style for entire DeviceControlGrp
+            DeviceControlGrp.Text = devices.Rows[currrentDevice].ItemArray[1].ToString();
         }
+
 
         private void DeviceGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -618,7 +607,7 @@ namespace LEonard
                 if (devices.Rows[row].ItemArray[col].ToString() == "True")
                 {
                     Crawl(string.Format("Start {0}:{1} as {2} at {3} with {4}, {5}", index, name, type, address, prefix, callback));
-                    switch(type)
+                    switch (type)
                     {
                         case @"TcpServer":
                             interfaces[index] = new LeTcpServer(this, prefix);
@@ -643,10 +632,12 @@ namespace LEonard
                         case "":
                             break;
                         case "command":
-                            interfaces[0].receiveCallback = CommandCallback;
+                            interfaces[index].receiveCallback = CommandCallback;
                             break;
                         case "dataman":
                             CrawlError("Dataman callback not yet implemented");
+                            interfaces[index].receiveCallback = DatamanCallback;
+
                             break;
                         default:
                             CrawlError("Illegal callback type: " + type);
@@ -680,11 +671,81 @@ namespace LEonard
             Crawl("CellBeginEdit: " + devices.Rows[row].ItemArray[col].ToString());
 
         }
-
+        private void SendMessageBtn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[currrentDevice] != null)
+                interfaces[currrentDevice].Send(MessageToSendTxt.Text);
+        }
         // ***********************************************************************
         // END DEVICES UI
         // ***********************************************************************
 
+        // ***********************************************************************
+        // START VARIABLES UI
+        // ***********************************************************************
+        private void DefaultVariablesBtn_Click(object sender, EventArgs e)
+        {
+            variables = new DataTable("Variables");
+
+            DataColumn name = variables.Columns.Add("Name", typeof(System.String));
+            //devices.Columns.Add("Type", typeof(System.String));
+            variables.Columns.Add("Type", typeof(System.Type));
+            variables.Columns.Add("Value", typeof(System.String));
+
+            //variables.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //variables.Columns[0].
+
+            variables.PrimaryKey = new DataColumn[] { name };
+
+            variables.Rows.Add(new object[] { "X", typeof(System.Int32), "14" });
+            variables.Rows.Add(new object[] { "Y", typeof(System.Int32), "21" });
+            variables.Rows.Add(new object[] { "code1", typeof(System.String), "BR549" });
+
+
+            VariablesGrd.DataSource = variables;
+
+            DefaultVariablesBtn.Enabled = false;
+            ClearVariablesBtn.Enabled = true;
+        }
+        private void ClearVariablesBtn_Click(object sender, EventArgs e)
+        {
+            variables.Clear();
+            DefaultVariablesBtn.Enabled = true;
+            ClearVariablesBtn.Enabled = false;
+        }
+
+
+        private void ReadVariableBtn_Click(object sender, EventArgs e)
+        {
+            string name = VariableNameTxt.Text;
+            Crawl("Read " + name);
+
+            foreach (DataRow row in variables.Rows)
+            {
+                if ((string)row["Name"] == name)
+                {
+                    Crawl(String.Format("Found {0} {1} = {2}", row["Type"], row["Name"], row["Value"]));
+                    return;
+                }
+            }
+            CrawlError("Can't find " + name);
+        }
+
+        private void WriteInt32VariableBtn_Click(object sender, EventArgs e)
+        {
+            Crawl(VariableNameTxt.Text + " = " + WriteInt32ValueTxt.Text);
+
+        }
+
+        private void WriteStringValueTxt_Click(object sender, EventArgs e)
+        {
+            Crawl(VariableNameTxt.Text + " = " + WriteStringValueTxt.Text);
+
+        }
+
+        // ***********************************************************************
+        // END VARIABLES UI
+        // ***********************************************************************
 
     }
 }
