@@ -64,7 +64,6 @@
   <ItemGroup>
     <Compile Include="Devices\LeTcpClient.cs" />
     <Compile Include="Devices\LeDeviceInterface.cs" />
-    <Compile Include="Devices\LeSerialDataman.cs" />
     <Compile Include="Threads\BarcodeReaderThread.cs" />
     <Compile Include="Util\Crawler.cs">
       <SubType>Form</SubType>

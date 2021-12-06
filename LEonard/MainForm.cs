@@ -212,24 +212,41 @@ namespace LEonard
             }
         }
 
-        void CommandCallback(string s)
+        void CommandCallBack(string data)
         {
-            CrawlCommand("Execute: " + s);
+            CrawlCommand(string.Format("CommandCallBack({0})", data));
+            string[] s = data.Split(',');
+            string response = "INVALID COMMAND";
+            if (s.Length == 3)
+            {
+                string name = s[0];
+                string sequence = s[1];
+                string parameters = s[2];
 
-            string response = "response to " + s;
+                WriteVariable("command_name", name);
+                WriteVariable("command_sequence", sequence);
+                WriteVariable("command_params", parameters);
+
+                // TODO: Execute
+
+                response = string.Format("{0},{1},{2}",name,sequence,"RESPONSE");
+
+            }
+
             interfaces[0].Send(response);
         }
 
-        // TODO: these are not a good way to do this
-        string Index;
-        string Value;
-        void DatamanCallback(string data)
+        void DatamanCallBack(string data)
         {
+            Crawl(string.Format("DatamanCallBack({0})", data));
             string[] s = data.Split(',');
             if (s.Length == 3)
             {
-                Index = s[1];
-                Value = s[2];
+                string name = s[0];
+                string sequence = s[1];
+                string value = s[2];
+                WriteVariable(name + "_sequence", sequence);
+                WriteVariable(name + "_value", value);
             }
             else
                 CrawlBarcode("Barcode string ERROR received: " + data);
@@ -371,6 +388,8 @@ namespace LEonard
             AutoStartChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoStartChk.Checked", "False"));
 
             PersonalityTabs.SelectedIndex = (Int32)AppNameKey.GetValue("PersonalityTabs.SelectedIndex", 0);
+
+            LoadVariablesBtn_Click(null, null);
         }
 
         void SavePersistent()
@@ -385,6 +404,8 @@ namespace LEonard
             AppNameKey.SetValue("AutoStartChk.Checked", AutoStartChk.Checked);
 
             AppNameKey.SetValue("PersonalityTabs.SelectedIndex", PersonalityTabs.SelectedIndex);
+
+            SaveVariablesBtn_Click(null, null);
         }
         private void ChangeLEonardRootBtn_Click(object sender, EventArgs e)
         {
@@ -492,7 +513,7 @@ namespace LEonard
             devices.PrimaryKey = new DataColumn[] { id };
 
             devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "192.168.0.252:1000", "COMMAND:", "command" });
-            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.2:30000", "ROBOT:", "" });
+            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpClient", "192.168.0.252:30000", "ROBOT:", "" });
             devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "192.168.0.252:20000", "VISION:", "" });
             devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "192.168.0.252:21000", "VISION:", "" });
             devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "BARCODE:", "dataman" });
@@ -632,11 +653,10 @@ namespace LEonard
                         case "":
                             break;
                         case "command":
-                            interfaces[index].receiveCallback = CommandCallback;
+                            interfaces[index].receiveCallback = CommandCallBack;
                             break;
                         case "dataman":
-                            CrawlError("Dataman callback not yet implemented");
-                            interfaces[index].receiveCallback = DatamanCallback;
+                            interfaces[index].receiveCallback = DatamanCallBack;
 
                             break;
                         default:
@@ -683,37 +703,32 @@ namespace LEonard
         // ***********************************************************************
         // START VARIABLES UI
         // ***********************************************************************
-        private void DefaultVariablesBtn_Click(object sender, EventArgs e)
-        {
-            variables = new DataTable("Variables");
-
-            DataColumn name = variables.Columns.Add("Name", typeof(System.String));
-            //devices.Columns.Add("Type", typeof(System.String));
-            variables.Columns.Add("Type", typeof(System.Type));
-            variables.Columns.Add("Value", typeof(System.String));
-
-            //variables.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //variables.Columns[0].
-
-            variables.PrimaryKey = new DataColumn[] { name };
-
-            variables.Rows.Add(new object[] { "X", typeof(System.Int32), "14" });
-            variables.Rows.Add(new object[] { "Y", typeof(System.Int32), "21" });
-            variables.Rows.Add(new object[] { "code1", typeof(System.String), "BR549" });
-
-
-            VariablesGrd.DataSource = variables;
-
-            DefaultVariablesBtn.Enabled = false;
-            ClearVariablesBtn.Enabled = true;
-        }
         private void ClearVariablesBtn_Click(object sender, EventArgs e)
         {
-            variables.Clear();
-            DefaultVariablesBtn.Enabled = true;
-            ClearVariablesBtn.Enabled = false;
+            variables = new DataTable("Variables");
+            DataColumn name = variables.Columns.Add("Name", typeof(System.String));
+            variables.Columns.Add("Value", typeof(System.String));
+            variables.PrimaryKey = new DataColumn[] { name };
+            VariablesGrd.DataSource = variables;
         }
 
+        string variablesFilename = "Variables.var";
+        private void LoadVariablesBtn_Click(object sender, EventArgs e)
+        {
+            string filename = Path.Combine(LEonardRoot, variablesFilename);
+            Crawl("LoadVariables from " + filename);
+            variables = new DataTable("Variables");
+            variables.ReadXml(filename);
+            VariablesGrd.DataSource = variables;
+        }
+
+        private void SaveVariablesBtn_Click(object sender, EventArgs e)
+        {
+            string filename = Path.Combine(LEonardRoot, variablesFilename);
+            Crawl("SaveVariables to " + filename);
+            variables.AcceptChanges();
+            variables.WriteXml(filename, XmlWriteMode.WriteSchema, true);
+        }
 
         private void ReadVariableBtn_Click(object sender, EventArgs e)
         {
@@ -724,24 +739,36 @@ namespace LEonard
             {
                 if ((string)row["Name"] == name)
                 {
-                    Crawl(String.Format("Found {0} {1} = {2}", row["Type"], row["Name"], row["Value"]));
+                    Crawl(String.Format("Found {0} = {1}", row["Name"], row["Value"]));
                     return;
                 }
             }
             CrawlError("Can't find " + name);
         }
 
-        private void WriteInt32VariableBtn_Click(object sender, EventArgs e)
+
+        // Update variable 'name' with 'value' if it exists otherwise add it
+        public void WriteVariable(string name, string value)
         {
-            Crawl(VariableNameTxt.Text + " = " + WriteInt32ValueTxt.Text);
-
+            Crawl(string.Format("WriteVariable({0}, {1})", name, value));
+            foreach (DataRow row in variables.Rows)
+            {
+                if ((string)row["Name"] == name)
+                {
+                    row["Value"] = value;
+                    return;
+                }
+            }
+            variables.Rows.Add(new object[] { name, value });
+            variables.AcceptChanges();
         }
-
         private void WriteStringValueTxt_Click(object sender, EventArgs e)
         {
-            Crawl(VariableNameTxt.Text + " = " + WriteStringValueTxt.Text);
-
+            string name = VariableNameTxt.Text;
+            string value = WriteStringValueTxt.Text;
+            WriteVariable(name, value);
         }
+
 
         // ***********************************************************************
         // END VARIABLES UI

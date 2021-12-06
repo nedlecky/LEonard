@@ -291,7 +291,7 @@ namespace LEonardInterfaceTester
         int messageIndex = 1;
         private void CommandOne_Click(object sender, EventArgs e)
         {
-            string request = "command1," + messageIndex++.ToString("00000");
+            string request = "command1," + messageIndex++.ToString("00000") + ",params";
 
             Send(request);
         }
@@ -299,7 +299,7 @@ namespace LEonardInterfaceTester
         
         private void GetStatus()
         {
-            string request = "status," + messageIndex++.ToString("00000");
+            string request = "status," + messageIndex++.ToString("00000") + ",params";
 
             Send(request);
         }

@@ -75,15 +75,14 @@
             this.RuntimeTab = new System.Windows.Forms.TabPage();
             this.ReportingTab = new System.Windows.Forms.TabPage();
             this.VariablesTab = new System.Windows.Forms.TabPage();
+            this.LoadVariablesBtn = new System.Windows.Forms.Button();
+            this.SaveVariablesBtn = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.WriteInt32VariableBtn = new System.Windows.Forms.Button();
             this.ReadVariableBtn = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.WriteStringValueTxt = new System.Windows.Forms.Button();
-            this.WriteInt32ValueTxt = new System.Windows.Forms.TextBox();
+            this.WriteStringValueTxt = new System.Windows.Forms.TextBox();
+            this.WriteStringValueBtn = new System.Windows.Forms.Button();
             this.VariableNameTxt = new System.Windows.Forms.TextBox();
             this.ClearVariablesBtn = new System.Windows.Forms.Button();
-            this.DefaultVariablesBtn = new System.Windows.Forms.Button();
             this.VariablesGrd = new System.Windows.Forms.DataGridView();
             this.ConfigTab = new System.Windows.Forms.TabPage();
             this.DeviceControlGrp = new System.Windows.Forms.GroupBox();
@@ -577,9 +576,10 @@
             // 
             // VariablesTab
             // 
+            this.VariablesTab.Controls.Add(this.LoadVariablesBtn);
+            this.VariablesTab.Controls.Add(this.SaveVariablesBtn);
             this.VariablesTab.Controls.Add(this.groupBox7);
             this.VariablesTab.Controls.Add(this.ClearVariablesBtn);
-            this.VariablesTab.Controls.Add(this.DefaultVariablesBtn);
             this.VariablesTab.Controls.Add(this.VariablesGrd);
             this.VariablesTab.Location = new System.Drawing.Point(4, 22);
             this.VariablesTab.Name = "VariablesTab";
@@ -589,30 +589,38 @@
             this.VariablesTab.Text = "Variables";
             this.VariablesTab.UseVisualStyleBackColor = true;
             // 
+            // LoadVariablesBtn
+            // 
+            this.LoadVariablesBtn.Location = new System.Drawing.Point(6, 586);
+            this.LoadVariablesBtn.Name = "LoadVariablesBtn";
+            this.LoadVariablesBtn.Size = new System.Drawing.Size(75, 23);
+            this.LoadVariablesBtn.TabIndex = 11;
+            this.LoadVariablesBtn.Text = "Load";
+            this.LoadVariablesBtn.UseVisualStyleBackColor = true;
+            this.LoadVariablesBtn.Click += new System.EventHandler(this.LoadVariablesBtn_Click);
+            // 
+            // SaveVariablesBtn
+            // 
+            this.SaveVariablesBtn.Location = new System.Drawing.Point(87, 586);
+            this.SaveVariablesBtn.Name = "SaveVariablesBtn";
+            this.SaveVariablesBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveVariablesBtn.TabIndex = 10;
+            this.SaveVariablesBtn.Text = "Save";
+            this.SaveVariablesBtn.UseVisualStyleBackColor = true;
+            this.SaveVariablesBtn.Click += new System.EventHandler(this.SaveVariablesBtn_Click);
+            // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.WriteInt32VariableBtn);
             this.groupBox7.Controls.Add(this.ReadVariableBtn);
-            this.groupBox7.Controls.Add(this.textBox3);
             this.groupBox7.Controls.Add(this.WriteStringValueTxt);
-            this.groupBox7.Controls.Add(this.WriteInt32ValueTxt);
+            this.groupBox7.Controls.Add(this.WriteStringValueBtn);
             this.groupBox7.Controls.Add(this.VariableNameTxt);
-            this.groupBox7.Location = new System.Drawing.Point(143, 586);
+            this.groupBox7.Location = new System.Drawing.Point(289, 586);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(339, 136);
             this.groupBox7.TabIndex = 9;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Manual";
-            // 
-            // WriteInt32VariableBtn
-            // 
-            this.WriteInt32VariableBtn.Location = new System.Drawing.Point(130, 62);
-            this.WriteInt32VariableBtn.Name = "WriteInt32VariableBtn";
-            this.WriteInt32VariableBtn.Size = new System.Drawing.Size(75, 23);
-            this.WriteInt32VariableBtn.TabIndex = 3;
-            this.WriteInt32VariableBtn.Text = "Write Int32";
-            this.WriteInt32VariableBtn.UseVisualStyleBackColor = true;
-            this.WriteInt32VariableBtn.Click += new System.EventHandler(this.WriteInt32VariableBtn_Click);
             // 
             // ReadVariableBtn
             // 
@@ -624,31 +632,23 @@
             this.ReadVariableBtn.UseVisualStyleBackColor = true;
             this.ReadVariableBtn.Click += new System.EventHandler(this.ReadVariableBtn_Click);
             // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(211, 93);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 7;
-            this.textBox3.Text = "Test String";
-            // 
             // WriteStringValueTxt
             // 
-            this.WriteStringValueTxt.Location = new System.Drawing.Point(130, 91);
+            this.WriteStringValueTxt.Location = new System.Drawing.Point(211, 93);
             this.WriteStringValueTxt.Name = "WriteStringValueTxt";
-            this.WriteStringValueTxt.Size = new System.Drawing.Size(75, 23);
-            this.WriteStringValueTxt.TabIndex = 4;
-            this.WriteStringValueTxt.Text = "Write String";
-            this.WriteStringValueTxt.UseVisualStyleBackColor = true;
-            this.WriteStringValueTxt.Click += new System.EventHandler(this.WriteStringValueTxt_Click);
+            this.WriteStringValueTxt.Size = new System.Drawing.Size(100, 20);
+            this.WriteStringValueTxt.TabIndex = 7;
+            this.WriteStringValueTxt.Text = "Test String";
             // 
-            // WriteInt32ValueTxt
+            // WriteStringValueBtn
             // 
-            this.WriteInt32ValueTxt.Location = new System.Drawing.Point(211, 62);
-            this.WriteInt32ValueTxt.Name = "WriteInt32ValueTxt";
-            this.WriteInt32ValueTxt.Size = new System.Drawing.Size(100, 20);
-            this.WriteInt32ValueTxt.TabIndex = 6;
-            this.WriteInt32ValueTxt.Text = "123";
+            this.WriteStringValueBtn.Location = new System.Drawing.Point(130, 91);
+            this.WriteStringValueBtn.Name = "WriteStringValueBtn";
+            this.WriteStringValueBtn.Size = new System.Drawing.Size(75, 23);
+            this.WriteStringValueBtn.TabIndex = 4;
+            this.WriteStringValueBtn.Text = "Write String";
+            this.WriteStringValueBtn.UseVisualStyleBackColor = true;
+            this.WriteStringValueBtn.Click += new System.EventHandler(this.WriteStringValueTxt_Click);
             // 
             // VariableNameTxt
             // 
@@ -660,23 +660,13 @@
             // 
             // ClearVariablesBtn
             // 
-            this.ClearVariablesBtn.Location = new System.Drawing.Point(14, 663);
+            this.ClearVariablesBtn.Location = new System.Drawing.Point(168, 586);
             this.ClearVariablesBtn.Name = "ClearVariablesBtn";
             this.ClearVariablesBtn.Size = new System.Drawing.Size(75, 23);
             this.ClearVariablesBtn.TabIndex = 8;
             this.ClearVariablesBtn.Text = "Clear";
             this.ClearVariablesBtn.UseVisualStyleBackColor = true;
             this.ClearVariablesBtn.Click += new System.EventHandler(this.ClearVariablesBtn_Click);
-            // 
-            // DefaultVariablesBtn
-            // 
-            this.DefaultVariablesBtn.Location = new System.Drawing.Point(14, 692);
-            this.DefaultVariablesBtn.Name = "DefaultVariablesBtn";
-            this.DefaultVariablesBtn.Size = new System.Drawing.Size(75, 23);
-            this.DefaultVariablesBtn.TabIndex = 1;
-            this.DefaultVariablesBtn.Text = "Default";
-            this.DefaultVariablesBtn.UseVisualStyleBackColor = true;
-            this.DefaultVariablesBtn.Click += new System.EventHandler(this.DefaultVariablesBtn_Click);
             // 
             // VariablesGrd
             // 
@@ -1129,16 +1119,15 @@
         private System.Windows.Forms.CheckBox AutoStartChk;
         private System.Windows.Forms.CheckBox AutoLoadChk;
         private System.Windows.Forms.GroupBox DeviceControlGrp;
-        private System.Windows.Forms.Button DefaultVariablesBtn;
         private System.Windows.Forms.DataGridView VariablesGrd;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox WriteInt32ValueTxt;
+        private System.Windows.Forms.TextBox WriteStringValueTxt;
         private System.Windows.Forms.TextBox VariableNameTxt;
-        private System.Windows.Forms.Button WriteStringValueTxt;
-        private System.Windows.Forms.Button WriteInt32VariableBtn;
+        private System.Windows.Forms.Button WriteStringValueBtn;
         private System.Windows.Forms.Button ReadVariableBtn;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Button ClearVariablesBtn;
+        private System.Windows.Forms.Button LoadVariablesBtn;
+        private System.Windows.Forms.Button SaveVariablesBtn;
     }
 }
 
