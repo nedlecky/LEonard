@@ -7,29 +7,30 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public class DatamanSerial : LeDeviceInterface
+    public class LeSerial : LeDeviceInterface
     {
         MainForm myForm;
         string myPortname;
         SerialPort port;
-        public string ReadIndex { get; set; }
+        public string Index { get; set; }
         public string Value { get; set; }
 
+        public Action<string> receiveCallback { get; set; }
 
-        public DatamanSerial(MainForm form) 
+        public LeSerial(MainForm form) 
         {
             myForm = form;
-            myForm.CrawlBarcode("DatamanSerial()");
+            myForm.CrawlBarcode("LeSerial()");
         }
 
-        ~DatamanSerial()
+        ~LeSerial()
         {
-            myForm.CrawlBarcode("~DatamanSerial(): " + myPortname);
+            myForm.CrawlBarcode("~LeSerial(): " + myPortname);
         }
         public int Connect(string portname)
         {
             myPortname = portname;
-            myForm.CrawlBarcode("DatamanSerial.Connect(" + myPortname + ")");
+            myForm.CrawlBarcode("LeSerial.Connect(" + myPortname + ")");
 
             port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
             port.Handshake = Handshake.XOnXOff;
@@ -46,7 +47,7 @@ namespace LEonard
 
         public int Disconnect()
         {
-            myForm.CrawlBarcode("DatamanSerial.Disconnect(): " + myPortname);
+            myForm.CrawlBarcode("LeSerial.Disconnect(): " + myPortname);
 
             port.Close();
 
@@ -62,7 +63,10 @@ namespace LEonard
         public string Receive()
         {
             //myForm.CrawlBarcode("Trigger(): " + myPortname);
-            return port.ReadLine();
+            if(port.BytesToRead > 0)
+                return port.ReadLine();
+            else
+                return "";
         }
 
         public void DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -72,7 +76,7 @@ namespace LEonard
             string[] s = data.Split(',');
             if (s.Length == 3)
             {
-                ReadIndex = s[1];
+                Index = s[1];
                 Value = s[2];
             }
             else

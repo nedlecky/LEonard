@@ -19,6 +19,10 @@ namespace LEonard
         string myPort;
         string crawlPrefix;
         public Action<string> receiveCallback { get;  set; }
+        public string Index { get; set; }
+        public string Value { get; set; }
+
+
 
         public bool DryRun { get; set; } = false;
         const int inputBufferLen = 128000;
@@ -27,7 +31,7 @@ namespace LEonard
         public int nGetStatusResponses = 0;
         public int nBadCommLenErrors = 0;
 
-        public LeTcpServer(MainForm form, string prefix)
+        public LeTcpServer(MainForm form, string prefix="")
         {
             myForm = form;
             crawlPrefix = prefix;

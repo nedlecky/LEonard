@@ -62,19 +62,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DevicesUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Devices\LeTcpClient.cs" />
     <Compile Include="Devices\LeDeviceInterface.cs" />
     <Compile Include="Threads\BarcodeReaderThread.cs" />
     <Compile Include="Util\Crawler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Devices\DatamanSerial.cs" />
+    <Compile Include="Devices\LeSerial.cs" />
     <Compile Include="Threads\GeneralThreadBase.cs" />
     <Compile Include="Threads\GeneralThreadInterface.cs" />
     <Compile Include="MainForm.cs">

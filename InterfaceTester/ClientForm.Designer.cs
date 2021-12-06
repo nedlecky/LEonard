@@ -87,7 +87,7 @@
             // 
             // CommandOneBtn
             // 
-            this.CommandOneBtn.Location = new System.Drawing.Point(242, 13);
+            this.CommandOneBtn.Location = new System.Drawing.Point(256, 12);
             this.CommandOneBtn.Name = "CommandOneBtn";
             this.CommandOneBtn.Size = new System.Drawing.Size(107, 22);
             this.CommandOneBtn.TabIndex = 5;
@@ -97,7 +97,7 @@
             // 
             // AbortBtn
             // 
-            this.AbortBtn.Location = new System.Drawing.Point(164, 13);
+            this.AbortBtn.Location = new System.Drawing.Point(178, 11);
             this.AbortBtn.Name = "AbortBtn";
             this.AbortBtn.Size = new System.Drawing.Size(72, 72);
             this.AbortBtn.TabIndex = 10;
@@ -107,7 +107,7 @@
             // 
             // GetStatusBtn
             // 
-            this.GetStatusBtn.Location = new System.Drawing.Point(242, 63);
+            this.GetStatusBtn.Location = new System.Drawing.Point(256, 40);
             this.GetStatusBtn.Name = "GetStatusBtn";
             this.GetStatusBtn.Size = new System.Drawing.Size(107, 22);
             this.GetStatusBtn.TabIndex = 12;
@@ -140,7 +140,7 @@
             // 
             // ExitBtn
             // 
-            this.ExitBtn.Location = new System.Drawing.Point(459, 9);
+            this.ExitBtn.Location = new System.Drawing.Point(459, 12);
             this.ExitBtn.Name = "ExitBtn";
             this.ExitBtn.Size = new System.Drawing.Size(60, 42);
             this.ExitBtn.TabIndex = 45;

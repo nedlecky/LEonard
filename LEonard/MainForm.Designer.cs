@@ -51,14 +51,11 @@
             this.DM1DataLbl = new System.Windows.Forms.Label();
             this.TriggerDM2Btn = new System.Windows.Forms.Button();
             this.TriggerDM1Btn = new System.Windows.Forms.Button();
-            this.CommandServerChk = new System.Windows.Forms.CheckBox();
             this.StartTestClientBtn = new System.Windows.Forms.Button();
-            this.RobotServerChk = new System.Windows.Forms.CheckBox();
             this.RobotSendBtn = new System.Windows.Forms.Button();
             this.RobotCommandTxt = new System.Windows.Forms.TextBox();
             this.VisionCommandTxt = new System.Windows.Forms.TextBox();
             this.VisionSendBtn = new System.Windows.Forms.Button();
-            this.VisionServerChk = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BarcodeClearBtn = new System.Windows.Forms.Button();
@@ -71,7 +68,6 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.CommandClearBtn = new System.Windows.Forms.Button();
             this.CommandCrawlRTB = new System.Windows.Forms.RichTextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.Robot99Btn = new System.Windows.Forms.Button();
             this.Robot98Btn = new System.Windows.Forms.Button();
@@ -83,7 +79,6 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.VisionClientCommandTxt = new System.Windows.Forms.TextBox();
             this.VisionClientSendBtn = new System.Windows.Forms.Button();
-            this.VisionClientChk = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.PersonalityTabs = new System.Windows.Forms.TabControl();
             this.RuntimeTab = new System.Windows.Forms.TabPage();
@@ -97,6 +92,7 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ConfigTab = new System.Windows.Forms.TabPage();
+            this.DeviceControlGrp = new System.Windows.Forms.GroupBox();
             this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
             this.DevicesFilenameLbl = new System.Windows.Forms.Label();
             this.ConfigGrp = new System.Windows.Forms.GroupBox();
@@ -134,7 +130,6 @@
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.PersonalityTabs.SuspendLayout();
@@ -186,7 +181,7 @@
             // 
             // RobotClearBtn
             // 
-            this.RobotClearBtn.Location = new System.Drawing.Point(6, 219);
+            this.RobotClearBtn.Location = new System.Drawing.Point(312, 16);
             this.RobotClearBtn.Name = "RobotClearBtn";
             this.RobotClearBtn.Size = new System.Drawing.Size(50, 23);
             this.RobotClearBtn.TabIndex = 11;
@@ -196,7 +191,7 @@
             // 
             // VisionClearBtn
             // 
-            this.VisionClearBtn.Location = new System.Drawing.Point(6, 219);
+            this.VisionClearBtn.Location = new System.Drawing.Point(312, 19);
             this.VisionClearBtn.Name = "VisionClearBtn";
             this.VisionClearBtn.Size = new System.Drawing.Size(50, 23);
             this.VisionClearBtn.TabIndex = 14;
@@ -209,7 +204,7 @@
             this.VisionCrawlRTB.Location = new System.Drawing.Point(6, 15);
             this.VisionCrawlRTB.Name = "VisionCrawlRTB";
             this.VisionCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.VisionCrawlRTB.Size = new System.Drawing.Size(376, 198);
+            this.VisionCrawlRTB.Size = new System.Drawing.Size(376, 231);
             this.VisionCrawlRTB.TabIndex = 12;
             this.VisionCrawlRTB.Text = "";
             // 
@@ -228,7 +223,7 @@
             this.ErrorCrawlRTB.Location = new System.Drawing.Point(6, 16);
             this.ErrorCrawlRTB.Name = "ErrorCrawlRTB";
             this.ErrorCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.ErrorCrawlRTB.Size = new System.Drawing.Size(420, 218);
+            this.ErrorCrawlRTB.Size = new System.Drawing.Size(426, 218);
             this.ErrorCrawlRTB.TabIndex = 15;
             this.ErrorCrawlRTB.Text = "";
             // 
@@ -247,9 +242,9 @@
             this.BarcodeGrp.Controls.Add(this.DM1DataLbl);
             this.BarcodeGrp.Controls.Add(this.TriggerDM2Btn);
             this.BarcodeGrp.Controls.Add(this.TriggerDM1Btn);
-            this.BarcodeGrp.Location = new System.Drawing.Point(1108, 577);
+            this.BarcodeGrp.Location = new System.Drawing.Point(1110, 541);
             this.BarcodeGrp.Name = "BarcodeGrp";
-            this.BarcodeGrp.Size = new System.Drawing.Size(306, 217);
+            this.BarcodeGrp.Size = new System.Drawing.Size(306, 252);
             this.BarcodeGrp.TabIndex = 22;
             this.BarcodeGrp.TabStop = false;
             this.BarcodeGrp.Text = "Barcode Reader Commands";
@@ -341,37 +336,15 @@
             this.TriggerDM1Btn.UseVisualStyleBackColor = true;
             this.TriggerDM1Btn.Click += new System.EventHandler(this.TriggerDM1Btn_Click);
             // 
-            // CommandServerChk
-            // 
-            this.CommandServerChk.AutoSize = true;
-            this.CommandServerChk.Location = new System.Drawing.Point(6, 21);
-            this.CommandServerChk.Name = "CommandServerChk";
-            this.CommandServerChk.Size = new System.Drawing.Size(107, 17);
-            this.CommandServerChk.TabIndex = 24;
-            this.CommandServerChk.Text = "Command Server";
-            this.CommandServerChk.UseVisualStyleBackColor = true;
-            this.CommandServerChk.CheckedChanged += new System.EventHandler(this.CommandServerChk_CheckedChanged);
-            // 
             // StartTestClientBtn
             // 
-            this.StartTestClientBtn.Location = new System.Drawing.Point(6, 44);
+            this.StartTestClientBtn.Location = new System.Drawing.Point(254, 21);
             this.StartTestClientBtn.Name = "StartTestClientBtn";
-            this.StartTestClientBtn.Size = new System.Drawing.Size(75, 56);
+            this.StartTestClientBtn.Size = new System.Drawing.Size(102, 23);
             this.StartTestClientBtn.TabIndex = 25;
             this.StartTestClientBtn.Text = "Start Test Client";
             this.StartTestClientBtn.UseVisualStyleBackColor = true;
             this.StartTestClientBtn.Click += new System.EventHandler(this.StartTestClientBtn_Click);
-            // 
-            // RobotServerChk
-            // 
-            this.RobotServerChk.AutoSize = true;
-            this.RobotServerChk.Location = new System.Drawing.Point(6, 19);
-            this.RobotServerChk.Name = "RobotServerChk";
-            this.RobotServerChk.Size = new System.Drawing.Size(89, 17);
-            this.RobotServerChk.TabIndex = 26;
-            this.RobotServerChk.Text = "Robot Server";
-            this.RobotServerChk.UseVisualStyleBackColor = true;
-            this.RobotServerChk.CheckedChanged += new System.EventHandler(this.RobotServerChk_CheckedChanged);
             // 
             // RobotSendBtn
             // 
@@ -405,28 +378,17 @@
             this.VisionSendBtn.Name = "VisionSendBtn";
             this.VisionSendBtn.Size = new System.Drawing.Size(75, 23);
             this.VisionSendBtn.TabIndex = 30;
-            this.VisionSendBtn.Text = "Send";
+            this.VisionSendBtn.Text = "Send Server";
             this.VisionSendBtn.UseVisualStyleBackColor = true;
             this.VisionSendBtn.Click += new System.EventHandler(this.VisionSendBtn_Click);
-            // 
-            // VisionServerChk
-            // 
-            this.VisionServerChk.AutoSize = true;
-            this.VisionServerChk.Location = new System.Drawing.Point(6, 19);
-            this.VisionServerChk.Name = "VisionServerChk";
-            this.VisionServerChk.Size = new System.Drawing.Size(88, 17);
-            this.VisionServerChk.TabIndex = 29;
-            this.VisionServerChk.Text = "Vision Server";
-            this.VisionServerChk.UseVisualStyleBackColor = true;
-            this.VisionServerChk.CheckedChanged += new System.EventHandler(this.VisionServerChk_CheckedChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.RobotClearBtn);
             this.groupBox1.Controls.Add(this.RobotCrawlRTB);
-            this.groupBox1.Location = new System.Drawing.Point(1358, 52);
+            this.groupBox1.Location = new System.Drawing.Point(1422, 49);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(388, 252);
+            this.groupBox1.Size = new System.Drawing.Size(388, 224);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Robot Messages";
@@ -435,16 +397,16 @@
             // 
             this.groupBox2.Controls.Add(this.BarcodeClearBtn);
             this.groupBox2.Controls.Add(this.BarcodeCrawlRTB);
-            this.groupBox2.Location = new System.Drawing.Point(1433, 580);
+            this.groupBox2.Location = new System.Drawing.Point(1422, 541);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(388, 252);
+            this.groupBox2.Size = new System.Drawing.Size(382, 252);
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Barcode Reader Messages";
             // 
             // BarcodeClearBtn
             // 
-            this.BarcodeClearBtn.Location = new System.Drawing.Point(6, 223);
+            this.BarcodeClearBtn.Location = new System.Drawing.Point(306, 22);
             this.BarcodeClearBtn.Name = "BarcodeClearBtn";
             this.BarcodeClearBtn.Size = new System.Drawing.Size(50, 23);
             this.BarcodeClearBtn.TabIndex = 11;
@@ -454,18 +416,18 @@
             // 
             // BarcodeCrawlRTB
             // 
-            this.BarcodeCrawlRTB.Location = new System.Drawing.Point(-4, 19);
+            this.BarcodeCrawlRTB.Location = new System.Drawing.Point(6, 19);
             this.BarcodeCrawlRTB.Name = "BarcodeCrawlRTB";
             this.BarcodeCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.BarcodeCrawlRTB.Size = new System.Drawing.Size(386, 198);
+            this.BarcodeCrawlRTB.Size = new System.Drawing.Size(370, 222);
             this.BarcodeCrawlRTB.TabIndex = 7;
             this.BarcodeCrawlRTB.Text = "";
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.VisionCrawlRTB);
             this.groupBox3.Controls.Add(this.VisionClearBtn);
-            this.groupBox3.Location = new System.Drawing.Point(1416, 322);
+            this.groupBox3.Controls.Add(this.VisionCrawlRTB);
+            this.groupBox3.Location = new System.Drawing.Point(1422, 283);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(388, 252);
             this.groupBox3.TabIndex = 34;
@@ -521,18 +483,19 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.StartTestClientBtn);
             this.groupBox6.Controls.Add(this.CommandClearBtn);
             this.groupBox6.Controls.Add(this.CommandCrawlRTB);
-            this.groupBox6.Location = new System.Drawing.Point(148, 381);
+            this.groupBox6.Location = new System.Drawing.Point(12, 381);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(302, 161);
+            this.groupBox6.Size = new System.Drawing.Size(438, 161);
             this.groupBox6.TabIndex = 36;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Command Messages";
             // 
             // CommandClearBtn
             // 
-            this.CommandClearBtn.Location = new System.Drawing.Point(226, 21);
+            this.CommandClearBtn.Location = new System.Drawing.Point(362, 21);
             this.CommandClearBtn.Name = "CommandClearBtn";
             this.CommandClearBtn.Size = new System.Drawing.Size(50, 23);
             this.CommandClearBtn.TabIndex = 9;
@@ -545,20 +508,9 @@
             this.CommandCrawlRTB.Location = new System.Drawing.Point(6, 19);
             this.CommandCrawlRTB.Name = "CommandCrawlRTB";
             this.CommandCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.CommandCrawlRTB.Size = new System.Drawing.Size(284, 120);
+            this.CommandCrawlRTB.Size = new System.Drawing.Size(426, 120);
             this.CommandCrawlRTB.TabIndex = 6;
             this.CommandCrawlRTB.Text = "";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.StartTestClientBtn);
-            this.groupBox7.Controls.Add(this.CommandServerChk);
-            this.groupBox7.Location = new System.Drawing.Point(12, 381);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(130, 161);
-            this.groupBox7.TabIndex = 58;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Command";
             // 
             // groupBox8
             // 
@@ -570,11 +522,10 @@
             this.groupBox8.Controls.Add(this.Robot2Btn);
             this.groupBox8.Controls.Add(this.Robot1Btn);
             this.groupBox8.Controls.Add(this.RobotSendBtn);
-            this.groupBox8.Controls.Add(this.RobotServerChk);
             this.groupBox8.Controls.Add(this.RobotCommandTxt);
             this.groupBox8.Location = new System.Drawing.Point(1110, 49);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(227, 207);
+            this.groupBox8.Size = new System.Drawing.Size(306, 224);
             this.groupBox8.TabIndex = 59;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Robot Commands";
@@ -652,14 +603,12 @@
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.VisionClientCommandTxt);
-            this.groupBox9.Controls.Add(this.VisionServerChk);
             this.groupBox9.Controls.Add(this.VisionClientSendBtn);
             this.groupBox9.Controls.Add(this.VisionCommandTxt);
-            this.groupBox9.Controls.Add(this.VisionClientChk);
             this.groupBox9.Controls.Add(this.VisionSendBtn);
-            this.groupBox9.Location = new System.Drawing.Point(1110, 322);
+            this.groupBox9.Location = new System.Drawing.Point(1110, 283);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(281, 213);
+            this.groupBox9.Size = new System.Drawing.Size(306, 252);
             this.groupBox9.TabIndex = 60;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Vision Commands";
@@ -678,20 +627,9 @@
             this.VisionClientSendBtn.Name = "VisionClientSendBtn";
             this.VisionClientSendBtn.Size = new System.Drawing.Size(75, 23);
             this.VisionClientSendBtn.TabIndex = 32;
-            this.VisionClientSendBtn.Text = "Send";
+            this.VisionClientSendBtn.Text = "Send Client";
             this.VisionClientSendBtn.UseVisualStyleBackColor = true;
             this.VisionClientSendBtn.Click += new System.EventHandler(this.VisionClientSendBtn_Click);
-            // 
-            // VisionClientChk
-            // 
-            this.VisionClientChk.AutoSize = true;
-            this.VisionClientChk.Location = new System.Drawing.Point(6, 86);
-            this.VisionClientChk.Name = "VisionClientChk";
-            this.VisionClientChk.Size = new System.Drawing.Size(83, 17);
-            this.VisionClientChk.TabIndex = 30;
-            this.VisionClientChk.Text = "Vision Client";
-            this.VisionClientChk.UseVisualStyleBackColor = true;
-            this.VisionClientChk.CheckedChanged += new System.EventHandler(this.VisionClientChk_CheckedChanged);
             // 
             // groupBox10
             // 
@@ -820,6 +758,7 @@
             // 
             // ConfigTab
             // 
+            this.ConfigTab.Controls.Add(this.DeviceControlGrp);
             this.ConfigTab.Controls.Add(this.SaveAsDevicesBtn);
             this.ConfigTab.Controls.Add(this.DevicesFilenameLbl);
             this.ConfigTab.Controls.Add(this.ConfigGrp);
@@ -834,6 +773,14 @@
             this.ConfigTab.TabIndex = 3;
             this.ConfigTab.Text = "Config";
             this.ConfigTab.UseVisualStyleBackColor = true;
+            // 
+            // DeviceControlGrp
+            // 
+            this.DeviceControlGrp.Location = new System.Drawing.Point(8, 528);
+            this.DeviceControlGrp.Name = "DeviceControlGrp";
+            this.DeviceControlGrp.Size = new System.Drawing.Size(620, 181);
+            this.DeviceControlGrp.TabIndex = 65;
+            this.DeviceControlGrp.TabStop = false;
             // 
             // SaveAsDevicesBtn
             // 
@@ -1021,6 +968,10 @@
             this.DeviceGrid.Name = "DeviceGrid";
             this.DeviceGrid.Size = new System.Drawing.Size(620, 242);
             this.DeviceGrid.TabIndex = 58;
+            this.DeviceGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DeviceGrid_CellBeginEdit);
+            this.DeviceGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellContentClick);
+            this.DeviceGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellValueChanged);
+            this.DeviceGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_RowEnter);
             this.DeviceGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DeviceGrid_UserDeletingRow);
             // 
             // menuStrip
@@ -1031,7 +982,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1908, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1818, 24);
             this.menuStrip.TabIndex = 63;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -1097,9 +1048,9 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip.Location = new System.Drawing.Point(0, 797);
+            this.statusStrip.Location = new System.Drawing.Point(0, 801);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1908, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1818, 22);
             this.statusStrip.TabIndex = 64;
             this.statusStrip.Text = "statusStrip";
             // 
@@ -1119,14 +1070,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1908, 819);
+            this.ClientSize = new System.Drawing.Size(1818, 823);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.BarcodeGrp);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox8);
-            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.PersonalityTabs);
@@ -1148,8 +1098,6 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox9.ResumeLayout(false);
@@ -1190,14 +1138,11 @@
         private System.Windows.Forms.Label DM1DataLbl;
         private System.Windows.Forms.Button TriggerDM2Btn;
         private System.Windows.Forms.Button TriggerDM1Btn;
-        private System.Windows.Forms.CheckBox CommandServerChk;
         private System.Windows.Forms.Button StartTestClientBtn;
-        private System.Windows.Forms.CheckBox RobotServerChk;
         private System.Windows.Forms.Button RobotSendBtn;
         private System.Windows.Forms.TextBox RobotCommandTxt;
         private System.Windows.Forms.TextBox VisionCommandTxt;
         private System.Windows.Forms.Button VisionSendBtn;
-        private System.Windows.Forms.CheckBox VisionServerChk;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button BarcodeClearBtn;
@@ -1208,7 +1153,6 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button CommandClearBtn;
         private System.Windows.Forms.RichTextBox CommandCrawlRTB;
-        private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Button Robot4Btn;
@@ -1224,7 +1168,6 @@
         private System.Windows.Forms.Button BcrtDestroyBtn;
         private System.Windows.Forms.Button BcrtCreateBtn;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.CheckBox VisionClientChk;
         private System.Windows.Forms.TextBox VisionClientCommandTxt;
         private System.Windows.Forms.Button VisionClientSendBtn;
         private System.Windows.Forms.TabControl PersonalityTabs;
@@ -1271,6 +1214,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox AutoStartChk;
         private System.Windows.Forms.CheckBox AutoLoadChk;
+        private System.Windows.Forms.GroupBox DeviceControlGrp;
     }
 }
 

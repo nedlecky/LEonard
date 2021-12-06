@@ -21,7 +21,12 @@ namespace LEonard
         const int inputBufferLen = 128000;
         byte[] inputBuffer = new byte[inputBufferLen];
 
-        public LeTcpClient(MainForm form, string prefix)
+        public Action<string> receiveCallback { get; set; }
+
+        public string Index { get; set; }
+        public string Value { get; set; }
+
+        public LeTcpClient(MainForm form, string prefix="")
         {
             myForm = form;
             crawlPrefix = prefix;

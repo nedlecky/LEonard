@@ -18,17 +18,20 @@ namespace LEonard
 {
     public partial class MainForm : Form
     {
-        string LEonardRoot = "./";
-        DataTable devices;
-        LeTcpServer commandServer;
-        LeTcpServer robotServer;
-        LeTcpServer visionServer;
-        LeTcpClient visionClient;
+        static string LEonardRoot = "./";
+        static DataTable devices;
+
+        //static LeTcpServer commandServer;
+        //static LeTcpServer robotServer;
+        //static LeTcpServer visionServer;
+        //static LeTcpClient visionClient;
+
+        //int nDatamanSerial = 2;
+        //static LeSerial[] dms = new LeSerial[2];
 
         BarcodeReaderThread bcrt;
 
-        int nDatamanSerial = 2;
-        DatamanSerial[] dms = new DatamanSerial[2];
+        LeDeviceInterface[] interfaces = { null, null, null, null, null, null };
 
         public MainForm()
         {
@@ -54,14 +57,10 @@ namespace LEonard
             Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
 
 
-            if(AutoLoadChk.Checked)
+            if (AutoLoadChk.Checked)
             {
                 LoadDevicesFile(StartupDevicesLbl.Text);
             }
-
-
-
-
 
             Connect();
         }
@@ -97,18 +96,18 @@ namespace LEonard
             MessageTmr.Interval = 100;
             MessageTmr.Enabled = true;
 
-            dms[0] = new DatamanSerial(this);
-            dms[1] = new DatamanSerial(this);
-            dms[0].Connect("COM3");
-            dms[1].Connect("COM4");
+            //dms[0] = new LeSerial(this);
+            //dms[1] = new LeSerial(this);
+            //dms[0].Connect("COM3");
+            //dms[1].Connect("COM4");
 
             StartThreads();
 
             // This will launch the TCP command servers
-            CommandServerChk.Checked = true;
-            RobotServerChk.Checked = true;
-            VisionServerChk.Checked = true;
-            VisionClientChk.Checked = true;
+            //CommandServerChk.Checked = true;
+            //RobotServerChk.Checked = true;
+            //VisionServerChk.Checked = true;
+            //VisionClientChk.Checked = true;
 
             Crawl("System ready.");
         }
@@ -117,30 +116,26 @@ namespace LEonard
         private void Disconnect()
         {
             Crawl("Disconnect()...");
-            //HeartbeatTmr.Enabled = false;
-            for (int i = 0; i < nDatamanSerial; i++)
+
+            for (int i = 0; i < 6; i++)
             {
-                dms[i].Disconnect();
-                dms[i] = null;
+                if (interfaces[i] != null)
+                {
+                    interfaces[i].Disconnect();
+                    interfaces[i] = null;
+                }
+
             }
 
-            // Close the TCP connections
-            // TODO this is a hoakey way to do that
-            CommandServerChk.Checked = false;
-            RobotServerChk.Checked = false;
-            VisionServerChk.Checked = false;
-            VisionClientChk.Checked = false;
-
             Crawl("Disconnect() complete");
-
         }
         private void StartThreads()
         {
             Crawl("StartThreads()...");
 
-            bcrt = new BarcodeReaderThread(this, dms);
-            bcrt.Enable(BarcodeReaderThreadChk.Checked);
-            bcrt.Start();
+            //bcrt = new BarcodeReaderThread(this, interfaces[4], interfaces[5]);
+            //bcrt.Enable(BarcodeReaderThreadChk.Checked);
+            //bcrt.Start();
         }
         private void EndThreads()
         {
@@ -159,6 +154,15 @@ namespace LEonard
             //TimeLbl.Text = now;
             toolStripStatusLabel1.Text = now;
         }
+        private void MessageTmr_Tick(object sender, EventArgs e)
+        {
+            FlushCrawl();
+
+            // TODO is this a poor place to check for commands from above??
+            for(int i=0; i<4; i++)
+                if (interfaces[i] != null) interfaces[i].Receive();
+        }
+
 
         private void CrawlerClearBtn_Click(object sender, EventArgs e)
         {
@@ -208,16 +212,16 @@ namespace LEonard
 
         private void TriggerDM1Btn_Click(object sender, EventArgs e)
         {
-            dms[0].Send("+");
+            interfaces[4].Send("+");
             // TODO how to wait here for long enough? Wait for some response or timeout
-            DM1DataLbl.Text = dms[0].ReadIndex + " " + dms[0].Value;
+            DM1DataLbl.Text = interfaces[4].Index + " " + interfaces[4].Value;
         }
 
         private void TriggerDM2Btn_Click(object sender, EventArgs e)
         {
-            dms[1].Send("+");
+            interfaces[5].Send("+");
             // TODO how to wait here for long enough? Wait for some response or timeout
-            DM2DataLbl.Text = dms[1].ReadIndex + " " + dms[1].Value;
+            DM2DataLbl.Text = interfaces[5].Index + " " + interfaces[5].Value;
         }
 
         void CommandCallback(string s)
@@ -225,27 +229,9 @@ namespace LEonard
             CrawlCommand("Execute: " + s);
 
             string response = "response to " + s;
-            commandServer.Send(response);
+            interfaces[0].Send(response);
 
         }
-        private void CommandServerChk_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CommandServerChk.Checked)
-            {
-                commandServer = new LeTcpServer(this, "COMMAND: ");
-                commandServer.Connect("192.168.0.252:1000");
-                commandServer.receiveCallback = CommandCallback;
-            }
-            else
-            {
-                if (commandServer != null)
-                {
-                    commandServer.Disconnect();
-                    commandServer = null;
-                }
-            }
-        }
-
 
         // Launch command tester to assist in debugging
         Process proc;
@@ -270,127 +256,79 @@ namespace LEonard
 
         }
 
-        private void RobotServerChk_CheckedChanged(object sender, EventArgs e)
-        {
-            if (RobotServerChk.Checked)
-            {
-                robotServer = new LeTcpServer(this, "ROBOT: ");
-                robotServer.Connect("192.168.0.252:30000");
-            }
-            else
-            {
-                if (robotServer != null)
-                {
-                    robotServer.Disconnect();
-                    robotServer = null;
-                }
-            }
-        }
         private void RobotSendBtn_Click(object sender, EventArgs e)
         {
-            if (robotServer != null)
-                robotServer.Send(RobotCommandTxt.Text);
+            if (interfaces[1] != null)
+                interfaces[1].Send(RobotCommandTxt.Text);
         }
 
         private void Robot1Btn_Click(object sender, EventArgs e)
         {
-            if (robotServer != null)
-                robotServer.Send("(1,0,0,0,0)");
+            if (interfaces[1] != null)
+                interfaces[1].Send("(1,0,0,0,0)");
         }
 
         private void Robot2Btn_Click(object sender, EventArgs e)
         {
-            if (robotServer != null)
-                robotServer.Send("(2,0,0,0,0)");
+            if (interfaces[1] != null)
+                interfaces[1].Send("(2,0,0,0,0)");
         }
 
         private void Robot3Btn_Click(object sender, EventArgs e)
         {
-            if (robotServer != null)
-                robotServer.Send("(3,0,0,0,0)");
+            if (interfaces[1] != null)
+                interfaces[1].Send("(3,0,0,0,0)");
         }
 
         private void Robot4Btn_Click(object sender, EventArgs e)
         {
-            if (robotServer != null)
-                robotServer.Send("(4,0,0,0,0)");
+            if (interfaces[1] != null)
+                interfaces[1].Send("(4,0,0,0,0)");
         }
 
         private void Robot50Btn_Click(object sender, EventArgs e)
         {
-            if (robotServer != null)
-                robotServer.Send("(50,0,0,0,0)");
+            if (interfaces[1] != null)
+                interfaces[1].Send("(50,0,0,0,0)");
         }
 
         private void Robot98Btn_Click(object sender, EventArgs e)
         {
-            if (robotServer != null)
+            if (interfaces[1] != null)
             {
-                robotServer.Send("(98,0,0,0,0)");
+                interfaces[1].Send("(98,0,0,0,0)");
 
                 // All shoud be wrapped in nice RobotServer class
                 Thread.Sleep(100);
-                robotServer.Disconnect();
+                interfaces[1].Disconnect();
                 //robotServer = new TcpServer(this, "ROBOT: ");
-                robotServer.Connect("192.168.0.252:30000");
+                interfaces[1].Connect("192.168.0.252:30000");
             }
         }
 
         private void Robot99Btn_Click(object sender, EventArgs e)
         {
-            if (robotServer != null)
+            if (interfaces[1] != null)
             {
-                robotServer.Send("(99,0,0,0,0)");
+                interfaces[1].Send("(99,0,0,0,0)");
 
                 // All shoud be wrapped in nice RobotServer class
                 Thread.Sleep(100);
-                robotServer.Disconnect();
+                interfaces[1].Disconnect();
                 //robotServer = new TcpServer(this, "ROBOT: ");
-                robotServer.Connect("192.168.0.252:30000");
-            }
-        }
-        private void VisionServerChk_CheckedChanged(object sender, EventArgs e)
-        {
-            if (VisionServerChk.Checked)
-            {
-                visionServer = new LeTcpServer(this, "VISION: ");
-                visionServer.Connect("192.168.0.252:20000");
-            }
-            else
-            {
-                if (visionServer != null)
-                {
-                    visionServer.Disconnect();
-                    visionServer = null;
-                }
+                interfaces[1].Connect("192.168.0.252:30000");
             }
         }
         private void VisionSendBtn_Click(object sender, EventArgs e)
         {
-            if (visionServer != null)
-                visionServer.Send(VisionCommandTxt.Text);
+            if (interfaces[2] != null)
+                interfaces[2].Send(VisionCommandTxt.Text);
         }
 
-        private void VisionClientChk_CheckedChanged(object sender, EventArgs e)
-        {
-            if (VisionClientChk.Checked)
-            {
-                visionClient = new LeTcpClient(this, "VISION: ");
-                visionClient.Connect("192.168.0.252", "21000");
-            }
-            else
-            {
-                if (visionServer != null)
-                {
-                    visionClient.Disconnect();
-                    visionClient = null;
-                }
-            }
-        }
         private void VisionClientSendBtn_Click(object sender, EventArgs e)
         {
-            if (visionClient != null)
-                visionClient.Send(VisionClientCommandTxt.Text);
+            if (interfaces[3] != null)
+                interfaces[3].Send(VisionClientCommandTxt.Text);
         }
 
         private void BcrtCreateBtn_Click(object sender, EventArgs e)
@@ -398,7 +336,7 @@ namespace LEonard
             if (bcrt != null)
                 bcrt.End();
             GC.Collect();
-            bcrt = new BarcodeReaderThread(this, dms);
+            bcrt = new BarcodeReaderThread(this, interfaces[4], interfaces[5]);
         }
 
         private void BcrtDestroyBtn_Click(object sender, EventArgs e)
@@ -427,6 +365,326 @@ namespace LEonard
         {
             this.Close();
         }
+
+        // ***********************************************************************
+        // CONFIG UI
+        // ***********************************************************************
+
+        void LoadPersistent()
+        {
+            // Pull setup info from registry.... these are overwritten on exit or with various config save operations
+            // Note default values are specified here as well
+            Crawl("LoadPersistent()");
+
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
+            LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", "\\");
+            LEonardRootLbl.Text = LEonardRoot;
+            StartupDevicesLbl.Text = (string)AppNameKey.GetValue("StartupDevicesLbl.Text", "");
+            AutoLoadChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoLoadChk.Checked", "False"));
+            AutoStartChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoStartChk.Checked", "False"));
+
+            PersonalityTabs.SelectedIndex = (Int32)AppNameKey.GetValue("PersonalityTabs.SelectedIndex", 0);
+        }
+
+        void SavePersistent()
+        {
+            Crawl("SavePersistent()");
+
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
+            AppNameKey.SetValue("LEonardRoot", LEonardRoot);
+            AppNameKey.SetValue("StartupDevicesLbl.Text", StartupDevicesLbl.Text);
+            AppNameKey.SetValue("AutoLoadChk.Checked", AutoLoadChk.Checked);
+            AppNameKey.SetValue("AutoStartChk.Checked", AutoStartChk.Checked);
+
+            AppNameKey.SetValue("PersonalityTabs.SelectedIndex", PersonalityTabs.SelectedIndex);
+        }
+        private void ChangeLEonardRootBtn_Click(object sender, EventArgs e)
+        {
+
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.SelectedPath = LEonardRoot;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Crawl(String.Format("You selected ERROR LEonardRoot={0}", dialog.SelectedPath));
+                LEonardRoot = dialog.SelectedPath;
+                LEonardRootLbl.Text = LEonardRoot;
+
+                DefaultConfigBtn.Enabled = true;
+                LoadConfigBtn.Enabled = true;
+                SaveConfigBtn.Enabled = true;
+            }
+
+        }
+
+        private void ChangeStartupDevicesBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Select Startup LEonard Devices File";
+            dialog.Filter = "Device files|*.dev";
+            dialog.InitialDirectory = LEonardRoot;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                StartupDevicesLbl.Text = dialog.FileName;
+                Crawl("Startup Devices file set to " + StartupDevicesLbl.Text);
+
+                DefaultConfigBtn.Enabled = true;
+                LoadConfigBtn.Enabled = true;
+                SaveConfigBtn.Enabled = true;
+
+                if (MessageBox.Show("Load this file now?", "LEonard Confiormation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    LoadDevicesFile(StartupDevicesLbl.Text);
+            }
+        }
+
+        private void AutoLoadChk_CheckedChanged(object sender, EventArgs e)
+        {
+            DefaultConfigBtn.Enabled = true;
+            LoadConfigBtn.Enabled = true;
+            SaveConfigBtn.Enabled = true;
+        }
+
+        private void AutoStartChk_CheckedChanged(object sender, EventArgs e)
+        {
+            DefaultConfigBtn.Enabled = true;
+            LoadConfigBtn.Enabled = true;
+            SaveConfigBtn.Enabled = true;
+        }
+
+        private void DefaultConfigBtn_Click(object sender, EventArgs e)
+        {
+            LEonardRoot = "";
+            LEonardRootLbl.Text = LEonardRoot;
+            StartupDevicesLbl.Text = "";
+            AutoLoadChk.Checked = false;
+            AutoStartChk.Checked = false;
+
+            DefaultConfigBtn.Enabled = false;
+            LoadConfigBtn.Enabled = true;
+            SaveConfigBtn.Enabled = true;
+        }
+
+        private void LoadConfigBtn_Click(object sender, EventArgs e)
+        {
+            LoadPersistent();
+            DefaultConfigBtn.Enabled = true;
+            LoadConfigBtn.Enabled = false;
+            SaveConfigBtn.Enabled = false;
+        }
+
+        private void SaveConfigBtn_Click(object sender, EventArgs e)
+        {
+            SavePersistent();
+            DefaultConfigBtn.Enabled = true;
+            LoadConfigBtn.Enabled = false;
+            SaveConfigBtn.Enabled = false;
+        }
+
+        // ***********************************************************************
+        // END CONFIG UI
+        // ***********************************************************************
+
+        // ***********************************************************************
+        // DEVICES UI
+        // ***********************************************************************
+        private void DefaultDevicesBtn_Click(object sender, EventArgs e)
+        {
+            devices = new DataTable("Devices");
+
+            DataColumn id = devices.Columns.Add("ID", typeof(System.Int32));
+            devices.Columns.Add("Name", typeof(System.String));
+            devices.Columns.Add("Running", typeof(System.Boolean));
+            devices.Columns.Add("DeviceType", typeof(System.String));
+            devices.Columns.Add("Address", typeof(System.String));
+            devices.Columns.Add("MessageTag", typeof(System.String));
+            devices.Columns.Add("CallBack", typeof(System.String));
+
+            //devices.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //devices.Columns[0].
+
+            devices.PrimaryKey = new DataColumn[] { id };
+
+            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "192.168.0.252:1000", "COMMAND:", "command" });
+            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.2:30000", "ROBOT:", "" });
+            devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "192.168.0.252:20000", "VISION:", "" });
+            devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "192.168.0.252:21000", "VISION:", "" });
+            devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "BARCODE:", "dataman" });
+            devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "BARCODE:", "dataman" });
+
+            DeviceGrid.DataSource = devices;
+
+            DefaultDevicesBtn.Enabled = false;
+            LoadDevicesBtn.Enabled = true;
+            SaveDevicesBtn.Enabled = true;
+            SaveAsDevicesBtn.Enabled = true;
+        }
+
+        int LoadDevicesFile(string name)
+        {
+            Crawl("LoadDevices from " + name);
+            devices = new DataTable("Devices");
+            devices.ReadXml(name);
+            DeviceGrid.DataSource = devices;
+            DevicesFilenameLbl.Text = name;
+
+            return 0;
+        }
+        private void LoadDevicesBtn_Click(object sender, EventArgs e)
+        {
+            // TODO: Need to close everyone down!
+
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Open a LEonard Devices File";
+            dialog.Filter = "Device files|*.dev";
+            dialog.InitialDirectory = LEonardRoot;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadDevicesFile(dialog.FileName);
+
+                DefaultDevicesBtn.Enabled = true;
+                LoadDevicesBtn.Enabled = true;
+                SaveDevicesBtn.Enabled = false;
+                SaveAsDevicesBtn.Enabled = true;
+            }
+        }
+        private void SaveDevicesBtn_Click(object sender, EventArgs e)
+        {
+            devices.AcceptChanges();
+
+            if (DevicesFilenameLbl.Text == "Untitled" || DevicesFilenameLbl.Text == "")
+                SaveAsDevicesBtn_Click(null, null);
+            else
+            {
+                Crawl("SaveDevices to " + DevicesFilenameLbl.Text);
+                devices.WriteXml(DevicesFilenameLbl.Text, XmlWriteMode.WriteSchema, true);
+
+                DefaultDevicesBtn.Enabled = true;
+                LoadDevicesBtn.Enabled = true;
+                SaveDevicesBtn.Enabled = false;
+                SaveAsDevicesBtn.Enabled = true;
+            }
+        }
+        private void SaveAsDevicesBtn_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "LEonard Devices|*.dev";
+            dialog.Title = "Save a LEonard devices File";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (dialog.FileName != "")
+                {
+                    DevicesFilenameLbl.Text = dialog.FileName;
+                    SaveDevicesBtn_Click(null, null);
+                }
+            }
+        }
+
+        private void DeviceGrid_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            Crawl("Deleting Row");
+
+            DefaultDevicesBtn.Enabled = true;
+            LoadDevicesBtn.Enabled = true;
+            SaveDevicesBtn.Enabled = true;
+            SaveAsDevicesBtn.Enabled = true;
+
+        }
+
+        private void DeviceGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            Crawl("Row Enter");
+
+            int row = e.RowIndex;
+            DeviceControlGrp.Text = devices.Rows[row].ItemArray[1].ToString();
+
+        }
+
+        private void DeviceGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int row = e.RowIndex;
+            int col = e.ColumnIndex;
+            int index = Convert.ToInt32(devices.Rows[row].ItemArray[0].ToString());
+            string name = devices.Rows[row].ItemArray[1].ToString();
+            string type = devices.Rows[row].ItemArray[3].ToString();
+            string address = devices.Rows[row].ItemArray[4].ToString();
+            string prefix = devices.Rows[row].ItemArray[5].ToString();
+            string callback = devices.Rows[row].ItemArray[6].ToString();
+
+            Crawl("Changed Value: " + devices.Rows[row].ItemArray[col].ToString());
+
+            if (col == 2)
+            {
+                if (devices.Rows[row].ItemArray[col].ToString() == "True")
+                {
+                    Crawl(string.Format("Start {0}:{1} as {2} at {3} with {4}, {5}", index, name, type, address, prefix, callback));
+                    switch(type)
+                    {
+                        case @"TcpServer":
+                            interfaces[index] = new LeTcpServer(this, prefix);
+                            interfaces[index].Connect(address);
+                            break;
+                        case @"TcpClient":
+                            interfaces[index] = new LeTcpClient(this, prefix);
+                            interfaces[index].Connect(address);
+                            break;
+                        case @"Serial":
+                            interfaces[index] = new LeSerial(this);
+                            interfaces[index].Connect(address);
+                            break;
+                        default:
+                            CrawlError("Illegal interface type: " + type);
+                            break;
+                    }
+
+                    // TODO: Callbacks
+                    switch (callback)
+                    {
+                        case "":
+                            break;
+                        case "command":
+                            interfaces[0].receiveCallback = CommandCallback;
+                            break;
+                        case "dataman":
+                            CrawlError("Dataman callback not yet implemented");
+                            break;
+                        default:
+                            CrawlError("Illegal callback type: " + type);
+                            break;
+                    }
+                }
+                else
+                {
+                    Crawl("Stop " + name);
+                    if (interfaces[index] != null)
+                    {
+                        interfaces[index].Disconnect();
+                        interfaces[index] = null;
+
+                    }
+                }
+            }
+
+        }
+
+        private void DeviceGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void DeviceGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            int row = e.RowIndex;
+            int col = e.ColumnIndex;
+
+            Crawl("CellBeginEdit: " + devices.Rows[row].ItemArray[col].ToString());
+
+        }
+
+        // ***********************************************************************
+        // END DEVICES UI
+        // ***********************************************************************
+
 
     }
 }
