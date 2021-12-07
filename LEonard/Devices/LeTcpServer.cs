@@ -27,7 +27,12 @@ namespace LEonard
 
         public LeTcpServer(MainForm form, string prefix="") : base(form, prefix)
         {
-            Crawl(string.Format("LeTcpServer(form, {0}", prefix));
+            Crawl(string.Format("LeTcpServer(form, {0})", prefix));
+        }
+
+        ~LeTcpServer()
+        {
+            Crawl(string.Format("~LeTcpServer()"));
         }
 
         public int Connect(string IPport)
@@ -45,6 +50,7 @@ namespace LEonard
 
             IPAddress ipAddress = IPAddress.Parse(IP);
             IPEndPoint remoteEP = new IPEndPoint(IPAddressToLong(ipAddress), Int32.Parse(port));
+            Crawl("EP: " + remoteEP.ToString());
             try
             {
                 server = new TcpListener(remoteEP);
@@ -174,6 +180,7 @@ namespace LEonard
         bool fSendBusy = false;
         public int Send(string response)
         {
+            if (stream == null) return 1;
             while (fSendBusy)
                 Thread.Sleep(10);
             fSendBusy = true;

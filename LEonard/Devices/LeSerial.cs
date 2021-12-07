@@ -22,7 +22,7 @@ namespace LEonard
 
         ~LeSerial()
         {
-            Crawl("~LeSerial(): " + myPortname);
+            Crawl("~LeSerial() " + myPortname);
         }
         public int Connect(string portname)
         {
@@ -54,7 +54,7 @@ namespace LEonard
 
         public int Send(string message)
         {
-            //Crawl("Trigger(): " + myPortname);
+            Crawl("==>" + message);
             port.Write(message);
             return 0;
         }

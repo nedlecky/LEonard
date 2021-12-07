@@ -23,7 +23,7 @@ namespace LEonard
 
         public LeTcpClient(MainForm form, string prefix="") : base(form, prefix)
         {
-            Crawl("LeTcpClient(...)");
+            Crawl(String.Format("LeTcpClient(form, {0})", prefix));
         }
         ~LeTcpClient()
         {

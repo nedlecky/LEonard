@@ -42,7 +42,7 @@ namespace LEonard
         // Schedule an error message
         public void CrawlError(string message)
         {
-            Crawl("ERROR: " + message);
+            Crawl("ERROR " + message);
         }
 
         // The scrolls can't grow (successfully) without bound. Cut them to maxLength chars
@@ -90,8 +90,8 @@ namespace LEonard
                 AllCrawlRTB.AppendText(message + "\n");
                 AllCrawlRTB.ScrollToCaret();
                 
-                // Add message to CommandCrawlRTB well if it contains "COMMAND:"
-                if (message.Contains("COMMAND:"))
+                // Add message to CommandCrawlRTB well if it contains "COMM"
+                if (message.Contains("COMM"))
                 {
                     LimitRTBLength(CommandCrawlRTB, maxRtbLength);
                     CommandCrawlRTB.SelectionColor = messageColor;
@@ -99,8 +99,8 @@ namespace LEonard
                     CommandCrawlRTB.ScrollToCaret();
                 }
 
-                // Add message to RobotCrawlRTB well if it contains "ROBOT:"
-                if (message.Contains("ROBOT:"))
+                // Add message to RobotCrawlRTB well if it contains "ROB"
+                if (message.Contains("ROB"))
                 {
                     LimitRTBLength(RobotCrawlRTB, maxRtbLength);
                     RobotCrawlRTB.SelectionColor = messageColor;
@@ -108,8 +108,8 @@ namespace LEonard
                     RobotCrawlRTB.ScrollToCaret();
                 }
 
-                // Add message to VisionCrawlRTB well if it contains "VISION:"
-                if (message.Contains("VISION:"))
+                // Add message to VisionCrawlRTB well if it contains "VIS"
+                if (message.Contains("VIS"))
                 {
                     LimitRTBLength(VisionCrawlRTB, maxRtbLength);
                     VisionCrawlRTB.SelectionColor = messageColor;
@@ -117,8 +117,8 @@ namespace LEonard
                     VisionCrawlRTB.ScrollToCaret();
                 }
 
-                // Add message to BarcodeCrawlRTB well if it contains "BARCODE:"
-                if (message.Contains("BARCODE:"))
+                // Add message to BarcodeCrawlRTB well if it contains "BAR"
+                if (message.Contains("BAR"))
                 {
                     LimitRTBLength(BarcodeCrawlRTB, maxRtbLength);
                     BarcodeCrawlRTB.SelectionColor = messageColor;

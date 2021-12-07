@@ -232,7 +232,7 @@ namespace LEonard
 
         void DatamanCallBack(string data)
         {
-            Crawl(string.Format("BARCODE: DatamanCallBack({0})", data));
+            Crawl(string.Format("BAR <=={0}", data));
             string[] s = data.Split(',');
             if (s.Length == 3)
             {
@@ -243,7 +243,7 @@ namespace LEonard
                 WriteVariable(name + "_value", value);
             }
             else
-                Crawl("BARCODE: string ERROR received: " + data);
+                Crawl("BAR ERROR unexpected string received: " + data);
         }
 
         // Launch command tester to assist in debugging
@@ -468,18 +468,20 @@ namespace LEonard
             devices.Columns.Add("Address", typeof(System.String));
             devices.Columns.Add("MessageTag", typeof(System.String));
             devices.Columns.Add("CallBack", typeof(System.String));
+            devices.Columns.Add("OnConnectSend", typeof(System.String));
+            devices.Columns.Add("OnDisconnectSend", typeof(System.String));
 
             //devices.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //devices.Columns[0].
 
             devices.PrimaryKey = new DataColumn[] { id };
 
-            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "192.168.0.252:1000", "COMMAND:", "command" });
-            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpClient", "192.168.0.252:30000", "ROBOT:", "" });
-            devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "192.168.0.252:20000", "VISION:", "" });
-            devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "192.168.0.252:21000", "VISION:", "" });
-            devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "BARCODE:", "dataman" });
-            devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "BARCODE:", "dataman" });
+            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "192.168.0.252:1000", "COMM", "command", "", "" });
+            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.252:30000", "ROB", "", "", "(98,0,0,0,0)" });
+            devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "192.168.0.252:20000", "VISS", "", "", "" });
+            devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "192.168.0.252:21000", "VISH", "", "", "" });
+            devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "BAR1", "dataman", "+", "" });
+            devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "BAR2", "dataman", "+", "" });
 
             DevicesGrid.DataSource = devices;
         }
@@ -584,7 +586,7 @@ namespace LEonard
 
             // TODO: Setup style for entire DeviceControlGrp
             // TODO: Don't like the fixed column number 1 for Name below
-            DeviceControlGrp.Text = devices.Rows[currentDevice].ItemArray[1].ToString();
+            //DeviceControlGrp.Text = devices.Rows[currentDevice].ItemArray[1].ToString();
         }
 
         private void DeviceGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -641,12 +643,37 @@ namespace LEonard
                             CrawlError("Illegal callback type: " + type);
                             break;
                     }
+
+                    // TODO: Magic column number 7 is horrible
+                    // TODO: This reqally needs to wait for a connect in the case of TcpServer or TcpClient... probably OK on Serial
+                    string onConnectSend = devices.Rows[row].ItemArray[7].ToString();
+                    if (onConnectSend.Length > 0)
+                        try
+                        {
+                            interfaces[index].Send(onConnectSend);
+                        }
+                        catch
+                        {
+
+                        }
                 }
                 else
                 {
                     Crawl("Stop " + name);
                     if (interfaces[index] != null)
                     {
+                        // TODO: Magic column number 8 is horrible
+                        string onDisconnectSend = devices.Rows[row].ItemArray[8].ToString();
+                        if (onDisconnectSend.Length > 0)
+                            try
+                            {
+                                interfaces[index].Send(onDisconnectSend);
+                            }
+                            catch
+                            {
+
+                            }
+
                         interfaces[index].Disconnect();
                         interfaces[index] = null;
                         GC.Collect();

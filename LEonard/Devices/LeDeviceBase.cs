@@ -20,11 +20,11 @@ namespace LEonard
         }
         protected void Crawl(string s)
         {
-            myForm.Crawl(crawlPrefix + s);
+            myForm.Crawl(crawlPrefix + " " + s);
         }
         protected void CrawlError(string s)
         {
-            myForm.CrawlError(crawlPrefix + s);
+            myForm.Crawl(crawlPrefix + " ERROR " + s);
         }
     }
 }
