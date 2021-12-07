@@ -171,9 +171,9 @@
             // 
             this.LogfileTxt.Location = new System.Drawing.Point(58, 212);
             this.LogfileTxt.Name = "LogfileTxt";
-            this.LogfileTxt.Size = new System.Drawing.Size(237, 20);
+            this.LogfileTxt.Size = new System.Drawing.Size(368, 20);
             this.LogfileTxt.TabIndex = 55;
-            this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/LEonardClient.log";
+            this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/LEonard Files/LEonardClient.log";
             // 
             // ClientForm
             // 

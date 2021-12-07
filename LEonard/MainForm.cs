@@ -89,22 +89,6 @@ namespace LEonard
             }
         }
 
-        private void Disconnect()
-        {
-            Crawl("Disconnect()...");
-
-            for (int i = 0; i < 6; i++)
-            {
-                if (interfaces[i] != null)
-                {
-                    interfaces[i].Disconnect();
-                    interfaces[i] = null;
-                }
-
-            }
-
-            Crawl("Disconnect() complete");
-        }
         private void StartThreads()
         {
             Crawl("StartThreads()...");
@@ -197,7 +181,7 @@ namespace LEonard
             else
             {
                 // Second time it fires, we can disconnect and shut down!
-                Disconnect();
+                StopAllDevicesBtn_Click(null, null);
                 MessageTmr_Tick(null, null);
                 CloseTmr.Enabled = false;
                 forceClose = true;
@@ -714,6 +698,8 @@ namespace LEonard
             variables = new DataTable("Variables");
             DataColumn name = variables.Columns.Add("Name", typeof(System.String));
             variables.Columns.Add("Value", typeof(System.String));
+            variables.Columns.Add("IsNew", typeof(System.Boolean));
+            variables.Columns.Add("TimeStamp", typeof(System.String));
             variables.PrimaryKey = new DataColumn[] { name };
             VariablesGrd.DataSource = variables;
         }
@@ -723,9 +709,19 @@ namespace LEonard
         {
             string filename = Path.Combine(LEonardRoot, variablesFilename);
             Crawl("LoadVariables from " + filename);
-            variables = new DataTable("Variables");
-            variables.ReadXml(filename);
+            ClearVariablesBtn_Click(null, null);
+            try
+            {
+                variables.ReadXml(filename);
+            }
+            catch
+            { }
+
             VariablesGrd.DataSource = variables;
+            foreach (DataRow row in variables.Rows)
+            {
+                row["IsNew"] = false;
+            }
         }
 
         private void SaveVariablesBtn_Click(object sender, EventArgs e)
@@ -746,6 +742,7 @@ namespace LEonard
                 if ((string)row["Name"] == name)
                 {
                     Crawl(String.Format("Found {0} = {1}", row["Name"], row["Value"]));
+                    row["IsNew"] = false;
                     return;
                 }
             }
@@ -762,6 +759,9 @@ namespace LEonard
                 if ((string)row["Name"] == name)
                 {
                     row["Value"] = value;
+                    row["IsNew"] = true;
+                    row["TimeStamp"] = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+
                     return;
                 }
             }
