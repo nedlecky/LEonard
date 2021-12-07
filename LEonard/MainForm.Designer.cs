@@ -114,6 +114,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
+            this.UtcTimeChk = new System.Windows.Forms.CheckBox();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -703,6 +704,7 @@
             // 
             // ConfigGrp
             // 
+            this.ConfigGrp.Controls.Add(this.UtcTimeChk);
             this.ConfigGrp.Controls.Add(this.AutoStartChk);
             this.ConfigGrp.Controls.Add(this.AutoLoadChk);
             this.ConfigGrp.Controls.Add(this.ChangeStartupDevicesBtn);
@@ -967,6 +969,16 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
+            // UtcTimeChk
+            // 
+            this.UtcTimeChk.AutoSize = true;
+            this.UtcTimeChk.Location = new System.Drawing.Point(439, 126);
+            this.UtcTimeChk.Name = "UtcTimeChk";
+            this.UtcTimeChk.Size = new System.Drawing.Size(177, 17);
+            this.UtcTimeChk.TabIndex = 73;
+            this.UtcTimeChk.Text = "Use UTC Time in Time Stamps?";
+            this.UtcTimeChk.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1100,6 +1112,7 @@
         private System.Windows.Forms.Button StopAllDevicesBtn;
         private System.Windows.Forms.Button StartAllDevicesBtn;
         private System.Windows.Forms.Timer StartupTmr;
+        private System.Windows.Forms.CheckBox UtcTimeChk;
     }
 }
 

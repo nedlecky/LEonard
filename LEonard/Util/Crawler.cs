@@ -20,7 +20,12 @@ namespace LEonard
 
         public void Crawl(string message)
         {
-            string datetime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            string datetime;
+            if(UtcTimeChk.Checked)
+                datetime= DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            else
+                datetime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+
             string line = datetime + " " + message;
 
             // Add "Realtime:" into message to get immediate append/flush/close to file without scroll... intended for high-speed problematic bugs

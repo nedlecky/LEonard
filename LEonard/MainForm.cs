@@ -192,7 +192,7 @@ namespace LEonard
 
         void CommandCallBack(string data)
         {
-            Crawl(string.Format("COMMAND: CommandCallBack({0})", data));
+            Crawl(string.Format("COMM <=={0}", data));
             string[] s = data.Split(',');
             string response = "INVALID COMMAND";
             if (s.Length == 3)
@@ -208,7 +208,6 @@ namespace LEonard
                 // TODO: Execute
 
                 response = string.Format("{0},{1},{2}",name,sequence,"RESPONSE");
-
             }
 
             interfaces[0].Send(response);
@@ -364,6 +363,7 @@ namespace LEonard
             StartupDevicesLbl.Text = (string)AppNameKey.GetValue("StartupDevicesLbl.Text", "");
             AutoLoadChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoLoadChk.Checked", "False"));
             AutoStartChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoStartChk.Checked", "False"));
+            UtcTimeChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("UtcTimeChk.Checked", "True"));
 
             PersonalityTabs.SelectedIndex = (Int32)AppNameKey.GetValue("PersonalityTabs.SelectedIndex", 0);
 
@@ -380,6 +380,7 @@ namespace LEonard
             AppNameKey.SetValue("StartupDevicesLbl.Text", StartupDevicesLbl.Text);
             AppNameKey.SetValue("AutoLoadChk.Checked", AutoLoadChk.Checked);
             AppNameKey.SetValue("AutoStartChk.Checked", AutoStartChk.Checked);
+            AppNameKey.SetValue("UtcTimeChk.Checked", UtcTimeChk.Checked);
 
             AppNameKey.SetValue("PersonalityTabs.SelectedIndex", PersonalityTabs.SelectedIndex);
 
@@ -422,6 +423,7 @@ namespace LEonard
             StartupDevicesLbl.Text = "";
             AutoLoadChk.Checked = false;
             AutoStartChk.Checked = false;
+            UtcTimeChk.Checked = true;
         }
 
         private void LoadConfigBtn_Click(object sender, EventArgs e)
@@ -760,7 +762,13 @@ namespace LEonard
                 {
                     row["Value"] = value;
                     row["IsNew"] = true;
-                    row["TimeStamp"] = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+                    string datetime;
+                    if (UtcTimeChk.Checked)
+                        datetime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+                    else
+                        datetime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+
+                    row["TimeStamp"] = datetime;
 
                     return;
                 }
