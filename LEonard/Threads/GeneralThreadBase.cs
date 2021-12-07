@@ -10,30 +10,41 @@ namespace LEonard
     public class GeneralThreadBase : GeneralThreadInterface
     {
         protected MainForm myForm;
+        protected string crawlPrefix;
         protected Thread thread = null;
         protected Action WorkerFunction;
         protected bool isRunning = false;
         protected bool fAbort = false;
         protected bool fEnabled = true;
 
-        public GeneralThreadBase(MainForm form)
+        public GeneralThreadBase(MainForm form, string prefix="")
         {
             myForm = form;
-            myForm.CrawlBarcode("GeneralThreadBase.GeneralThreadBase(...)");
+            crawlPrefix = prefix;
+            Crawl("GeneralThreadBase.GeneralThreadBase(...)");
             WorkerFunction = DefaultWorker;
         }
         ~GeneralThreadBase()
         {
-            myForm.CrawlBarcode("GeneralThreadBase.~GeneralThreadBase()");
+            Crawl("GeneralThreadBase.~GeneralThreadBase()");
             if(IsRunning())
             {
                 End();
             }
         }
 
+        public void Crawl(string s)
+        {
+            myForm.Crawl(crawlPrefix + s);
+        }
+        public void CrawlError(string s)
+        {
+            myForm.CrawlError(crawlPrefix + s);
+        }
+
         public void Start()
         {
-            myForm.CrawlBarcode("GeneralThreadBase.Start()");
+            Crawl("GeneralThreadBase.Start()");
             if (IsRunning())
             {
                 End();
@@ -49,13 +60,13 @@ namespace LEonard
 
         public void End()
         {
-            myForm.CrawlBarcode("GeneralThreadBase.End()");
+            Crawl("GeneralThreadBase.End()");
             fAbort = true;
         }
 
         public void Enable(bool f)
         {
-            myForm.CrawlBarcode(String.Format("GeneralThreadBase.Enable({0})", f));
+            Crawl(String.Format("GeneralThreadBase.Enable({0})", f));
             fEnabled = f;
         }
 
@@ -66,14 +77,14 @@ namespace LEonard
 
         public void DefaultWorker()
         {
-            myForm.CrawlBarcode("GeneralThreadBase.DefaultWorker()");
+            Crawl("GeneralThreadBase.DefaultWorker()");
         }
 
         void Runtime()
         {
             fAbort = false;
             isRunning = true;
-            myForm.CrawlBarcode("GeneralThreadBase.Runtime() starting...");
+            Crawl("GeneralThreadBase.Runtime() starting...");
 
             while (!fAbort)
             {
@@ -88,7 +99,7 @@ namespace LEonard
                 }
             }
 
-            myForm.CrawlBarcode("GeneralThreadBase.Runtime() ends.");
+            Crawl("GeneralThreadBase.Runtime() ends.");
             isRunning = false;
         }
 

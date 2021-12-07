@@ -40,7 +40,6 @@
             this.ErrorClearBtn = new System.Windows.Forms.Button();
             this.ErrorCrawlRTB = new System.Windows.Forms.RichTextBox();
             this.CloseTmr = new System.Windows.Forms.Timer(this.components);
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.BarcodeGrp = new System.Windows.Forms.GroupBox();
             this.BcrEndBtn = new System.Windows.Forms.Button();
             this.BcrtStartBtn = new System.Windows.Forms.Button();
@@ -56,8 +55,6 @@
             this.BarcodeCrawlRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.CommandClearBtn = new System.Windows.Forms.Button();
@@ -85,6 +82,8 @@
             this.ClearVariablesBtn = new System.Windows.Forms.Button();
             this.VariablesGrd = new System.Windows.Forms.DataGridView();
             this.ConfigTab = new System.Windows.Forms.TabPage();
+            this.StopAllDevicesBtn = new System.Windows.Forms.Button();
+            this.StartAllDevicesBtn = new System.Windows.Forms.Button();
             this.DeviceControlGrp = new System.Windows.Forms.GroupBox();
             this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
             this.DevicesFilenameLbl = new System.Windows.Forms.Label();
@@ -116,6 +115,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StartupTmr = new System.Windows.Forms.Timer(this.components);
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -142,10 +142,10 @@
             // 
             // AllCrawlRTB
             // 
-            this.AllCrawlRTB.Location = new System.Drawing.Point(6, 48);
+            this.AllCrawlRTB.Location = new System.Drawing.Point(6, 19);
             this.AllCrawlRTB.Name = "AllCrawlRTB";
             this.AllCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 294);
+            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 323);
             this.AllCrawlRTB.TabIndex = 6;
             this.AllCrawlRTB.Text = "";
             // 
@@ -164,7 +164,7 @@
             // 
             // CrawlerClearBtn
             // 
-            this.CrawlerClearBtn.Location = new System.Drawing.Point(362, 50);
+            this.CrawlerClearBtn.Location = new System.Drawing.Point(362, 22);
             this.CrawlerClearBtn.Name = "CrawlerClearBtn";
             this.CrawlerClearBtn.Size = new System.Drawing.Size(50, 23);
             this.CrawlerClearBtn.TabIndex = 9;
@@ -371,8 +371,6 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.checkedListBox1);
-            this.groupBox4.Controls.Add(this.checkBox1);
             this.groupBox4.Controls.Add(this.CrawlerClearBtn);
             this.groupBox4.Controls.Add(this.AllCrawlRTB);
             this.groupBox4.Location = new System.Drawing.Point(12, 27);
@@ -381,29 +379,6 @@
             this.groupBox4.TabIndex = 35;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "All Messages";
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "ROBOT:",
-            "VISION:",
-            "BARCODE:",
-            "ERROR:"});
-            this.checkedListBox1.Location = new System.Drawing.Point(117, 8);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 34);
-            this.checkedListBox1.TabIndex = 11;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 25);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
@@ -678,6 +653,8 @@
             // 
             // ConfigTab
             // 
+            this.ConfigTab.Controls.Add(this.StopAllDevicesBtn);
+            this.ConfigTab.Controls.Add(this.StartAllDevicesBtn);
             this.ConfigTab.Controls.Add(this.DeviceControlGrp);
             this.ConfigTab.Controls.Add(this.SaveAsDevicesBtn);
             this.ConfigTab.Controls.Add(this.DevicesFilenameLbl);
@@ -694,6 +671,26 @@
             this.ConfigTab.Text = "Config";
             this.ConfigTab.UseVisualStyleBackColor = true;
             // 
+            // StopAllDevicesBtn
+            // 
+            this.StopAllDevicesBtn.Location = new System.Drawing.Point(490, 470);
+            this.StopAllDevicesBtn.Name = "StopAllDevicesBtn";
+            this.StopAllDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.StopAllDevicesBtn.TabIndex = 67;
+            this.StopAllDevicesBtn.Text = "Stop All";
+            this.StopAllDevicesBtn.UseVisualStyleBackColor = true;
+            this.StopAllDevicesBtn.Click += new System.EventHandler(this.StopAllDevicesBtn_Click);
+            // 
+            // StartAllDevicesBtn
+            // 
+            this.StartAllDevicesBtn.Location = new System.Drawing.Point(409, 470);
+            this.StartAllDevicesBtn.Name = "StartAllDevicesBtn";
+            this.StartAllDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.StartAllDevicesBtn.TabIndex = 66;
+            this.StartAllDevicesBtn.Text = "Start All";
+            this.StartAllDevicesBtn.UseVisualStyleBackColor = true;
+            this.StartAllDevicesBtn.Click += new System.EventHandler(this.StartAllDevicesBtn_Click);
+            // 
             // DeviceControlGrp
             // 
             this.DeviceControlGrp.Controls.Add(this.MessageToSendTxt);
@@ -706,7 +703,6 @@
             // 
             // SaveAsDevicesBtn
             // 
-            this.SaveAsDevicesBtn.Enabled = false;
             this.SaveAsDevicesBtn.Location = new System.Drawing.Point(251, 470);
             this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
             this.SaveAsDevicesBtn.Size = new System.Drawing.Size(75, 23);
@@ -747,24 +743,22 @@
             // AutoStartChk
             // 
             this.AutoStartChk.AutoSize = true;
-            this.AutoStartChk.Location = new System.Drawing.Point(265, 73);
+            this.AutoStartChk.Location = new System.Drawing.Point(138, 93);
             this.AutoStartChk.Name = "AutoStartChk";
             this.AutoStartChk.Size = new System.Drawing.Size(177, 17);
             this.AutoStartChk.TabIndex = 72;
             this.AutoStartChk.Text = "Auto Start All Devices on Load?";
             this.AutoStartChk.UseVisualStyleBackColor = true;
-            this.AutoStartChk.CheckedChanged += new System.EventHandler(this.AutoStartChk_CheckedChanged);
             // 
             // AutoLoadChk
             // 
             this.AutoLoadChk.AutoSize = true;
             this.AutoLoadChk.Location = new System.Drawing.Point(138, 74);
             this.AutoLoadChk.Name = "AutoLoadChk";
-            this.AutoLoadChk.Size = new System.Drawing.Size(121, 17);
+            this.AutoLoadChk.Size = new System.Drawing.Size(182, 17);
             this.AutoLoadChk.TabIndex = 71;
-            this.AutoLoadChk.Text = "Auto Load on Start?";
+            this.AutoLoadChk.Text = "Auto Load Devices File on Start?";
             this.AutoLoadChk.UseVisualStyleBackColor = true;
-            this.AutoLoadChk.CheckedChanged += new System.EventHandler(this.AutoLoadChk_CheckedChanged);
             // 
             // ChangeStartupDevicesBtn
             // 
@@ -874,7 +868,6 @@
             // 
             // SaveDevicesBtn
             // 
-            this.SaveDevicesBtn.Enabled = false;
             this.SaveDevicesBtn.Location = new System.Drawing.Point(170, 470);
             this.SaveDevicesBtn.Name = "SaveDevicesBtn";
             this.SaveDevicesBtn.Size = new System.Drawing.Size(75, 23);
@@ -975,6 +968,7 @@
             this.statusStrip.Size = new System.Drawing.Size(1818, 22);
             this.statusStrip.TabIndex = 64;
             this.statusStrip.Text = "statusStrip";
+            this.statusStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip_ItemClicked);
             // 
             // toolStripStatusLabel1
             // 
@@ -987,6 +981,10 @@
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            // 
+            // StartupTmr
+            // 
+            this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
             // MainForm
             // 
@@ -1016,7 +1014,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
@@ -1052,7 +1049,6 @@
         private System.Windows.Forms.Button ErrorClearBtn;
         private System.Windows.Forms.RichTextBox ErrorCrawlRTB;
         private System.Windows.Forms.Timer CloseTmr;
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.GroupBox BarcodeGrp;
         private System.Windows.Forms.Button StartTestClientBtn;
         private System.Windows.Forms.Button SendMessageBtn;
@@ -1086,8 +1082,6 @@
         private System.Windows.Forms.TabPage ReportingTab;
         private System.Windows.Forms.TabPage VariablesTab;
         private System.Windows.Forms.TabPage ConfigTab;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -1128,6 +1122,9 @@
         private System.Windows.Forms.Button ClearVariablesBtn;
         private System.Windows.Forms.Button LoadVariablesBtn;
         private System.Windows.Forms.Button SaveVariablesBtn;
+        private System.Windows.Forms.Button StopAllDevicesBtn;
+        private System.Windows.Forms.Button StartAllDevicesBtn;
+        private System.Windows.Forms.Timer StartupTmr;
     }
 }
 

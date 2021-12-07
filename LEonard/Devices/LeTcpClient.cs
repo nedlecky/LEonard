@@ -10,10 +10,8 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public class LeTcpClient :LeDeviceInterface
+    public class LeTcpClient :LeDeviceBase, LeDeviceInterface
     {
-        MainForm myForm;
-        string crawlPrefix;
         TcpClient client;
         NetworkStream stream;
         string myIp;
@@ -23,13 +21,13 @@ namespace LEonard
 
         public Action<string> receiveCallback { get; set; }
 
-        public string Index { get; set; }
-        public string Value { get; set; }
-
-        public LeTcpClient(MainForm form, string prefix="")
+        public LeTcpClient(MainForm form, string prefix="") : base(form, prefix)
         {
-            myForm = form;
-            crawlPrefix = prefix;
+            Crawl("LeTcpClient(...)");
+        }
+        ~LeTcpClient()
+        {
+            Crawl("~LeTcpClient()");
         }
         private long IPAddressToLong(IPAddress address)
         {
@@ -52,18 +50,18 @@ namespace LEonard
             myIp = IP;
             myPort = port;
 
-            myForm.Crawl(crawlPrefix + "Connect(" + myIp.ToString() + ", " + myPort.ToString() + ")");
+            Crawl("Connect(" + myIp.ToString() + ", " + myPort.ToString() + ")");
             if (client != null) Disconnect();
 
             try
             {
                 Ping ping = new Ping();
                 PingReply PR = ping.Send(myIp);
-                myForm.Crawl(crawlPrefix + "Connect Ping: " + PR.Status.ToString());
+                Crawl("Connect Ping: " + PR.Status.ToString());
             }
             catch
             {
-                myForm.CrawlError(crawlPrefix + "Ping failed");
+                CrawlError("Ping failed");
                 return 1;
             }
 
@@ -78,17 +76,17 @@ namespace LEonard
             }
             catch
             {
-                myForm.CrawlError(crawlPrefix + "Could not connect");
+                CrawlError("Could not connect");
                 return 2;
             }
 
-            myForm.Crawl(crawlPrefix + "Connected");
+            Crawl("Connected");
             return 0;
 
         }
         public int Disconnect()
         {
-            myForm.Crawl(crawlPrefix + "Disconnect()");
+            Crawl("Disconnect()");
 
             if (stream != null)
             {
@@ -112,11 +110,11 @@ namespace LEonard
             fSendBusy = true;
             if (stream == null)
             {
-                myForm.CrawlError(crawlPrefix + "Not connected... stream==null");
+                CrawlError("Not connected... stream==null");
                 ++sendErrorCount;
                 if (sendErrorCount > 5)
                 {
-                    myForm.CrawlError(crawlPrefix + "Trying to bounce socket to LEonard");
+                    CrawlError("Trying to bounce socket to LEonard");
                     Disconnect();
                     Connect(myIp, myPort);
                     sendErrorCount = 0;
@@ -125,18 +123,18 @@ namespace LEonard
                 return 1;
             }
 
-            myForm.Crawl(crawlPrefix + "==> " + request.ToString());
+            Crawl("==> " + request.ToString());
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(request + "\r\n"), 0, request.Length + 2);
             }
             catch
             {
-                myForm.CrawlError(crawlPrefix + "Send() failed");
+                CrawlError("Send() failed");
                 ++sendErrorCount;
                 if (sendErrorCount > 5)
                 {
-                    myForm.CrawlError(crawlPrefix + "Trying to bounce socket to LEonard");
+                    CrawlError("Trying to bounce socket to LEonard");
                     Disconnect();
                     Connect(myIp, myPort);
                     sendErrorCount = 0;
@@ -162,7 +160,7 @@ namespace LEonard
                 if (length > 0)
                 {
                     string response = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    myForm.Crawl(crawlPrefix + "<== " + response);
+                    Crawl("<== " + response);
 
                     // TODO Analyze the response!
                     return response;

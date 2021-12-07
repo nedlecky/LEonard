@@ -44,28 +44,6 @@ namespace LEonard
         {
             Crawl("ERROR: " + message);
         }
-        public void CrawlCommand(string message)
-        {
-            Crawl("COMMAND: " + message);
-        }
-
-        // Schedule a Robot message
-        public void CrawlRobot(string message)
-        {
-            Crawl("ROBOT: " + message);
-        }
-
-        // Schedule a vision message
-        public void CrawlVision(string message)
-        {
-            Crawl("VISION: " + message);
-        }
-
-        // Schedule a vision message
-        public void CrawlBarcode(string message)
-        {
-            Crawl("BARCODE: " + message);
-        }
 
         // The scrolls can't grow (successfully) without bound. Cut them to maxLength chars
         private void LimitRTBLength(RichTextBox rtb, int maxLength)

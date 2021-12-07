@@ -12,16 +12,16 @@ namespace LEonard
     {
         LeDeviceInterface[] myDevices = { null, null };
 
-        public BarcodeReaderThread(MainForm form, LeDeviceInterface device1, LeDeviceInterface device2) : base(form)
+        public BarcodeReaderThread(MainForm form, LeDeviceInterface device1, LeDeviceInterface device2) : base(form, "BARCODE:")
         {
-            myForm.CrawlBarcode("BarcodeReaderThread.BarcodeReaderThread(...)");
+            Crawl("BarcodeReaderThread.BarcodeReaderThread(...)");
             myDevices[0] = device1;
             myDevices[1] = device2;
             WorkerFunction = BarcodeWorker;
         }
         ~BarcodeReaderThread()
         {
-            myForm.CrawlBarcode("BarcodeReaderThread.~BarcodeReaderThread()");
+            Crawl("BarcodeReaderThread.~BarcodeReaderThread()");
         }
 
         void BarcodeWorker()

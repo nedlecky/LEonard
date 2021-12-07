@@ -9,20 +9,14 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public class LeTcpServer : LeDeviceInterface
+    public class LeTcpServer : LeDeviceBase, LeDeviceInterface
     {
-        static MainForm myForm;
         TcpListener server;
         TcpClient client;
         NetworkStream stream;
         string myIp;
         string myPort;
-        string crawlPrefix;
         public Action<string> receiveCallback { get;  set; }
-        public string Index { get; set; }
-        public string Value { get; set; }
-
-
 
         public bool DryRun { get; set; } = false;
         const int inputBufferLen = 128000;
@@ -31,10 +25,9 @@ namespace LEonard
         public int nGetStatusResponses = 0;
         public int nBadCommLenErrors = 0;
 
-        public LeTcpServer(MainForm form, string prefix="")
+        public LeTcpServer(MainForm form, string prefix="") : base(form, prefix)
         {
-            myForm = form;
-            crawlPrefix = prefix;
+            Crawl(string.Format("LeTcpServer(form, {0}", prefix));
         }
 
         public int Connect(string IPport)
@@ -47,7 +40,7 @@ namespace LEonard
             myIp = IP;
             myPort = port;
 
-            myForm.Crawl(crawlPrefix + "Connect(" + IP + ", " + port + ")");
+            Crawl("Connect(" + IP + ", " + port + ")");
             if (server != null) Disconnect();
 
             IPAddress ipAddress = IPAddress.Parse(IP);
@@ -60,10 +53,10 @@ namespace LEonard
             }
             catch
             {
-                myForm.CrawlError(crawlPrefix + "Couldn't start server");
+                CrawlError("Couldn't start server");
                 return 1;
             }
-            myForm.Crawl(crawlPrefix + "Server: Waiting for client...");
+            Crawl("Server: Waiting for client...");
             return 0;
         }
 
@@ -80,7 +73,7 @@ namespace LEonard
 
         public int Disconnect()
         {
-            myForm.Crawl(crawlPrefix + "Disconnect()");
+            Crawl("Disconnect()");
             CloseConnection();
             if (server != null)
             {
@@ -101,7 +94,7 @@ namespace LEonard
                     {
                         client = server.EndAcceptTcpClient(result);
                         stream = client.GetStream();
-                        myForm.Crawl(crawlPrefix + "Client connected");
+                        Crawl("Client connected");
                     }
                     catch
                     {
@@ -125,7 +118,7 @@ namespace LEonard
 
         void CloseConnection()
         {
-            myForm.Crawl(crawlPrefix + "CloseConnection()");
+            Crawl("CloseConnection()");
 
             if (stream != null)
             {
@@ -146,7 +139,7 @@ namespace LEonard
             {
                 if (!IsConnected())
                 {
-                    myForm.CrawlError(crawlPrefix + "Lost connection");
+                    CrawlError("Lost connection");
                     Disconnect();
                     Connect(myIp, myPort);
                     return "";
@@ -164,7 +157,7 @@ namespace LEonard
                 if (length > 0)
                 {
                     string input = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    myForm.Crawl(crawlPrefix + "<== " + input);
+                    Crawl("<== " + input);
 
                     if (receiveCallback != null)
                         receiveCallback(input);
@@ -185,14 +178,14 @@ namespace LEonard
                 Thread.Sleep(10);
             fSendBusy = true;
             // Show responses other than GetStatus
-            myForm.Crawl(crawlPrefix + "==> " + response.ToString());
+            Crawl("==> " + response.ToString());
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(response + "\r\n"), 0, response.Length + 2);
             }
             catch
             {
-                myForm.CrawlError(crawlPrefix + "TcpServer.Send() could not write to socket");
+                CrawlError("TcpServer.Send() could not write to socket");
             }
             fSendBusy = false;
             return 0;

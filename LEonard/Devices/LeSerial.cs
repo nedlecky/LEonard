@@ -7,28 +7,27 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public class LeSerial : LeDeviceInterface
+    public class LeSerial : LeDeviceBase, LeDeviceInterface
     {
-        protected MainForm myForm;
-        protected string myPortname;
 
         public SerialPort port;
+        string myPortname;
+
         public Action<string> receiveCallback { get; set; } = null;
 
-        public LeSerial(MainForm form) 
+        public LeSerial(MainForm form, string prefix) : base(form, prefix)
         {
-            myForm = form;
-            myForm.CrawlBarcode("LeSerial()");
+            Crawl("LeSerial()");
         }
 
         ~LeSerial()
         {
-            myForm.CrawlBarcode("~LeSerial(): " + myPortname);
+            Crawl("~LeSerial(): " + myPortname);
         }
         public int Connect(string portname)
         {
             myPortname = portname;
-            myForm.CrawlBarcode("LeSerial.Connect(" + myPortname + ")");
+            Crawl("LeSerial.Connect(" + myPortname + ")");
 
             port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
             port.Handshake = Handshake.XOnXOff;
@@ -39,14 +38,14 @@ namespace LEonard
 
             port.Open();
 
-            myForm.CrawlBarcode("IsOpen=" + port.IsOpen);
+            Crawl("IsOpen=" + port.IsOpen);
 
             return 0;
         }
 
         public int Disconnect()
         {
-            myForm.CrawlBarcode("LeSerial.Disconnect(): " + myPortname);
+            Crawl("LeSerial.Disconnect(): " + myPortname);
 
             port.Close();
 
@@ -55,13 +54,13 @@ namespace LEonard
 
         public int Send(string message)
         {
-            //myForm.CrawlBarcode("Trigger(): " + myPortname);
+            //Crawl("Trigger(): " + myPortname);
             port.Write(message);
             return 0;
         }
         public string Receive()
         {
-            //myForm.CrawlBarcode("Trigger(): " + myPortname);
+            //Crawl("Trigger(): " + myPortname);
             if(port.BytesToRead > 0)
                 return port.ReadLine();
             else
@@ -72,7 +71,7 @@ namespace LEonard
             if (receiveCallback != null)
             {
                 string data = port.ReadLine();
-                myForm.CrawlBarcode("LeSerial.DataReceivedEvent "+ data);
+                Crawl("LeSerial.DataReceivedEvent "+ data);
                 receiveCallback(data);
             }
         }

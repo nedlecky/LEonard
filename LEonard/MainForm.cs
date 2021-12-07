@@ -23,13 +23,7 @@ namespace LEonard
         static DataTable devices;
         static DataTable variables;
 
-        //static LeTcpServer commandServer;
-        //static LeTcpServer robotServer;
-        //static LeTcpServer visionServer;
-        //static LeTcpClient visionClient;
-
-        //int nDatamanSerial = 2;
-        //static LeSerial[] dms = new LeSerial[2];
+        static SplashForm splashForm;
 
         BarcodeReaderThread bcrt;
 
@@ -64,7 +58,12 @@ namespace LEonard
                 LoadDevicesFile(StartupDevicesLbl.Text);
             }
 
-            Connect();
+            HeartbeatTmr.Interval = 1000;
+            HeartbeatTmr.Enabled = true;
+            MessageTmr.Interval = 100;
+            MessageTmr.Enabled = true;
+            StartupTmr.Interval = 200;
+            StartupTmr.Enabled = true;
         }
 
         bool forceClose = false;
@@ -89,31 +88,6 @@ namespace LEonard
                 Crawl("Shutting down...");
             }
         }
-
-        private void Connect()
-        {
-            Crawl("Connect()...");
-            HeartbeatTmr.Interval = 1000;
-            HeartbeatTmr.Enabled = true;
-            MessageTmr.Interval = 100;
-            MessageTmr.Enabled = true;
-
-            //dms[0] = new LeSerial(this);
-            //dms[1] = new LeSerial(this);
-            //dms[0].Connect("COM3");
-            //dms[1].Connect("COM4");
-
-            StartThreads();
-
-            // This will launch the TCP command servers
-            //CommandServerChk.Checked = true;
-            //RobotServerChk.Checked = true;
-            //VisionServerChk.Checked = true;
-            //VisionClientChk.Checked = true;
-
-            Crawl("System ready.");
-        }
-
 
         private void Disconnect()
         {
@@ -147,6 +121,26 @@ namespace LEonard
             {
                 bcrt.End();
                 bcrt = null;
+            }
+        }
+        private void StartupTmr_Tick(object sender, EventArgs e)
+        {
+            splashForm = new SplashForm();
+            splashForm.Show();
+
+            Crawl("StartupTmr()...");
+            StartupTmr.Enabled = false;
+            
+            StartThreads();
+            Crawl("System ready.");
+
+            //splashForm.Close();
+            //splashForm = null;
+
+            if (AutoStartChk.Checked)
+            {
+                Crawl("Autostaring all devices");
+                StartAllDevicesBtn_Click(null, null);
             }
         }
 
@@ -214,7 +208,7 @@ namespace LEonard
 
         void CommandCallBack(string data)
         {
-            CrawlCommand(string.Format("CommandCallBack({0})", data));
+            Crawl(string.Format("COMMAND: CommandCallBack({0})", data));
             string[] s = data.Split(',');
             string response = "INVALID COMMAND";
             if (s.Length == 3)
@@ -238,7 +232,7 @@ namespace LEonard
 
         void DatamanCallBack(string data)
         {
-            Crawl(string.Format("DatamanCallBack({0})", data));
+            Crawl(string.Format("BARCODE: DatamanCallBack({0})", data));
             string[] s = data.Split(',');
             if (s.Length == 3)
             {
@@ -249,7 +243,7 @@ namespace LEonard
                 WriteVariable(name + "_value", value);
             }
             else
-                CrawlBarcode("Barcode string ERROR received: " + data);
+                Crawl("BARCODE: string ERROR received: " + data);
         }
 
         // Launch command tester to assist in debugging
@@ -417,10 +411,6 @@ namespace LEonard
                 Crawl(String.Format("You selected ERROR LEonardRoot={0}", dialog.SelectedPath));
                 LEonardRoot = dialog.SelectedPath;
                 LEonardRootLbl.Text = LEonardRoot;
-
-                DefaultConfigBtn.Enabled = true;
-                LoadConfigBtn.Enabled = true;
-                SaveConfigBtn.Enabled = true;
             }
 
         }
@@ -436,27 +426,9 @@ namespace LEonard
                 StartupDevicesLbl.Text = dialog.FileName;
                 Crawl("Startup Devices file set to " + StartupDevicesLbl.Text);
 
-                DefaultConfigBtn.Enabled = true;
-                LoadConfigBtn.Enabled = true;
-                SaveConfigBtn.Enabled = true;
-
                 if (MessageBox.Show("Load this file now?", "LEonard Confiormation", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     LoadDevicesFile(StartupDevicesLbl.Text);
             }
-        }
-
-        private void AutoLoadChk_CheckedChanged(object sender, EventArgs e)
-        {
-            DefaultConfigBtn.Enabled = true;
-            LoadConfigBtn.Enabled = true;
-            SaveConfigBtn.Enabled = true;
-        }
-
-        private void AutoStartChk_CheckedChanged(object sender, EventArgs e)
-        {
-            DefaultConfigBtn.Enabled = true;
-            LoadConfigBtn.Enabled = true;
-            SaveConfigBtn.Enabled = true;
         }
 
         private void DefaultConfigBtn_Click(object sender, EventArgs e)
@@ -466,26 +438,16 @@ namespace LEonard
             StartupDevicesLbl.Text = "";
             AutoLoadChk.Checked = false;
             AutoStartChk.Checked = false;
-
-            DefaultConfigBtn.Enabled = false;
-            LoadConfigBtn.Enabled = true;
-            SaveConfigBtn.Enabled = true;
         }
 
         private void LoadConfigBtn_Click(object sender, EventArgs e)
         {
             LoadPersistent();
-            DefaultConfigBtn.Enabled = true;
-            LoadConfigBtn.Enabled = false;
-            SaveConfigBtn.Enabled = false;
         }
 
         private void SaveConfigBtn_Click(object sender, EventArgs e)
         {
             SavePersistent();
-            DefaultConfigBtn.Enabled = true;
-            LoadConfigBtn.Enabled = false;
-            SaveConfigBtn.Enabled = false;
         }
 
         // ***********************************************************************
@@ -520,11 +482,6 @@ namespace LEonard
             devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "BARCODE:", "dataman" });
 
             DevicesGrid.DataSource = devices;
-
-            DefaultDevicesBtn.Enabled = false;
-            LoadDevicesBtn.Enabled = true;
-            SaveDevicesBtn.Enabled = true;
-            SaveAsDevicesBtn.Enabled = true;
         }
 
         int LoadDevicesFile(string name)
@@ -548,11 +505,6 @@ namespace LEonard
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 LoadDevicesFile(dialog.FileName);
-
-                DefaultDevicesBtn.Enabled = true;
-                LoadDevicesBtn.Enabled = true;
-                SaveDevicesBtn.Enabled = false;
-                SaveAsDevicesBtn.Enabled = true;
             }
         }
         private void SaveDevicesBtn_Click(object sender, EventArgs e)
@@ -565,11 +517,6 @@ namespace LEonard
             {
                 Crawl("SaveDevices to " + DevicesFilenameLbl.Text);
                 devices.WriteXml(DevicesFilenameLbl.Text, XmlWriteMode.WriteSchema, true);
-
-                DefaultDevicesBtn.Enabled = true;
-                LoadDevicesBtn.Enabled = true;
-                SaveDevicesBtn.Enabled = false;
-                SaveAsDevicesBtn.Enabled = true;
             }
         }
         private void SaveAsDevicesBtn_Click(object sender, EventArgs e)
@@ -586,6 +533,35 @@ namespace LEonard
                 }
             }
         }
+        private void StartAllDevicesBtn_Click(object sender, EventArgs e)
+        {
+            Crawl("StartAllDevices");
+            foreach(DataRow row in devices.Rows)
+            {
+                row["Running"] = true;
+
+                int rowIndex = (int)row["ID"];
+                // TODO: Don't like the fixed column number 2 for Running below
+                DataGridViewCellEventArgs e2 = new DataGridViewCellEventArgs(2, rowIndex);
+                DeviceGrid_CellValueChanged(null, e2);
+                Application.DoEvents();
+            }
+        }
+
+        private void StopAllDevicesBtn_Click(object sender, EventArgs e)
+        {
+            Crawl("StopAllDevices");
+            foreach (DataRow row in devices.Rows)
+            {
+                row["Running"] = false;
+                int rowIndex = (int)row["ID"];
+
+                // TODO: Don't like the fixed column number 2 for Running below
+                DataGridViewCellEventArgs e2 = new DataGridViewCellEventArgs(2, rowIndex);
+                DeviceGrid_CellValueChanged(null, e2);
+                Application.DoEvents();
+            }
+        }
 
         private void DeviceGrid_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
@@ -598,17 +574,18 @@ namespace LEonard
 
         }
 
-        int currrentDevice = -1;
+        int currentDevice = -1;
         private void DeviceGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            Crawl("Selecting Device ");
+            currentDevice = e.RowIndex;
 
-            currrentDevice = e.RowIndex;
+            Crawl("Enter Row  " + currentDevice.ToString());
+
 
             // TODO: Setup style for entire DeviceControlGrp
-            DeviceControlGrp.Text = devices.Rows[currrentDevice].ItemArray[1].ToString();
+            // TODO: Don't like the fixed column number 1 for Name below
+            DeviceControlGrp.Text = devices.Rows[currentDevice].ItemArray[1].ToString();
         }
-
 
         private void DeviceGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -623,7 +600,8 @@ namespace LEonard
 
             Crawl("Changed Value: " + devices.Rows[row].ItemArray[col].ToString());
 
-            if (col == 2)
+            // TODO: Don't like this index == 2 below... how to use column name Running?
+            if (col== 2)
             {
                 if (devices.Rows[row].ItemArray[col].ToString() == "True")
                 {
@@ -639,7 +617,7 @@ namespace LEonard
                             interfaces[index].Connect(address);
                             break;
                         case @"Serial":
-                            interfaces[index] = new LeSerial(this);
+                            interfaces[index] = new LeSerial(this, prefix);
                             interfaces[index].Connect(address);
                             break;
                         default:
@@ -671,12 +649,13 @@ namespace LEonard
                     {
                         interfaces[index].Disconnect();
                         interfaces[index] = null;
-
+                        GC.Collect();
                     }
                 }
             }
 
         }
+
 
         private void DeviceGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -693,8 +672,8 @@ namespace LEonard
         }
         private void SendMessageBtn_Click(object sender, EventArgs e)
         {
-            if (interfaces[currrentDevice] != null)
-                interfaces[currrentDevice].Send(MessageToSendTxt.Text);
+            if (interfaces[currentDevice] != null)
+                interfaces[currentDevice].Send(MessageToSendTxt.Text);
         }
         // ***********************************************************************
         // END DEVICES UI
@@ -769,6 +748,10 @@ namespace LEonard
             WriteVariable(name, value);
         }
 
+        private void statusStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
 
         // ***********************************************************************
         // END VARIABLES UI
