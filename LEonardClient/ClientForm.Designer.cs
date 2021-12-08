@@ -1,4 +1,4 @@
-﻿namespace LEonardInterfaceTester
+﻿namespace LEonardClient
 {
     partial class ClientForm
     {
@@ -46,6 +46,7 @@
             this.LogfileTxt = new System.Windows.Forms.TextBox();
             this.AutoGetStatusChk = new System.Windows.Forms.CheckBox();
             this.MessageTxt = new System.Windows.Forms.TextBox();
+            this.Java1Btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CrawlerRTB
@@ -197,12 +198,23 @@
             this.MessageTxt.TabIndex = 57;
             this.MessageTxt.Text = "set xy TestXY";
             // 
+            // Java1Btn
+            // 
+            this.Java1Btn.Location = new System.Drawing.Point(218, 10);
+            this.Java1Btn.Name = "Java1Btn";
+            this.Java1Btn.Size = new System.Drawing.Size(107, 22);
+            this.Java1Btn.TabIndex = 58;
+            this.Java1Btn.Text = "Java1";
+            this.Java1Btn.UseVisualStyleBackColor = true;
+            this.Java1Btn.Click += new System.EventHandler(this.Java1Btn_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(523, 915);
             this.ControlBox = false;
+            this.Controls.Add(this.Java1Btn);
             this.Controls.Add(this.MessageTxt);
             this.Controls.Add(this.AutoGetStatusChk);
             this.Controls.Add(this.LogfileTxt);
@@ -248,6 +260,7 @@
         private System.Windows.Forms.TextBox LogfileTxt;
         private System.Windows.Forms.CheckBox AutoGetStatusChk;
         private System.Windows.Forms.TextBox MessageTxt;
+        private System.Windows.Forms.Button Java1Btn;
     }
 }
 

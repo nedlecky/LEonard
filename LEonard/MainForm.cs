@@ -13,7 +13,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Jint;
+using System.Text.RegularExpressions;
 
 namespace LEonard
 {
@@ -114,12 +115,11 @@ namespace LEonard
 
             Crawl("StartupTmr()...");
             StartupTmr.Enabled = false;
-            
+
             StartThreads();
+            StartJint();
             Crawl("System ready.");
 
-            //splashForm.Close();
-            //splashForm = null;
 
             if (AutoStartChk.Checked)
             {
@@ -181,9 +181,10 @@ namespace LEonard
             else
             {
                 // Second time it fires, we can disconnect and shut down!
-                StopAllDevicesBtn_Click(null, null);
-                MessageTmr_Tick(null, null);
                 CloseTmr.Enabled = false;
+                StopAllDevicesBtn_Click(null, null);
+                StopJint();
+                MessageTmr_Tick(null, null);
                 forceClose = true;
                 SaveConfigBtn_Click(null, null);
                 this.Close();
@@ -200,27 +201,34 @@ namespace LEonard
             // TODO: this is whjere some standard response codes should be parsed
         }
 
-        void CommandCallBack(string data, string prefix)
+        void CommandCallBack(string message, string prefix)
         {
-            Crawl(string.Format("{0} CCB<=={1}", prefix, data));
-            string[] s = data.Split(',');
-            string response = "INVALID COMMAND";
-            if (s.Length == 3)
+            Crawl(string.Format("{0} CCB<=={1}", prefix, message));
+
+            if (message.Length>3 && message.StartsWith("JS{"))
+                ExecuteJavaScript(message.Substring(3));
+            else
             {
-                string name = s[0];
-                string sequence = s[1];
-                string parameters = s[2];
 
-                WriteVariable(prefix + ".name", name);
-                WriteVariable(prefix + ".sequence", sequence);
-                WriteVariable(prefix + ".params", parameters);
+                string[] s = message.Split(',');
+                string response = "INVALID COMMAND";
+                if (s.Length == 3)
+                {
+                    string name = s[0];
+                    string sequence = s[1];
+                    string parameters = s[2];
 
-                // TODO: Execute
+                    WriteVariable(prefix + ".name", name);
+                    WriteVariable(prefix + ".sequence", sequence);
+                    WriteVariable(prefix + ".params", parameters);
 
-                response = string.Format("{0},{1},{2}",name,sequence,"RESPONSE");
+                    // TODO: Execute
+
+                    response = string.Format("{0},{1},{2}", name, sequence, "RESPONSE");
+                }
+
+                interfaces[0].Send(response);
             }
-
-            interfaces[0].Send(response);
         }
 
         void DatamanCallBack(string data, string prefix)
@@ -424,7 +432,7 @@ namespace LEonard
         private void StartAllDevicesBtn_Click(object sender, EventArgs e)
         {
             Crawl("StartAllDevices");
-            foreach(DataRow row in devices.Rows)
+            foreach (DataRow row in devices.Rows)
             {
                 row["Running"] = true;
 
@@ -489,7 +497,7 @@ namespace LEonard
             Crawl("Changed Value: " + devices.Rows[row].ItemArray[col].ToString());
 
             // TODO: Don't like this index == 2 below... how to use column name Running?
-            if (col== 2)
+            if (col == 2)
             {
                 if (devices.Rows[row].ItemArray[col].ToString() == "True")
                 {
@@ -812,11 +820,46 @@ namespace LEonard
         {
 
         }
-
-
         // ***********************************************************************
         // END VARIABLES UI
         // ***********************************************************************
 
+        // ***********************************************************************
+        // START JINT ENGINE
+        // ***********************************************************************
+        Engine jintEngine;
+        void StartJint()
+        {
+            Crawl("Start Jint");
+            jintEngine = new Engine()
+                    // Expose various C# functions in JS
+                    .SetValue("alert", new Action<string>(AlertJ))
+                    .SetValue("crawl", new Action<string>(CrawlJ))
+                ;
+        }
+        void StopJint()
+        {
+            Crawl("Stop Jint");
+
+        }
+
+        private void AlertJ(string Message)
+        {
+            MessageBox.Show(Message, "Window Alert", MessageBoxButtons.OK);
+        }
+        private void CrawlJ(string message)
+        {
+            Crawl(message);
+        }
+
+        void ExecuteJavaScript(string code)
+        {
+            Crawl("Execute: " + code);
+            jintEngine.Execute(code);
+        }
+
+        // ***********************************************************************
+        // END JINT ENGINE
+        // ***********************************************************************
     }
 }

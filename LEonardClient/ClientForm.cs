@@ -1,5 +1,4 @@
-﻿using Google.Protobuf;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,8 +12,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Jint;
 
-namespace LEonardInterfaceTester
+namespace LEonardClient
 {
     public partial class ClientForm : Form
     {
@@ -352,8 +352,25 @@ namespace LEonardInterfaceTester
         private void AbortBtn_Click(object sender, EventArgs e)
         {
             string request = "abort," + messageIndex++.ToString("00000") + ",params";
-
             Send(request);
+        }
+
+        private void Java1Btn_Click(object sender, EventArgs e)
+        {
+            Send("JS{" +
+                "crawl('COMM what does it do?');" +
+                "if (typeof a == 'undefined') a = 5;" +
+                "else a = a + 1;" +
+                "b=8; c=a*b;" +
+                "crawl('COMM ' + c);" +
+                "for(name in this)" +
+                    "crawl('COMM ' + name + ' ' + typeof name + ' ' + this[name]);"
+                );
+
+
+
+
+
         }
     }
 }

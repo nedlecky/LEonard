@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LEonardClient
+namespace JintTester1
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
@@ -13,7 +16,7 @@ namespace LEonardClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ClientForm());
+            Application.Run(new Form1());
         }
     }
 }
