@@ -357,7 +357,7 @@ namespace LEonardClient
 
         private void Java1Btn_Click(object sender, EventArgs e)
         {
-            Send("JS{" +
+            Send("JS:" +
                 "crawl('COMM what does it do?');" +
                 "if (typeof a == 'undefined') a = 5;" +
                 "else a = a + 1;" +
@@ -366,11 +366,6 @@ namespace LEonardClient
                 "for(name in this)" +
                     "crawl('COMM ' + name + ' ' + typeof name + ' ' + this[name]);"
                 );
-
-
-
-
-
         }
     }
 }

@@ -127,6 +127,7 @@ namespace LEonard
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(request + "\r\n"), 0, request.Length + 2);
+                //stream.Write(Encoding.ASCII.GetBytes(request), 0, request.Length);
             }
             catch
             {

@@ -193,19 +193,20 @@ namespace LEonard
 
         // TODO: Clean these up, use consistent string formatting ideas, and the variables
         // TODO All of these... the variable name should be prefixed with the unique device name not the message prefix
-        void GeneralCallBack(string data, string prefix)
+        void GeneralCallBack(string message, string prefix)
         {
-            Crawl(string.Format("{0} GCB<=={1}", prefix, data));
-            WriteVariable(prefix + ".return", data);
-
-            // TODO: this is whjere some standard response codes should be parsed
+            Crawl(string.Format("{0} GCB<=={1}", prefix, message));
+            if (message.Length > 3 && message.StartsWith("JS:"))
+                ExecuteJavaScript(message.Substring(3));
+            else
+                WriteVariable(prefix + ".return", message);
         }
 
         void CommandCallBack(string message, string prefix)
         {
             Crawl(string.Format("{0} CCB<=={1}", prefix, message));
 
-            if (message.Length>3 && message.StartsWith("JS{"))
+            if (message.Length>3 && message.StartsWith("JS:"))
                 ExecuteJavaScript(message.Substring(3));
             else
             {
