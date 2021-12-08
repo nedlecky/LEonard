@@ -34,7 +34,7 @@
             this.ConnectBtn = new System.Windows.Forms.Button();
             this.ClientIpTxt = new System.Windows.Forms.TextBox();
             this.ClientPortTxt = new System.Windows.Forms.TextBox();
-            this.CommandOneBtn = new System.Windows.Forms.Button();
+            this.SendBtn = new System.Windows.Forms.Button();
             this.AbortBtn = new System.Windows.Forms.Button();
             this.GetStatusBtn = new System.Windows.Forms.Button();
             this.CommRTB = new System.Windows.Forms.RichTextBox();
@@ -45,6 +45,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.LogfileTxt = new System.Windows.Forms.TextBox();
             this.AutoGetStatusChk = new System.Windows.Forms.CheckBox();
+            this.MessageTxt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // CrawlerRTB
@@ -86,21 +87,21 @@
             this.ClientPortTxt.TabIndex = 4;
             this.ClientPortTxt.Text = "1000";
             // 
-            // CommandOneBtn
+            // SendBtn
             // 
-            this.CommandOneBtn.Location = new System.Drawing.Point(256, 12);
-            this.CommandOneBtn.Name = "CommandOneBtn";
-            this.CommandOneBtn.Size = new System.Drawing.Size(107, 22);
-            this.CommandOneBtn.TabIndex = 5;
-            this.CommandOneBtn.Text = "CommandOne";
-            this.CommandOneBtn.UseVisualStyleBackColor = true;
-            this.CommandOneBtn.Click += new System.EventHandler(this.CommandOne_Click);
+            this.SendBtn.Location = new System.Drawing.Point(218, 145);
+            this.SendBtn.Name = "SendBtn";
+            this.SendBtn.Size = new System.Drawing.Size(107, 22);
+            this.SendBtn.TabIndex = 5;
+            this.SendBtn.Text = "Send";
+            this.SendBtn.UseVisualStyleBackColor = true;
+            this.SendBtn.Click += new System.EventHandler(this.SendBtn_Click);
             // 
             // AbortBtn
             // 
-            this.AbortBtn.Location = new System.Drawing.Point(178, 11);
+            this.AbortBtn.Location = new System.Drawing.Point(218, 173);
             this.AbortBtn.Name = "AbortBtn";
-            this.AbortBtn.Size = new System.Drawing.Size(72, 72);
+            this.AbortBtn.Size = new System.Drawing.Size(107, 23);
             this.AbortBtn.TabIndex = 10;
             this.AbortBtn.Text = "Abort";
             this.AbortBtn.UseVisualStyleBackColor = true;
@@ -108,7 +109,7 @@
             // 
             // GetStatusBtn
             // 
-            this.GetStatusBtn.Location = new System.Drawing.Point(12, 151);
+            this.GetStatusBtn.Location = new System.Drawing.Point(218, 88);
             this.GetStatusBtn.Name = "GetStatusBtn";
             this.GetStatusBtn.Size = new System.Drawing.Size(107, 22);
             this.GetStatusBtn.TabIndex = 12;
@@ -151,11 +152,11 @@
             // 
             // Stress1Btn
             // 
-            this.Stress1Btn.Location = new System.Drawing.Point(12, 179);
+            this.Stress1Btn.Location = new System.Drawing.Point(218, 116);
             this.Stress1Btn.Name = "Stress1Btn";
-            this.Stress1Btn.Size = new System.Drawing.Size(128, 23);
+            this.Stress1Btn.Size = new System.Drawing.Size(107, 23);
             this.Stress1Btn.TabIndex = 50;
-            this.Stress1Btn.Text = "100 GetStatus";
+            this.Stress1Btn.Text = "100X GetStatus";
             this.Stress1Btn.UseVisualStyleBackColor = true;
             this.Stress1Btn.Click += new System.EventHandler(this.Stress1Btn_Click);
             // 
@@ -181,12 +182,20 @@
             this.AutoGetStatusChk.AutoSize = true;
             this.AutoGetStatusChk.Checked = true;
             this.AutoGetStatusChk.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AutoGetStatusChk.Location = new System.Drawing.Point(12, 128);
+            this.AutoGetStatusChk.Location = new System.Drawing.Point(331, 88);
             this.AutoGetStatusChk.Name = "AutoGetStatusChk";
             this.AutoGetStatusChk.Size = new System.Drawing.Size(101, 17);
             this.AutoGetStatusChk.TabIndex = 56;
             this.AutoGetStatusChk.Text = "Auto Get Status";
             this.AutoGetStatusChk.UseVisualStyleBackColor = true;
+            // 
+            // MessageTxt
+            // 
+            this.MessageTxt.Location = new System.Drawing.Point(332, 147);
+            this.MessageTxt.Name = "MessageTxt";
+            this.MessageTxt.Size = new System.Drawing.Size(130, 20);
+            this.MessageTxt.TabIndex = 57;
+            this.MessageTxt.Text = "set xy TestXY";
             // 
             // ClientForm
             // 
@@ -194,6 +203,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(523, 915);
             this.ControlBox = false;
+            this.Controls.Add(this.MessageTxt);
             this.Controls.Add(this.AutoGetStatusChk);
             this.Controls.Add(this.LogfileTxt);
             this.Controls.Add(this.label3);
@@ -203,7 +213,7 @@
             this.Controls.Add(this.CommRTB);
             this.Controls.Add(this.GetStatusBtn);
             this.Controls.Add(this.AbortBtn);
-            this.Controls.Add(this.CommandOneBtn);
+            this.Controls.Add(this.SendBtn);
             this.Controls.Add(this.ClientPortTxt);
             this.Controls.Add(this.ClientIpTxt);
             this.Controls.Add(this.ConnectBtn);
@@ -226,7 +236,7 @@
         private System.Windows.Forms.Button ConnectBtn;
         private System.Windows.Forms.TextBox ClientIpTxt;
         private System.Windows.Forms.TextBox ClientPortTxt;
-        private System.Windows.Forms.Button CommandOneBtn;
+        private System.Windows.Forms.Button SendBtn;
         private System.Windows.Forms.Button AbortBtn;
         private System.Windows.Forms.Button GetStatusBtn;
         private System.Windows.Forms.RichTextBox CommRTB;
@@ -237,6 +247,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox LogfileTxt;
         private System.Windows.Forms.CheckBox AutoGetStatusChk;
+        private System.Windows.Forms.TextBox MessageTxt;
     }
 }
 
