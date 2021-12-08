@@ -13,7 +13,7 @@ namespace LEonard
         public SerialPort port;
         string myPortname;
 
-        public Action<string> receiveCallback { get; set; } = null;
+        public Action<string, string> receiveCallback { get; set; } = null;
 
         public LeSerial(MainForm form, string prefix) : base(form, prefix)
         {
@@ -72,7 +72,7 @@ namespace LEonard
             {
                 string data = port.ReadLine();
                 Crawl("LeSerial.DataReceivedEvent "+ data);
-                receiveCallback(data);
+                receiveCallback(data, crawlPrefix);
             }
         }
 

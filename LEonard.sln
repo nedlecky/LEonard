@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonard", "LEonard\LEonard.
 		{0AABD7BC-7F11-4754-8111-8BD23D9517D0} = {0AABD7BC-7F11-4754-8111-8BD23D9517D0}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceTester", "InterfaceTester\InterfaceTester.csproj", "{0AABD7BC-7F11-4754-8111-8BD23D9517D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonardClient", "LEonardClient\LEonardClient.csproj", "{0AABD7BC-7F11-4754-8111-8BD23D9517D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

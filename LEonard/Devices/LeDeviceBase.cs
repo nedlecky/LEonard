@@ -8,8 +8,8 @@ namespace LEonard
 {
     public class LeDeviceBase
     {
-        MainForm myForm;
-        string crawlPrefix;
+        protected MainForm myForm;
+        protected string crawlPrefix;
      
         protected LeDeviceBase(MainForm form, string prefix)
         {

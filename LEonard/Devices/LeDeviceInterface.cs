@@ -12,6 +12,7 @@ namespace LEonard
         int Disconnect();
         int Send(string message);
         string Receive();
-        Action<string> receiveCallback { get; set; }
+
+        Action<string, string> receiveCallback { get; set; }
     }
 }

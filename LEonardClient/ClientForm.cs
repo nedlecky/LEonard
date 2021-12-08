@@ -49,13 +49,8 @@ namespace LEonardInterfaceTester
             Left = 0;
             Top = 50;
 
-            // Pull setup info from registry.... these are overwritten with the Save button on the maintenance screen!
-            // Note default values are specified here as well
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
-            InterfaceTesterIpTxt.Text = (string)AppNameKey.GetValue("InterfaceTesterIp", "192.168.0.252");
-            InterfaceTesterPortTxt.Text = (string)AppNameKey.GetValue("InterfaceTesterPort", "1000");
 
+            LoadPersistent();
             Crawl("READY");
 
             MessageTmr.Interval = 100;
@@ -63,6 +58,24 @@ namespace LEonardInterfaceTester
 
             InitTmr.Interval = 400;
             InitTmr.Enabled = true;
+        }
+
+        void LoadPersistent()
+        {
+            Crawl("LoadPersistent()");
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
+            ClientIpTxt.Text = (string)AppNameKey.GetValue("ClientIpTxt.Text", "127.0.0.1");
+            ClientPortTxt.Text = (string)AppNameKey.GetValue("ClientPortTxt.Text", "1000");
+        }
+        void SavePersistent()
+        {
+            Crawl("LoadPersistent()");
+
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
+            AppNameKey.SetValue("ClientIpTxt.Text", ClientIpTxt.Text);
+            AppNameKey.SetValue("ClientPortTxt.Text", ClientPortTxt.Text);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -148,7 +161,7 @@ namespace LEonardInterfaceTester
                 {
                     CrawlError("Trying to bounce socket to LEonard");
                     Disconnect();
-                    Connect(InterfaceTesterIpTxt.Text, InterfaceTesterPortTxt.Text);
+                    Connect(ClientIpTxt.Text, ClientPortTxt.Text);
                     sendErrorCount = 0;
                 }
                 fSendBusy = false;
@@ -168,7 +181,7 @@ namespace LEonardInterfaceTester
                 {
                     CrawlError("Trying to bounce socket to LEonard");
                     Disconnect();
-                    Connect(InterfaceTesterIpTxt.Text, InterfaceTesterPortTxt.Text);
+                    Connect(ClientIpTxt.Text, ClientPortTxt.Text);
                     sendErrorCount = 0;
                 }
             }
@@ -181,19 +194,23 @@ namespace LEonardInterfaceTester
             {
                 int length = 0;
                 while (stream.DataAvailable && length < inputBufferLen) inputBuffer[length++] = (byte)stream.ReadByte();
+                /*
                 if (length > 0)
                 {
                     // Lazy bytes? since we can't resync.......
                     Thread.Sleep(50);
                     while (stream.DataAvailable) inputBuffer[length++] = (byte)stream.ReadByte();
                 }
+                */
 
                 if (length > 0)
                 {
-                    string response = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    Crawl("<== " + response);
+                    string message = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
+                    Crawl("<== " + message);
 
-                    // TODO Analyze the response!
+                    // Server can close this client with "exit()"
+                    if (message == "exit()")
+                        ExitBtn_Click(null, null);
                 }
             }
         }
@@ -249,7 +266,6 @@ namespace LEonardInterfaceTester
                 if (message.Contains("<==") || message.Contains("==>"))
                 {
                     LimitRTBLength(CommRTB, 1000000);
-                    //CommRTB.AppendText(datetime);
                     CommRTB.AppendText(message + "\n");
                     CommRTB.ScrollToCaret();
                 }
@@ -258,12 +274,12 @@ namespace LEonardInterfaceTester
 
         const int autoGetStatusIntervalMs = 1000;
         int nSinceLastAutoGetStatus = 0;
-        bool autoGetStatus = true;
 
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
             Receive();
-            if (autoGetStatus && !pauseAutoGetStatus)
+
+            if (AutoGetStatusChk.Checked && !pauseAutoGetStatus)
             {
                 if (nSinceLastAutoGetStatus++ > autoGetStatusIntervalMs / MessageTmr.Interval) // GetStatus automatically every autoGetStatusIntervalMs Ms
                 {
@@ -278,7 +294,7 @@ namespace LEonardInterfaceTester
         {
             if (ConnectBtn.Text == "Connect")
             {
-                if (Connect(InterfaceTesterIpTxt.Text, InterfaceTesterPortTxt.Text))
+                if (Connect(ClientIpTxt.Text, ClientPortTxt.Text))
                     ConnectBtn.Text = "Disconnect";
             }
             else
@@ -292,7 +308,6 @@ namespace LEonardInterfaceTester
         private void CommandOne_Click(object sender, EventArgs e)
         {
             string request = "command1," + messageIndex++.ToString("00000") + ",params";
-
             Send(request);
         }
 
@@ -300,7 +315,6 @@ namespace LEonardInterfaceTester
         private void GetStatus()
         {
             string request = "status," + messageIndex++.ToString("00000") + ",params";
-
             Send(request);
         }
 
@@ -312,11 +326,7 @@ namespace LEonardInterfaceTester
 
         private void SaveBtn_Click(object sender, EventArgs e)
         {
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
-
-            AppNameKey.SetValue("InterfaceTesterIp", InterfaceTesterIpTxt.Text);
-            AppNameKey.SetValue("InterfaceTesterPort", InterfaceTesterPortTxt.Text);
+            SavePersistent();
         }
 
         private void InitTmr_Tick(object sender, EventArgs e)
@@ -324,7 +334,6 @@ namespace LEonardInterfaceTester
             ConnectBtn_Click(null, null);
 
             InitTmr.Enabled = false;
-
         }
 
         private void ExitBtn_Click(object sender, EventArgs e)
@@ -342,8 +351,9 @@ namespace LEonardInterfaceTester
         
         private void AbortBtn_Click(object sender, EventArgs e)
         {
-            //fAbort = true;
-            Crawl("Abort");
+            string request = "abort," + messageIndex++.ToString("00000") + ",params";
+
+            Send(request);
         }
     }
 }

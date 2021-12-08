@@ -19,7 +19,7 @@ namespace LEonard
         const int inputBufferLen = 128000;
         byte[] inputBuffer = new byte[inputBufferLen];
 
-        public Action<string> receiveCallback { get; set; }
+        public Action<string, string> receiveCallback { get; set; }
 
         public LeTcpClient(MainForm form, string prefix="") : base(form, prefix)
         {
@@ -150,20 +150,24 @@ namespace LEonard
             {
                 int length = 0;
                 while (stream.DataAvailable && length < inputBufferLen) inputBuffer[length++] = (byte)stream.ReadByte();
+                /*
                 if (length > 0)
                 {
                     // Lazy bytes? since we can't resync.......
                     Thread.Sleep(50);
                     while (stream.DataAvailable) inputBuffer[length++] = (byte)stream.ReadByte();
                 }
+                */
 
                 if (length > 0)
                 {
-                    string response = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    Crawl("<== " + response);
+                    string input = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
+                    Crawl("CR<== " + input);
 
-                    // TODO Analyze the response!
-                    return response;
+                    if (receiveCallback != null)
+                        receiveCallback(input, crawlPrefix);
+
+                    return input;
                 }
             }
             return "";

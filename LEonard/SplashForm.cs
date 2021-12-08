@@ -19,7 +19,7 @@ namespace LEonard
 
         private void SplashForm_Load(object sender, EventArgs e)
         {
-            CloseTmr.Interval = 5000;
+            CloseTmr.Interval = 1000;
             CloseTmr.Enabled = true;
         }
 

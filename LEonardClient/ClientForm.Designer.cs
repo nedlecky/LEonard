@@ -32,8 +32,8 @@
             this.CrawlerRTB = new System.Windows.Forms.RichTextBox();
             this.MessageTmr = new System.Windows.Forms.Timer(this.components);
             this.ConnectBtn = new System.Windows.Forms.Button();
-            this.InterfaceTesterIpTxt = new System.Windows.Forms.TextBox();
-            this.InterfaceTesterPortTxt = new System.Windows.Forms.TextBox();
+            this.ClientIpTxt = new System.Windows.Forms.TextBox();
+            this.ClientPortTxt = new System.Windows.Forms.TextBox();
             this.CommandOneBtn = new System.Windows.Forms.Button();
             this.AbortBtn = new System.Windows.Forms.Button();
             this.GetStatusBtn = new System.Windows.Forms.Button();
@@ -44,6 +44,7 @@
             this.Stress1Btn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.LogfileTxt = new System.Windows.Forms.TextBox();
+            this.AutoGetStatusChk = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // CrawlerRTB
@@ -69,21 +70,21 @@
             this.ConnectBtn.UseVisualStyleBackColor = true;
             this.ConnectBtn.Click += new System.EventHandler(this.ConnectBtn_Click);
             // 
-            // InterfaceTesterIpTxt
+            // ClientIpTxt
             // 
-            this.InterfaceTesterIpTxt.Location = new System.Drawing.Point(12, 38);
-            this.InterfaceTesterIpTxt.Name = "InterfaceTesterIpTxt";
-            this.InterfaceTesterIpTxt.Size = new System.Drawing.Size(83, 20);
-            this.InterfaceTesterIpTxt.TabIndex = 3;
-            this.InterfaceTesterIpTxt.Text = "192.168.1.103";
+            this.ClientIpTxt.Location = new System.Drawing.Point(12, 38);
+            this.ClientIpTxt.Name = "ClientIpTxt";
+            this.ClientIpTxt.Size = new System.Drawing.Size(83, 20);
+            this.ClientIpTxt.TabIndex = 3;
+            this.ClientIpTxt.Text = "192.168.1.103";
             // 
-            // InterfaceTesterPortTxt
+            // ClientPortTxt
             // 
-            this.InterfaceTesterPortTxt.Location = new System.Drawing.Point(101, 38);
-            this.InterfaceTesterPortTxt.Name = "InterfaceTesterPortTxt";
-            this.InterfaceTesterPortTxt.Size = new System.Drawing.Size(39, 20);
-            this.InterfaceTesterPortTxt.TabIndex = 4;
-            this.InterfaceTesterPortTxt.Text = "1000";
+            this.ClientPortTxt.Location = new System.Drawing.Point(101, 38);
+            this.ClientPortTxt.Name = "ClientPortTxt";
+            this.ClientPortTxt.Size = new System.Drawing.Size(39, 20);
+            this.ClientPortTxt.TabIndex = 4;
+            this.ClientPortTxt.Text = "1000";
             // 
             // CommandOneBtn
             // 
@@ -107,7 +108,7 @@
             // 
             // GetStatusBtn
             // 
-            this.GetStatusBtn.Location = new System.Drawing.Point(256, 40);
+            this.GetStatusBtn.Location = new System.Drawing.Point(12, 151);
             this.GetStatusBtn.Name = "GetStatusBtn";
             this.GetStatusBtn.Size = new System.Drawing.Size(107, 22);
             this.GetStatusBtn.TabIndex = 12;
@@ -150,7 +151,7 @@
             // 
             // Stress1Btn
             // 
-            this.Stress1Btn.Location = new System.Drawing.Point(12, 104);
+            this.Stress1Btn.Location = new System.Drawing.Point(12, 179);
             this.Stress1Btn.Name = "Stress1Btn";
             this.Stress1Btn.Size = new System.Drawing.Size(128, 23);
             this.Stress1Btn.TabIndex = 50;
@@ -175,12 +176,25 @@
             this.LogfileTxt.TabIndex = 55;
             this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/LEonard Files/LEonardClient.log";
             // 
+            // AutoGetStatusChk
+            // 
+            this.AutoGetStatusChk.AutoSize = true;
+            this.AutoGetStatusChk.Checked = true;
+            this.AutoGetStatusChk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AutoGetStatusChk.Location = new System.Drawing.Point(12, 128);
+            this.AutoGetStatusChk.Name = "AutoGetStatusChk";
+            this.AutoGetStatusChk.Size = new System.Drawing.Size(101, 17);
+            this.AutoGetStatusChk.TabIndex = 56;
+            this.AutoGetStatusChk.Text = "Auto Get Status";
+            this.AutoGetStatusChk.UseVisualStyleBackColor = true;
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(523, 915);
             this.ControlBox = false;
+            this.Controls.Add(this.AutoGetStatusChk);
             this.Controls.Add(this.LogfileTxt);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Stress1Btn);
@@ -190,8 +204,8 @@
             this.Controls.Add(this.GetStatusBtn);
             this.Controls.Add(this.AbortBtn);
             this.Controls.Add(this.CommandOneBtn);
-            this.Controls.Add(this.InterfaceTesterPortTxt);
-            this.Controls.Add(this.InterfaceTesterIpTxt);
+            this.Controls.Add(this.ClientPortTxt);
+            this.Controls.Add(this.ClientIpTxt);
             this.Controls.Add(this.ConnectBtn);
             this.Controls.Add(this.CrawlerRTB);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -210,8 +224,8 @@
         private System.Windows.Forms.RichTextBox CrawlerRTB;
         private System.Windows.Forms.Timer MessageTmr;
         private System.Windows.Forms.Button ConnectBtn;
-        private System.Windows.Forms.TextBox InterfaceTesterIpTxt;
-        private System.Windows.Forms.TextBox InterfaceTesterPortTxt;
+        private System.Windows.Forms.TextBox ClientIpTxt;
+        private System.Windows.Forms.TextBox ClientPortTxt;
         private System.Windows.Forms.Button CommandOneBtn;
         private System.Windows.Forms.Button AbortBtn;
         private System.Windows.Forms.Button GetStatusBtn;
@@ -222,6 +236,7 @@
         private System.Windows.Forms.Button Stress1Btn;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox LogfileTxt;
+        private System.Windows.Forms.CheckBox AutoGetStatusChk;
     }
 }
 

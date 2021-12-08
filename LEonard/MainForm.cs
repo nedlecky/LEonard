@@ -190,9 +190,19 @@ namespace LEonard
             }
         }
 
-        void CommandCallBack(string data)
+        // TODO: Clean these up, use consistent string formatting ideas, and the variables
+        // TODO All of these... the variable name should be prefixed with the unique device name not the message prefix
+        void GeneralCallBack(string data, string prefix)
         {
-            Crawl(string.Format("COMM <=={0}", data));
+            Crawl(string.Format("{0} GCB<=={1}", prefix, data));
+            WriteVariable(prefix + ".return", data);
+
+            // TODO: this is whjere some standard response codes should be parsed
+        }
+
+        void CommandCallBack(string data, string prefix)
+        {
+            Crawl(string.Format("{0} CCB<=={1}", prefix, data));
             string[] s = data.Split(',');
             string response = "INVALID COMMAND";
             if (s.Length == 3)
@@ -201,9 +211,9 @@ namespace LEonard
                 string sequence = s[1];
                 string parameters = s[2];
 
-                WriteVariable("command_name", name);
-                WriteVariable("command_sequence", sequence);
-                WriteVariable("command_params", parameters);
+                WriteVariable(prefix + ".name", name);
+                WriteVariable(prefix + ".sequence", sequence);
+                WriteVariable(prefix + ".params", parameters);
 
                 // TODO: Execute
 
@@ -213,133 +223,23 @@ namespace LEonard
             interfaces[0].Send(response);
         }
 
-        void DatamanCallBack(string data)
+        void DatamanCallBack(string data, string prefix)
         {
-            Crawl(string.Format("BAR <=={0}", data));
+            Crawl(string.Format("{0} DCB<=={1}", prefix, data));
             string[] s = data.Split(',');
             if (s.Length == 3)
             {
                 string name = s[0];
                 string sequence = s[1];
                 string value = s[2];
-                WriteVariable(name + "_sequence", sequence);
-                WriteVariable(name + "_value", value);
+                WriteVariable(prefix + ".name", name);
+                WriteVariable(prefix + ".sequence", sequence);
+                WriteVariable(prefix + ".value", value);
             }
             else
-                Crawl("BAR ERROR unexpected string received: " + data);
+                Crawl(prefix + "ERROR unexpected string received: " + data);
         }
 
-        // Launch command tester to assist in debugging
-        Process proc;
-        private void StartTestClientBtn_Click(object sender, EventArgs e)
-        {
-            ProcessStartInfo start = new ProcessStartInfo();
-            start.Arguments = "";
-#if DEBUG
-            start.FileName = "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\InterfaceTester\\bin\\Debug\\LEonardInterfaceTester.exe";
-#else
-            start.FileName = "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\InterfaceTester\\bin\\Release\\LEonardInterfaceTester.exe";
-#endif
-            Crawl("Starting " + start.FileName);
-            try
-            {
-                proc = Process.Start(start);
-            }
-            catch
-            {
-                CrawlError("Could not start " + start.FileName);
-            }
-
-        }
-
-
-        private void Robot1Btn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[1] != null)
-                interfaces[1].Send("(1,0,0,0,0)");
-        }
-
-        private void Robot2Btn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[1] != null)
-                interfaces[1].Send("(2,0,0,0,0)");
-        }
-
-        private void Robot3Btn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[1] != null)
-                interfaces[1].Send("(3,0,0,0,0)");
-        }
-
-        private void Robot4Btn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[1] != null)
-                interfaces[1].Send("(4,0,0,0,0)");
-        }
-
-        private void Robot50Btn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[1] != null)
-                interfaces[1].Send("(50,0,0,0,0)");
-        }
-
-        private void Robot98Btn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[1] != null)
-            {
-                interfaces[1].Send("(98,0,0,0,0)");
-
-                // All shoud be wrapped in nice RobotServer class
-                Thread.Sleep(100);
-                interfaces[1].Disconnect();
-                //robotServer = new TcpServer(this, "ROBOT: ");
-                interfaces[1].Connect("192.168.0.252:30000");
-            }
-        }
-
-        private void Robot99Btn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[1] != null)
-            {
-                interfaces[1].Send("(99,0,0,0,0)");
-
-                // All shoud be wrapped in nice RobotServer class
-                Thread.Sleep(100);
-                interfaces[1].Disconnect();
-                //robotServer = new TcpServer(this, "ROBOT: ");
-                interfaces[1].Connect("192.168.0.252:30000");
-            }
-        }
-
-        private void BcrtCreateBtn_Click(object sender, EventArgs e)
-        {
-            if (bcrt != null)
-                bcrt.End();
-            GC.Collect();
-            bcrt = new BarcodeReaderThread(this, interfaces[4], interfaces[5]);
-        }
-
-        private void BcrtDestroyBtn_Click(object sender, EventArgs e)
-        {
-            bcrt.End();
-            bcrt = null;
-            GC.Collect();
-        }
-
-        private void BcrtStartBtn_Click(object sender, EventArgs e)
-        {
-            bcrt.Enable(BarcodeReaderThreadChk.Checked);
-            bcrt.Start();
-        }
-
-        private void BcrtEndBtn_Click(object sender, EventArgs e)
-        {
-            bcrt.End();
-        }
-        private void BarcodeReaderThreadChk_CheckedChanged(object sender, EventArgs e)
-        {
-            bcrt.Enable(BarcodeReaderThreadChk.Checked);
-        }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -462,10 +362,10 @@ namespace LEonard
 
             devices.PrimaryKey = new DataColumn[] { id };
 
-            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "192.168.0.252:1000", "COMM", "command", "", "" });
-            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.252:30000", "ROB", "", "", "(98,0,0,0,0)" });
-            devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "192.168.0.252:20000", "VISS", "", "", "" });
-            devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "192.168.0.252:21000", "VISH", "", "", "" });
+            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "127.0.0.1:1000", "COMM", "command", "Hello!", "exit()" });
+            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.252:30000", "ROB", "general", "", "(98,0,0,0,0)" });
+            devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "127.0.0.1:20000", "VISS", "general", "iint()", "" });
+            devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "127.0.0.1:21000", "VISH", "general", "init()", "" });
             devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "BAR1", "dataman", "+", "" });
             devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "BAR2", "dataman", "+", "" });
 
@@ -618,6 +518,9 @@ namespace LEonard
                     {
                         case "":
                             break;
+                        case "general":
+                            interfaces[index].receiveCallback = GeneralCallBack;
+                            break;
                         case "command":
                             interfaces[index].receiveCallback = CommandCallBack;
                             break;
@@ -631,7 +534,7 @@ namespace LEonard
                     }
 
                     // TODO: Magic column number 7 is horrible
-                    // TODO: This reqally needs to wait for a connect in the case of TcpServer or TcpClient... probably OK on Serial
+                    // TODO: DOESN'T WORK for a connect in the case of TcpServer which must happen at connect
                     string onConnectSend = devices.Rows[row].ItemArray[7].ToString();
                     if (onConnectSend.Length > 0)
                         try
@@ -687,6 +590,128 @@ namespace LEonard
         {
             if (interfaces[currentDevice] != null)
                 interfaces[currentDevice].Send(MessageToSendTxt.Text);
+        }
+        // Launch command tester to assist in debugging
+        Process proc;
+        private void StartTestClientBtn_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.Arguments = "";
+#if DEBUG
+            start.FileName = "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Debug\\LEonardClient.exe";
+#else
+            start.FileName = "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Release\\LEonardClient.exe";
+#endif
+            Crawl("Starting " + start.FileName);
+            try
+            {
+                proc = Process.Start(start);
+            }
+            catch
+            {
+                CrawlError("Could not start " + start.FileName);
+            }
+
+        }
+
+
+        private void Robot1Btn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[1] != null)
+                interfaces[1].Send("(1,0,0,0,0)");
+        }
+
+        private void Robot2Btn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[1] != null)
+                interfaces[1].Send("(2,0,0,0,0)");
+        }
+
+        private void Robot3Btn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[1] != null)
+                interfaces[1].Send("(3,0,0,0,0)");
+        }
+
+        private void Robot4Btn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[1] != null)
+                interfaces[1].Send("(4,0,0,0,0)");
+        }
+
+        private void Robot50Btn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[1] != null)
+                interfaces[1].Send("(50,0,0,0,0)");
+        }
+
+        private void Robot98Btn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[1] != null)
+            {
+                interfaces[1].Send("(98,0,0,0,0)");
+
+                // All shoud be wrapped in nice RobotServer class
+                Thread.Sleep(100);
+                interfaces[1].Disconnect();
+                //robotServer = new TcpServer(this, "ROBOT: ");
+                interfaces[1].Connect("192.168.0.252:30000");
+            }
+        }
+
+        private void Robot99Btn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[1] != null)
+            {
+                interfaces[1].Send("(99,0,0,0,0)");
+
+                // All shoud be wrapped in nice RobotServer class
+                Thread.Sleep(100);
+                interfaces[1].Disconnect();
+                //robotServer = new TcpServer(this, "ROBOT: ");
+                interfaces[1].Connect("192.168.0.252:30000");
+            }
+        }
+
+        private void BcrtCreateBtn_Click(object sender, EventArgs e)
+        {
+            if (bcrt != null)
+                bcrt.End();
+            GC.Collect();
+            bcrt = new BarcodeReaderThread(this, interfaces[4], interfaces[5]);
+        }
+
+        private void BcrtDestroyBtn_Click(object sender, EventArgs e)
+        {
+            bcrt.End();
+            bcrt = null;
+            GC.Collect();
+        }
+
+        private void BcrtStartBtn_Click(object sender, EventArgs e)
+        {
+            bcrt.Enable(BarcodeReaderThreadChk.Checked);
+            bcrt.Start();
+        }
+
+        private void BcrtEndBtn_Click(object sender, EventArgs e)
+        {
+            bcrt.End();
+        }
+        private void BarcodeReaderThreadChk_CheckedChanged(object sender, EventArgs e)
+        {
+            bcrt.Enable(BarcodeReaderThreadChk.Checked);
+        }
+        private void TriggerDm1Btn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[4] != null)
+                interfaces[4].Send("+");
+        }
+
+        private void TriggerDm2Btn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[5] != null)
+                interfaces[5].Send("+");
         }
         // ***********************************************************************
         // END DEVICES UI
@@ -787,6 +812,7 @@ namespace LEonard
         {
 
         }
+
 
         // ***********************************************************************
         // END VARIABLES UI

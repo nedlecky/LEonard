@@ -16,7 +16,7 @@ namespace LEonard
         NetworkStream stream;
         string myIp;
         string myPort;
-        public Action<string> receiveCallback { get;  set; }
+        public Action<string, string> receiveCallback { get;  set; }
 
         public bool DryRun { get; set; } = false;
         const int inputBufferLen = 128000;
@@ -163,10 +163,10 @@ namespace LEonard
                 if (length > 0)
                 {
                     string input = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    Crawl("<== " + input);
+                    Crawl("SR<== " + input);
 
                     if (receiveCallback != null)
-                        receiveCallback(input);
+                        receiveCallback(input, crawlPrefix);
 
                     return input;
 

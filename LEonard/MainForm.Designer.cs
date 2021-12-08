@@ -86,6 +86,7 @@
             this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
             this.DevicesFilenameLbl = new System.Windows.Forms.Label();
             this.ConfigGrp = new System.Windows.Forms.GroupBox();
+            this.UtcTimeChk = new System.Windows.Forms.CheckBox();
             this.AutoStartChk = new System.Windows.Forms.CheckBox();
             this.AutoLoadChk = new System.Windows.Forms.CheckBox();
             this.ChangeStartupDevicesBtn = new System.Windows.Forms.Button();
@@ -114,7 +115,9 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
-            this.UtcTimeChk = new System.Windows.Forms.CheckBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.TriggerDm1Btn = new System.Windows.Forms.Button();
+            this.TriggerDm2Btn = new System.Windows.Forms.Button();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -132,6 +135,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // HeartbeatTmr
@@ -229,7 +233,7 @@
             this.BarcodeGrp.Controls.Add(this.BcrtDestroyBtn);
             this.BarcodeGrp.Controls.Add(this.BcrtCreateBtn);
             this.BarcodeGrp.Controls.Add(this.BarcodeReaderThreadChk);
-            this.BarcodeGrp.Location = new System.Drawing.Point(226, 561);
+            this.BarcodeGrp.Location = new System.Drawing.Point(356, 578);
             this.BarcodeGrp.Name = "BarcodeGrp";
             this.BarcodeGrp.Size = new System.Drawing.Size(224, 121);
             this.BarcodeGrp.TabIndex = 22;
@@ -289,7 +293,7 @@
             // 
             // StartTestClientBtn
             // 
-            this.StartTestClientBtn.Location = new System.Drawing.Point(254, 21);
+            this.StartTestClientBtn.Location = new System.Drawing.Point(8, 676);
             this.StartTestClientBtn.Name = "StartTestClientBtn";
             this.StartTestClientBtn.Size = new System.Drawing.Size(102, 23);
             this.StartTestClientBtn.TabIndex = 25;
@@ -299,7 +303,7 @@
             // 
             // SendMessageBtn
             // 
-            this.SendMessageBtn.Location = new System.Drawing.Point(351, 521);
+            this.SendMessageBtn.Location = new System.Drawing.Point(540, 515);
             this.SendMessageBtn.Name = "SendMessageBtn";
             this.SendMessageBtn.Size = new System.Drawing.Size(75, 23);
             this.SendMessageBtn.TabIndex = 27;
@@ -309,7 +313,7 @@
             // 
             // MessageToSendTxt
             // 
-            this.MessageToSendTxt.Location = new System.Drawing.Point(226, 521);
+            this.MessageToSendTxt.Location = new System.Drawing.Point(415, 518);
             this.MessageToSendTxt.Name = "MessageToSendTxt";
             this.MessageToSendTxt.Size = new System.Drawing.Size(119, 20);
             this.MessageToSendTxt.TabIndex = 28;
@@ -391,7 +395,6 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.StartTestClientBtn);
             this.groupBox6.Controls.Add(this.CommandClearBtn);
             this.groupBox6.Controls.Add(this.CommandCrawlRTB);
             this.groupBox6.Location = new System.Drawing.Point(12, 381);
@@ -429,7 +432,7 @@
             this.groupBox8.Controls.Add(this.Robot3Btn);
             this.groupBox8.Controls.Add(this.Robot2Btn);
             this.groupBox8.Controls.Add(this.Robot1Btn);
-            this.groupBox8.Location = new System.Drawing.Point(8, 518);
+            this.groupBox8.Location = new System.Drawing.Point(8, 510);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(178, 137);
             this.groupBox8.TabIndex = 59;
@@ -642,6 +645,8 @@
             // 
             // ConfigTab
             // 
+            this.ConfigTab.Controls.Add(this.groupBox9);
+            this.ConfigTab.Controls.Add(this.StartTestClientBtn);
             this.ConfigTab.Controls.Add(this.BarcodeGrp);
             this.ConfigTab.Controls.Add(this.SendMessageBtn);
             this.ConfigTab.Controls.Add(this.MessageToSendTxt);
@@ -722,6 +727,16 @@
             this.ConfigGrp.TabIndex = 62;
             this.ConfigGrp.TabStop = false;
             this.ConfigGrp.Text = "Config";
+            // 
+            // UtcTimeChk
+            // 
+            this.UtcTimeChk.AutoSize = true;
+            this.UtcTimeChk.Location = new System.Drawing.Point(439, 126);
+            this.UtcTimeChk.Name = "UtcTimeChk";
+            this.UtcTimeChk.Size = new System.Drawing.Size(177, 17);
+            this.UtcTimeChk.TabIndex = 73;
+            this.UtcTimeChk.Text = "Use UTC Time in Time Stamps?";
+            this.UtcTimeChk.UseVisualStyleBackColor = true;
             // 
             // AutoStartChk
             // 
@@ -969,15 +984,36 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
-            // UtcTimeChk
+            // groupBox9
             // 
-            this.UtcTimeChk.AutoSize = true;
-            this.UtcTimeChk.Location = new System.Drawing.Point(439, 126);
-            this.UtcTimeChk.Name = "UtcTimeChk";
-            this.UtcTimeChk.Size = new System.Drawing.Size(177, 17);
-            this.UtcTimeChk.TabIndex = 73;
-            this.UtcTimeChk.Text = "Use UTC Time in Time Stamps?";
-            this.UtcTimeChk.UseVisualStyleBackColor = true;
+            this.groupBox9.Controls.Add(this.TriggerDm2Btn);
+            this.groupBox9.Controls.Add(this.TriggerDm1Btn);
+            this.groupBox9.Location = new System.Drawing.Point(202, 515);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(124, 132);
+            this.groupBox9.TabIndex = 68;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Barcode Readers";
+            // 
+            // TriggerDm1Btn
+            // 
+            this.TriggerDm1Btn.Location = new System.Drawing.Point(6, 19);
+            this.TriggerDm1Btn.Name = "TriggerDm1Btn";
+            this.TriggerDm1Btn.Size = new System.Drawing.Size(75, 23);
+            this.TriggerDm1Btn.TabIndex = 0;
+            this.TriggerDm1Btn.Text = "Trigger 1";
+            this.TriggerDm1Btn.UseVisualStyleBackColor = true;
+            this.TriggerDm1Btn.Click += new System.EventHandler(this.TriggerDm1Btn_Click);
+            // 
+            // TriggerDm2Btn
+            // 
+            this.TriggerDm2Btn.Location = new System.Drawing.Point(6, 48);
+            this.TriggerDm2Btn.Name = "TriggerDm2Btn";
+            this.TriggerDm2Btn.Size = new System.Drawing.Size(75, 23);
+            this.TriggerDm2Btn.TabIndex = 1;
+            this.TriggerDm2Btn.Text = "Trigger 2";
+            this.TriggerDm2Btn.UseVisualStyleBackColor = true;
+            this.TriggerDm2Btn.Click += new System.EventHandler(this.TriggerDm2Btn_Click);
             // 
             // MainForm
             // 
@@ -1021,6 +1057,7 @@
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1113,6 +1150,9 @@
         private System.Windows.Forms.Button StartAllDevicesBtn;
         private System.Windows.Forms.Timer StartupTmr;
         private System.Windows.Forms.CheckBox UtcTimeChk;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Button TriggerDm2Btn;
+        private System.Windows.Forms.Button TriggerDm1Btn;
     }
 }
 
