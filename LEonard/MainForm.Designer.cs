@@ -70,6 +70,16 @@
             this.PersonalityTabs = new System.Windows.Forms.TabControl();
             this.RuntimeTab = new System.Windows.Forms.TabPage();
             this.ReportingTab = new System.Windows.Forms.TabPage();
+            this.ProgramTab = new System.Windows.Forms.TabPage();
+            this.JavaScriptFilenameLbl = new System.Windows.Forms.Label();
+            this.JavaScriptCodeRTB = new System.Windows.Forms.RichTextBox();
+            this.JavaScriptClearRTB = new System.Windows.Forms.Button();
+            this.JavaScriptCrawlRTB = new System.Windows.Forms.RichTextBox();
+            this.RunJavaProgramBtn = new System.Windows.Forms.Button();
+            this.SaveAsJavaProgramBtn = new System.Windows.Forms.Button();
+            this.NewJavaProgramBtn = new System.Windows.Forms.Button();
+            this.LoadJavaProgramBtn = new System.Windows.Forms.Button();
+            this.SaveJavaProgramBtn = new System.Windows.Forms.Button();
             this.VariablesTab = new System.Windows.Forms.TabPage();
             this.LoadVariablesBtn = new System.Windows.Forms.Button();
             this.SaveVariablesBtn = new System.Windows.Forms.Button();
@@ -81,6 +91,9 @@
             this.ClearVariablesBtn = new System.Windows.Forms.Button();
             this.VariablesGrd = new System.Windows.Forms.DataGridView();
             this.ConfigTab = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.TriggerDm2Btn = new System.Windows.Forms.Button();
+            this.TriggerDm1Btn = new System.Windows.Forms.Button();
             this.StopAllDevicesBtn = new System.Windows.Forms.Button();
             this.StartAllDevicesBtn = new System.Windows.Forms.Button();
             this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
@@ -88,7 +101,6 @@
             this.ConfigGrp = new System.Windows.Forms.GroupBox();
             this.UtcTimeChk = new System.Windows.Forms.CheckBox();
             this.AutoStartChk = new System.Windows.Forms.CheckBox();
-            this.AutoLoadChk = new System.Windows.Forms.CheckBox();
             this.ChangeStartupDevicesBtn = new System.Windows.Forms.Button();
             this.StartupDevicesLbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -115,9 +127,9 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.TriggerDm1Btn = new System.Windows.Forms.Button();
-            this.TriggerDm2Btn = new System.Windows.Forms.Button();
+            this.ChangeStartupJavaScriptBtn = new System.Windows.Forms.Button();
+            this.StartupJavaScriptLbl = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -127,15 +139,16 @@
             this.groupBox6.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.PersonalityTabs.SuspendLayout();
+            this.ProgramTab.SuspendLayout();
             this.VariablesTab.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).BeginInit();
             this.ConfigTab.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.ConfigGrp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // HeartbeatTmr
@@ -513,6 +526,7 @@
             // 
             this.PersonalityTabs.Controls.Add(this.RuntimeTab);
             this.PersonalityTabs.Controls.Add(this.ReportingTab);
+            this.PersonalityTabs.Controls.Add(this.ProgramTab);
             this.PersonalityTabs.Controls.Add(this.VariablesTab);
             this.PersonalityTabs.Controls.Add(this.ConfigTab);
             this.PersonalityTabs.Location = new System.Drawing.Point(462, 27);
@@ -540,6 +554,112 @@
             this.ReportingTab.TabIndex = 1;
             this.ReportingTab.Text = "Reporting";
             this.ReportingTab.UseVisualStyleBackColor = true;
+            // 
+            // ProgramTab
+            // 
+            this.ProgramTab.Controls.Add(this.JavaScriptFilenameLbl);
+            this.ProgramTab.Controls.Add(this.JavaScriptCodeRTB);
+            this.ProgramTab.Controls.Add(this.JavaScriptClearRTB);
+            this.ProgramTab.Controls.Add(this.JavaScriptCrawlRTB);
+            this.ProgramTab.Controls.Add(this.RunJavaProgramBtn);
+            this.ProgramTab.Controls.Add(this.SaveAsJavaProgramBtn);
+            this.ProgramTab.Controls.Add(this.NewJavaProgramBtn);
+            this.ProgramTab.Controls.Add(this.LoadJavaProgramBtn);
+            this.ProgramTab.Controls.Add(this.SaveJavaProgramBtn);
+            this.ProgramTab.Location = new System.Drawing.Point(4, 22);
+            this.ProgramTab.Name = "ProgramTab";
+            this.ProgramTab.Size = new System.Drawing.Size(634, 736);
+            this.ProgramTab.TabIndex = 4;
+            this.ProgramTab.Text = "Program";
+            this.ProgramTab.UseVisualStyleBackColor = true;
+            // 
+            // JavaScriptFilenameLbl
+            // 
+            this.JavaScriptFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.JavaScriptFilenameLbl.Location = new System.Drawing.Point(13, 9);
+            this.JavaScriptFilenameLbl.Name = "JavaScriptFilenameLbl";
+            this.JavaScriptFilenameLbl.Size = new System.Drawing.Size(606, 23);
+            this.JavaScriptFilenameLbl.TabIndex = 71;
+            this.JavaScriptFilenameLbl.Text = "Untitled";
+            this.JavaScriptFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // JavaScriptCodeRTB
+            // 
+            this.JavaScriptCodeRTB.Location = new System.Drawing.Point(12, 35);
+            this.JavaScriptCodeRTB.Name = "JavaScriptCodeRTB";
+            this.JavaScriptCodeRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.JavaScriptCodeRTB.Size = new System.Drawing.Size(607, 354);
+            this.JavaScriptCodeRTB.TabIndex = 70;
+            this.JavaScriptCodeRTB.Text = "";
+            // 
+            // JavaScriptClearRTB
+            // 
+            this.JavaScriptClearRTB.Location = new System.Drawing.Point(550, 510);
+            this.JavaScriptClearRTB.Name = "JavaScriptClearRTB";
+            this.JavaScriptClearRTB.Size = new System.Drawing.Size(50, 23);
+            this.JavaScriptClearRTB.TabIndex = 18;
+            this.JavaScriptClearRTB.Text = "Clear";
+            this.JavaScriptClearRTB.UseVisualStyleBackColor = true;
+            this.JavaScriptClearRTB.Click += new System.EventHandler(this.JavaScriptClearRTB_Click);
+            // 
+            // JavaScriptCrawlRTB
+            // 
+            this.JavaScriptCrawlRTB.Location = new System.Drawing.Point(12, 507);
+            this.JavaScriptCrawlRTB.Name = "JavaScriptCrawlRTB";
+            this.JavaScriptCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.JavaScriptCrawlRTB.Size = new System.Drawing.Size(607, 218);
+            this.JavaScriptCrawlRTB.TabIndex = 18;
+            this.JavaScriptCrawlRTB.Text = "";
+            // 
+            // RunJavaProgramBtn
+            // 
+            this.RunJavaProgramBtn.Location = new System.Drawing.Point(364, 395);
+            this.RunJavaProgramBtn.Name = "RunJavaProgramBtn";
+            this.RunJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
+            this.RunJavaProgramBtn.TabIndex = 69;
+            this.RunJavaProgramBtn.Text = "Run";
+            this.RunJavaProgramBtn.UseVisualStyleBackColor = true;
+            this.RunJavaProgramBtn.Click += new System.EventHandler(this.RunJavaProgramBtn_Click);
+            // 
+            // SaveAsJavaProgramBtn
+            // 
+            this.SaveAsJavaProgramBtn.Location = new System.Drawing.Point(255, 395);
+            this.SaveAsJavaProgramBtn.Name = "SaveAsJavaProgramBtn";
+            this.SaveAsJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveAsJavaProgramBtn.TabIndex = 68;
+            this.SaveAsJavaProgramBtn.Text = "Save As...";
+            this.SaveAsJavaProgramBtn.UseVisualStyleBackColor = true;
+            this.SaveAsJavaProgramBtn.Click += new System.EventHandler(this.SaveAsJavaProgramBtn_Click);
+            // 
+            // NewJavaProgramBtn
+            // 
+            this.NewJavaProgramBtn.Location = new System.Drawing.Point(12, 395);
+            this.NewJavaProgramBtn.Name = "NewJavaProgramBtn";
+            this.NewJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
+            this.NewJavaProgramBtn.TabIndex = 67;
+            this.NewJavaProgramBtn.Text = "New";
+            this.NewJavaProgramBtn.UseVisualStyleBackColor = true;
+            this.NewJavaProgramBtn.Click += new System.EventHandler(this.NewJavaProgramBtn_Click);
+            // 
+            // LoadJavaProgramBtn
+            // 
+            this.LoadJavaProgramBtn.Location = new System.Drawing.Point(93, 395);
+            this.LoadJavaProgramBtn.Name = "LoadJavaProgramBtn";
+            this.LoadJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
+            this.LoadJavaProgramBtn.TabIndex = 66;
+            this.LoadJavaProgramBtn.Text = "Load";
+            this.LoadJavaProgramBtn.UseVisualStyleBackColor = true;
+            this.LoadJavaProgramBtn.Click += new System.EventHandler(this.LoadJavaProgramBtn_Click);
+            // 
+            // SaveJavaProgramBtn
+            // 
+            this.SaveJavaProgramBtn.Location = new System.Drawing.Point(174, 395);
+            this.SaveJavaProgramBtn.Name = "SaveJavaProgramBtn";
+            this.SaveJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveJavaProgramBtn.TabIndex = 65;
+            this.SaveJavaProgramBtn.Text = "Save";
+            this.SaveJavaProgramBtn.UseVisualStyleBackColor = true;
+            this.SaveJavaProgramBtn.Click += new System.EventHandler(this.SaveJavaProgramBtn_Click);
             // 
             // VariablesTab
             // 
@@ -668,6 +788,37 @@
             this.ConfigTab.Text = "Config";
             this.ConfigTab.UseVisualStyleBackColor = true;
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.TriggerDm2Btn);
+            this.groupBox9.Controls.Add(this.TriggerDm1Btn);
+            this.groupBox9.Location = new System.Drawing.Point(202, 515);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(124, 132);
+            this.groupBox9.TabIndex = 68;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Barcode Readers";
+            // 
+            // TriggerDm2Btn
+            // 
+            this.TriggerDm2Btn.Location = new System.Drawing.Point(6, 48);
+            this.TriggerDm2Btn.Name = "TriggerDm2Btn";
+            this.TriggerDm2Btn.Size = new System.Drawing.Size(75, 23);
+            this.TriggerDm2Btn.TabIndex = 1;
+            this.TriggerDm2Btn.Text = "Trigger 2";
+            this.TriggerDm2Btn.UseVisualStyleBackColor = true;
+            this.TriggerDm2Btn.Click += new System.EventHandler(this.TriggerDm2Btn_Click);
+            // 
+            // TriggerDm1Btn
+            // 
+            this.TriggerDm1Btn.Location = new System.Drawing.Point(6, 19);
+            this.TriggerDm1Btn.Name = "TriggerDm1Btn";
+            this.TriggerDm1Btn.Size = new System.Drawing.Size(75, 23);
+            this.TriggerDm1Btn.TabIndex = 0;
+            this.TriggerDm1Btn.Text = "Trigger 1";
+            this.TriggerDm1Btn.UseVisualStyleBackColor = true;
+            this.TriggerDm1Btn.Click += new System.EventHandler(this.TriggerDm1Btn_Click);
+            // 
             // StopAllDevicesBtn
             // 
             this.StopAllDevicesBtn.Location = new System.Drawing.Point(490, 470);
@@ -709,9 +860,11 @@
             // 
             // ConfigGrp
             // 
+            this.ConfigGrp.Controls.Add(this.ChangeStartupJavaScriptBtn);
+            this.ConfigGrp.Controls.Add(this.StartupJavaScriptLbl);
+            this.ConfigGrp.Controls.Add(this.label4);
             this.ConfigGrp.Controls.Add(this.UtcTimeChk);
             this.ConfigGrp.Controls.Add(this.AutoStartChk);
-            this.ConfigGrp.Controls.Add(this.AutoLoadChk);
             this.ConfigGrp.Controls.Add(this.ChangeStartupDevicesBtn);
             this.ConfigGrp.Controls.Add(this.StartupDevicesLbl);
             this.ConfigGrp.Controls.Add(this.label3);
@@ -741,22 +894,12 @@
             // AutoStartChk
             // 
             this.AutoStartChk.AutoSize = true;
-            this.AutoStartChk.Location = new System.Drawing.Point(138, 93);
+            this.AutoStartChk.Location = new System.Drawing.Point(143, 68);
             this.AutoStartChk.Name = "AutoStartChk";
             this.AutoStartChk.Size = new System.Drawing.Size(177, 17);
             this.AutoStartChk.TabIndex = 72;
             this.AutoStartChk.Text = "Auto Start All Devices on Load?";
             this.AutoStartChk.UseVisualStyleBackColor = true;
-            // 
-            // AutoLoadChk
-            // 
-            this.AutoLoadChk.AutoSize = true;
-            this.AutoLoadChk.Location = new System.Drawing.Point(138, 74);
-            this.AutoLoadChk.Name = "AutoLoadChk";
-            this.AutoLoadChk.Size = new System.Drawing.Size(182, 17);
-            this.AutoLoadChk.TabIndex = 71;
-            this.AutoLoadChk.Text = "Auto Load Devices File on Start?";
-            this.AutoLoadChk.UseVisualStyleBackColor = true;
             // 
             // ChangeStartupDevicesBtn
             // 
@@ -984,36 +1127,33 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
-            // groupBox9
+            // ChangeStartupJavaScriptBtn
             // 
-            this.groupBox9.Controls.Add(this.TriggerDm2Btn);
-            this.groupBox9.Controls.Add(this.TriggerDm1Btn);
-            this.groupBox9.Location = new System.Drawing.Point(202, 515);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(124, 132);
-            this.groupBox9.TabIndex = 68;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Barcode Readers";
+            this.ChangeStartupJavaScriptBtn.Location = new System.Drawing.Point(504, 88);
+            this.ChangeStartupJavaScriptBtn.Name = "ChangeStartupJavaScriptBtn";
+            this.ChangeStartupJavaScriptBtn.Size = new System.Drawing.Size(24, 23);
+            this.ChangeStartupJavaScriptBtn.TabIndex = 76;
+            this.ChangeStartupJavaScriptBtn.Text = "...";
+            this.ChangeStartupJavaScriptBtn.UseVisualStyleBackColor = true;
+            this.ChangeStartupJavaScriptBtn.Click += new System.EventHandler(this.ChangeStartupJavaScriptBtn_Click);
             // 
-            // TriggerDm1Btn
+            // StartupJavaScriptLbl
             // 
-            this.TriggerDm1Btn.Location = new System.Drawing.Point(6, 19);
-            this.TriggerDm1Btn.Name = "TriggerDm1Btn";
-            this.TriggerDm1Btn.Size = new System.Drawing.Size(75, 23);
-            this.TriggerDm1Btn.TabIndex = 0;
-            this.TriggerDm1Btn.Text = "Trigger 1";
-            this.TriggerDm1Btn.UseVisualStyleBackColor = true;
-            this.TriggerDm1Btn.Click += new System.EventHandler(this.TriggerDm1Btn_Click);
+            this.StartupJavaScriptLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.StartupJavaScriptLbl.Location = new System.Drawing.Point(122, 88);
+            this.StartupJavaScriptLbl.Name = "StartupJavaScriptLbl";
+            this.StartupJavaScriptLbl.Size = new System.Drawing.Size(385, 23);
+            this.StartupJavaScriptLbl.TabIndex = 75;
+            this.StartupJavaScriptLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // TriggerDm2Btn
+            // label4
             // 
-            this.TriggerDm2Btn.Location = new System.Drawing.Point(6, 48);
-            this.TriggerDm2Btn.Name = "TriggerDm2Btn";
-            this.TriggerDm2Btn.Size = new System.Drawing.Size(75, 23);
-            this.TriggerDm2Btn.TabIndex = 1;
-            this.TriggerDm2Btn.Text = "Trigger 2";
-            this.TriggerDm2Btn.UseVisualStyleBackColor = true;
-            this.TriggerDm2Btn.Click += new System.EventHandler(this.TriggerDm2Btn_Click);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 93);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(102, 13);
+            this.label4.TabIndex = 74;
+            this.label4.Text = "Startup Program File";
             // 
             // MainForm
             // 
@@ -1044,12 +1184,14 @@
             this.groupBox6.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.PersonalityTabs.ResumeLayout(false);
+            this.ProgramTab.ResumeLayout(false);
             this.VariablesTab.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).EndInit();
             this.ConfigTab.ResumeLayout(false);
             this.ConfigTab.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
             this.ConfigGrp.ResumeLayout(false);
             this.ConfigGrp.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).EndInit();
@@ -1057,7 +1199,6 @@
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1136,7 +1277,6 @@
         private System.Windows.Forms.Label StartupDevicesLbl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox AutoStartChk;
-        private System.Windows.Forms.CheckBox AutoLoadChk;
         private System.Windows.Forms.DataGridView VariablesGrd;
         private System.Windows.Forms.TextBox WriteStringValueTxt;
         private System.Windows.Forms.TextBox VariableNameTxt;
@@ -1153,6 +1293,19 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Button TriggerDm2Btn;
         private System.Windows.Forms.Button TriggerDm1Btn;
+        private System.Windows.Forms.TabPage ProgramTab;
+        private System.Windows.Forms.Button RunJavaProgramBtn;
+        private System.Windows.Forms.Button SaveAsJavaProgramBtn;
+        private System.Windows.Forms.Button NewJavaProgramBtn;
+        private System.Windows.Forms.Button LoadJavaProgramBtn;
+        private System.Windows.Forms.Button SaveJavaProgramBtn;
+        private System.Windows.Forms.Button JavaScriptClearRTB;
+        private System.Windows.Forms.RichTextBox JavaScriptCrawlRTB;
+        private System.Windows.Forms.RichTextBox JavaScriptCodeRTB;
+        private System.Windows.Forms.Label JavaScriptFilenameLbl;
+        private System.Windows.Forms.Button ChangeStartupJavaScriptBtn;
+        private System.Windows.Forms.Label StartupJavaScriptLbl;
+        private System.Windows.Forms.Label label4;
     }
 }
 

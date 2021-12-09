@@ -130,6 +130,15 @@ namespace LEonard
                     BarcodeCrawlRTB.AppendText(message + "\n");
                     BarcodeCrawlRTB.ScrollToCaret();
                 }
+
+                // Add message to JavaScriptCrawlRTB well if it contains "JAVA"
+                if (message.Contains("JAVA"))
+                {
+                    LimitRTBLength(JavaScriptCrawlRTB, maxRtbLength);
+                    JavaScriptCrawlRTB.SelectionColor = messageColor;
+                    JavaScriptCrawlRTB.AppendText(message + "\n");
+                    JavaScriptCrawlRTB.ScrollToCaret();
+                }
             }
         }
 

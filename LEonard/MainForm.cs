@@ -51,12 +51,18 @@ namespace LEonard
 
             LoadConfigBtn_Click(null, null);
 
+            for (int i = 0; i < 3; i++)
+                Crawl("==============================================================================================");
             Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
 
 
-            if (AutoLoadChk.Checked)
+            if (StartupJavaScriptLbl.Text.Length>0)
             {
                 LoadDevicesFile(StartupDevicesLbl.Text);
+            }
+            if (StartupJavaScriptLbl.Text.Length>0)
+            {
+                LoadJavaScriptProgramFile(StartupJavaScriptLbl.Text);
             }
 
             HeartbeatTmr.Interval = 1000;
@@ -83,10 +89,24 @@ namespace LEonard
 
             if (!e.Cancel)
             {
+                // Check on dirty JavaScript program
+                if (JavaScriptCodeRTB.Modified)
+                {
+                    var result = MessageBox.Show("JavaScript modified. Save before closing?",
+                                        "LEonard Confirmation",
+                                        MessageBoxButtons.YesNoCancel,
+                                        MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        SaveJavaProgramBtn_Click(null, null);
+                    }
+                }
+
+                e.Cancel = true; // Cancel this shutdown- we'll let the close out timer shut us down
                 CloseTmr.Interval = 500;
                 CloseTmr.Enabled = true;
-                e.Cancel = true; // Let the close out timer shut us down
-                Crawl("Shutting down...");
+                e.Cancel = true; // Cancel this shutdown- we'll let the close out timer shut us down
+                Crawl("Shutting down in 500mS...");
             }
         }
 
@@ -123,7 +143,7 @@ namespace LEonard
 
             if (AutoStartChk.Checked)
             {
-                Crawl("Autostaring all devices");
+                Crawl("Autostarting all devices");
                 StartAllDevicesBtn_Click(null, null);
             }
         }
@@ -171,6 +191,11 @@ namespace LEonard
         {
             BarcodeCrawlRTB.Clear();
         }
+        private void JavaScriptClearRTB_Click(object sender, EventArgs e)
+        {
+            JavaScriptCrawlRTB.Clear();
+        }
+
 
         int fireCounter = 0;
         private void CloseTmr_Tick(object sender, EventArgs e)
@@ -206,7 +231,7 @@ namespace LEonard
         {
             Crawl(string.Format("{0} CCB<=={1}", prefix, message));
 
-            if (message.Length>3 && message.StartsWith("JS:"))
+            if (message.Length > 3 && message.StartsWith("JS:"))
                 ExecuteJavaScript(message.Substring(3));
             else
             {
@@ -269,13 +294,17 @@ namespace LEonard
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
             LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", "\\");
             LEonardRootLbl.Text = LEonardRoot;
+
             StartupDevicesLbl.Text = (string)AppNameKey.GetValue("StartupDevicesLbl.Text", "");
-            AutoLoadChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoLoadChk.Checked", "False"));
             AutoStartChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoStartChk.Checked", "False"));
+
+            StartupJavaScriptLbl.Text = (string)AppNameKey.GetValue("StartupJavaScriptLbl.Text", "");
+
             UtcTimeChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("UtcTimeChk.Checked", "True"));
 
             PersonalityTabs.SelectedIndex = (Int32)AppNameKey.GetValue("PersonalityTabs.SelectedIndex", 0);
 
+            // Also load the variables table
             LoadVariablesBtn_Click(null, null);
         }
 
@@ -286,13 +315,17 @@ namespace LEonard
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
             AppNameKey.SetValue("LEonardRoot", LEonardRoot);
+
             AppNameKey.SetValue("StartupDevicesLbl.Text", StartupDevicesLbl.Text);
-            AppNameKey.SetValue("AutoLoadChk.Checked", AutoLoadChk.Checked);
             AppNameKey.SetValue("AutoStartChk.Checked", AutoStartChk.Checked);
+
+            AppNameKey.SetValue("StartupJavaScriptLbl.Text", StartupJavaScriptLbl.Text);
+
             AppNameKey.SetValue("UtcTimeChk.Checked", UtcTimeChk.Checked);
 
             AppNameKey.SetValue("PersonalityTabs.SelectedIndex", PersonalityTabs.SelectedIndex);
 
+            // Also save the variables table
             SaveVariablesBtn_Click(null, null);
         }
         private void ChangeLEonardRootBtn_Click(object sender, EventArgs e)
@@ -325,13 +358,31 @@ namespace LEonard
             }
         }
 
+        private void ChangeStartupJavaScriptBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Select Startup LEonard Program File";
+            dialog.Filter = "Program files|*.js";
+            dialog.InitialDirectory = LEonardRoot;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                StartupJavaScriptLbl.Text = dialog.FileName;
+                Crawl("Startup JavaScript program set to " + StartupJavaScriptLbl.Text);
+
+                if (MessageBox.Show("Load this program now?", "LEonard Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    LoadJavaScriptProgramFile(StartupJavaScriptLbl.Text);
+            }
+        }
+
+
+
         private void DefaultConfigBtn_Click(object sender, EventArgs e)
         {
             LEonardRoot = "";
             LEonardRootLbl.Text = LEonardRoot;
             StartupDevicesLbl.Text = "";
-            AutoLoadChk.Checked = false;
             AutoStartChk.Checked = false;
+            StartupJavaScriptLbl.Text = "";
             UtcTimeChk.Checked = true;
         }
 
@@ -394,6 +445,8 @@ namespace LEonard
         private void LoadDevicesBtn_Click(object sender, EventArgs e)
         {
             // TODO: Need to close everyone down!
+            // TODOP: Does the call below handle it?
+            StopAllDevicesBtn_Click(null, null);
 
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Title = "Open a LEonard Devices File";
@@ -790,24 +843,30 @@ namespace LEonard
         public void WriteVariable(string name, string value)
         {
             Crawl(string.Format("WriteVariable({0}, {1})", name, value));
+            if (variables == null)
+            {
+                CrawlError("variables=null!");
+                return;
+            }
+            string datetime;
+            if (UtcTimeChk.Checked)
+                datetime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            else
+                datetime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+
             foreach (DataRow row in variables.Rows)
             {
                 if ((string)row["Name"] == name)
                 {
                     row["Value"] = value;
                     row["IsNew"] = true;
-                    string datetime;
-                    if (UtcTimeChk.Checked)
-                        datetime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-                    else
-                        datetime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff");
-
                     row["TimeStamp"] = datetime;
+                    variables.AcceptChanges();
 
                     return;
                 }
             }
-            variables.Rows.Add(new object[] { name, value });
+            variables.Rows.Add(new object[] { name, value, true, datetime });
             variables.AcceptChanges();
         }
         private void WriteStringValueTxt_Click(object sender, EventArgs e)
@@ -834,8 +893,11 @@ namespace LEonard
             Crawl("Start Jint");
             jintEngine = new Engine()
                     // Expose various C# functions in JS
-                    .SetValue("alert", new Action<string>(AlertJ))
-                    .SetValue("crawl", new Action<string>(CrawlJ))
+                    .SetValue("alert", new Action<string>(AlertJS))
+                    .SetValue("crawl", new Action<string>(Crawl))
+                    .SetValue("print", new Action<string>(PrintJS))
+                    .SetValue("clear", new Action(ClearJS))
+                    .SetValue("write_variable", new Action<string, string>(WriteVariable))
                 ;
         }
         void StopJint()
@@ -844,23 +906,110 @@ namespace LEonard
 
         }
 
-        private void AlertJ(string Message)
+        private void AlertJS(string message)
         {
-            MessageBox.Show(Message, "Window Alert", MessageBoxButtons.OK);
+            MessageBox.Show(message, "Window Alert", MessageBoxButtons.OK);
         }
-        private void CrawlJ(string message)
+        private void PrintJS(string message)
         {
-            Crawl(message);
+            Color messageColor = Color.Black;
+            if (message.Contains("ERROR"))
+                messageColor = Color.Red;
+
+            LimitRTBLength(JavaScriptCrawlRTB, maxRtbLength);
+            JavaScriptCrawlRTB.SelectionColor = messageColor;
+            JavaScriptCrawlRTB.AppendText(message + "\n");
+            JavaScriptCrawlRTB.ScrollToCaret();
         }
+        private void ClearJS()
+        {
+            JavaScriptCrawlRTB.Clear();
+        }
+        //private void CrawlJ(string message)
+        //{
+        //    Crawl(message);
+        //}
+        //private void SetJ(string name, string value)
+        //{
+        //    WriteVariable(name, value);
+        //}
 
         void ExecuteJavaScript(string code)
         {
             Crawl("Execute: " + code);
             jintEngine.Execute(code);
         }
-
         // ***********************************************************************
         // END JINT ENGINE
+        // ***********************************************************************
+
+        // ***********************************************************************
+        // START JAVA PROGRAM
+        // ***********************************************************************
+
+        private void NewJavaProgramBtn_Click(object sender, EventArgs e)
+        {
+            JavaScriptFilenameLbl.Text = "Untitled";
+            JavaScriptCodeRTB.Clear();
+        }
+
+        void LoadJavaScriptProgramFile(string file)
+        {
+            JavaScriptFilenameLbl.Text = file;
+            JavaScriptCodeRTB.LoadFile(file);
+            JavaScriptCodeRTB.Modified = false;
+        }
+        private void LoadJavaProgramBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Open a LEonard JavaScript Program";
+            dialog.Filter = "JavaScript Files|*.js";
+            dialog.InitialDirectory = LEonardRoot;
+            if (dialog.ShowDialog() == DialogResult.OK)
+                LoadJavaScriptProgramFile(dialog.FileName);
+        }
+
+        private void SaveJavaProgramBtn_Click(object sender, EventArgs e)
+        {
+            if (JavaScriptFilenameLbl.Text == "Untitled" || JavaScriptFilenameLbl.Text == "")
+                SaveAsJavaProgramBtn_Click(null, null);
+            else
+            {
+                Crawl("Save JavaScript program to " + JavaScriptFilenameLbl.Text);
+                JavaScriptCodeRTB.SaveFile(JavaScriptFilenameLbl.Text);
+            }
+        }
+
+        private void SaveAsJavaProgramBtn_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "LEonard JavaScript Programs|*.js";
+            dialog.Title = "Save a LEonard JavaScript Program";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (dialog.FileName != "")
+                {
+                    JavaScriptFilenameLbl.Text = dialog.FileName;
+                    SaveJavaProgramBtn_Click(null, null);
+                }
+            }
+        }
+
+        private void RunJavaProgramBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                jintEngine.Execute(JavaScriptCodeRTB.Text);
+            }
+            catch (Exception ex)
+            {
+                CrawlError("Program Execution Error: " + ex.ToString());
+            }
+
+        }
+
+        // ***********************************************************************
+        // END JAVA PROGRAM
         // ***********************************************************************
     }
 }
