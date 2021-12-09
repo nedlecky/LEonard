@@ -71,6 +71,7 @@
             this.RuntimeTab = new System.Windows.Forms.TabPage();
             this.ReportingTab = new System.Windows.Forms.TabPage();
             this.ProgramTab = new System.Windows.Forms.TabPage();
+            this.SetAutoloadFileBtn = new System.Windows.Forms.Button();
             this.JavaScriptFilenameLbl = new System.Windows.Forms.Label();
             this.JavaScriptCodeRTB = new System.Windows.Forms.RichTextBox();
             this.JavaScriptClearRTB = new System.Windows.Forms.Button();
@@ -99,6 +100,9 @@
             this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
             this.DevicesFilenameLbl = new System.Windows.Forms.Label();
             this.ConfigGrp = new System.Windows.Forms.GroupBox();
+            this.ChangeStartupJavaScriptBtn = new System.Windows.Forms.Button();
+            this.StartupJavaScriptLbl = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.UtcTimeChk = new System.Windows.Forms.CheckBox();
             this.AutoStartChk = new System.Windows.Forms.CheckBox();
             this.ChangeStartupDevicesBtn = new System.Windows.Forms.Button();
@@ -127,9 +131,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
-            this.ChangeStartupJavaScriptBtn = new System.Windows.Forms.Button();
-            this.StartupJavaScriptLbl = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -557,6 +558,7 @@
             // 
             // ProgramTab
             // 
+            this.ProgramTab.Controls.Add(this.SetAutoloadFileBtn);
             this.ProgramTab.Controls.Add(this.JavaScriptFilenameLbl);
             this.ProgramTab.Controls.Add(this.JavaScriptCodeRTB);
             this.ProgramTab.Controls.Add(this.JavaScriptClearRTB);
@@ -572,6 +574,16 @@
             this.ProgramTab.TabIndex = 4;
             this.ProgramTab.Text = "Program";
             this.ProgramTab.UseVisualStyleBackColor = true;
+            // 
+            // SetAutoloadFileBtn
+            // 
+            this.SetAutoloadFileBtn.Location = new System.Drawing.Point(174, 424);
+            this.SetAutoloadFileBtn.Name = "SetAutoloadFileBtn";
+            this.SetAutoloadFileBtn.Size = new System.Drawing.Size(75, 35);
+            this.SetAutoloadFileBtn.TabIndex = 72;
+            this.SetAutoloadFileBtn.Text = "Set To Autoload";
+            this.SetAutoloadFileBtn.UseVisualStyleBackColor = true;
+            this.SetAutoloadFileBtn.Click += new System.EventHandler(this.SetAutoloadFileBtn_Click);
             // 
             // JavaScriptFilenameLbl
             // 
@@ -881,6 +893,34 @@
             this.ConfigGrp.TabStop = false;
             this.ConfigGrp.Text = "Config";
             // 
+            // ChangeStartupJavaScriptBtn
+            // 
+            this.ChangeStartupJavaScriptBtn.Location = new System.Drawing.Point(504, 88);
+            this.ChangeStartupJavaScriptBtn.Name = "ChangeStartupJavaScriptBtn";
+            this.ChangeStartupJavaScriptBtn.Size = new System.Drawing.Size(24, 23);
+            this.ChangeStartupJavaScriptBtn.TabIndex = 76;
+            this.ChangeStartupJavaScriptBtn.Text = "...";
+            this.ChangeStartupJavaScriptBtn.UseVisualStyleBackColor = true;
+            this.ChangeStartupJavaScriptBtn.Click += new System.EventHandler(this.ChangeStartupJavaScriptBtn_Click);
+            // 
+            // StartupJavaScriptLbl
+            // 
+            this.StartupJavaScriptLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.StartupJavaScriptLbl.Location = new System.Drawing.Point(122, 88);
+            this.StartupJavaScriptLbl.Name = "StartupJavaScriptLbl";
+            this.StartupJavaScriptLbl.Size = new System.Drawing.Size(385, 23);
+            this.StartupJavaScriptLbl.TabIndex = 75;
+            this.StartupJavaScriptLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 93);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(102, 13);
+            this.label4.TabIndex = 74;
+            this.label4.Text = "Startup Program File";
+            // 
             // UtcTimeChk
             // 
             this.UtcTimeChk.AutoSize = true;
@@ -1127,34 +1167,6 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
-            // ChangeStartupJavaScriptBtn
-            // 
-            this.ChangeStartupJavaScriptBtn.Location = new System.Drawing.Point(504, 88);
-            this.ChangeStartupJavaScriptBtn.Name = "ChangeStartupJavaScriptBtn";
-            this.ChangeStartupJavaScriptBtn.Size = new System.Drawing.Size(24, 23);
-            this.ChangeStartupJavaScriptBtn.TabIndex = 76;
-            this.ChangeStartupJavaScriptBtn.Text = "...";
-            this.ChangeStartupJavaScriptBtn.UseVisualStyleBackColor = true;
-            this.ChangeStartupJavaScriptBtn.Click += new System.EventHandler(this.ChangeStartupJavaScriptBtn_Click);
-            // 
-            // StartupJavaScriptLbl
-            // 
-            this.StartupJavaScriptLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.StartupJavaScriptLbl.Location = new System.Drawing.Point(122, 88);
-            this.StartupJavaScriptLbl.Name = "StartupJavaScriptLbl";
-            this.StartupJavaScriptLbl.Size = new System.Drawing.Size(385, 23);
-            this.StartupJavaScriptLbl.TabIndex = 75;
-            this.StartupJavaScriptLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 93);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(102, 13);
-            this.label4.TabIndex = 74;
-            this.label4.Text = "Startup Program File";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1306,6 +1318,7 @@
         private System.Windows.Forms.Button ChangeStartupJavaScriptBtn;
         private System.Windows.Forms.Label StartupJavaScriptLbl;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button SetAutoloadFileBtn;
     }
 }
 

@@ -224,7 +224,7 @@ namespace LEonard
             if (message.Length > 3 && message.StartsWith("JS:"))
                 ExecuteJavaScript(message.Substring(3));
             else
-                WriteVariable(prefix + ".return", message);
+                WriteVariable(prefix + "_return", message);
         }
 
         void CommandCallBack(string message, string prefix)
@@ -244,9 +244,9 @@ namespace LEonard
                     string sequence = s[1];
                     string parameters = s[2];
 
-                    WriteVariable(prefix + ".name", name);
-                    WriteVariable(prefix + ".sequence", sequence);
-                    WriteVariable(prefix + ".params", parameters);
+                    WriteVariable(prefix + "_name", name);
+                    WriteVariable(prefix + "_sequence", sequence);
+                    WriteVariable(prefix + "_params", parameters);
 
                     // TODO: Execute
 
@@ -266,9 +266,9 @@ namespace LEonard
                 string name = s[0];
                 string sequence = s[1];
                 string value = s[2];
-                WriteVariable(prefix + ".name", name);
-                WriteVariable(prefix + ".sequence", sequence);
-                WriteVariable(prefix + ".value", value);
+                WriteVariable(prefix + "_name", name);
+                WriteVariable(prefix + "_sequence", sequence);
+                WriteVariable(prefix + "_value", value);
             }
             else
                 Crawl(prefix + "ERROR unexpected string received: " + data);
@@ -840,6 +840,7 @@ namespace LEonard
 
 
         // Update variable 'name' with 'value' if it exists otherwise add it
+        // TODO we're duping to jint... is this the right idea?
         bool fWritingNow = false;
         public void WriteVariable(string name, string value)
         {
@@ -860,6 +861,7 @@ namespace LEonard
                 datetime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
             else
                 datetime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff");
+            string jintCommand = "var " + name + "; " + name + " = '" + value + "';";
 
             foreach (DataRow row in variables.Rows)
             {
@@ -869,6 +871,7 @@ namespace LEonard
                     row["IsNew"] = true;
                     row["TimeStamp"] = datetime;
                     variables.AcceptChanges();
+                    jintEngine.Execute(jintCommand);
 
                     fWritingNow = false;
                     return;
@@ -876,6 +879,7 @@ namespace LEonard
             }
             variables.Rows.Add(new object[] { name, value, true, datetime });
             variables.AcceptChanges();
+            jintEngine.Execute(jintCommand);
             fWritingNow = false;
         }
         private void WriteStringValueTxt_Click(object sender, EventArgs e)
@@ -908,7 +912,8 @@ namespace LEonard
                     .SetValue("clear", new Action(JsClear))
                     .SetValue("send", new Action<int, string>(JsSend))
                     .SetValue("write_variable", new Action<string, string>(WriteVariable))
-                ;
+                    .SetValue("sleep", new Action<int>(x => Thread.Sleep(x)));
+            ;
         }
         void StopJint()
         {
@@ -936,7 +941,7 @@ namespace LEonard
             Crawl(string.Format("JsSend({0}, {1})", index, message));
             if (interfaces[index] != null)
                 interfaces[index].Send(message);
-
+            Application.DoEvents();
         }
         private void JsClear()
         {
@@ -1001,6 +1006,7 @@ namespace LEonard
             {
                 Crawl("Save JavaScript program to " + JavaScriptFilenameLbl.Text);
                 JavaScriptCodeRTB.SaveFile(JavaScriptFilenameLbl.Text);
+                JavaScriptCodeRTB.Modified=false;
             }
         }
 
@@ -1018,6 +1024,10 @@ namespace LEonard
                 }
             }
         }
+        private void SetAutoloadFileBtn_Click(object sender, EventArgs e)
+        {
+            StartupJavaScriptLbl.Text = JavaScriptFilenameLbl.Text;
+        }
 
         private void RunJavaProgramBtn_Click(object sender, EventArgs e)
         {
@@ -1030,6 +1040,7 @@ namespace LEonard
                 CrawlError("Program Execution Error: " + ex.ToString());
             }
         }
+
 
         // ***********************************************************************
         // END JAVA PROGRAM
