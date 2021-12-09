@@ -47,6 +47,8 @@
             this.AutoGetStatusChk = new System.Windows.Forms.CheckBox();
             this.MessageTxt = new System.Windows.Forms.TextBox();
             this.Java1Btn = new System.Windows.Forms.Button();
+            this.JavaScriptTxt = new System.Windows.Forms.TextBox();
+            this.SendJsBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CrawlerRTB
@@ -208,12 +210,32 @@
             this.Java1Btn.UseVisualStyleBackColor = true;
             this.Java1Btn.Click += new System.EventHandler(this.Java1Btn_Click);
             // 
+            // JavaScriptTxt
+            // 
+            this.JavaScriptTxt.Location = new System.Drawing.Point(332, 40);
+            this.JavaScriptTxt.Name = "JavaScriptTxt";
+            this.JavaScriptTxt.Size = new System.Drawing.Size(130, 20);
+            this.JavaScriptTxt.TabIndex = 60;
+            this.JavaScriptTxt.Text = "set xy TestXY";
+            // 
+            // SendJsBtn
+            // 
+            this.SendJsBtn.Location = new System.Drawing.Point(218, 38);
+            this.SendJsBtn.Name = "SendJsBtn";
+            this.SendJsBtn.Size = new System.Drawing.Size(107, 22);
+            this.SendJsBtn.TabIndex = 59;
+            this.SendJsBtn.Text = "Send JS:";
+            this.SendJsBtn.UseVisualStyleBackColor = true;
+            this.SendJsBtn.Click += new System.EventHandler(this.SendJsBtn_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(523, 915);
             this.ControlBox = false;
+            this.Controls.Add(this.JavaScriptTxt);
+            this.Controls.Add(this.SendJsBtn);
             this.Controls.Add(this.Java1Btn);
             this.Controls.Add(this.MessageTxt);
             this.Controls.Add(this.AutoGetStatusChk);
@@ -261,6 +283,8 @@
         private System.Windows.Forms.CheckBox AutoGetStatusChk;
         private System.Windows.Forms.TextBox MessageTxt;
         private System.Windows.Forms.Button Java1Btn;
+        private System.Windows.Forms.TextBox JavaScriptTxt;
+        private System.Windows.Forms.Button SendJsBtn;
     }
 }
 

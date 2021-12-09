@@ -18,8 +18,16 @@ namespace LEonard
         // Schedule a standard message
         private static AutoResetEvent m_AutoReset = new AutoResetEvent(true);
 
+        bool fEnqueueing = false;
+        int crawlDelayCount = 0;
         public void Crawl(string message)
         {
+            while(fEnqueueing)
+            {
+                crawlDelayCount++;
+                Thread.Sleep(1);
+            }
+            fEnqueueing = true;
             string datetime;
             if(UtcTimeChk.Checked)
                 datetime= DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
@@ -42,6 +50,7 @@ namespace LEonard
             //}
             //else
             crawlMessages.Enqueue(line);
+            fEnqueueing = false;
         }
 
         // Schedule an error message
@@ -67,6 +76,12 @@ namespace LEonard
             while (crawlMessages.Count() > 0)
             {
                 string message = crawlMessages.Dequeue();
+
+                if(message==null)
+                {
+                    CrawlError("FlushCrawl found a null message");
+                    continue;
+                }
 
                 // Append to logfile
                 try

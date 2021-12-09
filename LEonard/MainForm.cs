@@ -56,11 +56,11 @@ namespace LEonard
             Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
 
 
-            if (StartupJavaScriptLbl.Text.Length>0)
+            if (StartupJavaScriptLbl.Text.Length > 0)
             {
                 LoadDevicesFile(StartupDevicesLbl.Text);
             }
-            if (StartupJavaScriptLbl.Text.Length>0)
+            if (StartupJavaScriptLbl.Text.Length > 0)
             {
                 LoadJavaScriptProgramFile(StartupJavaScriptLbl.Text);
             }
@@ -840,8 +840,15 @@ namespace LEonard
 
 
         // Update variable 'name' with 'value' if it exists otherwise add it
+        bool fWritingNow = false;
         public void WriteVariable(string name, string value)
         {
+            while (fWritingNow)
+            {
+                Crawl("Delaying re-entrant WriteVariable");
+                Thread.Sleep(1);
+            }
+            fWritingNow = true;
             Crawl(string.Format("WriteVariable({0}, {1})", name, value));
             if (variables == null)
             {
@@ -863,11 +870,13 @@ namespace LEonard
                     row["TimeStamp"] = datetime;
                     variables.AcceptChanges();
 
+                    fWritingNow = false;
                     return;
                 }
             }
             variables.Rows.Add(new object[] { name, value, true, datetime });
             variables.AcceptChanges();
+            fWritingNow = false;
         }
         private void WriteStringValueTxt_Click(object sender, EventArgs e)
         {
@@ -893,10 +902,11 @@ namespace LEonard
             Crawl("Start Jint");
             jintEngine = new Engine()
                     // Expose various C# functions in JS
-                    .SetValue("alert", new Action<string>(AlertJS))
+                    .SetValue("alert", new Action<string>(JsAlert))
                     .SetValue("crawl", new Action<string>(Crawl))
-                    .SetValue("print", new Action<string>(PrintJS))
-                    .SetValue("clear", new Action(ClearJS))
+                    .SetValue("print", new Action<string>(JsPrint))
+                    .SetValue("clear", new Action(JsClear))
+                    .SetValue("send", new Action<int, string>(JsSend))
                     .SetValue("write_variable", new Action<string, string>(WriteVariable))
                 ;
         }
@@ -906,11 +916,11 @@ namespace LEonard
 
         }
 
-        private void AlertJS(string message)
+        private void JsAlert(string message)
         {
             MessageBox.Show(message, "Window Alert", MessageBoxButtons.OK);
         }
-        private void PrintJS(string message)
+        private void JsPrint(string message)
         {
             Color messageColor = Color.Black;
             if (message.Contains("ERROR"))
@@ -921,7 +931,14 @@ namespace LEonard
             JavaScriptCrawlRTB.AppendText(message + "\n");
             JavaScriptCrawlRTB.ScrollToCaret();
         }
-        private void ClearJS()
+        private void JsSend(int index, string message)
+        {
+            Crawl(string.Format("JsSend({0}, {1})", index, message));
+            if (interfaces[index] != null)
+                interfaces[index].Send(message);
+
+        }
+        private void JsClear()
         {
             JavaScriptCrawlRTB.Clear();
         }
@@ -937,7 +954,14 @@ namespace LEonard
         void ExecuteJavaScript(string code)
         {
             Crawl("Execute: " + code);
-            jintEngine.Execute(code);
+            try
+            {
+                jintEngine.Execute(code);
+            }
+            catch (Exception ex)
+            {
+                CrawlError("ExecuteJavaScript Error: " + ex.ToString());
+            }
         }
         // ***********************************************************************
         // END JINT ENGINE
@@ -1005,7 +1029,6 @@ namespace LEonard
             {
                 CrawlError("Program Execution Error: " + ex.ToString());
             }
-
         }
 
         // ***********************************************************************

@@ -367,5 +367,10 @@ namespace LEonardClient
                     "crawl('COMM ' + name + ' ' + typeof name + ' ' + this[name]);"
                 );
         }
+
+        private void SendJsBtn_Click(object sender, EventArgs e)
+        {
+            Send("JS:" + JavaScriptTxt.Text);
+        }
     }
 }
