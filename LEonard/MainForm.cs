@@ -218,13 +218,29 @@ namespace LEonard
 
         // TODO: Clean these up, use consistent string formatting ideas, and the variables
         // TODO All of these... the variable name should be prefixed with the unique device name not the message prefix
+        // Cerrently expect 0 or more comma-=separated {script} or name=value sequences
+        // Examples:
+        // return1=abc
+        // return1=abc|return2=xyz
+        // {print('received it');}
+        // {print('received it');}|var2=50
         void GeneralCallBack(string message, string prefix)
         {
             Crawl(string.Format("{0} GCB<=={1}", prefix, message));
-            if (message.Length > 3 && message.StartsWith("JS:"))
-                ExecuteJavaScript(message.Substring(3));
-            else
-                WriteVariable(prefix + "_return", message);
+
+            string[] requests = message.Split('|');
+            foreach(string request in requests)
+            {
+                if (request.StartsWith("{") && request.EndsWith("}"))
+                    ExecuteJavaScript(request.Substring(1,request.Length-2));
+                else
+                {
+                    if (request.Contains("="))
+                        WriteVariable(request);
+                    else
+                        CrawlError("Illegal return request: " + request);
+                }
+            }
         }
 
         void CommandCallBack(string message, string prefix)
@@ -422,12 +438,12 @@ namespace LEonard
 
             devices.PrimaryKey = new DataColumn[] { id };
 
-            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "127.0.0.1:1000", "COMM", "command", "Hello!", "exit()" });
+            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "127.0.0.1:1000", "COMM", "general", "Hello!", "exit()" });
             devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.252:30000", "ROB", "general", "", "(98,0,0,0,0)" });
             devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "127.0.0.1:20000", "VISS", "general", "iint()", "" });
             devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "127.0.0.1:21000", "VISH", "general", "init()", "" });
-            devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "BAR1", "dataman", "+", "" });
-            devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "BAR2", "dataman", "+", "" });
+            devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "BAR1", "general", "+", "" });
+            devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "BAR2", "general", "+", "" });
 
             DevicesGrid.DataSource = devices;
         }

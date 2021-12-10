@@ -314,7 +314,7 @@ namespace LEonardClient
         
         private void GetStatus()
         {
-            string request = "status," + messageIndex++.ToString("00000") + ",params";
+            string request = "command=status|command_index=" + messageIndex++ + "|{print('do status operation');}";
             Send(request);
         }
 
