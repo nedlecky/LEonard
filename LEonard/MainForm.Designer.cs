@@ -71,6 +71,8 @@
             this.RuntimeTab = new System.Windows.Forms.TabPage();
             this.ReportingTab = new System.Windows.Forms.TabPage();
             this.ProgramTab = new System.Windows.Forms.TabPage();
+            this.JavaCommandTxt = new System.Windows.Forms.TextBox();
+            this.ExecJavaBtn = new System.Windows.Forms.Button();
             this.SetAutoloadFileBtn = new System.Windows.Forms.Button();
             this.JavaScriptFilenameLbl = new System.Windows.Forms.Label();
             this.JavaScriptCodeRTB = new System.Windows.Forms.RichTextBox();
@@ -131,6 +133,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
+            this.JavaScriptVariablesRTB = new System.Windows.Forms.RichTextBox();
+            this.JavaVariablesRefreshBtn = new System.Windows.Forms.Button();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -558,6 +562,10 @@
             // 
             // ProgramTab
             // 
+            this.ProgramTab.Controls.Add(this.JavaVariablesRefreshBtn);
+            this.ProgramTab.Controls.Add(this.JavaScriptVariablesRTB);
+            this.ProgramTab.Controls.Add(this.JavaCommandTxt);
+            this.ProgramTab.Controls.Add(this.ExecJavaBtn);
             this.ProgramTab.Controls.Add(this.SetAutoloadFileBtn);
             this.ProgramTab.Controls.Add(this.JavaScriptFilenameLbl);
             this.ProgramTab.Controls.Add(this.JavaScriptCodeRTB);
@@ -574,6 +582,25 @@
             this.ProgramTab.TabIndex = 4;
             this.ProgramTab.Text = "Program";
             this.ProgramTab.UseVisualStyleBackColor = true;
+            // 
+            // JavaCommandTxt
+            // 
+            this.JavaCommandTxt.Location = new System.Drawing.Point(449, 426);
+            this.JavaCommandTxt.Multiline = true;
+            this.JavaCommandTxt.Name = "JavaCommandTxt";
+            this.JavaCommandTxt.Size = new System.Drawing.Size(170, 75);
+            this.JavaCommandTxt.TabIndex = 74;
+            this.JavaCommandTxt.Text = "print(\"hello\");";
+            // 
+            // ExecJavaBtn
+            // 
+            this.ExecJavaBtn.Location = new System.Drawing.Point(364, 424);
+            this.ExecJavaBtn.Name = "ExecJavaBtn";
+            this.ExecJavaBtn.Size = new System.Drawing.Size(75, 23);
+            this.ExecJavaBtn.TabIndex = 73;
+            this.ExecJavaBtn.Text = "Exec Java";
+            this.ExecJavaBtn.UseVisualStyleBackColor = true;
+            this.ExecJavaBtn.Click += new System.EventHandler(this.ExecJavaBtn_Click);
             // 
             // SetAutoloadFileBtn
             // 
@@ -600,7 +627,7 @@
             this.JavaScriptCodeRTB.Location = new System.Drawing.Point(12, 35);
             this.JavaScriptCodeRTB.Name = "JavaScriptCodeRTB";
             this.JavaScriptCodeRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.JavaScriptCodeRTB.Size = new System.Drawing.Size(607, 354);
+            this.JavaScriptCodeRTB.Size = new System.Drawing.Size(318, 354);
             this.JavaScriptCodeRTB.TabIndex = 70;
             this.JavaScriptCodeRTB.Text = "";
             // 
@@ -1167,6 +1194,25 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
+            // JavaScriptVariablesRTB
+            // 
+            this.JavaScriptVariablesRTB.Location = new System.Drawing.Point(336, 65);
+            this.JavaScriptVariablesRTB.Name = "JavaScriptVariablesRTB";
+            this.JavaScriptVariablesRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.JavaScriptVariablesRTB.Size = new System.Drawing.Size(283, 324);
+            this.JavaScriptVariablesRTB.TabIndex = 75;
+            this.JavaScriptVariablesRTB.Text = "";
+            // 
+            // JavaVariablesRefreshBtn
+            // 
+            this.JavaVariablesRefreshBtn.Location = new System.Drawing.Point(336, 36);
+            this.JavaVariablesRefreshBtn.Name = "JavaVariablesRefreshBtn";
+            this.JavaVariablesRefreshBtn.Size = new System.Drawing.Size(75, 23);
+            this.JavaVariablesRefreshBtn.TabIndex = 76;
+            this.JavaVariablesRefreshBtn.Text = "Refresh";
+            this.JavaVariablesRefreshBtn.UseVisualStyleBackColor = true;
+            this.JavaVariablesRefreshBtn.Click += new System.EventHandler(this.JavaVariablesRefreshBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1197,6 +1243,7 @@
             this.groupBox8.ResumeLayout(false);
             this.PersonalityTabs.ResumeLayout(false);
             this.ProgramTab.ResumeLayout(false);
+            this.ProgramTab.PerformLayout();
             this.VariablesTab.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
@@ -1319,6 +1366,10 @@
         private System.Windows.Forms.Label StartupJavaScriptLbl;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button SetAutoloadFileBtn;
+        private System.Windows.Forms.TextBox JavaCommandTxt;
+        private System.Windows.Forms.Button ExecJavaBtn;
+        private System.Windows.Forms.Button JavaVariablesRefreshBtn;
+        private System.Windows.Forms.RichTextBox JavaScriptVariablesRTB;
     }
 }
 

@@ -861,7 +861,12 @@ namespace LEonard
                 datetime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
             else
                 datetime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff");
-            string jintCommand = "var " + name + "; " + name + " = '" + value + "';";
+
+            // Faster way to set variables in jint
+            jintEngine.SetValue(name, value);
+            jintEngine.SetValue(name + "_isnew", true);
+            jintEngine.SetValue(name + "_timestamp", datetime);
+            //string jintCommand = "var " + name + "; " + name + " = '" + value + "';";
 
             foreach (DataRow row in variables.Rows)
             {
@@ -871,7 +876,7 @@ namespace LEonard
                     row["IsNew"] = true;
                     row["TimeStamp"] = datetime;
                     variables.AcceptChanges();
-                    jintEngine.Execute(jintCommand);
+                    //jintEngine.Execute(jintCommand);
 
                     fWritingNow = false;
                     return;
@@ -879,8 +884,22 @@ namespace LEonard
             }
             variables.Rows.Add(new object[] { name, value, true, datetime });
             variables.AcceptChanges();
-            jintEngine.Execute(jintCommand);
+            //jintEngine.Execute(jintCommand);
             fWritingNow = false;
+        }
+        // This is the "variablename=value" single string version
+        public void WriteVariable(string assignment)
+        {
+            string[] s = assignment.Split('=');
+            if (s.Length != 2)
+            {
+                CrawlError(string.Format("WriteVariable({0} is invalid", assignment));
+            }
+            else
+            {
+                WriteVariable(s[0], s[1]);
+            }
+
         }
         private void WriteStringValueTxt_Click(object sender, EventArgs e)
         {
@@ -912,6 +931,7 @@ namespace LEonard
                     .SetValue("clear", new Action(JsClear))
                     .SetValue("send", new Action<int, string>(JsSend))
                     .SetValue("write_variable", new Action<string, string>(WriteVariable))
+                    .SetValue("wv", new Action<string>(WriteVariable))
                     .SetValue("sleep", new Action<int>(x => Thread.Sleep(x)));
             ;
         }
@@ -1006,7 +1026,7 @@ namespace LEonard
             {
                 Crawl("Save JavaScript program to " + JavaScriptFilenameLbl.Text);
                 JavaScriptCodeRTB.SaveFile(JavaScriptFilenameLbl.Text);
-                JavaScriptCodeRTB.Modified=false;
+                JavaScriptCodeRTB.Modified = false;
             }
         }
 
@@ -1039,6 +1059,40 @@ namespace LEonard
             {
                 CrawlError("Program Execution Error: " + ex.ToString());
             }
+        }
+
+        private void ExecJavaBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                jintEngine.Execute(JavaCommandTxt.Text);
+            }
+            catch (Exception ex)
+            {
+                CrawlError("Command Execution Error: " + ex.ToString());
+            }
+        }
+
+        private void JavaVariablesRefreshBtn_Click(object sender, EventArgs e)
+        {
+            string finalUpdate = "";
+
+            foreach (KeyValuePair<string, Jint.Runtime.Descriptors.PropertyDescriptor> kp in jintEngine.Global.GetOwnProperties())
+            {
+
+                string varType = "";
+                if (kp.Value.Value.IsString()) varType = "S";
+                if (kp.Value.Value.IsNumber()) varType = "N";
+                if (kp.Value.Value.IsBoolean()) varType = "B";
+                if (varType.Length > 0)
+                {
+                    //Crawl(kp.Value.Value.IsNumber().ToString());
+                    //finalUpdate += kp.Key.ToString() + "\n";
+                    //finalUpdate += kp.Value.Value.ToString() + "\n";
+                    finalUpdate += varType + " " + kp.Key.ToString() + " = " + kp.Value.Value.ToString() + "\n";
+                }
+            }
+            JavaScriptVariablesRTB.Text = finalUpdate;
         }
 
 
