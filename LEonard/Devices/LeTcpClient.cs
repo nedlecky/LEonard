@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public class LeTcpClient :LeDeviceBase, LeDeviceInterface
+    public class LeTcpClient : LeDeviceBase, LeDeviceInterface
     {
         TcpClient client;
         NetworkStream stream;
@@ -21,7 +21,7 @@ namespace LEonard
 
         public Action<string, string> receiveCallback { get; set; }
 
-        public LeTcpClient(MainForm form, string prefix="") : base(form, prefix)
+        public LeTcpClient(MainForm form, string prefix = "") : base(form, prefix)
         {
             Crawl(String.Format("LeTcpClient(form, {0})", prefix));
         }
@@ -152,6 +152,7 @@ namespace LEonard
                 int length = 0;
                 while (stream.DataAvailable && length < inputBufferLen) inputBuffer[length++] = (byte)stream.ReadByte();
                 /*
+                // TODO: Need to figure out resync on \r\n!
                 if (length > 0)
                 {
                     // Lazy bytes? since we can't resync.......
@@ -162,17 +163,25 @@ namespace LEonard
 
                 if (length > 0)
                 {
-                    string input = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    Crawl("CR<== " + input);
+                    //string input = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
+                    string input = Encoding.UTF8.GetString(inputBuffer, 0, length);
+                    string[] inputLines = input.Split('\n');
+                    foreach (string line in inputLines)
+                    {
+                        if (line.Length > 0)
+                        {
+                            Crawl("CR<== " + line);
 
-                    if (receiveCallback != null)
-                        receiveCallback(input, crawlPrefix);
-
-                    return input;
+                            if (receiveCallback != null)
+                                receiveCallback(line, crawlPrefix);
+                        }
+                    }
                 }
+
+                // TODO: I think all these returns are ignored
+                return "";
             }
             return "";
         }
-
     }
 }

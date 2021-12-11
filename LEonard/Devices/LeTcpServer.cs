@@ -153,25 +153,32 @@ namespace LEonard
 
                 int length = 0;
                 while (stream.DataAvailable) inputBuffer[length++] = (byte)stream.ReadByte();
+                /*
+                // TODO: Need to figure out resync on \r\n!
                 if (length > 0)
                 {
                     // Lazy bytes? since we can't resync.......
                     Thread.Sleep(50);
                     while (stream.DataAvailable) inputBuffer[length++] = (byte)stream.ReadByte();
                 }
+                */
 
                 if (length > 0)
                 {
-                    string input = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    Crawl("SR<== " + input);
+                    //string input = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
+                    string input = Encoding.UTF8.GetString(inputBuffer, 0, length);
+                    string[] inputLines = input.Split('\n');
+                    foreach (string line in inputLines)
+                    {
+                        if (line.Length > 0)
+                        {
+                            Crawl("SR<== " + line);
 
-                    if (receiveCallback != null)
-                        receiveCallback(input, crawlPrefix);
-
+                            if (receiveCallback != null)
+                                receiveCallback(line, crawlPrefix);
+                        }
+                    }
                     return input;
-
-                    //string response = "response to: " + command;
-                    //Send(response);
                 }
             }
             return "";

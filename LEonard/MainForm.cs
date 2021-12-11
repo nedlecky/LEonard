@@ -230,11 +230,11 @@ namespace LEonard
             Crawl(string.Format("{0} GCB<=={1}", prefix, message));
 
             string[] requests = message.Split('#');
-            foreach(string request in requests)
+            foreach (string request in requests)
             {
                 // {script.....}
                 if (request.StartsWith("{") && request.EndsWith("}"))
-                    ExecuteJavaScript(request.Substring(1,request.Length-2));
+                    ExecuteJavaScript(request.Substring(1, request.Length - 2));
                 else
                 {
                     // name=value
@@ -683,11 +683,58 @@ namespace LEonard
             Crawl("CellBeginEdit: " + devices.Rows[row].ItemArray[col].ToString());
 
         }
-        private void SendMessageBtn_Click(object sender, EventArgs e)
+        private void CurrentSendMessageBtn_Click(object sender, EventArgs e)
         {
             if (interfaces[currentDevice] != null)
                 interfaces[currentDevice].Send(MessageToSendTxt.Text);
         }
+
+        private void CurrentSendMessageMultipleBtn_Click(object sender, EventArgs e)
+        {
+            if (interfaces[currentDevice] == null) return;
+
+            int n = Int32.Parse(SendMultipleTxt.Text);
+            int delay = Int32.Parse(DelayMsTxt.Text);
+
+            if (delay == 0)
+                for (int i = 0; i < n; i++)
+                    interfaces[currentDevice].Send(MessageToSendTxt.Text);
+            else
+                for (int i = 0; i < n; i++)
+                {
+                    interfaces[currentDevice].Send(MessageToSendTxt.Text);
+                    Thread.Sleep(delay);
+                }
+        }
+        private void CurrentConnectBtn_Click(object sender, EventArgs e)
+        {
+            DataRow row = devices.Rows[currentDevice];
+
+            // TODO: this code is unnecessarily replicated from StartAll
+            row["Running"] = true;
+
+            int rowIndex = (int)row["ID"];
+            // TODO: Don't like the fixed column number 2 for Running below
+            DataGridViewCellEventArgs e2 = new DataGridViewCellEventArgs(2, rowIndex);
+            DeviceGrid_CellValueChanged(null, e2);
+            Application.DoEvents();
+        }
+
+        private void CurrentDisconnectBtn_Click(object sender, EventArgs e)
+        {
+            DataRow row = devices.Rows[currentDevice];
+
+            // TODO: this code is unnecessarily replicated from StopAll
+            row["Running"] = false;
+            int rowIndex = (int)row["ID"];
+
+            // TODO: Don't like the fixed column number 2 for Running below
+            DataGridViewCellEventArgs e2 = new DataGridViewCellEventArgs(2, rowIndex);
+            DeviceGrid_CellValueChanged(null, e2);
+            Application.DoEvents();
+
+        }
+
         // Launch command tester to assist in debugging
         Process proc;
         private void StartTestClientBtn_Click(object sender, EventArgs e)
@@ -708,9 +755,7 @@ namespace LEonard
             {
                 CrawlError("Could not start " + start.FileName);
             }
-
         }
-
 
         private void Robot1Btn_Click(object sender, EventArgs e)
         {
@@ -1129,8 +1174,6 @@ namespace LEonard
             }
             JavaScriptVariablesRTB.Text = finalUpdate;
         }
-
-
         // ***********************************************************************
         // END JAVA PROGRAM
         // ***********************************************************************

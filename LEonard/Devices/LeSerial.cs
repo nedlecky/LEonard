@@ -71,9 +71,16 @@ namespace LEonard
             if (receiveCallback != null)
             {
                 string data = "";
-                data = port.ReadLine();
-                Crawl("LeSerial.DataReceivedEvent "+ data);
-                receiveCallback(data, crawlPrefix);
+                // Read all lines in the buffer
+                // TODO: Doesn't this block and timeout if there are bytes but no newline?
+                int n = 1;
+                while (port.BytesToRead > 0)
+                {
+                    data = port.ReadLine();
+                    Crawl("LeSerial.DataReceivedEvent " + n.ToString() + " " + data);
+                    receiveCallback(data, crawlPrefix);
+                    n++;
+                }
             }
         }
 
