@@ -820,7 +820,7 @@ namespace LEonard
             if (bcrt != null)
                 bcrt.End();
             GC.Collect();
-            bcrt = new BarcodeReaderThread(this, interfaces[4], interfaces[5]);
+            bcrt = new BarcodeReaderThread(this, interfaces);
         }
 
         private void BcrtDestroyBtn_Click(object sender, EventArgs e)

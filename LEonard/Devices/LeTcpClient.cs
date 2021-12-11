@@ -168,12 +168,13 @@ namespace LEonard
                     string[] inputLines = input.Split('\n');
                     foreach (string line in inputLines)
                     {
-                        if (line.Length > 0)
+                        string cleanLine = line.Trim('\r');
+                        if (cleanLine.Length > 0)
                         {
-                            Crawl("CR<== " + line);
+                            Crawl("CR<== " + cleanLine);
 
                             if (receiveCallback != null)
-                                receiveCallback(line, crawlPrefix);
+                                receiveCallback(cleanLine, crawlPrefix);
                         }
                     }
                 }

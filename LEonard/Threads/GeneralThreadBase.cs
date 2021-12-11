@@ -95,7 +95,7 @@ namespace LEonard
                 else
                 {
                     WorkerFunction();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(5000);
                 }
             }
 

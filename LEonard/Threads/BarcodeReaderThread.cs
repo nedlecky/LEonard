@@ -10,13 +10,12 @@ namespace LEonard
 {
     public class BarcodeReaderThread : GeneralThreadBase
     {
-        LeDeviceInterface[] myDevices = { null, null };
+        LeDeviceInterface[] myDevices;
 
-        public BarcodeReaderThread(MainForm form, LeDeviceInterface device1, LeDeviceInterface device2) : base(form, "BARCODE:")
+        public BarcodeReaderThread(MainForm form, LeDeviceInterface[] devices) : base(form, "BARCODE:")
         {
             Crawl("BarcodeReaderThread.BarcodeReaderThread(...)");
-            myDevices[0] = device1;
-            myDevices[1] = device2;
+            myDevices = devices;
             WorkerFunction = BarcodeWorker;
         }
         ~BarcodeReaderThread()
@@ -26,8 +25,35 @@ namespace LEonard
 
         void BarcodeWorker()
         {
-            myDevices[0].Send("+");
-            myDevices[1].Send("+");
+            int index = 0;
+            foreach (LeDeviceInterface device in myDevices)
+            {
+                if (device != null)
+                {
+                    string command="";
+                    switch(index)
+                    {
+                        case 0:
+                            command = "Hi client";
+                            break;
+                        case 1:
+                            command = "(1,0,0,0,0)";
+                            break;
+                        case 2:
+                            command = "Hi Sherlock";
+                            break;
+                        case 3:
+                            command = "Hi HALCON";
+                            break;
+                        case 4:
+                        case 5:
+                            command = "+";
+                            break;
+                    }
+                    device.Send(command);
+                }
+                index++;
+            }
         }
     }
 }
