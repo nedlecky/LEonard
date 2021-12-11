@@ -13,6 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Jint;
+using NLog;
+
 
 namespace LEonardClient
 {
@@ -23,6 +25,8 @@ namespace LEonardClient
         NetworkStream stream;
         const int inputBufferLen = 128000;
         byte[] inputBuffer = new byte[inputBufferLen];
+
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         //string softwareVersion = "unknown";
 
@@ -44,13 +48,31 @@ namespace LEonardClient
             caption += " RUNNING IN DEBUG MODE";
 #endif
             this.Text = caption;
-            Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
 
             Left = 0;
             Top = 50;
 
 
             LoadPersistent();
+
+            // TODO: This should be pulled from registry
+            string LEonardRoot = "C:\\Users\\nedlecky\\Desktop\\LEonard Files";
+
+            // Configure NLog for logging
+            var config = new NLog.Config.LoggingConfiguration();
+
+            // Targets where to log to: File and Console
+            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = Path.Combine(LEonardRoot, "LeonardClient.log") };
+            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
+
+            // Rules for mapping loggers to targets            
+            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
+            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
+
+            // Apply config           
+            NLog.LogManager.Configuration = config;
+
+            Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
             Crawl("READY");
 
             MessageTmr.Interval = 100;
@@ -217,15 +239,27 @@ namespace LEonardClient
 
         static Queue<string> crawlMessages = new Queue<string>();
 
+        static NLog.LogLevel INFO = NLog.LogLevel.Info;
+        static NLog.LogLevel ERROR = NLog.LogLevel.Error;
+
+        static void Log(string message)
+        {
+            logger.Info(message);
+        }
+        static void Log(NLog.LogLevel level, string message)
+        {
+            logger.Log(level, message);
+        }
         static void Crawl(string message)
         {
+            Log(message);
             string datetime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
             crawlMessages.Enqueue(datetime + " " + message);
         }
 
         static void CrawlError(string message)
         {
-            Crawl("ERROR: " + message);
+            Log(ERROR, message);
         }
         private void LimitRTBLength(RichTextBox rtb, int maxLength)
         {
@@ -253,6 +287,7 @@ namespace LEonardClient
                 CrawlerRTB.ScrollToCaret();
                 CrawlerRTB.SelectionColor = System.Drawing.Color.Black;
 
+                /*
                 try
                 {
                     File.AppendAllText(LogfileTxt.Text, message + "\r\n");
@@ -261,6 +296,7 @@ namespace LEonardClient
                 {
 
                 }
+                */
 
                 // Add message to CommRTB as well if it begins with <== or ==>
                 if (message.Contains("<==") || message.Contains("==>"))

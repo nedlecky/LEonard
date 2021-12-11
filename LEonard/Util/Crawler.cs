@@ -20,17 +20,31 @@ namespace LEonard
 
         bool fEnqueueing = false;
         int crawlDelayCount = 0;
+
+        NLog.LogLevel INFO = NLog.LogLevel.Info;
+        NLog.LogLevel ERROR = NLog.LogLevel.Error;
+
+        void Log(string message)
+        {
+            logger.Info(message);
+        }
+        void Log(NLog.LogLevel level, string message)
+        {
+            logger.Log(level, message);
+        }
         public void Crawl(string message)
         {
-            while(fEnqueueing)
+            Log(INFO, message);
+
+            while (fEnqueueing)
             {
                 crawlDelayCount++;
                 Thread.Sleep(1);
             }
             fEnqueueing = true;
             string datetime;
-            if(UtcTimeChk.Checked)
-                datetime= DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            if (UtcTimeChk.Checked)
+                datetime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
             else
                 datetime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff");
 
@@ -56,6 +70,7 @@ namespace LEonard
         // Schedule an error message
         public void CrawlError(string message)
         {
+            logger.Error(message);
             Crawl("ERROR " + message);
         }
 
@@ -77,21 +92,23 @@ namespace LEonard
             {
                 string message = crawlMessages.Dequeue();
 
-                if(message==null)
+                if (message == null)
                 {
                     CrawlError("FlushCrawl found a null message");
                     continue;
                 }
 
                 // Append to logfile
+                /*
                 try
                 {
-                    File.AppendAllText(Path.Combine(LEonardRoot,"LEonard.log"), message + "\r\n");
+                    File.AppendAllText(Path.Combine(LEonardRoot, "LEonard.log"), message + "\r\n");
                 }
                 catch
                 {
 
                 }
+                */
 
                 // Add message to ErrorCrawlRTB and make color red if it contains "ERROR"
                 Color messageColor = Color.Black;
@@ -109,7 +126,7 @@ namespace LEonard
                 AllCrawlRTB.SelectionColor = messageColor;
                 AllCrawlRTB.AppendText(message + "\n");
                 AllCrawlRTB.ScrollToCaret();
-                
+
                 // Add message to CommandCrawlRTB well if it contains "COMM"
                 if (message.Contains("COMM"))
                 {

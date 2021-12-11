@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Jint;
 using System.Text.RegularExpressions;
+using NLog;
 
 namespace LEonard
 {
@@ -26,6 +27,8 @@ namespace LEonard
 
         static SplashForm splashForm;
 
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         BarcodeReaderThread bcrt;
 
         LeDeviceInterface[] interfaces = { null, null, null, null, null, null };
@@ -33,6 +36,7 @@ namespace LEonard
         public MainForm()
         {
             InitializeComponent();
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -50,6 +54,20 @@ namespace LEonard
             this.Text = caption;
 
             LoadConfigBtn_Click(null, null);
+
+            // Configure NLog for logging
+            var config = new NLog.Config.LoggingConfiguration();
+
+            // Targets where to log to: File and Console
+            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = Path.Combine(LEonardRoot,"LEonard.log") };
+            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
+
+            // Rules for mapping loggers to targets            
+            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
+            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
+
+            // Apply config           
+            NLog.LogManager.Configuration = config;
 
             for (int i = 0; i < 3; i++)
                 Crawl("==============================================================================================");
