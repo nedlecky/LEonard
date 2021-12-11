@@ -70,7 +70,8 @@ namespace LEonard
         {
             if (receiveCallback != null)
             {
-                string data = port.ReadLine();
+                string data = "";
+                data = port.ReadLine();
                 Crawl("LeSerial.DataReceivedEvent "+ data);
                 receiveCallback(data, crawlPrefix);
             }

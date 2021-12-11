@@ -314,7 +314,7 @@ namespace LEonardClient
         
         private void GetStatus()
         {
-            string request = "command=status|command_index=" + messageIndex++ + "|{print('do status operation');}";
+            string request = "command=status#command_index=" + messageIndex++ + "#{print('do status operation');}";
             Send(request);
         }
 
@@ -357,20 +357,21 @@ namespace LEonardClient
 
         private void Java1Btn_Click(object sender, EventArgs e)
         {
-            Send("JS:" +
+            Send("{" +
                 "crawl('COMM what does it do?');" +
                 "if (typeof a == 'undefined') a = 5;" +
                 "else a = a + 1;" +
                 "b=8; c=a*b;" +
                 "crawl('COMM ' + c);" +
                 "for(name in this)" +
-                    "crawl('COMM ' + name + ' ' + typeof name + ' ' + this[name]);"
+                    "crawl('COMM ' + name + ' ' + typeof name + ' ' + this[name]);}"
                 );
         }
 
         private void SendJsBtn_Click(object sender, EventArgs e)
         {
-            Send("JS:" + JavaScriptTxt.Text);
+            Send("{" + JavaScriptTxt.Text + "}");
         }
+
     }
 }

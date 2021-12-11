@@ -218,27 +218,46 @@ namespace LEonard
 
         // TODO: Clean these up, use consistent string formatting ideas, and the variables
         // TODO All of these... the variable name should be prefixed with the unique device name not the message prefix
-        // Cerrently expect 0 or more comma-=separated {script} or name=value sequences
+        // Currently expect 0 or more comma-=separated {script} or name=value sequences
         // Examples:
         // return1=abc
-        // return1=abc|return2=xyz
+        // return1=abc#return2=xyz
         // {print('received it');}
-        // {print('received it');}|var2=50
+        // {print('received it');}#var2=50
+        // SET name value
         void GeneralCallBack(string message, string prefix)
         {
             Crawl(string.Format("{0} GCB<=={1}", prefix, message));
 
-            string[] requests = message.Split('|');
+            string[] requests = message.Split('#');
             foreach(string request in requests)
             {
+                // {script.....}
                 if (request.StartsWith("{") && request.EndsWith("}"))
                     ExecuteJavaScript(request.Substring(1,request.Length-2));
                 else
                 {
+                    // name=value
+                    // TODO not clear what happens if you have
+                    //      name = value
+                    //      name = this is a test
+                    //      name = "this is a test"
                     if (request.Contains("="))
                         WriteVariable(request);
                     else
-                        CrawlError("Illegal return request: " + request);
+                    {
+                        // SET name value
+                        if (request.StartsWith("SET "))
+                        {
+                            string[] s = request.Split(' ');
+                            if (s.Length == 3)
+                                WriteVariable(s[1], s[2]);
+                            else
+                                CrawlError("Illegal SET statement: " + request);
+                        }
+                        else
+                            CrawlError("Illegal return request: " + request);
+                    }
                 }
             }
         }
