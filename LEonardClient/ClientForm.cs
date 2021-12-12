@@ -26,7 +26,7 @@ namespace LEonardClient
         const int inputBufferLen = 128000;
         byte[] inputBuffer = new byte[inputBufferLen];
 
-        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static NLog.Logger log;
 
         //string softwareVersion = "unknown";
 
@@ -52,25 +52,10 @@ namespace LEonardClient
             Left = 0;
             Top = 50;
 
+            log = NLog.LogManager.GetCurrentClassLogger();
+
 
             LoadPersistent();
-
-            // TODO: This should be pulled from registry
-            string LEonardRoot = "C:\\Users\\nedlecky\\Desktop\\LEonard Files";
-
-            // Configure NLog for logging
-            var config = new NLog.Config.LoggingConfiguration();
-
-            // Targets where to log to: File and Console
-            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = Path.Combine(LEonardRoot, "LeonardClient.log") };
-            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
-
-            // Rules for mapping loggers to targets            
-            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
-            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
-
-            // Apply config           
-            NLog.LogManager.Configuration = config;
 
             Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
             Crawl("READY");
@@ -103,6 +88,7 @@ namespace LEonardClient
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             Disconnect();
+            NLog.LogManager.Shutdown(); // Flush and close down internal threads and timers
         }
 
         private long IPAddressToLong(IPAddress address)
@@ -244,11 +230,11 @@ namespace LEonardClient
 
         static void Log(string message)
         {
-            logger.Info(message);
+            log.Info(message);
         }
         static void Log(NLog.LogLevel level, string message)
         {
-            logger.Log(level, message);
+            log.Log(level, message);
         }
         static void Crawl(string message)
         {

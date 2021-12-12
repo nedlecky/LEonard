@@ -10,12 +10,14 @@ namespace LEonard
     {
         protected MainForm myForm;
         protected string crawlPrefix;
-     
-        protected LeDeviceBase(MainForm form, string prefix)
+        protected string onConnectMessage;
+
+        protected LeDeviceBase(MainForm form, string prefix, string connectMessage)
         {
             myForm = form;  
             crawlPrefix = prefix;
-            Crawl(string.Format("LeDeviceBase(form, {0})", prefix));
+            onConnectMessage = connectMessage;   
+            Crawl(string.Format("LeDeviceBase(form, {0}, {1})", prefix, connectMessage));
 
         }
         protected void Crawl(string s)

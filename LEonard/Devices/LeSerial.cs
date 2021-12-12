@@ -12,22 +12,23 @@ namespace LEonard
 
         public SerialPort port;
         string myPortname;
+        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public Action<string, string> receiveCallback { get; set; } = null;
 
-        public LeSerial(MainForm form, string prefix) : base(form, prefix)
+        public LeSerial(MainForm form, string prefix="", string connectMsg="") : base(form, prefix, connectMsg)
         {
-            Crawl("LeSerial()");
+            log.Debug("LeSerial(form, {0}, {1})", prefix, connectMsg);
         }
 
         ~LeSerial()
         {
-            Crawl("~LeSerial() " + myPortname);
+            log.Debug("~LeSerial() " + myPortname);
         }
         public int Connect(string portname)
         {
             myPortname = portname;
-            Crawl("LeSerial.Connect(" + myPortname + ")");
+            log.Debug("Connect(" + myPortname + ")");
 
             port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
             port.Handshake = Handshake.XOnXOff;
@@ -38,14 +39,19 @@ namespace LEonard
 
             port.Open();
 
-            Crawl("IsOpen=" + port.IsOpen);
+            if (port.IsOpen)
+            {
+                if (onConnectMessage.Length > 0) Send(onConnectMessage);
+            }
+            else
+                log.Error("Port {0} did not open", portname);
 
             return 0;
         }
 
         public int Disconnect()
         {
-            Crawl("LeSerial.Disconnect(): " + myPortname);
+            log.Info("Disconnect(): " + myPortname);
 
             port.Close();
 
@@ -54,14 +60,14 @@ namespace LEonard
 
         public int Send(string message)
         {
-            Crawl("==>" + message);
+            log.Info("Send({0})", message);
             port.Write(message);
             return 0;
         }
         public string Receive()
         {
-            //Crawl("Trigger(): " + myPortname);
-            if(port.BytesToRead > 0)
+            //log.Info("Receive(): " + myPortname);
+            if (port.BytesToRead > 0)
                 return port.ReadLine();
             else
                 return "";
@@ -77,13 +83,11 @@ namespace LEonard
                 while (port.BytesToRead > 0)
                 {
                     data = port.ReadLine();
-                    Crawl("LeSerial.DataReceivedEvent " + n.ToString() + " " + data);
+                    log.Info("DataReceivedEvent Line {0}: {1}", n, data);
                     receiveCallback(data, crawlPrefix);
                     n++;
                 }
             }
         }
-
-
     }
 }

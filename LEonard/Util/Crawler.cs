@@ -26,11 +26,11 @@ namespace LEonard
 
         void Log(string message)
         {
-            logger.Info(message);
+            log.Info(message);
         }
         void Log(NLog.LogLevel level, string message)
         {
-            logger.Log(level, message);
+            log.Log(level, message);
         }
         public void Crawl(string message)
         {
@@ -70,7 +70,7 @@ namespace LEonard
         // Schedule an error message
         public void CrawlError(string message)
         {
-            logger.Error(message);
+            log.Error(message);
             Crawl("ERROR " + message);
         }
 

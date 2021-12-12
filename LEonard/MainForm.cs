@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using Jint;
 using System.Text.RegularExpressions;
 using NLog;
+//using NLog.Windows.Forms;
 
 namespace LEonard
 {
@@ -27,7 +28,7 @@ namespace LEonard
 
         static SplashForm splashForm;
 
-        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static NLog.Logger log;
 
         BarcodeReaderThread bcrt;
 
@@ -53,21 +54,27 @@ namespace LEonard
 #endif
             this.Text = caption;
 
+            log = NLog.LogManager.GetCurrentClassLogger();
+
             LoadConfigBtn_Click(null, null);
 
-            // Configure NLog for logging
-            var config = new NLog.Config.LoggingConfiguration();
+            /*
+            RichTextBoxTarget target = new RichTextBoxTarget();
+            target.Layout = "${date:format=HH\\:MM\\:ss} ${logger} ${message}";
+            target.ControlName = "AllCrawlRTB";
+            target.FormName = "MainForm";
+            target.UseDefaultRowColoringRules = true;
 
-            // Targets where to log to: File and Console
-            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = Path.Combine(LEonardRoot,"LEonard.log") };
-            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
+            NLog.Config.SimpleConfigurator.ConfigureForTargetLogging(target, LogLevel.Trace);
 
-            // Rules for mapping loggers to targets            
-            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
-            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);
-
-            // Apply config           
-            NLog.LogManager.Configuration = config;
+            Logger logger = LogManager.GetLogger("Example");
+            logger.Trace("trace log message");
+            logger.Debug("debug log message");
+            logger.Info("info log message");
+            logger.Warn("warn log message");
+            logger.Error("error log message");
+            logger.Fatal("fatal log message");
+            */
 
             for (int i = 0; i < 3; i++)
                 Crawl("==============================================================================================");
@@ -230,6 +237,7 @@ namespace LEonard
                 MessageTmr_Tick(null, null);
                 forceClose = true;
                 SaveConfigBtn_Click(null, null);
+                NLog.LogManager.Shutdown(); // Flush and close down internal threads and timers
                 this.Close();
             }
         }
@@ -609,18 +617,20 @@ namespace LEonard
                 if (devices.Rows[row].ItemArray[col].ToString() == "True")
                 {
                     Crawl(string.Format("Start {0}:{1} as {2} at {3} with {4}, {5}", index, name, type, address, prefix, callback));
+                    // TODO: Magic column number 7 is horrible
+                    string connectMessage = devices.Rows[row].ItemArray[7].ToString();
                     switch (type)
                     {
                         case @"TcpServer":
-                            interfaces[index] = new LeTcpServer(this, prefix);
+                            interfaces[index] = new LeTcpServer(this, prefix, connectMessage);
                             interfaces[index].Connect(address);
                             break;
                         case @"TcpClient":
-                            interfaces[index] = new LeTcpClient(this, prefix);
+                            interfaces[index] = new LeTcpClient(this, prefix, connectMessage);
                             interfaces[index].Connect(address);
                             break;
                         case @"Serial":
-                            interfaces[index] = new LeSerial(this, prefix);
+                            interfaces[index] = new LeSerial(this, prefix, connectMessage);
                             interfaces[index].Connect(address);
                             break;
                         default:
@@ -647,19 +657,6 @@ namespace LEonard
                             CrawlError("Illegal callback type: " + type);
                             break;
                     }
-
-                    // TODO: Magic column number 7 is horrible
-                    // TODO: DOESN'T WORK for a connect in the case of TcpServer which must happen at connect
-                    string onConnectSend = devices.Rows[row].ItemArray[7].ToString();
-                    if (onConnectSend.Length > 0)
-                        try
-                        {
-                            interfaces[index].Send(onConnectSend);
-                        }
-                        catch
-                        {
-
-                        }
                 }
                 else
                 {

@@ -18,16 +18,17 @@ namespace LEonard
         string myPort;
         const int inputBufferLen = 128000;
         byte[] inputBuffer = new byte[inputBufferLen];
+        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public Action<string, string> receiveCallback { get; set; }
 
-        public LeTcpClient(MainForm form, string prefix = "") : base(form, prefix)
+        public LeTcpClient(MainForm form, string prefix = "", string connectMsg="") : base(form, prefix, connectMsg)
         {
-            Crawl(String.Format("LeTcpClient(form, {0})", prefix));
+            log.Debug("LeTcpClient(form, {0}, {1})", prefix, connectMsg);
         }
         ~LeTcpClient()
         {
-            Crawl("~LeTcpClient()");
+            log.Debug("~LeTcpClient()");
         }
         private long IPAddressToLong(IPAddress address)
         {
@@ -50,18 +51,18 @@ namespace LEonard
             myIp = IP;
             myPort = port;
 
-            Crawl("Connect(" + myIp.ToString() + ", " + myPort.ToString() + ")");
+            log.Info("Connect({0}. {1})", myIp, myPort);
             if (client != null) Disconnect();
 
             try
             {
                 Ping ping = new Ping();
                 PingReply PR = ping.Send(myIp);
-                Crawl("Connect Ping: " + PR.Status.ToString());
+                log.Debug("Connect Ping returns {0}", PR.Status);
             }
             catch
             {
-                CrawlError("Ping failed");
+                log.Error("Ping {0} failed", myIp);
                 return 1;
             }
 
@@ -76,17 +77,17 @@ namespace LEonard
             }
             catch
             {
-                CrawlError("Could not connect");
+                log.Error("Could not connect");
                 return 2;
             }
 
-            Crawl("Connected");
+            log.Debug("Connected");
+            if(onConnectMessage.Length>0) Send(onConnectMessage);
             return 0;
-
         }
         public int Disconnect()
         {
-            Crawl("Disconnect()");
+            log.Debug("Disconnect()");
 
             if (stream != null)
             {
@@ -110,11 +111,11 @@ namespace LEonard
             fSendBusy = true;
             if (stream == null)
             {
-                CrawlError("Not connected... stream==null");
+                log.Error("Not connected... stream==null");
                 ++sendErrorCount;
                 if (sendErrorCount > 5)
                 {
-                    CrawlError("Trying to bounce socket to LEonard");
+                    log.Error("Trying to bounce socket 1");
                     Disconnect();
                     Connect(myIp, myPort);
                     sendErrorCount = 0;
@@ -123,19 +124,18 @@ namespace LEonard
                 return 1;
             }
 
-            Crawl("==> " + request.ToString());
+            log.Info("Send({0})", request);
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(request + "\n"), 0, request.Length + 1);
-                //stream.Write(Encoding.ASCII.GetBytes(request), 0, request.Length);
             }
             catch
             {
-                CrawlError("Send() failed");
+                log.Error("Send(...) failed");
                 ++sendErrorCount;
                 if (sendErrorCount > 5)
                 {
-                    CrawlError("Trying to bounce socket to LEonard");
+                    log.Error("Trying to bounce socket 2");
                     Disconnect();
                     Connect(myIp, myPort);
                     sendErrorCount = 0;
@@ -151,31 +151,23 @@ namespace LEonard
             {
                 int length = 0;
                 while (stream.DataAvailable && length < inputBufferLen) inputBuffer[length++] = (byte)stream.ReadByte();
-                /*
-                // TODO: Need to figure out resync on \r\n!
-                if (length > 0)
-                {
-                    // Lazy bytes? since we can't resync.......
-                    Thread.Sleep(50);
-                    while (stream.DataAvailable) inputBuffer[length++] = (byte)stream.ReadByte();
-                }
-                */
 
                 if (length > 0)
                 {
-                    //string input = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
                     string input = Encoding.UTF8.GetString(inputBuffer, 0, length);
                     string[] inputLines = input.Split('\n');
+                    int lineNo = 1;
                     foreach (string line in inputLines)
                     {
                         string cleanLine = line.Trim('\r');
                         if (cleanLine.Length > 0)
                         {
-                            Crawl("CR<== " + cleanLine);
+                            log.Info("Receive({0}) Line {1}", cleanLine, lineNo);
 
                             if (receiveCallback != null)
                                 receiveCallback(cleanLine, crawlPrefix);
                         }
+                        lineNo++;
                     }
                 }
 
