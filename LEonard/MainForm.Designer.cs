@@ -51,8 +51,8 @@
             this.MessageToSendTxt = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BarcodeClearBtn = new System.Windows.Forms.Button();
-            this.BarcodeCrawlRTB = new System.Windows.Forms.RichTextBox();
+            this.SerialClearBtn = new System.Windows.Forms.Button();
+            this.SerialCrawlRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -97,6 +97,10 @@
             this.VariablesGrd = new System.Windows.Forms.DataGridView();
             this.ConfigTab = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.DelayMsTxt = new System.Windows.Forms.TextBox();
+            this.SendMultipleTxt = new System.Windows.Forms.TextBox();
+            this.CurrentSendMessageMultipleBtn = new System.Windows.Forms.Button();
             this.CurrentDisconnectBtn = new System.Windows.Forms.Button();
             this.CurrentConnectBtn = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -138,10 +142,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
-            this.CurrentSendMessageMultipleBtn = new System.Windows.Forms.Button();
-            this.SendMultipleTxt = new System.Windows.Forms.TextBox();
-            this.DelayMsTxt = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -358,8 +358,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.BarcodeClearBtn);
-            this.groupBox2.Controls.Add(this.BarcodeCrawlRTB);
+            this.groupBox2.Controls.Add(this.SerialClearBtn);
+            this.groupBox2.Controls.Add(this.SerialCrawlRTB);
             this.groupBox2.Location = new System.Drawing.Point(1110, 537);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(382, 252);
@@ -367,24 +367,24 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Barcode Reader Messages";
             // 
-            // BarcodeClearBtn
+            // SerialClearBtn
             // 
-            this.BarcodeClearBtn.Location = new System.Drawing.Point(306, 22);
-            this.BarcodeClearBtn.Name = "BarcodeClearBtn";
-            this.BarcodeClearBtn.Size = new System.Drawing.Size(50, 23);
-            this.BarcodeClearBtn.TabIndex = 11;
-            this.BarcodeClearBtn.Text = "Clear";
-            this.BarcodeClearBtn.UseVisualStyleBackColor = true;
-            this.BarcodeClearBtn.Click += new System.EventHandler(this.BarcodeClearBtn_Click);
+            this.SerialClearBtn.Location = new System.Drawing.Point(306, 22);
+            this.SerialClearBtn.Name = "SerialClearBtn";
+            this.SerialClearBtn.Size = new System.Drawing.Size(50, 23);
+            this.SerialClearBtn.TabIndex = 11;
+            this.SerialClearBtn.Text = "Clear";
+            this.SerialClearBtn.UseVisualStyleBackColor = true;
+            this.SerialClearBtn.Click += new System.EventHandler(this.SerialClearBtn_Click);
             // 
-            // BarcodeCrawlRTB
+            // SerialCrawlRTB
             // 
-            this.BarcodeCrawlRTB.Location = new System.Drawing.Point(6, 19);
-            this.BarcodeCrawlRTB.Name = "BarcodeCrawlRTB";
-            this.BarcodeCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.BarcodeCrawlRTB.Size = new System.Drawing.Size(370, 222);
-            this.BarcodeCrawlRTB.TabIndex = 7;
-            this.BarcodeCrawlRTB.Text = "";
+            this.SerialCrawlRTB.Location = new System.Drawing.Point(6, 19);
+            this.SerialCrawlRTB.Name = "SerialCrawlRTB";
+            this.SerialCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.SerialCrawlRTB.Size = new System.Drawing.Size(370, 222);
+            this.SerialCrawlRTB.TabIndex = 7;
+            this.SerialCrawlRTB.Text = "";
             // 
             // groupBox3
             // 
@@ -869,6 +869,41 @@
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Act On Selected Row";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(341, 61);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "mS between";
+            // 
+            // DelayMsTxt
+            // 
+            this.DelayMsTxt.Location = new System.Drawing.Point(314, 59);
+            this.DelayMsTxt.Name = "DelayMsTxt";
+            this.DelayMsTxt.Size = new System.Drawing.Size(26, 20);
+            this.DelayMsTxt.TabIndex = 33;
+            this.DelayMsTxt.Text = "5";
+            // 
+            // SendMultipleTxt
+            // 
+            this.SendMultipleTxt.Location = new System.Drawing.Point(282, 59);
+            this.SendMultipleTxt.Name = "SendMultipleTxt";
+            this.SendMultipleTxt.Size = new System.Drawing.Size(26, 20);
+            this.SendMultipleTxt.TabIndex = 32;
+            this.SendMultipleTxt.Text = "3";
+            // 
+            // CurrentSendMessageMultipleBtn
+            // 
+            this.CurrentSendMessageMultipleBtn.Location = new System.Drawing.Point(222, 59);
+            this.CurrentSendMessageMultipleBtn.Name = "CurrentSendMessageMultipleBtn";
+            this.CurrentSendMessageMultipleBtn.Size = new System.Drawing.Size(54, 23);
+            this.CurrentSendMessageMultipleBtn.TabIndex = 31;
+            this.CurrentSendMessageMultipleBtn.Text = "Send N";
+            this.CurrentSendMessageMultipleBtn.UseVisualStyleBackColor = true;
+            this.CurrentSendMessageMultipleBtn.Click += new System.EventHandler(this.CurrentSendMessageMultipleBtn_Click);
+            // 
             // CurrentDisconnectBtn
             // 
             this.CurrentDisconnectBtn.Location = new System.Drawing.Point(87, 16);
@@ -1256,41 +1291,6 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
-            // CurrentSendMessageMultipleBtn
-            // 
-            this.CurrentSendMessageMultipleBtn.Location = new System.Drawing.Point(222, 59);
-            this.CurrentSendMessageMultipleBtn.Name = "CurrentSendMessageMultipleBtn";
-            this.CurrentSendMessageMultipleBtn.Size = new System.Drawing.Size(54, 23);
-            this.CurrentSendMessageMultipleBtn.TabIndex = 31;
-            this.CurrentSendMessageMultipleBtn.Text = "Send N";
-            this.CurrentSendMessageMultipleBtn.UseVisualStyleBackColor = true;
-            this.CurrentSendMessageMultipleBtn.Click += new System.EventHandler(this.CurrentSendMessageMultipleBtn_Click);
-            // 
-            // SendMultipleTxt
-            // 
-            this.SendMultipleTxt.Location = new System.Drawing.Point(282, 59);
-            this.SendMultipleTxt.Name = "SendMultipleTxt";
-            this.SendMultipleTxt.Size = new System.Drawing.Size(26, 20);
-            this.SendMultipleTxt.TabIndex = 32;
-            this.SendMultipleTxt.Text = "3";
-            // 
-            // DelayMsTxt
-            // 
-            this.DelayMsTxt.Location = new System.Drawing.Point(314, 59);
-            this.DelayMsTxt.Name = "DelayMsTxt";
-            this.DelayMsTxt.Size = new System.Drawing.Size(26, 20);
-            this.DelayMsTxt.TabIndex = 33;
-            this.DelayMsTxt.Text = "5";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(341, 61);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "mS between";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1361,8 +1361,8 @@
         private System.Windows.Forms.TextBox MessageToSendTxt;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button BarcodeClearBtn;
-        private System.Windows.Forms.RichTextBox BarcodeCrawlRTB;
+        private System.Windows.Forms.Button SerialClearBtn;
+        private System.Windows.Forms.RichTextBox SerialCrawlRTB;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;

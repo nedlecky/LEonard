@@ -105,7 +105,7 @@ namespace LEonard
                     }
                     catch
                     {
-                        log.Error(crawlPrefix + "Client connection error");
+                        log.Error(myPrefix + "Client connection error");
                     }
                 }
             }
@@ -165,10 +165,10 @@ namespace LEonard
                         string cleanLine = line.Trim('\r');
                         if (cleanLine.Length > 0)
                         {
-                            log.Info("Receive({0}) Line {1}", cleanLine, lineNo);
+                            log.Info("<== Line{0} {1}", lineNo, cleanLine);
 
                             if (receiveCallback != null)
-                                receiveCallback(cleanLine, crawlPrefix);
+                                receiveCallback(cleanLine, myPrefix);
                         }
                         lineNo++;
                     }
@@ -186,14 +186,14 @@ namespace LEonard
                 Thread.Sleep(10);
             fSendBusy = true;
             // Show responses other than GetStatus
-            log.Debug("Send({0})", response);
+            log.Debug("==> {0}", response);
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(response + "\n"), 0, response.Length + 1);
             }
             catch
             {
-                log.Error("Send() could not write to socket");
+                log.Error("Send(...) could not write to socket");
             }
             fSendBusy = false;
             return 0;

@@ -9,17 +9,20 @@ namespace LEonard
     public class LeDeviceBase
     {
         protected MainForm myForm;
-        protected string crawlPrefix;
+        protected string myPrefix;
         protected string onConnectMessage;
+        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+
 
         protected LeDeviceBase(MainForm form, string prefix, string connectMessage)
         {
             myForm = form;  
-            crawlPrefix = prefix;
+            myPrefix = prefix;
             onConnectMessage = connectMessage;   
-            Crawl(string.Format("LeDeviceBase(form, {0}, {1})", prefix, connectMessage));
+            log.Info(string.Format("LeDeviceBase(form, {0}, {1})", prefix, connectMessage));
 
         }
+        /*
         protected void Crawl(string s)
         {
             myForm.Crawl(crawlPrefix + " " + s);
@@ -28,5 +31,6 @@ namespace LEonard
         {
             myForm.Crawl(crawlPrefix + " ERROR " + s);
         }
+        */
     }
 }

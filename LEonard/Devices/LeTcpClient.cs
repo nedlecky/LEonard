@@ -124,7 +124,7 @@ namespace LEonard
                 return 1;
             }
 
-            log.Info("Send({0})", request);
+            log.Info("==> {0}", request);
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(request + "\n"), 0, request.Length + 1);
@@ -162,10 +162,10 @@ namespace LEonard
                         string cleanLine = line.Trim('\r');
                         if (cleanLine.Length > 0)
                         {
-                            log.Info("Receive({0}) Line {1}", cleanLine, lineNo);
+                            log.Info("<== {0} Line {1}", cleanLine, lineNo);
 
                             if (receiveCallback != null)
-                                receiveCallback(cleanLine, crawlPrefix);
+                                receiveCallback(cleanLine, myPrefix);
                         }
                         lineNo++;
                     }

@@ -16,35 +16,28 @@ namespace LEonard
         protected bool isRunning = false;
         protected bool fAbort = false;
         protected bool fEnabled = true;
+        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+
 
         public GeneralThreadBase(MainForm form, string prefix="")
         {
             myForm = form;
             crawlPrefix = prefix;
-            Crawl("GeneralThreadBase.GeneralThreadBase(...)");
+            log.Info("GeneralThreadBase(form, {0})",prefix);
             WorkerFunction = DefaultWorker;
         }
         ~GeneralThreadBase()
         {
-            Crawl("GeneralThreadBase.~GeneralThreadBase()");
+            log.Info("~GeneralThreadBase()");
             if(IsRunning())
             {
                 End();
             }
         }
 
-        public void Crawl(string s)
-        {
-            myForm.Crawl(crawlPrefix + s);
-        }
-        public void CrawlError(string s)
-        {
-            myForm.CrawlError(crawlPrefix + s);
-        }
-
         public void Start()
         {
-            Crawl("GeneralThreadBase.Start()");
+            log.Info("Start()");
             if (IsRunning())
             {
                 End();
@@ -60,13 +53,13 @@ namespace LEonard
 
         public void End()
         {
-            Crawl("GeneralThreadBase.End()");
+            log.Info("End()");
             fAbort = true;
         }
 
         public void Enable(bool f)
         {
-            Crawl(String.Format("GeneralThreadBase.Enable({0})", f));
+            log.Info("Enable({0})", f);
             fEnabled = f;
         }
 
@@ -77,14 +70,14 @@ namespace LEonard
 
         public void DefaultWorker()
         {
-            Crawl("GeneralThreadBase.DefaultWorker()");
+            log.Info("DefaultWorker()");
         }
 
         void Runtime()
         {
             fAbort = false;
             isRunning = true;
-            Crawl("GeneralThreadBase.Runtime() starting...");
+            log.Info("Runtime() starting...");
 
             while (!fAbort)
             {
@@ -99,9 +92,8 @@ namespace LEonard
                 }
             }
 
-            Crawl("GeneralThreadBase.Runtime() ends.");
+            log.Info("Runtime() ends");
             isRunning = false;
         }
-
     }
 }

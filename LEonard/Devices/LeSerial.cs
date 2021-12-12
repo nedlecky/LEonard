@@ -16,19 +16,19 @@ namespace LEonard
 
         public Action<string, string> receiveCallback { get; set; } = null;
 
-        public LeSerial(MainForm form, string prefix="", string connectMsg="") : base(form, prefix, connectMsg)
+        public LeSerial(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            log.Debug("LeSerial(form, {0}, {1})", prefix, connectMsg);
+            log.Debug("{0} LeSerial(form, {0}, {1})", prefix, connectMsg);
         }
 
         ~LeSerial()
         {
-            log.Debug("~LeSerial() " + myPortname);
+            log.Debug("{0} ~LeSerial() {1}", myPrefix, myPortname);
         }
         public int Connect(string portname)
         {
             myPortname = portname;
-            log.Debug("Connect(" + myPortname + ")");
+            log.Debug("{0} Connect({1})", myPrefix, myPortname);
 
             port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
             port.Handshake = Handshake.XOnXOff;
@@ -44,14 +44,14 @@ namespace LEonard
                 if (onConnectMessage.Length > 0) Send(onConnectMessage);
             }
             else
-                log.Error("Port {0} did not open", portname);
+                log.Error("{0} Port {1} did not open", myPrefix, portname);
 
             return 0;
         }
 
         public int Disconnect()
         {
-            log.Info("Disconnect(): " + myPortname);
+            log.Info("{0} Disconnect(): {1}", myPrefix, myPortname);
 
             port.Close();
 
@@ -60,7 +60,7 @@ namespace LEonard
 
         public int Send(string message)
         {
-            log.Info("==> {0}", message);
+            log.Info("{0} ==> {1}", myPrefix, message);
             port.Write(message);
             return 0;
         }
@@ -83,8 +83,8 @@ namespace LEonard
                 while (port.BytesToRead > 0)
                 {
                     data = port.ReadLine();
-                    log.Info("DataReceivedEvent Line {0}: {1}", n, data);
-                    receiveCallback(data, crawlPrefix);
+                    log.Info("{0} <== Line {1}: {2}", myPrefix, n, data);
+                    receiveCallback(data, myPrefix);
                     n++;
                 }
             }

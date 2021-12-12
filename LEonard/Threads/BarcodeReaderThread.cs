@@ -11,16 +11,17 @@ namespace LEonard
     public class BarcodeReaderThread : GeneralThreadBase
     {
         LeDeviceInterface[] myDevices;
+        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public BarcodeReaderThread(MainForm form, LeDeviceInterface[] devices) : base(form, "BARCODE:")
         {
-            Crawl("BarcodeReaderThread.BarcodeReaderThread(...)");
+            log.Info("BarcodeReaderThread(form, devices[])");
             myDevices = devices;
             WorkerFunction = BarcodeWorker;
         }
         ~BarcodeReaderThread()
         {
-            Crawl("BarcodeReaderThread.~BarcodeReaderThread()");
+            log.Info("~BarcodeReaderThread()");
         }
 
         void BarcodeWorker()

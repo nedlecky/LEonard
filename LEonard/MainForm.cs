@@ -28,11 +28,11 @@ namespace LEonard
 
         static SplashForm splashForm;
 
-        private static NLog.Logger log;
-
         BarcodeReaderThread bcrt;
 
         LeDeviceInterface[] interfaces = { null, null, null, null, null, null };
+
+        private static NLog.Logger log;
 
         public MainForm()
         {
@@ -77,8 +77,8 @@ namespace LEonard
             */
 
             for (int i = 0; i < 3; i++)
-                Crawl("==============================================================================================");
-            Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
+                log.Info("==============================================================================================");
+            log.Info(string.Format("Starting {0} in [{1}]", filename, directory));
 
 
             if (StartupJavaScriptLbl.Text.Length > 0)
@@ -131,13 +131,13 @@ namespace LEonard
                 CloseTmr.Interval = 500;
                 CloseTmr.Enabled = true;
                 e.Cancel = true; // Cancel this shutdown- we'll let the close out timer shut us down
-                Crawl("Shutting down in 500mS...");
+                log.Info("Shutting down in 500mS...");
             }
         }
 
         private void StartThreads()
         {
-            Crawl("StartThreads()...");
+            log.Info("StartThreads()...");
 
             //bcrt = new BarcodeReaderThread(this, interfaces[4], interfaces[5]);
             //bcrt.Enable(BarcodeReaderThreadChk.Checked);
@@ -145,7 +145,7 @@ namespace LEonard
         }
         private void EndThreads()
         {
-            Crawl("EndThreads()...");
+            log.Info("EndThreads()...");
 
             if (bcrt != null)
             {
@@ -158,17 +158,17 @@ namespace LEonard
             splashForm = new SplashForm();
             splashForm.Show();
 
-            Crawl("StartupTmr()...");
+            log.Info("StartupTmr()...");
             StartupTmr.Enabled = false;
 
             StartThreads();
             StartJint();
-            Crawl("System ready.");
+            log.Info("System ready.");
 
 
             if (AutoStartChk.Checked)
             {
-                Crawl("Autostarting all devices");
+                log.Info("Autostarting all devices");
                 StartAllDevicesBtn_Click(null, null);
             }
         }
@@ -181,13 +181,10 @@ namespace LEonard
         }
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
-            FlushCrawl();
-
-            // TODO is this a poor place to check for commands from above??
+            // TODO: do we really need to keep polling for message receipt?
             for (int i = 0; i < 4; i++)
                 if (interfaces[i] != null) interfaces[i].Receive();
         }
-
 
         private void CrawlerClearBtn_Click(object sender, EventArgs e)
         {
@@ -212,9 +209,9 @@ namespace LEonard
         {
             VisionCrawlRTB.Clear();
         }
-        private void BarcodeClearBtn_Click(object sender, EventArgs e)
+        private void SerialClearBtn_Click(object sender, EventArgs e)
         {
-            BarcodeCrawlRTB.Clear();
+            SerialCrawlRTB.Clear();
         }
         private void JavaScriptClearRTB_Click(object sender, EventArgs e)
         {
@@ -253,7 +250,7 @@ namespace LEonard
         // SET name value
         void GeneralCallBack(string message, string prefix)
         {
-            Crawl(string.Format("{0} GCB<=={1}", prefix, message));
+            log.Info("GCB<==({0},{1})", message, prefix);
 
             string[] requests = message.Split('#');
             foreach (string request in requests)
@@ -279,10 +276,10 @@ namespace LEonard
                             if (s.Length == 3)
                                 WriteVariable(s[1], s[2]);
                             else
-                                CrawlError("Illegal SET statement: " + request);
+                                log.Error("Illegal SET statement: " + request);
                         }
                         else
-                            CrawlError("Illegal return request: " + request);
+                            log.Error("Illegal return request: " + request);
                     }
                 }
             }
@@ -290,7 +287,7 @@ namespace LEonard
 
         void CommandCallBack(string message, string prefix)
         {
-            Crawl(string.Format("{0} CCB<=={1}", prefix, message));
+            log.Info("CCB<==({0},{1})", message, prefix);
 
             if (message.Length > 3 && message.StartsWith("JS:"))
                 ExecuteJavaScript(message.Substring(3));
@@ -318,10 +315,10 @@ namespace LEonard
             }
         }
 
-        void DatamanCallBack(string data, string prefix)
+        void DatamanCallBack(string message, string prefix)
         {
-            Crawl(string.Format("{0} DCB<=={1}", prefix, data));
-            string[] s = data.Split(',');
+            log.Info("DCB<==({0},{1})", message, prefix);
+            string[] s = message.Split(',');
             if (s.Length == 3)
             {
                 string name = s[0];
@@ -332,9 +329,8 @@ namespace LEonard
                 WriteVariable(prefix + "_value", value);
             }
             else
-                Crawl(prefix + "ERROR unexpected string received: " + data);
+                log.Error(prefix + "ERROR unexpected string received: " + message);
         }
-
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -349,7 +345,7 @@ namespace LEonard
         {
             // Pull setup info from registry.... these are overwritten on exit or with various config save operations
             // Note default values are specified here as well
-            Crawl("LoadPersistent()");
+            log.Info("LoadPersistent()");
 
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
@@ -371,7 +367,7 @@ namespace LEonard
 
         void SavePersistent()
         {
-            Crawl("SavePersistent()");
+            log.Info("SavePersistent()");
 
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
@@ -396,7 +392,7 @@ namespace LEonard
             dialog.SelectedPath = LEonardRoot;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                Crawl(String.Format("You selected ERROR LEonardRoot={0}", dialog.SelectedPath));
+                log.Info("New LEonardRoot={0}", dialog.SelectedPath);
                 LEonardRoot = dialog.SelectedPath;
                 LEonardRootLbl.Text = LEonardRoot;
             }
@@ -412,7 +408,7 @@ namespace LEonard
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 StartupDevicesLbl.Text = dialog.FileName;
-                Crawl("Startup Devices file set to " + StartupDevicesLbl.Text);
+                log.Info("Startup Devices file set to {0}", StartupDevicesLbl.Text);
 
                 if (MessageBox.Show("Load this file now?", "LEonard Confiormation", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     LoadDevicesFile(StartupDevicesLbl.Text);
@@ -428,7 +424,7 @@ namespace LEonard
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 StartupJavaScriptLbl.Text = dialog.FileName;
-                Crawl("Startup JavaScript program set to " + StartupJavaScriptLbl.Text);
+                log.Info("Startup JavaScript program set to {0}", StartupJavaScriptLbl.Text);
 
                 if (MessageBox.Show("Load this program now?", "LEonard Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     LoadJavaScriptProgramFile(StartupJavaScriptLbl.Text);
@@ -495,7 +491,7 @@ namespace LEonard
 
         int LoadDevicesFile(string name)
         {
-            Crawl("LoadDevices from " + name);
+            log.Info("LoadDevices from {0}", name);
             devices = new DataTable("Devices");
             devices.ReadXml(name);
             DevicesGrid.DataSource = devices;
@@ -526,7 +522,7 @@ namespace LEonard
                 SaveAsDevicesBtn_Click(null, null);
             else
             {
-                Crawl("SaveDevices to " + DevicesFilenameLbl.Text);
+                log.Info("SaveDevices to {0}", DevicesFilenameLbl.Text);
                 devices.WriteXml(DevicesFilenameLbl.Text, XmlWriteMode.WriteSchema, true);
             }
         }
@@ -546,7 +542,7 @@ namespace LEonard
         }
         private void StartAllDevicesBtn_Click(object sender, EventArgs e)
         {
-            Crawl("StartAllDevices");
+            log.Info("StartAllDevices_Click(...)");
             foreach (DataRow row in devices.Rows)
             {
                 row["Running"] = true;
@@ -561,7 +557,7 @@ namespace LEonard
 
         private void StopAllDevicesBtn_Click(object sender, EventArgs e)
         {
-            Crawl("StopAllDevices");
+            log.Info("StopAllDevices_Click(...)");
             foreach (DataRow row in devices.Rows)
             {
                 row["Running"] = false;
@@ -576,7 +572,7 @@ namespace LEonard
 
         private void DeviceGrid_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            Crawl("Deleting Row");
+            log.Debug("Deleting Row");
 
             DefaultDevicesBtn.Enabled = true;
             LoadDevicesBtn.Enabled = true;
@@ -589,13 +585,6 @@ namespace LEonard
         private void DeviceGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             currentDevice = e.RowIndex;
-
-            Crawl("Enter Row  " + currentDevice.ToString());
-
-
-            // TODO: Setup style for entire DeviceControlGrp
-            // TODO: Don't like the fixed column number 1 for Name below
-            //DeviceControlGrp.Text = devices.Rows[currentDevice].ItemArray[1].ToString();
         }
 
         private void DeviceGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -609,14 +598,14 @@ namespace LEonard
             string prefix = devices.Rows[row].ItemArray[5].ToString();
             string callback = devices.Rows[row].ItemArray[6].ToString();
 
-            Crawl("Changed Value: " + devices.Rows[row].ItemArray[col].ToString());
+            log.Debug("Changed Value: {0}", devices.Rows[row].ItemArray[col].ToString());
 
             // TODO: Don't like this index == 2 below... how to use column name Running?
             if (col == 2)
             {
                 if (devices.Rows[row].ItemArray[col].ToString() == "True")
                 {
-                    Crawl(string.Format("Start {0}:{1} as {2} at {3} with {4}, {5}", index, name, type, address, prefix, callback));
+                    log.Info("Start {0}:{1} as {2} at {3} with {4}, {5}", index, name, type, address, prefix, callback);
                     // TODO: Magic column number 7 is horrible
                     string connectMessage = devices.Rows[row].ItemArray[7].ToString();
                     switch (type)
@@ -634,7 +623,7 @@ namespace LEonard
                             interfaces[index].Connect(address);
                             break;
                         default:
-                            CrawlError("Illegal interface type: " + type);
+                            log.Error("Illegal interface type: {0}", type);
                             break;
                     }
 
@@ -654,13 +643,13 @@ namespace LEonard
 
                             break;
                         default:
-                            CrawlError("Illegal callback type: " + type);
+                            log.Error("Illegal callback type: {0}", type);
                             break;
                     }
                 }
                 else
                 {
-                    Crawl("Stop " + name);
+                    log.Info("Stop {0}", name);
                     if (interfaces[index] != null)
                     {
                         // TODO: Magic column number 8 is horrible
@@ -695,7 +684,7 @@ namespace LEonard
             int row = e.RowIndex;
             int col = e.ColumnIndex;
 
-            Crawl("CellBeginEdit: " + devices.Rows[row].ItemArray[col].ToString());
+            log.Debug("CellBeginEdit: {0}", devices.Rows[row].ItemArray[col].ToString());
 
         }
         private void CurrentSendMessageBtn_Click(object sender, EventArgs e)
@@ -761,14 +750,14 @@ namespace LEonard
 #else
             start.FileName = "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Release\\LEonardClient.exe";
 #endif
-            Crawl("Starting " + start.FileName);
+            log.Info("Starting {0}", start.FileName);
             try
             {
                 proc = Process.Start(start);
             }
-            catch
+            catch (Exception ex)
             {
-                CrawlError("Could not start " + start.FileName);
+                log.Error(ex,"Could not start {0}", start.FileName);
             }
         }
 
@@ -892,7 +881,7 @@ namespace LEonard
         private void LoadVariablesBtn_Click(object sender, EventArgs e)
         {
             string filename = Path.Combine(LEonardRoot, variablesFilename);
-            Crawl("LoadVariables from " + filename);
+            log.Info("LoadVariables from {0}", filename);
             ClearVariablesBtn_Click(null, null);
             try
             {
@@ -911,7 +900,7 @@ namespace LEonard
         private void SaveVariablesBtn_Click(object sender, EventArgs e)
         {
             string filename = Path.Combine(LEonardRoot, variablesFilename);
-            Crawl("SaveVariables to " + filename);
+            log.Info("SaveVariables to {0}", filename);
             variables.AcceptChanges();
             variables.WriteXml(filename, XmlWriteMode.WriteSchema, true);
         }
@@ -919,18 +908,18 @@ namespace LEonard
         private void ReadVariableBtn_Click(object sender, EventArgs e)
         {
             string name = VariableNameTxt.Text;
-            Crawl("Read " + name);
+            log.Debug("Read {0}" + name);
 
             foreach (DataRow row in variables.Rows)
             {
                 if ((string)row["Name"] == name)
                 {
-                    Crawl(String.Format("Found {0} = {1}", row["Name"], row["Value"]));
+                    log.Info("Found {0} = {1}", row["Name"], row["Value"]);
                     row["IsNew"] = false;
                     return;
                 }
             }
-            CrawlError("Can't find " + name);
+            log.Error("Can't find {0}", name);
         }
 
 
@@ -941,14 +930,14 @@ namespace LEonard
         {
             while (fWritingNow)
             {
-                Crawl("Delaying re-entrant WriteVariable");
+                log.Info("Delaying re-entrant WriteVariable");
                 Thread.Sleep(1);
             }
             fWritingNow = true;
-            Crawl(string.Format("WriteVariable({0}, {1})", name, value));
+            log.Info("WriteVariable({0}, {1})", name, value);
             if (variables == null)
             {
-                CrawlError("variables=null!");
+                log.Error("variables=null!");
                 return;
             }
             string datetime;
@@ -967,6 +956,7 @@ namespace LEonard
             {
                 if ((string)row["Name"] == name)
                 {
+                    // TODO: This is where it breaks
                     row["Value"] = value;
                     row["IsNew"] = true;
                     row["TimeStamp"] = datetime;
@@ -988,7 +978,7 @@ namespace LEonard
             string[] s = assignment.Split('=');
             if (s.Length != 2)
             {
-                CrawlError(string.Format("WriteVariable({0} is invalid", assignment));
+                log.Error("WriteVariable({0} is invalid", assignment);
             }
             else
             {
@@ -1017,11 +1007,11 @@ namespace LEonard
         Engine jintEngine;
         void StartJint()
         {
-            Crawl("Start Jint");
+            log.Info("Start Jint");
             jintEngine = new Engine()
                     // Expose various C# functions in JS
                     .SetValue("alert", new Action<string>(JsAlert))
-                    .SetValue("crawl", new Action<string>(Crawl))
+                    .SetValue("crawl", new Action<string>(log.Info))
                     .SetValue("print", new Action<string>(JsPrint))
                     .SetValue("clear", new Action(JsClear))
                     .SetValue("send", new Action<int, string>(JsSend))
@@ -1032,7 +1022,7 @@ namespace LEonard
         }
         void StopJint()
         {
-            Crawl("Stop Jint");
+            log.Info("Stop Jint");
 
         }
 
@@ -1042,18 +1032,11 @@ namespace LEonard
         }
         private void JsPrint(string message)
         {
-            Color messageColor = Color.Black;
-            if (message.Contains("ERROR"))
-                messageColor = Color.Red;
-
-            LimitRTBLength(JavaScriptCrawlRTB, maxRtbLength);
-            JavaScriptCrawlRTB.SelectionColor = messageColor;
-            JavaScriptCrawlRTB.AppendText(message + "\n");
-            JavaScriptCrawlRTB.ScrollToCaret();
+            log.Info("JsPrint({0})", message);
         }
         private void JsSend(int index, string message)
         {
-            Crawl(string.Format("JsSend({0}, {1})", index, message));
+            log.Info("JsSend({0}, {1})", index, message);
             if (interfaces[index] != null)
                 interfaces[index].Send(message);
             Application.DoEvents();
@@ -1073,14 +1056,14 @@ namespace LEonard
 
         void ExecuteJavaScript(string code)
         {
-            Crawl("Execute: " + code);
+            log.Info("Execute: {0}", code);
             try
             {
                 jintEngine.Execute(code);
             }
             catch (Exception ex)
             {
-                CrawlError("ExecuteJavaScript Error: " + ex.ToString());
+                log.Error(ex,"ExecuteJavaScript Error {0}", code);
             }
         }
         // ***********************************************************************
@@ -1119,7 +1102,7 @@ namespace LEonard
                 SaveAsJavaProgramBtn_Click(null, null);
             else
             {
-                Crawl("Save JavaScript program to " + JavaScriptFilenameLbl.Text);
+                log.Info("Save JavaScript program to {0}", JavaScriptFilenameLbl.Text);
                 JavaScriptCodeRTB.SaveFile(JavaScriptFilenameLbl.Text);
                 JavaScriptCodeRTB.Modified = false;
             }
@@ -1152,7 +1135,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                CrawlError("Program Execution Error: " + ex.ToString());
+                log.Error(ex,"Program Execution Error: {0}", JavaScriptCodeRTB.Text);
             }
         }
 
@@ -1164,7 +1147,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                CrawlError("Command Execution Error: " + ex.ToString());
+                log.Error(ex,"Command Execution Error: {0}", JavaCommandTxt.Text);
             }
         }
 
