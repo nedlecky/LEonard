@@ -53,7 +53,7 @@
             // 
             // CrawlerRTB
             // 
-            this.CrawlerRTB.Location = new System.Drawing.Point(12, 599);
+            this.CrawlerRTB.Location = new System.Drawing.Point(12, 238);
             this.CrawlerRTB.Name = "CrawlerRTB";
             this.CrawlerRTB.Size = new System.Drawing.Size(507, 311);
             this.CrawlerRTB.TabIndex = 0;
@@ -122,7 +122,7 @@
             // 
             // CommRTB
             // 
-            this.CommRTB.Location = new System.Drawing.Point(12, 238);
+            this.CommRTB.Location = new System.Drawing.Point(12, 555);
             this.CommRTB.Name = "CommRTB";
             this.CommRTB.Size = new System.Drawing.Size(507, 355);
             this.CommRTB.TabIndex = 13;
@@ -196,7 +196,7 @@
             // 
             this.MessageTxt.Location = new System.Drawing.Point(332, 147);
             this.MessageTxt.Name = "MessageTxt";
-            this.MessageTxt.Size = new System.Drawing.Size(130, 20);
+            this.MessageTxt.Size = new System.Drawing.Size(121, 20);
             this.MessageTxt.TabIndex = 57;
             this.MessageTxt.Text = "set xy TestXY";
             // 
@@ -214,7 +214,7 @@
             // 
             this.JavaScriptTxt.Location = new System.Drawing.Point(332, 40);
             this.JavaScriptTxt.Name = "JavaScriptTxt";
-            this.JavaScriptTxt.Size = new System.Drawing.Size(130, 20);
+            this.JavaScriptTxt.Size = new System.Drawing.Size(121, 20);
             this.JavaScriptTxt.TabIndex = 60;
             this.JavaScriptTxt.Text = "print(\"hello\");";
             // 

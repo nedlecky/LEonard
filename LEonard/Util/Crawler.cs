@@ -128,6 +128,7 @@ namespace LEonard
                 AllCrawlRTB.ScrollToCaret();
 
                 // Add message to CommandCrawlRTB well if it contains "COMM"
+                /*
                 if (message.Contains("COMM"))
                 {
                     LimitRTBLength(CommandCrawlRTB, maxRtbLength);
@@ -135,6 +136,7 @@ namespace LEonard
                     CommandCrawlRTB.AppendText(message + "\n");
                     CommandCrawlRTB.ScrollToCaret();
                 }
+                */
 
                 // Add message to RobotCrawlRTB well if it contains "ROB"
                 if (message.Contains("ROB"))

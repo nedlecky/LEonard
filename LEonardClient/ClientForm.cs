@@ -57,8 +57,8 @@ namespace LEonardClient
 
             LoadPersistent();
 
-            Crawl(string.Format("Starting {0} in [{1}]", filename, directory));
-            Crawl("READY");
+            log.Info(string.Format("Starting {0} in [{1}]", filename, directory));
+            log.Info("READY");
 
             MessageTmr.Interval = 100;
             MessageTmr.Enabled = true;
@@ -69,7 +69,7 @@ namespace LEonardClient
 
         void LoadPersistent()
         {
-            Crawl("LoadPersistent()");
+            log.Debug("LoadPersistent()");
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
             ClientIpTxt.Text = (string)AppNameKey.GetValue("ClientIpTxt.Text", "127.0.0.1");
@@ -77,7 +77,7 @@ namespace LEonardClient
         }
         void SavePersistent()
         {
-            Crawl("LoadPersistent()");
+            log.Debug("LoadPersistent()");
 
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
@@ -104,18 +104,18 @@ namespace LEonardClient
 
         bool Connect(string IP, string port)
         {
-            Crawl("Connect(" + IP.ToString() + ", " + port.ToString() + ")");
+            log.Info("Connect({0}, {1}", IP, port);
             if (client != null) Disconnect();
 
             try
             {
                 Ping ping = new Ping();
                 PingReply PR = ping.Send(IP);
-                Crawl("Connect Ping: " + PR.Status.ToString());
+                log.Debug("Ping returns {0}", PR.Status);
             }
             catch
             {
-                CrawlError("Ping failed");
+                log.Error("Ping failed");
                 return false;
             }
 
@@ -130,17 +130,17 @@ namespace LEonardClient
             }
             catch
             {
-                CrawlError("Could not connect");
+                log.Error("Could not connect");
                 return false;
             }
 
-            Crawl("Connected");
+            log.Info("Connected");
             return true;
 
         }
         void Disconnect()
         {
-            Crawl("Disconnect()");
+            log.Info("Disconnect()");
 
             if (stream != null)
             {
@@ -163,11 +163,11 @@ namespace LEonardClient
             fSendBusy = true;
             if (stream == null)
             {
-                CrawlError("Not connected... stream==null");
+                log.Error("Not connected... stream==null");
                 ++sendErrorCount;
                 if (sendErrorCount > 5)
                 {
-                    CrawlError("Trying to bounce socket to LEonard");
+                    log.Error("Trying to bounce socket 1");
                     Disconnect();
                     Connect(ClientIpTxt.Text, ClientPortTxt.Text);
                     sendErrorCount = 0;
@@ -176,18 +176,18 @@ namespace LEonardClient
                 return;
             }
 
-            Crawl("==> " + request.ToString());
+            log.Info("==> {0}", request);
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(request + "\r\n"), 0, request.Length + 2);
             }
             catch
             {
-                CrawlError("Send() failed");
+                log.Error("Send(...) failed");
                 ++sendErrorCount;
                 if (sendErrorCount > 5)
                 {
-                    CrawlError("Trying to bounce socket to LEonard");
+                    log.Error("Trying to bounce socket 2");
                     Disconnect();
                     Connect(ClientIpTxt.Text, ClientPortTxt.Text);
                     sendErrorCount = 0;
@@ -214,7 +214,7 @@ namespace LEonardClient
                 if (length > 0)
                 {
                     string message = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
-                    Crawl("<== " + message);
+                    log.Info("<== {0}", message);
 
                     // Server can close this client with "exit()"
                     if (message == "exit()")
@@ -228,71 +228,6 @@ namespace LEonardClient
         static NLog.LogLevel INFO = NLog.LogLevel.Info;
         static NLog.LogLevel ERROR = NLog.LogLevel.Error;
 
-        static void Log(string message)
-        {
-            log.Info(message);
-        }
-        static void Log(NLog.LogLevel level, string message)
-        {
-            log.Log(level, message);
-        }
-        static void Crawl(string message)
-        {
-            Log(message);
-            string datetime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-            crawlMessages.Enqueue(datetime + " " + message);
-        }
-
-        static void CrawlError(string message)
-        {
-            Log(ERROR, message);
-        }
-        private void LimitRTBLength(RichTextBox rtb, int maxLength)
-        {
-            int currentLength = rtb.TextLength;
-
-            if (currentLength > maxLength)
-            {
-                rtb.Select(0, currentLength - maxLength);
-                rtb.SelectedText = "";
-            }
-        }
-
-        void FlushCrawl()
-        {
-            while (crawlMessages.Count() > 0)
-            {
-                string message = crawlMessages.Dequeue();
-
-                if (message.Contains("ERROR:"))
-                {
-                    CrawlerRTB.SelectionColor = Color.Red;
-                }
-                LimitRTBLength(CrawlerRTB, 1000000);
-                CrawlerRTB.AppendText(message + "\n");
-                CrawlerRTB.ScrollToCaret();
-                CrawlerRTB.SelectionColor = System.Drawing.Color.Black;
-
-                /*
-                try
-                {
-                    File.AppendAllText(LogfileTxt.Text, message + "\r\n");
-                }
-                catch
-                {
-
-                }
-                */
-
-                // Add message to CommRTB as well if it begins with <== or ==>
-                if (message.Contains("<==") || message.Contains("==>"))
-                {
-                    LimitRTBLength(CommRTB, 1000000);
-                    CommRTB.AppendText(message + "\n");
-                    CommRTB.ScrollToCaret();
-                }
-            }
-        }
 
         const int autoGetStatusIntervalMs = 1000;
         int nSinceLastAutoGetStatus = 0;
@@ -309,7 +244,6 @@ namespace LEonardClient
                     nSinceLastAutoGetStatus = 0;
                 }
             }
-            FlushCrawl();
         }
 
         private void ConnectBtn_Click(object sender, EventArgs e)
@@ -333,10 +267,10 @@ namespace LEonardClient
             Send(request);
         }
 
-        
         private void GetStatus()
         {
-            string request = "command=status#command_index=" + messageIndex++ + "#{print('do status operation');}";
+            //string request = string.Format("command=status#command_index={0}#{print('do status operation');}", ++messageIndex);
+            string request = string.Format("command=status#command_index={0}#{{print('do status operation {0}');send(0,'Status OK');}}", ++messageIndex);
             Send(request);
         }
 
@@ -394,6 +328,5 @@ namespace LEonardClient
         {
             Send("{" + JavaScriptTxt.Text + "}");
         }
-
     }
 }

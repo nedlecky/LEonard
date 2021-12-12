@@ -60,7 +60,7 @@ namespace LEonard
 
         public int Send(string message)
         {
-            log.Info("Send({0})", message);
+            log.Info("==> {0}", message);
             port.Write(message);
             return 0;
         }
