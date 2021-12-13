@@ -58,24 +58,6 @@ namespace LEonard
 
             LoadConfigBtn_Click(null, null);
 
-            /*
-            RichTextBoxTarget target = new RichTextBoxTarget();
-            target.Layout = "${date:format=HH\\:MM\\:ss} ${logger} ${message}";
-            target.ControlName = "AllCrawlRTB";
-            target.FormName = "MainForm";
-            target.UseDefaultRowColoringRules = true;
-
-            NLog.Config.SimpleConfigurator.ConfigureForTargetLogging(target, LogLevel.Trace);
-
-            Logger logger = LogManager.GetLogger("Example");
-            logger.Trace("trace log message");
-            logger.Debug("debug log message");
-            logger.Info("info log message");
-            logger.Warn("warn log message");
-            logger.Error("error log message");
-            logger.Fatal("fatal log message");
-            */
-
             for (int i = 0; i < 3; i++)
                 log.Info("==============================================================================================");
             log.Info(string.Format("Starting {0} in [{1}]", filename, directory));
@@ -127,7 +109,6 @@ namespace LEonard
                     }
                 }
 
-                e.Cancel = true; // Cancel this shutdown- we'll let the close out timer shut us down
                 CloseTmr.Interval = 500;
                 CloseTmr.Enabled = true;
                 e.Cancel = true; // Cancel this shutdown- we'll let the close out timer shut us down
@@ -1028,12 +1009,16 @@ namespace LEonard
         {
             log.Info("JsPrint({0})", message);
         }
+
+        static readonly object lockJsObject = new object();
         private void JsSend(int index, string message)
         {
-            log.Info("JsSend({0}, {1})", index, message);
+            Monitor.Enter(lockJsObject);
+                log.Info("JsSend({0}, {1})", index, message);
             if (interfaces[index] != null)
                 interfaces[index].Send(message);
             Application.DoEvents();
+            Monitor.Exit(lockJsObject);
         }
         private void JsClear()
         {
