@@ -186,36 +186,36 @@ namespace LEonard
                 if (interfaces[i] != null) interfaces[i].Receive();
         }
 
-        private void CrawlerClearBtn_Click(object sender, EventArgs e)
+        private void AllLogClearBtn_Click(object sender, EventArgs e)
         {
-            AllCrawlRTB.Clear();
+            AllLogRTB.Clear();
         }
 
-        private void ErrorClearBtn_Click(object sender, EventArgs e)
+        private void ErrorLogClearBtn_Click(object sender, EventArgs e)
         {
-            ErrorCrawlRTB.Clear();
+            ErrorLogRTB.Clear();
         }
 
-        private void CommandClearBtn_Click(object sender, EventArgs e)
+        private void ControlLogClearBtn_Click(object sender, EventArgs e)
         {
-            CommandCrawlRTB.Clear();
+            ControlLogRTB.Clear();
         }
-        private void RobotClearBtn_Click(object sender, EventArgs e)
+        private void Aux1ClearBtn_Click(object sender, EventArgs e)
         {
-            RobotCrawlRTB.Clear();
+            Aux1LogRTB.Clear();
         }
 
-        private void VisionClearBtn_Click(object sender, EventArgs e)
+        private void Aux2ClearBtn_Click(object sender, EventArgs e)
         {
-            VisionCrawlRTB.Clear();
+            Aux2LogRTB.Clear();
         }
-        private void SerialClearBtn_Click(object sender, EventArgs e)
+        private void Aux3ClearBtn_Click(object sender, EventArgs e)
         {
-            SerialCrawlRTB.Clear();
+            Aux3LogRTB.Clear();
         }
-        private void JavaScriptClearRTB_Click(object sender, EventArgs e)
+        private void JavaScriptConsoleClearRTB_Click(object sender, EventArgs e)
         {
-            JavaScriptCrawlRTB.Clear();
+            JavaScriptConsoleRTB.Clear();
         }
 
 
@@ -479,12 +479,12 @@ namespace LEonard
 
             devices.PrimaryKey = new DataColumn[] { id };
 
-            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "127.0.0.1:1000", "COMM", "general", "Hello!", "exit()" });
-            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.252:30000", "ROB", "general", "", "(98,0,0,0,0)" });
-            devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "127.0.0.1:20000", "VISS", "general", "iint()", "" });
-            devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "127.0.0.1:21000", "VISH", "general", "init()", "" });
-            devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "BAR1", "general", "+", "" });
-            devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "BAR2", "general", "+", "" });
+            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "127.0.0.1:1000", "CTL", "general", "Hello!", "exit()" });
+            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.252:30000", "AUX1", "general", "", "(98,0,0,0,0)" });
+            devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "127.0.0.1:20000", "AUX2S", "general", "iint()", "" });
+            devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "127.0.0.1:21000", "AUX2H", "general", "init()", "" });
+            devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "AUX31", "general", "+", "" });
+            devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "AUX32", "general", "+", "" });
 
             DevicesGrid.DataSource = devices;
         }
@@ -1043,7 +1043,7 @@ namespace LEonard
         }
         private void JsClear()
         {
-            JavaScriptCrawlRTB.Clear();
+            JavaScriptConsoleRTB.Clear();
         }
         //private void CrawlJ(string message)
         //{

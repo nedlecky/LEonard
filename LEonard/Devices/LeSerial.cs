@@ -18,17 +18,17 @@ namespace LEonard
 
         public LeSerial(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            log.Debug("{0} LeSerial(form, {0}, {1})", prefix, connectMsg);
+            log.Debug("{0} LeSerial(form, {0}, {1})", logPrefix, onConnectMessage);
         }
 
         ~LeSerial()
         {
-            log.Debug("{0} ~LeSerial() {1}", myPrefix, myPortname);
+            log.Debug("{0} ~LeSerial() {1}", logPrefix, myPortname);
         }
         public int Connect(string portname)
         {
             myPortname = portname;
-            log.Debug("{0} Connect({1})", myPrefix, myPortname);
+            log.Debug("{0} Connect({1})", logPrefix, myPortname);
 
             port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
             port.Handshake = Handshake.XOnXOff;
@@ -44,14 +44,14 @@ namespace LEonard
                 if (onConnectMessage.Length > 0) Send(onConnectMessage);
             }
             else
-                log.Error("{0} Port {1} did not open", myPrefix, portname);
+                log.Error("{0} Port {1} did not open", logPrefix, portname);
 
             return 0;
         }
 
         public int Disconnect()
         {
-            log.Info("{0} Disconnect(): {1}", myPrefix, myPortname);
+            log.Info("{0} Disconnect(): {1}", logPrefix, myPortname);
 
             port.Close();
 
@@ -60,7 +60,7 @@ namespace LEonard
 
         public int Send(string message)
         {
-            log.Info("{0} ==> {1}", myPrefix, message);
+            log.Info("{0} ==> {1}", logPrefix, message);
             port.Write(message);
             return 0;
         }
@@ -83,8 +83,8 @@ namespace LEonard
                 while (port.BytesToRead > 0)
                 {
                     data = port.ReadLine();
-                    log.Info("{0} <== Line {1}: {2}", myPrefix, n, data);
-                    receiveCallback(data, myPrefix);
+                    log.Info("{0} <== Line {1}: {2}", logPrefix, n, data);
+                    receiveCallback(data, logPrefix);
                     n++;
                 }
             }

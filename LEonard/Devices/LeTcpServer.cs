@@ -28,12 +28,12 @@ namespace LEonard
 
         public LeTcpServer(MainForm form, string prefix="", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            log.Debug("LeTcpServer(form, {0}, {1})", prefix, connectMsg);
+            log.Debug("{0} LeTcpServer(form, {0}, {1})", logPrefix, onConnectMessage);
         }
 
         ~LeTcpServer()
         {
-            log.Debug("~LeTcpServer()");
+            log.Debug("{0} ~LeTcpServer()", logPrefix);
         }
 
         public int Connect(string IPport)
@@ -46,7 +46,7 @@ namespace LEonard
             myIp = IP;
             myPort = port;
 
-            log.Info("Connect({0},{1})", IP, port);
+            log.Info("{0} Connect({0},{1})", logPrefix, IP, port);
             if (server != null) Disconnect();
 
             IPAddress ipAddress = IPAddress.Parse(IP);
@@ -59,27 +59,16 @@ namespace LEonard
             }
             catch
             {
-                log.Error("Couldn't start server");
+                log.Error("{0} Couldn't start server", logPrefix);
                 return 1;
             }
-            log.Info("Server: Waiting for client...");
+            log.Info("{0} Server: Waiting for client...", logPrefix);
             return 0;
-        }
-
-        private long IPAddressToLong(IPAddress address)
-        {
-            byte[] byteIP = address.GetAddressBytes();
-
-            long ip = (long)byteIP[3] << 24;
-            ip += (long)byteIP[2] << 16;
-            ip += (long)byteIP[1] << 8;
-            ip += (long)byteIP[0];
-            return ip;
         }
 
         public int Disconnect()
         {
-            log.Debug("Disconnect()");
+            log.Info("{0} Disconnect()", logPrefix);
             CloseConnection();
             if (server != null)
             {
@@ -100,12 +89,12 @@ namespace LEonard
                     {
                         client = server.EndAcceptTcpClient(result);
                         stream = client.GetStream();
-                        log.Info("Client connected");
+                        log.Info("{0} Client connected", logPrefix);
                         if (onConnectMessage.Length > 0) Send(onConnectMessage);
                     }
                     catch
                     {
-                        log.Error(myPrefix + "Client connection error");
+                        log.Error("{0} Client connection error", logPrefix);
                     }
                 }
             }
@@ -125,7 +114,7 @@ namespace LEonard
 
         void CloseConnection()
         {
-            log.Debug("CloseConnection()");
+            log.Debug("{0} CloseConnection()", logPrefix);
 
             if (stream != null)
             {
@@ -146,7 +135,7 @@ namespace LEonard
             {
                 if (!IsConnected())
                 {
-                    log.Error("Lost connection");
+                    log.Error("{0} Lost connection", logPrefix);
                     Disconnect();
                     Connect(myIp, myPort);
                     return "";
@@ -165,10 +154,10 @@ namespace LEonard
                         string cleanLine = line.Trim('\r');
                         if (cleanLine.Length > 0)
                         {
-                            log.Info("<== Line{0} {1}", lineNo, cleanLine);
+                            log.Info("{0} <== Line{1} {2}", logPrefix, lineNo, cleanLine);
 
                             if (receiveCallback != null)
-                                receiveCallback(cleanLine, myPrefix);
+                                receiveCallback(cleanLine, logPrefix);
                         }
                         lineNo++;
                     }
@@ -186,14 +175,14 @@ namespace LEonard
                 Thread.Sleep(10);
             fSendBusy = true;
             // Show responses other than GetStatus
-            log.Debug("==> {0}", response);
+            log.Debug("{0} ==> {1}", logPrefix, response);
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(response + "\n"), 0, response.Length + 1);
             }
             catch
             {
-                log.Error("Send(...) could not write to socket");
+                log.Error("{0} Send(...) could not write to socket", logPrefix);
             }
             fSendBusy = false;
             return 0;

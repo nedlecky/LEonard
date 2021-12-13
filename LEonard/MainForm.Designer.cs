@@ -30,15 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.HeartbeatTmr = new System.Windows.Forms.Timer(this.components);
-            this.AllCrawlRTB = new System.Windows.Forms.RichTextBox();
-            this.RobotCrawlRTB = new System.Windows.Forms.RichTextBox();
+            this.AllLogRTB = new System.Windows.Forms.RichTextBox();
+            this.Aux1LogRTB = new System.Windows.Forms.RichTextBox();
             this.MessageTmr = new System.Windows.Forms.Timer(this.components);
             this.CrawlerClearBtn = new System.Windows.Forms.Button();
             this.RobotClearBtn = new System.Windows.Forms.Button();
             this.VisionClearBtn = new System.Windows.Forms.Button();
-            this.VisionCrawlRTB = new System.Windows.Forms.RichTextBox();
+            this.Aux2LogRTB = new System.Windows.Forms.RichTextBox();
             this.ErrorClearBtn = new System.Windows.Forms.Button();
-            this.ErrorCrawlRTB = new System.Windows.Forms.RichTextBox();
+            this.ErrorLogRTB = new System.Windows.Forms.RichTextBox();
             this.CloseTmr = new System.Windows.Forms.Timer(this.components);
             this.BarcodeGrp = new System.Windows.Forms.GroupBox();
             this.BcrEndBtn = new System.Windows.Forms.Button();
@@ -52,13 +52,13 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.SerialClearBtn = new System.Windows.Forms.Button();
-            this.SerialCrawlRTB = new System.Windows.Forms.RichTextBox();
+            this.Aux3LogRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.CommandClearBtn = new System.Windows.Forms.Button();
-            this.CommandCrawlRTB = new System.Windows.Forms.RichTextBox();
+            this.ControlLogRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.Robot99Btn = new System.Windows.Forms.Button();
             this.Robot98Btn = new System.Windows.Forms.Button();
@@ -79,7 +79,7 @@
             this.JavaScriptFilenameLbl = new System.Windows.Forms.Label();
             this.JavaScriptCodeRTB = new System.Windows.Forms.RichTextBox();
             this.JavaScriptClearRTB = new System.Windows.Forms.Button();
-            this.JavaScriptCrawlRTB = new System.Windows.Forms.RichTextBox();
+            this.JavaScriptConsoleRTB = new System.Windows.Forms.RichTextBox();
             this.RunJavaProgramBtn = new System.Windows.Forms.Button();
             this.SaveAsJavaProgramBtn = new System.Windows.Forms.Button();
             this.NewJavaProgramBtn = new System.Windows.Forms.Button();
@@ -168,23 +168,23 @@
             // 
             this.HeartbeatTmr.Tick += new System.EventHandler(this.HeartbeatTmr_Tick);
             // 
-            // AllCrawlRTB
+            // AllLogRTB
             // 
-            this.AllCrawlRTB.Location = new System.Drawing.Point(6, 19);
-            this.AllCrawlRTB.Name = "AllCrawlRTB";
-            this.AllCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.AllCrawlRTB.Size = new System.Drawing.Size(426, 243);
-            this.AllCrawlRTB.TabIndex = 6;
-            this.AllCrawlRTB.Text = "";
+            this.AllLogRTB.Location = new System.Drawing.Point(6, 19);
+            this.AllLogRTB.Name = "AllLogRTB";
+            this.AllLogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.AllLogRTB.Size = new System.Drawing.Size(426, 243);
+            this.AllLogRTB.TabIndex = 6;
+            this.AllLogRTB.Text = "";
             // 
-            // RobotCrawlRTB
+            // Aux1LogRTB
             // 
-            this.RobotCrawlRTB.Location = new System.Drawing.Point(6, 15);
-            this.RobotCrawlRTB.Name = "RobotCrawlRTB";
-            this.RobotCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RobotCrawlRTB.Size = new System.Drawing.Size(376, 198);
-            this.RobotCrawlRTB.TabIndex = 7;
-            this.RobotCrawlRTB.Text = "";
+            this.Aux1LogRTB.Location = new System.Drawing.Point(6, 15);
+            this.Aux1LogRTB.Name = "Aux1LogRTB";
+            this.Aux1LogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.Aux1LogRTB.Size = new System.Drawing.Size(376, 198);
+            this.Aux1LogRTB.TabIndex = 7;
+            this.Aux1LogRTB.Text = "";
             // 
             // MessageTmr
             // 
@@ -198,7 +198,7 @@
             this.CrawlerClearBtn.TabIndex = 9;
             this.CrawlerClearBtn.Text = "Clear";
             this.CrawlerClearBtn.UseVisualStyleBackColor = true;
-            this.CrawlerClearBtn.Click += new System.EventHandler(this.CrawlerClearBtn_Click);
+            this.CrawlerClearBtn.Click += new System.EventHandler(this.AllLogClearBtn_Click);
             // 
             // RobotClearBtn
             // 
@@ -208,7 +208,7 @@
             this.RobotClearBtn.TabIndex = 11;
             this.RobotClearBtn.Text = "Clear";
             this.RobotClearBtn.UseVisualStyleBackColor = true;
-            this.RobotClearBtn.Click += new System.EventHandler(this.RobotClearBtn_Click);
+            this.RobotClearBtn.Click += new System.EventHandler(this.Aux1ClearBtn_Click);
             // 
             // VisionClearBtn
             // 
@@ -218,16 +218,16 @@
             this.VisionClearBtn.TabIndex = 14;
             this.VisionClearBtn.Text = "Clear";
             this.VisionClearBtn.UseVisualStyleBackColor = true;
-            this.VisionClearBtn.Click += new System.EventHandler(this.VisionClearBtn_Click);
+            this.VisionClearBtn.Click += new System.EventHandler(this.Aux2ClearBtn_Click);
             // 
-            // VisionCrawlRTB
+            // Aux2LogRTB
             // 
-            this.VisionCrawlRTB.Location = new System.Drawing.Point(6, 15);
-            this.VisionCrawlRTB.Name = "VisionCrawlRTB";
-            this.VisionCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.VisionCrawlRTB.Size = new System.Drawing.Size(376, 231);
-            this.VisionCrawlRTB.TabIndex = 12;
-            this.VisionCrawlRTB.Text = "";
+            this.Aux2LogRTB.Location = new System.Drawing.Point(6, 15);
+            this.Aux2LogRTB.Name = "Aux2LogRTB";
+            this.Aux2LogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.Aux2LogRTB.Size = new System.Drawing.Size(376, 231);
+            this.Aux2LogRTB.TabIndex = 12;
+            this.Aux2LogRTB.Text = "";
             // 
             // ErrorClearBtn
             // 
@@ -237,16 +237,16 @@
             this.ErrorClearBtn.TabIndex = 17;
             this.ErrorClearBtn.Text = "Clear";
             this.ErrorClearBtn.UseVisualStyleBackColor = true;
-            this.ErrorClearBtn.Click += new System.EventHandler(this.ErrorClearBtn_Click);
+            this.ErrorClearBtn.Click += new System.EventHandler(this.ErrorLogClearBtn_Click);
             // 
-            // ErrorCrawlRTB
+            // ErrorLogRTB
             // 
-            this.ErrorCrawlRTB.Location = new System.Drawing.Point(6, 16);
-            this.ErrorCrawlRTB.Name = "ErrorCrawlRTB";
-            this.ErrorCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.ErrorCrawlRTB.Size = new System.Drawing.Size(426, 218);
-            this.ErrorCrawlRTB.TabIndex = 15;
-            this.ErrorCrawlRTB.Text = "";
+            this.ErrorLogRTB.Location = new System.Drawing.Point(6, 16);
+            this.ErrorLogRTB.Name = "ErrorLogRTB";
+            this.ErrorLogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.ErrorLogRTB.Size = new System.Drawing.Size(426, 218);
+            this.ErrorLogRTB.TabIndex = 15;
+            this.ErrorLogRTB.Text = "";
             // 
             // CloseTmr
             // 
@@ -348,24 +348,24 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.RobotClearBtn);
-            this.groupBox1.Controls.Add(this.RobotCrawlRTB);
+            this.groupBox1.Controls.Add(this.Aux1LogRTB);
             this.groupBox1.Location = new System.Drawing.Point(1110, 45);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(388, 224);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Robot Messages";
+            this.groupBox1.Text = "Aux1 Log";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.SerialClearBtn);
-            this.groupBox2.Controls.Add(this.SerialCrawlRTB);
+            this.groupBox2.Controls.Add(this.Aux3LogRTB);
             this.groupBox2.Location = new System.Drawing.Point(1110, 537);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(382, 252);
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Barcode Reader Messages";
+            this.groupBox2.Text = "Aux3 Log";
             // 
             // SerialClearBtn
             // 
@@ -375,60 +375,60 @@
             this.SerialClearBtn.TabIndex = 11;
             this.SerialClearBtn.Text = "Clear";
             this.SerialClearBtn.UseVisualStyleBackColor = true;
-            this.SerialClearBtn.Click += new System.EventHandler(this.SerialClearBtn_Click);
+            this.SerialClearBtn.Click += new System.EventHandler(this.Aux3ClearBtn_Click);
             // 
-            // SerialCrawlRTB
+            // Aux3LogRTB
             // 
-            this.SerialCrawlRTB.Location = new System.Drawing.Point(6, 19);
-            this.SerialCrawlRTB.Name = "SerialCrawlRTB";
-            this.SerialCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.SerialCrawlRTB.Size = new System.Drawing.Size(370, 222);
-            this.SerialCrawlRTB.TabIndex = 7;
-            this.SerialCrawlRTB.Text = "";
+            this.Aux3LogRTB.Location = new System.Drawing.Point(6, 19);
+            this.Aux3LogRTB.Name = "Aux3LogRTB";
+            this.Aux3LogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.Aux3LogRTB.Size = new System.Drawing.Size(370, 222);
+            this.Aux3LogRTB.TabIndex = 7;
+            this.Aux3LogRTB.Text = "";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.VisionClearBtn);
-            this.groupBox3.Controls.Add(this.VisionCrawlRTB);
+            this.groupBox3.Controls.Add(this.Aux2LogRTB);
             this.groupBox3.Location = new System.Drawing.Point(1110, 279);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(388, 252);
             this.groupBox3.TabIndex = 34;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Vision Messages";
+            this.groupBox3.Text = "Aux2 Log";
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.CrawlerClearBtn);
-            this.groupBox4.Controls.Add(this.AllCrawlRTB);
+            this.groupBox4.Controls.Add(this.AllLogRTB);
             this.groupBox4.Location = new System.Drawing.Point(12, 27);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(438, 267);
             this.groupBox4.TabIndex = 35;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "All Messages";
+            this.groupBox4.Text = "Log";
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.ErrorClearBtn);
-            this.groupBox5.Controls.Add(this.ErrorCrawlRTB);
+            this.groupBox5.Controls.Add(this.ErrorLogRTB);
             this.groupBox5.Location = new System.Drawing.Point(12, 548);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(438, 241);
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "All ERROR Messages";
+            this.groupBox5.Text = "Error Log";
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.CommandClearBtn);
-            this.groupBox6.Controls.Add(this.CommandCrawlRTB);
+            this.groupBox6.Controls.Add(this.ControlLogRTB);
             this.groupBox6.Location = new System.Drawing.Point(12, 339);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(438, 203);
             this.groupBox6.TabIndex = 36;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Command Messages";
+            this.groupBox6.Text = "Control Log";
             // 
             // CommandClearBtn
             // 
@@ -438,16 +438,16 @@
             this.CommandClearBtn.TabIndex = 9;
             this.CommandClearBtn.Text = "Clear";
             this.CommandClearBtn.UseVisualStyleBackColor = true;
-            this.CommandClearBtn.Click += new System.EventHandler(this.CommandClearBtn_Click);
+            this.CommandClearBtn.Click += new System.EventHandler(this.ControlLogClearBtn_Click);
             // 
-            // CommandCrawlRTB
+            // ControlLogRTB
             // 
-            this.CommandCrawlRTB.Location = new System.Drawing.Point(6, 19);
-            this.CommandCrawlRTB.Name = "CommandCrawlRTB";
-            this.CommandCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.CommandCrawlRTB.Size = new System.Drawing.Size(426, 178);
-            this.CommandCrawlRTB.TabIndex = 6;
-            this.CommandCrawlRTB.Text = "";
+            this.ControlLogRTB.Location = new System.Drawing.Point(6, 19);
+            this.ControlLogRTB.Name = "ControlLogRTB";
+            this.ControlLogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.ControlLogRTB.Size = new System.Drawing.Size(426, 178);
+            this.ControlLogRTB.TabIndex = 6;
+            this.ControlLogRTB.Text = "";
             // 
             // groupBox8
             // 
@@ -578,7 +578,7 @@
             this.ProgramTab.Controls.Add(this.JavaScriptFilenameLbl);
             this.ProgramTab.Controls.Add(this.JavaScriptCodeRTB);
             this.ProgramTab.Controls.Add(this.JavaScriptClearRTB);
-            this.ProgramTab.Controls.Add(this.JavaScriptCrawlRTB);
+            this.ProgramTab.Controls.Add(this.JavaScriptConsoleRTB);
             this.ProgramTab.Controls.Add(this.RunJavaProgramBtn);
             this.ProgramTab.Controls.Add(this.SaveAsJavaProgramBtn);
             this.ProgramTab.Controls.Add(this.NewJavaProgramBtn);
@@ -666,16 +666,16 @@
             this.JavaScriptClearRTB.TabIndex = 18;
             this.JavaScriptClearRTB.Text = "Clear";
             this.JavaScriptClearRTB.UseVisualStyleBackColor = true;
-            this.JavaScriptClearRTB.Click += new System.EventHandler(this.JavaScriptClearRTB_Click);
+            this.JavaScriptClearRTB.Click += new System.EventHandler(this.JavaScriptConsoleClearRTB_Click);
             // 
-            // JavaScriptCrawlRTB
+            // JavaScriptConsoleRTB
             // 
-            this.JavaScriptCrawlRTB.Location = new System.Drawing.Point(12, 507);
-            this.JavaScriptCrawlRTB.Name = "JavaScriptCrawlRTB";
-            this.JavaScriptCrawlRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.JavaScriptCrawlRTB.Size = new System.Drawing.Size(607, 218);
-            this.JavaScriptCrawlRTB.TabIndex = 18;
-            this.JavaScriptCrawlRTB.Text = "";
+            this.JavaScriptConsoleRTB.Location = new System.Drawing.Point(12, 507);
+            this.JavaScriptConsoleRTB.Name = "JavaScriptConsoleRTB";
+            this.JavaScriptConsoleRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.JavaScriptConsoleRTB.Size = new System.Drawing.Size(607, 218);
+            this.JavaScriptConsoleRTB.TabIndex = 18;
+            this.JavaScriptConsoleRTB.Text = "";
             // 
             // RunJavaProgramBtn
             // 
@@ -1345,15 +1345,15 @@
 
         #endregion
         private System.Windows.Forms.Timer HeartbeatTmr;
-        private System.Windows.Forms.RichTextBox AllCrawlRTB;
-        private System.Windows.Forms.RichTextBox RobotCrawlRTB;
+        private System.Windows.Forms.RichTextBox AllLogRTB;
+        private System.Windows.Forms.RichTextBox Aux1LogRTB;
         private System.Windows.Forms.Timer MessageTmr;
         private System.Windows.Forms.Button CrawlerClearBtn;
         private System.Windows.Forms.Button RobotClearBtn;
         private System.Windows.Forms.Button VisionClearBtn;
-        private System.Windows.Forms.RichTextBox VisionCrawlRTB;
+        private System.Windows.Forms.RichTextBox Aux2LogRTB;
         private System.Windows.Forms.Button ErrorClearBtn;
-        private System.Windows.Forms.RichTextBox ErrorCrawlRTB;
+        private System.Windows.Forms.RichTextBox ErrorLogRTB;
         private System.Windows.Forms.Timer CloseTmr;
         private System.Windows.Forms.GroupBox BarcodeGrp;
         private System.Windows.Forms.Button StartTestClientBtn;
@@ -1362,13 +1362,13 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button SerialClearBtn;
-        private System.Windows.Forms.RichTextBox SerialCrawlRTB;
+        private System.Windows.Forms.RichTextBox Aux3LogRTB;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button CommandClearBtn;
-        private System.Windows.Forms.RichTextBox CommandCrawlRTB;
+        private System.Windows.Forms.RichTextBox ControlLogRTB;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Button Robot4Btn;
         private System.Windows.Forms.Button Robot3Btn;
@@ -1439,7 +1439,7 @@
         private System.Windows.Forms.Button LoadJavaProgramBtn;
         private System.Windows.Forms.Button SaveJavaProgramBtn;
         private System.Windows.Forms.Button JavaScriptClearRTB;
-        private System.Windows.Forms.RichTextBox JavaScriptCrawlRTB;
+        private System.Windows.Forms.RichTextBox JavaScriptConsoleRTB;
         private System.Windows.Forms.RichTextBox JavaScriptCodeRTB;
         private System.Windows.Forms.Label JavaScriptFilenameLbl;
         private System.Windows.Forms.Button ChangeStartupJavaScriptBtn;

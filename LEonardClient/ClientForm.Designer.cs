@@ -198,7 +198,7 @@
             this.MessageTxt.Name = "MessageTxt";
             this.MessageTxt.Size = new System.Drawing.Size(121, 20);
             this.MessageTxt.TabIndex = 57;
-            this.MessageTxt.Text = "set xy TestXY";
+            this.MessageTxt.Text = "SET xy TestXY";
             // 
             // Java1Btn
             // 

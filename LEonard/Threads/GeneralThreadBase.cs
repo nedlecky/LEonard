@@ -10,7 +10,7 @@ namespace LEonard
     public class GeneralThreadBase : GeneralThreadInterface
     {
         protected MainForm myForm;
-        protected string crawlPrefix;
+        protected string logPrefix;
         protected Thread thread = null;
         protected Action WorkerFunction;
         protected bool isRunning = false;
@@ -22,13 +22,13 @@ namespace LEonard
         public GeneralThreadBase(MainForm form, string prefix="")
         {
             myForm = form;
-            crawlPrefix = prefix;
-            log.Info("GeneralThreadBase(form, {0})",prefix);
+            logPrefix = prefix;
+            log.Info("{0} GeneralThreadBase(form, {0})", logPrefix);
             WorkerFunction = DefaultWorker;
         }
         ~GeneralThreadBase()
         {
-            log.Info("~GeneralThreadBase()");
+            log.Info("{0} ~GeneralThreadBase()", logPrefix);
             if(IsRunning())
             {
                 End();
@@ -37,7 +37,7 @@ namespace LEonard
 
         public void Start()
         {
-            log.Info("Start()");
+            log.Info("{0} Start()", logPrefix);
             if (IsRunning())
             {
                 End();
@@ -53,13 +53,13 @@ namespace LEonard
 
         public void End()
         {
-            log.Info("End()");
+            log.Info("{0} End()", logPrefix);
             fAbort = true;
         }
 
         public void Enable(bool f)
         {
-            log.Info("Enable({0})", f);
+            log.Info("{0} Enable({1})", logPrefix, f);
             fEnabled = f;
         }
 
@@ -70,14 +70,14 @@ namespace LEonard
 
         public void DefaultWorker()
         {
-            log.Info("DefaultWorker()");
+            log.Info("{0} DefaultWorker()", logPrefix);
         }
 
         void Runtime()
         {
             fAbort = false;
             isRunning = true;
-            log.Info("Runtime() starting...");
+            log.Info("{0} Runtime() starting...", logPrefix);
 
             while (!fAbort)
             {
@@ -92,7 +92,7 @@ namespace LEonard
                 }
             }
 
-            log.Info("Runtime() ends");
+            log.Info("{0} Runtime() ends", logPrefix);
             isRunning = false;
         }
     }

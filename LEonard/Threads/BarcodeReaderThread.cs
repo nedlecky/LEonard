@@ -13,15 +13,15 @@ namespace LEonard
         LeDeviceInterface[] myDevices;
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
-        public BarcodeReaderThread(MainForm form, LeDeviceInterface[] devices) : base(form, "BARCODE:")
+        public BarcodeReaderThread(MainForm form, LeDeviceInterface[] devices) : base(form, "AUX3")
         {
-            log.Info("BarcodeReaderThread(form, devices[])");
+            log.Info("{0} BarcodeReaderThread(form, devices[])", logPrefix);
             myDevices = devices;
             WorkerFunction = BarcodeWorker;
         }
         ~BarcodeReaderThread()
         {
-            log.Info("~BarcodeReaderThread()");
+            log.Info("{0} ~BarcodeReaderThread()", logPrefix);
         }
 
         void BarcodeWorker()
