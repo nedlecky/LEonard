@@ -172,19 +172,23 @@
             // 
             this.AllLogRTB.Location = new System.Drawing.Point(6, 19);
             this.AllLogRTB.Name = "AllLogRTB";
+            this.AllLogRTB.ReadOnly = true;
             this.AllLogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.AllLogRTB.Size = new System.Drawing.Size(426, 243);
             this.AllLogRTB.TabIndex = 6;
             this.AllLogRTB.Text = "";
+            this.AllLogRTB.WordWrap = false;
             // 
             // Aux1LogRTB
             // 
             this.Aux1LogRTB.Location = new System.Drawing.Point(6, 15);
             this.Aux1LogRTB.Name = "Aux1LogRTB";
+            this.Aux1LogRTB.ReadOnly = true;
             this.Aux1LogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.Aux1LogRTB.Size = new System.Drawing.Size(376, 198);
             this.Aux1LogRTB.TabIndex = 7;
             this.Aux1LogRTB.Text = "";
+            this.Aux1LogRTB.WordWrap = false;
             // 
             // MessageTmr
             // 
@@ -224,10 +228,12 @@
             // 
             this.Aux2LogRTB.Location = new System.Drawing.Point(6, 15);
             this.Aux2LogRTB.Name = "Aux2LogRTB";
+            this.Aux2LogRTB.ReadOnly = true;
             this.Aux2LogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.Aux2LogRTB.Size = new System.Drawing.Size(376, 231);
             this.Aux2LogRTB.TabIndex = 12;
             this.Aux2LogRTB.Text = "";
+            this.Aux2LogRTB.WordWrap = false;
             // 
             // ErrorClearBtn
             // 
@@ -243,10 +249,12 @@
             // 
             this.ErrorLogRTB.Location = new System.Drawing.Point(6, 16);
             this.ErrorLogRTB.Name = "ErrorLogRTB";
+            this.ErrorLogRTB.ReadOnly = true;
             this.ErrorLogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.ErrorLogRTB.Size = new System.Drawing.Size(426, 218);
             this.ErrorLogRTB.TabIndex = 15;
             this.ErrorLogRTB.Text = "";
+            this.ErrorLogRTB.WordWrap = false;
             // 
             // CloseTmr
             // 
@@ -381,10 +389,12 @@
             // 
             this.Aux3LogRTB.Location = new System.Drawing.Point(6, 19);
             this.Aux3LogRTB.Name = "Aux3LogRTB";
+            this.Aux3LogRTB.ReadOnly = true;
             this.Aux3LogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.Aux3LogRTB.Size = new System.Drawing.Size(370, 222);
             this.Aux3LogRTB.TabIndex = 7;
             this.Aux3LogRTB.Text = "";
+            this.Aux3LogRTB.WordWrap = false;
             // 
             // groupBox3
             // 
@@ -444,10 +454,12 @@
             // 
             this.ControlLogRTB.Location = new System.Drawing.Point(6, 19);
             this.ControlLogRTB.Name = "ControlLogRTB";
+            this.ControlLogRTB.ReadOnly = true;
             this.ControlLogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.ControlLogRTB.Size = new System.Drawing.Size(426, 178);
             this.ControlLogRTB.TabIndex = 6;
             this.ControlLogRTB.Text = "";
+            this.ControlLogRTB.WordWrap = false;
             // 
             // groupBox8
             // 
@@ -605,10 +617,12 @@
             // 
             this.JavaScriptVariablesRTB.Location = new System.Drawing.Point(296, 65);
             this.JavaScriptVariablesRTB.Name = "JavaScriptVariablesRTB";
+            this.JavaScriptVariablesRTB.ReadOnly = true;
             this.JavaScriptVariablesRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.JavaScriptVariablesRTB.Size = new System.Drawing.Size(323, 324);
             this.JavaScriptVariablesRTB.TabIndex = 75;
             this.JavaScriptVariablesRTB.Text = "";
+            this.JavaScriptVariablesRTB.WordWrap = false;
             // 
             // JavaCommandTxt
             // 
@@ -672,10 +686,12 @@
             // 
             this.JavaScriptConsoleRTB.Location = new System.Drawing.Point(12, 507);
             this.JavaScriptConsoleRTB.Name = "JavaScriptConsoleRTB";
+            this.JavaScriptConsoleRTB.ReadOnly = true;
             this.JavaScriptConsoleRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.JavaScriptConsoleRTB.Size = new System.Drawing.Size(607, 218);
             this.JavaScriptConsoleRTB.TabIndex = 18;
             this.JavaScriptConsoleRTB.Text = "";
+            this.JavaScriptConsoleRTB.WordWrap = false;
             // 
             // RunJavaProgramBtn
             // 

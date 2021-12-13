@@ -73,6 +73,7 @@ namespace LEonard
             log.Info("{0} DefaultWorker()", logPrefix);
         }
 
+        Random rand = new Random();
         void Runtime()
         {
             fAbort = false;
@@ -88,7 +89,7 @@ namespace LEonard
                 else
                 {
                     WorkerFunction();
-                    Thread.Sleep(5000);
+                    Thread.Sleep(rand.Next(2500,2800));
                 }
             }
 

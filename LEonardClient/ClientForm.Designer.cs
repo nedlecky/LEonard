@@ -49,6 +49,7 @@
             this.Java1Btn = new System.Windows.Forms.Button();
             this.JavaScriptTxt = new System.Windows.Forms.TextBox();
             this.SendJsBtn = new System.Windows.Forms.Button();
+            this.GetStatusTmr = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // CrawlerRTB
@@ -228,6 +229,10 @@
             this.SendJsBtn.UseVisualStyleBackColor = true;
             this.SendJsBtn.Click += new System.EventHandler(this.SendJsBtn_Click);
             // 
+            // GetStatusTmr
+            // 
+            this.GetStatusTmr.Tick += new System.EventHandler(this.GetStatusTmr_Tick);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,6 +290,7 @@
         private System.Windows.Forms.Button Java1Btn;
         private System.Windows.Forms.TextBox JavaScriptTxt;
         private System.Windows.Forms.Button SendJsBtn;
+        private System.Windows.Forms.Timer GetStatusTmr;
     }
 }
 

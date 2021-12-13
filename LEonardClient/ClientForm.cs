@@ -63,6 +63,9 @@ namespace LEonardClient
             MessageTmr.Interval = 100;
             MessageTmr.Enabled = true;
 
+            GetStatusTmr.Interval = 1000;
+            GetStatusTmr.Enabled = true;
+
             InitTmr.Interval = 400;
             InitTmr.Enabled = true;
         }
@@ -229,22 +232,25 @@ namespace LEonardClient
         static NLog.LogLevel ERROR = NLog.LogLevel.Error;
 
 
-        const int autoGetStatusIntervalMs = 1000;
-        int nSinceLastAutoGetStatus = 0;
-
+        Random rand = new Random();
+        private void InitTmr_Tick(object sender, EventArgs e)
+        {
+            ConnectBtn_Click(null, null);
+            InitTmr.Enabled = false;
+        }
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
             Receive();
-
-            if (AutoGetStatusChk.Checked && !pauseAutoGetStatus)
-            {
-                if (nSinceLastAutoGetStatus++ > autoGetStatusIntervalMs / MessageTmr.Interval) // GetStatus automatically every autoGetStatusIntervalMs Ms
-                {
-                    GetStatus();
-                    nSinceLastAutoGetStatus = 0;
-                }
-            }
         }
+        private void GetStatusTmr_Tick(object sender, EventArgs e)
+        {
+            if (AutoGetStatusChk.Checked)
+                GetStatusBtn_Click(null, null);
+
+            GetStatusTmr.Interval = rand.Next(800, 1200);
+        }
+
+
 
         private void ConnectBtn_Click(object sender, EventArgs e)
         {
@@ -285,13 +291,6 @@ namespace LEonardClient
             SavePersistent();
         }
 
-        private void InitTmr_Tick(object sender, EventArgs e)
-        {
-            ConnectBtn_Click(null, null);
-
-            InitTmr.Enabled = false;
-        }
-
         private void ExitBtn_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -303,8 +302,6 @@ namespace LEonardClient
                 GetStatusBtn_Click(null, null);
         }
 
-        bool pauseAutoGetStatus = false;
-        
         private void AbortBtn_Click(object sender, EventArgs e)
         {
             string request = "abort," + messageIndex++.ToString("00000") + ",params";
@@ -328,5 +325,6 @@ namespace LEonardClient
         {
             Send("{" + JavaScriptTxt.Text + "}");
         }
+
     }
 }

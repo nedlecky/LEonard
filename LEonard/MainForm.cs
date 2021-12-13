@@ -250,7 +250,7 @@ namespace LEonard
         // SET name value
         void GeneralCallBack(string message, string prefix)
         {
-            log.Info("GCB<==({0},{1})", message, prefix);
+           //log.Info("GCB<==({0},{1})", message, prefix);
 
             string[] requests = message.Split('#');
             foreach (string request in requests)
@@ -276,10 +276,10 @@ namespace LEonard
                             if (s.Length == 3)
                                 WriteVariable(s[1], s[2]);
                             else
-                                log.Error("Illegal SET statement: " + request);
+                                log.Error("{0} Illegal SET statement: {1}", prefix, request);
                         }
                         else
-                            log.Error("Illegal return request: " + request);
+                            log.Error("{0} Illegal GCB command: {1}", prefix, request);
                     }
                 }
             }
@@ -287,7 +287,7 @@ namespace LEonard
 
         void CommandCallBack(string message, string prefix)
         {
-            log.Info("CCB<==({0},{1})", message, prefix);
+            //log.Info("CCB<==({0},{1})", message, prefix);
 
             if (message.Length > 3 && message.StartsWith("JS:"))
                 ExecuteJavaScript(message.Substring(3));
@@ -317,7 +317,7 @@ namespace LEonard
 
         void DatamanCallBack(string message, string prefix)
         {
-            log.Info("DCB<==({0},{1})", message, prefix);
+            //log.Info("DCB<==({0},{1})", message, prefix);
             string[] s = message.Split(',');
             if (s.Length == 3)
             {
@@ -329,7 +329,7 @@ namespace LEonard
                 WriteVariable(prefix + "_value", value);
             }
             else
-                log.Error(prefix + "ERROR unexpected string received: " + message);
+                log.Error("{0} ERROR unexpected string received: {1}", prefix, message);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -924,16 +924,11 @@ namespace LEonard
 
 
         // Update variable 'name' with 'value' if it exists otherwise add it
-        // TODO we're duping to jint... is this the right idea?
-        bool fWritingNow = false;
+        // TODO: we're duping to jint... is this the right idea?
+        static readonly object lockObject = new object();
         public void WriteVariable(string name, string value)
         {
-            while (fWritingNow)
-            {
-                log.Info("Delaying re-entrant WriteVariable");
-                Thread.Sleep(1);
-            }
-            fWritingNow = true;
+            Monitor.Enter(lockObject);
             log.Info("WriteVariable({0}, {1})", name, value);
             if (variables == null)
             {
@@ -950,27 +945,26 @@ namespace LEonard
             jintEngine.SetValue(name, value);
             jintEngine.SetValue(name + "_isnew", true);
             jintEngine.SetValue(name + "_timestamp", datetime);
-            //string jintCommand = "var " + name + "; " + name + " = '" + value + "';";
 
+            bool foundVariable = false;
             foreach (DataRow row in variables.Rows)
             {
                 if ((string)row["Name"] == name)
                 {
-                    // TODO: This is where it breaks
+                    // TODO: This is where it breaks prior to Thread Safety work
                     row["Value"] = value;
                     row["IsNew"] = true;
                     row["TimeStamp"] = datetime;
-                    variables.AcceptChanges();
-                    //jintEngine.Execute(jintCommand);
-
-                    fWritingNow = false;
-                    return;
+                    foundVariable = true;
+                    break;
                 }
             }
-            variables.Rows.Add(new object[] { name, value, true, datetime });
+
+            if(!foundVariable)
+                variables.Rows.Add(new object[] { name, value, true, datetime });
+
             variables.AcceptChanges();
-            //jintEngine.Execute(jintCommand);
-            fWritingNow = false;
+            Monitor.Exit(lockObject);
         }
         // This is the "variablename=value" single string version
         public void WriteVariable(string assignment)
