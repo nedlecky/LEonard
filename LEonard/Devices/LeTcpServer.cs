@@ -174,8 +174,8 @@ namespace LEonard
             while (fSendBusy)
                 Thread.Sleep(10);
             fSendBusy = true;
-            // Show responses other than GetStatus
-            log.Debug("{0} ==> {1}", logPrefix, response);
+
+            log.Info("{0} ==> {1}", logPrefix, response);
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(response + "\n"), 0, response.Length + 1);
