@@ -72,7 +72,7 @@ namespace LEonardClient
 
         void LoadPersistent()
         {
-            log.Debug("LoadPersistent()");
+            log.Trace("LoadPersistent()");
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
             ClientIpTxt.Text = (string)AppNameKey.GetValue("ClientIpTxt.Text", "127.0.0.1");
@@ -80,7 +80,7 @@ namespace LEonardClient
         }
         void SavePersistent()
         {
-            log.Debug("LoadPersistent()");
+            log.Trace("LoadPersistent()");
 
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
@@ -107,14 +107,14 @@ namespace LEonardClient
 
         bool Connect(string IP, string port)
         {
-            log.Info("Connect({0}, {1}", IP, port);
+            log.Trace("Connect({0}, {1}", IP, port);
             if (client != null) Disconnect();
 
             try
             {
                 Ping ping = new Ping();
                 PingReply PR = ping.Send(IP);
-                log.Debug("Ping returns {0}", PR.Status);
+                log.Trace("Ping returns {0}", PR.Status);
             }
             catch
             {
@@ -138,12 +138,13 @@ namespace LEonardClient
             }
 
             log.Info("Connected");
+            ConnectBtn.Text = "Disconnect";
             return true;
 
         }
         void Disconnect()
         {
-            log.Info("Disconnect()");
+            log.Trace("Disconnect()");
 
             if (stream != null)
             {
@@ -155,6 +156,7 @@ namespace LEonardClient
                 client.Close();
                 client = null;
             }
+            ConnectBtn.Text = "Connect";
         }
 
         int sendErrorCount = 0;
@@ -182,7 +184,7 @@ namespace LEonardClient
             log.Info("==> {0}", request);
             try
             {
-                stream.Write(Encoding.ASCII.GetBytes(request + "\r\n"), 0, request.Length + 2);
+                stream.Write(Encoding.ASCII.GetBytes(request + "\n"), 0, request.Length + 1);
             }
             catch
             {
@@ -205,14 +207,6 @@ namespace LEonardClient
             {
                 int length = 0;
                 while (stream.DataAvailable && length < inputBufferLen) inputBuffer[length++] = (byte)stream.ReadByte();
-                /*
-                if (length > 0)
-                {
-                    // Lazy bytes? since we can't resync.......
-                    Thread.Sleep(50);
-                    while (stream.DataAvailable) inputBuffer[length++] = (byte)stream.ReadByte();
-                }
-                */
 
                 if (length > 0)
                 {
@@ -250,20 +244,12 @@ namespace LEonardClient
             GetStatusTmr.Interval = rand.Next(800, 1200);
         }
 
-
-
         private void ConnectBtn_Click(object sender, EventArgs e)
         {
             if (ConnectBtn.Text == "Connect")
-            {
-                if (Connect(ClientIpTxt.Text, ClientPortTxt.Text))
-                    ConnectBtn.Text = "Disconnect";
-            }
+                Connect(ClientIpTxt.Text, ClientPortTxt.Text);
             else
-            {
-                ConnectBtn.Text = "Connect";
                 Disconnect();
-            }
         }
 
         int messageIndex = 1;
@@ -299,7 +285,25 @@ namespace LEonardClient
         private void Stress1Btn_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < 100; i++)
-                GetStatusBtn_Click(null, null);
+                GetStatus();
+        }
+        private void StressLogBtn_Click(object sender, EventArgs e)
+        {
+            AllLogRTB.Enabled = false;
+            CommLogRTB.Enabled = false;
+            ErrorLogRTB.Enabled = false;
+
+            for (int i = 0; i < 100; i++)
+            {
+                log.Info("Info {0}", i);
+                log.Info("==> {0}", i);
+                log.Info("<== {0}", i);
+                log.Error("Error {0}", i);
+            }
+
+            AllLogRTB.Enabled = true;
+            CommLogRTB.Enabled = true;
+            ErrorLogRTB.Enabled = true;
         }
 
         private void AbortBtn_Click(object sender, EventArgs e)

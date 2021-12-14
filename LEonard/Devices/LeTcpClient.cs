@@ -66,7 +66,7 @@ namespace LEonard
             }
             catch
             {
-                log.Error(logPrefix, "{0} Could not connect", logPrefix);
+                log.Error("{0} Could not connect", logPrefix);
                 return 2;
             }
 

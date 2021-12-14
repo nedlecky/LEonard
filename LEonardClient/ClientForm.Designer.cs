@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.CrawlerRTB = new System.Windows.Forms.RichTextBox();
+            this.AllLogRTB = new System.Windows.Forms.RichTextBox();
             this.MessageTmr = new System.Windows.Forms.Timer(this.components);
             this.ConnectBtn = new System.Windows.Forms.Button();
             this.ClientIpTxt = new System.Windows.Forms.TextBox();
@@ -37,7 +37,6 @@
             this.SendBtn = new System.Windows.Forms.Button();
             this.AbortBtn = new System.Windows.Forms.Button();
             this.GetStatusBtn = new System.Windows.Forms.Button();
-            this.CommRTB = new System.Windows.Forms.RichTextBox();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.InitTmr = new System.Windows.Forms.Timer(this.components);
             this.ExitBtn = new System.Windows.Forms.Button();
@@ -50,16 +49,26 @@
             this.JavaScriptTxt = new System.Windows.Forms.TextBox();
             this.SendJsBtn = new System.Windows.Forms.Button();
             this.GetStatusTmr = new System.Windows.Forms.Timer(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ErrorLogRTB = new System.Windows.Forms.RichTextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.CommLogRTB = new System.Windows.Forms.RichTextBox();
+            this.StressLogBtn = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // CrawlerRTB
+            // AllLogRTB
             // 
-            this.CrawlerRTB.Location = new System.Drawing.Point(12, 238);
-            this.CrawlerRTB.Name = "CrawlerRTB";
-            this.CrawlerRTB.Size = new System.Drawing.Size(507, 311);
-            this.CrawlerRTB.TabIndex = 0;
-            this.CrawlerRTB.Text = "";
-            this.CrawlerRTB.WordWrap = false;
+            this.AllLogRTB.Location = new System.Drawing.Point(13, 19);
+            this.AllLogRTB.Name = "AllLogRTB";
+            this.AllLogRTB.ReadOnly = true;
+            this.AllLogRTB.Size = new System.Drawing.Size(488, 205);
+            this.AllLogRTB.TabIndex = 0;
+            this.AllLogRTB.Text = "";
+            this.AllLogRTB.WordWrap = false;
             // 
             // MessageTmr
             // 
@@ -93,7 +102,7 @@
             // 
             // SendBtn
             // 
-            this.SendBtn.Location = new System.Drawing.Point(218, 145);
+            this.SendBtn.Location = new System.Drawing.Point(168, 64);
             this.SendBtn.Name = "SendBtn";
             this.SendBtn.Size = new System.Drawing.Size(107, 22);
             this.SendBtn.TabIndex = 5;
@@ -103,9 +112,9 @@
             // 
             // AbortBtn
             // 
-            this.AbortBtn.Location = new System.Drawing.Point(218, 173);
+            this.AbortBtn.Location = new System.Drawing.Point(433, 119);
             this.AbortBtn.Name = "AbortBtn";
-            this.AbortBtn.Size = new System.Drawing.Size(107, 23);
+            this.AbortBtn.Size = new System.Drawing.Size(78, 23);
             this.AbortBtn.TabIndex = 10;
             this.AbortBtn.Text = "Abort";
             this.AbortBtn.UseVisualStyleBackColor = true;
@@ -113,22 +122,13 @@
             // 
             // GetStatusBtn
             // 
-            this.GetStatusBtn.Location = new System.Drawing.Point(218, 88);
+            this.GetStatusBtn.Location = new System.Drawing.Point(168, 9);
             this.GetStatusBtn.Name = "GetStatusBtn";
             this.GetStatusBtn.Size = new System.Drawing.Size(107, 22);
             this.GetStatusBtn.TabIndex = 12;
             this.GetStatusBtn.Text = "Get Status";
             this.GetStatusBtn.UseVisualStyleBackColor = true;
             this.GetStatusBtn.Click += new System.EventHandler(this.GetStatusBtn_Click);
-            // 
-            // CommRTB
-            // 
-            this.CommRTB.Location = new System.Drawing.Point(12, 555);
-            this.CommRTB.Name = "CommRTB";
-            this.CommRTB.Size = new System.Drawing.Size(507, 355);
-            this.CommRTB.TabIndex = 13;
-            this.CommRTB.Text = "";
-            this.CommRTB.WordWrap = false;
             // 
             // SaveBtn
             // 
@@ -146,9 +146,9 @@
             // 
             // ExitBtn
             // 
-            this.ExitBtn.Location = new System.Drawing.Point(459, 12);
+            this.ExitBtn.Location = new System.Drawing.Point(433, 7);
             this.ExitBtn.Name = "ExitBtn";
-            this.ExitBtn.Size = new System.Drawing.Size(60, 42);
+            this.ExitBtn.Size = new System.Drawing.Size(78, 22);
             this.ExitBtn.TabIndex = 45;
             this.ExitBtn.Text = "Exit";
             this.ExitBtn.UseVisualStyleBackColor = true;
@@ -156,7 +156,7 @@
             // 
             // Stress1Btn
             // 
-            this.Stress1Btn.Location = new System.Drawing.Point(218, 116);
+            this.Stress1Btn.Location = new System.Drawing.Point(168, 35);
             this.Stress1Btn.Name = "Stress1Btn";
             this.Stress1Btn.Size = new System.Drawing.Size(107, 23);
             this.Stress1Btn.TabIndex = 50;
@@ -167,7 +167,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 215);
+            this.label3.Location = new System.Drawing.Point(13, 151);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 54;
@@ -175,7 +175,7 @@
             // 
             // LogfileTxt
             // 
-            this.LogfileTxt.Location = new System.Drawing.Point(58, 212);
+            this.LogfileTxt.Location = new System.Drawing.Point(57, 148);
             this.LogfileTxt.Name = "LogfileTxt";
             this.LogfileTxt.Size = new System.Drawing.Size(368, 20);
             this.LogfileTxt.TabIndex = 55;
@@ -186,7 +186,7 @@
             this.AutoGetStatusChk.AutoSize = true;
             this.AutoGetStatusChk.Checked = true;
             this.AutoGetStatusChk.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AutoGetStatusChk.Location = new System.Drawing.Point(331, 88);
+            this.AutoGetStatusChk.Location = new System.Drawing.Point(281, 12);
             this.AutoGetStatusChk.Name = "AutoGetStatusChk";
             this.AutoGetStatusChk.Size = new System.Drawing.Size(101, 17);
             this.AutoGetStatusChk.TabIndex = 56;
@@ -195,7 +195,7 @@
             // 
             // MessageTxt
             // 
-            this.MessageTxt.Location = new System.Drawing.Point(332, 147);
+            this.MessageTxt.Location = new System.Drawing.Point(281, 66);
             this.MessageTxt.Name = "MessageTxt";
             this.MessageTxt.Size = new System.Drawing.Size(121, 20);
             this.MessageTxt.TabIndex = 57;
@@ -203,7 +203,7 @@
             // 
             // Java1Btn
             // 
-            this.Java1Btn.Location = new System.Drawing.Point(218, 10);
+            this.Java1Btn.Location = new System.Drawing.Point(168, 120);
             this.Java1Btn.Name = "Java1Btn";
             this.Java1Btn.Size = new System.Drawing.Size(107, 22);
             this.Java1Btn.TabIndex = 58;
@@ -213,7 +213,7 @@
             // 
             // JavaScriptTxt
             // 
-            this.JavaScriptTxt.Location = new System.Drawing.Point(332, 40);
+            this.JavaScriptTxt.Location = new System.Drawing.Point(281, 94);
             this.JavaScriptTxt.Name = "JavaScriptTxt";
             this.JavaScriptTxt.Size = new System.Drawing.Size(121, 20);
             this.JavaScriptTxt.TabIndex = 60;
@@ -221,7 +221,7 @@
             // 
             // SendJsBtn
             // 
-            this.SendJsBtn.Location = new System.Drawing.Point(218, 38);
+            this.SendJsBtn.Location = new System.Drawing.Point(168, 92);
             this.SendJsBtn.Name = "SendJsBtn";
             this.SendJsBtn.Size = new System.Drawing.Size(107, 22);
             this.SendJsBtn.TabIndex = 59;
@@ -233,12 +233,76 @@
             // 
             this.GetStatusTmr.Tick += new System.EventHandler(this.GetStatusTmr_Tick);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.AllLogRTB);
+            this.groupBox1.Location = new System.Drawing.Point(4, 176);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(507, 230);
+            this.groupBox1.TabIndex = 61;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Log";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ErrorLogRTB);
+            this.groupBox2.Location = new System.Drawing.Point(4, 649);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(507, 230);
+            this.groupBox2.TabIndex = 62;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Error";
+            // 
+            // ErrorLogRTB
+            // 
+            this.ErrorLogRTB.Location = new System.Drawing.Point(13, 19);
+            this.ErrorLogRTB.Name = "ErrorLogRTB";
+            this.ErrorLogRTB.ReadOnly = true;
+            this.ErrorLogRTB.Size = new System.Drawing.Size(488, 205);
+            this.ErrorLogRTB.TabIndex = 0;
+            this.ErrorLogRTB.Text = "";
+            this.ErrorLogRTB.WordWrap = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.CommLogRTB);
+            this.groupBox3.Location = new System.Drawing.Point(4, 413);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(507, 230);
+            this.groupBox3.TabIndex = 62;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Comm";
+            // 
+            // CommLogRTB
+            // 
+            this.CommLogRTB.Location = new System.Drawing.Point(13, 19);
+            this.CommLogRTB.Name = "CommLogRTB";
+            this.CommLogRTB.ReadOnly = true;
+            this.CommLogRTB.Size = new System.Drawing.Size(488, 205);
+            this.CommLogRTB.TabIndex = 0;
+            this.CommLogRTB.Text = "";
+            this.CommLogRTB.WordWrap = false;
+            // 
+            // StressLogBtn
+            // 
+            this.StressLogBtn.Location = new System.Drawing.Point(281, 35);
+            this.StressLogBtn.Name = "StressLogBtn";
+            this.StressLogBtn.Size = new System.Drawing.Size(75, 23);
+            this.StressLogBtn.TabIndex = 63;
+            this.StressLogBtn.Text = "Stress Log";
+            this.StressLogBtn.UseVisualStyleBackColor = true;
+            this.StressLogBtn.Click += new System.EventHandler(this.StressLogBtn_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(523, 915);
+            this.ClientSize = new System.Drawing.Size(515, 882);
             this.ControlBox = false;
+            this.Controls.Add(this.StressLogBtn);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.JavaScriptTxt);
             this.Controls.Add(this.SendJsBtn);
             this.Controls.Add(this.Java1Btn);
@@ -249,20 +313,21 @@
             this.Controls.Add(this.Stress1Btn);
             this.Controls.Add(this.ExitBtn);
             this.Controls.Add(this.SaveBtn);
-            this.Controls.Add(this.CommRTB);
             this.Controls.Add(this.GetStatusBtn);
             this.Controls.Add(this.AbortBtn);
             this.Controls.Add(this.SendBtn);
             this.Controls.Add(this.ClientPortTxt);
             this.Controls.Add(this.ClientIpTxt);
             this.Controls.Add(this.ConnectBtn);
-            this.Controls.Add(this.CrawlerRTB);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "ClientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Client";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,7 +335,7 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox CrawlerRTB;
+        private System.Windows.Forms.RichTextBox AllLogRTB;
         private System.Windows.Forms.Timer MessageTmr;
         private System.Windows.Forms.Button ConnectBtn;
         private System.Windows.Forms.TextBox ClientIpTxt;
@@ -278,7 +343,6 @@
         private System.Windows.Forms.Button SendBtn;
         private System.Windows.Forms.Button AbortBtn;
         private System.Windows.Forms.Button GetStatusBtn;
-        private System.Windows.Forms.RichTextBox CommRTB;
         private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.Timer InitTmr;
         private System.Windows.Forms.Button ExitBtn;
@@ -291,6 +355,12 @@
         private System.Windows.Forms.TextBox JavaScriptTxt;
         private System.Windows.Forms.Button SendJsBtn;
         private System.Windows.Forms.Timer GetStatusTmr;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RichTextBox ErrorLogRTB;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RichTextBox CommLogRTB;
+        private System.Windows.Forms.Button StressLogBtn;
     }
 }
 
