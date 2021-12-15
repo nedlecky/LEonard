@@ -231,7 +231,7 @@ namespace LEonard
         // SET name value
         void GeneralCallBack(string message, string prefix)
         {
-           //log.Info("GCB<==({0},{1})", message, prefix);
+            //log.Info("GCB<==({0},{1})", message, prefix);
 
             string[] requests = message.Split('#');
             foreach (string request in requests)
@@ -738,7 +738,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                log.Error(ex,"Could not start {0}", start.FileName);
+                log.Error(ex, "Could not start {0}", start.FileName);
             }
         }
 
@@ -941,7 +941,7 @@ namespace LEonard
                 }
             }
 
-            if(!foundVariable)
+            if (!foundVariable)
                 variables.Rows.Add(new object[] { name, value, true, datetime });
 
             variables.AcceptChanges();
@@ -982,7 +982,7 @@ namespace LEonard
         Engine jintEngine;
         void StartJint()
         {
-            log.Info("Start Jint");
+            log.Trace("StartJint()");
             jintEngine = new Engine()
                     // Expose various C# functions in JS
                     .SetValue("alert", new Action<string>(JsAlert))
@@ -997,7 +997,9 @@ namespace LEonard
         }
         void StopJint()
         {
-            log.Info("Stop Jint");
+            log.Trace("StopJint()");
+
+            jintEngine = null;
 
         }
 
@@ -1007,14 +1009,14 @@ namespace LEonard
         }
         private void JsPrint(string message)
         {
-            log.Info("JsPrint({0})", message);
+            log.Info("JSP {0}", message);
         }
 
         static readonly object lockJsObject = new object();
         private void JsSend(int index, string message)
         {
             Monitor.Enter(lockJsObject);
-                log.Info("JsSend({0}, {1})", index, message);
+            log.Info("JsSend({0}, {1})", index, message);
             if (interfaces[index] != null)
                 interfaces[index].Send(message);
             Application.DoEvents();
@@ -1024,14 +1026,6 @@ namespace LEonard
         {
             JavaScriptConsoleRTB.Clear();
         }
-        //private void CrawlJ(string message)
-        //{
-        //    Crawl(message);
-        //}
-        //private void SetJ(string name, string value)
-        //{
-        //    WriteVariable(name, value);
-        //}
 
         void ExecuteJavaScript(string code)
         {
@@ -1042,7 +1036,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                log.Error(ex,"ExecuteJavaScript Error {0}", code);
+                log.Error(ex, "ExecuteJavaScript Error {0}", code);
             }
         }
         // ***********************************************************************
@@ -1114,7 +1108,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                log.Error(ex,"Program Execution Error: {0}", JavaScriptCodeRTB.Text);
+                log.Error(ex, "Program Execution Error: {0}", JavaScriptCodeRTB.Text);
             }
         }
 
@@ -1126,7 +1120,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                log.Error(ex,"Command Execution Error: {0}", JavaCommandTxt.Text);
+                log.Error(ex, "Command Execution Error: {0}", JavaCommandTxt.Text);
             }
         }
 

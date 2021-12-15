@@ -37,14 +37,25 @@ namespace LEonard
             port.RtsEnable = true;
             port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedEvent);
 
-            port.Open();
-
-            if (port.IsOpen)
+            try
             {
-                if (onConnectMessage.Length > 0) Send(onConnectMessage);
+                port.Open();
+
+                if (port.IsOpen)
+                {
+                    if (onConnectMessage.Length > 0) Send(onConnectMessage);
+                }
+                else
+                {
+                    log.Error("{0} Port {1} did not open", logPrefix, portname);
+                    return 2;
+                }
             }
-            else
-                log.Error("{0} Port {1} did not open", logPrefix, portname);
+            catch (Exception ex)
+            {
+                log.Error(ex, "{0} port.Open() failed {1}", logPrefix, portname);
+                return 1;
+            }
 
             return 0;
         }
@@ -79,13 +90,13 @@ namespace LEonard
                 string data = "";
                 // Read all lines in the buffer
                 // TODO: Doesn't this block and timeout if there are bytes but no newline?
-                int n = 1;
+                int lineNo = 1;
                 while (port.BytesToRead > 0)
                 {
                     data = port.ReadLine();
-                    log.Info("{0} <== Line {1}: {2}", logPrefix, n, data);
+                    log.Info("{0} <== {1} Line {2}", logPrefix, data, lineNo);
                     receiveCallback(data, logPrefix);
-                    n++;
+                    lineNo++;
                 }
             }
         }

@@ -151,7 +151,7 @@ namespace LEonard
                         string cleanLine = line.Trim('\r');
                         if (cleanLine.Length > 0)
                         {
-                            log.Info("{0} <== {0} Line {1}", logPrefix, cleanLine, lineNo);
+                            log.Info("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);
 
                             if (receiveCallback != null)
                                 receiveCallback(cleanLine, logPrefix);
