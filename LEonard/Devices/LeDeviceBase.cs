@@ -15,7 +15,7 @@ namespace LEonard
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
 
-        protected LeDeviceBase(MainForm form, string prefix, string connectMessage)
+        public LeDeviceBase(MainForm form, string prefix="", string connectMessage="")
         {
             myForm = form;  
             logPrefix = prefix;
@@ -24,7 +24,7 @@ namespace LEonard
 
         }
 
-        protected long IPAddressToLong(IPAddress address)
+        public long IPAddressToLong(IPAddress address)
         {
             byte[] byteIP = address.GetAddressBytes();
 

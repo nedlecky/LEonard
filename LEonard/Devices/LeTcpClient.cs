@@ -116,7 +116,7 @@ namespace LEonard
             log.Info("{0} ==> {1}", logPrefix, request);
             try
             {
-                stream.Write(Encoding.ASCII.GetBytes(request + "\n"), 0, request.Length + 1);
+                stream.Write(Encoding.ASCII.GetBytes(request + "\r"), 0, request.Length + 1);
             }
             catch
             {
@@ -144,11 +144,11 @@ namespace LEonard
                 if (length > 0)
                 {
                     string input = Encoding.UTF8.GetString(inputBuffer, 0, length);
-                    string[] inputLines = input.Split('\n');
+                    string[] inputLines = input.Split('\r');
                     int lineNo = 1;
                     foreach (string line in inputLines)
                     {
-                        string cleanLine = line.Trim('\r');
+                        string cleanLine = line.Trim('\n');
                         if (cleanLine.Length > 0)
                         {
                             log.Info("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);

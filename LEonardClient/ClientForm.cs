@@ -184,7 +184,7 @@ namespace LEonardClient
             log.Info("==> {0}", request);
             try
             {
-                stream.Write(Encoding.ASCII.GetBytes(request + "\n"), 0, request.Length + 1);
+                stream.Write(Encoding.ASCII.GetBytes(request + "\r"), 0, request.Length + 1);
             }
             catch
             {

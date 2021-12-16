@@ -30,7 +30,8 @@ namespace LEonard
 
         BarcodeReaderThread bcrt;
 
-        LeDeviceInterface[] interfaces = { null, null, null, null, null, null };
+        // TODO: This needs to dynamically resize!
+        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null };
 
         private static NLog.Logger log;
 
@@ -163,8 +164,10 @@ namespace LEonard
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
             // TODO: do we really need to keep polling for message receipt?
-            for (int i = 0; i < 4; i++)
-                if (interfaces[i] != null) interfaces[i].Receive();
+            if (interfaces.Length == 0) return;
+
+            foreach (LeDeviceInterface device in interfaces)
+                if (device != null) device.Receive();
         }
 
         private void AllLogClearBtn_Click(object sender, EventArgs e)
@@ -464,8 +467,9 @@ namespace LEonard
             devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.252:30000", "AUX1", "general", "", "(98,0,0,0,0)" });
             devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "127.0.0.1:20000", "AUX2S", "general", "iint()", "" });
             devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "127.0.0.1:21000", "AUX2H", "general", "init()", "" });
-            devices.Rows.Add(new object[] { 4, "Dataman 1", false, "Serial", "COM3", "AUX31", "general", "+", "" });
-            devices.Rows.Add(new object[] { 5, "Dataman 2", false, "Serial", "COM4", "AUX32", "general", "+", "" });
+            devices.Rows.Add(new object[] { 4, "Keyence", false, "TcpClient", "192.168.0.10:8500", "AUX2K", "general", "TE", "" });
+            devices.Rows.Add(new object[] { 5, "Dataman 1", false, "Serial", "COM3", "AUX31", "general", "+", "" });
+            devices.Rows.Add(new object[] { 6, "Dataman 2", false, "Serial", "COM4", "AUX32", "general", "+", "" });
 
             DevicesGrid.DataSource = devices;
         }
@@ -572,14 +576,23 @@ namespace LEonard
         {
             int row = e.RowIndex;
             int col = e.ColumnIndex;
+            // TODO: Magic column numbers below are horrible
             int index = Convert.ToInt32(devices.Rows[row].ItemArray[0].ToString());
             string name = devices.Rows[row].ItemArray[1].ToString();
             string type = devices.Rows[row].ItemArray[3].ToString();
             string address = devices.Rows[row].ItemArray[4].ToString();
             string prefix = devices.Rows[row].ItemArray[5].ToString();
             string callback = devices.Rows[row].ItemArray[6].ToString();
+            string connectMessage = devices.Rows[row].ItemArray[7].ToString();
 
             log.Debug("Changed Value: {0}", devices.Rows[row].ItemArray[col].ToString());
+
+            // Make sure array is large enough
+            while (index > interfaces.Length - 1)
+            {
+                log.Debug("Appending {0} {1}", index, interfaces.Length);
+                interfaces.Append(new LeTcpServer(this, prefix));
+            }
 
             // TODO: Don't like this index == 2 below... how to use column name Running?
             if (col == 2)
@@ -587,8 +600,6 @@ namespace LEonard
                 if (devices.Rows[row].ItemArray[col].ToString() == "True")
                 {
                     log.Info("Start {0}:{1} as {2} at {3} with {4}, {5}", index, name, type, address, prefix, callback);
-                    // TODO: Magic column number 7 is horrible
-                    string connectMessage = devices.Rows[row].ItemArray[7].ToString();
                     switch (type)
                     {
                         case @"TcpServer":
@@ -744,36 +755,42 @@ namespace LEonard
 
         private void Robot1Btn_Click(object sender, EventArgs e)
         {
+            // TODO: These can't be hardcoded
             if (interfaces[1] != null)
                 interfaces[1].Send("(1,0,0,0,0)");
         }
 
         private void Robot2Btn_Click(object sender, EventArgs e)
         {
+            // TODO: These can't be hardcoded
             if (interfaces[1] != null)
                 interfaces[1].Send("(2,0,0,0,0)");
         }
 
         private void Robot3Btn_Click(object sender, EventArgs e)
         {
+            // TODO: These can't be hardcoded
             if (interfaces[1] != null)
                 interfaces[1].Send("(3,0,0,0,0)");
         }
 
         private void Robot4Btn_Click(object sender, EventArgs e)
         {
+            // TODO: These can't be hardcoded
             if (interfaces[1] != null)
                 interfaces[1].Send("(4,0,0,0,0)");
         }
 
         private void Robot50Btn_Click(object sender, EventArgs e)
         {
+            // TODO: These can't be hardcoded
             if (interfaces[1] != null)
                 interfaces[1].Send("(50,0,0,0,0)");
         }
 
         private void Robot98Btn_Click(object sender, EventArgs e)
         {
+            // TODO: These can't be hardcoded
             if (interfaces[1] != null)
             {
                 interfaces[1].Send("(98,0,0,0,0)");
@@ -792,10 +809,8 @@ namespace LEonard
             {
                 interfaces[1].Send("(99,0,0,0,0)");
 
-                // All shoud be wrapped in nice RobotServer class
                 Thread.Sleep(100);
                 interfaces[1].Disconnect();
-                //robotServer = new TcpServer(this, "ROBOT: ");
                 interfaces[1].Connect("192.168.0.252:30000");
             }
         }
@@ -831,14 +846,16 @@ namespace LEonard
         }
         private void TriggerDm1Btn_Click(object sender, EventArgs e)
         {
-            if (interfaces[4] != null)
-                interfaces[4].Send("+");
+            // TODO: These can't be hardcoded
+            if (interfaces[5] != null)
+                interfaces[5].Send("+");
         }
 
         private void TriggerDm2Btn_Click(object sender, EventArgs e)
         {
-            if (interfaces[5] != null)
-                interfaces[5].Send("+");
+            // TODO: These can't be hardcoded
+            if (interfaces[6] != null)
+                interfaces[6].Send("+");
         }
         // ***********************************************************************
         // END DEVICES UI

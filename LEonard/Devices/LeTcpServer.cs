@@ -129,6 +129,26 @@ namespace LEonard
             }
         }
 
+        bool fSendBusy = false;
+        public int Send(string response)
+        {
+            if (stream == null) return 1;
+            while (fSendBusy)
+                Thread.Sleep(10);
+            fSendBusy = true;
+
+            log.Info("{0} ==> {1}", logPrefix, response);
+            try
+            {
+                stream.Write(Encoding.ASCII.GetBytes(response + "\r"), 0, response.Length + 1);
+            }
+            catch
+            {
+                log.Error("{0} Send(...) could not write to socket", logPrefix);
+            }
+            fSendBusy = false;
+            return 0;
+        }
         public string Receive()
         {
             if (stream != null)
@@ -147,11 +167,11 @@ namespace LEonard
                 if (length > 0)
                 {
                     string input = Encoding.UTF8.GetString(inputBuffer, 0, length);
-                    string[] inputLines = input.Split('\n');
+                    string[] inputLines = input.Split('\r');
                     int lineNo = 1;
                     foreach (string line in inputLines)
                     {
-                        string cleanLine = line.Trim('\r');
+                        string cleanLine = line.Trim('\n');
                         if (cleanLine.Length > 0)
                         {
                             log.Info("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);
@@ -167,26 +187,6 @@ namespace LEonard
             return "";
         }
 
-        bool fSendBusy = false;
-        public int Send(string response)
-        {
-            if (stream == null) return 1;
-            while (fSendBusy)
-                Thread.Sleep(10);
-            fSendBusy = true;
-
-            log.Info("{0} ==> {1}", logPrefix, response);
-            try
-            {
-                stream.Write(Encoding.ASCII.GetBytes(response + "\n"), 0, response.Length + 1);
-            }
-            catch
-            {
-                log.Error("{0} Send(...) could not write to socket", logPrefix);
-            }
-            fSendBusy = false;
-            return 0;
-        }
     }
 
 }

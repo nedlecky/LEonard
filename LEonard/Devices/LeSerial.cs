@@ -35,6 +35,7 @@ namespace LEonard
             port.WriteTimeout = 100;
             port.DtrEnable = true;
             port.RtsEnable = true;
+            port.NewLine = "\r";
             port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedEvent);
 
             try
@@ -78,6 +79,8 @@ namespace LEonard
         public string Receive()
         {
             //log.Info("Receive(): " + myPortname);
+            // TODO: Currently this is only done through callback
+            return "";
             if (port.BytesToRead > 0)
                 return port.ReadLine();
             else
@@ -93,6 +96,7 @@ namespace LEonard
                 int lineNo = 1;
                 while (port.BytesToRead > 0)
                 {
+                    // TODO: if the port.NewLine isn't in the buffer this blocks... needs to timeout almost instantly?
                     data = port.ReadLine();
                     log.Info("{0} <== {1} Line {2}", logPrefix, data, lineNo);
                     receiveCallback(data, logPrefix);
