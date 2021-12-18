@@ -142,6 +142,11 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
+            this.StopTestClientBtn = new System.Windows.Forms.Button();
+            this.ExitBtn = new System.Windows.Forms.Button();
+            this.MinimizeBtn = new System.Windows.Forms.Button();
+            this.RestoreBtn = new System.Windows.Forms.Button();
+            this.LaunchBtn = new System.Windows.Forms.Button();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -870,6 +875,10 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.ExitBtn);
+            this.groupBox10.Controls.Add(this.MinimizeBtn);
+            this.groupBox10.Controls.Add(this.RestoreBtn);
+            this.groupBox10.Controls.Add(this.LaunchBtn);
             this.groupBox10.Controls.Add(this.label2);
             this.groupBox10.Controls.Add(this.DelayMsTxt);
             this.groupBox10.Controls.Add(this.SendMultipleTxt);
@@ -880,7 +889,7 @@
             this.groupBox10.Controls.Add(this.CurrentSendMessageBtn);
             this.groupBox10.Location = new System.Drawing.Point(12, 507);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(426, 91);
+            this.groupBox10.Size = new System.Drawing.Size(610, 91);
             this.groupBox10.TabIndex = 69;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Act On Selected Row";
@@ -1307,11 +1316,62 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
+            // StopTestClientBtn
+            // 
+            this.StopTestClientBtn.Location = new System.Drawing.Point(120, 310);
+            this.StopTestClientBtn.Name = "StopTestClientBtn";
+            this.StopTestClientBtn.Size = new System.Drawing.Size(102, 23);
+            this.StopTestClientBtn.TabIndex = 65;
+            this.StopTestClientBtn.Text = "Stop";
+            this.StopTestClientBtn.UseVisualStyleBackColor = true;
+            this.StopTestClientBtn.Click += new System.EventHandler(this.StopTestClientBtn_Click);
+            // 
+            // ExitBtn
+            // 
+            this.ExitBtn.Location = new System.Drawing.Point(529, 19);
+            this.ExitBtn.Name = "ExitBtn";
+            this.ExitBtn.Size = new System.Drawing.Size(75, 23);
+            this.ExitBtn.TabIndex = 38;
+            this.ExitBtn.Text = "Exit";
+            this.ExitBtn.UseVisualStyleBackColor = true;
+            this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
+            // 
+            // MinimizeBtn
+            // 
+            this.MinimizeBtn.Location = new System.Drawing.Point(367, 19);
+            this.MinimizeBtn.Name = "MinimizeBtn";
+            this.MinimizeBtn.Size = new System.Drawing.Size(75, 23);
+            this.MinimizeBtn.TabIndex = 37;
+            this.MinimizeBtn.Text = "Minimize";
+            this.MinimizeBtn.UseVisualStyleBackColor = true;
+            this.MinimizeBtn.Click += new System.EventHandler(this.MinimizeBtn_Click);
+            // 
+            // RestoreBtn
+            // 
+            this.RestoreBtn.Location = new System.Drawing.Point(448, 19);
+            this.RestoreBtn.Name = "RestoreBtn";
+            this.RestoreBtn.Size = new System.Drawing.Size(75, 23);
+            this.RestoreBtn.TabIndex = 36;
+            this.RestoreBtn.Text = "Restore";
+            this.RestoreBtn.UseVisualStyleBackColor = true;
+            this.RestoreBtn.Click += new System.EventHandler(this.RestoreBtn_Click);
+            // 
+            // LaunchBtn
+            // 
+            this.LaunchBtn.Location = new System.Drawing.Point(286, 19);
+            this.LaunchBtn.Name = "LaunchBtn";
+            this.LaunchBtn.Size = new System.Drawing.Size(75, 23);
+            this.LaunchBtn.TabIndex = 35;
+            this.LaunchBtn.Text = "Launch";
+            this.LaunchBtn.UseVisualStyleBackColor = true;
+            this.LaunchBtn.Click += new System.EventHandler(this.LaunchBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1510, 823);
+            this.Controls.Add(this.StopTestClientBtn);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.StartTestClientBtn);
             this.Controls.Add(this.groupBox3);
@@ -1473,6 +1533,11 @@
         private System.Windows.Forms.TextBox SendMultipleTxt;
         private System.Windows.Forms.Label label2;
         protected internal System.Windows.Forms.TextBox DelayMsTxt;
+        private System.Windows.Forms.Button StopTestClientBtn;
+        private System.Windows.Forms.Button ExitBtn;
+        private System.Windows.Forms.Button MinimizeBtn;
+        private System.Windows.Forms.Button RestoreBtn;
+        private System.Windows.Forms.Button LaunchBtn;
     }
 }
 

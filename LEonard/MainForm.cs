@@ -16,7 +16,9 @@ using System.Windows.Forms;
 using Jint;
 using System.Text.RegularExpressions;
 using NLog;
-//using NLog.Windows.Forms;
+using System.Runtime.InteropServices;
+
+
 
 namespace LEonard
 {
@@ -34,6 +36,12 @@ namespace LEonard
         LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null };
 
         private static NLog.Logger log;
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+
 
         public MainForm()
         {
@@ -679,6 +687,84 @@ namespace LEonard
             log.Debug("CellBeginEdit: {0}", devices.Rows[row].ItemArray[col].ToString());
 
         }
+
+        Process testProc;
+
+        private void LaunchBtn_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo start = new ProcessStartInfo();
+
+            // HALCON
+            // start.FileName = "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64\\hdevelop.exe";
+            // start.Arguments = "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run";
+
+            // DATAMAN
+            start.WorkingDirectory = "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3";
+            start.FileName = "SetupTool.exe";
+            //start.Arguments = "";
+
+            log.Info("Starting {0}", start.FileName);
+            try
+            {
+                testProc = Process.Start(start);
+                log.Info("hWnd={0} title={1}", testProc.MainWindowHandle, testProc.MainWindowTitle);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Could not start {0}", start.FileName);
+            }
+        }
+
+        private const int SW_SHOWMINIMIZED = 2;
+        private const int SW_SHOWMAXIMIZED = 3;
+        private const int SW_SHOWNORMAL = 5;
+        private const int SW_RESTORE = 9;
+        /*
+                #define SW_HIDE             0
+                #define SW_SHOWNORMAL       1
+                #define SW_NORMAL           1
+                #define SW_SHOWMINIMIZED    2
+                #define SW_SHOWMAXIMIZED    3
+                #define SW_MAXIMIZE         3
+                #define SW_SHOWNOACTIVATE   4
+                #define SW_SHOW             5
+                #define SW_MINIMIZE         6
+                #define SW_SHOWMINNOACTIVE  7
+                #define SW_SHOWNA           8
+                #define SW_RESTORE          9
+                #define SW_SHOWDEFAULT      10
+                #define SW_FORCEMINIMIZE    11
+                #define SW_MAX              11
+                */
+
+        private void MinimizeBtn_Click(object sender, EventArgs e)
+        {
+            if (testProc != null)
+            {
+                ShowWindowAsync(testProc.MainWindowHandle, SW_SHOWMINIMIZED);
+            }
+
+        }
+
+
+        private void RestoreBtn_Click(object sender, EventArgs e)
+        {
+            if (testProc != null)
+            {
+                ShowWindowAsync(testProc.MainWindowHandle, SW_RESTORE);
+            }
+
+        }
+
+        private void ExitBtn_Click(object sender, EventArgs e)
+        {
+            log.Trace("ExitBtn_Click");
+            if (testProc != null)
+            {
+                testProc.CloseMainWindow();
+                testProc = null;
+            }
+        }
         private void CurrentSendMessageBtn_Click(object sender, EventArgs e)
         {
             if (interfaces[currentDevice] != null)
@@ -732,7 +818,7 @@ namespace LEonard
         }
 
         // Launch command tester to assist in debugging
-        Process proc;
+        Process testClientProc;
         private void StartTestClientBtn_Click(object sender, EventArgs e)
         {
             ProcessStartInfo start = new ProcessStartInfo();
@@ -745,13 +831,28 @@ namespace LEonard
             log.Info("Starting {0}", start.FileName);
             try
             {
-                proc = Process.Start(start);
+                testClientProc = Process.Start(start);
             }
             catch (Exception ex)
             {
                 log.Error(ex, "Could not start {0}", start.FileName);
             }
         }
+        private void StopTestClientBtn_Click(object sender, EventArgs e)
+        {
+            log.Trace("StopTestClientBtn_Click");
+            if (testClientProc != null)
+            {
+                try
+                {
+                    testClientProc.CloseMainWindow();
+                }
+                catch { }
+                testClientProc = null;
+            }
+        }
+
+
 
         private void Robot1Btn_Click(object sender, EventArgs e)
         {
@@ -1162,6 +1263,7 @@ namespace LEonard
             }
             JavaScriptVariablesRTB.Text = finalUpdate;
         }
+
         // ***********************************************************************
         // END JAVA PROGRAM
         // ***********************************************************************
