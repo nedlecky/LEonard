@@ -91,7 +91,14 @@ namespace LEonard
                 return 1;
             }
 
-            setupProcess.CloseMainWindow();
+            try
+            {
+                setupProcess.CloseMainWindow();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Can't CloseMainWindow()");
+            }
             setupProcess = null;
             return 0;
         }

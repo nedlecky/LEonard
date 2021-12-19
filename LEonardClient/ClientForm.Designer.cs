@@ -179,7 +179,7 @@
             this.LogfileTxt.Name = "LogfileTxt";
             this.LogfileTxt.Size = new System.Drawing.Size(368, 20);
             this.LogfileTxt.TabIndex = 55;
-            this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/LEonard Files/LEonardClient.log";
+            this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/LEonardFiles/LEonardClient.log";
             // 
             // AutoGetStatusChk
             // 

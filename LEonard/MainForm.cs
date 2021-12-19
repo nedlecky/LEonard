@@ -30,8 +30,8 @@ namespace LEonard
 
         BarcodeReaderThread bcrt;
 
-        // TODO: This needs to dynamically resize!
-        LeDeviceInterface[] interfaces = { null };//, null, null, null, null, null, null, null };
+        // TODO: This needs to dynamically resize and the code taht doaes it doesn't!!
+        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null };
 
         private static NLog.Logger log;
 
@@ -529,12 +529,12 @@ namespace LEonard
             devices.Rows.Add(new object[] {
                 1, "UR-5e", false, "TcpServer", "192.168.0.252:30000",
                 "AUX1", "general", "", "(98,0,0,0,0)",
+                "C:\\Program Files\\RealVNC\\VNC Viewer",
+                "vncviewer.exe",
+                "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
                 "",
-                "",
-                "",
-                "",
-                "",
-                ""});
+                "chrome.exe",
+                "/incognito 192.168.0.171"});
             devices.Rows.Add(new object[] {
                 2, "Sherlock", false, "TcpServer", "127.0.0.1:20000",
                 "AUX2S", "general", "init()", "",
@@ -588,9 +588,16 @@ namespace LEonard
         {
             log.Info("LoadDevices from {0}", name);
             devices = new DataTable("Devices");
-            devices.ReadXml(name);
-            DevicesGrid.DataSource = devices;
-            DevicesFilenameLbl.Text = name;
+            try
+            {
+                devices.ReadXml(name);
+                DevicesGrid.DataSource = devices;
+                DevicesFilenameLbl.Text = name;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Can't load {0}", name);
+            }
 
             return 0;
         }
@@ -698,6 +705,7 @@ namespace LEonard
             log.Debug("Changed Value: {0}", devices.Rows[row].ItemArray[col].ToString());
 
             // Make sure array is large enough
+            // TODO: This doesn't work- array must already be large enough
             while (index > interfaces.Length - 1)
             {
                 log.Debug("Appending {0} {1}", index, interfaces.Length);
@@ -790,7 +798,7 @@ namespace LEonard
 
         }
 
-         private void LaunchRuntimeBtn_Click(object sender, EventArgs e)
+        private void LaunchRuntimeBtn_Click(object sender, EventArgs e)
         {
             DataRow row = devices.Rows[currentDevice];
             int ID = (int)row["ID"];
@@ -798,7 +806,7 @@ namespace LEonard
             ProcessStartInfo start = new ProcessStartInfo();
 
             start.WorkingDirectory = (string)row["RuntimeWorkingDirectory"];
-            start.FileName = (string)row["RuntimeFileName"]; 
+            start.FileName = (string)row["RuntimeFileName"];
             start.Arguments = (string)row["RuntimeArguments"];
 
             if (interfaces[ID] == null)
@@ -834,7 +842,7 @@ namespace LEonard
             DataRow row = devices.Rows[currentDevice];
             int ID = (int)row["ID"];
             if (interfaces[ID] != null)
-                if(interfaces[ID].runtimeProcess != null)
+                if (interfaces[ID].runtimeProcess != null)
                     ShowWindowAsync(interfaces[ID].runtimeProcess.MainWindowHandle, SW_SHOWMINIMIZED);
         }
 
@@ -843,7 +851,7 @@ namespace LEonard
             DataRow row = devices.Rows[currentDevice];
             int ID = (int)row["ID"];
             if (interfaces[ID] != null)
-                if(interfaces[ID].runtimeProcess != null)
+                if (interfaces[ID].runtimeProcess != null)
                     ShowWindowAsync(interfaces[ID].runtimeProcess.MainWindowHandle, SW_RESTORE);
         }
 
@@ -1271,7 +1279,15 @@ namespace LEonard
         void LoadJavaScriptProgramFile(string file)
         {
             JavaScriptFilenameLbl.Text = file;
-            JavaScriptCodeRTB.LoadFile(file);
+            try
+            {
+                JavaScriptCodeRTB.LoadFile(file);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Can't open {0}", file);
+            }
+
             JavaScriptCodeRTB.Modified = false;
         }
         private void LoadJavaProgramBtn_Click(object sender, EventArgs e)
@@ -1359,6 +1375,11 @@ namespace LEonard
                 }
             }
             JavaScriptVariablesRTB.Text = finalUpdate;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            webView1.Url = "192.168.0.171";
         }
 
 
