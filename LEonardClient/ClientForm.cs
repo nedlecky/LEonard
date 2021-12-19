@@ -49,11 +49,7 @@ namespace LEonardClient
 #endif
             this.Text = caption;
 
-            Left = 0;
-            Top = 50;
-
             log = NLog.LogManager.GetCurrentClassLogger();
-
 
             LoadPersistent();
 
@@ -75,6 +71,10 @@ namespace LEonardClient
             log.Trace("LoadPersistent()");
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
+
+            Left = (Int32)AppNameKey.GetValue("Left", 0);
+            Top = (Int32)AppNameKey.GetValue("Top", 100);
+
             ClientIpTxt.Text = (string)AppNameKey.GetValue("ClientIpTxt.Text", "127.0.0.1");
             ClientPortTxt.Text = (string)AppNameKey.GetValue("ClientPortTxt.Text", "1000");
         }
@@ -84,6 +84,10 @@ namespace LEonardClient
 
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
+
+            AppNameKey.SetValue("Left", Left);
+            AppNameKey.SetValue("Top", Top);
+
             AppNameKey.SetValue("ClientIpTxt.Text", ClientIpTxt.Text);
             AppNameKey.SetValue("ClientPortTxt.Text", ClientPortTxt.Text);
         }
@@ -91,6 +95,7 @@ namespace LEonardClient
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             Disconnect();
+            SavePersistent();
             NLog.LogManager.Shutdown(); // Flush and close down internal threads and timers
         }
 

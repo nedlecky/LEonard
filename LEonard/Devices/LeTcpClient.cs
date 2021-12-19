@@ -46,8 +46,13 @@ namespace LEonard
             try
             {
                 Ping ping = new Ping();
-                PingReply PR = ping.Send(myIp);
+                PingReply PR = ping.Send(myIp,500);
                 log.Debug("{0} Connect Ping returns {1}", logPrefix, PR.Status);
+                if (PR.Status != IPStatus.Success)
+                {
+                    log.Error("Could not ping {0}: {1}", myIp, PR.Status);
+                    return 2;
+                }
             }
             catch
             {

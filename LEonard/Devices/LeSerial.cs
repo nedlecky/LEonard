@@ -78,13 +78,15 @@ namespace LEonard
         }
         public string Receive()
         {
-            //log.Info("Receive(): " + myPortname);
-            // TODO: Currently this is only done through callback
+            //log.Error("NOT IMPLEMENTED Receive(): " + myPortname);
+            // TODO: Currently this is only done through callback and it gets called constantly for serial devices
             return "";
+            /*
             if (port.BytesToRead > 0)
                 return port.ReadLine();
             else
                 return "";
+            */
         }
         public void DataReceivedEvent(object sender, SerialDataReceivedEventArgs e)
         {

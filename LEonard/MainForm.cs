@@ -18,8 +18,6 @@ using System.Text.RegularExpressions;
 using NLog;
 using System.Runtime.InteropServices;
 
-
-
 namespace LEonard
 {
     public partial class MainForm : Form
@@ -33,7 +31,7 @@ namespace LEonard
         BarcodeReaderThread bcrt;
 
         // TODO: This needs to dynamically resize!
-        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null };
+        LeDeviceInterface[] interfaces = { null };//, null, null, null, null, null, null, null };
 
         private static NLog.Logger log;
 
@@ -341,6 +339,10 @@ namespace LEonard
 
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
+
+            Left = (Int32)AppNameKey.GetValue("Left", 0);
+            Top = (Int32)AppNameKey.GetValue("Top", 100);
+
             LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", "\\");
             LEonardRootLbl.Text = LEonardRoot;
 
@@ -363,6 +365,10 @@ namespace LEonard
 
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
             RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
+
+            AppNameKey.SetValue("Left", Left);
+            AppNameKey.SetValue("Top", Top);
+
             AppNameKey.SetValue("LEonardRoot", LEonardRoot);
 
             AppNameKey.SetValue("StartupDevicesLbl.Text", StartupDevicesLbl.Text);
@@ -449,6 +455,9 @@ namespace LEonard
         // END CONFIG UI
         // ***********************************************************************
 
+
+
+
         // ***********************************************************************
         // DEVICES UI
         // ***********************************************************************
@@ -465,19 +474,112 @@ namespace LEonard
             devices.Columns.Add("CallBack", typeof(System.String));
             devices.Columns.Add("OnConnectSend", typeof(System.String));
             devices.Columns.Add("OnDisconnectSend", typeof(System.String));
+            devices.Columns.Add("RuntimeWorkingDirectory", typeof(System.String));
+            devices.Columns.Add("RuntimeFileName", typeof(System.String));
+            devices.Columns.Add("RuntimeArguments", typeof(System.String));
+            devices.Columns.Add("SetupWorkingDirectory", typeof(System.String));
+            devices.Columns.Add("SetupFileName", typeof(System.String));
+            devices.Columns.Add("SetupArguments", typeof(System.String));
 
             //devices.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //devices.Columns[0].
 
             devices.PrimaryKey = new DataColumn[] { id };
 
-            devices.Rows.Add(new object[] { 0, "Command", false, "TcpServer", "127.0.0.1:1000", "CTL", "general", "Hello!", "exit()" });
-            devices.Rows.Add(new object[] { 1, "UR-5e", false, "TcpServer", "192.168.0.252:30000", "AUX1", "general", "", "(98,0,0,0,0)" });
-            devices.Rows.Add(new object[] { 2, "Sherlock", false, "TcpServer", "127.0.0.1:20000", "AUX2S", "general", "iint()", "" });
-            devices.Rows.Add(new object[] { 3, "HALCON", false, "TcpClient", "127.0.0.1:21000", "AUX2H", "general", "init()", "" });
-            devices.Rows.Add(new object[] { 4, "Keyence", false, "TcpClient", "192.168.0.10:8500", "AUX2K", "general", "TE", "" });
-            devices.Rows.Add(new object[] { 5, "Dataman 1", false, "Serial", "COM3", "AUX31", "general", "+", "" });
-            devices.Rows.Add(new object[] { 6, "Dataman 2", false, "Serial", "COM4", "AUX32", "general", "+", "" });
+            // HALCON Direct WORKS
+            // start.FileName = "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64\\hdevelop.exe";
+            // start.Arguments = "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run";
+
+            // DATAMAN Direct WORKS
+            //start.WorkingDirectory = "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3";
+            //start.FileName = "SetupTool.exe";
+            //start.Arguments = "";
+
+            // HALCON Through Link WORKS
+            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "MVTec HDevelop XL 21.11 Progress (user).lnk");
+
+            // DATAMAN Through Link WORKS
+            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "v6.1.10_SR3 Setup Tool.lnk");
+
+            // Sherlock Through Link MIN/REST/Exit don't work
+            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "Sherlockx64.lnk");
+
+            // Sherlock Direct MIN/REST/Exit don't work
+            //start.WorkingDirectory = "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin";
+            //start.FileName = "IpeStudio.exe";
+
+            // KEYENCE Simulator Direct WORKS
+            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Simulation-Software\\bin_X400";
+            //start.FileName = "CV-X Series Workspace-Software.exe";
+
+            // KEYENCE Terminal Direct WORKS
+            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin";
+            //start.FileName = "CV-X Series Terminal-Software.exe";
+            //start.Arguments = "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn";
+
+            devices.Rows.Add(new object[] {
+                0, "Command", false, "TcpServer", "127.0.0.1:1000",
+                "CTL", "general", "Hello!", "exit()",
+                "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
+                "LEonardClient.exe",
+                "",
+                "",
+                "",
+                ""});
+            devices.Rows.Add(new object[] {
+                1, "UR-5e", false, "TcpServer", "192.168.0.252:30000",
+                "AUX1", "general", "", "(98,0,0,0,0)",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""});
+            devices.Rows.Add(new object[] {
+                2, "Sherlock", false, "TcpServer", "127.0.0.1:20000",
+                "AUX2S", "general", "init()", "",
+                "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
+                "IpeStudio.exe",
+                "",
+                "",
+                "",
+                ""});
+            devices.Rows.Add(new object[] {
+                3, "HALCON", false, "TcpClient", "127.0.0.1:21000",
+                "AUX2H", "general", "init()", "",
+                "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
+                "hdevelop.exe",
+                "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run",
+                "",
+                "",
+                ""});
+            devices.Rows.Add(new object[] {
+                4, "Keyence", false, "TcpClient", "192.168.0.10:8500",
+                "AUX2K", "general", "TE", "",
+                "",
+                "",
+                "",
+                "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin",
+                "CV-X Series Terminal-Software.exe",
+                "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn" });
+            devices.Rows.Add(new object[] {
+                5, "Dataman 1", false, "Serial", "COM3",
+                "AUX31", "general", "+", "",
+                "",
+                "",
+                "",
+                "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
+                "SetupTool.exe",
+                ""});
+            devices.Rows.Add(new object[] {
+                6, "Dataman 2", false, "Serial", "COM4",
+                "AUX32", "general", "+", "",
+                "",
+                "",
+                "",
+                "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
+                "SetupTool.exe",
+                ""});
 
             DevicesGrid.DataSource = devices;
         }
@@ -688,83 +790,115 @@ namespace LEonard
 
         }
 
-        Process testProc;
-
-        private void LaunchBtn_Click(object sender, EventArgs e)
+         private void LaunchRuntimeBtn_Click(object sender, EventArgs e)
         {
+            DataRow row = devices.Rows[currentDevice];
+            int ID = (int)row["ID"];
+
             ProcessStartInfo start = new ProcessStartInfo();
 
-            // HALCON
-            // start.FileName = "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64\\hdevelop.exe";
-            // start.Arguments = "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run";
+            start.WorkingDirectory = (string)row["RuntimeWorkingDirectory"];
+            start.FileName = (string)row["RuntimeFileName"]; 
+            start.Arguments = (string)row["RuntimeArguments"];
 
-            // DATAMAN
-            start.WorkingDirectory = "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3";
-            start.FileName = "SetupTool.exe";
-            //start.Arguments = "";
-
-            log.Info("Starting {0}", start.FileName);
-            try
-            {
-                testProc = Process.Start(start);
-                log.Info("hWnd={0} title={1}", testProc.MainWindowHandle, testProc.MainWindowTitle);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex, "Could not start {0}", start.FileName);
-            }
+            if (interfaces[ID] == null)
+                log.Error("Device not running");
+            else
+                interfaces[ID].StartRuntimeProcess(start);
         }
 
+        /*
+        #define SW_HIDE             0
+        #define SW_SHOWNORMAL       1
+        #define SW_NORMAL           1
+        #define SW_SHOWMINIMIZED    2
+        #define SW_SHOWMAXIMIZED    3
+        #define SW_MAXIMIZE         3
+        #define SW_SHOWNOACTIVATE   4
+        #define SW_SHOW             5
+        #define SW_MINIMIZE         6
+        #define SW_SHOWMINNOACTIVE  7
+        #define SW_SHOWNA           8
+        #define SW_RESTORE          9
+        #define SW_SHOWDEFAULT      10
+        #define SW_FORCEMINIMIZE    11
+        #define SW_MAX              11
+        */
         private const int SW_SHOWMINIMIZED = 2;
         private const int SW_SHOWMAXIMIZED = 3;
         private const int SW_SHOWNORMAL = 5;
         private const int SW_RESTORE = 9;
-        /*
-                #define SW_HIDE             0
-                #define SW_SHOWNORMAL       1
-                #define SW_NORMAL           1
-                #define SW_SHOWMINIMIZED    2
-                #define SW_SHOWMAXIMIZED    3
-                #define SW_MAXIMIZE         3
-                #define SW_SHOWNOACTIVATE   4
-                #define SW_SHOW             5
-                #define SW_MINIMIZE         6
-                #define SW_SHOWMINNOACTIVE  7
-                #define SW_SHOWNA           8
-                #define SW_RESTORE          9
-                #define SW_SHOWDEFAULT      10
-                #define SW_FORCEMINIMIZE    11
-                #define SW_MAX              11
-                */
 
-        private void MinimizeBtn_Click(object sender, EventArgs e)
+        private void MinimizeRuntimeBtn_Click(object sender, EventArgs e)
         {
-            if (testProc != null)
-            {
-                ShowWindowAsync(testProc.MainWindowHandle, SW_SHOWMINIMIZED);
-            }
+            DataRow row = devices.Rows[currentDevice];
+            int ID = (int)row["ID"];
+            if (interfaces[ID] != null)
+                if(interfaces[ID].runtimeProcess != null)
+                    ShowWindowAsync(interfaces[ID].runtimeProcess.MainWindowHandle, SW_SHOWMINIMIZED);
+        }
+
+        private void RestoreRuntimeBtn_Click(object sender, EventArgs e)
+        {
+            DataRow row = devices.Rows[currentDevice];
+            int ID = (int)row["ID"];
+            if (interfaces[ID] != null)
+                if(interfaces[ID].runtimeProcess != null)
+                    ShowWindowAsync(interfaces[ID].runtimeProcess.MainWindowHandle, SW_RESTORE);
+        }
+
+        private void ExitRuntimeBtn_Click(object sender, EventArgs e)
+        {
+            DataRow row = devices.Rows[currentDevice];
+            int ID = (int)row["ID"];
+            if (interfaces[ID] != null)
+                interfaces[ID].EndRuntimeProcess();
+        }
+
+        private void LaunchSetupBtn_Click(object sender, EventArgs e)
+        {
+            DataRow row = devices.Rows[currentDevice];
+            int ID = (int)row["ID"];
+
+            ProcessStartInfo start = new ProcessStartInfo();
+
+            start.WorkingDirectory = (string)row["SetupWorkingDirectory"];
+            start.FileName = (string)row["SetupFileName"];
+            start.Arguments = (string)row["SetupArguments"];
+
+            if (interfaces[ID] == null)
+                log.Error("Device not running");
+            else
+                interfaces[ID].StartSetupProcess(start);
 
         }
 
-
-        private void RestoreBtn_Click(object sender, EventArgs e)
+        private void MinimizeSetupBtn_Click(object sender, EventArgs e)
         {
-            if (testProc != null)
-            {
-                ShowWindowAsync(testProc.MainWindowHandle, SW_RESTORE);
-            }
-
+            DataRow row = devices.Rows[currentDevice];
+            int ID = (int)row["ID"];
+            if (interfaces[ID] != null)
+                if (interfaces[ID].setupProcess != null)
+                    ShowWindowAsync(interfaces[ID].setupProcess.MainWindowHandle, SW_SHOWMINIMIZED);
         }
 
-        private void ExitBtn_Click(object sender, EventArgs e)
+        private void RestoreSetupBtn_Click(object sender, EventArgs e)
         {
-            log.Trace("ExitBtn_Click");
-            if (testProc != null)
-            {
-                testProc.CloseMainWindow();
-                testProc = null;
-            }
+            DataRow row = devices.Rows[currentDevice];
+            int ID = (int)row["ID"];
+            if (interfaces[ID] != null)
+                if (interfaces[ID].setupProcess != null)
+                    ShowWindowAsync(interfaces[ID].setupProcess.MainWindowHandle, SW_RESTORE);
         }
+
+        private void ExitSetupBtn_Click(object sender, EventArgs e)
+        {
+            DataRow row = devices.Rows[currentDevice];
+            int ID = (int)row["ID"];
+            if (interfaces[ID] != null)
+                interfaces[ID].EndSetupProcess();
+        }
+
         private void CurrentSendMessageBtn_Click(object sender, EventArgs e)
         {
             if (interfaces[currentDevice] != null)
@@ -816,43 +950,6 @@ namespace LEonard
             Application.DoEvents();
 
         }
-
-        // Launch command tester to assist in debugging
-        Process testClientProc;
-        private void StartTestClientBtn_Click(object sender, EventArgs e)
-        {
-            ProcessStartInfo start = new ProcessStartInfo();
-            start.Arguments = "";
-#if DEBUG
-            start.FileName = "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Debug\\LEonardClient.exe";
-#else
-            start.FileName = "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Release\\LEonardClient.exe";
-#endif
-            log.Info("Starting {0}", start.FileName);
-            try
-            {
-                testClientProc = Process.Start(start);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex, "Could not start {0}", start.FileName);
-            }
-        }
-        private void StopTestClientBtn_Click(object sender, EventArgs e)
-        {
-            log.Trace("StopTestClientBtn_Click");
-            if (testClientProc != null)
-            {
-                try
-                {
-                    testClientProc.CloseMainWindow();
-                }
-                catch { }
-                testClientProc = null;
-            }
-        }
-
-
 
         private void Robot1Btn_Click(object sender, EventArgs e)
         {
@@ -1263,6 +1360,7 @@ namespace LEonard
             }
             JavaScriptVariablesRTB.Text = finalUpdate;
         }
+
 
         // ***********************************************************************
         // END JAVA PROGRAM

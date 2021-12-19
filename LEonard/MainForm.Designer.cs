@@ -46,7 +46,6 @@
             this.BcrtDestroyBtn = new System.Windows.Forms.Button();
             this.BcrtCreateBtn = new System.Windows.Forms.Button();
             this.BarcodeReaderThreadChk = new System.Windows.Forms.CheckBox();
-            this.StartTestClientBtn = new System.Windows.Forms.Button();
             this.CurrentSendMessageBtn = new System.Windows.Forms.Button();
             this.MessageToSendTxt = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -96,6 +95,23 @@
             this.ClearVariablesBtn = new System.Windows.Forms.Button();
             this.VariablesGrd = new System.Windows.Forms.DataGridView();
             this.ConfigTab = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.LaunchSetupBtn = new System.Windows.Forms.Button();
+            this.ExitSetupBtn = new System.Windows.Forms.Button();
+            this.RestoreSetupBtn = new System.Windows.Forms.Button();
+            this.MinimizeSetupBtn = new System.Windows.Forms.Button();
+            this.LaunchRuntimeBtn = new System.Windows.Forms.Button();
+            this.ExitRuntimeBtn = new System.Windows.Forms.Button();
+            this.DevicesFilenameLbl = new System.Windows.Forms.Label();
+            this.DefaultDevicesBtn = new System.Windows.Forms.Button();
+            this.RestoreRuntimeBtn = new System.Windows.Forms.Button();
+            this.SaveDevicesBtn = new System.Windows.Forms.Button();
+            this.MinimizeRuntimeBtn = new System.Windows.Forms.Button();
+            this.StopAllDevicesBtn = new System.Windows.Forms.Button();
+            this.LoadDevicesBtn = new System.Windows.Forms.Button();
+            this.StartAllDevicesBtn = new System.Windows.Forms.Button();
+            this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
+            this.DevicesGrid = new System.Windows.Forms.DataGridView();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.DelayMsTxt = new System.Windows.Forms.TextBox();
@@ -106,10 +122,6 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.TriggerDm2Btn = new System.Windows.Forms.Button();
             this.TriggerDm1Btn = new System.Windows.Forms.Button();
-            this.StopAllDevicesBtn = new System.Windows.Forms.Button();
-            this.StartAllDevicesBtn = new System.Windows.Forms.Button();
-            this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
-            this.DevicesFilenameLbl = new System.Windows.Forms.Label();
             this.ConfigGrp = new System.Windows.Forms.GroupBox();
             this.ChangeStartupJavaScriptBtn = new System.Windows.Forms.Button();
             this.StartupJavaScriptLbl = new System.Windows.Forms.Label();
@@ -125,10 +137,6 @@
             this.DefaultConfigBtn = new System.Windows.Forms.Button();
             this.LoadConfigBtn = new System.Windows.Forms.Button();
             this.SaveConfigBtn = new System.Windows.Forms.Button();
-            this.DefaultDevicesBtn = new System.Windows.Forms.Button();
-            this.LoadDevicesBtn = new System.Windows.Forms.Button();
-            this.SaveDevicesBtn = new System.Windows.Forms.Button();
-            this.DevicesGrid = new System.Windows.Forms.DataGridView();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -142,11 +150,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
-            this.StopTestClientBtn = new System.Windows.Forms.Button();
-            this.ExitBtn = new System.Windows.Forms.Button();
-            this.MinimizeBtn = new System.Windows.Forms.Button();
-            this.RestoreBtn = new System.Windows.Forms.Button();
-            this.LaunchBtn = new System.Windows.Forms.Button();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -161,10 +164,11 @@
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).BeginInit();
             this.ConfigTab.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).BeginInit();
             this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.ConfigGrp.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -179,7 +183,7 @@
             this.AllLogRTB.Name = "AllLogRTB";
             this.AllLogRTB.ReadOnly = true;
             this.AllLogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.AllLogRTB.Size = new System.Drawing.Size(426, 243);
+            this.AllLogRTB.Size = new System.Drawing.Size(426, 233);
             this.AllLogRTB.TabIndex = 6;
             this.AllLogRTB.Text = "";
             this.AllLogRTB.WordWrap = false;
@@ -272,7 +276,7 @@
             this.BarcodeGrp.Controls.Add(this.BcrtDestroyBtn);
             this.BarcodeGrp.Controls.Add(this.BcrtCreateBtn);
             this.BarcodeGrp.Controls.Add(this.BarcodeReaderThreadChk);
-            this.BarcodeGrp.Location = new System.Drawing.Point(326, 614);
+            this.BarcodeGrp.Location = new System.Drawing.Point(527, 527);
             this.BarcodeGrp.Name = "BarcodeGrp";
             this.BarcodeGrp.Size = new System.Drawing.Size(224, 110);
             this.BarcodeGrp.TabIndex = 22;
@@ -330,21 +334,11 @@
             this.BarcodeReaderThreadChk.UseVisualStyleBackColor = true;
             this.BarcodeReaderThreadChk.CheckedChanged += new System.EventHandler(this.BarcodeReaderThreadChk_CheckedChanged);
             // 
-            // StartTestClientBtn
-            // 
-            this.StartTestClientBtn.Location = new System.Drawing.Point(12, 310);
-            this.StartTestClientBtn.Name = "StartTestClientBtn";
-            this.StartTestClientBtn.Size = new System.Drawing.Size(102, 23);
-            this.StartTestClientBtn.TabIndex = 25;
-            this.StartTestClientBtn.Text = "Start Test Client";
-            this.StartTestClientBtn.UseVisualStyleBackColor = true;
-            this.StartTestClientBtn.Click += new System.EventHandler(this.StartTestClientBtn_Click);
-            // 
             // CurrentSendMessageBtn
             // 
-            this.CurrentSendMessageBtn.Location = new System.Drawing.Point(131, 59);
+            this.CurrentSendMessageBtn.Location = new System.Drawing.Point(17, 48);
             this.CurrentSendMessageBtn.Name = "CurrentSendMessageBtn";
-            this.CurrentSendMessageBtn.Size = new System.Drawing.Size(59, 23);
+            this.CurrentSendMessageBtn.Size = new System.Drawing.Size(75, 23);
             this.CurrentSendMessageBtn.TabIndex = 27;
             this.CurrentSendMessageBtn.Text = "Send";
             this.CurrentSendMessageBtn.UseVisualStyleBackColor = true;
@@ -352,9 +346,9 @@
             // 
             // MessageToSendTxt
             // 
-            this.MessageToSendTxt.Location = new System.Drawing.Point(6, 61);
+            this.MessageToSendTxt.Location = new System.Drawing.Point(98, 53);
             this.MessageToSendTxt.Name = "MessageToSendTxt";
-            this.MessageToSendTxt.Size = new System.Drawing.Size(119, 20);
+            this.MessageToSendTxt.Size = new System.Drawing.Size(100, 20);
             this.MessageToSendTxt.TabIndex = 28;
             this.MessageToSendTxt.Text = "(1,0,0,0,0)";
             // 
@@ -362,7 +356,7 @@
             // 
             this.groupBox1.Controls.Add(this.RobotClearBtn);
             this.groupBox1.Controls.Add(this.Aux1LogRTB);
-            this.groupBox1.Location = new System.Drawing.Point(1110, 45);
+            this.groupBox1.Location = new System.Drawing.Point(1418, 35);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(388, 224);
             this.groupBox1.TabIndex = 32;
@@ -373,9 +367,9 @@
             // 
             this.groupBox2.Controls.Add(this.SerialClearBtn);
             this.groupBox2.Controls.Add(this.Aux3LogRTB);
-            this.groupBox2.Location = new System.Drawing.Point(1110, 537);
+            this.groupBox2.Location = new System.Drawing.Point(1418, 523);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(382, 252);
+            this.groupBox2.Size = new System.Drawing.Size(382, 262);
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Aux3 Log";
@@ -405,7 +399,7 @@
             // 
             this.groupBox3.Controls.Add(this.VisionClearBtn);
             this.groupBox3.Controls.Add(this.Aux2LogRTB);
-            this.groupBox3.Location = new System.Drawing.Point(1110, 279);
+            this.groupBox3.Location = new System.Drawing.Point(1418, 265);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(388, 252);
             this.groupBox3.TabIndex = 34;
@@ -416,7 +410,7 @@
             // 
             this.groupBox4.Controls.Add(this.CrawlerClearBtn);
             this.groupBox4.Controls.Add(this.AllLogRTB);
-            this.groupBox4.Location = new System.Drawing.Point(12, 27);
+            this.groupBox4.Location = new System.Drawing.Point(974, 35);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(438, 267);
             this.groupBox4.TabIndex = 35;
@@ -427,7 +421,7 @@
             // 
             this.groupBox5.Controls.Add(this.ErrorClearBtn);
             this.groupBox5.Controls.Add(this.ErrorLogRTB);
-            this.groupBox5.Location = new System.Drawing.Point(12, 548);
+            this.groupBox5.Location = new System.Drawing.Point(976, 308);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(438, 241);
             this.groupBox5.TabIndex = 36;
@@ -438,9 +432,9 @@
             // 
             this.groupBox6.Controls.Add(this.CommandClearBtn);
             this.groupBox6.Controls.Add(this.ControlLogRTB);
-            this.groupBox6.Location = new System.Drawing.Point(12, 339);
+            this.groupBox6.Location = new System.Drawing.Point(976, 555);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(438, 203);
+            this.groupBox6.Size = new System.Drawing.Size(438, 230);
             this.groupBox6.TabIndex = 36;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Control Log";
@@ -461,7 +455,7 @@
             this.ControlLogRTB.Name = "ControlLogRTB";
             this.ControlLogRTB.ReadOnly = true;
             this.ControlLogRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.ControlLogRTB.Size = new System.Drawing.Size(426, 178);
+            this.ControlLogRTB.Size = new System.Drawing.Size(426, 205);
             this.ControlLogRTB.TabIndex = 6;
             this.ControlLogRTB.Text = "";
             this.ControlLogRTB.WordWrap = false;
@@ -475,7 +469,7 @@
             this.groupBox8.Controls.Add(this.Robot3Btn);
             this.groupBox8.Controls.Add(this.Robot2Btn);
             this.groupBox8.Controls.Add(this.Robot1Btn);
-            this.groupBox8.Location = new System.Drawing.Point(12, 614);
+            this.groupBox8.Location = new System.Drawing.Point(335, 527);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(178, 110);
             this.groupBox8.TabIndex = 59;
@@ -559,10 +553,10 @@
             this.PersonalityTabs.Controls.Add(this.ProgramTab);
             this.PersonalityTabs.Controls.Add(this.VariablesTab);
             this.PersonalityTabs.Controls.Add(this.ConfigTab);
-            this.PersonalityTabs.Location = new System.Drawing.Point(462, 27);
+            this.PersonalityTabs.Location = new System.Drawing.Point(12, 27);
             this.PersonalityTabs.Name = "PersonalityTabs";
             this.PersonalityTabs.SelectedIndex = 0;
-            this.PersonalityTabs.Size = new System.Drawing.Size(642, 762);
+            this.PersonalityTabs.Size = new System.Drawing.Size(962, 762);
             this.PersonalityTabs.TabIndex = 62;
             // 
             // RuntimeTab
@@ -570,7 +564,7 @@
             this.RuntimeTab.Location = new System.Drawing.Point(4, 22);
             this.RuntimeTab.Name = "RuntimeTab";
             this.RuntimeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.RuntimeTab.Size = new System.Drawing.Size(634, 736);
+            this.RuntimeTab.Size = new System.Drawing.Size(954, 736);
             this.RuntimeTab.TabIndex = 0;
             this.RuntimeTab.Text = "Runtime";
             this.RuntimeTab.UseVisualStyleBackColor = true;
@@ -580,7 +574,7 @@
             this.ReportingTab.Location = new System.Drawing.Point(4, 22);
             this.ReportingTab.Name = "ReportingTab";
             this.ReportingTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ReportingTab.Size = new System.Drawing.Size(634, 736);
+            this.ReportingTab.Size = new System.Drawing.Size(954, 736);
             this.ReportingTab.TabIndex = 1;
             this.ReportingTab.Text = "Reporting";
             this.ReportingTab.UseVisualStyleBackColor = true;
@@ -603,7 +597,7 @@
             this.ProgramTab.Controls.Add(this.SaveJavaProgramBtn);
             this.ProgramTab.Location = new System.Drawing.Point(4, 22);
             this.ProgramTab.Name = "ProgramTab";
-            this.ProgramTab.Size = new System.Drawing.Size(634, 736);
+            this.ProgramTab.Size = new System.Drawing.Size(954, 736);
             this.ProgramTab.TabIndex = 4;
             this.ProgramTab.Text = "Program";
             this.ProgramTab.UseVisualStyleBackColor = true;
@@ -758,7 +752,7 @@
             this.VariablesTab.Location = new System.Drawing.Point(4, 22);
             this.VariablesTab.Name = "VariablesTab";
             this.VariablesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.VariablesTab.Size = new System.Drawing.Size(634, 736);
+            this.VariablesTab.Size = new System.Drawing.Size(954, 736);
             this.VariablesTab.TabIndex = 2;
             this.VariablesTab.Text = "Variables";
             this.VariablesTab.UseVisualStyleBackColor = true;
@@ -852,60 +846,235 @@
             // 
             // ConfigTab
             // 
-            this.ConfigTab.Controls.Add(this.groupBox10);
+            this.ConfigTab.Controls.Add(this.groupBox11);
             this.ConfigTab.Controls.Add(this.groupBox9);
             this.ConfigTab.Controls.Add(this.BarcodeGrp);
-            this.ConfigTab.Controls.Add(this.StopAllDevicesBtn);
-            this.ConfigTab.Controls.Add(this.StartAllDevicesBtn);
             this.ConfigTab.Controls.Add(this.groupBox8);
-            this.ConfigTab.Controls.Add(this.SaveAsDevicesBtn);
-            this.ConfigTab.Controls.Add(this.DevicesFilenameLbl);
             this.ConfigTab.Controls.Add(this.ConfigGrp);
-            this.ConfigTab.Controls.Add(this.DefaultDevicesBtn);
-            this.ConfigTab.Controls.Add(this.LoadDevicesBtn);
-            this.ConfigTab.Controls.Add(this.SaveDevicesBtn);
-            this.ConfigTab.Controls.Add(this.DevicesGrid);
             this.ConfigTab.Location = new System.Drawing.Point(4, 22);
             this.ConfigTab.Name = "ConfigTab";
             this.ConfigTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ConfigTab.Size = new System.Drawing.Size(634, 736);
+            this.ConfigTab.Size = new System.Drawing.Size(954, 736);
             this.ConfigTab.TabIndex = 3;
             this.ConfigTab.Text = "Config";
             this.ConfigTab.UseVisualStyleBackColor = true;
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.groupBox10);
+            this.groupBox11.Controls.Add(this.DevicesFilenameLbl);
+            this.groupBox11.Controls.Add(this.DefaultDevicesBtn);
+            this.groupBox11.Controls.Add(this.SaveDevicesBtn);
+            this.groupBox11.Controls.Add(this.StopAllDevicesBtn);
+            this.groupBox11.Controls.Add(this.LoadDevicesBtn);
+            this.groupBox11.Controls.Add(this.StartAllDevicesBtn);
+            this.groupBox11.Controls.Add(this.SaveAsDevicesBtn);
+            this.groupBox11.Controls.Add(this.DevicesGrid);
+            this.groupBox11.Location = new System.Drawing.Point(7, 187);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(945, 322);
+            this.groupBox11.TabIndex = 70;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Devices";
+            // 
+            // LaunchSetupBtn
+            // 
+            this.LaunchSetupBtn.Location = new System.Drawing.Point(82, 118);
+            this.LaunchSetupBtn.Name = "LaunchSetupBtn";
+            this.LaunchSetupBtn.Size = new System.Drawing.Size(59, 39);
+            this.LaunchSetupBtn.TabIndex = 72;
+            this.LaunchSetupBtn.Text = "Launch Setup";
+            this.LaunchSetupBtn.UseVisualStyleBackColor = true;
+            this.LaunchSetupBtn.Click += new System.EventHandler(this.LaunchSetupBtn_Click);
+            // 
+            // ExitSetupBtn
+            // 
+            this.ExitSetupBtn.Location = new System.Drawing.Point(82, 221);
+            this.ExitSetupBtn.Name = "ExitSetupBtn";
+            this.ExitSetupBtn.Size = new System.Drawing.Size(59, 23);
+            this.ExitSetupBtn.TabIndex = 71;
+            this.ExitSetupBtn.Text = "Exit";
+            this.ExitSetupBtn.UseVisualStyleBackColor = true;
+            this.ExitSetupBtn.Click += new System.EventHandler(this.ExitSetupBtn_Click);
+            // 
+            // RestoreSetupBtn
+            // 
+            this.RestoreSetupBtn.Location = new System.Drawing.Point(82, 192);
+            this.RestoreSetupBtn.Name = "RestoreSetupBtn";
+            this.RestoreSetupBtn.Size = new System.Drawing.Size(59, 23);
+            this.RestoreSetupBtn.TabIndex = 69;
+            this.RestoreSetupBtn.Text = "Restore";
+            this.RestoreSetupBtn.UseVisualStyleBackColor = true;
+            this.RestoreSetupBtn.Click += new System.EventHandler(this.RestoreSetupBtn_Click);
+            // 
+            // MinimizeSetupBtn
+            // 
+            this.MinimizeSetupBtn.Location = new System.Drawing.Point(82, 163);
+            this.MinimizeSetupBtn.Name = "MinimizeSetupBtn";
+            this.MinimizeSetupBtn.Size = new System.Drawing.Size(59, 23);
+            this.MinimizeSetupBtn.TabIndex = 70;
+            this.MinimizeSetupBtn.Text = "Minimize";
+            this.MinimizeSetupBtn.UseVisualStyleBackColor = true;
+            this.MinimizeSetupBtn.Click += new System.EventHandler(this.MinimizeSetupBtn_Click);
+            // 
+            // LaunchRuntimeBtn
+            // 
+            this.LaunchRuntimeBtn.Location = new System.Drawing.Point(17, 118);
+            this.LaunchRuntimeBtn.Name = "LaunchRuntimeBtn";
+            this.LaunchRuntimeBtn.Size = new System.Drawing.Size(59, 39);
+            this.LaunchRuntimeBtn.TabIndex = 68;
+            this.LaunchRuntimeBtn.Text = "Launch Runtime";
+            this.LaunchRuntimeBtn.UseVisualStyleBackColor = true;
+            this.LaunchRuntimeBtn.Click += new System.EventHandler(this.LaunchRuntimeBtn_Click);
+            // 
+            // ExitRuntimeBtn
+            // 
+            this.ExitRuntimeBtn.Location = new System.Drawing.Point(17, 221);
+            this.ExitRuntimeBtn.Name = "ExitRuntimeBtn";
+            this.ExitRuntimeBtn.Size = new System.Drawing.Size(59, 23);
+            this.ExitRuntimeBtn.TabIndex = 38;
+            this.ExitRuntimeBtn.Text = "Exit";
+            this.ExitRuntimeBtn.UseVisualStyleBackColor = true;
+            this.ExitRuntimeBtn.Click += new System.EventHandler(this.ExitRuntimeBtn_Click);
+            // 
+            // DevicesFilenameLbl
+            // 
+            this.DevicesFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DevicesFilenameLbl.Location = new System.Drawing.Point(236, 16);
+            this.DevicesFilenameLbl.Name = "DevicesFilenameLbl";
+            this.DevicesFilenameLbl.Size = new System.Drawing.Size(670, 23);
+            this.DevicesFilenameLbl.TabIndex = 63;
+            this.DevicesFilenameLbl.Text = "Untitled";
+            // 
+            // DefaultDevicesBtn
+            // 
+            this.DefaultDevicesBtn.Location = new System.Drawing.Point(236, 286);
+            this.DefaultDevicesBtn.Name = "DefaultDevicesBtn";
+            this.DefaultDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.DefaultDevicesBtn.TabIndex = 61;
+            this.DefaultDevicesBtn.Text = "Default";
+            this.DefaultDevicesBtn.UseVisualStyleBackColor = true;
+            this.DefaultDevicesBtn.Click += new System.EventHandler(this.DefaultDevicesBtn_Click);
+            // 
+            // RestoreRuntimeBtn
+            // 
+            this.RestoreRuntimeBtn.Location = new System.Drawing.Point(17, 192);
+            this.RestoreRuntimeBtn.Name = "RestoreRuntimeBtn";
+            this.RestoreRuntimeBtn.Size = new System.Drawing.Size(59, 23);
+            this.RestoreRuntimeBtn.TabIndex = 36;
+            this.RestoreRuntimeBtn.Text = "Restore";
+            this.RestoreRuntimeBtn.UseVisualStyleBackColor = true;
+            this.RestoreRuntimeBtn.Click += new System.EventHandler(this.RestoreRuntimeBtn_Click);
+            // 
+            // SaveDevicesBtn
+            // 
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(398, 286);
+            this.SaveDevicesBtn.Name = "SaveDevicesBtn";
+            this.SaveDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveDevicesBtn.TabIndex = 59;
+            this.SaveDevicesBtn.Text = "Save";
+            this.SaveDevicesBtn.UseVisualStyleBackColor = true;
+            this.SaveDevicesBtn.Click += new System.EventHandler(this.SaveDevicesBtn_Click);
+            // 
+            // MinimizeRuntimeBtn
+            // 
+            this.MinimizeRuntimeBtn.Location = new System.Drawing.Point(17, 163);
+            this.MinimizeRuntimeBtn.Name = "MinimizeRuntimeBtn";
+            this.MinimizeRuntimeBtn.Size = new System.Drawing.Size(59, 23);
+            this.MinimizeRuntimeBtn.TabIndex = 37;
+            this.MinimizeRuntimeBtn.Text = "Minimize";
+            this.MinimizeRuntimeBtn.UseVisualStyleBackColor = true;
+            this.MinimizeRuntimeBtn.Click += new System.EventHandler(this.MinimizeRuntimeBtn_Click);
+            // 
+            // StopAllDevicesBtn
+            // 
+            this.StopAllDevicesBtn.Location = new System.Drawing.Point(669, 286);
+            this.StopAllDevicesBtn.Name = "StopAllDevicesBtn";
+            this.StopAllDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.StopAllDevicesBtn.TabIndex = 67;
+            this.StopAllDevicesBtn.Text = "Stop All";
+            this.StopAllDevicesBtn.UseVisualStyleBackColor = true;
+            this.StopAllDevicesBtn.Click += new System.EventHandler(this.StopAllDevicesBtn_Click);
+            // 
+            // LoadDevicesBtn
+            // 
+            this.LoadDevicesBtn.Location = new System.Drawing.Point(317, 286);
+            this.LoadDevicesBtn.Name = "LoadDevicesBtn";
+            this.LoadDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.LoadDevicesBtn.TabIndex = 60;
+            this.LoadDevicesBtn.Text = "Load";
+            this.LoadDevicesBtn.UseVisualStyleBackColor = true;
+            this.LoadDevicesBtn.Click += new System.EventHandler(this.LoadDevicesBtn_Click);
+            // 
+            // StartAllDevicesBtn
+            // 
+            this.StartAllDevicesBtn.Location = new System.Drawing.Point(588, 286);
+            this.StartAllDevicesBtn.Name = "StartAllDevicesBtn";
+            this.StartAllDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.StartAllDevicesBtn.TabIndex = 66;
+            this.StartAllDevicesBtn.Text = "Start All";
+            this.StartAllDevicesBtn.UseVisualStyleBackColor = true;
+            this.StartAllDevicesBtn.Click += new System.EventHandler(this.StartAllDevicesBtn_Click);
+            // 
+            // SaveAsDevicesBtn
+            // 
+            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(479, 286);
+            this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
+            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveAsDevicesBtn.TabIndex = 64;
+            this.SaveAsDevicesBtn.Text = "Save As...";
+            this.SaveAsDevicesBtn.UseVisualStyleBackColor = true;
+            this.SaveAsDevicesBtn.Click += new System.EventHandler(this.SaveAsDevicesBtn_Click);
+            // 
+            // DevicesGrid
+            // 
+            this.DevicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DevicesGrid.Location = new System.Drawing.Point(236, 38);
+            this.DevicesGrid.Name = "DevicesGrid";
+            this.DevicesGrid.Size = new System.Drawing.Size(696, 242);
+            this.DevicesGrid.TabIndex = 58;
+            this.DevicesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DeviceGrid_CellBeginEdit);
+            this.DevicesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellContentClick);
+            this.DevicesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellValueChanged);
+            this.DevicesGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_RowEnter);
+            this.DevicesGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DeviceGrid_UserDeletingRow);
+            // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.ExitBtn);
-            this.groupBox10.Controls.Add(this.MinimizeBtn);
-            this.groupBox10.Controls.Add(this.RestoreBtn);
-            this.groupBox10.Controls.Add(this.LaunchBtn);
+            this.groupBox10.Controls.Add(this.LaunchSetupBtn);
             this.groupBox10.Controls.Add(this.label2);
+            this.groupBox10.Controls.Add(this.ExitSetupBtn);
             this.groupBox10.Controls.Add(this.DelayMsTxt);
+            this.groupBox10.Controls.Add(this.RestoreSetupBtn);
             this.groupBox10.Controls.Add(this.SendMultipleTxt);
+            this.groupBox10.Controls.Add(this.MinimizeSetupBtn);
             this.groupBox10.Controls.Add(this.CurrentSendMessageMultipleBtn);
+            this.groupBox10.Controls.Add(this.LaunchRuntimeBtn);
             this.groupBox10.Controls.Add(this.CurrentDisconnectBtn);
-            this.groupBox10.Controls.Add(this.CurrentConnectBtn);
+            this.groupBox10.Controls.Add(this.ExitRuntimeBtn);
             this.groupBox10.Controls.Add(this.MessageToSendTxt);
+            this.groupBox10.Controls.Add(this.CurrentConnectBtn);
             this.groupBox10.Controls.Add(this.CurrentSendMessageBtn);
-            this.groupBox10.Location = new System.Drawing.Point(12, 507);
+            this.groupBox10.Controls.Add(this.RestoreRuntimeBtn);
+            this.groupBox10.Controls.Add(this.MinimizeRuntimeBtn);
+            this.groupBox10.Location = new System.Drawing.Point(11, 19);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(610, 91);
+            this.groupBox10.Size = new System.Drawing.Size(201, 294);
             this.groupBox10.TabIndex = 69;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Act On Selected Row";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(341, 61);
+            this.label2.Location = new System.Drawing.Point(153, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.Size = new System.Drawing.Size(48, 38);
             this.label2.TabIndex = 34;
-            this.label2.Text = "mS between";
+            this.label2.Text = "mS Spacing";
             // 
             // DelayMsTxt
             // 
-            this.DelayMsTxt.Location = new System.Drawing.Point(314, 59);
+            this.DelayMsTxt.Location = new System.Drawing.Point(126, 82);
             this.DelayMsTxt.Name = "DelayMsTxt";
             this.DelayMsTxt.Size = new System.Drawing.Size(26, 20);
             this.DelayMsTxt.TabIndex = 33;
@@ -913,7 +1082,7 @@
             // 
             // SendMultipleTxt
             // 
-            this.SendMultipleTxt.Location = new System.Drawing.Point(282, 59);
+            this.SendMultipleTxt.Location = new System.Drawing.Point(94, 82);
             this.SendMultipleTxt.Name = "SendMultipleTxt";
             this.SendMultipleTxt.Size = new System.Drawing.Size(26, 20);
             this.SendMultipleTxt.TabIndex = 32;
@@ -921,9 +1090,9 @@
             // 
             // CurrentSendMessageMultipleBtn
             // 
-            this.CurrentSendMessageMultipleBtn.Location = new System.Drawing.Point(222, 59);
+            this.CurrentSendMessageMultipleBtn.Location = new System.Drawing.Point(16, 79);
             this.CurrentSendMessageMultipleBtn.Name = "CurrentSendMessageMultipleBtn";
-            this.CurrentSendMessageMultipleBtn.Size = new System.Drawing.Size(54, 23);
+            this.CurrentSendMessageMultipleBtn.Size = new System.Drawing.Size(75, 23);
             this.CurrentSendMessageMultipleBtn.TabIndex = 31;
             this.CurrentSendMessageMultipleBtn.Text = "Send N";
             this.CurrentSendMessageMultipleBtn.UseVisualStyleBackColor = true;
@@ -931,7 +1100,7 @@
             // 
             // CurrentDisconnectBtn
             // 
-            this.CurrentDisconnectBtn.Location = new System.Drawing.Point(87, 16);
+            this.CurrentDisconnectBtn.Location = new System.Drawing.Point(97, 19);
             this.CurrentDisconnectBtn.Name = "CurrentDisconnectBtn";
             this.CurrentDisconnectBtn.Size = new System.Drawing.Size(75, 23);
             this.CurrentDisconnectBtn.TabIndex = 30;
@@ -941,7 +1110,7 @@
             // 
             // CurrentConnectBtn
             // 
-            this.CurrentConnectBtn.Location = new System.Drawing.Point(6, 16);
+            this.CurrentConnectBtn.Location = new System.Drawing.Point(16, 19);
             this.CurrentConnectBtn.Name = "CurrentConnectBtn";
             this.CurrentConnectBtn.Size = new System.Drawing.Size(75, 23);
             this.CurrentConnectBtn.TabIndex = 29;
@@ -953,7 +1122,7 @@
             // 
             this.groupBox9.Controls.Add(this.TriggerDm2Btn);
             this.groupBox9.Controls.Add(this.TriggerDm1Btn);
-            this.groupBox9.Location = new System.Drawing.Point(196, 614);
+            this.groupBox9.Location = new System.Drawing.Point(775, 527);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(124, 110);
             this.groupBox9.TabIndex = 68;
@@ -979,45 +1148,6 @@
             this.TriggerDm1Btn.Text = "Trigger 1";
             this.TriggerDm1Btn.UseVisualStyleBackColor = true;
             this.TriggerDm1Btn.Click += new System.EventHandler(this.TriggerDm1Btn_Click);
-            // 
-            // StopAllDevicesBtn
-            // 
-            this.StopAllDevicesBtn.Location = new System.Drawing.Point(490, 470);
-            this.StopAllDevicesBtn.Name = "StopAllDevicesBtn";
-            this.StopAllDevicesBtn.Size = new System.Drawing.Size(75, 23);
-            this.StopAllDevicesBtn.TabIndex = 67;
-            this.StopAllDevicesBtn.Text = "Stop All";
-            this.StopAllDevicesBtn.UseVisualStyleBackColor = true;
-            this.StopAllDevicesBtn.Click += new System.EventHandler(this.StopAllDevicesBtn_Click);
-            // 
-            // StartAllDevicesBtn
-            // 
-            this.StartAllDevicesBtn.Location = new System.Drawing.Point(409, 470);
-            this.StartAllDevicesBtn.Name = "StartAllDevicesBtn";
-            this.StartAllDevicesBtn.Size = new System.Drawing.Size(75, 23);
-            this.StartAllDevicesBtn.TabIndex = 66;
-            this.StartAllDevicesBtn.Text = "Start All";
-            this.StartAllDevicesBtn.UseVisualStyleBackColor = true;
-            this.StartAllDevicesBtn.Click += new System.EventHandler(this.StartAllDevicesBtn_Click);
-            // 
-            // SaveAsDevicesBtn
-            // 
-            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(251, 470);
-            this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
-            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(75, 23);
-            this.SaveAsDevicesBtn.TabIndex = 64;
-            this.SaveAsDevicesBtn.Text = "Save As...";
-            this.SaveAsDevicesBtn.UseVisualStyleBackColor = true;
-            this.SaveAsDevicesBtn.Click += new System.EventHandler(this.SaveAsDevicesBtn_Click);
-            // 
-            // DevicesFilenameLbl
-            // 
-            this.DevicesFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DevicesFilenameLbl.Location = new System.Drawing.Point(6, 196);
-            this.DevicesFilenameLbl.Name = "DevicesFilenameLbl";
-            this.DevicesFilenameLbl.Size = new System.Drawing.Size(622, 23);
-            this.DevicesFilenameLbl.TabIndex = 63;
-            this.DevicesFilenameLbl.Text = "Untitled";
             // 
             // ConfigGrp
             // 
@@ -1176,49 +1306,6 @@
             this.SaveConfigBtn.UseVisualStyleBackColor = true;
             this.SaveConfigBtn.Click += new System.EventHandler(this.SaveConfigBtn_Click);
             // 
-            // DefaultDevicesBtn
-            // 
-            this.DefaultDevicesBtn.Location = new System.Drawing.Point(8, 470);
-            this.DefaultDevicesBtn.Name = "DefaultDevicesBtn";
-            this.DefaultDevicesBtn.Size = new System.Drawing.Size(75, 23);
-            this.DefaultDevicesBtn.TabIndex = 61;
-            this.DefaultDevicesBtn.Text = "Default";
-            this.DefaultDevicesBtn.UseVisualStyleBackColor = true;
-            this.DefaultDevicesBtn.Click += new System.EventHandler(this.DefaultDevicesBtn_Click);
-            // 
-            // LoadDevicesBtn
-            // 
-            this.LoadDevicesBtn.Location = new System.Drawing.Point(89, 470);
-            this.LoadDevicesBtn.Name = "LoadDevicesBtn";
-            this.LoadDevicesBtn.Size = new System.Drawing.Size(75, 23);
-            this.LoadDevicesBtn.TabIndex = 60;
-            this.LoadDevicesBtn.Text = "Load";
-            this.LoadDevicesBtn.UseVisualStyleBackColor = true;
-            this.LoadDevicesBtn.Click += new System.EventHandler(this.LoadDevicesBtn_Click);
-            // 
-            // SaveDevicesBtn
-            // 
-            this.SaveDevicesBtn.Location = new System.Drawing.Point(170, 470);
-            this.SaveDevicesBtn.Name = "SaveDevicesBtn";
-            this.SaveDevicesBtn.Size = new System.Drawing.Size(75, 23);
-            this.SaveDevicesBtn.TabIndex = 59;
-            this.SaveDevicesBtn.Text = "Save";
-            this.SaveDevicesBtn.UseVisualStyleBackColor = true;
-            this.SaveDevicesBtn.Click += new System.EventHandler(this.SaveDevicesBtn_Click);
-            // 
-            // DevicesGrid
-            // 
-            this.DevicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DevicesGrid.Location = new System.Drawing.Point(8, 222);
-            this.DevicesGrid.Name = "DevicesGrid";
-            this.DevicesGrid.Size = new System.Drawing.Size(620, 242);
-            this.DevicesGrid.TabIndex = 58;
-            this.DevicesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DeviceGrid_CellBeginEdit);
-            this.DevicesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellContentClick);
-            this.DevicesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellValueChanged);
-            this.DevicesGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_RowEnter);
-            this.DevicesGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DeviceGrid_UserDeletingRow);
-            // 
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1227,7 +1314,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1510, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1814, 24);
             this.menuStrip.TabIndex = 63;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -1293,9 +1380,9 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip.Location = new System.Drawing.Point(0, 801);
+            this.statusStrip.Location = new System.Drawing.Point(0, 795);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1510, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1814, 22);
             this.statusStrip.TabIndex = 64;
             this.statusStrip.Text = "statusStrip";
             this.statusStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip_ItemClicked);
@@ -1316,71 +1403,19 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
-            // StopTestClientBtn
-            // 
-            this.StopTestClientBtn.Location = new System.Drawing.Point(120, 310);
-            this.StopTestClientBtn.Name = "StopTestClientBtn";
-            this.StopTestClientBtn.Size = new System.Drawing.Size(102, 23);
-            this.StopTestClientBtn.TabIndex = 65;
-            this.StopTestClientBtn.Text = "Stop";
-            this.StopTestClientBtn.UseVisualStyleBackColor = true;
-            this.StopTestClientBtn.Click += new System.EventHandler(this.StopTestClientBtn_Click);
-            // 
-            // ExitBtn
-            // 
-            this.ExitBtn.Location = new System.Drawing.Point(529, 19);
-            this.ExitBtn.Name = "ExitBtn";
-            this.ExitBtn.Size = new System.Drawing.Size(75, 23);
-            this.ExitBtn.TabIndex = 38;
-            this.ExitBtn.Text = "Exit";
-            this.ExitBtn.UseVisualStyleBackColor = true;
-            this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
-            // 
-            // MinimizeBtn
-            // 
-            this.MinimizeBtn.Location = new System.Drawing.Point(367, 19);
-            this.MinimizeBtn.Name = "MinimizeBtn";
-            this.MinimizeBtn.Size = new System.Drawing.Size(75, 23);
-            this.MinimizeBtn.TabIndex = 37;
-            this.MinimizeBtn.Text = "Minimize";
-            this.MinimizeBtn.UseVisualStyleBackColor = true;
-            this.MinimizeBtn.Click += new System.EventHandler(this.MinimizeBtn_Click);
-            // 
-            // RestoreBtn
-            // 
-            this.RestoreBtn.Location = new System.Drawing.Point(448, 19);
-            this.RestoreBtn.Name = "RestoreBtn";
-            this.RestoreBtn.Size = new System.Drawing.Size(75, 23);
-            this.RestoreBtn.TabIndex = 36;
-            this.RestoreBtn.Text = "Restore";
-            this.RestoreBtn.UseVisualStyleBackColor = true;
-            this.RestoreBtn.Click += new System.EventHandler(this.RestoreBtn_Click);
-            // 
-            // LaunchBtn
-            // 
-            this.LaunchBtn.Location = new System.Drawing.Point(286, 19);
-            this.LaunchBtn.Name = "LaunchBtn";
-            this.LaunchBtn.Size = new System.Drawing.Size(75, 23);
-            this.LaunchBtn.TabIndex = 35;
-            this.LaunchBtn.Text = "Launch";
-            this.LaunchBtn.UseVisualStyleBackColor = true;
-            this.LaunchBtn.Click += new System.EventHandler(this.LaunchBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1510, 823);
-            this.Controls.Add(this.StopTestClientBtn);
+            this.ClientSize = new System.Drawing.Size(1814, 817);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.StartTestClientBtn);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.PersonalityTabs);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.menuStrip);
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -1404,12 +1439,13 @@
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).EndInit();
             this.ConfigTab.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).EndInit();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.ConfigGrp.ResumeLayout(false);
             this.ConfigGrp.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -1432,7 +1468,6 @@
         private System.Windows.Forms.RichTextBox ErrorLogRTB;
         private System.Windows.Forms.Timer CloseTmr;
         private System.Windows.Forms.GroupBox BarcodeGrp;
-        private System.Windows.Forms.Button StartTestClientBtn;
         private System.Windows.Forms.Button CurrentSendMessageBtn;
         private System.Windows.Forms.TextBox MessageToSendTxt;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -1533,11 +1568,15 @@
         private System.Windows.Forms.TextBox SendMultipleTxt;
         private System.Windows.Forms.Label label2;
         protected internal System.Windows.Forms.TextBox DelayMsTxt;
-        private System.Windows.Forms.Button StopTestClientBtn;
-        private System.Windows.Forms.Button ExitBtn;
-        private System.Windows.Forms.Button MinimizeBtn;
-        private System.Windows.Forms.Button RestoreBtn;
-        private System.Windows.Forms.Button LaunchBtn;
+        private System.Windows.Forms.Button ExitRuntimeBtn;
+        private System.Windows.Forms.Button MinimizeRuntimeBtn;
+        private System.Windows.Forms.Button RestoreRuntimeBtn;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Button LaunchRuntimeBtn;
+        private System.Windows.Forms.Button LaunchSetupBtn;
+        private System.Windows.Forms.Button ExitSetupBtn;
+        private System.Windows.Forms.Button RestoreSetupBtn;
+        private System.Windows.Forms.Button MinimizeSetupBtn;
     }
 }
 
