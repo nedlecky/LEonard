@@ -60,7 +60,14 @@ namespace LEonard
                 return 1;
             }
 
-            runtimeProcess.CloseMainWindow();
+            try
+            {
+                runtimeProcess.CloseMainWindow();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Couldn't CloseMainWindow()");
+            }
             runtimeProcess = null;
             return 0;
         }
@@ -79,7 +86,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Could not start {0}", start.FileName);
+                log.Error(ex, "Couldn't start {0}", start.FileName);
             }
 
             return 0;
@@ -97,7 +104,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Can't CloseMainWindow()");
+                log.Error(ex, "Couldn't CloseMainWindow()");
             }
             setupProcess = null;
             return 0;

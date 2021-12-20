@@ -69,16 +69,6 @@ namespace LEonard
                 log.Info("==============================================================================================");
             log.Info(string.Format("Starting {0} in [{1}]", filename, directory));
 
-
-            if (StartupJavaScriptLbl.Text.Length > 0)
-            {
-                LoadDevicesFile(StartupDevicesLbl.Text);
-            }
-            if (StartupJavaScriptLbl.Text.Length > 0)
-            {
-                LoadJavaScriptProgramFile(StartupJavaScriptLbl.Text);
-            }
-
             HeartbeatTmr.Interval = 1000;
             HeartbeatTmr.Enabled = true;
             MessageTmr.Interval = 100;
@@ -151,21 +141,25 @@ namespace LEonard
 
             StartThreads();
             StartJint();
-            log.Info("System ready.");
-
-
-            if (AutoStartChk.Checked)
+            if (StartupJavaScriptLbl.Text.Length > 0)
             {
-                log.Info("Autostarting all devices");
-                StartAllDevicesBtn_Click(null, null);
+                LoadJavaScriptProgramFile(StartupJavaScriptLbl.Text);
             }
+
+            if (StartupDevicesLbl.Text.Length > 0)
+            {
+                LoadDevicesFile(StartupDevicesLbl.Text);
+            }
+
+            log.Info("System ready.");
         }
 
         private void HeartbeatTmr_Tick(object sender, EventArgs e)
         {
             string now = DateTime.Now.ToString("s");
-            //TimeLbl.Text = now;
             toolStripStatusLabel1.Text = now;
+
+            toolStripStatusLabel2.Text = currentDeviceRowIndex.ToString();
         }
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
@@ -219,7 +213,7 @@ namespace LEonard
             {
                 // Second time it fires, we can disconnect and shut down!
                 CloseTmr.Enabled = false;
-                StopAllDevicesBtn_Click(null, null);
+                DisconnectAllDevicesBtn_Click(null, null);
                 StopJint();
                 MessageTmr_Tick(null, null);
                 forceClose = true;
@@ -347,7 +341,7 @@ namespace LEonard
             LEonardRootLbl.Text = LEonardRoot;
 
             StartupDevicesLbl.Text = (string)AppNameKey.GetValue("StartupDevicesLbl.Text", "");
-            AutoStartChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoStartChk.Checked", "False"));
+            AutoConnectOnLoadChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoConnectOnLoadChk.Checked", "False"));
 
             StartupJavaScriptLbl.Text = (string)AppNameKey.GetValue("StartupJavaScriptLbl.Text", "");
 
@@ -372,7 +366,7 @@ namespace LEonard
             AppNameKey.SetValue("LEonardRoot", LEonardRoot);
 
             AppNameKey.SetValue("StartupDevicesLbl.Text", StartupDevicesLbl.Text);
-            AppNameKey.SetValue("AutoStartChk.Checked", AutoStartChk.Checked);
+            AppNameKey.SetValue("AutoConnectOnLoadChk.Checked", AutoConnectOnLoadChk.Checked);
 
             AppNameKey.SetValue("StartupJavaScriptLbl.Text", StartupJavaScriptLbl.Text);
 
@@ -436,7 +430,7 @@ namespace LEonard
             LEonardRoot = "";
             LEonardRootLbl.Text = LEonardRoot;
             StartupDevicesLbl.Text = "";
-            AutoStartChk.Checked = false;
+            AutoConnectOnLoadChk.Checked = false;
             StartupJavaScriptLbl.Text = "";
             UtcTimeChk.Checked = true;
         }
@@ -467,13 +461,15 @@ namespace LEonard
 
             DataColumn id = devices.Columns.Add("ID", typeof(System.Int32));
             devices.Columns.Add("Name", typeof(System.String));
-            devices.Columns.Add("Running", typeof(System.Boolean));
+            devices.Columns.Add("Enabled", typeof(System.Boolean));
+            devices.Columns.Add("Connected", typeof(System.Boolean));
             devices.Columns.Add("DeviceType", typeof(System.String));
             devices.Columns.Add("Address", typeof(System.String));
             devices.Columns.Add("MessageTag", typeof(System.String));
             devices.Columns.Add("CallBack", typeof(System.String));
             devices.Columns.Add("OnConnectSend", typeof(System.String));
             devices.Columns.Add("OnDisconnectSend", typeof(System.String));
+            devices.Columns.Add("RuntimeAutostart", typeof(System.Boolean));
             devices.Columns.Add("RuntimeWorkingDirectory", typeof(System.String));
             devices.Columns.Add("RuntimeFileName", typeof(System.String));
             devices.Columns.Add("RuntimeArguments", typeof(System.String));
@@ -518,63 +514,63 @@ namespace LEonard
             //start.Arguments = "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn";
 
             devices.Rows.Add(new object[] {
-                0, "Command", false, "TcpServer", "127.0.0.1:1000",
+                0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
                 "CTL", "general", "Hello!", "exit()",
-                "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
+                true, "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
                 "LEonardClient.exe",
                 "",
                 "",
                 "",
                 ""});
             devices.Rows.Add(new object[] {
-                1, "UR-5e", false, "TcpServer", "192.168.0.252:30000",
+                1, "UR-5e", true, false, "TcpServer", "192.168.0.252:30000",
                 "AUX1", "general", "", "(98,0,0,0,0)",
-                "C:\\Program Files\\RealVNC\\VNC Viewer",
+                true, "C:\\Program Files\\RealVNC\\VNC Viewer",
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
                 "",
                 "chrome.exe",
                 "/incognito 192.168.0.171"});
             devices.Rows.Add(new object[] {
-                2, "Sherlock", false, "TcpServer", "127.0.0.1:20000",
+                2, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
                 "AUX2S", "general", "init()", "",
-                "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
+                false, "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
                 "IpeStudio.exe",
                 "",
                 "",
                 "",
                 ""});
             devices.Rows.Add(new object[] {
-                3, "HALCON", false, "TcpClient", "127.0.0.1:21000",
+                3, "HALCON", true, false, "TcpClient", "127.0.0.1:21000",
                 "AUX2H", "general", "init()", "",
-                "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
+                true, "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
                 "hdevelop.exe",
                 "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run",
                 "",
                 "",
                 ""});
             devices.Rows.Add(new object[] {
-                4, "Keyence", false, "TcpClient", "192.168.0.10:8500",
+                4, "Keyence", true, false, "TcpClient", "192.168.0.10:8500",
                 "AUX2K", "general", "TE", "",
-                "",
+                false, "",
                 "",
                 "",
                 "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin",
                 "CV-X Series Terminal-Software.exe",
                 "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn" });
             devices.Rows.Add(new object[] {
-                5, "Dataman 1", false, "Serial", "COM3",
+                5, "Dataman 1", true, false, "Serial", "COM3",
                 "AUX31", "general", "+", "",
-                "",
+                false, "",
                 "",
                 "",
                 "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
                 "SetupTool.exe",
                 ""});
             devices.Rows.Add(new object[] {
-                6, "Dataman 2", false, "Serial", "COM4",
+                6, "Dataman 2", true, false, "Serial", "COM4",
                 "AUX32", "general", "+", "",
-                "",
+                false, "",
                 "",
                 "",
                 "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
@@ -586,6 +582,7 @@ namespace LEonard
 
         int LoadDevicesFile(string name)
         {
+            DisconnectAllDevicesBtn_Click(null, null);
             log.Info("LoadDevices from {0}", name);
             devices = new DataTable("Devices");
             try
@@ -593,6 +590,18 @@ namespace LEonard
                 devices.ReadXml(name);
                 DevicesGrid.DataSource = devices;
                 DevicesFilenameLbl.Text = name;
+                // Mark all as not connected
+                foreach(DataRow row in devices.Rows)
+                {
+                    row["Connected"] = false;
+                }
+                currentDeviceRowIndex = 0;
+
+                if (AutoConnectOnLoadChk.Checked)
+                {
+                    log.Info("Autoconnecting all devices");
+                    ConnectAllDevicesBtn_Click(null, null);
+                }
             }
             catch (Exception ex)
             {
@@ -603,9 +612,6 @@ namespace LEonard
         }
         private void LoadDevicesBtn_Click(object sender, EventArgs e)
         {
-            // TODO: Need to close everyone down!
-            // TODOP: Does the call below handle it?
-            StopAllDevicesBtn_Click(null, null);
 
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Title = "Open a LEonard Devices File";
@@ -614,6 +620,7 @@ namespace LEonard
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 LoadDevicesFile(dialog.FileName);
+
             }
         }
         private void SaveDevicesBtn_Click(object sender, EventArgs e)
@@ -642,33 +649,36 @@ namespace LEonard
                 }
             }
         }
-        private void StartAllDevicesBtn_Click(object sender, EventArgs e)
+        private void ConnectAllDevicesBtn_Click(object sender, EventArgs e)
         {
-            log.Info("StartAllDevices_Click(...)");
-            foreach (DataRow row in devices.Rows)
-            {
-                row["Running"] = true;
+            log.Info("ConnectAllDevicesBtn_Click(...)");
 
-                int rowIndex = (int)row["ID"];
-                // TODO: Don't like the fixed column number 2 for Running below
-                DataGridViewCellEventArgs e2 = new DataGridViewCellEventArgs(2, rowIndex);
-                DeviceGrid_CellValueChanged(null, e2);
-                Application.DoEvents();
+            currentDeviceRowIndex = 0;
+            foreach(DataRow row in devices.Rows)
+            {
+                if(!(bool)row["Connected"] && (bool)row["Enabled"])
+                {
+                    log.Info("AUX3 Connecting {0} {1}", currentDeviceRowIndex, row["Name"]);
+                    CurrentConnectBtn_Click(null, null);
+                }
+                currentDeviceRowIndex++;
             }
         }
 
-        private void StopAllDevicesBtn_Click(object sender, EventArgs e)
+        private void DisconnectAllDevicesBtn_Click(object sender, EventArgs e)
         {
-            log.Info("StopAllDevices_Click(...)");
+            log.Info("DisconnectAllDevicesBtn_Click(...)");
+            if (devices == null) return;
+            currentDeviceRowIndex = 0;
             foreach (DataRow row in devices.Rows)
             {
-                row["Running"] = false;
-                int rowIndex = (int)row["ID"];
+                if ((bool)row["Connected"])
+                {
+                    log.Info("Disconnecting {0} {1}", currentDeviceRowIndex, row["Name"]);
 
-                // TODO: Don't like the fixed column number 2 for Running below
-                DataGridViewCellEventArgs e2 = new DataGridViewCellEventArgs(2, rowIndex);
-                DeviceGrid_CellValueChanged(null, e2);
-                Application.DoEvents();
+                    CurrentDisconnectBtn_Click(null, null);
+                }
+                currentDeviceRowIndex++;
             }
         }
 
@@ -676,111 +686,16 @@ namespace LEonard
         {
             log.Debug("Deleting Row");
 
-            DefaultDevicesBtn.Enabled = true;
-            LoadDevicesBtn.Enabled = true;
-            SaveDevicesBtn.Enabled = true;
-            SaveAsDevicesBtn.Enabled = true;
-
         }
 
-        int currentDevice = -1;
+        int currentDeviceRowIndex = -1;
         private void DeviceGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            currentDevice = e.RowIndex;
+            currentDeviceRowIndex = e.RowIndex;
         }
 
         private void DeviceGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            int row = e.RowIndex;
-            int col = e.ColumnIndex;
-            // TODO: Magic column numbers below are horrible
-            int index = Convert.ToInt32(devices.Rows[row].ItemArray[0].ToString());
-            string name = devices.Rows[row].ItemArray[1].ToString();
-            string type = devices.Rows[row].ItemArray[3].ToString();
-            string address = devices.Rows[row].ItemArray[4].ToString();
-            string prefix = devices.Rows[row].ItemArray[5].ToString();
-            string callback = devices.Rows[row].ItemArray[6].ToString();
-            string connectMessage = devices.Rows[row].ItemArray[7].ToString();
-
-            log.Debug("Changed Value: {0}", devices.Rows[row].ItemArray[col].ToString());
-
-            // Make sure array is large enough
-            // TODO: This doesn't work- array must already be large enough
-            while (index > interfaces.Length - 1)
-            {
-                log.Debug("Appending {0} {1}", index, interfaces.Length);
-                interfaces.Append(new LeTcpServer(this, prefix));
-            }
-
-            // TODO: Don't like this index == 2 below... how to use column name Running?
-            if (col == 2)
-            {
-                if (devices.Rows[row].ItemArray[col].ToString() == "True")
-                {
-                    log.Info("Start {0}:{1} as {2} at {3} with {4}, {5}", index, name, type, address, prefix, callback);
-                    switch (type)
-                    {
-                        case @"TcpServer":
-                            interfaces[index] = new LeTcpServer(this, prefix, connectMessage);
-                            interfaces[index].Connect(address);
-                            break;
-                        case @"TcpClient":
-                            interfaces[index] = new LeTcpClient(this, prefix, connectMessage);
-                            interfaces[index].Connect(address);
-                            break;
-                        case @"Serial":
-                            interfaces[index] = new LeSerial(this, prefix, connectMessage);
-                            interfaces[index].Connect(address);
-                            break;
-                        default:
-                            log.Error("Illegal interface type: {0}", type);
-                            break;
-                    }
-
-                    // TODO: Callbacks
-                    switch (callback)
-                    {
-                        case "":
-                            break;
-                        case "general":
-                            interfaces[index].receiveCallback = GeneralCallBack;
-                            break;
-                        case "command":
-                            interfaces[index].receiveCallback = CommandCallBack;
-                            break;
-                        case "dataman":
-                            interfaces[index].receiveCallback = DatamanCallBack;
-
-                            break;
-                        default:
-                            log.Error("Illegal callback type: {0}", type);
-                            break;
-                    }
-                }
-                else
-                {
-                    log.Info("Stop {0}", name);
-                    if (interfaces[index] != null)
-                    {
-                        // TODO: Magic column number 8 is horrible
-                        string onDisconnectSend = devices.Rows[row].ItemArray[8].ToString();
-                        if (onDisconnectSend.Length > 0)
-                            try
-                            {
-                                interfaces[index].Send(onDisconnectSend);
-                            }
-                            catch
-                            {
-
-                            }
-
-                        interfaces[index].Disconnect();
-                        interfaces[index] = null;
-                        GC.Collect();
-                    }
-                }
-            }
-
         }
 
 
@@ -800,8 +715,7 @@ namespace LEonard
 
         private void LaunchRuntimeBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
-            int ID = (int)row["ID"];
+            DataRow row = devices.Rows[currentDeviceRowIndex];
 
             ProcessStartInfo start = new ProcessStartInfo();
 
@@ -809,10 +723,10 @@ namespace LEonard
             start.FileName = (string)row["RuntimeFileName"];
             start.Arguments = (string)row["RuntimeArguments"];
 
-            if (interfaces[ID] == null)
-                log.Error("Device not running");
+            if (interfaces[currentDeviceRowIndex] == null)
+                log.Error("Device not connected");
             else
-                interfaces[ID].StartRuntimeProcess(start);
+                interfaces[currentDeviceRowIndex].StartRuntimeProcess(start);
         }
 
         /*
@@ -839,34 +753,29 @@ namespace LEonard
 
         private void MinimizeRuntimeBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
-            int ID = (int)row["ID"];
-            if (interfaces[ID] != null)
-                if (interfaces[ID].runtimeProcess != null)
-                    ShowWindowAsync(interfaces[ID].runtimeProcess.MainWindowHandle, SW_SHOWMINIMIZED);
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+            if (interfaces[currentDeviceRowIndex] != null)
+                if (interfaces[currentDeviceRowIndex].runtimeProcess != null)
+                    ShowWindowAsync(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, SW_SHOWMINIMIZED);
         }
 
         private void RestoreRuntimeBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
-            int ID = (int)row["ID"];
-            if (interfaces[ID] != null)
-                if (interfaces[ID].runtimeProcess != null)
-                    ShowWindowAsync(interfaces[ID].runtimeProcess.MainWindowHandle, SW_RESTORE);
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+            if (interfaces[currentDeviceRowIndex] != null)
+                if (interfaces[currentDeviceRowIndex].runtimeProcess != null)
+                    ShowWindowAsync(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, SW_RESTORE);
         }
 
         private void ExitRuntimeBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
-            int ID = (int)row["ID"];
-            if (interfaces[ID] != null)
-                interfaces[ID].EndRuntimeProcess();
+            if (interfaces[currentDeviceRowIndex] != null)
+                interfaces[currentDeviceRowIndex].EndRuntimeProcess();
         }
 
         private void LaunchSetupBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
-            int ID = (int)row["ID"];
+            DataRow row = devices.Rows[currentDeviceRowIndex];
 
             ProcessStartInfo start = new ProcessStartInfo();
 
@@ -874,89 +783,180 @@ namespace LEonard
             start.FileName = (string)row["SetupFileName"];
             start.Arguments = (string)row["SetupArguments"];
 
-            if (interfaces[ID] == null)
+            if (interfaces[currentDeviceRowIndex] == null)
                 log.Error("Device not running");
             else
-                interfaces[ID].StartSetupProcess(start);
+                interfaces[currentDeviceRowIndex].StartSetupProcess(start);
 
         }
 
         private void MinimizeSetupBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
-            int ID = (int)row["ID"];
-            if (interfaces[ID] != null)
-                if (interfaces[ID].setupProcess != null)
-                    ShowWindowAsync(interfaces[ID].setupProcess.MainWindowHandle, SW_SHOWMINIMIZED);
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+            if (interfaces[currentDeviceRowIndex] != null)
+                if (interfaces[currentDeviceRowIndex].setupProcess != null)
+                    ShowWindowAsync(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, SW_SHOWMINIMIZED);
         }
 
         private void RestoreSetupBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
-            int ID = (int)row["ID"];
-            if (interfaces[ID] != null)
-                if (interfaces[ID].setupProcess != null)
-                    ShowWindowAsync(interfaces[ID].setupProcess.MainWindowHandle, SW_RESTORE);
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+            if (interfaces[currentDeviceRowIndex] != null)
+                if (interfaces[currentDeviceRowIndex].setupProcess != null)
+                    ShowWindowAsync(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, SW_RESTORE);
         }
 
         private void ExitSetupBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
-            int ID = (int)row["ID"];
-            if (interfaces[ID] != null)
-                interfaces[ID].EndSetupProcess();
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+            if (interfaces[currentDeviceRowIndex] != null)
+                interfaces[currentDeviceRowIndex].EndSetupProcess();
         }
 
         private void CurrentSendMessageBtn_Click(object sender, EventArgs e)
         {
-            if (interfaces[currentDevice] != null)
-                interfaces[currentDevice].Send(MessageToSendTxt.Text);
+            if (interfaces[currentDeviceRowIndex] != null)
+                interfaces[currentDeviceRowIndex].Send(MessageToSendTxt.Text);
         }
 
         private void CurrentSendMessageMultipleBtn_Click(object sender, EventArgs e)
         {
-            if (interfaces[currentDevice] == null) return;
+            if (interfaces[currentDeviceRowIndex] == null) return;
 
             int n = Int32.Parse(SendMultipleTxt.Text);
             int delay = Int32.Parse(DelayMsTxt.Text);
 
             if (delay == 0)
                 for (int i = 0; i < n; i++)
-                    interfaces[currentDevice].Send(MessageToSendTxt.Text);
+                    interfaces[currentDeviceRowIndex].Send(MessageToSendTxt.Text);
             else
                 for (int i = 0; i < n; i++)
                 {
-                    interfaces[currentDevice].Send(MessageToSendTxt.Text);
+                    interfaces[currentDeviceRowIndex].Send(MessageToSendTxt.Text);
                     Thread.Sleep(delay);
                 }
         }
         private void CurrentConnectBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
+            DataRow row = devices.Rows[currentDeviceRowIndex];
 
-            // TODO: this code is unnecessarily replicated from StartAll
-            row["Running"] = true;
+            if ((bool)row["Connected"])
+            {
+                MessageBox.Show("Device already connected", "LEonard Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            int rowIndex = (int)row["ID"];
-            // TODO: Don't like the fixed column number 2 for Running below
-            DataGridViewCellEventArgs e2 = new DataGridViewCellEventArgs(2, rowIndex);
-            DeviceGrid_CellValueChanged(null, e2);
-            Application.DoEvents();
+            string name = (string)row["Name"];
+            string deviceType = (string)row["DeviceType"];
+            string address = (string)row["Address"];
+            string messageTag = (string)row["MessageTag"];
+            string callBack = (string)row["CallBack"];
+            string onConnectSend = (string)row["OnConnectSend"];
+
+            // Make sure array is large enough
+            // TODO: This doesn't work- array must already be large enough
+            while (currentDeviceRowIndex > interfaces.Length - 1)
+            {
+                log.Debug("Appending {0} {1}", currentDeviceRowIndex, interfaces.Length);
+                interfaces.Append(new LeTcpServer(this, messageTag));
+            }
+
+            log.Info("Connect {0}:{1} as {2} at {3} with {4}, {5}", currentDeviceRowIndex, name, deviceType, address, messageTag, callBack);
+            // Instantiate device interface object
+            switch (deviceType)
+            {
+                case @"TcpServer":
+                    interfaces[currentDeviceRowIndex] = new LeTcpServer(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
+                case @"TcpClient":
+                    interfaces[currentDeviceRowIndex] = new LeTcpClient(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
+                case @"Serial":
+                    interfaces[currentDeviceRowIndex] = new LeSerial(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
+                default:
+                    log.Error("Illegal interface type: {0}", deviceType);
+                    break;
+            }
+
+            // Install desired callback
+            switch (callBack)
+            {
+                case "":
+                    break;
+                case "general":
+                    interfaces[currentDeviceRowIndex].receiveCallback = GeneralCallBack;
+                    break;
+                case "command":
+                    interfaces[currentDeviceRowIndex].receiveCallback = CommandCallBack;
+                    break;
+                case "dataman":
+                    interfaces[currentDeviceRowIndex].receiveCallback = DatamanCallBack;
+
+                    break;
+                default:
+                    log.Error("Illegal callback type: {0}", callBack);
+                    break;
+            }
+
+            row["Connected"] = true;
+
+            // Autostart runtime?
+            if((bool)row["RuntimeAutostart"])
+            {
+                LaunchRuntimeBtn_Click(null, null);
+            }
         }
+        private void CurrentReconnectBtn_Click(object sender, EventArgs e)
+        {
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+
+            if (!(bool)row["Connected"])
+            {
+                MessageBox.Show("Device disconnected", "LEonard Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            log.Info("Reconnecting {0}", (string)row["Name"]); ;
+            if (interfaces[currentDeviceRowIndex] != null)
+            {
+                interfaces[currentDeviceRowIndex].Connect((string)row["Address"]);
+            }
+        }
+    
 
         private void CurrentDisconnectBtn_Click(object sender, EventArgs e)
         {
-            DataRow row = devices.Rows[currentDevice];
+            DataRow row = devices.Rows[currentDeviceRowIndex];
 
-            // TODO: this code is unnecessarily replicated from StopAll
-            row["Running"] = false;
-            int rowIndex = (int)row["ID"];
+            if (!(bool)row["Connected"])
+            {
+                MessageBox.Show("Device already disconnected", "LEonard Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // TODO: Don't like the fixed column number 2 for Running below
-            DataGridViewCellEventArgs e2 = new DataGridViewCellEventArgs(2, rowIndex);
-            DeviceGrid_CellValueChanged(null, e2);
-            Application.DoEvents();
+            log.Info("Disconnecting {0}", (string)row["Name"]); ;
+            row["Connected"] = false;
+            if (interfaces[currentDeviceRowIndex] != null)
+            {
+                string onDisconnectSend = (string)row["OnDisconnectSend"];
+                if (onDisconnectSend.Length > 0)
+                    try
+                    {
+                        interfaces[currentDeviceRowIndex].Send(onDisconnectSend);
+                    }
+                    catch
+                    {
 
+                    }
+
+                interfaces[currentDeviceRowIndex].Disconnect();
+                interfaces[currentDeviceRowIndex] = null;
+                GC.Collect();
+            }
         }
 
         private void Robot1Btn_Click(object sender, EventArgs e)
