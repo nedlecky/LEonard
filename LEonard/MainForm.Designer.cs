@@ -70,6 +70,15 @@
             this.RuntimeTab = new System.Windows.Forms.TabPage();
             this.ReportingTab = new System.Windows.Forms.TabPage();
             this.ProgramTab = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.ReadVariableBtn = new System.Windows.Forms.Button();
+            this.WriteStringValueTxt = new System.Windows.Forms.TextBox();
+            this.WriteStringValueBtn = new System.Windows.Forms.Button();
+            this.VariableNameTxt = new System.Windows.Forms.TextBox();
+            this.LoadVariablesBtn = new System.Windows.Forms.Button();
+            this.SaveVariablesBtn = new System.Windows.Forms.Button();
+            this.ClearVariablesBtn = new System.Windows.Forms.Button();
+            this.VariablesGrd = new System.Windows.Forms.DataGridView();
             this.JavaVariablesRefreshBtn = new System.Windows.Forms.Button();
             this.JavaScriptVariablesRTB = new System.Windows.Forms.RichTextBox();
             this.JavaCommandTxt = new System.Windows.Forms.TextBox();
@@ -84,19 +93,10 @@
             this.NewJavaProgramBtn = new System.Windows.Forms.Button();
             this.LoadJavaProgramBtn = new System.Windows.Forms.Button();
             this.SaveJavaProgramBtn = new System.Windows.Forms.Button();
-            this.VariablesTab = new System.Windows.Forms.TabPage();
-            this.LoadVariablesBtn = new System.Windows.Forms.Button();
-            this.SaveVariablesBtn = new System.Windows.Forms.Button();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.ReadVariableBtn = new System.Windows.Forms.Button();
-            this.WriteStringValueTxt = new System.Windows.Forms.TextBox();
-            this.WriteStringValueBtn = new System.Windows.Forms.Button();
-            this.VariableNameTxt = new System.Windows.Forms.TextBox();
-            this.ClearVariablesBtn = new System.Windows.Forms.Button();
-            this.VariablesGrd = new System.Windows.Forms.DataGridView();
             this.ConfigTab = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.CurrentReconnectBtn = new System.Windows.Forms.Button();
             this.LaunchSetupBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.ExitSetupBtn = new System.Windows.Forms.Button();
@@ -154,7 +154,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
-            this.CurrentReconnectBtn = new System.Windows.Forms.Button();
+            this.SetStartupDevicesBtn = new System.Windows.Forms.Button();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -165,7 +165,6 @@
             this.groupBox8.SuspendLayout();
             this.PersonalityTabs.SuspendLayout();
             this.ProgramTab.SuspendLayout();
-            this.VariablesTab.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).BeginInit();
             this.ConfigTab.SuspendLayout();
@@ -282,7 +281,7 @@
             this.BarcodeGrp.Controls.Add(this.BcrtDestroyBtn);
             this.BarcodeGrp.Controls.Add(this.BcrtCreateBtn);
             this.BarcodeGrp.Controls.Add(this.BarcodeReaderThreadChk);
-            this.BarcodeGrp.Location = new System.Drawing.Point(527, 527);
+            this.BarcodeGrp.Location = new System.Drawing.Point(219, 631);
             this.BarcodeGrp.Name = "BarcodeGrp";
             this.BarcodeGrp.Size = new System.Drawing.Size(224, 110);
             this.BarcodeGrp.TabIndex = 22;
@@ -475,7 +474,7 @@
             this.groupBox8.Controls.Add(this.Robot3Btn);
             this.groupBox8.Controls.Add(this.Robot2Btn);
             this.groupBox8.Controls.Add(this.Robot1Btn);
-            this.groupBox8.Location = new System.Drawing.Point(335, 527);
+            this.groupBox8.Location = new System.Drawing.Point(219, 515);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(178, 110);
             this.groupBox8.TabIndex = 59;
@@ -555,11 +554,10 @@
             // PersonalityTabs
             // 
             this.PersonalityTabs.Controls.Add(this.RuntimeTab);
-            this.PersonalityTabs.Controls.Add(this.ReportingTab);
             this.PersonalityTabs.Controls.Add(this.ProgramTab);
-            this.PersonalityTabs.Controls.Add(this.VariablesTab);
-            this.PersonalityTabs.Controls.Add(this.ConfigTab);
+            this.PersonalityTabs.Controls.Add(this.ReportingTab);
             this.PersonalityTabs.Controls.Add(this.BrowserTab);
+            this.PersonalityTabs.Controls.Add(this.ConfigTab);
             this.PersonalityTabs.Location = new System.Drawing.Point(12, 27);
             this.PersonalityTabs.Name = "PersonalityTabs";
             this.PersonalityTabs.SelectedIndex = 0;
@@ -588,6 +586,11 @@
             // 
             // ProgramTab
             // 
+            this.ProgramTab.Controls.Add(this.groupBox7);
+            this.ProgramTab.Controls.Add(this.LoadVariablesBtn);
+            this.ProgramTab.Controls.Add(this.SaveVariablesBtn);
+            this.ProgramTab.Controls.Add(this.ClearVariablesBtn);
+            this.ProgramTab.Controls.Add(this.VariablesGrd);
             this.ProgramTab.Controls.Add(this.JavaVariablesRefreshBtn);
             this.ProgramTab.Controls.Add(this.JavaScriptVariablesRTB);
             this.ProgramTab.Controls.Add(this.JavaCommandTxt);
@@ -609,9 +612,96 @@
             this.ProgramTab.Text = "Program";
             this.ProgramTab.UseVisualStyleBackColor = true;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.ReadVariableBtn);
+            this.groupBox7.Controls.Add(this.WriteStringValueTxt);
+            this.groupBox7.Controls.Add(this.WriteStringValueBtn);
+            this.groupBox7.Controls.Add(this.VariableNameTxt);
+            this.groupBox7.Location = new System.Drawing.Point(398, 395);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(221, 110);
+            this.groupBox7.TabIndex = 81;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Manual";
+            // 
+            // ReadVariableBtn
+            // 
+            this.ReadVariableBtn.Location = new System.Drawing.Point(140, 17);
+            this.ReadVariableBtn.Name = "ReadVariableBtn";
+            this.ReadVariableBtn.Size = new System.Drawing.Size(75, 23);
+            this.ReadVariableBtn.TabIndex = 2;
+            this.ReadVariableBtn.Text = "Read";
+            this.ReadVariableBtn.UseVisualStyleBackColor = true;
+            this.ReadVariableBtn.Click += new System.EventHandler(this.ReadVariableBtn_Click);
+            // 
+            // WriteStringValueTxt
+            // 
+            this.WriteStringValueTxt.Location = new System.Drawing.Point(6, 74);
+            this.WriteStringValueTxt.Name = "WriteStringValueTxt";
+            this.WriteStringValueTxt.Size = new System.Drawing.Size(209, 20);
+            this.WriteStringValueTxt.TabIndex = 7;
+            this.WriteStringValueTxt.Text = "Test String";
+            // 
+            // WriteStringValueBtn
+            // 
+            this.WriteStringValueBtn.Location = new System.Drawing.Point(6, 45);
+            this.WriteStringValueBtn.Name = "WriteStringValueBtn";
+            this.WriteStringValueBtn.Size = new System.Drawing.Size(75, 23);
+            this.WriteStringValueBtn.TabIndex = 4;
+            this.WriteStringValueBtn.Text = "Write String";
+            this.WriteStringValueBtn.UseVisualStyleBackColor = true;
+            this.WriteStringValueBtn.Click += new System.EventHandler(this.WriteStringValueBtn_Click);
+            // 
+            // VariableNameTxt
+            // 
+            this.VariableNameTxt.Location = new System.Drawing.Point(6, 19);
+            this.VariableNameTxt.Name = "VariableNameTxt";
+            this.VariableNameTxt.Size = new System.Drawing.Size(128, 20);
+            this.VariableNameTxt.TabIndex = 5;
+            this.VariableNameTxt.Text = "X";
+            // 
+            // LoadVariablesBtn
+            // 
+            this.LoadVariablesBtn.Location = new System.Drawing.Point(625, 851);
+            this.LoadVariablesBtn.Name = "LoadVariablesBtn";
+            this.LoadVariablesBtn.Size = new System.Drawing.Size(75, 23);
+            this.LoadVariablesBtn.TabIndex = 80;
+            this.LoadVariablesBtn.Text = "Load";
+            this.LoadVariablesBtn.UseVisualStyleBackColor = true;
+            this.LoadVariablesBtn.Click += new System.EventHandler(this.LoadVariablesBtn_Click);
+            // 
+            // SaveVariablesBtn
+            // 
+            this.SaveVariablesBtn.Location = new System.Drawing.Point(706, 851);
+            this.SaveVariablesBtn.Name = "SaveVariablesBtn";
+            this.SaveVariablesBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveVariablesBtn.TabIndex = 79;
+            this.SaveVariablesBtn.Text = "Save";
+            this.SaveVariablesBtn.UseVisualStyleBackColor = true;
+            this.SaveVariablesBtn.Click += new System.EventHandler(this.SaveVariablesBtn_Click);
+            // 
+            // ClearVariablesBtn
+            // 
+            this.ClearVariablesBtn.Location = new System.Drawing.Point(787, 851);
+            this.ClearVariablesBtn.Name = "ClearVariablesBtn";
+            this.ClearVariablesBtn.Size = new System.Drawing.Size(75, 23);
+            this.ClearVariablesBtn.TabIndex = 78;
+            this.ClearVariablesBtn.Text = "Clear";
+            this.ClearVariablesBtn.UseVisualStyleBackColor = true;
+            this.ClearVariablesBtn.Click += new System.EventHandler(this.ClearVariablesBtn_Click);
+            // 
+            // VariablesGrd
+            // 
+            this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.VariablesGrd.Location = new System.Drawing.Point(625, 392);
+            this.VariablesGrd.Name = "VariablesGrd";
+            this.VariablesGrd.Size = new System.Drawing.Size(474, 453);
+            this.VariablesGrd.TabIndex = 77;
+            // 
             // JavaVariablesRefreshBtn
             // 
-            this.JavaVariablesRefreshBtn.Location = new System.Drawing.Point(296, 36);
+            this.JavaVariablesRefreshBtn.Location = new System.Drawing.Point(625, 9);
             this.JavaVariablesRefreshBtn.Name = "JavaVariablesRefreshBtn";
             this.JavaVariablesRefreshBtn.Size = new System.Drawing.Size(75, 23);
             this.JavaVariablesRefreshBtn.TabIndex = 76;
@@ -621,39 +711,41 @@
             // 
             // JavaScriptVariablesRTB
             // 
-            this.JavaScriptVariablesRTB.Location = new System.Drawing.Point(296, 65);
+            this.JavaScriptVariablesRTB.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JavaScriptVariablesRTB.Location = new System.Drawing.Point(625, 35);
             this.JavaScriptVariablesRTB.Name = "JavaScriptVariablesRTB";
             this.JavaScriptVariablesRTB.ReadOnly = true;
             this.JavaScriptVariablesRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.JavaScriptVariablesRTB.Size = new System.Drawing.Size(323, 324);
+            this.JavaScriptVariablesRTB.Size = new System.Drawing.Size(474, 351);
             this.JavaScriptVariablesRTB.TabIndex = 75;
             this.JavaScriptVariablesRTB.Text = "";
             this.JavaScriptVariablesRTB.WordWrap = false;
             // 
             // JavaCommandTxt
             // 
-            this.JavaCommandTxt.Location = new System.Drawing.Point(449, 426);
+            this.JavaCommandTxt.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JavaCommandTxt.Location = new System.Drawing.Point(103, 396);
             this.JavaCommandTxt.Multiline = true;
             this.JavaCommandTxt.Name = "JavaCommandTxt";
-            this.JavaCommandTxt.Size = new System.Drawing.Size(170, 75);
+            this.JavaCommandTxt.Size = new System.Drawing.Size(280, 174);
             this.JavaCommandTxt.TabIndex = 74;
             this.JavaCommandTxt.Text = "print(\"hello\");";
             // 
             // ExecJavaBtn
             // 
-            this.ExecJavaBtn.Location = new System.Drawing.Point(364, 424);
+            this.ExecJavaBtn.Location = new System.Drawing.Point(389, 517);
             this.ExecJavaBtn.Name = "ExecJavaBtn";
-            this.ExecJavaBtn.Size = new System.Drawing.Size(75, 23);
+            this.ExecJavaBtn.Size = new System.Drawing.Size(75, 53);
             this.ExecJavaBtn.TabIndex = 73;
-            this.ExecJavaBtn.Text = "Exec Java";
+            this.ExecJavaBtn.Text = "Exec Java Scratchpad";
             this.ExecJavaBtn.UseVisualStyleBackColor = true;
             this.ExecJavaBtn.Click += new System.EventHandler(this.ExecJavaBtn_Click);
             // 
             // SetAutoloadFileBtn
             // 
-            this.SetAutoloadFileBtn.Location = new System.Drawing.Point(174, 424);
+            this.SetAutoloadFileBtn.Location = new System.Drawing.Point(510, 9);
             this.SetAutoloadFileBtn.Name = "SetAutoloadFileBtn";
-            this.SetAutoloadFileBtn.Size = new System.Drawing.Size(75, 35);
+            this.SetAutoloadFileBtn.Size = new System.Drawing.Size(109, 23);
             this.SetAutoloadFileBtn.TabIndex = 72;
             this.SetAutoloadFileBtn.Text = "Set To Autoload";
             this.SetAutoloadFileBtn.UseVisualStyleBackColor = true;
@@ -664,23 +756,24 @@
             this.JavaScriptFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.JavaScriptFilenameLbl.Location = new System.Drawing.Point(13, 9);
             this.JavaScriptFilenameLbl.Name = "JavaScriptFilenameLbl";
-            this.JavaScriptFilenameLbl.Size = new System.Drawing.Size(606, 23);
+            this.JavaScriptFilenameLbl.Size = new System.Drawing.Size(491, 23);
             this.JavaScriptFilenameLbl.TabIndex = 71;
             this.JavaScriptFilenameLbl.Text = "Untitled";
             this.JavaScriptFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // JavaScriptCodeRTB
             // 
+            this.JavaScriptCodeRTB.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JavaScriptCodeRTB.Location = new System.Drawing.Point(12, 35);
             this.JavaScriptCodeRTB.Name = "JavaScriptCodeRTB";
             this.JavaScriptCodeRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.JavaScriptCodeRTB.Size = new System.Drawing.Size(278, 354);
+            this.JavaScriptCodeRTB.Size = new System.Drawing.Size(607, 354);
             this.JavaScriptCodeRTB.TabIndex = 70;
             this.JavaScriptCodeRTB.Text = "";
             // 
             // JavaScriptClearRTB
             // 
-            this.JavaScriptClearRTB.Location = new System.Drawing.Point(550, 510);
+            this.JavaScriptClearRTB.Location = new System.Drawing.Point(13, 559);
             this.JavaScriptClearRTB.Name = "JavaScriptClearRTB";
             this.JavaScriptClearRTB.Size = new System.Drawing.Size(50, 23);
             this.JavaScriptClearRTB.TabIndex = 18;
@@ -690,18 +783,19 @@
             // 
             // JavaScriptConsoleRTB
             // 
-            this.JavaScriptConsoleRTB.Location = new System.Drawing.Point(12, 507);
+            this.JavaScriptConsoleRTB.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JavaScriptConsoleRTB.Location = new System.Drawing.Point(12, 588);
             this.JavaScriptConsoleRTB.Name = "JavaScriptConsoleRTB";
             this.JavaScriptConsoleRTB.ReadOnly = true;
             this.JavaScriptConsoleRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.JavaScriptConsoleRTB.Size = new System.Drawing.Size(607, 218);
+            this.JavaScriptConsoleRTB.Size = new System.Drawing.Size(607, 290);
             this.JavaScriptConsoleRTB.TabIndex = 18;
             this.JavaScriptConsoleRTB.Text = "";
             this.JavaScriptConsoleRTB.WordWrap = false;
             // 
             // RunJavaProgramBtn
             // 
-            this.RunJavaProgramBtn.Location = new System.Drawing.Point(364, 395);
+            this.RunJavaProgramBtn.Location = new System.Drawing.Point(12, 511);
             this.RunJavaProgramBtn.Name = "RunJavaProgramBtn";
             this.RunJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
             this.RunJavaProgramBtn.TabIndex = 69;
@@ -711,7 +805,7 @@
             // 
             // SaveAsJavaProgramBtn
             // 
-            this.SaveAsJavaProgramBtn.Location = new System.Drawing.Point(255, 395);
+            this.SaveAsJavaProgramBtn.Location = new System.Drawing.Point(13, 482);
             this.SaveAsJavaProgramBtn.Name = "SaveAsJavaProgramBtn";
             this.SaveAsJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveAsJavaProgramBtn.TabIndex = 68;
@@ -731,7 +825,7 @@
             // 
             // LoadJavaProgramBtn
             // 
-            this.LoadJavaProgramBtn.Location = new System.Drawing.Point(93, 395);
+            this.LoadJavaProgramBtn.Location = new System.Drawing.Point(13, 424);
             this.LoadJavaProgramBtn.Name = "LoadJavaProgramBtn";
             this.LoadJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
             this.LoadJavaProgramBtn.TabIndex = 66;
@@ -741,115 +835,13 @@
             // 
             // SaveJavaProgramBtn
             // 
-            this.SaveJavaProgramBtn.Location = new System.Drawing.Point(174, 395);
+            this.SaveJavaProgramBtn.Location = new System.Drawing.Point(13, 453);
             this.SaveJavaProgramBtn.Name = "SaveJavaProgramBtn";
             this.SaveJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveJavaProgramBtn.TabIndex = 65;
             this.SaveJavaProgramBtn.Text = "Save";
             this.SaveJavaProgramBtn.UseVisualStyleBackColor = true;
             this.SaveJavaProgramBtn.Click += new System.EventHandler(this.SaveJavaProgramBtn_Click);
-            // 
-            // VariablesTab
-            // 
-            this.VariablesTab.Controls.Add(this.LoadVariablesBtn);
-            this.VariablesTab.Controls.Add(this.SaveVariablesBtn);
-            this.VariablesTab.Controls.Add(this.groupBox7);
-            this.VariablesTab.Controls.Add(this.ClearVariablesBtn);
-            this.VariablesTab.Controls.Add(this.VariablesGrd);
-            this.VariablesTab.Location = new System.Drawing.Point(4, 22);
-            this.VariablesTab.Name = "VariablesTab";
-            this.VariablesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.VariablesTab.Size = new System.Drawing.Size(1102, 892);
-            this.VariablesTab.TabIndex = 2;
-            this.VariablesTab.Text = "Variables";
-            this.VariablesTab.UseVisualStyleBackColor = true;
-            // 
-            // LoadVariablesBtn
-            // 
-            this.LoadVariablesBtn.Location = new System.Drawing.Point(6, 586);
-            this.LoadVariablesBtn.Name = "LoadVariablesBtn";
-            this.LoadVariablesBtn.Size = new System.Drawing.Size(75, 23);
-            this.LoadVariablesBtn.TabIndex = 11;
-            this.LoadVariablesBtn.Text = "Load";
-            this.LoadVariablesBtn.UseVisualStyleBackColor = true;
-            this.LoadVariablesBtn.Click += new System.EventHandler(this.LoadVariablesBtn_Click);
-            // 
-            // SaveVariablesBtn
-            // 
-            this.SaveVariablesBtn.Location = new System.Drawing.Point(87, 586);
-            this.SaveVariablesBtn.Name = "SaveVariablesBtn";
-            this.SaveVariablesBtn.Size = new System.Drawing.Size(75, 23);
-            this.SaveVariablesBtn.TabIndex = 10;
-            this.SaveVariablesBtn.Text = "Save";
-            this.SaveVariablesBtn.UseVisualStyleBackColor = true;
-            this.SaveVariablesBtn.Click += new System.EventHandler(this.SaveVariablesBtn_Click);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.ReadVariableBtn);
-            this.groupBox7.Controls.Add(this.WriteStringValueTxt);
-            this.groupBox7.Controls.Add(this.WriteStringValueBtn);
-            this.groupBox7.Controls.Add(this.VariableNameTxt);
-            this.groupBox7.Location = new System.Drawing.Point(289, 586);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(339, 136);
-            this.groupBox7.TabIndex = 9;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Manual";
-            // 
-            // ReadVariableBtn
-            // 
-            this.ReadVariableBtn.Location = new System.Drawing.Point(130, 33);
-            this.ReadVariableBtn.Name = "ReadVariableBtn";
-            this.ReadVariableBtn.Size = new System.Drawing.Size(75, 23);
-            this.ReadVariableBtn.TabIndex = 2;
-            this.ReadVariableBtn.Text = "Read";
-            this.ReadVariableBtn.UseVisualStyleBackColor = true;
-            this.ReadVariableBtn.Click += new System.EventHandler(this.ReadVariableBtn_Click);
-            // 
-            // WriteStringValueTxt
-            // 
-            this.WriteStringValueTxt.Location = new System.Drawing.Point(211, 93);
-            this.WriteStringValueTxt.Name = "WriteStringValueTxt";
-            this.WriteStringValueTxt.Size = new System.Drawing.Size(100, 20);
-            this.WriteStringValueTxt.TabIndex = 7;
-            this.WriteStringValueTxt.Text = "Test String";
-            // 
-            // WriteStringValueBtn
-            // 
-            this.WriteStringValueBtn.Location = new System.Drawing.Point(130, 91);
-            this.WriteStringValueBtn.Name = "WriteStringValueBtn";
-            this.WriteStringValueBtn.Size = new System.Drawing.Size(75, 23);
-            this.WriteStringValueBtn.TabIndex = 4;
-            this.WriteStringValueBtn.Text = "Write String";
-            this.WriteStringValueBtn.UseVisualStyleBackColor = true;
-            this.WriteStringValueBtn.Click += new System.EventHandler(this.WriteStringValueTxt_Click);
-            // 
-            // VariableNameTxt
-            // 
-            this.VariableNameTxt.Location = new System.Drawing.Point(24, 35);
-            this.VariableNameTxt.Name = "VariableNameTxt";
-            this.VariableNameTxt.Size = new System.Drawing.Size(100, 20);
-            this.VariableNameTxt.TabIndex = 5;
-            this.VariableNameTxt.Text = "X";
-            // 
-            // ClearVariablesBtn
-            // 
-            this.ClearVariablesBtn.Location = new System.Drawing.Point(168, 586);
-            this.ClearVariablesBtn.Name = "ClearVariablesBtn";
-            this.ClearVariablesBtn.Size = new System.Drawing.Size(75, 23);
-            this.ClearVariablesBtn.TabIndex = 8;
-            this.ClearVariablesBtn.Text = "Clear";
-            this.ClearVariablesBtn.UseVisualStyleBackColor = true;
-            this.ClearVariablesBtn.Click += new System.EventHandler(this.ClearVariablesBtn_Click);
-            // 
-            // VariablesGrd
-            // 
-            this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.VariablesGrd.Location = new System.Drawing.Point(6, 6);
-            this.VariablesGrd.Name = "VariablesGrd";
-            this.VariablesGrd.Size = new System.Drawing.Size(622, 574);
-            this.VariablesGrd.TabIndex = 0;
             // 
             // ConfigTab
             // 
@@ -868,6 +860,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.SetStartupDevicesBtn);
             this.groupBox11.Controls.Add(this.groupBox10);
             this.groupBox11.Controls.Add(this.DevicesFilenameLbl);
             this.groupBox11.Controls.Add(this.DefaultDevicesBtn);
@@ -879,7 +872,7 @@
             this.groupBox11.Controls.Add(this.DevicesGrid);
             this.groupBox11.Location = new System.Drawing.Point(7, 187);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(945, 322);
+            this.groupBox11.Size = new System.Drawing.Size(1089, 322);
             this.groupBox11.TabIndex = 70;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Devices";
@@ -903,12 +896,22 @@
             this.groupBox10.Controls.Add(this.CurrentSendMessageBtn);
             this.groupBox10.Controls.Add(this.RestoreRuntimeBtn);
             this.groupBox10.Controls.Add(this.MinimizeRuntimeBtn);
-            this.groupBox10.Location = new System.Drawing.Point(11, 19);
+            this.groupBox10.Location = new System.Drawing.Point(5, 15);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(201, 294);
             this.groupBox10.TabIndex = 69;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Act On Selected Row";
+            // 
+            // CurrentReconnectBtn
+            // 
+            this.CurrentReconnectBtn.Location = new System.Drawing.Point(16, 48);
+            this.CurrentReconnectBtn.Name = "CurrentReconnectBtn";
+            this.CurrentReconnectBtn.Size = new System.Drawing.Size(75, 23);
+            this.CurrentReconnectBtn.TabIndex = 73;
+            this.CurrentReconnectBtn.Text = "Reconnect";
+            this.CurrentReconnectBtn.UseVisualStyleBackColor = true;
+            this.CurrentReconnectBtn.Click += new System.EventHandler(this.CurrentReconnectBtn_Click);
             // 
             // LaunchSetupBtn
             // 
@@ -922,7 +925,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(153, 77);
+            this.label2.Location = new System.Drawing.Point(153, 124);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 38);
             this.label2.TabIndex = 34;
@@ -1047,15 +1050,15 @@
             // DevicesFilenameLbl
             // 
             this.DevicesFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DevicesFilenameLbl.Location = new System.Drawing.Point(236, 16);
+            this.DevicesFilenameLbl.Location = new System.Drawing.Point(212, 16);
             this.DevicesFilenameLbl.Name = "DevicesFilenameLbl";
-            this.DevicesFilenameLbl.Size = new System.Drawing.Size(696, 23);
+            this.DevicesFilenameLbl.Size = new System.Drawing.Size(772, 23);
             this.DevicesFilenameLbl.TabIndex = 63;
             this.DevicesFilenameLbl.Text = "Untitled";
             // 
             // DefaultDevicesBtn
             // 
-            this.DefaultDevicesBtn.Location = new System.Drawing.Point(236, 286);
+            this.DefaultDevicesBtn.Location = new System.Drawing.Point(212, 286);
             this.DefaultDevicesBtn.Name = "DefaultDevicesBtn";
             this.DefaultDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.DefaultDevicesBtn.TabIndex = 61;
@@ -1065,7 +1068,7 @@
             // 
             // SaveDevicesBtn
             // 
-            this.SaveDevicesBtn.Location = new System.Drawing.Point(398, 286);
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(374, 286);
             this.SaveDevicesBtn.Name = "SaveDevicesBtn";
             this.SaveDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveDevicesBtn.TabIndex = 59;
@@ -1075,7 +1078,7 @@
             // 
             // DisconnectAllDevicesBtn
             // 
-            this.DisconnectAllDevicesBtn.Location = new System.Drawing.Point(818, 286);
+            this.DisconnectAllDevicesBtn.Location = new System.Drawing.Point(706, 286);
             this.DisconnectAllDevicesBtn.Name = "DisconnectAllDevicesBtn";
             this.DisconnectAllDevicesBtn.Size = new System.Drawing.Size(114, 23);
             this.DisconnectAllDevicesBtn.TabIndex = 67;
@@ -1085,7 +1088,7 @@
             // 
             // LoadDevicesBtn
             // 
-            this.LoadDevicesBtn.Location = new System.Drawing.Point(317, 286);
+            this.LoadDevicesBtn.Location = new System.Drawing.Point(293, 286);
             this.LoadDevicesBtn.Name = "LoadDevicesBtn";
             this.LoadDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.LoadDevicesBtn.TabIndex = 60;
@@ -1095,7 +1098,7 @@
             // 
             // ConnectAllDevicesBtn
             // 
-            this.ConnectAllDevicesBtn.Location = new System.Drawing.Point(719, 286);
+            this.ConnectAllDevicesBtn.Location = new System.Drawing.Point(607, 286);
             this.ConnectAllDevicesBtn.Name = "ConnectAllDevicesBtn";
             this.ConnectAllDevicesBtn.Size = new System.Drawing.Size(93, 23);
             this.ConnectAllDevicesBtn.TabIndex = 66;
@@ -1105,7 +1108,7 @@
             // 
             // SaveAsDevicesBtn
             // 
-            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(479, 286);
+            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(455, 286);
             this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
             this.SaveAsDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveAsDevicesBtn.TabIndex = 64;
@@ -1116,11 +1119,11 @@
             // DevicesGrid
             // 
             this.DevicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DevicesGrid.Location = new System.Drawing.Point(236, 38);
+            this.DevicesGrid.Location = new System.Drawing.Point(212, 38);
             this.DevicesGrid.Name = "DevicesGrid";
             this.DevicesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.DevicesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DevicesGrid.Size = new System.Drawing.Size(696, 242);
+            this.DevicesGrid.Size = new System.Drawing.Size(871, 242);
             this.DevicesGrid.TabIndex = 58;
             this.DevicesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DeviceGrid_CellBeginEdit);
             this.DevicesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellContentClick);
@@ -1132,7 +1135,7 @@
             // 
             this.groupBox9.Controls.Add(this.TriggerDm2Btn);
             this.groupBox9.Controls.Add(this.TriggerDm1Btn);
-            this.groupBox9.Location = new System.Drawing.Point(775, 527);
+            this.groupBox9.Location = new System.Drawing.Point(403, 515);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(124, 110);
             this.groupBox9.TabIndex = 68;
@@ -1177,14 +1180,14 @@
             this.ConfigGrp.Controls.Add(this.SaveConfigBtn);
             this.ConfigGrp.Location = new System.Drawing.Point(6, 6);
             this.ConfigGrp.Name = "ConfigGrp";
-            this.ConfigGrp.Size = new System.Drawing.Size(622, 175);
+            this.ConfigGrp.Size = new System.Drawing.Size(1090, 175);
             this.ConfigGrp.TabIndex = 62;
             this.ConfigGrp.TabStop = false;
             this.ConfigGrp.Text = "Config";
             // 
             // ChangeStartupJavaScriptBtn
             // 
-            this.ChangeStartupJavaScriptBtn.Location = new System.Drawing.Point(504, 88);
+            this.ChangeStartupJavaScriptBtn.Location = new System.Drawing.Point(507, 62);
             this.ChangeStartupJavaScriptBtn.Name = "ChangeStartupJavaScriptBtn";
             this.ChangeStartupJavaScriptBtn.Size = new System.Drawing.Size(24, 23);
             this.ChangeStartupJavaScriptBtn.TabIndex = 76;
@@ -1195,7 +1198,7 @@
             // StartupJavaScriptLbl
             // 
             this.StartupJavaScriptLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.StartupJavaScriptLbl.Location = new System.Drawing.Point(122, 88);
+            this.StartupJavaScriptLbl.Location = new System.Drawing.Point(122, 62);
             this.StartupJavaScriptLbl.Name = "StartupJavaScriptLbl";
             this.StartupJavaScriptLbl.Size = new System.Drawing.Size(385, 23);
             this.StartupJavaScriptLbl.TabIndex = 75;
@@ -1204,7 +1207,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 93);
+            this.label4.Location = new System.Drawing.Point(21, 67);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(102, 13);
             this.label4.TabIndex = 74;
@@ -1213,7 +1216,7 @@
             // UtcTimeChk
             // 
             this.UtcTimeChk.AutoSize = true;
-            this.UtcTimeChk.Location = new System.Drawing.Point(439, 126);
+            this.UtcTimeChk.Location = new System.Drawing.Point(907, 17);
             this.UtcTimeChk.Name = "UtcTimeChk";
             this.UtcTimeChk.Size = new System.Drawing.Size(177, 17);
             this.UtcTimeChk.TabIndex = 73;
@@ -1223,7 +1226,7 @@
             // AutoConnectOnLoadChk
             // 
             this.AutoConnectOnLoadChk.AutoSize = true;
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(122, 68);
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(537, 45);
             this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
             this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(170, 17);
             this.AutoConnectOnLoadChk.TabIndex = 72;
@@ -1232,7 +1235,7 @@
             // 
             // ChangeStartupDevicesBtn
             // 
-            this.ChangeStartupDevicesBtn.Location = new System.Drawing.Point(504, 42);
+            this.ChangeStartupDevicesBtn.Location = new System.Drawing.Point(507, 40);
             this.ChangeStartupDevicesBtn.Name = "ChangeStartupDevicesBtn";
             this.ChangeStartupDevicesBtn.Size = new System.Drawing.Size(24, 23);
             this.ChangeStartupDevicesBtn.TabIndex = 70;
@@ -1243,7 +1246,7 @@
             // StartupDevicesLbl
             // 
             this.StartupDevicesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.StartupDevicesLbl.Location = new System.Drawing.Point(122, 42);
+            this.StartupDevicesLbl.Location = new System.Drawing.Point(122, 40);
             this.StartupDevicesLbl.Name = "StartupDevicesLbl";
             this.StartupDevicesLbl.Size = new System.Drawing.Size(385, 23);
             this.StartupDevicesLbl.TabIndex = 69;
@@ -1252,7 +1255,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 47);
+            this.label3.Location = new System.Drawing.Point(21, 45);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(102, 13);
             this.label3.TabIndex = 68;
@@ -1260,7 +1263,7 @@
             // 
             // ChangeLEonardRootBtn
             // 
-            this.ChangeLEonardRootBtn.Location = new System.Drawing.Point(504, 17);
+            this.ChangeLEonardRootBtn.Location = new System.Drawing.Point(507, 19);
             this.ChangeLEonardRootBtn.Name = "ChangeLEonardRootBtn";
             this.ChangeLEonardRootBtn.Size = new System.Drawing.Size(24, 23);
             this.ChangeLEonardRootBtn.TabIndex = 67;
@@ -1280,7 +1283,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 22);
+            this.label1.Location = new System.Drawing.Point(50, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 64;
@@ -1379,26 +1382,26 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -1450,15 +1453,15 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
-            // CurrentReconnectBtn
+            // SetStartupDevicesBtn
             // 
-            this.CurrentReconnectBtn.Location = new System.Drawing.Point(16, 48);
-            this.CurrentReconnectBtn.Name = "CurrentReconnectBtn";
-            this.CurrentReconnectBtn.Size = new System.Drawing.Size(75, 23);
-            this.CurrentReconnectBtn.TabIndex = 73;
-            this.CurrentReconnectBtn.Text = "Reconnect";
-            this.CurrentReconnectBtn.UseVisualStyleBackColor = true;
-            this.CurrentReconnectBtn.Click += new System.EventHandler(this.CurrentReconnectBtn_Click);
+            this.SetStartupDevicesBtn.Location = new System.Drawing.Point(990, 15);
+            this.SetStartupDevicesBtn.Name = "SetStartupDevicesBtn";
+            this.SetStartupDevicesBtn.Size = new System.Drawing.Size(93, 23);
+            this.SetStartupDevicesBtn.TabIndex = 70;
+            this.SetStartupDevicesBtn.Text = "Set As Startup";
+            this.SetStartupDevicesBtn.UseVisualStyleBackColor = true;
+            this.SetStartupDevicesBtn.Click += new System.EventHandler(this.SetStartupDevicesBtn_Click);
             // 
             // MainForm
             // 
@@ -1491,7 +1494,6 @@
             this.PersonalityTabs.ResumeLayout(false);
             this.ProgramTab.ResumeLayout(false);
             this.ProgramTab.PerformLayout();
-            this.VariablesTab.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).EndInit();
@@ -1554,7 +1556,6 @@
         private System.Windows.Forms.TabControl PersonalityTabs;
         private System.Windows.Forms.TabPage RuntimeTab;
         private System.Windows.Forms.TabPage ReportingTab;
-        private System.Windows.Forms.TabPage VariablesTab;
         private System.Windows.Forms.TabPage ConfigTab;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -1585,15 +1586,6 @@
         private System.Windows.Forms.Label StartupDevicesLbl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox AutoConnectOnLoadChk;
-        private System.Windows.Forms.DataGridView VariablesGrd;
-        private System.Windows.Forms.TextBox WriteStringValueTxt;
-        private System.Windows.Forms.TextBox VariableNameTxt;
-        private System.Windows.Forms.Button WriteStringValueBtn;
-        private System.Windows.Forms.Button ReadVariableBtn;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button ClearVariablesBtn;
-        private System.Windows.Forms.Button LoadVariablesBtn;
-        private System.Windows.Forms.Button SaveVariablesBtn;
         private System.Windows.Forms.Button DisconnectAllDevicesBtn;
         private System.Windows.Forms.Button ConnectAllDevicesBtn;
         private System.Windows.Forms.Timer StartupTmr;
@@ -1640,6 +1632,16 @@
         private EO.WinForm.WebControl webControl1;
         private EO.WebBrowser.WebView webView1;
         private System.Windows.Forms.Button CurrentReconnectBtn;
+        private System.Windows.Forms.Button LoadVariablesBtn;
+        private System.Windows.Forms.Button SaveVariablesBtn;
+        private System.Windows.Forms.Button ClearVariablesBtn;
+        private System.Windows.Forms.DataGridView VariablesGrd;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button ReadVariableBtn;
+        private System.Windows.Forms.TextBox WriteStringValueTxt;
+        private System.Windows.Forms.Button WriteStringValueBtn;
+        private System.Windows.Forms.TextBox VariableNameTxt;
+        private System.Windows.Forms.Button SetStartupDevicesBtn;
     }
 }
 

@@ -589,6 +589,8 @@ namespace LEonard
             {
                 devices.ReadXml(name);
                 DevicesGrid.DataSource = devices;
+                foreach(DataGridViewColumn col in DevicesGrid.Columns)
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 DevicesFilenameLbl.Text = name;
                 // Mark all as not connected
                 foreach(DataRow row in devices.Rows)
@@ -615,8 +617,8 @@ namespace LEonard
 
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Title = "Open a LEonard Devices File";
-            dialog.Filter = "Device files|*.dev";
-            dialog.InitialDirectory = LEonardRoot;
+            dialog.Filter = "Device files|*.ldev";
+            dialog.InitialDirectory = Path.Combine(LEonardRoot, "Devices");
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 LoadDevicesFile(dialog.FileName);
@@ -638,8 +640,9 @@ namespace LEonard
         private void SaveAsDevicesBtn_Click(object sender, EventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "LEonard Devices|*.dev";
-            dialog.Title = "Save a LEonard devices File";
+            dialog.Filter = "LEonard Devices|*.ldev";
+            dialog.Title = "Save a LEonard Devices File";
+            dialog.InitialDirectory = Path.Combine(LEonardRoot, "Devices");
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 if (dialog.FileName != "")
@@ -649,6 +652,12 @@ namespace LEonard
                 }
             }
         }
+        private void SetStartupDevicesBtn_Click(object sender, EventArgs e)
+        {
+            StartupDevicesLbl.Text = DevicesFilenameLbl.Text;
+            log.Info("Startup Devices file set to {0}", DevicesFilenameLbl.Text);
+        }
+
         private void ConnectAllDevicesBtn_Click(object sender, EventArgs e)
         {
             log.Info("ConnectAllDevicesBtn_Click(...)");
@@ -1084,17 +1093,20 @@ namespace LEonard
         string variablesFilename = "Variables.var";
         private void LoadVariablesBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardRoot, variablesFilename);
+            string filename = Path.Combine(LEonardRoot, "Programs", variablesFilename);
             log.Info("LoadVariables from {0}", filename);
             ClearVariablesBtn_Click(null, null);
             try
             {
                 variables.ReadXml(filename);
+
             }
             catch
             { }
 
             VariablesGrd.DataSource = variables;
+            foreach (DataGridViewColumn col in VariablesGrd.Columns)
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             foreach (DataRow row in variables.Rows)
             {
                 row["IsNew"] = false;
@@ -1103,7 +1115,7 @@ namespace LEonard
 
         private void SaveVariablesBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardRoot, variablesFilename);
+            string filename = Path.Combine(LEonardRoot, "Programs", variablesFilename);
             log.Info("SaveVariables to {0}", filename);
             variables.AcceptChanges();
             variables.WriteXml(filename, XmlWriteMode.WriteSchema, true);
@@ -1184,7 +1196,7 @@ namespace LEonard
             }
 
         }
-        private void WriteStringValueTxt_Click(object sender, EventArgs e)
+        private void WriteStringValueBtn_Click(object sender, EventArgs e)
         {
             string name = VariableNameTxt.Text;
             string value = WriteStringValueTxt.Text;
@@ -1281,7 +1293,7 @@ namespace LEonard
             JavaScriptFilenameLbl.Text = file;
             try
             {
-                JavaScriptCodeRTB.LoadFile(file);
+                JavaScriptCodeRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
             }
             catch (Exception ex)
             {
@@ -1295,7 +1307,7 @@ namespace LEonard
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Title = "Open a LEonard JavaScript Program";
             dialog.Filter = "JavaScript Files|*.js";
-            dialog.InitialDirectory = LEonardRoot;
+            dialog.InitialDirectory = Path.Combine(LEonardRoot, "Programs");
             if (dialog.ShowDialog() == DialogResult.OK)
                 LoadJavaScriptProgramFile(dialog.FileName);
         }
@@ -1307,7 +1319,7 @@ namespace LEonard
             else
             {
                 log.Info("Save JavaScript program to {0}", JavaScriptFilenameLbl.Text);
-                JavaScriptCodeRTB.SaveFile(JavaScriptFilenameLbl.Text);
+                JavaScriptCodeRTB.SaveFile(JavaScriptFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
                 JavaScriptCodeRTB.Modified = false;
             }
         }
@@ -1317,6 +1329,7 @@ namespace LEonard
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "LEonard JavaScript Programs|*.js";
             dialog.Title = "Save a LEonard JavaScript Program";
+            dialog.InitialDirectory = Path.Combine(LEonardRoot, "Programs");
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 if (dialog.FileName != "")
@@ -1381,8 +1394,6 @@ namespace LEonard
         {
             webView1.Url = "192.168.0.171";
         }
-
-
         // ***********************************************************************
         // END JAVA PROGRAM
         // ***********************************************************************
