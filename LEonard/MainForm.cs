@@ -42,6 +42,9 @@ namespace LEonard
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
 
         public MainForm()
         {
@@ -735,12 +738,16 @@ namespace LEonard
         int currentDeviceRowIndex = -1;
         private void DeviceGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
+            // Minimize old apps
+            //MinimizeRuntimeBtn_Click(null, null);
+            //MinimizeSetupBtn_Click(null, null);
+
             currentDeviceRowIndex = e.RowIndex;
 
             // Clear existing SendSpeed buttons except first
             for (int i = 1; i < speedSendBtns.Count; i++)
                 speedSendBtns[i].Dispose();
-            
+
             speedSendBtns.Clear();
 
             // Nothing specified: leave the anchor button on the screen blank and disabled
@@ -779,16 +786,9 @@ namespace LEonard
                 speedBtnsGrp.Controls.Add(b);
             }
 
-        }
-
-        private void DeviceGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-
-        private void DeviceGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            // Bring apps to fore
+            RestoreRuntimeBtn_Click(null, null);
+            RestoreSetupBtn_Click(null, null);
         }
 
         private void DeviceGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -813,7 +813,12 @@ namespace LEonard
             if (interfaces[currentDeviceRowIndex] == null)
                 log.Error("Device not connected");
             else
+            {
                 interfaces[currentDeviceRowIndex].StartRuntimeProcess(start);
+                // TODO: The SetWindowPos constants below should be defined!
+                SetWindowPos(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+            }
+
         }
 
         /*
@@ -851,7 +856,12 @@ namespace LEonard
             DataRow row = devices.Rows[currentDeviceRowIndex];
             if (interfaces[currentDeviceRowIndex] != null)
                 if (interfaces[currentDeviceRowIndex].runtimeProcess != null)
+                {
                     ShowWindowAsync(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, SW_RESTORE);
+                    // TODO: The SetWindowPos constants below should be defined!
+                    SetWindowPos(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+
+                }
         }
 
         private void ExitRuntimeBtn_Click(object sender, EventArgs e)
@@ -873,8 +883,11 @@ namespace LEonard
             if (interfaces[currentDeviceRowIndex] == null)
                 log.Error("Device not running");
             else
+            {
                 interfaces[currentDeviceRowIndex].StartSetupProcess(start);
-
+                // TODO: The SetWindowPos constants below should be defined!
+                SetWindowPos(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+            }
         }
 
         private void MinimizeSetupBtn_Click(object sender, EventArgs e)
@@ -890,7 +903,11 @@ namespace LEonard
             DataRow row = devices.Rows[currentDeviceRowIndex];
             if (interfaces[currentDeviceRowIndex] != null)
                 if (interfaces[currentDeviceRowIndex].setupProcess != null)
+                {
                     ShowWindowAsync(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, SW_RESTORE);
+                    // TODO: The SetWindowPos constants below should be defined!
+                    SetWindowPos(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+                }
         }
 
         private void ExitSetupBtn_Click(object sender, EventArgs e)

@@ -1088,8 +1088,6 @@
             this.DevicesGrid.Size = new System.Drawing.Size(871, 242);
             this.DevicesGrid.TabIndex = 58;
             this.DevicesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DeviceGrid_CellBeginEdit);
-            this.DevicesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellContentClick);
-            this.DevicesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellValueChanged);
             this.DevicesGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_RowEnter);
             this.DevicesGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DeviceGrid_UserDeletingRow);
             // 
