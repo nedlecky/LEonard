@@ -58,17 +58,8 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.CommandClearBtn = new System.Windows.Forms.Button();
             this.ControlLogRTB = new System.Windows.Forms.RichTextBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.Robot99Btn = new System.Windows.Forms.Button();
-            this.Robot98Btn = new System.Windows.Forms.Button();
-            this.Robot50Btn = new System.Windows.Forms.Button();
-            this.Robot4Btn = new System.Windows.Forms.Button();
-            this.Robot3Btn = new System.Windows.Forms.Button();
-            this.Robot2Btn = new System.Windows.Forms.Button();
-            this.Robot1Btn = new System.Windows.Forms.Button();
             this.PersonalityTabs = new System.Windows.Forms.TabControl();
             this.RuntimeTab = new System.Windows.Forms.TabPage();
-            this.ReportingTab = new System.Windows.Forms.TabPage();
             this.ProgramTab = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.ReadVariableBtn = new System.Windows.Forms.Button();
@@ -93,8 +84,15 @@
             this.NewJavaProgramBtn = new System.Windows.Forms.Button();
             this.LoadJavaProgramBtn = new System.Windows.Forms.Button();
             this.SaveJavaProgramBtn = new System.Windows.Forms.Button();
+            this.ReportingTab = new System.Windows.Forms.TabPage();
+            this.BrowserTab = new System.Windows.Forms.TabPage();
+            this.webControl1 = new EO.WinForm.WebControl();
+            this.webView1 = new EO.WebBrowser.WebView();
             this.ConfigTab = new System.Windows.Forms.TabPage();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.DevicesGrp = new System.Windows.Forms.GroupBox();
+            this.speedBtnsGrp = new System.Windows.Forms.GroupBox();
+            this.SpeedSendBtn1 = new System.Windows.Forms.Button();
+            this.SetStartupDevicesBtn = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.CurrentReconnectBtn = new System.Windows.Forms.Button();
             this.LaunchSetupBtn = new System.Windows.Forms.Button();
@@ -119,9 +117,6 @@
             this.ConnectAllDevicesBtn = new System.Windows.Forms.Button();
             this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
             this.DevicesGrid = new System.Windows.Forms.DataGridView();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.TriggerDm2Btn = new System.Windows.Forms.Button();
-            this.TriggerDm1Btn = new System.Windows.Forms.Button();
             this.ConfigGrp = new System.Windows.Forms.GroupBox();
             this.ChangeStartupJavaScriptBtn = new System.Windows.Forms.Button();
             this.StartupJavaScriptLbl = new System.Windows.Forms.Label();
@@ -137,10 +132,7 @@
             this.DefaultConfigBtn = new System.Windows.Forms.Button();
             this.LoadConfigBtn = new System.Windows.Forms.Button();
             this.SaveConfigBtn = new System.Windows.Forms.Button();
-            this.BrowserTab = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.webControl1 = new EO.WinForm.WebControl();
-            this.webView1 = new EO.WebBrowser.WebView();
+            this.OlisConnectBtn = new System.Windows.Forms.Button();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -154,7 +146,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
-            this.SetStartupDevicesBtn = new System.Windows.Forms.Button();
+            this.ChromeBtn = new System.Windows.Forms.Button();
+            this.ChromeUrlTxt = new System.Windows.Forms.TextBox();
             this.BarcodeGrp.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -162,18 +155,17 @@
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.PersonalityTabs.SuspendLayout();
             this.ProgramTab.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).BeginInit();
+            this.BrowserTab.SuspendLayout();
             this.ConfigTab.SuspendLayout();
-            this.groupBox11.SuspendLayout();
+            this.DevicesGrp.SuspendLayout();
+            this.speedBtnsGrp.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).BeginInit();
-            this.groupBox9.SuspendLayout();
             this.ConfigGrp.SuspendLayout();
-            this.BrowserTab.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -281,7 +273,7 @@
             this.BarcodeGrp.Controls.Add(this.BcrtDestroyBtn);
             this.BarcodeGrp.Controls.Add(this.BcrtCreateBtn);
             this.BarcodeGrp.Controls.Add(this.BarcodeReaderThreadChk);
-            this.BarcodeGrp.Location = new System.Drawing.Point(219, 631);
+            this.BarcodeGrp.Location = new System.Drawing.Point(7, 579);
             this.BarcodeGrp.Name = "BarcodeGrp";
             this.BarcodeGrp.Size = new System.Drawing.Size(224, 110);
             this.BarcodeGrp.TabIndex = 22;
@@ -465,92 +457,6 @@
             this.ControlLogRTB.Text = "";
             this.ControlLogRTB.WordWrap = false;
             // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.Robot99Btn);
-            this.groupBox8.Controls.Add(this.Robot98Btn);
-            this.groupBox8.Controls.Add(this.Robot50Btn);
-            this.groupBox8.Controls.Add(this.Robot4Btn);
-            this.groupBox8.Controls.Add(this.Robot3Btn);
-            this.groupBox8.Controls.Add(this.Robot2Btn);
-            this.groupBox8.Controls.Add(this.Robot1Btn);
-            this.groupBox8.Location = new System.Drawing.Point(219, 515);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(178, 110);
-            this.groupBox8.TabIndex = 59;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Robot Commands";
-            // 
-            // Robot99Btn
-            // 
-            this.Robot99Btn.Location = new System.Drawing.Point(85, 78);
-            this.Robot99Btn.Name = "Robot99Btn";
-            this.Robot99Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot99Btn.TabIndex = 35;
-            this.Robot99Btn.Text = "CMD 99";
-            this.Robot99Btn.UseVisualStyleBackColor = true;
-            this.Robot99Btn.Click += new System.EventHandler(this.Robot99Btn_Click);
-            // 
-            // Robot98Btn
-            // 
-            this.Robot98Btn.Location = new System.Drawing.Point(85, 58);
-            this.Robot98Btn.Name = "Robot98Btn";
-            this.Robot98Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot98Btn.TabIndex = 34;
-            this.Robot98Btn.Text = "CMD 98";
-            this.Robot98Btn.UseVisualStyleBackColor = true;
-            this.Robot98Btn.Click += new System.EventHandler(this.Robot98Btn_Click);
-            // 
-            // Robot50Btn
-            // 
-            this.Robot50Btn.Location = new System.Drawing.Point(85, 19);
-            this.Robot50Btn.Name = "Robot50Btn";
-            this.Robot50Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot50Btn.TabIndex = 33;
-            this.Robot50Btn.Text = "CMD 50";
-            this.Robot50Btn.UseVisualStyleBackColor = true;
-            this.Robot50Btn.Click += new System.EventHandler(this.Robot50Btn_Click);
-            // 
-            // Robot4Btn
-            // 
-            this.Robot4Btn.Location = new System.Drawing.Point(6, 78);
-            this.Robot4Btn.Name = "Robot4Btn";
-            this.Robot4Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot4Btn.TabIndex = 32;
-            this.Robot4Btn.Text = "CMD 4";
-            this.Robot4Btn.UseVisualStyleBackColor = true;
-            this.Robot4Btn.Click += new System.EventHandler(this.Robot4Btn_Click);
-            // 
-            // Robot3Btn
-            // 
-            this.Robot3Btn.Location = new System.Drawing.Point(6, 59);
-            this.Robot3Btn.Name = "Robot3Btn";
-            this.Robot3Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot3Btn.TabIndex = 31;
-            this.Robot3Btn.Text = "CMD 3";
-            this.Robot3Btn.UseVisualStyleBackColor = true;
-            this.Robot3Btn.Click += new System.EventHandler(this.Robot3Btn_Click);
-            // 
-            // Robot2Btn
-            // 
-            this.Robot2Btn.Location = new System.Drawing.Point(6, 39);
-            this.Robot2Btn.Name = "Robot2Btn";
-            this.Robot2Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot2Btn.TabIndex = 30;
-            this.Robot2Btn.Text = "CMD 2";
-            this.Robot2Btn.UseVisualStyleBackColor = true;
-            this.Robot2Btn.Click += new System.EventHandler(this.Robot2Btn_Click);
-            // 
-            // Robot1Btn
-            // 
-            this.Robot1Btn.Location = new System.Drawing.Point(6, 19);
-            this.Robot1Btn.Name = "Robot1Btn";
-            this.Robot1Btn.Size = new System.Drawing.Size(75, 23);
-            this.Robot1Btn.TabIndex = 29;
-            this.Robot1Btn.Text = "CMD 1";
-            this.Robot1Btn.UseVisualStyleBackColor = true;
-            this.Robot1Btn.Click += new System.EventHandler(this.Robot1Btn_Click);
-            // 
             // PersonalityTabs
             // 
             this.PersonalityTabs.Controls.Add(this.RuntimeTab);
@@ -573,16 +479,6 @@
             this.RuntimeTab.TabIndex = 0;
             this.RuntimeTab.Text = "Runtime";
             this.RuntimeTab.UseVisualStyleBackColor = true;
-            // 
-            // ReportingTab
-            // 
-            this.ReportingTab.Location = new System.Drawing.Point(4, 22);
-            this.ReportingTab.Name = "ReportingTab";
-            this.ReportingTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ReportingTab.Size = new System.Drawing.Size(1102, 892);
-            this.ReportingTab.TabIndex = 1;
-            this.ReportingTab.Text = "Reporting";
-            this.ReportingTab.UseVisualStyleBackColor = true;
             // 
             // ProgramTab
             // 
@@ -785,6 +681,7 @@
             // 
             this.JavaScriptConsoleRTB.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JavaScriptConsoleRTB.Location = new System.Drawing.Point(12, 588);
+            this.JavaScriptConsoleRTB.MaxLength = 200;
             this.JavaScriptConsoleRTB.Name = "JavaScriptConsoleRTB";
             this.JavaScriptConsoleRTB.ReadOnly = true;
             this.JavaScriptConsoleRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
@@ -843,12 +740,46 @@
             this.SaveJavaProgramBtn.UseVisualStyleBackColor = true;
             this.SaveJavaProgramBtn.Click += new System.EventHandler(this.SaveJavaProgramBtn_Click);
             // 
+            // ReportingTab
+            // 
+            this.ReportingTab.Location = new System.Drawing.Point(4, 22);
+            this.ReportingTab.Name = "ReportingTab";
+            this.ReportingTab.Padding = new System.Windows.Forms.Padding(3);
+            this.ReportingTab.Size = new System.Drawing.Size(1102, 892);
+            this.ReportingTab.TabIndex = 1;
+            this.ReportingTab.Text = "Reporting";
+            this.ReportingTab.UseVisualStyleBackColor = true;
+            // 
+            // BrowserTab
+            // 
+            this.BrowserTab.Controls.Add(this.webControl1);
+            this.BrowserTab.Location = new System.Drawing.Point(4, 22);
+            this.BrowserTab.Name = "BrowserTab";
+            this.BrowserTab.Size = new System.Drawing.Size(1102, 892);
+            this.BrowserTab.TabIndex = 5;
+            this.BrowserTab.Text = "Browser";
+            this.BrowserTab.UseVisualStyleBackColor = true;
+            // 
+            // webControl1
+            // 
+            this.webControl1.BackColor = System.Drawing.Color.White;
+            this.webControl1.Location = new System.Drawing.Point(3, 3);
+            this.webControl1.Name = "webControl1";
+            this.webControl1.Size = new System.Drawing.Size(1096, 886);
+            this.webControl1.TabIndex = 3;
+            this.webControl1.Text = "webControl1";
+            this.webControl1.WebView = this.webView1;
+            // 
+            // webView1
+            // 
+            this.webView1.InputMsgFilter = null;
+            this.webView1.ObjectForScripting = null;
+            this.webView1.Title = null;
+            // 
             // ConfigTab
             // 
-            this.ConfigTab.Controls.Add(this.groupBox11);
-            this.ConfigTab.Controls.Add(this.groupBox9);
+            this.ConfigTab.Controls.Add(this.DevicesGrp);
             this.ConfigTab.Controls.Add(this.BarcodeGrp);
-            this.ConfigTab.Controls.Add(this.groupBox8);
             this.ConfigTab.Controls.Add(this.ConfigGrp);
             this.ConfigTab.Location = new System.Drawing.Point(4, 22);
             this.ConfigTab.Name = "ConfigTab";
@@ -858,24 +789,55 @@
             this.ConfigTab.Text = "Config";
             this.ConfigTab.UseVisualStyleBackColor = true;
             // 
-            // groupBox11
+            // DevicesGrp
             // 
-            this.groupBox11.Controls.Add(this.SetStartupDevicesBtn);
-            this.groupBox11.Controls.Add(this.groupBox10);
-            this.groupBox11.Controls.Add(this.DevicesFilenameLbl);
-            this.groupBox11.Controls.Add(this.DefaultDevicesBtn);
-            this.groupBox11.Controls.Add(this.SaveDevicesBtn);
-            this.groupBox11.Controls.Add(this.DisconnectAllDevicesBtn);
-            this.groupBox11.Controls.Add(this.LoadDevicesBtn);
-            this.groupBox11.Controls.Add(this.ConnectAllDevicesBtn);
-            this.groupBox11.Controls.Add(this.SaveAsDevicesBtn);
-            this.groupBox11.Controls.Add(this.DevicesGrid);
-            this.groupBox11.Location = new System.Drawing.Point(7, 187);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(1089, 322);
-            this.groupBox11.TabIndex = 70;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Devices";
+            this.DevicesGrp.Controls.Add(this.speedBtnsGrp);
+            this.DevicesGrp.Controls.Add(this.SetStartupDevicesBtn);
+            this.DevicesGrp.Controls.Add(this.groupBox10);
+            this.DevicesGrp.Controls.Add(this.DevicesFilenameLbl);
+            this.DevicesGrp.Controls.Add(this.DefaultDevicesBtn);
+            this.DevicesGrp.Controls.Add(this.SaveDevicesBtn);
+            this.DevicesGrp.Controls.Add(this.DisconnectAllDevicesBtn);
+            this.DevicesGrp.Controls.Add(this.LoadDevicesBtn);
+            this.DevicesGrp.Controls.Add(this.ConnectAllDevicesBtn);
+            this.DevicesGrp.Controls.Add(this.SaveAsDevicesBtn);
+            this.DevicesGrp.Controls.Add(this.DevicesGrid);
+            this.DevicesGrp.Location = new System.Drawing.Point(7, 187);
+            this.DevicesGrp.Name = "DevicesGrp";
+            this.DevicesGrp.Size = new System.Drawing.Size(1089, 386);
+            this.DevicesGrp.TabIndex = 70;
+            this.DevicesGrp.TabStop = false;
+            this.DevicesGrp.Text = "Devices";
+            // 
+            // speedBtnsGrp
+            // 
+            this.speedBtnsGrp.Controls.Add(this.SpeedSendBtn1);
+            this.speedBtnsGrp.Location = new System.Drawing.Point(212, 321);
+            this.speedBtnsGrp.Name = "speedBtnsGrp";
+            this.speedBtnsGrp.Size = new System.Drawing.Size(871, 50);
+            this.speedBtnsGrp.TabIndex = 72;
+            this.speedBtnsGrp.TabStop = false;
+            this.speedBtnsGrp.Text = "Speed Send Buttons";
+            // 
+            // SpeedSendBtn1
+            // 
+            this.SpeedSendBtn1.Location = new System.Drawing.Point(6, 19);
+            this.SpeedSendBtn1.Name = "SpeedSendBtn1";
+            this.SpeedSendBtn1.Size = new System.Drawing.Size(75, 23);
+            this.SpeedSendBtn1.TabIndex = 71;
+            this.SpeedSendBtn1.Text = "Speed 1";
+            this.SpeedSendBtn1.UseVisualStyleBackColor = true;
+            this.SpeedSendBtn1.Click += new System.EventHandler(this.SpeedSendBtn1_Click);
+            // 
+            // SetStartupDevicesBtn
+            // 
+            this.SetStartupDevicesBtn.Location = new System.Drawing.Point(990, 50);
+            this.SetStartupDevicesBtn.Name = "SetStartupDevicesBtn";
+            this.SetStartupDevicesBtn.Size = new System.Drawing.Size(93, 23);
+            this.SetStartupDevicesBtn.TabIndex = 70;
+            this.SetStartupDevicesBtn.Text = "Set As Startup";
+            this.SetStartupDevicesBtn.UseVisualStyleBackColor = true;
+            this.SetStartupDevicesBtn.Click += new System.EventHandler(this.SetStartupDevicesBtn_Click);
             // 
             // groupBox10
             // 
@@ -898,7 +860,7 @@
             this.groupBox10.Controls.Add(this.MinimizeRuntimeBtn);
             this.groupBox10.Location = new System.Drawing.Point(5, 15);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(201, 294);
+            this.groupBox10.Size = new System.Drawing.Size(201, 300);
             this.groupBox10.TabIndex = 69;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Act On Selected Row";
@@ -1050,7 +1012,7 @@
             // DevicesFilenameLbl
             // 
             this.DevicesFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DevicesFilenameLbl.Location = new System.Drawing.Point(212, 16);
+            this.DevicesFilenameLbl.Location = new System.Drawing.Point(212, 51);
             this.DevicesFilenameLbl.Name = "DevicesFilenameLbl";
             this.DevicesFilenameLbl.Size = new System.Drawing.Size(772, 23);
             this.DevicesFilenameLbl.TabIndex = 63;
@@ -1058,7 +1020,7 @@
             // 
             // DefaultDevicesBtn
             // 
-            this.DefaultDevicesBtn.Location = new System.Drawing.Point(212, 286);
+            this.DefaultDevicesBtn.Location = new System.Drawing.Point(212, 19);
             this.DefaultDevicesBtn.Name = "DefaultDevicesBtn";
             this.DefaultDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.DefaultDevicesBtn.TabIndex = 61;
@@ -1068,7 +1030,7 @@
             // 
             // SaveDevicesBtn
             // 
-            this.SaveDevicesBtn.Location = new System.Drawing.Point(374, 286);
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(374, 19);
             this.SaveDevicesBtn.Name = "SaveDevicesBtn";
             this.SaveDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveDevicesBtn.TabIndex = 59;
@@ -1078,7 +1040,7 @@
             // 
             // DisconnectAllDevicesBtn
             // 
-            this.DisconnectAllDevicesBtn.Location = new System.Drawing.Point(706, 286);
+            this.DisconnectAllDevicesBtn.Location = new System.Drawing.Point(706, 19);
             this.DisconnectAllDevicesBtn.Name = "DisconnectAllDevicesBtn";
             this.DisconnectAllDevicesBtn.Size = new System.Drawing.Size(114, 23);
             this.DisconnectAllDevicesBtn.TabIndex = 67;
@@ -1088,7 +1050,7 @@
             // 
             // LoadDevicesBtn
             // 
-            this.LoadDevicesBtn.Location = new System.Drawing.Point(293, 286);
+            this.LoadDevicesBtn.Location = new System.Drawing.Point(293, 19);
             this.LoadDevicesBtn.Name = "LoadDevicesBtn";
             this.LoadDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.LoadDevicesBtn.TabIndex = 60;
@@ -1098,7 +1060,7 @@
             // 
             // ConnectAllDevicesBtn
             // 
-            this.ConnectAllDevicesBtn.Location = new System.Drawing.Point(607, 286);
+            this.ConnectAllDevicesBtn.Location = new System.Drawing.Point(607, 19);
             this.ConnectAllDevicesBtn.Name = "ConnectAllDevicesBtn";
             this.ConnectAllDevicesBtn.Size = new System.Drawing.Size(93, 23);
             this.ConnectAllDevicesBtn.TabIndex = 66;
@@ -1108,7 +1070,7 @@
             // 
             // SaveAsDevicesBtn
             // 
-            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(455, 286);
+            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(455, 19);
             this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
             this.SaveAsDevicesBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveAsDevicesBtn.TabIndex = 64;
@@ -1119,7 +1081,7 @@
             // DevicesGrid
             // 
             this.DevicesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DevicesGrid.Location = new System.Drawing.Point(212, 38);
+            this.DevicesGrid.Location = new System.Drawing.Point(212, 73);
             this.DevicesGrid.Name = "DevicesGrid";
             this.DevicesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.DevicesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1130,37 +1092,6 @@
             this.DevicesGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_CellValueChanged);
             this.DevicesGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_RowEnter);
             this.DevicesGrid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.DeviceGrid_UserDeletingRow);
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.TriggerDm2Btn);
-            this.groupBox9.Controls.Add(this.TriggerDm1Btn);
-            this.groupBox9.Location = new System.Drawing.Point(403, 515);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(124, 110);
-            this.groupBox9.TabIndex = 68;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Barcode Readers";
-            // 
-            // TriggerDm2Btn
-            // 
-            this.TriggerDm2Btn.Location = new System.Drawing.Point(6, 48);
-            this.TriggerDm2Btn.Name = "TriggerDm2Btn";
-            this.TriggerDm2Btn.Size = new System.Drawing.Size(75, 23);
-            this.TriggerDm2Btn.TabIndex = 1;
-            this.TriggerDm2Btn.Text = "Trigger 2";
-            this.TriggerDm2Btn.UseVisualStyleBackColor = true;
-            this.TriggerDm2Btn.Click += new System.EventHandler(this.TriggerDm2Btn_Click);
-            // 
-            // TriggerDm1Btn
-            // 
-            this.TriggerDm1Btn.Location = new System.Drawing.Point(6, 19);
-            this.TriggerDm1Btn.Name = "TriggerDm1Btn";
-            this.TriggerDm1Btn.Size = new System.Drawing.Size(75, 23);
-            this.TriggerDm1Btn.TabIndex = 0;
-            this.TriggerDm1Btn.Text = "Trigger 1";
-            this.TriggerDm1Btn.UseVisualStyleBackColor = true;
-            this.TriggerDm1Btn.Click += new System.EventHandler(this.TriggerDm1Btn_Click);
             // 
             // ConfigGrp
             // 
@@ -1319,42 +1250,15 @@
             this.SaveConfigBtn.UseVisualStyleBackColor = true;
             this.SaveConfigBtn.Click += new System.EventHandler(this.SaveConfigBtn_Click);
             // 
-            // BrowserTab
+            // OlisConnectBtn
             // 
-            this.BrowserTab.Controls.Add(this.button1);
-            this.BrowserTab.Controls.Add(this.webControl1);
-            this.BrowserTab.Location = new System.Drawing.Point(4, 22);
-            this.BrowserTab.Name = "BrowserTab";
-            this.BrowserTab.Size = new System.Drawing.Size(1102, 892);
-            this.BrowserTab.TabIndex = 5;
-            this.BrowserTab.Text = "Browser";
-            this.BrowserTab.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1024, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // webControl1
-            // 
-            this.webControl1.BackColor = System.Drawing.Color.White;
-            this.webControl1.Location = new System.Drawing.Point(3, 3);
-            this.webControl1.Name = "webControl1";
-            this.webControl1.Size = new System.Drawing.Size(1096, 886);
-            this.webControl1.TabIndex = 3;
-            this.webControl1.Text = "webControl1";
-            this.webControl1.WebView = this.webView1;
-            // 
-            // webView1
-            // 
-            this.webView1.InputMsgFilter = null;
-            this.webView1.ObjectForScripting = null;
-            this.webView1.Title = null;
+            this.OlisConnectBtn.Location = new System.Drawing.Point(19, 949);
+            this.OlisConnectBtn.Name = "OlisConnectBtn";
+            this.OlisConnectBtn.Size = new System.Drawing.Size(75, 23);
+            this.OlisConnectBtn.TabIndex = 4;
+            this.OlisConnectBtn.Text = "Olis Connect";
+            this.OlisConnectBtn.UseVisualStyleBackColor = true;
+            this.OlisConnectBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // menuStrip
             // 
@@ -1382,26 +1286,26 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -1453,22 +1357,31 @@
             // 
             this.StartupTmr.Tick += new System.EventHandler(this.StartupTmr_Tick);
             // 
-            // SetStartupDevicesBtn
+            // ChromeBtn
             // 
-            this.SetStartupDevicesBtn.Location = new System.Drawing.Point(990, 15);
-            this.SetStartupDevicesBtn.Name = "SetStartupDevicesBtn";
-            this.SetStartupDevicesBtn.Size = new System.Drawing.Size(93, 23);
-            this.SetStartupDevicesBtn.TabIndex = 70;
-            this.SetStartupDevicesBtn.Text = "Set As Startup";
-            this.SetStartupDevicesBtn.UseVisualStyleBackColor = true;
-            this.SetStartupDevicesBtn.Click += new System.EventHandler(this.SetStartupDevicesBtn_Click);
+            this.ChromeBtn.Location = new System.Drawing.Point(100, 949);
+            this.ChromeBtn.Name = "ChromeBtn";
+            this.ChromeBtn.Size = new System.Drawing.Size(75, 23);
+            this.ChromeBtn.TabIndex = 5;
+            this.ChromeBtn.Text = "Chrome";
+            this.ChromeBtn.UseVisualStyleBackColor = true;
+            // 
+            // ChromeUrlTxt
+            // 
+            this.ChromeUrlTxt.Location = new System.Drawing.Point(181, 949);
+            this.ChromeUrlTxt.Name = "ChromeUrlTxt";
+            this.ChromeUrlTxt.Size = new System.Drawing.Size(195, 20);
+            this.ChromeUrlTxt.TabIndex = 65;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1969, 997);
+            this.Controls.Add(this.ChromeUrlTxt);
+            this.Controls.Add(this.ChromeBtn);
             this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.OlisConnectBtn);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
@@ -1490,22 +1403,21 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
             this.PersonalityTabs.ResumeLayout(false);
             this.ProgramTab.ResumeLayout(false);
             this.ProgramTab.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).EndInit();
+            this.BrowserTab.ResumeLayout(false);
             this.ConfigTab.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
+            this.DevicesGrp.ResumeLayout(false);
+            this.speedBtnsGrp.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrid)).EndInit();
-            this.groupBox9.ResumeLayout(false);
             this.ConfigGrp.ResumeLayout(false);
             this.ConfigGrp.PerformLayout();
-            this.BrowserTab.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -1540,14 +1452,6 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button CommandClearBtn;
         private System.Windows.Forms.RichTextBox ControlLogRTB;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.Button Robot4Btn;
-        private System.Windows.Forms.Button Robot3Btn;
-        private System.Windows.Forms.Button Robot2Btn;
-        private System.Windows.Forms.Button Robot1Btn;
-        private System.Windows.Forms.Button Robot99Btn;
-        private System.Windows.Forms.Button Robot98Btn;
-        private System.Windows.Forms.Button Robot50Btn;
         private System.Windows.Forms.CheckBox BarcodeReaderThreadChk;
         private System.Windows.Forms.Button BcrEndBtn;
         private System.Windows.Forms.Button BcrtStartBtn;
@@ -1590,9 +1494,6 @@
         private System.Windows.Forms.Button ConnectAllDevicesBtn;
         private System.Windows.Forms.Timer StartupTmr;
         private System.Windows.Forms.CheckBox UtcTimeChk;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Button TriggerDm2Btn;
-        private System.Windows.Forms.Button TriggerDm1Btn;
         private System.Windows.Forms.TabPage ProgramTab;
         private System.Windows.Forms.Button RunJavaProgramBtn;
         private System.Windows.Forms.Button SaveAsJavaProgramBtn;
@@ -1621,14 +1522,14 @@
         private System.Windows.Forms.Button ExitRuntimeBtn;
         private System.Windows.Forms.Button MinimizeRuntimeBtn;
         private System.Windows.Forms.Button RestoreRuntimeBtn;
-        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.GroupBox DevicesGrp;
         private System.Windows.Forms.Button LaunchRuntimeBtn;
         private System.Windows.Forms.Button LaunchSetupBtn;
         private System.Windows.Forms.Button ExitSetupBtn;
         private System.Windows.Forms.Button RestoreSetupBtn;
         private System.Windows.Forms.Button MinimizeSetupBtn;
         private System.Windows.Forms.TabPage BrowserTab;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button OlisConnectBtn;
         private EO.WinForm.WebControl webControl1;
         private EO.WebBrowser.WebView webView1;
         private System.Windows.Forms.Button CurrentReconnectBtn;
@@ -1642,6 +1543,10 @@
         private System.Windows.Forms.Button WriteStringValueBtn;
         private System.Windows.Forms.TextBox VariableNameTxt;
         private System.Windows.Forms.Button SetStartupDevicesBtn;
+        private System.Windows.Forms.Button SpeedSendBtn1;
+        private System.Windows.Forms.GroupBox speedBtnsGrp;
+        private System.Windows.Forms.Button ChromeBtn;
+        private System.Windows.Forms.TextBox ChromeUrlTxt;
     }
 }
 

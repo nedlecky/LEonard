@@ -30,7 +30,9 @@ namespace LEonard
 
         BarcodeReaderThread bcrt;
 
-        // TODO: This needs to dynamically resize and the code taht doaes it doesn't!!
+        List<Button> speedSendBtns = new List<Button>();
+
+        // TODO: This needs to dynamically resize and the code that does it doesn't!!
         LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null };
 
         private static NLog.Logger log;
@@ -44,7 +46,6 @@ namespace LEonard
         public MainForm()
         {
             InitializeComponent();
-
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -476,6 +477,7 @@ namespace LEonard
             devices.Columns.Add("SetupWorkingDirectory", typeof(System.String));
             devices.Columns.Add("SetupFileName", typeof(System.String));
             devices.Columns.Add("SetupArguments", typeof(System.String));
+            devices.Columns.Add("SpeedSendButtons", typeof(System.String));
 
             //devices.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //devices.Columns[0].
@@ -516,66 +518,99 @@ namespace LEonard
             devices.Rows.Add(new object[] {
                 0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
                 "CTL", "general", "Hello!", "exit()",
-                true, "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
+                true,
+                "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
                 "LEonardClient.exe",
                 "",
                 "",
                 "",
-                ""});
+                "",
+                "test()|exit()"
+            });
             devices.Rows.Add(new object[] {
                 1, "UR-5e", true, false, "TcpServer", "192.168.0.252:30000",
                 "AUX1", "general", "", "(98,0,0,0,0)",
-                true, "C:\\Program Files\\RealVNC\\VNC Viewer",
+                false,
+                "",
+                "",
+                "",
+                "C:\\Program Files\\RealVNC\\VNC Viewer",
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
-                "",
-                "chrome.exe",
-                "/incognito 192.168.0.171"});
+                "(1,0,0,0,0)|(2,0,0,0,0)|(3,0,0,0,0)|(4,0,0,0,0)|(50,0,0,0,0)|(98,0,0,0,0)|(99,0,0,0,0)"
+            });
             devices.Rows.Add(new object[] {
                 2, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
                 "AUX2S", "general", "init()", "",
-                false, "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
+                false,
+                "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
                 "IpeStudio.exe",
                 "",
                 "",
                 "",
-                ""});
+                "",
+                "GO"
+            });
             devices.Rows.Add(new object[] {
                 3, "HALCON", true, false, "TcpClient", "127.0.0.1:21000",
                 "AUX2H", "general", "init()", "",
-                true, "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
+                true,
+                "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
                 "hdevelop.exe",
                 "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run",
                 "",
                 "",
-                ""});
+                "",
+                "GO"
+            });
             devices.Rows.Add(new object[] {
                 4, "Keyence", true, false, "TcpClient", "192.168.0.10:8500",
                 "AUX2K", "general", "TE", "",
-                false, "",
+                false,
+                "",
                 "",
                 "",
                 "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin",
                 "CV-X Series Terminal-Software.exe",
-                "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn" });
+                "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn",
+                "T1|T2"
+            });
             devices.Rows.Add(new object[] {
                 5, "Dataman 1", true, false, "Serial", "COM3",
                 "AUX31", "general", "+", "",
-                false, "",
+                false,
+                "",
                 "",
                 "",
                 "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
                 "SetupTool.exe",
-                ""});
+                "",
+                "+"
+            });
             devices.Rows.Add(new object[] {
                 6, "Dataman 2", true, false, "Serial", "COM4",
                 "AUX32", "general", "+", "",
-                false, "",
+                false,
+                "",
                 "",
                 "",
                 "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
                 "SetupTool.exe",
-                ""});
+                "",
+                "+"
+            });
+            devices.Rows.Add(new object[] {
+                7, "Chrome", true, false, "Null", "",
+                "CTL", "general", "", "",
+                true,
+                "",
+                "Chrome.exe",
+                "/incognito 192.168.0.171",
+                "",
+                "",
+                "",
+                ""
+            });
 
             DevicesGrid.DataSource = devices;
         }
@@ -589,11 +624,11 @@ namespace LEonard
             {
                 devices.ReadXml(name);
                 DevicesGrid.DataSource = devices;
-                foreach(DataGridViewColumn col in DevicesGrid.Columns)
+                foreach (DataGridViewColumn col in DevicesGrid.Columns)
                     col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 DevicesFilenameLbl.Text = name;
                 // Mark all as not connected
-                foreach(DataRow row in devices.Rows)
+                foreach (DataRow row in devices.Rows)
                 {
                     row["Connected"] = false;
                 }
@@ -663,9 +698,9 @@ namespace LEonard
             log.Info("ConnectAllDevicesBtn_Click(...)");
 
             currentDeviceRowIndex = 0;
-            foreach(DataRow row in devices.Rows)
+            foreach (DataRow row in devices.Rows)
             {
-                if(!(bool)row["Connected"] && (bool)row["Enabled"])
+                if (!(bool)row["Connected"] && (bool)row["Enabled"])
                 {
                     log.Info("AUX3 Connecting {0} {1}", currentDeviceRowIndex, row["Name"]);
                     CurrentConnectBtn_Click(null, null);
@@ -701,6 +736,49 @@ namespace LEonard
         private void DeviceGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             currentDeviceRowIndex = e.RowIndex;
+
+            // Clear existing SendSpeed buttons except first
+            for (int i = 1; i < speedSendBtns.Count; i++)
+                speedSendBtns[i].Dispose();
+            
+            speedSendBtns.Clear();
+
+            // Nothing specified: leave the anchor button on the screen blank and disabled
+            string speedButtons = (string)(devices.Rows[currentDeviceRowIndex])["SpeedSendButtons"];
+            if (speedButtons.Length < 1)
+            {
+                SpeedSendBtn1.Text = "";
+                SpeedSendBtn1.Enabled = false;
+
+                return;
+            }
+
+            // Multiple buttons text specified as str1|str2|str3...
+            string[] buttonTextArray = speedButtons.Split('|');
+
+            int x = SpeedSendBtn1.Left;
+            int y = SpeedSendBtn1.Top;
+            int width = SpeedSendBtn1.Width;
+            int height = SpeedSendBtn1.Height;
+            int tabStart = SpeedSendBtn1.TabIndex;
+            speedSendBtns.Add(SpeedSendBtn1);
+            SpeedSendBtn1.Text = buttonTextArray[0];
+            SpeedSendBtn1.Enabled = true;
+            for (int i = 1; i < buttonTextArray.Length; i++)
+            {
+                Button b = new Button();
+                b.Location = new System.Drawing.Point(x + (width + 5) * i, y);
+                b.Name = "SpeedSendBtn" + i + 1;
+                b.Size = new System.Drawing.Size(width, height);
+                b.TabIndex = tabStart + i;
+                b.Text = buttonTextArray[i];
+                b.UseVisualStyleBackColor = true;
+                b.Click += new System.EventHandler(SpeedSendBtn1_Click);
+
+                speedSendBtns.Add(b);
+                speedBtnsGrp.Controls.Add(b);
+            }
+
         }
 
         private void DeviceGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -886,6 +964,10 @@ namespace LEonard
                     interfaces[currentDeviceRowIndex] = new LeSerial(this, messageTag, onConnectSend);
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
+                case @"Null":
+                    interfaces[currentDeviceRowIndex] = new LeDevNull(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
                 default:
                     log.Error("Illegal interface type: {0}", deviceType);
                     break;
@@ -914,7 +996,7 @@ namespace LEonard
             row["Connected"] = true;
 
             // Autostart runtime?
-            if((bool)row["RuntimeAutostart"])
+            if ((bool)row["RuntimeAutostart"])
             {
                 LaunchRuntimeBtn_Click(null, null);
             }
@@ -935,7 +1017,7 @@ namespace LEonard
                 interfaces[currentDeviceRowIndex].Connect((string)row["Address"]);
             }
         }
-    
+
 
         private void CurrentDisconnectBtn_Click(object sender, EventArgs e)
         {
@@ -967,68 +1049,14 @@ namespace LEonard
                 GC.Collect();
             }
         }
-
-        private void Robot1Btn_Click(object sender, EventArgs e)
+        private void SpeedSendBtn1_Click(object sender, EventArgs e)
         {
-            // TODO: These can't be hardcoded
-            if (interfaces[1] != null)
-                interfaces[1].Send("(1,0,0,0,0)");
+            log.Info("Clicked {0}", ((Button)sender).Text);
+            if (interfaces[currentDeviceRowIndex] == null) return;
+
+            interfaces[currentDeviceRowIndex].Send(((Button)sender).Text);
         }
 
-        private void Robot2Btn_Click(object sender, EventArgs e)
-        {
-            // TODO: These can't be hardcoded
-            if (interfaces[1] != null)
-                interfaces[1].Send("(2,0,0,0,0)");
-        }
-
-        private void Robot3Btn_Click(object sender, EventArgs e)
-        {
-            // TODO: These can't be hardcoded
-            if (interfaces[1] != null)
-                interfaces[1].Send("(3,0,0,0,0)");
-        }
-
-        private void Robot4Btn_Click(object sender, EventArgs e)
-        {
-            // TODO: These can't be hardcoded
-            if (interfaces[1] != null)
-                interfaces[1].Send("(4,0,0,0,0)");
-        }
-
-        private void Robot50Btn_Click(object sender, EventArgs e)
-        {
-            // TODO: These can't be hardcoded
-            if (interfaces[1] != null)
-                interfaces[1].Send("(50,0,0,0,0)");
-        }
-
-        private void Robot98Btn_Click(object sender, EventArgs e)
-        {
-            // TODO: These can't be hardcoded
-            if (interfaces[1] != null)
-            {
-                interfaces[1].Send("(98,0,0,0,0)");
-
-                // All shoud be wrapped in nice RobotServer class
-                Thread.Sleep(100);
-                interfaces[1].Disconnect();
-                //robotServer = new TcpServer(this, "ROBOT: ");
-                interfaces[1].Connect("192.168.0.252:30000");
-            }
-        }
-
-        private void Robot99Btn_Click(object sender, EventArgs e)
-        {
-            if (interfaces[1] != null)
-            {
-                interfaces[1].Send("(99,0,0,0,0)");
-
-                Thread.Sleep(100);
-                interfaces[1].Disconnect();
-                interfaces[1].Connect("192.168.0.252:30000");
-            }
-        }
 
         private void BcrtCreateBtn_Click(object sender, EventArgs e)
         {
@@ -1058,19 +1086,6 @@ namespace LEonard
         private void BarcodeReaderThreadChk_CheckedChanged(object sender, EventArgs e)
         {
             bcrt.Enable(BarcodeReaderThreadChk.Checked);
-        }
-        private void TriggerDm1Btn_Click(object sender, EventArgs e)
-        {
-            // TODO: These can't be hardcoded
-            if (interfaces[5] != null)
-                interfaces[5].Send("+");
-        }
-
-        private void TriggerDm2Btn_Click(object sender, EventArgs e)
-        {
-            // TODO: These can't be hardcoded
-            if (interfaces[6] != null)
-                interfaces[6].Send("+");
         }
         // ***********************************************************************
         // END DEVICES UI
@@ -1244,7 +1259,8 @@ namespace LEonard
         }
         private void JsPrint(string message)
         {
-            log.Info("JSP {0}", message);
+            JavaScriptConsoleRTB.AppendText(message);
+            JavaScriptConsoleRTB.ScrollToCaret();
         }
 
         static readonly object lockJsObject = new object();
@@ -1394,6 +1410,7 @@ namespace LEonard
         {
             webView1.Url = "192.168.0.171";
         }
+
         // ***********************************************************************
         // END JAVA PROGRAM
         // ***********************************************************************

@@ -267,7 +267,7 @@ namespace LEonardClient
         private void GetStatus()
         {
             //string request = string.Format("command=status#command_index={0}#{print('do status operation');}", ++messageIndex);
-            string request = string.Format("command=status#command_index={0}#{{print('do status operation {0}');send(0,'Status OK');}}", ++messageIndex);
+            string request = string.Format("command=status#command_index={0}#{{print('do status operation {0}\\n');send(0,'Status OK');}}", ++messageIndex);
             Send(request);
         }
 

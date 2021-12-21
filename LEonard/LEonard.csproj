@@ -144,6 +144,7 @@
     <Compile Include="Devices\LeTcpClient.cs" />
     <Compile Include="Devices\LeDeviceInterface.cs" />
     <Compile Include="Devices\LeDeviceBase.cs" />
+    <Compile Include="Devices\LeDevNull.cs" />
     <Compile Include="SplashForm.cs">
       <SubType>Form</SubType>
     </Compile>
