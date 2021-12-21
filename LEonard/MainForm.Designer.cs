@@ -353,7 +353,7 @@
             // 
             this.groupBox1.Controls.Add(this.RobotClearBtn);
             this.groupBox1.Controls.Add(this.Aux1LogRTB);
-            this.groupBox1.Location = new System.Drawing.Point(1572, 27);
+            this.groupBox1.Location = new System.Drawing.Point(1913, 28);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(388, 224);
             this.groupBox1.TabIndex = 32;
@@ -364,7 +364,7 @@
             // 
             this.groupBox2.Controls.Add(this.SerialClearBtn);
             this.groupBox2.Controls.Add(this.Aux3LogRTB);
-            this.groupBox2.Location = new System.Drawing.Point(1572, 515);
+            this.groupBox2.Location = new System.Drawing.Point(1913, 516);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(382, 262);
             this.groupBox2.TabIndex = 33;
@@ -396,7 +396,7 @@
             // 
             this.groupBox3.Controls.Add(this.VisionClearBtn);
             this.groupBox3.Controls.Add(this.Aux2LogRTB);
-            this.groupBox3.Location = new System.Drawing.Point(1572, 257);
+            this.groupBox3.Location = new System.Drawing.Point(1913, 258);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(388, 252);
             this.groupBox3.TabIndex = 34;
@@ -407,7 +407,7 @@
             // 
             this.groupBox4.Controls.Add(this.CrawlerClearBtn);
             this.groupBox4.Controls.Add(this.AllLogRTB);
-            this.groupBox4.Location = new System.Drawing.Point(1128, 27);
+            this.groupBox4.Location = new System.Drawing.Point(1469, 28);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(438, 267);
             this.groupBox4.TabIndex = 35;
@@ -418,7 +418,7 @@
             // 
             this.groupBox5.Controls.Add(this.ErrorClearBtn);
             this.groupBox5.Controls.Add(this.ErrorLogRTB);
-            this.groupBox5.Location = new System.Drawing.Point(1130, 300);
+            this.groupBox5.Location = new System.Drawing.Point(1471, 301);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(438, 241);
             this.groupBox5.TabIndex = 36;
@@ -429,7 +429,7 @@
             // 
             this.groupBox6.Controls.Add(this.CommandClearBtn);
             this.groupBox6.Controls.Add(this.ControlLogRTB);
-            this.groupBox6.Location = new System.Drawing.Point(1130, 547);
+            this.groupBox6.Location = new System.Drawing.Point(1471, 548);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(438, 230);
             this.groupBox6.TabIndex = 36;
@@ -467,7 +467,7 @@
             this.PersonalityTabs.Location = new System.Drawing.Point(12, 27);
             this.PersonalityTabs.Name = "PersonalityTabs";
             this.PersonalityTabs.SelectedIndex = 0;
-            this.PersonalityTabs.Size = new System.Drawing.Size(1110, 918);
+            this.PersonalityTabs.Size = new System.Drawing.Size(1451, 918);
             this.PersonalityTabs.TabIndex = 62;
             // 
             // RuntimeTab
@@ -475,7 +475,7 @@
             this.RuntimeTab.Location = new System.Drawing.Point(4, 22);
             this.RuntimeTab.Name = "RuntimeTab";
             this.RuntimeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.RuntimeTab.Size = new System.Drawing.Size(1102, 892);
+            this.RuntimeTab.Size = new System.Drawing.Size(1443, 892);
             this.RuntimeTab.TabIndex = 0;
             this.RuntimeTab.Text = "Runtime";
             this.RuntimeTab.UseVisualStyleBackColor = true;
@@ -503,7 +503,7 @@
             this.ProgramTab.Controls.Add(this.SaveJavaProgramBtn);
             this.ProgramTab.Location = new System.Drawing.Point(4, 22);
             this.ProgramTab.Name = "ProgramTab";
-            this.ProgramTab.Size = new System.Drawing.Size(1102, 892);
+            this.ProgramTab.Size = new System.Drawing.Size(1443, 892);
             this.ProgramTab.TabIndex = 4;
             this.ProgramTab.Text = "Program";
             this.ProgramTab.UseVisualStyleBackColor = true;
@@ -745,7 +745,7 @@
             this.ReportingTab.Location = new System.Drawing.Point(4, 22);
             this.ReportingTab.Name = "ReportingTab";
             this.ReportingTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ReportingTab.Size = new System.Drawing.Size(1102, 892);
+            this.ReportingTab.Size = new System.Drawing.Size(1443, 892);
             this.ReportingTab.TabIndex = 1;
             this.ReportingTab.Text = "Reporting";
             this.ReportingTab.UseVisualStyleBackColor = true;
@@ -755,7 +755,7 @@
             this.BrowserTab.Controls.Add(this.webControl1);
             this.BrowserTab.Location = new System.Drawing.Point(4, 22);
             this.BrowserTab.Name = "BrowserTab";
-            this.BrowserTab.Size = new System.Drawing.Size(1102, 892);
+            this.BrowserTab.Size = new System.Drawing.Size(1443, 892);
             this.BrowserTab.TabIndex = 5;
             this.BrowserTab.Text = "Browser";
             this.BrowserTab.UseVisualStyleBackColor = true;
@@ -765,7 +765,7 @@
             this.webControl1.BackColor = System.Drawing.Color.White;
             this.webControl1.Location = new System.Drawing.Point(3, 3);
             this.webControl1.Name = "webControl1";
-            this.webControl1.Size = new System.Drawing.Size(1096, 886);
+            this.webControl1.Size = new System.Drawing.Size(1437, 886);
             this.webControl1.TabIndex = 3;
             this.webControl1.Text = "webControl1";
             this.webControl1.WebView = this.webView1;
@@ -784,7 +784,7 @@
             this.ConfigTab.Location = new System.Drawing.Point(4, 22);
             this.ConfigTab.Name = "ConfigTab";
             this.ConfigTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ConfigTab.Size = new System.Drawing.Size(1102, 892);
+            this.ConfigTab.Size = new System.Drawing.Size(1443, 892);
             this.ConfigTab.TabIndex = 3;
             this.ConfigTab.Text = "Config";
             this.ConfigTab.UseVisualStyleBackColor = true;
@@ -804,7 +804,7 @@
             this.DevicesGrp.Controls.Add(this.DevicesGrid);
             this.DevicesGrp.Location = new System.Drawing.Point(7, 187);
             this.DevicesGrp.Name = "DevicesGrp";
-            this.DevicesGrp.Size = new System.Drawing.Size(1089, 386);
+            this.DevicesGrp.Size = new System.Drawing.Size(1430, 386);
             this.DevicesGrp.TabIndex = 70;
             this.DevicesGrp.TabStop = false;
             this.DevicesGrp.Text = "Devices";
@@ -814,7 +814,7 @@
             this.speedBtnsGrp.Controls.Add(this.SpeedSendBtn1);
             this.speedBtnsGrp.Location = new System.Drawing.Point(212, 321);
             this.speedBtnsGrp.Name = "speedBtnsGrp";
-            this.speedBtnsGrp.Size = new System.Drawing.Size(871, 50);
+            this.speedBtnsGrp.Size = new System.Drawing.Size(1212, 50);
             this.speedBtnsGrp.TabIndex = 72;
             this.speedBtnsGrp.TabStop = false;
             this.speedBtnsGrp.Text = "Speed Send Buttons";
@@ -1085,7 +1085,7 @@
             this.DevicesGrid.Name = "DevicesGrid";
             this.DevicesGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.DevicesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DevicesGrid.Size = new System.Drawing.Size(871, 242);
+            this.DevicesGrid.Size = new System.Drawing.Size(1212, 242);
             this.DevicesGrid.TabIndex = 58;
             this.DevicesGrid.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DeviceGrid_CellBeginEdit);
             this.DevicesGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeviceGrid_RowEnter);
@@ -1109,7 +1109,7 @@
             this.ConfigGrp.Controls.Add(this.SaveConfigBtn);
             this.ConfigGrp.Location = new System.Drawing.Point(6, 6);
             this.ConfigGrp.Name = "ConfigGrp";
-            this.ConfigGrp.Size = new System.Drawing.Size(1090, 175);
+            this.ConfigGrp.Size = new System.Drawing.Size(1431, 175);
             this.ConfigGrp.TabIndex = 62;
             this.ConfigGrp.TabStop = false;
             this.ConfigGrp.Text = "Config";
@@ -1266,7 +1266,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1969, 24);
+            this.menuStrip.Size = new System.Drawing.Size(2313, 24);
             this.menuStrip.TabIndex = 63;
             this.menuStrip.Text = "menuStrip";
             // 
@@ -1334,7 +1334,7 @@
             this.toolStripStatusLabel2});
             this.statusStrip.Location = new System.Drawing.Point(0, 975);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1969, 22);
+            this.statusStrip.Size = new System.Drawing.Size(2313, 22);
             this.statusStrip.TabIndex = 64;
             this.statusStrip.Text = "statusStrip";
             this.statusStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip_ItemClicked);
@@ -1375,7 +1375,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1969, 997);
+            this.ClientSize = new System.Drawing.Size(2313, 997);
             this.Controls.Add(this.ChromeUrlTxt);
             this.Controls.Add(this.ChromeBtn);
             this.Controls.Add(this.groupBox5);
