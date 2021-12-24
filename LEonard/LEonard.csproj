@@ -145,6 +145,13 @@
     <Compile Include="Devices\LeDeviceInterface.cs" />
     <Compile Include="Devices\LeDeviceBase.cs" />
     <Compile Include="Devices\LeDevNull.cs" />
+    <Compile Include="LeTcpClientAsync.cs" />
+    <Compile Include="MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SplashForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +173,9 @@
     <Compile Include="Devices\LeTcpServer.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

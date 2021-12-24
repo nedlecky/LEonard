@@ -184,8 +184,6 @@
             // AutoGetStatusChk
             // 
             this.AutoGetStatusChk.AutoSize = true;
-            this.AutoGetStatusChk.Checked = true;
-            this.AutoGetStatusChk.CheckState = System.Windows.Forms.CheckState.Checked;
             this.AutoGetStatusChk.Location = new System.Drawing.Point(281, 12);
             this.AutoGetStatusChk.Name = "AutoGetStatusChk";
             this.AutoGetStatusChk.Size = new System.Drawing.Size(101, 17);

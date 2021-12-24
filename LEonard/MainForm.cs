@@ -170,8 +170,13 @@ namespace LEonard
             // TODO: do we really need to keep polling for message receipt?
             if (interfaces.Length == 0) return;
 
+            int i = 0;
+            //TODO: This is WIP since sholdn't need top call receive once callbacks work
             foreach (LeDeviceInterface device in interfaces)
-                if (device != null) device.Receive();
+            {
+                if (device != null&& i<3) device.Receive();
+                i++;
+            }
         }
 
         private void AllLogClearBtn_Click(object sender, EventArgs e)
@@ -800,6 +805,12 @@ namespace LEonard
 
         }
 
+        void SetWindowOnTop(IntPtr hWnd)
+        {
+            log.Info("SetWindowOnTop({0})", hWnd);
+            // TODO: The SetWindowPos constants below should be defined!
+            SetWindowPos(hWnd, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+        }
         private void LaunchRuntimeBtn_Click(object sender, EventArgs e)
         {
             DataRow row = devices.Rows[currentDeviceRowIndex];
@@ -815,8 +826,24 @@ namespace LEonard
             else
             {
                 interfaces[currentDeviceRowIndex].StartRuntimeProcess(start);
-                // TODO: The SetWindowPos constants below should be defined!
-                SetWindowPos(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+
+                // TODO: This wait for start is a little kludgey
+                Form form = new MessageForm("Waiting", "Waiting for app to start");
+                form.Owner = this;
+                form.Show();
+                for (int i = 0; i < 50; i++)
+                {
+                    Thread.Sleep(100);
+                    IntPtr hWnd = interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle;
+                    log.Info("hWnd = {0}", hWnd);
+                    if (hWnd != (IntPtr)0)
+                    {
+                        SetWindowOnTop(hWnd);
+                        form.Close();
+                        break;
+                    }
+                }
+                form.Close();
             }
 
         }
@@ -858,9 +885,7 @@ namespace LEonard
                 if (interfaces[currentDeviceRowIndex].runtimeProcess != null)
                 {
                     ShowWindowAsync(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, SW_RESTORE);
-                    // TODO: The SetWindowPos constants below should be defined!
-                    SetWindowPos(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
-
+                    SetWindowOnTop(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle);
                 }
         }
 
@@ -885,8 +910,24 @@ namespace LEonard
             else
             {
                 interfaces[currentDeviceRowIndex].StartSetupProcess(start);
-                // TODO: The SetWindowPos constants below should be defined!
-                SetWindowPos(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+
+                // TODO: This wait for start is a little kludgey
+                Form form = new MessageForm("Waiting", "Waiting for app to start");
+                form.Owner = this;
+                form.Show();
+                for (int i=0; i<50; i++)
+                {
+                    Thread.Sleep(100);
+                    IntPtr hWnd = interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle;
+                    log.Info("hWnd = {0}", hWnd);
+                    if (hWnd != (IntPtr)0)
+                    {
+                        SetWindowOnTop(hWnd);
+                        form.Close();
+                        break;
+                    }
+                }
+                form.Close();
             }
         }
 
@@ -905,8 +946,7 @@ namespace LEonard
                 if (interfaces[currentDeviceRowIndex].setupProcess != null)
                 {
                     ShowWindowAsync(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, SW_RESTORE);
-                    // TODO: The SetWindowPos constants below should be defined!
-                    SetWindowPos(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+                    SetWindowOnTop(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle);
                 }
         }
 
@@ -975,6 +1015,10 @@ namespace LEonard
                     break;
                 case @"TcpClient":
                     interfaces[currentDeviceRowIndex] = new LeTcpClient(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
+                case @"TcpClientAsync":
+                    interfaces[currentDeviceRowIndex] = new LeTcpClientAsync(this, messageTag, onConnectSend);
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
                 case @"Serial":

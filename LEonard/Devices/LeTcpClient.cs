@@ -50,7 +50,7 @@ namespace LEonard
                 log.Debug("{0} Connect Ping returns {1}", logPrefix, PR.Status);
                 if (PR.Status != IPStatus.Success)
                 {
-                    log.Error("Could not ping {0}: {1}", myIp, PR.Status);
+                    log.Error("{0} Could not ping {1}: {2}", logPrefix, myIp, PR.Status);
                     return 2;
                 }
             }
@@ -102,6 +102,7 @@ namespace LEonard
         {
             while (fSendBusy)
                 Thread.Sleep(10);
+
             fSendBusy = true;
             if (stream == null)
             {
