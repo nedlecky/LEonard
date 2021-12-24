@@ -145,7 +145,7 @@
     <Compile Include="Devices\LeDeviceInterface.cs" />
     <Compile Include="Devices\LeDeviceBase.cs" />
     <Compile Include="Devices\LeDevNull.cs" />
-    <Compile Include="LeTcpClientAsync.cs" />
+    <Compile Include="Devices\LeTcpClientAsync.cs" />
     <Compile Include="MessageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,7 +190,6 @@
     <EmbeddedResource Include="SplashForm.resx">
       <DependentUpon>SplashForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="LEonard_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -514,9 +514,9 @@
             this.groupBox7.Controls.Add(this.WriteStringValueTxt);
             this.groupBox7.Controls.Add(this.WriteStringValueBtn);
             this.groupBox7.Controls.Add(this.VariableNameTxt);
-            this.groupBox7.Location = new System.Drawing.Point(398, 395);
+            this.groupBox7.Location = new System.Drawing.Point(625, 340);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(221, 110);
+            this.groupBox7.Size = new System.Drawing.Size(650, 49);
             this.groupBox7.TabIndex = 81;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Manual";
@@ -533,7 +533,7 @@
             // 
             // WriteStringValueTxt
             // 
-            this.WriteStringValueTxt.Location = new System.Drawing.Point(6, 74);
+            this.WriteStringValueTxt.Location = new System.Drawing.Point(338, 22);
             this.WriteStringValueTxt.Name = "WriteStringValueTxt";
             this.WriteStringValueTxt.Size = new System.Drawing.Size(209, 20);
             this.WriteStringValueTxt.TabIndex = 7;
@@ -541,7 +541,7 @@
             // 
             // WriteStringValueBtn
             // 
-            this.WriteStringValueBtn.Location = new System.Drawing.Point(6, 45);
+            this.WriteStringValueBtn.Location = new System.Drawing.Point(257, 19);
             this.WriteStringValueBtn.Name = "WriteStringValueBtn";
             this.WriteStringValueBtn.Size = new System.Drawing.Size(75, 23);
             this.WriteStringValueBtn.TabIndex = 4;
@@ -592,7 +592,7 @@
             this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VariablesGrd.Location = new System.Drawing.Point(625, 392);
             this.VariablesGrd.Name = "VariablesGrd";
-            this.VariablesGrd.Size = new System.Drawing.Size(474, 453);
+            this.VariablesGrd.Size = new System.Drawing.Size(650, 453);
             this.VariablesGrd.TabIndex = 77;
             // 
             // JavaVariablesRefreshBtn
@@ -612,7 +612,7 @@
             this.JavaScriptVariablesRTB.Name = "JavaScriptVariablesRTB";
             this.JavaScriptVariablesRTB.ReadOnly = true;
             this.JavaScriptVariablesRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.JavaScriptVariablesRTB.Size = new System.Drawing.Size(474, 351);
+            this.JavaScriptVariablesRTB.Size = new System.Drawing.Size(650, 299);
             this.JavaScriptVariablesRTB.TabIndex = 75;
             this.JavaScriptVariablesRTB.Text = "";
             this.JavaScriptVariablesRTB.WordWrap = false;
@@ -620,18 +620,18 @@
             // JavaCommandTxt
             // 
             this.JavaCommandTxt.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.JavaCommandTxt.Location = new System.Drawing.Point(103, 396);
+            this.JavaCommandTxt.Location = new System.Drawing.Point(339, 427);
             this.JavaCommandTxt.Multiline = true;
             this.JavaCommandTxt.Name = "JavaCommandTxt";
-            this.JavaCommandTxt.Size = new System.Drawing.Size(280, 174);
+            this.JavaCommandTxt.Size = new System.Drawing.Size(280, 155);
             this.JavaCommandTxt.TabIndex = 74;
             this.JavaCommandTxt.Text = "print(\"hello\");";
             // 
             // ExecJavaBtn
             // 
-            this.ExecJavaBtn.Location = new System.Drawing.Point(389, 517);
+            this.ExecJavaBtn.Location = new System.Drawing.Point(339, 395);
             this.ExecJavaBtn.Name = "ExecJavaBtn";
-            this.ExecJavaBtn.Size = new System.Drawing.Size(75, 53);
+            this.ExecJavaBtn.Size = new System.Drawing.Size(280, 26);
             this.ExecJavaBtn.TabIndex = 73;
             this.ExecJavaBtn.Text = "Exec Java Scratchpad";
             this.ExecJavaBtn.UseVisualStyleBackColor = true;
@@ -692,9 +692,9 @@
             // 
             // RunJavaProgramBtn
             // 
-            this.RunJavaProgramBtn.Location = new System.Drawing.Point(12, 511);
+            this.RunJavaProgramBtn.Location = new System.Drawing.Point(13, 432);
             this.RunJavaProgramBtn.Name = "RunJavaProgramBtn";
-            this.RunJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
+            this.RunJavaProgramBtn.Size = new System.Drawing.Size(317, 23);
             this.RunJavaProgramBtn.TabIndex = 69;
             this.RunJavaProgramBtn.Text = "Run";
             this.RunJavaProgramBtn.UseVisualStyleBackColor = true;
@@ -702,7 +702,7 @@
             // 
             // SaveAsJavaProgramBtn
             // 
-            this.SaveAsJavaProgramBtn.Location = new System.Drawing.Point(13, 482);
+            this.SaveAsJavaProgramBtn.Location = new System.Drawing.Point(255, 395);
             this.SaveAsJavaProgramBtn.Name = "SaveAsJavaProgramBtn";
             this.SaveAsJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveAsJavaProgramBtn.TabIndex = 68;
@@ -722,7 +722,7 @@
             // 
             // LoadJavaProgramBtn
             // 
-            this.LoadJavaProgramBtn.Location = new System.Drawing.Point(13, 424);
+            this.LoadJavaProgramBtn.Location = new System.Drawing.Point(93, 395);
             this.LoadJavaProgramBtn.Name = "LoadJavaProgramBtn";
             this.LoadJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
             this.LoadJavaProgramBtn.TabIndex = 66;
@@ -732,7 +732,7 @@
             // 
             // SaveJavaProgramBtn
             // 
-            this.SaveJavaProgramBtn.Location = new System.Drawing.Point(13, 453);
+            this.SaveJavaProgramBtn.Location = new System.Drawing.Point(174, 395);
             this.SaveJavaProgramBtn.Name = "SaveJavaProgramBtn";
             this.SaveJavaProgramBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveJavaProgramBtn.TabIndex = 65;

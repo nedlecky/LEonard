@@ -1013,20 +1013,42 @@ namespace LEonard
                 case @"TcpServer":
                     interfaces[currentDeviceRowIndex] = new LeTcpServer(this, messageTag, onConnectSend);
                     interfaces[currentDeviceRowIndex].Connect(address);
+
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        LaunchRuntimeBtn_Click(null, null);
+                    }
+
                     break;
                 case @"TcpClient":
                     interfaces[currentDeviceRowIndex] = new LeTcpClient(this, messageTag, onConnectSend);
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        LaunchRuntimeBtn_Click(null, null);
+                    }
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
                 case @"TcpClientAsync":
                     interfaces[currentDeviceRowIndex] = new LeTcpClientAsync(this, messageTag, onConnectSend);
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        LaunchRuntimeBtn_Click(null, null);
+                    }
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
                 case @"Serial":
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        LaunchRuntimeBtn_Click(null, null);
+                    }
                     interfaces[currentDeviceRowIndex] = new LeSerial(this, messageTag, onConnectSend);
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
                 case @"Null":
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        LaunchRuntimeBtn_Click(null, null);
+                    }
                     interfaces[currentDeviceRowIndex] = new LeDevNull(this, messageTag, onConnectSend);
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
@@ -1056,12 +1078,6 @@ namespace LEonard
             }
 
             row["Connected"] = true;
-
-            // Autostart runtime?
-            if ((bool)row["RuntimeAutostart"])
-            {
-                LaunchRuntimeBtn_Click(null, null);
-            }
         }
         private void CurrentReconnectBtn_Click(object sender, EventArgs e)
         {
@@ -1321,7 +1337,7 @@ namespace LEonard
         }
         private void JsPrint(string message)
         {
-            JavaScriptConsoleRTB.AppendText(message);
+            JavaScriptConsoleRTB.AppendText(message+'\n');
             JavaScriptConsoleRTB.ScrollToCaret();
         }
 

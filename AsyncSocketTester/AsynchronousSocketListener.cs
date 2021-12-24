@@ -109,10 +109,10 @@ namespace AsyncSocketTester
 
             if (bytesRead > 0)
             {
-                // There  might be more data, so store the data received so far.  
+                // There might be more data, so store the data received so far.  
                 state.sb.Append(Encoding.ASCII.GetString(
                     state.buffer, 0, bytesRead));
-                log.Info("==> Listener Read {0} bytes from socket. Data : {1}", "L??", content.Length, content);
+                log.Info("<== Listener Read {0} bytes from socket. Data : {1}", "L??", content.Length, content);
 
                 // Check for end-of-file tag. If it is not there, read
                 // more data.  
@@ -121,7 +121,7 @@ namespace AsyncSocketTester
                 {
                     // All the data has been read from the
                     // client. Display it on the console.  
-                    log.Info("==> Listener Message Complete: {0}", content);
+                    log.Info("<== Listener Message Complete: {0}", content);
                     handler.BeginReceive(state.buffer, 0, SocketState.BufferSize, 0,
                         new AsyncCallback(ReadCallback), state);
                     // Echo the data back to the client.  
@@ -134,6 +134,10 @@ namespace AsyncSocketTester
                     new AsyncCallback(ReadCallback), state);
                 }
             }
+        }
+        public void Send(string message)
+        {
+            Send(handler, message);
         }
 
         private static void Send(Socket handler, String data)

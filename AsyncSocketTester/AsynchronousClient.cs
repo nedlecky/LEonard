@@ -42,8 +42,6 @@ namespace AsyncSocketTester
             logPrefix = prefix;
         }
 
-
-
         public int StartClient(string IPport)
         {
             string[] s = IPport.Split(':');

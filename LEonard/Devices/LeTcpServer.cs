@@ -167,7 +167,7 @@ namespace LEonard
                 if (length > 0)
                 {
                     string input = Encoding.UTF8.GetString(inputBuffer, 0, length);
-                    string[] inputLines = input.Split('\r');
+                    string[] inputLines = input.Split('\n');
                     int lineNo = 1;
                     foreach (string line in inputLines)
                     {
