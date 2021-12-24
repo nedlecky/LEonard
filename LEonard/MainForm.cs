@@ -174,7 +174,8 @@ namespace LEonard
             //TODO: This is WIP since sholdn't need top call receive once callbacks work
             foreach (LeDeviceInterface device in interfaces)
             {
-                if (device != null&& i<3) device.Receive();
+                //if (device != null && i < 3) device.Receive();
+                if (device != null) device.Receive();
                 i++;
             }
         }
