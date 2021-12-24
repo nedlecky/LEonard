@@ -836,7 +836,7 @@ namespace LEonard
                 {
                     Thread.Sleep(100);
                     IntPtr hWnd = interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle;
-                    log.Info("hWnd = {0}", hWnd);
+                    Application.DoEvents();
                     if (hWnd != (IntPtr)0)
                     {
                         SetWindowOnTop(hWnd);
@@ -920,7 +920,7 @@ namespace LEonard
                 {
                     Thread.Sleep(100);
                     IntPtr hWnd = interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle;
-                    log.Info("hWnd = {0}", hWnd);
+                    Application.DoEvents();
                     if (hWnd != (IntPtr)0)
                     {
                         SetWindowOnTop(hWnd);

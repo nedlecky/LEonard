@@ -27,6 +27,9 @@ namespace LEonard
         }
         public int Connect(string portname)
         {
+            if (port != null)
+                Disconnect();
+            
             myPortname = portname;
             log.Debug("{0} Connect({1})", logPrefix, myPortname);
 
@@ -65,7 +68,9 @@ namespace LEonard
         {
             log.Info("{0} Disconnect(): {1}", logPrefix, myPortname);
 
-            port.Close();
+            if(port != null)
+                port.Close();
+            port = null;
 
             return 0;
         }
