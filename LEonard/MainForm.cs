@@ -467,6 +467,7 @@ namespace LEonard
         // ***********************************************************************
         private void DefaultDevicesBtn_Click(object sender, EventArgs e)
         {
+            DisconnectAllDevicesBtn_Click(null, null);
             devices = new DataTable("Devices");
 
             DataColumn id = devices.Columns.Add("ID", typeof(System.Int32));
@@ -546,7 +547,7 @@ namespace LEonard
                 "C:\\Program Files\\RealVNC\\VNC Viewer",
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
-                "(1,0,0,0,0)|(2,0,0,0,0)|(3,0,0,0,0)|(4,0,0,0,0)|(50,0,0,0,0)|(98,0,0,0,0)|(99,0,0,0,0)"
+                "(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)"
             });
             devices.Rows.Add(new object[] {
                 2, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
@@ -609,7 +610,7 @@ namespace LEonard
                 "+"
             });
             devices.Rows.Add(new object[] {
-                7, "Chrome", true, false, "Null", "",
+                7, "Chrome", false, false, "Null", "",
                 "CTL", "general", "", "",
                 true,
                 "",
