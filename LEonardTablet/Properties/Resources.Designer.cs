@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LEonardTablet.Properties {
+namespace AutoGrind.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace LEonardTablet.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LEonardTablet.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AutoGrind.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -66,26 +66,6 @@ namespace LEonardTablet.Properties {
         internal static System.Drawing.Bitmap Lecky_Engineering_Logo_12_4_2020_Full {
             get {
                 object obj = ResourceManager.GetObject("Lecky_Engineering_Logo_12_4_2020_Full", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap O_C_Logo {
-            get {
-                object obj = ResourceManager.GetObject("O-C Logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TQ_Logo {
-            get {
-                object obj = ResourceManager.GetObject("TQ Logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

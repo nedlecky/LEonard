@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lecky Engineering LLC")]
-[assembly: AssemblyProduct("LEonard")]
+[assembly: AssemblyProduct("LEonardTablet")]
 [assembly: AssemblyCopyright("Copyright © 2020-2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
