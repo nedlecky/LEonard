@@ -171,7 +171,7 @@ namespace LEonard
             if (interfaces.Length == 0) return;
 
             int i = 0;
-            //TODO: This is WIP since sholdn't need top call receive once callbacks work
+            //TODO: This is WIP since shouldn't need top call receive once callbacks work
             foreach (LeDeviceInterface device in interfaces)
             {
                 //if (device != null && i < 3) device.Receive();
