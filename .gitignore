@@ -363,4 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # LEonard Specific
-Recipes/Variables.xml
+[Rr]ecipes/Variables.xml
+[Rr]ecipes/foo*
