@@ -1,0 +1,157 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Positions" msdata:CaseSensitive="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Positions" msdata:CaseSensitive="True">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Name" type="xs:string" />
+                <xs:element name="Joints" type="xs:string" minOccurs="0" />
+                <xs:element name="Pose" type="xs:string" minOccurs="0" />
+                <xs:element name="IsSystem" type="xs:boolean" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Positions" />
+        <xs:field xpath="Name" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <Positions>
+    <Name>spindle_mount</Name>
+    <Joints>[-2.68179,-1.90227,-1.42486,-2.95848,-1.70261,0.000928376]</Joints>
+    <Pose>p[-0.928515, -0.296863, 0.369036, 1.47493, 2.77222, 0.00280416]</Pose>
+  </Positions>
+  <Positions>
+    <Name>spindle_home</Name>
+    <Joints>[-2.71839,-0.892528,-2.14111,-3.27621,-1.68817,-0.019554]</Joints>
+    <Pose>p[-0.410055, -0.0168446, 0.429258, -1.54452, -2.73116, -0.0509774]</Pose>
+  </Positions>
+  <Positions>
+    <Name>sander_mount</Name>
+    <Joints>[-2.53006,-2.15599,-1.18223,-1.37402,1.57131,0.124]</Joints>
+    <Pose>p[-0.933321, -0.442727, 0.284064, 1.61808, 2.6928, 0.000150004]</Pose>
+  </Positions>
+  <Positions>
+    <Name>sander_home</Name>
+    <Joints>[-2.57091,-0.82644,-2.14277,-1.743,1.57367,-0.999559]</Joints>
+    <Pose>p[-0.319246, 0.00105911, 0.464005, -5.0997e-05, 3.14151, 3.32468e-05]</Pose>
+  </Positions>
+  <Positions>
+    <Name>grind1</Name>
+    <Joints>[-1.648369,-2.179972,-1.887689,-2.215469,-1.645246,-0.00204]</Joints>
+    <Pose>p[-0.168993,-0.64263,0.017706,0.000169,3.141573,-0.000126]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>grind2</Name>
+    <Joints>[-1.19025,-1.54723,-2.28053,-2.45891,-1.20106,0.0341677]</Joints>
+    <Pose>p[0.00572967, -0.666445, 0.145823, -0.0208504, 3.11009, 0.004073]</Pose>
+  </Positions>
+  <Positions>
+    <Name>grind3</Name>
+    <Joints>[-1.41341,-1.57357,-2.26161,-2.45085,-1.42422,0.0333479]</Joints>
+    <Pose>p[-0.0942147, -0.667831, 0.142729, -0.0208677, 3.1101, 0.00394188]</Pose>
+  </Positions>
+  <Positions>
+    <Name>papercenter</Name>
+    <Joints>[-1.67512,-2.0888,-1.94888,-2.24556,-1.67192,-0.00198061]</Joints>
+    <Pose>p[-0.17902,-0.642607,0.0536219,-7.04616e-05,-3.14155,2.57789e-07]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>demo_flat</Name>
+    <Joints>[-1.65308,-2.15048,-1.96996,-2.1627,-1.65009,-0.00214845]</Joints>
+    <Pose>p[-0.168976,-0.642635,0.0176886,0.000139715,3.14156,-6.24841e-05]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>demo_cyl</Name>
+    <Joints>[-0.896592,-2.13618,-1.83841,-2.30739,-0.893391,-0.00271207]</Joints>
+    <Pose>p[0.204203,-0.669818,0.0562506,-0.000135448,-3.14119,-0.000496806]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>demo_sphere</Name>
+    <Joints>[-1.21527,-2.10205,-1.56613,-1.0446,1.56927,0.359093]</Joints>
+    <Pose>p[0.104284,-0.659878,0.057264,-0.000136236,-3.14143,-0.000329823]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>demo_safe</Name>
+    <Joints>[-1.25461,-1.9609,-2.07972,-2.24188,-1.25144,-0.00184089]</Joints>
+    <Pose>p[0.000848984,-0.630169,0.0737959,-0.000251852,3.14151,-0.000140045]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>p1</Name>
+    <Joints>[-1.653063,-2.150496,-1.969944,-2.162689,-1.650091,-0.002124]</Joints>
+    <Pose>p[-0.168938,-0.642663,0.017749,0.000052,3.141559,-0.000272]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>start</Name>
+    <Joints>[-1.64828,-2.17974,-1.88772,-2.21547,-1.64531,-0.00208456]</Joints>
+    <Pose>p[-0.168905,-0.64266,0.0177782,7.57772e-05,-3.14159,0.000267658]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>p2</Name>
+    <Joints>[-1.66397,-2.18917,-1.88782,-2.15767,-1.39667,-0.00138837]</Joints>
+    <Pose>p[-0.222554,-0.642566,0.0216769,0.413552,3.11047,-0.0753682]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>p3</Name>
+    <Joints>[-1.66398,-2.18921,-1.88782,-2.15773,-1.39673,-0.00138837]</Joints>
+    <Pose>p[-0.222576,-0.642585,0.0217147,0.413619,3.11048,-0.0754531]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>demo_flat2</Name>
+    <Joints>[-1.7381,-2.15672,-1.60948,-0.946295,1.56909,-0.163995]</Joints>
+    <Pose>p[-0.238993,-0.622633,0.0126481,-4.48812e-05,-3.14157,3.0815e-05]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>oper1</Name>
+    <Pose>p[-0.168976,-0.642656,0.0127189,7.47106e-05,3.14159,-0.000186894]</Pose>
+  </Positions>
+  <Positions>
+    <Name>oper2</Name>
+    <Pose>p[-0.166991,-0.642784,0.012553,6.64049e-05,3.14159,-5.01268e-05]</Pose>
+  </Positions>
+  <Positions>
+    <Name>oper3</Name>
+    <Pose>p[-0.165113,-0.642345,0.0124718,6.16379e-05,3.14158,9.0644e-05]</Pose>
+  </Positions>
+  <Positions>
+    <Name>gocator_mount</Name>
+    <Joints>[-2.530036,-2.155856,-1.182105,-1.374079,1.571224,0.735137]</Joints>
+    <Pose>p[-0.665158,-0.305985,-0.009009,0.188355,3.135606,-0.001996]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>gocator_home</Name>
+    <Joints>[-2.033463,-0.7165,-2.164952,-1.830382,1.573728,2.162823]</Joints>
+    <Pose>p[-0.18898,-0.083621,0.093844,1.576249,2.717442,-0.001205]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>cylinder_zero</Name>
+    <Joints>[-0.836193,-1.71309,-1.646959,-1.352338,1.570777,2.309376]</Joints>
+    <Pose>p[0.26677,-0.49187,0.048951,0.000087,3.141515,-0.000036]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>cylinder_end</Name>
+    <Joints>[-1.16575,-1.556966,-1.814196,-1.341394,1.571108,1.979738]</Joints>
+    <Pose>p[0.066753,-0.489928,0.048979,0.00029,-3.141564,-0.000149]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+</NewDataSet>

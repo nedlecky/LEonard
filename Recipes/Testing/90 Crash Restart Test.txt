@@ -1,0 +1,10 @@
+# 90 Crash Restart Test
+
+again:
+
+move_linear(2F85_home)
+sleep(1)
+move_linear(demo_flat)
+sleep(1)
+
+jump(again)

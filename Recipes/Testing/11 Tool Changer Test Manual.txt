@@ -1,0 +1,31 @@
+# 11 Tool Changer Test Manual
+# BE CAREFUL: Robot will move and positions are expected to be OK
+
+# Test case assumed initial conditions
+select_tool(pen)
+move_linear(demo_flat)
+save_position(start)
+
+# Swap from pen to sander
+move_linear(spindle_home)
+move_joint(spindle_mount)
+prompt(Please remove tool={robot_tool})
+
+move_joint(sander_mount)
+select_tool(sander)
+prompt(Please mount tool={robot_tool})
+move_joint(sander_home)
+
+move_linear(start)
+
+# Swap from sander to pen
+move_linear(sander_home)
+move_joint(sander_mount)
+prompt(Please remove tool={robot_tool})
+
+move_joint(spindle_mount)
+select_tool(pen)
+prompt(Please mount tool={robot_tool})
+move_joint(spindle_home)
+
+move_linear(start)
