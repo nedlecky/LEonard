@@ -1,9 +1,9 @@
-# File: agscript_grind-2.script
-# Project: AutoGrind Code Rev 2 IMOVER
+# File: LEscript_grind.script
+# Project: LEonard
 # Author: Ned Lecky, Lecky Engineering LLC
-# Purpose: All grinding functions used in AutoGrind
+# Purpose: LEonard Grinding Support
 
-global grind_version = "Rev 2 2022-06-14"
+global grind_version = "2022-06-17"
 
 
 global grind_ready = True

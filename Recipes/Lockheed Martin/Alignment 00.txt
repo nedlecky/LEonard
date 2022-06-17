@@ -5,5 +5,4 @@
 set_part_geometry(CYLINDER, 1000)
 
 move_linear(cylinder_zero)
-end
-move_relative(0,100)
+move_relative(0,25)

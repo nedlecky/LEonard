@@ -1,9 +1,9 @@
-# File: agscript_util.script
-# Project: AutoGrind
+# File: LEscript_util.script
+# Project: LEonard
 # Author: Ned Lecky, Lecky Engineering LLC
-# Purpose: General utility functions used in AutoGrind
+# Purpose: LEonard Utility Functions
 
-global robot_util_version = "2022-06-14"
+global robot_util_version = "2022-06-17"
 
 MATH_PI = 3.1415926535
 
