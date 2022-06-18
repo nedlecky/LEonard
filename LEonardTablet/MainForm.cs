@@ -30,7 +30,8 @@ namespace LEonardTablet
         static string LEonardTabletRoot = "./";
         private static NLog.Logger log;
         TcpServerSupport robotCommandServer = null;
-        TcpClientSupport robotDashboardClient = null;
+        //TcpClientSupport robotDashboardClient = null;
+        LeTcpClient robotDashboardClient = null;
         MessageDialog waitingForOperatorMessageForm = null;
         bool closeOperatorFormOnIndex = false;
 
@@ -348,7 +349,7 @@ namespace LEonardTablet
 
             // DASHBOARD Handler: Round-robin sending the Dashboard monitoring commands
             if (robotDashboardClient != null)
-                if (!robotDashboardClient.IsClientConnected)
+                if (!robotDashboardClient.IsConnected)
                 {
                     RobotConnectBtn.Text = "Dashboard ERROR";
                     RobotConnectBtn.BackColor = Color.Red;
@@ -1616,7 +1617,7 @@ namespace LEonardTablet
 
             LEonardTabletRoot = DEFAULT_LEonardTabletRoot;
             LEonardTabletRootLbl.Text = LEonardTabletRoot;
-            RobotProgramTxt.Text= DEFAULT_RobotProgramTxt;
+            RobotProgramTxt.Text = DEFAULT_RobotProgramTxt;
             ServerIpTxt.Text = DEFAULT_ServerIpTxt;
             RobotIpTxt.Text = DEFAULT_RobotIpTxt;
             AllowRunningOfflineChk.Checked = false;
@@ -2800,7 +2801,7 @@ namespace LEonardTablet
             // Disconnect client from dashboard
             if (robotDashboardClient != null)
             {
-                if (robotDashboardClient.IsClientConnected)
+                if (robotDashboardClient.IsConnected)
                 {
                     robotDashboardClient.InquiryResponse("stop");
                     robotDashboardClient.InquiryResponse("quit");
@@ -2857,10 +2858,14 @@ namespace LEonardTablet
             if (!fReconnect) return;
 
             // Connect client to the UR dashboard
-            robotDashboardClient = new TcpClientSupport("DASH")
-            {
-                ReceiveCallback = DashboardCallback
-            };
+            //robotDashboardClient = new TcpClientSupport("DASH");
+            //{
+            //    ReceiveCallback = DashboardCallback
+            //};
+            // TODO implement modern settigns like the one above
+            robotDashboardClient = new LeTcpClient(this, "DASH");
+            robotDashboardClient.receiveCallback = DashboardCallback;
+
             if (robotDashboardClient.Connect(RobotIpTxt.Text, "29999") > 0)
             {
                 log.Error("Dashboard client initialization failure");
@@ -3337,9 +3342,9 @@ namespace LEonardTablet
                 }
             }
         }
-        void DashboardCallback(string message)
+        void DashboardCallback(string prefix, string message)
         {
-            log.Info("DASH<== {0}", message);
+            log.Info($"{prefix}<== {message}");
         }
 
         private void MessageTmr_Tick(object sender, EventArgs e)

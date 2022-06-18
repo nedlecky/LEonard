@@ -15,6 +15,8 @@ namespace LEonardTablet
         protected string onConnectMessage;
         public Process runtimeProcess { get; set; } = null;
         public Process setupProcess { get; set; } = null;
+        public bool IsConnected { get; set; } = false;
+
 
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 

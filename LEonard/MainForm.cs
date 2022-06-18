@@ -235,7 +235,7 @@ namespace LEonard
 
         // TODO: Clean these up, use consistent string formatting ideas, and the variables
         // TODO All of these... the variable name should be prefixed with the unique device name not the message prefix
-        // Currently expect 0 or more comma-=separated {script} or name=value sequences
+        // Currently expect 0 or more comma-separated {script} or name=value sequences
         // Examples:
         // return1=abc
         // return1=abc#return2=xyz

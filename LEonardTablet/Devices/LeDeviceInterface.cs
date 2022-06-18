@@ -11,6 +11,8 @@ namespace LEonardTablet
     {
         Process runtimeProcess { get; set; }
         Process setupProcess { get; set; }
+        bool IsConnected { get; set; }
+
 
         int Connect(string address);
         int Disconnect();
