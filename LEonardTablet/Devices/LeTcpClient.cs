@@ -22,6 +22,7 @@ namespace LEonardTablet
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public Action<string, string> receiveCallback { get; set; }
+        private bool fConnected = false;
 
         public LeTcpClient(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
@@ -35,12 +36,12 @@ namespace LEonardTablet
         {
             string[] s = IPport.Split(':');
             int ret = Connect(s[0], s[1]);
-            IsConnected = (ret == 0);
+            fConnected = (ret == 0);
             return ret;
         }
         public int Connect(string IP, string port)
         {
-            IsConnected = false;
+            fConnected = false;
             myIp = IP;
             myPort = port;
 
@@ -81,9 +82,14 @@ namespace LEonardTablet
 
             log.Debug("Connected");
             if (onConnectMessage.Length > 0) Send(onConnectMessage);
-            IsConnected = true;
+            fConnected = true;
             return 0;
         }
+        public bool IsConnected()
+        {
+            return fConnected;
+        }
+
         public int Disconnect()
         {
             log.Info("{0} Disconnect()", logPrefix);
@@ -98,7 +104,7 @@ namespace LEonardTablet
                 client.Close();
                 client = null;
             }
-            IsConnected = false;
+            fConnected = false;
             return 0;
         }
 
@@ -125,7 +131,7 @@ namespace LEonardTablet
                 return 1;
             }
 
-            log.Info("{0} ==> {1}", logPrefix, request);
+            log.Debug("{0} ==> {1}", logPrefix, request);
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(request + "\r"), 0, request.Length + 1);
@@ -162,7 +168,7 @@ namespace LEonardTablet
                 string cleanLine = line.Trim();
                 if (cleanLine.Length > 0)
                 {
-                    log.Info("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);
+                    log.Debug("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);
 
                     if (receiveCallback != null)
                         receiveCallback(cleanLine, logPrefix);

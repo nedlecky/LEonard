@@ -15,6 +15,7 @@ namespace LEonardTablet
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public Action<string, string> receiveCallback { get; set; } = null;
+        bool fConnected = false;
 
         public LeSerial(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
@@ -27,6 +28,7 @@ namespace LEonardTablet
         }
         public int Connect(string portname)
         {
+            fConnected = false;
             if (port != null)
                 Disconnect();
             
@@ -61,7 +63,13 @@ namespace LEonardTablet
                 return 1;
             }
 
+            fConnected = true;
             return 0;
+        }
+
+        public bool IsConnected()
+        {
+            return fConnected;
         }
 
         public int Disconnect()
@@ -72,6 +80,7 @@ namespace LEonardTablet
                 port.Close();
             port = null;
 
+            fConnected = false;
             return 0;
         }
 

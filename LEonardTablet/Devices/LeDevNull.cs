@@ -27,6 +27,11 @@ namespace LEonardTablet
             log.Debug("{0} Connect({1})", logPrefix, portname);
             return 0;
         }
+        public bool IsConnected()
+        {
+            log.Debug("{0} IsConnected()", logPrefix);
+            return false;
+        }
 
         public int Disconnect()
         {

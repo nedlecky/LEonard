@@ -15,18 +15,15 @@ namespace LEonardTablet
         protected string onConnectMessage;
         public Process runtimeProcess { get; set; } = null;
         public Process setupProcess { get; set; } = null;
-        public bool IsConnected { get; set; } = false;
-
 
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
-
 
         public LeDeviceBase(MainForm form, string prefix = "", string connectMessage = "")
         {
             myForm = form;
             logPrefix = prefix;
             onConnectMessage = connectMessage;
-            log.Info(string.Format("LeDeviceBase(form, {0}, {1})", logPrefix, onConnectMessage));
+            log.Info($"LeDeviceBase(form, \"{logPrefix}\", \"{onConnectMessage}\")");
         }
 
         ~LeDeviceBase()

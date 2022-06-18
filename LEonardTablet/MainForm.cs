@@ -29,8 +29,7 @@ namespace LEonardTablet
 
         static string LEonardTabletRoot = "./";
         private static NLog.Logger log;
-        TcpServerSupport robotCommandServer = null;
-        //TcpClientSupport robotDashboardClient = null;
+        LeTcpServer robotCommandServer = null;
         LeTcpClient robotDashboardClient = null;
         MessageDialog waitingForOperatorMessageForm = null;
         bool closeOperatorFormOnIndex = false;
@@ -349,7 +348,7 @@ namespace LEonardTablet
 
             // DASHBOARD Handler: Round-robin sending the Dashboard monitoring commands
             if (robotDashboardClient != null)
-                if (!robotDashboardClient.IsConnected)
+                if (!robotDashboardClient.IsConnected())
                 {
                     RobotConnectBtn.Text = "Dashboard ERROR";
                     RobotConnectBtn.BackColor = Color.Red;
@@ -612,9 +611,9 @@ namespace LEonardTablet
                     if (robotCommandServer == null)
                     {
                         // Setup a server for the UR to connect to
-                        robotCommandServer = new TcpServerSupport()
+                        robotCommandServer = new LeTcpServer(this, "UR")
                         {
-                            ReceiveCallback = CommandCallback
+                            receiveCallback = CommandCallback
                         };
                         if (robotCommandServer.Connect(ServerIpTxt.Text, "30000") > 0)
                         {
@@ -2801,7 +2800,7 @@ namespace LEonardTablet
             // Disconnect client from dashboard
             if (robotDashboardClient != null)
             {
-                if (robotDashboardClient.IsConnected)
+                if (robotDashboardClient.IsConnected())
                 {
                     robotDashboardClient.InquiryResponse("stop");
                     robotDashboardClient.InquiryResponse("quit");
@@ -2958,7 +2957,7 @@ namespace LEonardTablet
                 ErrorMessageBox(String.Format("RobotSend({0}) failed. robotCommandServer is null.", command));
                 return false;
             }
-            if (!robotCommandServer.IsConnected())
+            if (!robotCommandServer.IsClientConnected)
             {
                 ErrorMessageBox(String.Format("RobotSend({0}) failed. robotCommandServer is not connected.", command));
                 return false;
@@ -2982,7 +2981,7 @@ namespace LEonardTablet
 
             int checkValue = 1000 - robotSendIndex;
             string sendMessage = string.Format("({0},{1},{2})", robotSendIndex, checkValue, command);
-            log.Info("UR==> EXEC {0}", sendMessage);
+            log.Info($"UR==> EXEC RobotSend{sendMessage}");
             robotCommandServer.Send(sendMessage);
             return true;
         }
@@ -3316,7 +3315,7 @@ namespace LEonardTablet
             ExecuteLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
         }
 
-        void CommandCallback(string message)
+        void CommandCallback(string prefix, string message)
         {
             //log.Info("UR<== {0}", message);
 
@@ -3335,16 +3334,16 @@ namespace LEonardTablet
                         if (s.Length == 3)
                             WriteVariable(s[1], s[2]);
                         else
-                            log.Error("Illegal SET statement: {0}", request);
+                            log.Error($"{prefix} Illegal SET statement: {request}");
                     }
                     else
-                        log.Error("Illegal callback command: {0}", request);
+                        log.Error($"{prefix} Illegal callback command: {request}");
                 }
             }
         }
         void DashboardCallback(string prefix, string message)
         {
-            log.Info($"{prefix}<== {message}");
+            log.Debug($"{prefix}<== {message}");
         }
 
         private void MessageTmr_Tick(object sender, EventArgs e)

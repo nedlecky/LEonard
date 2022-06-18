@@ -180,8 +180,6 @@
     <Compile Include="SplashForm.Designer.cs">
       <DependentUpon>SplashForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TcpClientSupport.cs" />
-    <Compile Include="TcpServerSupport.cs" />
     <EmbeddedResource Include="BigEditDialog.resx">
       <DependentUpon>BigEditDialog.cs</DependentUpon>
     </EmbeddedResource>
