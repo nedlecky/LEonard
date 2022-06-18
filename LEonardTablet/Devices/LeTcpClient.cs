@@ -171,7 +171,7 @@ namespace LEonardTablet
                     log.Debug("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);
 
                     if (receiveCallback != null)
-                        receiveCallback(cleanLine, logPrefix);
+                        receiveCallback(logPrefix, cleanLine);
                 }
                 lineNo++;
             }

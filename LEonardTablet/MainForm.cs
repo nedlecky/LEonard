@@ -29,8 +29,12 @@ namespace LEonardTablet
 
         static string LEonardTabletRoot = "./";
         private static NLog.Logger log;
+
+        // TODO should be replaced with generic devices interface
         LeTcpServer robotCommandServer = null;
         LeTcpClient robotDashboardClient = null;
+        LeTcpClient gocatorClient = null;
+
         MessageDialog waitingForOperatorMessageForm = null;
         bool closeOperatorFormOnIndex = false;
 
@@ -2577,6 +2581,23 @@ namespace LEonardTablet
                 return true;
             }
 
+            // gocator_send
+            if (command.StartsWith("gocator_send("))
+            {
+                LogInterpret("gocator_send", lineNumber, origLine);
+                GocatorInquiryResponse(ExtractParameters(command, -1, false));
+                return true;
+            }
+
+            // gocator_trigger
+            if (command.StartsWith("gocator_trigger("))
+            {
+                LogInterpret("gocator_trigger", lineNumber, origLine);
+                GocatorInquiryResponse("trigger");
+                WriteVariable("gocator_complete", "False");
+                return true;
+            }
+
             // write_cyline_data
             if (command.StartsWith("write_cyline_data("))
             {
@@ -2734,6 +2755,10 @@ namespace LEonardTablet
                     return;
             }
 
+            // Gocator wait
+            if (ReadVariable("gocator_complete") == "False")
+                return;
+
             // Waiting on robotReady or will cook along if AllowRunningOffline
             if (!(robotReady || AllowRunningOfflineChk.Checked))
             {
@@ -2852,9 +2877,12 @@ namespace LEonardTablet
         private void RobotConnectBtn_Click(object sender, EventArgs e)
         {
             bool fReconnect = RobotConnectBtn.Text == "OFF";
+            GocatorDisconnect();
             RobotDisconnect();
 
             if (!fReconnect) return;
+
+            GocatorConnect();
 
             // Connect client to the UR dashboard
             //robotDashboardClient = new TcpClientSupport("DASH");
@@ -3317,11 +3345,12 @@ namespace LEonardTablet
 
         void CommandCallback(string prefix, string message)
         {
-            //log.Info("UR<== {0}", message);
 
             string[] requests = message.Split('#');
+            int n = 1;
             foreach (string request in requests)
             {
+                log.Info($"{n}: {request}");
                 // name=value
                 if (request.Contains("="))
                     UpdateVariable(request);
@@ -3339,6 +3368,7 @@ namespace LEonardTablet
                     else
                         log.Error($"{prefix} Illegal callback command: {request}");
                 }
+                n++;
             }
         }
         void DashboardCallback(string prefix, string message)
@@ -3348,19 +3378,85 @@ namespace LEonardTablet
 
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
+            bool fRobotError = true;
             if (robotCommandServer != null)
                 if (robotCommandServer.IsConnected())
                 {
                     robotCommandServer.Receive();
-                    return;
+                    fRobotError = false;
                 }
-            RobotReadyLbl.BackColor = Color.Red;
-            GrindReadyLbl.BackColor = Color.Red;
-            GrindProcessStateLbl.BackColor = Color.Red;
+            if (fRobotError)
+            {
+                RobotReadyLbl.BackColor = Color.Red;
+                GrindReadyLbl.BackColor = Color.Red;
+                GrindProcessStateLbl.BackColor = Color.Red;
+            }
+
+            bool fGocatorError = true;
+            if (gocatorClient != null)
+                if (gocatorClient.IsConnected())
+                {
+                    gocatorClient.Receive();
+                    fGocatorError = false;
+                }
+            if (fGocatorError)
+            {
+                GocatorStatusLbl.BackColor = Color.Red;
+            }
         }
 
         // ===================================================================
         // END ROBOT INTERFACE
+        // ===================================================================
+
+        // ===================================================================
+        // START GOCATOR INTERFACE
+        // ===================================================================
+
+        private string GocatorInquiryResponse(string inquiry)
+        {
+            string response = "ERROR";
+            response = gocatorClient?.InquiryResponse(inquiry, 200);
+            log.Info($"Gocator: {inquiry} = {response}");
+            return response;
+        }
+        private void GocatorConnect()
+        {
+            GocatorDisconnect();
+
+            gocatorClient = new LeTcpClient(this, "GO");
+            gocatorClient.receiveCallback = CommandCallback;
+            if (gocatorClient.Connect("192.168.0.252", "8190") > 0)
+            {
+                log.Error("Gocator client initialization failure");
+                GocatorStatusLbl.BackColor = Color.Red;
+                GocatorStatusLbl.Text = "Gocator OFF";
+                return;
+            }
+            GocatorStatusLbl.BackColor = Color.Green;
+            GocatorStatusLbl.Text = "Gocator Ready";
+            log.Info("Gocator connection ready");
+            GocatorInquiryResponse("clearalignment");
+            GocatorInquiryResponse("loadjob,LM01");
+            GocatorInquiryResponse("start");
+        }
+        private void GocatorDisconnect()
+        {
+            if (gocatorClient != null)
+            {
+                if (gocatorClient.IsConnected())
+                {
+                    GocatorInquiryResponse("stop");
+                    gocatorClient.Disconnect();
+                }
+                gocatorClient = null;
+            }
+            GocatorStatusLbl.BackColor = Color.Red;
+            GocatorStatusLbl.Text = "Gocator OFF";
+        }
+
+        // ===================================================================
+        // END GOCATOR INTERFACE
         // ===================================================================
 
         // ===================================================================

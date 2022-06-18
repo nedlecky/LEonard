@@ -16,6 +16,7 @@ row_loop:
 col = {n_cols}
 col_loop:
 move_relative(0,25)
+gocator_trigger()
 
 col--
 jump_gt_zero(col, col_loop)

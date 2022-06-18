@@ -98,6 +98,7 @@
             this.DiameterDimLbl = new System.Windows.Forms.Label();
             this.MainTab = new System.Windows.Forms.TabControl();
             this.RunPage = new System.Windows.Forms.TabPage();
+            this.GocatorStatusLbl = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.GrindForceReportZLbl = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -1041,6 +1042,7 @@
             // RunPage
             // 
             this.RunPage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.RunPage.Controls.Add(this.GocatorStatusLbl);
             this.RunPage.Controls.Add(this.label22);
             this.RunPage.Controls.Add(this.GrindForceReportZLbl);
             this.RunPage.Controls.Add(this.label21);
@@ -1088,6 +1090,19 @@
             this.RunPage.TabIndex = 0;
             this.RunPage.Text = "Run";
             this.RunPage.UseVisualStyleBackColor = true;
+            // 
+            // GocatorStatusLbl
+            // 
+            this.GocatorStatusLbl.BackColor = System.Drawing.Color.Gray;
+            this.GocatorStatusLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GocatorStatusLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GocatorStatusLbl.ForeColor = System.Drawing.Color.White;
+            this.GocatorStatusLbl.Location = new System.Drawing.Point(1932, 920);
+            this.GocatorStatusLbl.Name = "GocatorStatusLbl";
+            this.GocatorStatusLbl.Size = new System.Drawing.Size(187, 125);
+            this.GocatorStatusLbl.TabIndex = 159;
+            this.GocatorStatusLbl.Text = "Gocator Status";
+            this.GocatorStatusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label22
             // 
@@ -2223,7 +2238,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 62);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(375, 37);
+            this.label1.Size = new System.Drawing.Size(440, 37);
             this.label1.TabIndex = 68;
             this.label1.Text = "LEonardTablet Root Directory";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2640,6 +2655,7 @@
         private System.Windows.Forms.Button SetGrindJogAccelBtn;
         private System.Windows.Forms.Button SetForceModeDampingBtn;
         private System.Windows.Forms.Button SetForceModeGainScalingBtn;
+        private System.Windows.Forms.Label GocatorStatusLbl;
     }
 }
 
