@@ -2,8 +2,8 @@
 # 1 hole
 
 #select_tool(gocator3210)
-set_part_geometry(CYLINDER, 1000)
+set_part_geometry(CYLINDER, 100)
 
-#move_linear(cylinder_zero)
-#move_relative(0,25)
+move_linear(cylinder_zero)
+move_relative(0,25)
 gocator_trigger()
