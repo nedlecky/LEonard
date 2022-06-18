@@ -1,22 +1,6 @@
 def LEonard01():
   global _hidden_verificationVariable=0
-  set_safety_mode_transition_hardness(1)
-  set_gravity([0.0, 0.0, 9.82])
   set_tcp(p[0.0,0.0,0.175,0.0,0.0,0.0])
-  set_target_payload(0.980000, [0.000000, 0.002000, 0.048000], [0.001488, 0.001488, 0.001488, 0.000000, 0.000000, 0.000000])
-  set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
-  set_tool_output_mode(0)
-  set_tool_digital_output_mode(0, 1)
-  set_tool_digital_output_mode(1, 1)
-  set_tool_voltage(24)
-  step_count_05756670_7278_44f7_8cef_192cce70eeb3 = 0.0
-  thread Step_Counter_Thread_e883f60f_5fea_4783_882e_24dc29488bd7():
-    while (True):
-      step_count_05756670_7278_44f7_8cef_192cce70eeb3 = step_count_05756670_7278_44f7_8cef_192cce70eeb3 + 1.0
-      sync()
-    end
-  end
-  run Step_Counter_Thread_e883f60f_5fea_4783_882e_24dc29488bd7()
   set_standard_analog_input_domain(0, 1)
   set_standard_analog_input_domain(1, 1)
   set_tool_analog_input_domain(0, 1)
@@ -33,6 +17,22 @@ def LEonard01():
   set_runstate_standard_digital_output_to_value(4, 4)
   set_runstate_standard_digital_output_to_value(5, 4)
   set_runstate_standard_digital_output_to_value(6, 4)
+  set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
+  set_tool_output_mode(0)
+  set_tool_digital_output_mode(0, 1)
+  set_tool_digital_output_mode(1, 1)
+  set_tool_voltage(24)
+  set_target_payload(0.980000, [0.000000, 0.002000, 0.048000], [0.001488, 0.001488, 0.001488, 0.000000, 0.000000, 0.000000])
+  step_count_0c42c594_f83a_48c2_a914_684fc5f327d8 = 0.0
+  thread Step_Counter_Thread_636cb71a_5f92_46e5_9a99_989a402bdb23():
+    while (True):
+      step_count_0c42c594_f83a_48c2_a914_684fc5f327d8 = step_count_0c42c594_f83a_48c2_a914_684fc5f327d8 + 1.0
+      sync()
+    end
+  end
+  run Step_Counter_Thread_636cb71a_5f92_46e5_9a99_989a402bdb23()
+  set_safety_mode_transition_hardness(1)
+  set_gravity([0.0, 0.0, 9.82])
   # begin: URCap Installation Node
   #   Source: Robotiq_Grippers, 1.8.10.17249, Robotiq Inc.
   #   Type: Vacuum
@@ -2398,12 +2398,12 @@ def LEonard01():
   # end: URCap Installation Node
   $ 1 "BeforeStart"
   $ 2 "Script: LEscript_util.script"
-  # File: agscript_util.script
-  # Project: AutoGrind
+  # File: LEscript_util.script
+  # Project: LEonard
   # Author: Ned Lecky, Lecky Engineering LLC
-  # Purpose: General utility functions used in AutoGrind
+  # Purpose: LEonard Utility Functions
   
-  global robot_util_version = "2022-06-14"
+  global robot_util_version = "2022-06-17"
   
   MATH_PI = 3.1415926535
   
@@ -2532,12 +2532,12 @@ def LEonard01():
     return ret8
   end
   $ 3 "Script: LEscript_robot.script"
-  # File: agscript_robot-2.script
-  # Project: AutoGrind
+  # File: LEscript_robot.script
+  # Project: LEonard
   # Author: Ned Lecky, Lecky Engineering LLC
-  # Purpose: Robot control commands supporting the AutoGrind application
+  # Purpose: LEonard Robot Control Support
   
-  global robot_version = "Rev 2 2022-06-14"
+  global robot_version = "2022-06-17"
   
   global response = "unknown"
   global robot_index = 0
@@ -4228,12 +4228,12 @@ def LEonard01():
   # END DRAWING SYSTEM
   # ####################################################################################
   $ 4 "Script: LEscript_grind.script"
-  # File: agscript_grind-2.script
-  # Project: AutoGrind Code Rev 2 IMOVER
+  # File: LEscript_grind.script
+  # Project: LEonard
   # Author: Ned Lecky, Lecky Engineering LLC
-  # Purpose: All grinding functions used in AutoGrind
+  # Purpose: LEonard Grinding Support
   
-  global grind_version = "Rev 2 2022-06-14"
+  global grind_version = "2022-06-17"
   
   
   global grind_ready = True
@@ -5400,102 +5400,62 @@ def LEonard01():
       set_standard_digital_out(0, True)
       $ 24 "Switch command[1]"
       switch_1 = command[1]
-      $ 25 "Case 10"
-      if (10 == switch_1):
-        $ 26 "return_actual_tcp_pose()"
-        return_actual_tcp_pose()
-      elif (12 == switch_1):
-        $ 27 "Case 12"
-        $ 28 "return_tcp_offset()"
-        return_tcp_offset()
-      elif (13 == switch_1):
-        $ 29 "Case 13"
-        $ 30 "movel_relative_base(p[command[2], command[3], command[4], command[5], command[6], command[7]])"
-        movel_relative_base(p[command[2], command[3], command[4], command[5], command[6], command[7]])
-      elif (14 == switch_1):
-        $ 31 "Case 14"
-        $ 32 "movel_relative_tcp(p[command[2], command[3], command[4], command[5], command[6], command[7]])"
-        movel_relative_tcp(p[command[2], command[3], command[4], command[5], command[6], command[7]])
-      elif (15 == switch_1):
-        $ 33 "Case 15"
-        $ 34 "movel_relative_tcp_part(p[command[2], command[3], command[4], command[5], command[6], command[7]])"
-        movel_relative_tcp_part(p[command[2], command[3], command[4], command[5], command[6], command[7]])
-      elif (16 == switch_1):
-        $ 35 "Case 16"
-        $ 36 "movel_one_only(command[2],command[3])"
-        movel_one_only(command[2],command[3])
-      elif (18 == switch_1):
-        $ 37 "Case 18"
-        $ 38 "movel_rot_only(command[2],command[3],command[4])"
-        movel_rot_only(command[2],command[3],command[4])
-      elif (20 == switch_1):
-        $ 39 "Case 20"
-        $ 40 "return_get_actual_joint_positions()"
-        return_get_actual_joint_positions()
-      elif (21 == switch_1):
-        $ 41 "Case 21"
-        $ 42 "movej_ag([command[2], command[3], command[4], command[5], command[6], command[7]])"
-        movej_ag([command[2], command[3], command[4], command[5], command[6], command[7]])
-      elif (22 == switch_1):
-        $ 43 "Case 22"
-        $ 44 "movel_ag(p[command[2], command[3], command[4], command[5], command[6], command[7]])"
-        movel_ag(p[command[2], command[3], command[4], command[5], command[6], command[7]])
-      elif (25 == switch_1):
-        $ 45 "Case 25"
-        $ 46 "return_both_positions()"
-        return_both_positions()
+      $ 25 "Case 1"
+      if (1 == switch_1):
+        $ 26 "move_interface()"
+        move_interface()
       elif (30 == switch_1):
-        $ 47 "Case 30"
-        $ 48 "set_variable()"
+        $ 27 "Case 30"
+        $ 28 "set_variable()"
         set_variable()
       elif (35 == switch_1):
-        $ 49 "Case 35"
-        $ 50 "set_grind_variable()"
+        $ 29 "Case 35"
+        $ 30 "set_grind_variable()"
         set_grind_variable()
       elif (40 == switch_1):
-        $ 51 "Case 40"
-        $ 52 "grind()"
+        $ 31 "Case 40"
+        $ 32 "grind()"
         grind()
       elif (98 == switch_1):
-        $ 53 "Case 98"
-        $ 54 "response≔'socket reset'"
+        $ 33 "Case 98"
+        $ 34 "response≔'socket reset'"
         global response="socket reset"
       elif (99 == switch_1):
-        $ 55 "Case 99"
-        $ 56 "response≔'exiting'"
+        $ 35 "Case 99"
+        $ 36 "response≔'exiting'"
         global response="exiting"
       else:
-        $ 57 "Default Case"
-        $ 58 "response≔'unknown command'"
+        $ 37 "Default Case"
+        $ 38 "response≔'unknown command'"
         global response="unknown command"
       end
-      $ 59 "command_finish()"
+      $ 39 "command_finish()"
       command_finish()
-      $ 60 "Set Stacklight=Off"
+      $ 40 "Set Stacklight=Off"
       set_standard_digital_out(0, False)
-      $ 61 "If command[1]≟98"
+      $ 41 "If command[1]≟98"
       if (command[1] == 98):
-        $ 62 "Wait: 0.5"
+        $ 42 "Wait: 0.5"
         sleep(0.5)
-        $ 63 "socket_close()"
+        $ 43 "socket_close()"
         socket_close()
-        $ 64 "socket_is_open≔ False "
+        $ 44 "socket_is_open≔ False "
         global socket_is_open=  False  
       end
-      $ 65 "If command[1]≟99"
+      $ 45 "If command[1]≟99"
       if (command[1] == 99):
-        $ 66 "Wait: 0.5"
+        $ 46 "Wait: 0.5"
         sleep(0.5)
-        $ 67 "socket_close()"
+        $ 47 "socket_close()"
         socket_close()
-        $ 68 "socket_is_open≔ False "
+        $ 48 "socket_is_open≔ False "
         global socket_is_open=  False  
-        $ 69 "Halt"
+        $ 49 "Halt"
         halt
       end
     else:
-      $ 70 "Else" "noBreak"
-      $ 71 "no_command()"
+      $ 50 "Else" "noBreak"
+      $ 51 "no_command()"
       no_command()
     end
   end
