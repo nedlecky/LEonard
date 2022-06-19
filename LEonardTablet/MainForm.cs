@@ -1274,6 +1274,16 @@ namespace LEonardTablet
                 }
             }
 
+            // Gocator
+            // TODO this is a bit of a hack
+            // TODO Would like an index number per trigger that we wait to get set
+            if (gocatorClient != null)
+                if (gocatorClient.IsConnected())
+                {
+                    gocatorClient.InquiryResponse("start");
+                    WriteVariable("gocator_ready", "True");
+                }
+
             SetCurrentLine(0);
             bool goodLabels = BuildLabelTable();
             return goodLabels;
@@ -1576,7 +1586,7 @@ namespace LEonardTablet
 
             FileSaveAsDialog dialog = new FileSaveAsDialog()
             {
-                Title = "Save an Autogrind Recipe As...",
+                Title = "Save a LEonard Recipe As...",
                 Filter = "*.txt",
                 InitialDirectory = initialDirectory,
                 FileName = RecipeFilenameLbl.Text,
@@ -2293,7 +2303,7 @@ namespace LEonardTablet
                 if (file.Length > 1)
                 {
                     if (!ImportFile(file))
-                        ExecError(string.Format("File import error\nLine {0}: {1}\nFile would not import", lineNumber, origLine));
+                        ExecError($"File import error\nLine {lineNumber}: {origLine}\nFile error");
                 }
                 else
                     ExecError(String.Format("Invalid import command\nLine {0}: {1}", lineNumber, origLine));

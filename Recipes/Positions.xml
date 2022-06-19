@@ -155,4 +155,10 @@
     <Pose>p[0.066753,-0.489928,0.048979,0.00029,-3.141564,-0.000149]</Pose>
     <IsSystem>false</IsSystem>
   </Positions>
+  <Positions>
+    <Name>LM_origin</Name>
+    <Joints>[-0.812145,-1.723534,-1.571915,-1.416992,1.570946,2.361397]</Joints>
+    <Pose>p[0.284768,-0.491885,0.042262,0.043832,3.141212,-0.000029]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
 </NewDataSet>
