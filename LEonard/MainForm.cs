@@ -1184,7 +1184,7 @@ namespace LEonard
             VariablesGrd.DataSource = variables;
         }
 
-        string variablesFilename = "Variables.var";
+        readonly string variablesFilename = "Variables.var";
         private void LoadVariablesBtn_Click(object sender, EventArgs e)
         {
             string filename = Path.Combine(LEonardRoot, "Programs", variablesFilename);

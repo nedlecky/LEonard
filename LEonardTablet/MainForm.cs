@@ -1172,7 +1172,7 @@ namespace LEonardTablet
             CloseSafetyPopup();
             if (ProgramStateBtn.Text.StartsWith("PLAYING"))
             {
-                RobotSend("99");
+                ExecuteLine(-1, "robot_program_exit()");
                 robotDashboardClient?.Send("stop");
                 RobotCommandStatusLbl.BackColor = Color.Red;
                 RobotCommandStatusLbl.Text = "OFF";
@@ -2079,69 +2079,103 @@ namespace LEonardTablet
         };
 
         // These recipe commands will be converted to send_robot(prefix,[nParams additional parameters])
-        readonly Dictionary<string, CommandSpec> robotAlias = new Dictionary<string, CommandSpec>
+        public readonly static Dictionary<string, CommandSpec> robotAlias = new Dictionary<string, CommandSpec>
         {
             // The main "send anything" command
             {"send_robot",                      new CommandSpec(){nParams=-1, prefix="" } },
+            {"robot_socket_reset",              new CommandSpec(){nParams=0,  prefix="98" } },
+            {"robot_program_exit",              new CommandSpec(){nParams=0,  prefix="99" } },
 
-            {"set_linear_speed",                new CommandSpec(){nParams=1,  prefix="30,1," } },
-            {"set_linear_accel",                new CommandSpec(){nParams=1,  prefix="30,2," } },
-            {"set_blend_radius",                new CommandSpec(){nParams=1,  prefix="30,3," } },
-            {"set_joint_speed",                 new CommandSpec(){nParams=1,  prefix="30,4," } },
-            {"set_joint_accel",                 new CommandSpec(){nParams=1,  prefix="30,5," } },
-            {"set_part_geometry_N",             new CommandSpec(){nParams=2,  prefix="30,6," } },
-            {"set_door_closed_input",           new CommandSpec(){nParams=2,  prefix="30,10," } },
-            {"set_tool_on_outputs",             new CommandSpec(){nParams=-1, prefix="30,11," } },
-            {"set_tool_off_outputs",            new CommandSpec(){nParams=-1, prefix="30,12," } },
-            {"set_coolant_on_outputs",          new CommandSpec(){nParams=-1, prefix="30,13," } },
-            {"set_coolant_off_outputs",         new CommandSpec(){nParams=-1, prefix="30,14," } },
+            {"get_actual_tcp_pose",             new CommandSpec(){nParams=0,  prefix="1,10" } },
+            {"get_target_tcp_pose",             new CommandSpec(){nParams=0,  prefix="1,11" } },
+            {"get_actual_joint_positions",      new CommandSpec(){nParams=0,  prefix="1,12" } },
+            {"get_target_joint_positions",      new CommandSpec(){nParams=0,  prefix="1,13" } },
+            {"get_actual_both",                 new CommandSpec(){nParams=0,  prefix="1,14" } },
+            {"get_target_both",                 new CommandSpec(){nParams=0,  prefix="1,15" } },
+            {"movej",                           new CommandSpec(){nParams=6,  prefix="1,16" } },
+            {"movel",                           new CommandSpec(){nParams=6,  prefix="1,17" } },
+            {"get_tcp_offset",                  new CommandSpec(){nParams=0,  prefix="1,18" } },
+
+            {"movel_incr_base",                 new CommandSpec(){nParams=6,  prefix="1,20" } },
+            {"movel_incr_tool",                 new CommandSpec(){nParams=6,  prefix="1,21" } },
+            {"movel_incr_part",                 new CommandSpec(){nParams=6,  prefix="1,22" } },
+            {"movel_single_axis",               new CommandSpec(){nParams=2,  prefix="1,30" } },
+            {"movel_rot_only",                  new CommandSpec(){nParams=3,  prefix="1,31" } },
+            {"movel_rel_set_tool_origin",       new CommandSpec(){nParams=6,  prefix="1,40" } },
+            {"movel_rel_set_tool_origin_here",  new CommandSpec(){nParams=0,  prefix="1,40" } },
+            {"movel_rel_set_part_origin",       new CommandSpec(){nParams=6,  prefix="1,41" } },
+            {"movel_rel_set_part_origin_here",  new CommandSpec(){nParams=0,  prefix="1,41" } },
+            {"movel_rel_tool",                  new CommandSpec(){nParams=6,  prefix="1,42" } },
+            {"movel_rel_part",                  new CommandSpec(){nParams=6,  prefix="1,43" } },
+
+            {"set_linear_speed",                new CommandSpec(){nParams=1,  prefix="30,1" } },
+            {"set_linear_accel",                new CommandSpec(){nParams=1,  prefix="30,2" } },
+            {"set_blend_radius",                new CommandSpec(){nParams=1,  prefix="30,3" } },
+            {"set_joint_speed",                 new CommandSpec(){nParams=1,  prefix="30,4" } },
+            {"set_joint_accel",                 new CommandSpec(){nParams=1,  prefix="30,5" } },
+            {"set_part_geometry_N",             new CommandSpec(){nParams=2,  prefix="30,6" } },
+            {"set_door_closed_input",           new CommandSpec(){nParams=2,  prefix="30,10" } },
+            {"set_tool_on_outputs",             new CommandSpec(){nParams=-1, prefix="30,11" } },
+            {"set_tool_off_outputs",            new CommandSpec(){nParams=-1, prefix="30,12" } },
+            {"set_coolant_on_outputs",          new CommandSpec(){nParams=-1, prefix="30,13" } },
+            {"set_coolant_off_outputs",         new CommandSpec(){nParams=-1, prefix="30,14" } },
             {"tool_on",                         new CommandSpec(){nParams=0,  prefix="30,15" } },
             {"tool_off",                        new CommandSpec(){nParams=0,  prefix="30,16" } },
             {"coolant_on",                      new CommandSpec(){nParams=0,  prefix="30,17" } },
             {"coolant_off",                     new CommandSpec(){nParams=0,  prefix="30,18" } },
-            {"free_drive",                      new CommandSpec(){nParams=1,  prefix="30,19," } },
-            {"set_tcp",                         new CommandSpec(){nParams=6,  prefix="30,20," } },
-            {"set_payload",                     new CommandSpec(){nParams=4,  prefix="30,21," } },
-            {"set_footswitch_pressed_input",    new CommandSpec(){nParams=2,  prefix="30,22," } },
-            {"set_output",                      new CommandSpec(){nParams=2,  prefix="30,30," } },
+            {"free_drive",                      new CommandSpec(){nParams=1,  prefix="30,19" } },
+            {"set_tcp",                         new CommandSpec(){nParams=6,  prefix="30,20" } },
+            {"set_payload",                     new CommandSpec(){nParams=4,  prefix="30,21" } },
+            {"set_footswitch_pressed_input",    new CommandSpec(){nParams=2,  prefix="30,22" } },
+            {"set_output",                      new CommandSpec(){nParams=2,  prefix="30,30" } },
 
             {"zero_cal_timers",                 new CommandSpec(){nParams=0,  prefix="30,40" } },
-            {"default_cyline_cal",              new CommandSpec(){nParams=1,  prefix="30,41," } },
+            {"default_cyline_cal",              new CommandSpec(){nParams=1,  prefix="30,41" } },
             {"unity_cyline_cal",                new CommandSpec(){nParams=0,  prefix="30,42" } },
             {"return_cyline_cal",               new CommandSpec(){nParams=0,  prefix="30,43" } },
-            {"enable_cyline_cal",               new CommandSpec(){nParams=1,  prefix="30,44," } },
-            {"set_cyline_training_weight",      new CommandSpec(){nParams=1,  prefix="30,45," } },
-            {"set_cyline_expected_time",        new CommandSpec(){nParams=1,  prefix="30,46," } },
-            {"set_cyline_deadband_time",        new CommandSpec(){nParams=1,  prefix="30,47," } },
+            {"enable_cyline_cal",               new CommandSpec(){nParams=1,  prefix="30,44" } },
+            {"set_cyline_training_weight",      new CommandSpec(){nParams=1,  prefix="30,45" } },
+            {"set_cyline_expected_time",        new CommandSpec(){nParams=1,  prefix="30,46" } },
+            {"set_cyline_deadband_time",        new CommandSpec(){nParams=1,  prefix="30,47" } },
             {"new_cyline_cycle",                new CommandSpec(){nParams=0,  prefix="30,48" } },
 
-            {"enable_user_timers",              new CommandSpec(){nParams=1,  prefix="30,50," } },
+            {"enable_user_timers",              new CommandSpec(){nParams=1,  prefix="30,50" } },
             {"zero_user_timers",                new CommandSpec(){nParams=0,  prefix="30,51" } },
             {"return_user_timers",              new CommandSpec(){nParams=0,  prefix="30,52" } },
 
-            {"grind_contact_enable",            new CommandSpec(){nParams=1,  prefix="35,1," } },
-            {"grind_touch_retract",             new CommandSpec(){nParams=1,  prefix="35,2," } },
-            {"grind_touch_speed",               new CommandSpec(){nParams=1,  prefix="35,3," } },
-            {"grind_force_dwell",               new CommandSpec(){nParams=1,  prefix="35,4," } },
-            {"grind_max_wait",                  new CommandSpec(){nParams=1,  prefix="35,5," } },
-            {"grind_max_blend_radius",          new CommandSpec(){nParams=1,  prefix="35,6," } },
-            {"grind_trial_speed",               new CommandSpec(){nParams=1,  prefix="35,7," } },
-            {"grind_linear_accel",              new CommandSpec(){nParams=1,  prefix="35,8," } },
-            {"grind_point_frequency",           new CommandSpec(){nParams=1,  prefix="35,9," } },
-            {"grind_jog_speed",                 new CommandSpec(){nParams=1,  prefix="35,10," } },
-            {"grind_jog_accel",                 new CommandSpec(){nParams=1,  prefix="35,11," } },
-            {"grind_force_mode_damping",        new CommandSpec(){nParams=1,  prefix="35,12," } },
-            {"grind_force_mode_gain_scaling",   new CommandSpec(){nParams=1,  prefix="35,13," } },
+            {"grind_contact_enable",            new CommandSpec(){nParams=1,  prefix="35,1" } },
+            {"grind_touch_retract",             new CommandSpec(){nParams=1,  prefix="35,2" } },
+            {"grind_touch_speed",               new CommandSpec(){nParams=1,  prefix="35,3" } },
+            {"grind_force_dwell",               new CommandSpec(){nParams=1,  prefix="35,4" } },
+            {"grind_max_wait",                  new CommandSpec(){nParams=1,  prefix="35,5" } },
+            {"grind_max_blend_radius",          new CommandSpec(){nParams=1,  prefix="35,6" } },
+            {"grind_trial_speed",               new CommandSpec(){nParams=1,  prefix="35,7" } },
+            {"grind_linear_accel",              new CommandSpec(){nParams=1,  prefix="35,8" } },
+            {"grind_point_frequency",           new CommandSpec(){nParams=1,  prefix="35,9" } },
+            {"grind_jog_speed",                 new CommandSpec(){nParams=1,  prefix="35,10" } },
+            {"grind_jog_accel",                 new CommandSpec(){nParams=1,  prefix="35,11" } },
+            {"grind_force_mode_damping",        new CommandSpec(){nParams=1,  prefix="35,12" } },
+            {"grind_force_mode_gain_scaling",   new CommandSpec(){nParams=1,  prefix="35,13" } },
 
-            {"grind_line",                      new CommandSpec(){nParams=6,  prefix="40,10," }  },
-            {"grind_line_deg",                  new CommandSpec(){nParams=6,  prefix="40,11," }  },
-            {"grind_rect",                      new CommandSpec(){nParams=6,  prefix="40,20," }  },
-            {"grind_serp",                      new CommandSpec(){nParams=8,  prefix="40,30," }  },
-            {"grind_poly",                      new CommandSpec(){nParams=6,  prefix="40,40," }  },
-            {"grind_circle",                    new CommandSpec(){nParams=5,  prefix="40,45," }  },
-            {"grind_spiral",                    new CommandSpec(){nParams=7,  prefix="40,50," }  },
+            {"grind_line",                      new CommandSpec(){nParams=6,  prefix="40,10" }  },
+            {"grind_line_deg",                  new CommandSpec(){nParams=6,  prefix="40,11" }  },
+            {"grind_rect",                      new CommandSpec(){nParams=6,  prefix="40,20" }  },
+            {"grind_serp",                      new CommandSpec(){nParams=8,  prefix="40,30" }  },
+            {"grind_poly",                      new CommandSpec(){nParams=6,  prefix="40,40" }  },
+            {"grind_circle",                    new CommandSpec(){nParams=5,  prefix="40,45" }  },
+            {"grind_spiral",                    new CommandSpec(){nParams=7,  prefix="40,50" }  },
             {"grind_retract",                   new CommandSpec(){nParams=0,  prefix="40,99" } },
         };
+
+        public static string GetRobotPrefix(string command)
+        {
+            if (robotAlias.TryGetValue(command, out CommandSpec commandSpec))
+                return commandSpec.prefix;
+            else
+                log.Error($"GetRobotPrefix({command}) Does not exist.");
+            return null;
+        }
+
         private void LogInterpret(string command, int lineNumber, string line)
         {
             if (lineNumber < 1)
@@ -2673,11 +2707,12 @@ namespace LEonardTablet
                         ExecError(string.Format("Illegal parameters line {0}: {1}", lineNumber, origLine));
                     else
                     {
-                        if (commandSpec.nParams > 0 && parameters.Length > 0 ||      // Got some parameters and must have been the right number
-                           (commandSpec.nParams == 0 && parameters.Length == 0) ||   // Expected 0 parameters and got nothing
-                           (commandSpec.nParams == -1 && parameters.Length > 0)      // Willing to accept whatever you have (as long as there's something!)
-                           )
-                            RobotSend(commandSpec.prefix + parameters);
+                        if (commandSpec.nParams == 0 && parameters.Length == 0)   // Expected 0 parameters and got nothing
+                            RobotSend(commandSpec.prefix);
+                        else if ((commandSpec.nParams > 0 && parameters.Length > 0) ||   // Got some parameters and must have been the right number
+                                 (commandSpec.nParams == -1 && parameters.Length > 0)    // Willing to accept whatever you have (as long as there's something!)
+                                )
+                            RobotSend(commandSpec.prefix + "," + parameters);
                         else
                             ExecError(string.Format("Line {0}: Wrong number of operands. Expected {1} {2}", lineCurrentlyExecuting, commandSpec.nParams, origLine));
                     }
@@ -2855,7 +2890,7 @@ namespace LEonardTablet
             {
                 if (robotCommandServer.IsConnected())
                 {
-                    if (ProgramStateBtn.Text.StartsWith("PLAYING")) RobotSend("98");
+                    if (ProgramStateBtn.Text.StartsWith("PLAYING")) ExecuteLine(-1, "robot_socket_reset()");
                     robotCommandServer.Disconnect();
                 }
                 robotCommandServer = null;
@@ -3563,6 +3598,10 @@ namespace LEonardTablet
                     RobotReadyLbl.BackColor = ColorFromBooleanName(valueTrimmed);
                     RobotReadyLbl.Refresh();
                     break;
+                case "robot_response":
+                    if (valueTrimmed.Contains("ERROR"))
+                        PromptOperator($"Received error message from robot: {valueTrimmed}");
+                    break;
                 case "robot_starting":
                     // This gets sent to us by command_validate on the UR. It means command valueTrimmed is going to start executing
                     log.Info("UR<== EXEC {0} STARTING", valueTrimmed);
@@ -3774,11 +3813,11 @@ namespace LEonardTablet
             // Set copyPositionAtWrite to "name" and when position_p or position_q gets written it will also be written to Position:name
             if (copyPositionAtWrite != null)
             {
-                if (name == "position_q")
+                if (name == "actual_joint_positions")
                 {
                     WritePosition(copyPositionAtWrite, valueTrimmed, "", isSystemCopyWrite);
                 }
-                if (name == "position_p")
+                if (name == "actual_tcp_pose")
                 {
                     WritePosition(copyPositionAtWrite, "", valueTrimmed, isSystemCopyWrite);
                     copyPositionAtWrite = null;
@@ -4386,11 +4425,13 @@ namespace LEonardTablet
                 if (robotReady)
                 {
                     copyPositionAtWrite = varName;
-                    RobotSend("1,25");
+                    string robotPrefix = GetRobotPrefix("get_actual_both");
+                    if (robotPrefix != null)
+                        RobotSend(robotPrefix);
                 }
-
             }
         }
+
         private bool GotoPositionJoint(string varName)
         {
             log.Trace("GotoPositionJoint({0})", varName);
@@ -4399,10 +4440,14 @@ namespace LEonardTablet
                 string q = ReadPositionJoint(varName);
                 if (q != null)
                 {
-                    string msg = "1,21," + ExtractScalars(q);
-                    log.Trace("Sending {0}", msg);
-                    RobotSend(msg);
-                    return true;
+                    string robotPrefix = GetRobotPrefix("movej");
+                    if (robotPrefix != null)
+                    {
+                        string msg = robotPrefix + "," + ExtractScalars(q);
+                        log.Trace("Sending {0}", msg);
+                        RobotSend(msg);
+                        return true;
+                    }
                 }
             }
             return false;
@@ -4415,10 +4460,14 @@ namespace LEonardTablet
                 string q = ReadPositionPose(varName);
                 if (q != null)
                 {
-                    string msg = "1,22," + ExtractScalars(q);
-                    log.Trace("Sending {0}", msg);
-                    RobotSend(msg);
-                    return true;
+                    string robotPrefix = GetRobotPrefix("movel");
+                    if (robotPrefix != null)
+                    {
+                        string msg = robotPrefix + "," + ExtractScalars(q);
+                        log.Trace("Sending {0}", msg);
+                        RobotSend(msg);
+                        return true;
+                    }
                 }
             }
             return false;

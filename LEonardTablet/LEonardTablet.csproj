@@ -182,6 +182,7 @@
     </Compile>
     <EmbeddedResource Include="BigEditDialog.resx">
       <DependentUpon>BigEditDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DirectorySelectDialog.resx">
       <DependentUpon>DirectorySelectDialog.cs</DependentUpon>

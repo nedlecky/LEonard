@@ -29,7 +29,7 @@ namespace LEonardTablet
         public bool ShouldSave { get; set; } = false;
         private bool freedriveMode = false;
 
-        MainForm mainForm;
+        readonly MainForm mainForm;
         public JoggingDialog(MainForm _mainForm)
         {
             InitializeComponent();
@@ -189,27 +189,33 @@ namespace LEonardTablet
         {
             return r * 180.0 / Math.PI;
         }
+
+
+
         string lastJogCommand;
-        private void Jog(double[] p)
+                private void Jog(double[] p)
         {
-            lastJogCommand = "??";
+            lastJogCommand = null;
             switch (CoordBox.Text)
             {
                 case "BASE":
-                    lastJogCommand = "1,13";
+                    lastJogCommand = MainForm.GetRobotPrefix("movel_incr_base");
                     break;
                 case "TOOL":
-                    lastJogCommand = "1,14";
+                    lastJogCommand = MainForm.GetRobotPrefix("movel_incr_tool");
                     break;
                 case "PART":
-                    lastJogCommand = "1,15";
+                    lastJogCommand = MainForm.GetRobotPrefix("movel_incr_part");
                     break;
             }
 
-            for (int i = 0; i < 6; i++)
-                lastJogCommand += "," + p[i].ToString();
-            log.Info("Jog Command: {0}", lastJogCommand);
-            mainForm.RobotSend(lastJogCommand);
+            if (lastJogCommand != null)
+            {
+                for (int i = 0; i < 6; i++)
+                    lastJogCommand += "," + p[i].ToString();
+                log.Info("Jog Command: {0}", lastJogCommand);
+                mainForm.RobotSend(lastJogCommand);
+            }
         }
 
         static bool continueTask;
@@ -338,10 +344,9 @@ namespace LEonardTablet
 
         private void ALignButton_Click(object sender, EventArgs e)
         {
-            //mainForm.RobotSend(string.Format("1,18,0,{0},0", Deg2Rad(180)));
-            mainForm.RobotSend(string.Format("1,18,0,{0},0", Deg2Rad(180)));
-            //mainForm.RobotSend("1,16,3,0");
-            //mainForm.RobotSend($"1,16,4,{Deg2Rad(180)}");
+            string robotPrefix = MainForm.GetRobotPrefix("movel_rot_only");
+            if(robotPrefix!=null)
+            mainForm.RobotSend($"{robotPrefix},0,{Deg2Rad(180)},0");
         }
 
         [DllImport("user32.dll")]
