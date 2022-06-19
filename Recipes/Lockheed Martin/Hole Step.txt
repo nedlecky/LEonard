@@ -7,19 +7,30 @@ import(inch_conversions.txt)
 
 move_linear(LM_origin)
 movel_rel_set_part_origin_here()
-gocator_trigger()
+#gocator_trigger()
 
 #jump(left_side)
 #jump(big_ones)
-jump(right_row)
+#jump(right_row)
 
 left_side:
 ##################################
 
 back_left_row:
-movel_rel_part(0.025,0.025,0,0,0,0)
+movel_rel_part({d_1in},{d_1in},0,0,0,0)
+gocator_trigger()
+movel_incr_part(0,-0.010,0,0,0,0)
+gocator_trigger()
+
+gocator_adjust()
+#movel_incr_part(0.010,0,0,0,0,0)
 gocator_trigger()
 end
+
+movel_rel_part(0.025,0.025,0,0,0,0)
+gocator_trigger()
+movel_incr_part(0,-0.005,0,0,0,0)
+gocator_trigger()
 
 movel_rel_part(0.025,0.050,0,0,0,0)
 gocator_trigger()

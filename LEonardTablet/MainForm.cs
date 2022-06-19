@@ -2642,6 +2642,17 @@ namespace LEonardTablet
                 return true;
             }
 
+            // gocator_adjust
+            if (command.StartsWith("gocator_adjust("))
+            {
+                LogInterpret("gocator_adjust", lineNumber, origLine);
+                double dx = Convert.ToDouble(ReadVariable("g_hole_x", "0")) / 1000.0;
+                double dy = Convert.ToDouble(ReadVariable("g_hole_y", "0")) / 1000.0;
+                double dz = Convert.ToDouble(ReadVariable("g_hole_z", "0")) / 1000.0;
+                ExecuteLine(-1, $"movel_incr_part({dx / 1e6:F6},{dy / 1e6:F6},{dz / 1e6:F6},0,0,0)");
+                return true;
+            }
+
             // write_cyline_data
             if (command.StartsWith("write_cyline_data("))
             {

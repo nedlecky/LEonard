@@ -147,7 +147,7 @@ def move_interface():
     global response = "get_tcp_offset()"
   elif command[2] == 20:
     # movel_incr_base  Movel incrementally in base coordinates
-    local p0 = get_target_tcp_pose()
+    local p0 = iget_target_tcp_pose()
     local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
     local p2 = pose_add(p0, p1)
     start_listen_halt_thread()
@@ -161,7 +161,7 @@ def move_interface():
   elif command[2] == 21:
     # movel_incr_tool  Movel incrementally in tool TCP coordinates
     local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
-    local p2 = pose_trans(get_target_tcp_pose(), p1)
+    local p2 = pose_trans(iget_target_tcp_pose(), p1)
     start_listen_halt_thread()
     if p1[0] == 0 and p1[1] == 0 and p1[2] == 0:  # Rotational move
       imovel_int(p2, robot_joint_accel_rpss, robot_joint_speed_rps)
@@ -175,9 +175,16 @@ def move_interface():
     local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
     start_listen_halt_thread()
     iset_tcp(robot_tcp_part)
+
+    local origin0 = draw_p_origin 
+
+    draw_origin(iget_target_tcp_pose())
     speed_setter(robot_linear_speed_mps * 1000.0)
-    draw_origin(get_target_tcp_pose())
     drawgi_finish(p1)
+
+    draw_origin(origin0)
+    draw_sync_current_dp(iget_target_tcp_pose())
+
     stop_listen_halt_thread()
     iset_tcp(robot_tcp)
     global response = "movel_incr_part()"
