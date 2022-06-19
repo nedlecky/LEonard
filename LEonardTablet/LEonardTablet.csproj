@@ -121,6 +121,7 @@
     <Compile Include="Devices\LeDeviceBase.cs" />
     <Compile Include="Devices\LeDeviceInterface.cs" />
     <Compile Include="Devices\LeDevNull.cs" />
+    <Compile Include="Devices\LeGocator.cs" />
     <Compile Include="Devices\LeSerial.cs" />
     <Compile Include="Devices\LeTcpClient.cs" />
     <Compile Include="Devices\LeTcpClientAsync.cs" />

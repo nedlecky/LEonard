@@ -1,4 +1,9 @@
-﻿using System;
+﻿// File: LeSerial.cs
+// Project: LEonardTablet
+// Author: Ned Lecky, Lecky Engineering LLC
+// Purpose: RS-232 Interface
+
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;

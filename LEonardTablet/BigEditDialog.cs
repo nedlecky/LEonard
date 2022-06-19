@@ -1,4 +1,9 @@
-﻿using System;
+﻿// File: BigEditDialog.cs
+// Project: LEonardTablet
+// Author: Ned Lecky, Lecky Engineering LLC
+// Purpose: Fullscreen (touch tablet) editor
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

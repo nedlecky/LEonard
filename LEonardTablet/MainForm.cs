@@ -33,8 +33,7 @@ namespace LEonardTablet
         // TODO should be replaced with generic devices interface
         LeTcpServer robotCommandServer = null;
         LeTcpClient robotDashboardClient = null;
-        LeTcpClient gocatorClient = null;
-
+        LeGocator gocator = null;
         MessageDialog waitingForOperatorMessageForm = null;
         bool closeOperatorFormOnIndex = false;
 
@@ -216,6 +215,7 @@ namespace LEonardTablet
             MessageTmr.Enabled = true;
 
             RobotConnectBtn_Click(null, null);
+            GocatorConnectBtn_Click(null, null);
 
             // Load the last recipe if there was one loaded in LoadPersistent()
             if (recipeFileToAutoload != "")
@@ -232,6 +232,7 @@ namespace LEonardTablet
         {
             CloseTmr.Enabled = false;
             RobotDisconnect();
+            GocatorDisconnect();
             MessageTmr_Tick(null, null);
             forceClose = true;
             SavePersistent();
@@ -726,6 +727,9 @@ namespace LEonardTablet
                     SafetyStatusBtn.Enabled = true;
                     ProgramStateBtn.Enabled = true;
 
+                    // Gocator Control
+                    GocatorConnectBtn.Enabled = true;
+
                     UserModeBox.Enabled = true;
 
                     ExitBtn.Enabled = true;
@@ -768,6 +772,9 @@ namespace LEonardTablet
                     SafetyStatusBtn.Enabled = true;
                     ProgramStateBtn.Enabled = true;
 
+                    // Gocator Control
+                    GocatorConnectBtn.Enabled = true;
+
                     UserModeBox.Enabled = true;
 
                     ExitBtn.Enabled = true;
@@ -809,6 +816,9 @@ namespace LEonardTablet
                     RobotModeBtn.Enabled = false;
                     SafetyStatusBtn.Enabled = false;
                     ProgramStateBtn.Enabled = false;
+
+                    // Gocator Control
+                    GocatorConnectBtn.Enabled = false;
 
                     UserModeBox.Enabled = false;
 
@@ -855,6 +865,9 @@ namespace LEonardTablet
                     RobotModeBtn.Enabled = true;
                     SafetyStatusBtn.Enabled = true;
                     ProgramStateBtn.Enabled = true;
+
+                    // Gocator Control
+                    GocatorConnectBtn.Enabled = true;
 
                     UserModeBox.Enabled = false;
 
@@ -1275,14 +1288,7 @@ namespace LEonardTablet
             }
 
             // Gocator
-            // TODO this is a bit of a hack
-            // TODO Would like an index number per trigger that we wait to get set
-            if (gocatorClient != null)
-                if (gocatorClient.IsConnected())
-                {
-                    gocatorClient.InquiryResponse("start");
-                    WriteVariable("gocator_ready", "True");
-                }
+            gocator?.PrepareToRun();
 
             SetCurrentLine(0);
             bool goodLabels = BuildLabelTable();
@@ -2629,7 +2635,7 @@ namespace LEonardTablet
             if (command.StartsWith("gocator_send("))
             {
                 LogInterpret("gocator_send", lineNumber, origLine);
-                GocatorInquiryResponse(ExtractParameters(command, -1, false));
+                gocator.Send(ExtractParameters(command, -1, false));
                 return true;
             }
 
@@ -2637,8 +2643,9 @@ namespace LEonardTablet
             if (command.StartsWith("gocator_trigger("))
             {
                 LogInterpret("gocator_trigger", lineNumber, origLine);
-                GocatorInquiryResponse("trigger");
-                WriteVariable("gocator_complete", "False");
+                gocator.Trigger();
+                GocatorReadyLbl.BackColor = ColorFromBooleanName("False");
+                GocatorReadyLbl.Refresh();
                 return true;
             }
 
@@ -2812,7 +2819,7 @@ namespace LEonardTablet
             }
 
             // Gocator wait
-            if (ReadVariable("gocator_complete") == "False")
+            if (ReadVariable("gocator_ready") != "True")
                 return;
 
             // Waiting on robotReady or will cook along if AllowRunningOffline
@@ -2932,13 +2939,10 @@ namespace LEonardTablet
         }
         private void RobotConnectBtn_Click(object sender, EventArgs e)
         {
-            bool fReconnect = RobotConnectBtn.Text == "OFF";
-            GocatorDisconnect();
+            bool fReconnect = robotCommandServer == null;
             RobotDisconnect();
 
             if (!fReconnect) return;
-
-            GocatorConnect();
 
             // Connect client to the UR dashboard
             //robotDashboardClient = new TcpClientSupport("DASH");
@@ -3399,7 +3403,7 @@ namespace LEonardTablet
             ExecuteLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
         }
 
-        void CommandCallback(string prefix, string message)
+        public void CommandCallback(string prefix, string message)
         {
 
             string[] requests = message.Split('#');
@@ -3448,17 +3452,14 @@ namespace LEonardTablet
                 GrindProcessStateLbl.BackColor = Color.Red;
             }
 
-            bool fGocatorError = true;
-            if (gocatorClient != null)
-                if (gocatorClient.IsConnected())
+            if (gocator != null)
+                if (gocator.IsConnected())
+                    gocator.Receive();
+                else
                 {
-                    gocatorClient.Receive();
-                    fGocatorError = false;
+                    GocatorConnectBtn.BackColor = Color.Red;
+                    GocatorConnectBtn.Text = "Gocator OFF";
                 }
-            if (fGocatorError)
-            {
-                GocatorStatusLbl.BackColor = Color.Red;
-            }
         }
 
         // ===================================================================
@@ -3468,47 +3469,39 @@ namespace LEonardTablet
         // ===================================================================
         // START GOCATOR INTERFACE
         // ===================================================================
-
-        private string GocatorInquiryResponse(string inquiry)
+        private void GocatorConnectBtn_Click(object sender, EventArgs e)
         {
-            string response = "ERROR";
-            response = gocatorClient?.InquiryResponse(inquiry, 200);
-            log.Info($"Gocator: {inquiry} = {response}");
-            return response;
+            if (gocator == null)
+                GocatorConnect();
+            else
+                GocatorDisconnect();
         }
+
         private void GocatorConnect()
         {
             GocatorDisconnect();
 
-            gocatorClient = new LeTcpClient(this, "GO");
-            gocatorClient.receiveCallback = CommandCallback;
-            if (gocatorClient.Connect("192.168.0.252", "8190") > 0)
+            gocator = new LeGocator(this, "GO");
+            if (gocator.Connect("192.168.0.252", "8190") > 0)
             {
                 log.Error("Gocator client initialization failure");
-                GocatorStatusLbl.BackColor = Color.Red;
-                GocatorStatusLbl.Text = "Gocator OFF";
+                GocatorConnectBtn.BackColor = Color.Red;
+                GocatorConnectBtn.Text = "Gocator ERROR";
+                GocatorReadyLbl.BackColor= Color.Red;
                 return;
             }
-            GocatorStatusLbl.BackColor = Color.Green;
-            GocatorStatusLbl.Text = "Gocator Ready";
+            GocatorConnectBtn.BackColor = Color.Green;
+            GocatorConnectBtn.Text = "Gocator OK";
+            GocatorReadyLbl.BackColor = Color.Green;
             log.Info("Gocator connection ready");
-            GocatorInquiryResponse("clearalignment");
-            GocatorInquiryResponse("loadjob,LM01");
-            GocatorInquiryResponse("start");
         }
         private void GocatorDisconnect()
         {
-            if (gocatorClient != null)
-            {
-                if (gocatorClient.IsConnected())
-                {
-                    GocatorInquiryResponse("stop");
-                    gocatorClient.Disconnect();
-                }
-                gocatorClient = null;
-            }
-            GocatorStatusLbl.BackColor = Color.Red;
-            GocatorStatusLbl.Text = "Gocator OFF";
+            gocator?.Disconnect();
+            gocator = null;
+            GocatorConnectBtn.BackColor = Color.Red;
+            GocatorConnectBtn.Text = "Gocator OFF";
+            GocatorReadyLbl.BackColor = Color.Red;
         }
 
         // ===================================================================
@@ -3618,6 +3611,10 @@ namespace LEonardTablet
                 case "robot_ready":
                     RobotReadyLbl.BackColor = ColorFromBooleanName(valueTrimmed);
                     RobotReadyLbl.Refresh();
+                    break;
+                case "gocator_ready":
+                    GocatorReadyLbl.BackColor = ColorFromBooleanName(valueTrimmed);
+                    GocatorReadyLbl.Refresh();
                     break;
                 case "robot_response":
                     if (valueTrimmed.Contains("ERROR"))
@@ -4623,6 +4620,7 @@ namespace LEonardTablet
             //log.Info("RecipeRTB VScroll");
 
         }
+
     }
     public static class RichTextBoxExtensions
     {

@@ -1,4 +1,9 @@
-﻿using System;
+﻿// File: LeDevNull.cs
+// Project: LEonardTablet
+// Author: Ned Lecky, Lecky Engineering LLC
+// Purpose: Null (Exmaple) LEonard device
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

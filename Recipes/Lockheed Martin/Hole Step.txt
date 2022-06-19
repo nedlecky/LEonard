@@ -19,8 +19,14 @@ left_side:
 back_left_row:
 movel_rel_part({d_1in},{d_1in},0,0,0,0)
 gocator_trigger()
-movel_incr_part(0,-0.010,0,0,0,0)
+#movel_incr_part(-0.005,-0.005,-0.005,0,0,0)
+#movel_incr_part(-0.005,-0.005,-0.005,0,0,0)
+
+#movel_incr_part(-0.005,0,0,0,0,0)
+#movel_incr_part(0,-0.005,0,0,0,0)
+movel_incr_part(0,0,-0.005,0,0,0)
 gocator_trigger()
+end
 
 gocator_adjust()
 #movel_incr_part(0.010,0,0,0,0,0)
