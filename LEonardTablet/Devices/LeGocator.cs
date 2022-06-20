@@ -50,6 +50,7 @@ namespace LEonardTablet
                 InquiryResponse("clearalignment");
                 InquiryResponse("loadjob,LM01");
                 InquiryResponse("start");
+                myForm.WriteVariable("gocator_ready", true, true);
             }
             return ret;
         }
@@ -61,7 +62,7 @@ namespace LEonardTablet
         public int Disconnect()
         {
             InquiryResponse("stop");
-
+            myForm.WriteVariable("gocator_ready", false, true);
             return tcpClient.Disconnect();
         }
 
@@ -80,7 +81,7 @@ namespace LEonardTablet
                 if (tcpClient.IsConnected())
                 {
                     tcpClient.InquiryResponse("start");
-                    myForm.WriteVariable("gocator_ready", "True");
+                    myForm.WriteVariable("gocator_ready", true, true);
                 }
         }
 
@@ -95,7 +96,7 @@ namespace LEonardTablet
         public void Trigger()
         {
             Send("trigger");
-            myForm.WriteVariable("gocator_ready", "False");
+            myForm.WriteVariable("gocator_ready", false, true);
         }
     }
 }

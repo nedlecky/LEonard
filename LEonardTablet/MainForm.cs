@@ -2935,7 +2935,7 @@ namespace LEonardTablet
             }
 
             // Gocator wait
-            if (ReadVariable("gocator_ready") != "True")
+            if (ReadVariable("gocator_ready", "True") != "True")
                 return;
 
             // Waiting on robotReady or will cook along if AllowRunningOffline

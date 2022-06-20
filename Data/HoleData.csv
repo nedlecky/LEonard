@@ -1,0 +1,56 @@
+Enable,X,Y,Z,Type,Notes
+,in,in,in,,
+1,1.000,1.000,0.000,Small Counterbore,Left Grid
+0,1.000,2.000,0.000,Small Counterbore,Left Grid
+0,1.000,3.000,0.000,Medium Counterbore,Left Grid
+0,1.000,4.000,0.000,Medium Counterbore,Left Grid
+0,2.000,1.000,0.000,Small Counterbore,Left Grid
+0,2.000,2.000,0.000,Small Counterbore,Left Grid
+0,2.000,3.000,0.000,Medium Counterbore,Left Grid
+0,2.000,4.000,0.000,Medium Counterbore,Left Grid
+0,3.000,1.000,0.000,Small Counterbore,Left Grid
+0,3.000,2.000,0.000,Small Counterbore,Left Grid
+0,3.000,3.000,0.000,Medium Counterbore,Left Grid
+0,3.000,4.000,0.000,Medium Counterbore,Left Grid
+0,4.000,1.000,0.000,Small Counterbore,Left Grid
+0,4.000,2.000,0.000,Small Counterbore,Left Grid
+0,4.000,3.000,0.000,Medium Counterbore,Left Grid
+0,4.000,4.000,0.000,Medium Counterbore,Left Grid
+0,5.000,1.000,0.000,Small Counterbore,Left Grid
+0,5.000,2.000,0.000,Small Counterbore,Left Grid
+0,5.000,3.000,0.000,Medium Counterbore,Left Grid
+0,5.000,4.000,0.000,Medium Counterbore,Left Grid
+0,6.000,1.000,0.000,Small Counterbore,Left Grid
+0,6.000,2.000,0.000,Small Counterbore,Left Grid
+0,6.000,3.000,0.000,Medium Counterbore,Left Grid
+0,6.000,4.000,0.000,Medium Counterbore,Left Grid
+0,7.000,1.000,0.000,Small Counterbore,Left Grid
+0,7.000,2.000,0.000,Small Counterbore,Left Grid
+0,7.000,3.000,0.000,Medium Counterbore,Left Grid
+0,7.000,4.000,0.000,Medium Counterbore,Left Grid
+0,8.000,1.000,0.000,Small Counterbore,Left Grid
+0,8.000,2.000,0.000,Small Counterbore,Left Grid
+0,8.000,3.000,0.000,Medium Counterbore,Left Grid
+0,8.000,4.000,0.000,Medium Counterbore,Left Grid
+0,9.000,1.000,0.000,Small Counterbore,Left Grid
+0,9.000,2.000,0.000,Small Counterbore,Left Grid
+0,9.000,3.000,0.000,Medium Counterbore,Left Grid
+0,9.000,4.000,0.000,Medium Counterbore,Left Grid
+0,2.000,0.750,0.000,Large Counterbore,Right Pattern
+0,2.000,2.750,0.000,Large Counterbore,Right Pattern
+0,4.000,0.750,0.000,Large Counterbore,Right Pattern
+0,4.000,2.750,0.000,Large Counterbore,Right Pattern
+0,6.000,0.750,0.000,Large Counterbore,Right Pattern
+0,6.000,2.750,0.000,Large Counterbore,Right Pattern
+0,8.000,0.750,0.000,Large Counterbore,Right Pattern
+0,8.000,2.750,0.000,Large Counterbore,Right Pattern
+0,1.000,-4.250,0.000,Thru,Right Row
+0,2.000,-4.250,0.000,Thru,Right Row
+0,3.000,-4.250,0.000,Thru,Right Row
+0,4.000,-4.250,0.000,Thru,Right Row
+0,5.000,-4.250,0.000,Thru,Right Row
+0,6.000,-4.250,0.000,Thru,Right Row
+0,7.000,-4.250,0.000,Thru,Right Row
+0,8.000,-4.250,0.000,Thru,Right Row
+0,9.000,-4.250,0.000,Thru,Right Row
+,,,,,
