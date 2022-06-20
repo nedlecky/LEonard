@@ -1,0 +1,42 @@
+gocator_ID=1# align2_denormalize
+# 1 hole with deviation from normal
+
+clear()
+filename = align2_denormalize_{DateTime}
+deg5 = 0.087266
+
+#select_tool(gocator3210)
+set_part_geometry(CYLINDER, 1000)
+
+move_linear(LM_origin)
+movel_rel_set_part_origin_here()
+gocator_trigger()
+
+cmd_start=movel_rel_part(0.050,0.050,0,0,0,0)
+{cmd_start}
+gocator_ID=raw
+gocator_trigger()
+gocator_write_data({filename})
+gocator_adjust()
+gocator_trigger()
+gocator_write_data({filename})
+
+{cmd_start}
+movel_incr_tool(0,0,0,{deg5},0,0)
+gocator_ID=RX_5deg
+gocator_trigger()
+gocator_write_data({filename})
+gocator_adjust()
+gocator_trigger()
+gocator_write_data({filename})
+
+{cmd_start}
+movel_incr_tool(0,0,0,0,{deg5},0)
+gocator_ID=RY_5deg
+gocator_trigger()
+gocator_write_data({filename})
+gocator_adjust()
+gocator_trigger()
+gocator_write_data({filename})
+
+movel_rel_part(0,0,0,0,0,0)

@@ -190,8 +190,6 @@ namespace LEonardTablet
             return r * 180.0 / Math.PI;
         }
 
-
-
         string lastJogCommand;
                 private void Jog(double[] p)
         {

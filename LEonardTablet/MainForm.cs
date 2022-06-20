@@ -2468,6 +2468,7 @@ namespace LEonardTablet
             }
 
             // move_relative
+            // This is really deprecated for movel_incr_part(...)
             if (command.StartsWith("move_relative("))
             {
                 LogInterpret("move_relative", lineNumber, origLine);
@@ -2484,8 +2485,7 @@ namespace LEonardTablet
                         double y_mm = Convert.ToDouble(p[1]);
                         if (Math.Abs(x_mm) > DEFAULT_max_allowable_relative_move_mm || Math.Abs(y_mm) > DEFAULT_max_allowable_relative_move_mm)
                             ExecError($"X and Y must be no more than +/{DEFAULT_max_allowable_relative_move_mm} mm");
-                        // Command 1,15 uses drawgi_finish(p) so all geometry correction should be automatic
-                        RobotSend($"1,15,{x_mm / 1000.0},{y_mm / 1000.0},0,0,0,0");
+                        RobotSend($"{MainForm.GetRobotPrefix("movel_incr_part")},{x_mm / 1000.0},{y_mm / 1000.0},0,0,0,0");
                     }
                     catch
                     {
@@ -2507,7 +2507,8 @@ namespace LEonardTablet
                     return true;
                 }
                 copyPositionAtWrite = positionName;
-                RobotSend("1,25");
+
+                RobotSend(MainForm.GetRobotPrefix("get_actual_both"));
                 return true;
             }
 
@@ -2671,14 +2672,18 @@ namespace LEonardTablet
                 double dx = 0;
                 double dy = 0;
                 double dz = 0;
+                double drx = 0;
+                double dry = 0;
                 if (ReadVariableInt("gc_decision", 2) == 0)
                 {
                     log.Info("gocator_adjust() using counterbore");
                     dx = Convert.ToDouble(ReadVariable("gc_offset_x", "0")) / 1000000.0;
                     dy = Convert.ToDouble(ReadVariable("gc_offset_y", "0")) / 1000000.0;
                     dz = -Convert.ToDouble(ReadVariable("gc_offset_z", "0")) / 1000000.0;
+                    drx = Convert.ToDouble(ReadVariable("gc_xangle", "0")) / 1000.0;
+                    drx = -Convert.ToDouble(ReadVariable("gc_yangle", "0")) / 1000.0;
                 }
-                else if(ReadVariableInt("gh_decision", 2) == 0)
+                else if (ReadVariableInt("gh_decision", 2) == 0)
                 {
                     log.Info("gocator_adjust() using thru hole");
                     dx = Convert.ToDouble(ReadVariable("gh_offset_x", "0")) / 1000000.0;
@@ -2689,13 +2694,28 @@ namespace LEonardTablet
                 double abs_dx = Math.Abs(dx);
                 double abs_dy = Math.Abs(dy);
                 double abs_dz = Math.Abs(dz);
+                double abs_drx = Math.Abs(drx);
+                double abs_dry = Math.Abs(dry);
                 if (abs_dx < 0.0001) dx = 0;
                 if (abs_dy < 0.0001) dy = 0;
                 if (abs_dz < 0.0001) dz = 0;
+                if (abs_drx < 0.0001) drx = 0;
+                if (abs_dry < 0.0001) dry = 0;
                 if (abs_dx > 0.010 || abs_dy > 0.010 || abs_dz > 0.010)
-                    ExecError($"Problematic gocator_adjust [{dx}, {dy}, {dz}]");
+                    ExecError($"Problematic gocator_adjust [{dx}m, {dy}m, {dz}m, {drx}deg, {dry}deg, 0]");
+                else if (abs_drx > 10 || abs_dry > 10)
+                    ExecError($"Problematic gocator_adjust [{dx}m, {dy}m, {dz}m, {drx}deg, {dry}deg, 0]");
                 else
+                {
+                    double deg2rad(double x)
+                    {
+                        return x * Math.PI / 180.0;
+                    }
+                    //ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},{deg2rad(drx)},{deg2rad(dry)},0)");
                     ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},0,0,0)");
+                    Thread.Sleep(1000);
+                    ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx)},{deg2rad(dry)},0)");
+                }
                 return true;
             }
 
@@ -4065,7 +4085,7 @@ namespace LEonardTablet
                 }
             }
 
-            // Set copyPositionAtWrite to "name" and when position_p or position_q gets written it will also be written to Position:name
+            // Set copyPositionAtWrite to "name" and when actual_tcp_pose or actual_joint_positions gets written it will also be written to Position:name
             if (copyPositionAtWrite != null)
             {
                 if (name == "actual_joint_positions")

@@ -1,0 +1,16 @@
+# align1_straight
+# 1 hole
+
+clear()
+filename = align1_straight_{DateTime}
+
+#select_tool(gocator3210)
+set_part_geometry(CYLINDER, 1000)
+
+move_linear(LM_origin)
+movel_rel_set_part_origin_here()
+gocator_trigger()
+
+movel_rel_part(0.050,0.050,0,0,0,0)
+gocator_trigger()
+gocator_write_data({filename})
