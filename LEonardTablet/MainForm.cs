@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LeonardTablet;
 using Microsoft.Win32;
 using NLog;
 
@@ -34,6 +35,7 @@ namespace LEonardTablet
         LeTcpServer robotCommandServer = null;
         LeTcpClient robotDashboardClient = null;
         LeGocator gocator = null;
+        FileManager fileManager = null;
         MessageDialog waitingForOperatorMessageForm = null;
         bool closeOperatorFormOnIndex = false;
 
@@ -805,6 +807,8 @@ namespace LEonardTablet
                     ExecTmr.Enabled = false;
                     //CurrentLineLbl.Text = "";
                     RecipeRTB.Enabled = true;
+
+                    fileManager?.AllClose();
                     break;
                 case RunState.RUNNING:
                     RunStateLbl.Text = "RUNNING";
@@ -1660,6 +1664,13 @@ namespace LEonardTablet
                 AllowRunningOfflineChk.BackColor = Color.Gray;
         }
 
+        public void MakeStandardSubdirectories()
+        {
+            // Make standard subdirectories (if they don't exist)
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Logs"));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Recipes"));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Data"));
+        }
 
         private string recipeFileToAutoload = "";
         void LoadPersistent()
@@ -1695,9 +1706,8 @@ namespace LEonardTablet
                 }
             }
 
-            // Make standard subdirectories (if they don't exist)
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Logs"));
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Recipes"));
+            MakeStandardSubdirectories();
+
 
             LEonardTabletRootLbl.Text = LEonardTabletRoot;
             RobotProgramTxt.Text = (string)AppNameKey.GetValue("RobotProgramTxt.Text", DEFAULT_RobotProgramTxt);
@@ -1817,9 +1827,7 @@ namespace LEonardTablet
                 LEonardTabletRoot = dialog.SelectedPath;
                 LEonardTabletRootLbl.Text = LEonardTabletRoot;
 
-                // Make standard subdirectories (if they don't exist)
-                System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Logs"));
-                System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Recipes"));
+                MakeStandardSubdirectories();
             }
         }
 
@@ -2354,7 +2362,7 @@ namespace LEonardTablet
                 }
                 if (value != parameters[1])
                 {
-                    ExecError(String.Format("Assertion FAILS\nLine {0}: {1}", lineNumber, origLine));
+                    ExecError($"Assertion FAILS\n{value} != {parameters[1]}\nLine {lineNumber}: {origLine}");
                     return true;
                 }
                 return true;
@@ -2662,10 +2670,10 @@ namespace LEonardTablet
                 if (abs_dx < 0.0001) dx = 0;
                 if (abs_dy < 0.0001) dy = 0;
                 if (abs_dz < 0.0001) dz = 0;
-                if (abs_dx > 0.010 || abs_dy > 0.010 || abs_dz > 0.010 )
+                if (abs_dx > 0.010 || abs_dy > 0.010 || abs_dz > 0.010)
                     ExecError($"Problematic gocator_adjust [{dx}, {dy}, {dz}]\nline {lineNumber}: {origLine}");
                 else
-                    ExecuteLine(-1,$"movel_incr_part({dx},{dy},{dz},0,0,0)");
+                    ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},0,0,0)");
                 return true;
             }
 
@@ -2681,7 +2689,7 @@ namespace LEonardTablet
                     return true;
                 }
 
-                string full_filename = Path.Combine(LEonardTabletRoot, "Logs", filename);
+                string full_filename = Path.Combine(LEonardTabletRoot, "Data", filename);
                 full_filename = Path.ChangeExtension(full_filename, ".csv");
 
                 try
@@ -2698,7 +2706,7 @@ namespace LEonardTablet
 
                     string GetVar(string name)
                     {
-                        double x = Convert.ToDouble(ReadVariable(name, "999"))/1000.0;
+                        double x = Convert.ToDouble(ReadVariable(name, "999")) / 1000.0;
                         return x.ToString("F3");
                     }
 
@@ -2716,6 +2724,57 @@ namespace LEonardTablet
                 return true;
             }
 
+            // infile_open
+            if (command.StartsWith("infile_open("))
+            {
+                LogInterpret("infile_open", lineNumber, origLine);
+
+                string filename = ExtractParameters(command);
+                if (filename.Length < 1)
+                {
+                    ExecError($"No file name specified\nline {lineNumber}: {origLine}");
+                    return true;
+                }
+
+                string full_filename = Path.Combine(LEonardTabletRoot, filename);
+                if (fileManager == null)
+                    fileManager = new FileManager(this);
+
+                if (fileManager.InputOpen(full_filename))
+                    log.Info($"Input file {full_filename} open");
+                else
+                    ExecError($"Could not open {full_filename}\nline {lineNumber}: {origLine}");
+                return true;
+            }
+
+            // infile_close
+            if (command.StartsWith("infile_close("))
+            {
+                LogInterpret("infile_close", lineNumber, origLine);
+
+                // Currently ignored
+                string parameters = ExtractParameters(command);
+                fileManager?.InputClose();
+                return true;
+            }
+
+            // infile_readline
+            if (command.StartsWith("infile_readline("))
+            {
+                LogInterpret("infile_readline", lineNumber, origLine);
+
+                // Currently ignored
+                string parameters = ExtractParameters(command);
+
+                if (fileManager == null || !fileManager.IsInputOpen())
+                {
+                    ExecError($"Input file not open\nline {lineNumber}: {origLine}");
+                    return true;
+                }
+
+                fileManager.InputReadLine();
+                return true;
+            }
 
             // write_cyline_data
             if (command.StartsWith("write_cyline_data("))
@@ -2729,7 +2788,7 @@ namespace LEonardTablet
                     return true;
                 }
 
-                string full_filename = Path.Combine(LEonardTabletRoot, "Logs", filename);
+                string full_filename = Path.Combine(LEonardTabletRoot, "Data", filename);
                 full_filename = Path.ChangeExtension(full_filename, ".csv");
 
                 try
@@ -2998,6 +3057,9 @@ namespace LEonardTablet
         {
             bool fReconnect = robotCommandServer == null;
             RobotDisconnect();
+
+            fileManager?.AllClose();
+            fileManager = null;
 
             if (!fReconnect) return;
 
@@ -3614,18 +3676,27 @@ namespace LEonardTablet
                     return Color.Yellow;
             }
         }
+
+
+        public bool WriteVariable(string name, double value, bool isSystem = false)
+        {
+            return WriteVariable(name, value.ToString(), isSystem);
+        }
+        public bool WriteVariable(string name, int value, bool isSystem = false)
+        {
+            return WriteVariable(name, value.ToString(), isSystem);
+        }
+        public bool WriteVariable(string name, bool value, bool isSystem = false)
+        {
+            return WriteVariable(name, value ? "True" : "False", isSystem);
+        }
+
         static readonly object lockObject = new object();
         static string alsoWriteVariableAs = null;
         static string copyVariableAtWrite = null;
         static string copyPositionAtWrite = null;
         static bool isSystemAlsoWrite = false;
         static bool isSystemCopyWrite = false;
-        /// <summary>
-        /// Update variable 'name' with 'value' if it exists otherwise add it. Also set system flag
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
-        /// <param name="isSystem"></param>
         public bool WriteVariable(string name, string value, bool isSystem = false)
         {
             System.Threading.Monitor.Enter(lockObject);

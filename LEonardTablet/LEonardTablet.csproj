@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F7D044A8-5B81-4D11-BE3F-211B2AE919EE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>AutoGrind</RootNamespace>
-    <AssemblyName>AutoGrind</AssemblyName>
+    <RootNamespace>LeonardTablet</RootNamespace>
+    <AssemblyName>LEonardTablet</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -132,6 +132,7 @@
     <Compile Include="DirectorySelectDialog.Designer.cs">
       <DependentUpon>DirectorySelectDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileManager.cs" />
     <Compile Include="FileOpenDialog.cs">
       <SubType>Form</SubType>
     </Compile>

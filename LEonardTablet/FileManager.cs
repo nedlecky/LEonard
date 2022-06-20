@@ -1,0 +1,129 @@
+﻿using LEonardTablet;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LeonardTablet
+{
+    public class FileManager
+    {
+        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+
+        MainForm myForm;
+        string logPrefix;
+
+        StreamWriter writer = null;
+        int writerLineNo = 0;
+
+        StreamReader reader = null;
+        int readerLineNo = 0;
+
+
+        public FileManager(MainForm form, string prefix = "")
+        {
+            myForm = form;
+            logPrefix = prefix;
+        }
+        ~FileManager()
+        {
+            AllClose();
+        }
+        public bool AllClose()
+        {
+            return InputClose() && OutputClose();
+        }
+
+
+        public bool InputOpen(string filename)
+        {
+            InputClose();
+            try
+            {
+                reader = new StreamReader(filename);
+                log.Info($"{logPrefix} Opened input file {filename}");
+                readerLineNo = 0;
+                myForm.WriteVariable("infile_open", true);
+                myForm.WriteVariable("infile_lineno", readerLineNo);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool InputClose()
+        {
+            if (reader != null)
+            {
+                log.Info($"{logPrefix} Input closing");
+                reader.Close();
+                myForm.WriteVariable("infile_open", false);
+                reader = null;
+            }
+            return true;
+        }
+        public bool IsInputOpen()
+        {
+            return reader != null;
+        }
+
+        public string InputReadLine()
+        {
+            if (reader != null)
+            {
+                string line = reader.ReadLine();
+                if (line == null)
+                {
+                    readerLineNo = -1;
+                }
+                else
+                {
+                    readerLineNo++;
+                    myForm.WriteVariable("infile_line", line);
+
+                    string[] fields = line.Split(',');
+                    int i = 0;
+                    foreach (string field in fields)
+                    {
+                        myForm.WriteVariable($"infile_p{i++}", field);
+                    }
+                }
+            }
+            myForm.WriteVariable("infile_lineno", readerLineNo);
+            return null;
+        }
+
+        public bool OutputOpen(string filename, bool fAppend = false)
+        {
+            OutputClose();
+            try
+            {
+                writer = new StreamWriter(filename, fAppend);
+                log.Info($"{logPrefix} Opened output file {filename}");
+                return true;
+            }
+            catch
+            {
+                log.Error($"{logPrefix} Can't open output {filename}");
+                return false;
+            }
+        }
+        public bool OutputClose()
+        {
+            if (writer != null)
+            {
+                writer.Close();
+                log.Info($"{logPrefix} Closed output file");
+                writer = null;
+            }
+            return true;
+        }
+        public bool IsOutputOpen()
+        {
+            return writer != null;
+        }
+    }
+}
