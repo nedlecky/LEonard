@@ -2721,8 +2721,8 @@ namespace LEonardTablet
                     {
                         writer = new StreamWriter(full_filename);
                         string gc_headers = "gocator_ID,gc_decision,gc_offset_x,gc_offset_y,gc_offset_z,gc_outer_radius,gc_depth,dc_bevel_radius,gc_bevel_angle,gc_xangle,gc_yangle,gc_cb_depth,gc_axis_tilt,gc_axis_orient";
-                        string gc_units = ",in,in,in,in,in,in,deg,deg,deg,in,deg,deg";
-                        string gh_headers = "gh_decision,gh_offset_x,gh_offset_y,gh_offset_x,gh_radius";
+                        string gc_units = ",,in,in,in,in,in,in,deg,deg,deg,in,deg,deg";
+                        string gh_headers = "gh_decision,gh_offset_x,gh_offset_y,gh_offset_z,gh_radius";
                         string gh_units = ",in,in,in,in";
                         string headers = gc_headers + "," + gh_headers;
                         string units = gc_units + "," + gh_units;

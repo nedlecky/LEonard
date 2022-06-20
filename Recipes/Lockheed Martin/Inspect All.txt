@@ -3,7 +3,7 @@
 clear()
 filename = {DateTime}
 
-#select_tool(gocator3210)
+select_tool(gocator3210)
 set_part_geometry(CYLINDER, 1000)
 
 move_linear(LM_origin)
