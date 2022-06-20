@@ -1,13 +1,15 @@
 # Hole Step
 
+#clear()
+import(inch_conversions.txt)
+filename = test13
+
 #select_tool(gocator3210)
 set_part_geometry(CYLINDER, 1000)
 
-import(inch_conversions.txt)
-
 move_linear(LM_origin)
 movel_rel_set_part_origin_here()
-#gocator_trigger()
+gocator_trigger()
 
 #jump(left_side)
 #jump(big_ones)
@@ -17,75 +19,121 @@ left_side:
 ##################################
 
 back_left_row:
-movel_rel_part({d_1in},{d_1in},0,0,0,0)
-gocator_trigger()
-#movel_incr_part(-0.005,-0.005,-0.005,0,0,0)
-#movel_incr_part(-0.005,-0.005,-0.005,0,0,0)
-
-#movel_incr_part(-0.005,0,0,0,0,0)
-#movel_incr_part(0,-0.005,0,0,0,0)
-movel_incr_part(0,0,-0.005,0,0,0)
-gocator_trigger()
-end
-
-gocator_adjust()
-#movel_incr_part(0.010,0,0,0,0,0)
-gocator_trigger()
-end
-
 movel_rel_part(0.025,0.025,0,0,0,0)
 gocator_trigger()
-movel_incr_part(0,-0.005,0,0,0,0)
+write_gocator_data({filename}_raw)
+gocator_adjust()
 gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.025,0.050,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.025,0.075,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.025,0.100,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 front_left_row:
 movel_rel_part(0.225,0.025,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.225,0.050,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.225,0.075,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.225,0.100,0,0,0,0)
 gocator_trigger()
-
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 big_ones:
 ###################################
 movel_rel_part(0.050,-0.015,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.050,-0.070,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.100,-0.015,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.100,-0.070,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.150,-0.015,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.150,-0.070,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.200,-0.015,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
 
 movel_rel_part(0.200,-0.070,0,0,0,0)
 gocator_trigger()
+write_gocator_data({filename}_raw)
+gocator_adjust()
+gocator_trigger()
+write_gocator_data({filename}_aligned)
+end
 
 right_row:
 ####################################

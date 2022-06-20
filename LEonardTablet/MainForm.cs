@@ -2653,12 +2653,69 @@ namespace LEonardTablet
             if (command.StartsWith("gocator_adjust("))
             {
                 LogInterpret("gocator_adjust", lineNumber, origLine);
-                double dx = Convert.ToDouble(ReadVariable("g_hole_x", "0")) / 1000.0;
-                double dy = Convert.ToDouble(ReadVariable("g_hole_y", "0")) / 1000.0;
-                double dz = Convert.ToDouble(ReadVariable("g_hole_z", "0")) / 1000.0;
-                ExecuteLine(-1, $"movel_incr_part({dx / 1e6:F6},{dy / 1e6:F6},{dz / 1e6:F6},0,0,0)");
+                double dx = Convert.ToDouble(ReadVariable("g_offset_x", "0")) / 1000000.0;
+                double dy = Convert.ToDouble(ReadVariable("g_offset_y", "0")) / 1000000.0;
+                double dz = -Convert.ToDouble(ReadVariable("g_offset_z", "0")) / 1000000.0;
+                double abs_dx = Math.Abs(dx);
+                double abs_dy = Math.Abs(dy);
+                double abs_dz = Math.Abs(dz);
+                if (abs_dx < 0.0001) dx = 0;
+                if (abs_dy < 0.0001) dy = 0;
+                if (abs_dz < 0.0001) dz = 0;
+                if (abs_dx > 0.010 || abs_dy > 0.010 || abs_dz > 0.010 )
+                    ExecError($"Problematic gocator_adjust [{dx}, {dy}, {dz}]\nline {lineNumber}: {origLine}");
+                else
+                    ExecuteLine(-1,$"movel_incr_part({dx},{dy},{dz},0,0,0)");
                 return true;
             }
+
+            // write_gocator_data
+            if (command.StartsWith("write_gocator_data("))
+            {
+                LogInterpret("write_cyline_data", lineNumber, origLine);
+
+                string filename = ExtractParameters(command);
+                if (filename.Length < 1)
+                {
+                    ExecError(string.Format("No file name specified\nline {0}: {1}", lineNumber, origLine));
+                    return true;
+                }
+
+                string full_filename = Path.Combine(LEonardTabletRoot, "Logs", filename);
+                full_filename = Path.ChangeExtension(full_filename, ".csv");
+
+                try
+                {
+                    StreamWriter writer;
+                    if (!File.Exists(full_filename))
+                    {
+                        writer = new StreamWriter(full_filename);
+                        writer.WriteLine("g_offset_x,g_offset_y,g_offset_z,g_outer_radius,g_xangle,g_yangle");
+
+                    }
+                    else
+                        writer = new StreamWriter(full_filename, true);
+
+                    string GetVar(string name)
+                    {
+                        double x = Convert.ToDouble(ReadVariable(name, "999"))/1000.0;
+                        return x.ToString("F3");
+                    }
+
+                    string output = $"{GetVar("g_offset_x")},{GetVar("g_offset_y")},{GetVar("g_offset_z")}";
+                    output += $",{GetVar("g_outer_radius")},{GetVar("g_xangle")},{GetVar("g_yangle")}";
+                    writer.WriteLine(output);
+
+                    writer.Close();
+                }
+                catch
+                {
+                    ExecError(string.Format("write_gocator_data(...) cannot write to\n{0}\nline {1}: {2}", full_filename, lineNumber, origLine));
+                }
+
+                return true;
+            }
+
 
             // write_cyline_data
             if (command.StartsWith("write_cyline_data("))
@@ -3487,7 +3544,7 @@ namespace LEonardTablet
                 log.Error("Gocator client initialization failure");
                 GocatorConnectBtn.BackColor = Color.Red;
                 GocatorConnectBtn.Text = "Gocator ERROR";
-                GocatorReadyLbl.BackColor= Color.Red;
+                GocatorReadyLbl.BackColor = Color.Red;
                 return;
             }
             GocatorConnectBtn.BackColor = Color.Green;

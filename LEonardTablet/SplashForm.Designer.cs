@@ -59,7 +59,7 @@
             this.CloseBtn.BackColor = System.Drawing.Color.Green;
             this.CloseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CloseBtn.ForeColor = System.Drawing.Color.White;
-            this.CloseBtn.Location = new System.Drawing.Point(564, 10);
+            this.CloseBtn.Location = new System.Drawing.Point(564, 288);
             this.CloseBtn.Name = "CloseBtn";
             this.CloseBtn.Size = new System.Drawing.Size(127, 108);
             this.CloseBtn.TabIndex = 81;
@@ -72,9 +72,9 @@
             this.DeveloperLogoPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.DeveloperLogoPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DeveloperLogoPic.Image = ((System.Drawing.Image)(resources.GetObject("DeveloperLogoPic.Image")));
-            this.DeveloperLogoPic.Location = new System.Drawing.Point(210, 249);
+            this.DeveloperLogoPic.Location = new System.Drawing.Point(179, 193);
             this.DeveloperLogoPic.Name = "DeveloperLogoPic";
-            this.DeveloperLogoPic.Size = new System.Drawing.Size(258, 147);
+            this.DeveloperLogoPic.Size = new System.Drawing.Size(319, 203);
             this.DeveloperLogoPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.DeveloperLogoPic.TabIndex = 85;
             this.DeveloperLogoPic.TabStop = false;
@@ -83,10 +83,10 @@
             // 
             this.VersionLbl.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VersionLbl.ForeColor = System.Drawing.Color.Black;
-            this.VersionLbl.Location = new System.Drawing.Point(11, 86);
+            this.VersionLbl.Location = new System.Drawing.Point(2, 86);
             this.VersionLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.VersionLbl.Name = "VersionLbl";
-            this.VersionLbl.Size = new System.Drawing.Size(709, 81);
+            this.VersionLbl.Size = new System.Drawing.Size(700, 81);
             this.VersionLbl.TabIndex = 87;
             this.VersionLbl.Text = "VersionLbl\r\nLine 2";
             this.VersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
