@@ -1,7 +1,7 @@
 # Inspect All
 
 clear()
-filename = test14
+filename = {DateTime}
 
 #select_tool(gocator3210)
 set_part_geometry(CYLINDER, 1000)
@@ -10,14 +10,31 @@ move_linear(LM_origin)
 movel_rel_set_part_origin_here()
 gocator_trigger()
 
-infile_open(Data\HoleData.csv)
+infile_open(HoleData.csv)
+infile_scale(2,0.0254,3,0.0254,4,0.0254)
+
+# Skip file header rows
+infile_readline()
+infile_readline()
+gocator_ID=0
 
 next_hole:
 infile_readline()
-#movel_rel_part(0.025,0.025,0,0,0,0)
-#gocator_trigger()
-#write_gocator_data({filename}_raw)
-#gocator_adjust()
-#gocator_trigger()
-#write_gocator_data({filename}_aligned)
-jump_gt_zero(infile_lineno,next_hole)
+jump_gt_zero(infile_lineno,inspect)
+
+infile_close()
+end
+
+inspect:
+gocator_ID={infile_p1}
+movel_rel_part({infile_p2},{infile_p3},{infile_p4},0,0,0)
+gocator_trigger()
+gocator_write_data({filename}_initial)
+gocator_write_data({filename}_all)
+
+adjust:
+gocator_adjust()
+gocator_trigger()
+gocator_write_data({filename}_final)
+gocator_write_data({filename}_all)
+jump(next_hole)

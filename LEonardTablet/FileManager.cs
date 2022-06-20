@@ -20,6 +20,7 @@ namespace LeonardTablet
 
         StreamReader reader = null;
         int readerLineNo = 0;
+        Dictionary<int, double> readerScale = null;
 
 
         public FileManager(MainForm form, string prefix = "")
@@ -44,6 +45,7 @@ namespace LeonardTablet
             {
                 reader = new StreamReader(filename);
                 log.Info($"{logPrefix} Opened input file {filename}");
+                readerScale = new Dictionary<int, double>();
                 readerLineNo = 0;
                 myForm.WriteVariable("infile_open", true);
                 myForm.WriteVariable("infile_lineno", readerLineNo);
@@ -65,6 +67,18 @@ namespace LeonardTablet
             }
             return true;
         }
+        public bool AddScale(int index, double scale)
+        {
+            try
+            {
+                readerScale.Add(index, scale);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public bool IsInputOpen()
         {
             return reader != null;
@@ -74,21 +88,40 @@ namespace LeonardTablet
         {
             if (reader != null)
             {
-                string line = reader.ReadLine();
+                string line = "skip,";
+                while (line.StartsWith("skip,"))
+                {
+                    line = reader.ReadLine();
+                    if (line == null) break;
+                    log.Error($"{line}");
+                    readerLineNo++;
+                }
+
                 if (line == null)
                 {
                     readerLineNo = -1;
                 }
                 else
                 {
-                    readerLineNo++;
                     myForm.WriteVariable("infile_line", line);
 
                     string[] fields = line.Split(',');
                     int i = 0;
                     foreach (string field in fields)
                     {
-                        myForm.WriteVariable($"infile_p{i++}", field);
+                        // Scale factor requested?
+                        if (readerScale.TryGetValue(i, out double scale))
+                        {
+                            try
+                            {
+                                double x = Convert.ToDouble(field);
+                                x *= scale;
+                                myForm.WriteVariable($"infile_p{i++}", x);
+                            }
+                            catch { }
+                        }
+                        else
+                            myForm.WriteVariable($"infile_p{i++}", field);
                     }
                 }
             }

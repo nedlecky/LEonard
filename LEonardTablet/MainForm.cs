@@ -2230,10 +2230,13 @@ namespace LEonardTablet
 
         }
 
+        int errorLineNumber = -1;
+        string errorOrigLine = "";
         private void ExecError(string message)
         {
-            log.Error("EXEC " + message.Replace('\n', ' '));
-            PromptOperator("ERROR:\n" + message);
+            string report = message + $"\nLine {errorLineNumber:000}: {errorOrigLine}";
+            log.Error("EXEC " + report.Replace('\n', ' '));
+            PromptOperator("ERROR:\n" + report);
         }
 
         private bool ExecuteLine(int lineNumber, string line)
@@ -2263,6 +2266,9 @@ namespace LEonardTablet
                 StepTimeEstimateLbl.Text = TimeSpanFormat(new TimeSpan());
             }
 
+            // Setup for ExecError
+            errorLineNumber = lineNumber;
+            errorOrigLine = origLine;
 
             // 1) Ignore comments: drop anything from # onward in the line
             int index = line.IndexOf("#");
@@ -2305,7 +2311,7 @@ namespace LEonardTablet
             int parenIndex = command.IndexOf(')');
             if (parenIndex >= 0 && parenIndex != command.Length - 1)
             {
-                ExecError(string.Format("Illegal line {0}\nContains characters after ')'\n{1}", lineNumber, origLine));
+                ExecError("Illegal line contains characters after ')'");
                 return true;
             }
 
@@ -2317,10 +2323,10 @@ namespace LEonardTablet
                 if (file.Length > 1)
                 {
                     if (!ImportFile(file))
-                        ExecError($"File import error\nLine {lineNumber}: {origLine}\nFile error");
+                        ExecError($"File import error");
                 }
                 else
-                    ExecError(String.Format("Invalid import command\nLine {0}: {1}", lineNumber, origLine));
+                    ExecError("Invalid import command");
 
                 return true;
             }
@@ -2351,18 +2357,18 @@ namespace LEonardTablet
                 string[] parameters = ExtractParameters(command, 2).Split(',');
                 if (parameters.Length != 2)
                 {
-                    ExecError(String.Format("Unknown assert command\nLine {0}: {1}", lineNumber, origLine));
+                    ExecError("Unknown assert command");
                     return true;
                 }
                 string value = ReadVariable(parameters[0], null);
                 if (value == null)
                 {
-                    ExecError(String.Format("Unknown variable in assert command\nLine {0}: {1}", lineNumber, origLine));
+                    ExecError("Unknown variable in assert command");
                     return true;
                 }
                 if (value != parameters[1])
                 {
-                    ExecError($"Assertion FAILS\n{value} != {parameters[1]}\nLine {lineNumber}: {origLine}");
+                    ExecError($"Assertion FAILS\n{value} != {parameters[1]}");
                     return true;
                 }
                 return true;
@@ -2381,7 +2387,7 @@ namespace LEonardTablet
                 }
                 else
                 {
-                    ExecError(String.Format("Unknown label specified in jump\nLine {0}: {1}", lineNumber, origLine));
+                    ExecError("Unknown label specified in jump");
                     return true;
                 }
             }
@@ -2392,7 +2398,7 @@ namespace LEonardTablet
                 string[] parameters = ExtractParameters(command).Split(',');
                 if (parameters.Length != 2)
                 {
-                    ExecError("Expected jump_gt_zero(variable,label):\nNot " + origLine);
+                    ExecError("Expected jump_gt_zero(variable,label)");
                     return true;
                 }
                 else
@@ -2402,7 +2408,7 @@ namespace LEonardTablet
 
                     if (!labels.TryGetValue(labelName, out int jumpLine))
                     {
-                        ExecError(String.Format("Expected jump_gt_zero(variable,label)\nLine {0} Label not found: {1}", origLine, labelName));
+                        ExecError($"Expected jump_gt_zero(variable,label) Label not found: {labelName}");
                         return true;
                     }
                     else
@@ -2410,7 +2416,7 @@ namespace LEonardTablet
                         string value = ReadVariable(variableName);
                         if (value == null)
                         {
-                            ExecError(String.Format("Expected jump_gt_zero(variable,label)\nLine {0} Variable not found: {1}", origLine, variableName));
+                            ExecError($"Expected jump_gt_zero(variable,label)\nVariable not found: {variableName}");
                             return true;
                         }
                         else
@@ -2427,7 +2433,7 @@ namespace LEonardTablet
                             }
                             catch
                             {
-                                ExecError(String.Format("Could not convert jump_not_zero variable\n{0} = {1} From: {2}", variableName, value, command));
+                                ExecError($"Could not convert jump_not_zero variable\n{variableName} = {value}");
                                 return true;
                             }
                         }
@@ -2444,7 +2450,7 @@ namespace LEonardTablet
                 if (GotoPositionJoint(positionName))
                     PromptOperator($"Wait for move_joint({positionName}) complete", true, true);
                 else
-                    ExecError(string.Format($"Joint move to {positionName} failed\nLine {lineNumber}: {origLine}"));
+                    ExecError($"Joint move to {positionName} failed");
                 return true;
             }
 
@@ -2457,7 +2463,7 @@ namespace LEonardTablet
                 if (GotoPositionPose(positionName))
                     PromptOperator($"Wait for move_linear({positionName}) complete", true, true);
                 else
-                    ExecError(string.Format($"Linear move to {positionName} failed\nLine {lineNumber}: {origLine}"));
+                    ExecError($"Linear move to {positionName} failed");
                 return true;
             }
 
@@ -2468,7 +2474,7 @@ namespace LEonardTablet
                 string xy = ExtractParameters(command, 2);
 
                 if (xy == "")
-                    ExecError(string.Format("Relative move no parameters x,y\nline {0}: {1}", lineNumber, origLine));
+                    ExecError("Relative move no parameters x,y");
                 else
                 {
                     try
@@ -2477,13 +2483,13 @@ namespace LEonardTablet
                         double x_mm = Convert.ToDouble(p[0]);
                         double y_mm = Convert.ToDouble(p[1]);
                         if (Math.Abs(x_mm) > DEFAULT_max_allowable_relative_move_mm || Math.Abs(y_mm) > DEFAULT_max_allowable_relative_move_mm)
-                            ExecError($"X and Y must be no more than +/{DEFAULT_max_allowable_relative_move_mm}mm\nline {lineNumber}: {origLine}");
+                            ExecError($"X and Y must be no more than +/{DEFAULT_max_allowable_relative_move_mm} mm");
                         // Command 1,15 uses drawgi_finish(p) so all geometry correction should be automatic
                         RobotSend($"1,15,{x_mm / 1000.0},{y_mm / 1000.0},0,0,0,0");
                     }
                     catch
                     {
-                        ExecError(string.Format("Relative move bad paramters x,y\nline {0}: {1}", lineNumber, origLine));
+                        ExecError("Relative move bad paramters x,y");
                     }
                 }
 
@@ -2497,7 +2503,7 @@ namespace LEonardTablet
                 string positionName = ExtractParameters(command);
                 if (positionName.Length < 1)
                 {
-                    ExecError(string.Format("No position name specified\nline {0}: {1}", lineNumber, origLine));
+                    ExecError("No position name specified");
                     return true;
                 }
                 copyPositionAtWrite = positionName;
@@ -2661,9 +2667,25 @@ namespace LEonardTablet
             if (command.StartsWith("gocator_adjust("))
             {
                 LogInterpret("gocator_adjust", lineNumber, origLine);
-                double dx = Convert.ToDouble(ReadVariable("g_offset_x", "0")) / 1000000.0;
-                double dy = Convert.ToDouble(ReadVariable("g_offset_y", "0")) / 1000000.0;
-                double dz = -Convert.ToDouble(ReadVariable("g_offset_z", "0")) / 1000000.0;
+
+                double dx = 0;
+                double dy = 0;
+                double dz = 0;
+                if (ReadVariableInt("gc_decision", 2) == 0)
+                {
+                    log.Info("gocator_adjust() using counterbore");
+                    dx = Convert.ToDouble(ReadVariable("gc_offset_x", "0")) / 1000000.0;
+                    dy = Convert.ToDouble(ReadVariable("gc_offset_y", "0")) / 1000000.0;
+                    dz = -Convert.ToDouble(ReadVariable("gc_offset_z", "0")) / 1000000.0;
+                }
+                else if(ReadVariableInt("gh_decision", 2) == 0)
+                {
+                    log.Info("gocator_adjust() using thru hole");
+                    dx = Convert.ToDouble(ReadVariable("gh_offset_x", "0")) / 1000000.0;
+                    dy = Convert.ToDouble(ReadVariable("gh_offset_y", "0")) / 1000000.0;
+                    dz = -Convert.ToDouble(ReadVariable("gh_offset_z", "0")) / 1000000.0;
+                }
+
                 double abs_dx = Math.Abs(dx);
                 double abs_dy = Math.Abs(dy);
                 double abs_dz = Math.Abs(dz);
@@ -2671,21 +2693,21 @@ namespace LEonardTablet
                 if (abs_dy < 0.0001) dy = 0;
                 if (abs_dz < 0.0001) dz = 0;
                 if (abs_dx > 0.010 || abs_dy > 0.010 || abs_dz > 0.010)
-                    ExecError($"Problematic gocator_adjust [{dx}, {dy}, {dz}]\nline {lineNumber}: {origLine}");
+                    ExecError($"Problematic gocator_adjust [{dx}, {dy}, {dz}]");
                 else
                     ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},0,0,0)");
                 return true;
             }
 
             // write_gocator_data
-            if (command.StartsWith("write_gocator_data("))
+            if (command.StartsWith("gocator_write_data("))
             {
-                LogInterpret("write_cyline_data", lineNumber, origLine);
+                LogInterpret("gocator_write_data", lineNumber, origLine);
 
                 string filename = ExtractParameters(command);
                 if (filename.Length < 1)
                 {
-                    ExecError(string.Format("No file name specified\nline {0}: {1}", lineNumber, origLine));
+                    ExecError("No file name specified");
                     return true;
                 }
 
@@ -2698,27 +2720,59 @@ namespace LEonardTablet
                     if (!File.Exists(full_filename))
                     {
                         writer = new StreamWriter(full_filename);
-                        writer.WriteLine("g_offset_x,g_offset_y,g_offset_z,g_outer_radius,g_xangle,g_yangle");
+                        string gc_headers = "gocator_ID,gc_decision,gc_offset_x,gc_offset_y,gc_offset_z,gc_outer_radius,gc_depth,dc_bevel_radius,gc_bevel_angle,gc_xangle,gc_yangle,gc_cb_depth,gc_axis_tilt,gc_axis_orient";
+                        string gc_units = ",in,in,in,in,in,in,deg,deg,deg,in,deg,deg";
+                        string gh_headers = "gh_decision,gh_offset_x,gh_offset_y,gh_offset_x,gh_radius";
+                        string gh_units = ",in,in,in,in";
+                        string headers = gc_headers + "," + gh_headers;
+                        string units = gc_units + "," + gh_units;
 
+                        writer.WriteLine(headers);
+                        writer.WriteLine(units);
                     }
                     else
                         writer = new StreamWriter(full_filename, true);
 
-                    string GetVar(string name)
+                    string GetRaw(string name)
                     {
-                        double x = Convert.ToDouble(ReadVariable(name, "999")) / 1000.0;
-                        return x.ToString("F3");
+                        return ReadVariable(name, "??");
+                    }
+                    string GetDist(string name, double scale = 39.3701)
+                    {
+                        try
+                        {
+                            double x = Convert.ToDouble(ReadVariable(name, "999")) * scale / 1000000.0;
+                            return x.ToString("0.0000");
+                        }
+                        catch
+                        {
+                            return "INVALID";
+                        }
+                    }
+                    string GetAngle(string name, double scale = 1.0)
+                    {
+                        try
+                        {
+                            double x = Convert.ToDouble(ReadVariable(name, "999")) * scale / 1000.0;
+                            return x.ToString("0.0");
+                        }
+                        catch
+                        {
+                            return "INVALID";
+                        }
                     }
 
-                    string output = $"{GetVar("g_offset_x")},{GetVar("g_offset_y")},{GetVar("g_offset_z")}";
-                    output += $",{GetVar("g_outer_radius")},{GetVar("g_xangle")},{GetVar("g_yangle")}";
+                    string output = $"{GetRaw("gocator_ID")},{GetRaw("gc_decision")},{GetDist("gc_offset_x")},{GetDist("gc_offset_y")},{GetDist("gc_offset_z")}";
+                    output += $",{GetDist("gc_outer_radius")},{GetAngle("gc_depth")},{GetAngle("gc_bevel_radius")},{GetAngle("gc_bevel_angle")},{GetAngle("gc_xangle")},{GetAngle("gc_yangle")}";
+                    output += $",{GetDist("gc_cb_depth")},{GetAngle("gc_axis_tilt")},{GetAngle("gc_axis_orient")}";
+                    output += $",{GetRaw("gh_decision")},{GetDist("gh_offset_x")},{GetDist("gh_offset_y")},{GetDist("gh_offset_z")},{GetDist("gh_radius")}";
                     writer.WriteLine(output);
 
                     writer.Close();
                 }
                 catch
                 {
-                    ExecError(string.Format("write_gocator_data(...) cannot write to\n{0}\nline {1}: {2}", full_filename, lineNumber, origLine));
+                    ExecError($"write_gocator_data(...) cannot write to\n{full_filename}");
                 }
 
                 return true;
@@ -2732,18 +2786,18 @@ namespace LEonardTablet
                 string filename = ExtractParameters(command);
                 if (filename.Length < 1)
                 {
-                    ExecError($"No file name specified\nline {lineNumber}: {origLine}");
+                    ExecError("No file name specified");
                     return true;
                 }
 
-                string full_filename = Path.Combine(LEonardTabletRoot, filename);
+                string full_filename = Path.Combine(LEonardTabletRoot, "Data", filename);
                 if (fileManager == null)
                     fileManager = new FileManager(this);
 
                 if (fileManager.InputOpen(full_filename))
                     log.Info($"Input file {full_filename} open");
                 else
-                    ExecError($"Could not open {full_filename}\nline {lineNumber}: {origLine}");
+                    ExecError($"Could not open {full_filename}");
                 return true;
             }
 
@@ -2758,6 +2812,40 @@ namespace LEonardTablet
                 return true;
             }
 
+            // infile_scale
+            if (command.StartsWith("infile_scale("))
+            {
+                LogInterpret("infile_scale", lineNumber, origLine);
+
+                string parameters = ExtractParameters(command);
+                if (parameters.Length == 0)
+                {
+                    ExecError($"No parameters provided for infile_scale command");
+                    return true;
+                }
+                string[] paramList = parameters.Split(',');
+                if (paramList.Length % 2 != 0)
+                {
+                    ExecError($"infile_scale(...) requires parameters in pairs");
+                    return true;
+                }
+                for (int i = 0; i < paramList.Length; i += 2)
+                {
+                    try
+                    {
+                        int scaleIndex = Convert.ToInt32(paramList[i]);
+                        double scale = Convert.ToDouble(paramList[i + 1]);
+                        fileManager.AddScale(scaleIndex, scale);
+                    }
+                    catch
+                    {
+                        ExecError($"infile_scale(...) bad parameter pair: {paramList[i]},{paramList[i + 1]}");
+                        return true;
+                    }
+                }
+                return true;
+            }
+
             // infile_readline
             if (command.StartsWith("infile_readline("))
             {
@@ -2768,7 +2856,7 @@ namespace LEonardTablet
 
                 if (fileManager == null || !fileManager.IsInputOpen())
                 {
-                    ExecError($"Input file not open\nline {lineNumber}: {origLine}");
+                    ExecError($"Input file not open");
                     return true;
                 }
 
@@ -2784,7 +2872,7 @@ namespace LEonardTablet
                 string filename = ExtractParameters(command);
                 if (filename.Length < 1)
                 {
-                    ExecError(string.Format("No file name specified\nline {0}: {1}", lineNumber, origLine));
+                    ExecError("No file name specified");
                     return true;
                 }
 
@@ -2824,7 +2912,7 @@ namespace LEonardTablet
                 }
                 catch
                 {
-                    ExecError(string.Format("write_cyline_data(...) cannot write to\n{0}\nline {1}: {2}", full_filename, lineNumber, origLine));
+                    ExecError($"write_cyline_data(...) cannot write to\n{full_filename}");
                 }
 
                 return true;
@@ -2848,7 +2936,7 @@ namespace LEonardTablet
                     string parameters = ExtractParameters(command, commandSpec.nParams);
                     // Must be all numeric: Really, all (nnn,nnn,nnn)
                     if (!Regex.IsMatch(parameters, @"^[()+-.,0-9]*$"))
-                        ExecError(string.Format("Illegal parameters line {0}: {1}", lineNumber, origLine));
+                        ExecError("Incorrect parameters");
                     else
                     {
                         if (commandSpec.nParams == 0 && parameters.Length == 0)   // Expected 0 parameters and got nothing
@@ -2858,7 +2946,7 @@ namespace LEonardTablet
                                 )
                             RobotSend(commandSpec.prefix + "," + parameters);
                         else
-                            ExecError(string.Format("Line {0}: Wrong number of operands. Expected {1} {2}", lineCurrentlyExecuting, commandSpec.nParams, origLine));
+                            ExecError($"Wrong number of operands. Expected {commandSpec.nParams} Got {parameters.Length}");
                     }
                     return true;
                 }
@@ -2871,7 +2959,7 @@ namespace LEonardTablet
                 return true;
             }
 
-            ExecError(string.Format("Cannot interpret line {0}: {1}", lineNumber, origLine));
+            ExecError("Cannot interpret line");
             return true;
         }
 
@@ -3640,7 +3728,26 @@ namespace LEonardTablet
             {
                 x = Convert.ToDouble(ReadVariable(name, defaultValue.ToString()));
             }
-            catch { }
+            catch
+            {
+                log.Error($"ReadVariableDouble({name}) failed");
+
+            }
+
+            return x;
+        }
+        public double ReadVariableInt(string name, int defaultValue = 0)
+        {
+            int x = 0;
+            try
+            {
+                x = Convert.ToInt32(ReadVariable(name, defaultValue.ToString()));
+            }
+            catch
+            {
+                log.Error($"ReadVariableDouble({name}) failed");
+
+            }
 
             return x;
         }
@@ -3650,6 +3757,9 @@ namespace LEonardTablet
         }
         public string ReadVariable(string name, string defaultValue = null)
         {
+            if (name == "DateTime")
+                return DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss");
+
             foreach (DataRow row in variables.Rows)
             {
                 if ((string)row["Name"] == name)
@@ -3662,7 +3772,6 @@ namespace LEonardTablet
             //log.Error("ReadVariable({0}) Not Found", name);
             return defaultValue;
         }
-
 
         private Color ColorFromBooleanName(string name, bool invert = false)
         {

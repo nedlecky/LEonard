@@ -41,7 +41,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(21, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(885, 407);
+            this.label1.Size = new System.Drawing.Size(1337, 489);
             this.label1.TabIndex = 1;
             this.label1.Text = "label1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -52,7 +52,7 @@
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.ForeColor = System.Drawing.Color.White;
-            this.CancelBtn.Location = new System.Drawing.Point(489, 513);
+            this.CancelBtn.Location = new System.Drawing.Point(740, 605);
             this.CancelBtn.Margin = new System.Windows.Forms.Padding(2);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(282, 164);
@@ -67,7 +67,7 @@
             this.OkBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OkBtn.ForeColor = System.Drawing.Color.White;
-            this.OkBtn.Location = new System.Drawing.Point(114, 513);
+            this.OkBtn.Location = new System.Drawing.Point(365, 605);
             this.OkBtn.Margin = new System.Windows.Forms.Padding(2);
             this.OkBtn.Name = "OkBtn";
             this.OkBtn.Size = new System.Drawing.Size(282, 164);
@@ -79,7 +79,7 @@
             // TypeInTxt
             // 
             this.TypeInTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TypeInTxt.Location = new System.Drawing.Point(249, 439);
+            this.TypeInTxt.Location = new System.Drawing.Point(358, 531);
             this.TypeInTxt.Name = "TypeInTxt";
             this.TypeInTxt.Size = new System.Drawing.Size(657, 44);
             this.TypeInTxt.TabIndex = 7;
@@ -88,7 +88,7 @@
             // TypeInLbl
             // 
             this.TypeInLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TypeInLbl.Location = new System.Drawing.Point(21, 439);
+            this.TypeInLbl.Location = new System.Drawing.Point(130, 530);
             this.TypeInLbl.Name = "TypeInLbl";
             this.TypeInLbl.Size = new System.Drawing.Size(222, 44);
             this.TypeInLbl.TabIndex = 8;
@@ -101,7 +101,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(918, 693);
+            this.ClientSize = new System.Drawing.Size(1370, 801);
             this.ControlBox = false;
             this.Controls.Add(this.TypeInLbl);
             this.Controls.Add(this.TypeInTxt);
