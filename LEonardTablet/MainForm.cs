@@ -2740,6 +2740,8 @@ namespace LEonardTablet
             if (command.StartsWith("gocator_trigger("))
             {
                 LogInterpret("gocator_trigger", lineNumber, origLine);
+                // Wait for the vibe to die down
+                Thread.Sleep(500);
                 gocator.Trigger();
                 GocatorReadyLbl.BackColor = ColorFromBooleanName("False");
                 GocatorReadyLbl.Refresh();
@@ -2774,6 +2776,8 @@ namespace LEonardTablet
                     dx = Convert.ToDouble(ReadVariable("gh_offset_x", "0")) / 1000000.0;
                     dy = Convert.ToDouble(ReadVariable("gh_offset_y", "0")) / 1000000.0;
                     dz = -Convert.ToDouble(ReadVariable("gh_offset_z", "0")) / 1000000.0;
+                    drx = -Convert.ToDouble(ReadVariable("gp_xangle", "0")) / 1000.0;
+                    dry = Convert.ToDouble(ReadVariable("gp_yangle", "0")) / 1000.0;
                 }
 
                 double abs_dx = Math.Abs(dx);
@@ -2856,8 +2860,10 @@ namespace LEonardTablet
                         string gc_units = ",,,in,in,in,in,in,in,deg,deg,deg,in,deg,deg";
                         string gh_headers = "gh_decision,gh_offset_x,gh_offset_y,gh_offset_z,gh_radius";
                         string gh_units = ",in,in,in,in";
-                        string headers = gc_headers + "," + gh_headers;
-                        string units = gc_units + "," + gh_units;
+                        string gp_headers = "gp_xangle,gp_yangle,gp_z_offset,gp_std_dev";
+                        string gp_units = "deg,deg,in,in";
+                        string headers = gc_headers + "," + gh_headers + "," + gp_headers;
+                        string units = gc_units + "," + gh_units+ ","+ gp_units;
 
                         writer.WriteLine(headers);
                         writer.WriteLine(units);
@@ -2899,6 +2905,7 @@ namespace LEonardTablet
                     output += $",{GetDist("gc_outer_radius")},{GetAngle("gc_depth")},{GetAngle("gc_bevel_radius")},{GetAngle("gc_bevel_angle")},{GetAngle("gc_xangle")},{GetAngle("gc_yangle")}";
                     output += $",{GetDist("gc_cb_depth")},{GetAngle("gc_axis_tilt")},{GetAngle("gc_axis_orient")}";
                     output += $",{GetRaw("gh_decision")},{GetDist("gh_offset_x")},{GetDist("gh_offset_y")},{GetDist("gh_offset_z")},{GetDist("gh_radius")}";
+                    output += $",{GetAngle("gp_xangle")},{GetAngle("gp_yangle")},{GetDist("gp_z_offset")},{GetDist("gp_std_dev")}";
                     writer.WriteLine(output);
 
                     writer.Close();

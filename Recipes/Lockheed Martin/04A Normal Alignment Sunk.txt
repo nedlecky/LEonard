@@ -1,7 +1,7 @@
-# 04 Normal Alignment
+# 04 Normal Alignment Sunk
 
 clear()
-filename = 04_normal_alignment
+filename = 04A_normal_alignment_sunk
 
 select_tool(gocator3210)
 set_part_geometry(CYLINDER, 1000)
