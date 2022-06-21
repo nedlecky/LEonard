@@ -1,7 +1,7 @@
-# Inspect All
+# 10 Inspect All
 
 clear()
-filename = {DateTime}
+filename = 10_inspect_all_{DateTime}
 
 select_tool(gocator3210)
 set_part_geometry(CYLINDER, 1000)
@@ -25,16 +25,28 @@ jump_gt_zero(infile_lineno,inspect)
 infile_close()
 end
 
-inspect:
-gocator_ID={infile_p1}
-movel_rel_part({infile_p2},{infile_p3},{infile_p4},0,0,0)
-gocator_trigger()
-gocator_write_data({filename}_initial)
-gocator_write_data({filename}_all)
 
-adjust:
-gocator_adjust()
+
+inspect:
+movel_rel_part({infile_p2},{infile_p3},{infile_p4},0,0,0)
+
+gocator_ID={infile_p1}_initial
 gocator_trigger()
-gocator_write_data({filename}_final)
-gocator_write_data({filename}_all)
+gocator_write_data({filename})
+
+gocator_ID={infile_p1}_adjust_3
+gocator_adjust(3)
+gocator_trigger()
+gocator_write_data({filename})
+
+gocator_ID={infile_p1}_adjust_1-1
+gocator_adjust(1)
+gocator_trigger()
+gocator_write_data({filename})
+
+gocator_ID={infile_p1}_adjust_1-2
+gocator_adjust(1)
+gocator_trigger()
+gocator_write_data({filename})
+
 jump(next_hole)

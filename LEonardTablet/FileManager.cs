@@ -88,12 +88,12 @@ namespace LeonardTablet
         {
             if (reader != null)
             {
-                string line = "skip,";
+                string line = reader.ReadLine();
                 while (line.StartsWith("skip,"))
                 {
+                    log.Info($"Skipping {line}");
                     line = reader.ReadLine();
                     if (line == null) break;
-                    log.Error($"{line}");
                     readerLineNo++;
                 }
 
@@ -125,6 +125,7 @@ namespace LeonardTablet
                     }
                 }
             }
+
             myForm.WriteVariable("infile_lineno", readerLineNo);
             return null;
         }

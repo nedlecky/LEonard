@@ -2785,49 +2785,44 @@ namespace LEonardTablet
                 double abs_dz = Math.Abs(dz);
                 double abs_drx = Math.Abs(drx);
                 double abs_dry = Math.Abs(dry);
-                if (abs_dx < 0.0001) dx = 0;
-                if (abs_dy < 0.0001) dy = 0;
-                if (abs_dz < 0.0001) dz = 0;
-                if (abs_drx < 0.0001) drx = 0;
-                if (abs_dry < 0.0001) dry = 0;
 
                 double deg2rad(double x)
                 {
                     return x * Math.PI / 180.0;
                 }
                 
-                log.Info($"gocator_adjust All Values: [{dx} m, {dy} m, {dz} m, {drx} deg, {dry} deg, 0]");
+                log.Info($"gocator_adjust All Values: [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                 switch (version)
                 {
                     case 1:
                         if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020)
-                            ExecError($"Excessive gocator_adjust [{dx} m, {dy} m, {dz} m, 0, 0, 0]");
+                            ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, 0, 0, 0]");
                         else
-                            ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},0,0,0)");
+                            ExecuteLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
                         break;
                     case 2:
                         if (abs_drx > 15 || abs_dry > 15)
-                            ExecError($"Excessive gocator_adjust [0, 0, 0, {drx} deg, {dry} deg, 0]");
+                            ExecError($"Excessive gocator_adjust [0, 0, 0, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                         else
-                            ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx)},{deg2rad(dry)},0)");
+                            ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         break;
                     case 3:
                         if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
                             abs_drx > 15 || abs_dry > 15)
-                            ExecError($"Excessive gocator_adjust [{dx} m, {dy} m, {dz} m, {drx} deg, {dry} deg, 0]");
+                            ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                         else
                         {
-                            ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},0,0,0)");
+                            ExecuteLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
                             Thread.Sleep(500);
-                            ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx)},{deg2rad(dry)},0)");
+                            ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         }
                         break;
                     case 4:
                         if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
                             abs_drx > 15 || abs_dry > 15)
-                            ExecError($"Excessive gocator_adjust [{dx} m, {dy} m, {dz} m, {drx} deg, {dry} deg, 0]");
+                            ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                         else
-                            ExecuteLine(-1, $"movel_incr_tool({dx},{dy},{dz},{deg2rad(drx)},{deg2rad(dry)},0)");
+                            ExecuteLine(-1, $"movel_incr_tool({dx}:0.000000,{dy}:0.000000,{dz}:0.000000,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         break;
                     default:
                         break;

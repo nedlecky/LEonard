@@ -1,4 +1,4 @@
-# 04 Normal Alignment Sunk
+# 04A Normal Alignment Sunk
 
 clear()
 filename = 04A_normal_alignment_sunk
@@ -26,9 +26,10 @@ gocator_ID=random_10deg_tilt
 gocator_trigger()
 gocator_write_data({filename})
 
+gocator_ID=adjust_2
 gocator_adjust(2)
 gocator_trigger()
-gocator_ID=adjust_2
 gocator_write_data({filename})
+
 count--
 jump_gt_zero(count,loop)
