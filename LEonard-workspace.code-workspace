@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "Logs"
+		},
+		{
+			"path": "Data"
 		}
 	],
 	"settings": {}

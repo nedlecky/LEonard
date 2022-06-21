@@ -39,3 +39,5 @@ Jeff1 = fred
 assert(xx,abc) # should pass
 clear()
 assert(xx,abc) # should fail
+
+random(5,-0.25,0.25)

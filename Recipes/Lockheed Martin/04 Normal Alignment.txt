@@ -1,0 +1,34 @@
+# 04 Normal Alignment
+
+clear()
+filename = 04_normal_alignment
+
+select_tool(gocator3210)
+set_part_geometry(CYLINDER, 1000)
+
+move_linear(LM_origin)
+movel_rel_set_part_origin_here()
+gocator_trigger()
+
+movel_rel_part(0.050,0.050,0,0,0,0)
+save_position(p_start)
+
+count=5
+loop:
+move_linear(LM_origin)
+move_linear(p_start)
+
+# Random +/- 10 degrees
+random(2,-0.175,0.175)
+movel_incr_tool(0,0,0,{rnd1},{rnd2},0)
+
+gocator_ID=random_10deg_tilt
+gocator_trigger()
+gocator_write_data({filename})
+
+gocator_adjust(2)
+gocator_trigger()
+gocator_ID=adjust_2
+gocator_write_data({filename})
+count--
+jump_gt_zero(count,loop)

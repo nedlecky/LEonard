@@ -1,0 +1,26 @@
+# 02 Robot Repeatability
+
+clear()
+filename = 02_robot_repeatability
+
+select_tool(gocator3210)
+set_part_geometry(CYLINDER, 1000)
+
+move_linear(LM_origin)
+movel_rel_set_part_origin_here()
+gocator_trigger()
+
+movel_rel_part(0.050,0.050,0,0,0,0)
+save_position(p_start)
+
+gocator_ID=move_and_return
+
+count=5
+loop:
+move_linear(LM_origin)
+move_linear(p_start)
+
+gocator_trigger()
+gocator_write_data({filename})
+count--
+jump_gt_zero(count,loop)

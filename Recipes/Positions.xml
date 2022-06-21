@@ -161,4 +161,10 @@
     <Pose>p[0.284768,-0.491885,0.042262,0.043832,3.141212,-0.000029]</Pose>
     <IsSystem>false</IsSystem>
   </Positions>
+  <Positions>
+    <Name>p_start</Name>
+    <Joints>[-0.73577,-1.462509,-1.868799,-1.316284,1.495118,2.435419]</Joints>
+    <Pose>p[0.236123,-0.440638,0.039714,-0.043983,-3.135942,0.156915]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
 </NewDataSet>

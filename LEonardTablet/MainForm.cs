@@ -2077,12 +2077,70 @@ namespace LEonardTablet
             }
         }
 
-        /// <summary>
-        /// Return the characters enclosed in the first set of matching [ ] in a string
-        /// Example: "q[2,3,4,5,6,7]" returns 2,3,4,5,6,7 
-        /// </summary>
-        /// <param name="input">input string</param>
-        /// <returns>Characters enclosed in [...] or ""</returns>
+        public bool ExtractDoubleParameters(string command, int nParams, out double[] dparams)
+        {
+            dparams = null;
+
+            // Get the command name
+            int openParenIndex = command.IndexOf("(");
+            int closeParenIndex = command.IndexOf(")");
+            if (openParenIndex < 0 || closeParenIndex < openParenIndex)
+                return false;
+
+            string functionName = command.Substring(0, openParenIndex);
+
+            string parameters = ExtractParameters(command, nParams);
+            if (parameters.Length == 0)
+            {
+                ExecError($"{functionName} did not have {nParams} parameter{(nParams > 1 ? "s" : "")}");
+                return false;
+            }
+
+            string[] paramList = parameters.Split(',');
+            if (paramList.Length != nParams)
+            {
+                ExecError($"{functionName} could not extract {nParams} parameter{(nParams > 1 ? "s" : "")}");
+                return false;
+            }
+
+            dparams = new double[nParams];
+            for (int i = 0; i < nParams; i++)
+            {
+                try
+                {
+                    dparams[i] = Convert.ToDouble(paramList[i]);
+                }
+                catch
+                {
+                    ExecError($"{functionName} parameter {i + 1} is not a number: {paramList[i]}");
+                    return false;
+                }
+            }
+            return true;
+        }
+        public bool ExtractDoubleParameter(string command, out double dparam)
+        {
+            double[] dparams;
+            dparam = 0;
+            if (ExtractDoubleParameters(command, 1, out dparams))
+            {
+                dparam = dparams[0];
+                return true;
+            }
+            return false;
+        }
+        public bool ExtractIntParameter(string command, out int iparam)
+        {
+            double dparam = 0;
+            iparam = 0;
+            if (ExtractDoubleParameter(command, out dparam))
+            {
+                iparam = Convert.ToInt32(dparam);
+                return true;
+            }
+            return false;
+        }
+
         string ExtractScalars(string input)
         {
             try
@@ -2239,6 +2297,8 @@ namespace LEonardTablet
             PromptOperator("ERROR:\n" + report);
         }
 
+        Random random = new Random();
+
         private bool ExecuteLine(int lineNumber, string line)
         {
             // Step is starting now
@@ -2335,18 +2395,40 @@ namespace LEonardTablet
             if (command.StartsWith("sleep("))
             {
                 LogInterpret("sleep", lineNumber, command);
-                double sleepSeconds = Convert.ToDouble(ExtractParameters(command, 1).ToString());
-                sleepMs = sleepSeconds * 1000.0;
-                sleepTimer = new Stopwatch();
-                sleepTimer.Start();
+                double sleepSeconds;
+                if (ExtractDoubleParameter(command, out sleepSeconds))
+                {
+                    sleepMs = sleepSeconds * 1000.0;
+                    sleepTimer = new Stopwatch();
+                    sleepTimer.Start();
 
-                double sec = Math.Truncate(sleepSeconds);
-                double msec = (sleepSeconds - sec) * 1000.0;
-                log.Info("Looks like {0} sec  {1} msec", sec, msec);
+                    double sec = Math.Truncate(sleepSeconds);
+                    double msec = (sleepSeconds - sec) * 1000.0;
+                    log.Info("Looks like {0} sec  {1} msec", sec, msec);
 
-                TimeSpan ts = new TimeSpan(0, 0, 0, (int)sec, (int)msec);
-                StepTimeEstimateLbl.Text = TimeSpanFormat(ts);
-                stepEndTimeEstimate = DateTime.Now.AddMilliseconds(sleepMs);
+                    TimeSpan ts = new TimeSpan(0, 0, 0, (int)sec, (int)msec);
+                    StepTimeEstimateLbl.Text = TimeSpanFormat(ts);
+                    stepEndTimeEstimate = DateTime.Now.AddMilliseconds(sleepMs);
+                }
+                return true;
+            }
+
+            // random
+            if (command.StartsWith("random("))
+            {
+                LogInterpret("random", lineNumber, command);
+                double[] randomParams;
+                if (ExtractDoubleParameters(command, 3, out randomParams))
+                {
+                    int n = (int)randomParams[0];
+                    double low = randomParams[1];
+                    double high= randomParams[2];
+                    for(int i=0; i<n; i++)
+                    {
+                        double r = low + random.NextDouble() * (high - low);
+                        WriteVariable($"rnd{i + 1}", $"{r:0.000000}");
+                    }
+                }
                 return true;
             }
 
@@ -2668,6 +2750,9 @@ namespace LEonardTablet
             if (command.StartsWith("gocator_adjust("))
             {
                 LogInterpret("gocator_adjust", lineNumber, origLine);
+                int version;
+                if (!ExtractIntParameter(command, out version))
+                    return true;
 
                 double dx = 0;
                 double dy = 0;
@@ -2680,8 +2765,8 @@ namespace LEonardTablet
                     dx = Convert.ToDouble(ReadVariable("gc_offset_x", "0")) / 1000000.0;
                     dy = Convert.ToDouble(ReadVariable("gc_offset_y", "0")) / 1000000.0;
                     dz = -Convert.ToDouble(ReadVariable("gc_offset_z", "0")) / 1000000.0;
-                    drx = Convert.ToDouble(ReadVariable("gc_xangle", "0")) / 1000.0;
-                    drx = -Convert.ToDouble(ReadVariable("gc_yangle", "0")) / 1000.0;
+                    drx = -Convert.ToDouble(ReadVariable("gc_xangle", "0")) / 1000.0;
+                    dry = Convert.ToDouble(ReadVariable("gc_yangle", "0")) / 1000.0;
                 }
                 else if (ReadVariableInt("gh_decision", 2) == 0)
                 {
@@ -2701,20 +2786,47 @@ namespace LEonardTablet
                 if (abs_dz < 0.0001) dz = 0;
                 if (abs_drx < 0.0001) drx = 0;
                 if (abs_dry < 0.0001) dry = 0;
-                if (abs_dx > 0.010 || abs_dy > 0.010 || abs_dz > 0.010)
-                    ExecError($"Problematic gocator_adjust [{dx}m, {dy}m, {dz}m, {drx}deg, {dry}deg, 0]");
-                else if (abs_drx > 10 || abs_dry > 10)
-                    ExecError($"Problematic gocator_adjust [{dx}m, {dy}m, {dz}m, {drx}deg, {dry}deg, 0]");
-                else
+
+                double deg2rad(double x)
                 {
-                    double deg2rad(double x)
-                    {
-                        return x * Math.PI / 180.0;
-                    }
-                    //ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},{deg2rad(drx)},{deg2rad(dry)},0)");
-                    ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},0,0,0)");
-                    Thread.Sleep(1000);
-                    ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx)},{deg2rad(dry)},0)");
+                    return x * Math.PI / 180.0;
+                }
+                
+                log.Info($"gocator_adjust All Values: [{dx} m, {dy} m, {dz} m, {drx} deg, {dry} deg, 0]");
+                switch (version)
+                {
+                    case 1:
+                        if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020)
+                            ExecError($"Excessive gocator_adjust [{dx} m, {dy} m, {dz} m, 0, 0, 0]");
+                        else
+                            ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},0,0,0)");
+                        break;
+                    case 2:
+                        if (abs_drx > 15 || abs_dry > 15)
+                            ExecError($"Excessive gocator_adjust [0, 0, 0, {drx} deg, {dry} deg, 0]");
+                        else
+                            ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx)},{deg2rad(dry)},0)");
+                        break;
+                    case 3:
+                        if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
+                            abs_drx > 15 || abs_dry > 15)
+                            ExecError($"Excessive gocator_adjust [{dx} m, {dy} m, {dz} m, {drx} deg, {dry} deg, 0]");
+                        else
+                        {
+                            ExecuteLine(-1, $"movel_incr_part({dx},{dy},{dz},0,0,0)");
+                            Thread.Sleep(500);
+                            ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx)},{deg2rad(dry)},0)");
+                        }
+                        break;
+                    case 4:
+                        if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
+                            abs_drx > 15 || abs_dry > 15)
+                            ExecError($"Excessive gocator_adjust [{dx} m, {dy} m, {dz} m, {drx} deg, {dry} deg, 0]");
+                        else
+                            ExecuteLine(-1, $"movel_incr_tool({dx},{dy},{dz},{deg2rad(drx)},{deg2rad(dry)},0)");
+                        break;
+                    default:
+                        break;
                 }
                 return true;
             }
@@ -2740,8 +2852,8 @@ namespace LEonardTablet
                     if (!File.Exists(full_filename))
                     {
                         writer = new StreamWriter(full_filename);
-                        string gc_headers = "gocator_ID,gc_decision,gc_offset_x,gc_offset_y,gc_offset_z,gc_outer_radius,gc_depth,dc_bevel_radius,gc_bevel_angle,gc_xangle,gc_yangle,gc_cb_depth,gc_axis_tilt,gc_axis_orient";
-                        string gc_units = ",,in,in,in,in,in,in,deg,deg,deg,in,deg,deg";
+                        string gc_headers = "timestamp,gocator_ID,gc_decision,gc_offset_x,gc_offset_y,gc_offset_z,gc_outer_radius,gc_depth,dc_bevel_radius,gc_bevel_angle,gc_xangle,gc_yangle,gc_cb_depth,gc_axis_tilt,gc_axis_orient";
+                        string gc_units = ",,,in,in,in,in,in,in,deg,deg,deg,in,deg,deg";
                         string gh_headers = "gh_decision,gh_offset_x,gh_offset_y,gh_offset_z,gh_radius";
                         string gh_units = ",in,in,in,in";
                         string headers = gc_headers + "," + gh_headers;
@@ -2782,7 +2894,8 @@ namespace LEonardTablet
                         }
                     }
 
-                    string output = $"{GetRaw("gocator_ID")},{GetRaw("gc_decision")},{GetDist("gc_offset_x")},{GetDist("gc_offset_y")},{GetDist("gc_offset_z")}";
+                    string output = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    output += $",{GetRaw("gocator_ID")},{GetRaw("gc_decision")},{GetDist("gc_offset_x")},{GetDist("gc_offset_y")},{GetDist("gc_offset_z")}";
                     output += $",{GetDist("gc_outer_radius")},{GetAngle("gc_depth")},{GetAngle("gc_bevel_radius")},{GetAngle("gc_bevel_angle")},{GetAngle("gc_xangle")},{GetAngle("gc_yangle")}";
                     output += $",{GetDist("gc_cb_depth")},{GetAngle("gc_axis_tilt")},{GetAngle("gc_axis_orient")}";
                     output += $",{GetRaw("gh_decision")},{GetDist("gh_offset_x")},{GetDist("gh_offset_y")},{GetDist("gh_offset_z")},{GetDist("gh_radius")}";
@@ -2966,7 +3079,7 @@ namespace LEonardTablet
                                 )
                             RobotSend(commandSpec.prefix + "," + parameters);
                         else
-                            ExecError($"Wrong number of operands. Expected {commandSpec.nParams} Got {parameters.Length}");
+                            ExecError($"Wrong number of operands. Expected {commandSpec.nParams}");
                     }
                     return true;
                 }

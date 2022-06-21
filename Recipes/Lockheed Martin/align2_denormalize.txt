@@ -26,9 +26,15 @@ movel_incr_tool(0,0,0,{deg5},0,0)
 gocator_ID=RX_5deg
 gocator_trigger()
 gocator_write_data({filename})
-gocator_adjust()
+
+gocator_adjust(1)
 gocator_trigger()
 gocator_write_data({filename})
+
+gocator_adjust(2)
+gocator_trigger()
+gocator_write_data({filename})
+end
 
 {cmd_start}
 movel_incr_tool(0,0,0,0,{deg5},0)
