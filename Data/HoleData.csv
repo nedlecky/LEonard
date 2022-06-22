@@ -1,5 +1,5 @@
-"skip=""skip""",ID,X,Y,Z,Type,Notes
-,,in,in,in,,
+skip,ID,X,Y,Z,Type,Notes
+skip,,in,in,in,,
 ,100,1,1,0,Small Counterbore,Left Grid
 ,101,1,2,0,Small Counterbore,Left Grid
 ,102,1,3,0,Medium Counterbore,Left Grid

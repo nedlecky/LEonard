@@ -1,10 +1,10 @@
 # 11 Inspect All Perturbed
 
 clear()
-filename = 11_inspect_all_perturbed_{DateTime}
+filename = 11_inspect_all_30in_perturbed_{DateTime}
 
 select_tool(gocator3210)
-set_part_geometry(CYLINDER, 1000)
+set_part_geometry(CYLINDER, 762)
 
 move_linear(LM_origin)
 movel_rel_set_part_origin_here()
@@ -12,11 +12,6 @@ gocator_trigger()
 
 infile_open(HoleData.csv)
 infile_scale(2,0.0254,3,0.0254,4,0.0254)
-
-# Skip file header rows
-infile_readline()
-infile_readline()
-gocator_ID=0
 
 next_hole:
 infile_readline()
@@ -29,6 +24,14 @@ end
 
 inspect:
 movel_rel_part({infile_p2},{infile_p3},{infile_p4},0,0,0)
+
+# Random +/- 0.25"
+random(3,-0.0064,0.0064)
+movel_incr_part({rnd1},{rnd2},{rnd3},0,0,0)
+
+# Random +/- 10 degrees
+random(2,-0.175,0.175)
+movel_incr_tool(0,0,0,{rnd1},{rnd2},0)
 
 gocator_ID={infile_p1}_initial
 gocator_trigger()

@@ -1,10 +1,10 @@
 # 10 Inspect All
 
 clear()
-filename = 10_inspect_all_{DateTime}
+filename = 10_inspect_all_30in_{DateTime}
 
 select_tool(gocator3210)
-set_part_geometry(CYLINDER, 1000)
+set_part_geometry(CYLINDER, 762)
 
 move_linear(LM_origin)
 movel_rel_set_part_origin_here()
@@ -13,18 +13,12 @@ gocator_trigger()
 infile_open(HoleData.csv)
 infile_scale(2,0.0254,3,0.0254,4,0.0254)
 
-# Skip file header rows
-infile_readline()
-infile_readline()
-gocator_ID=0
-
 next_hole:
 infile_readline()
 jump_gt_zero(infile_lineno,inspect)
 
 infile_close()
 end
-
 
 
 inspect:

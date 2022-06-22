@@ -86,43 +86,45 @@ namespace LeonardTablet
 
         public string InputReadLine()
         {
-            if (reader != null)
+            if (reader == null)
+                return null;
+
+            readerLineNo++;
+            string line = reader.ReadLine();
+
+            if (line == null)
             {
-                string line = reader.ReadLine();
+                readerLineNo = -1;
+            }
+            else
+            {
                 while (line.StartsWith("skip,"))
                 {
                     log.Info($"Skipping {line}");
+                    readerLineNo++;
                     line = reader.ReadLine();
                     if (line == null) break;
-                    readerLineNo++;
                 }
 
-                if (line == null)
-                {
-                    readerLineNo = -1;
-                }
-                else
-                {
-                    myForm.WriteVariable("infile_line", line);
+                myForm.WriteVariable("infile_line", line);
 
-                    string[] fields = line.Split(',');
-                    int i = 0;
-                    foreach (string field in fields)
+                string[] fields = line.Split(',');
+                int i = 0;
+                foreach (string field in fields)
+                {
+                    // Scale factor requested?
+                    if (readerScale.TryGetValue(i, out double scale))
                     {
-                        // Scale factor requested?
-                        if (readerScale.TryGetValue(i, out double scale))
+                        try
                         {
-                            try
-                            {
-                                double x = Convert.ToDouble(field);
-                                x *= scale;
-                                myForm.WriteVariable($"infile_p{i++}", x);
-                            }
-                            catch { }
+                            double x = Convert.ToDouble(field);
+                            x *= scale;
+                            myForm.WriteVariable($"infile_p{i++}", x);
                         }
-                        else
-                            myForm.WriteVariable($"infile_p{i++}", field);
+                        catch { }
                     }
+                    else
+                        myForm.WriteVariable($"infile_p{i++}", field);
                 }
             }
 
