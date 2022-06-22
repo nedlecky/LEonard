@@ -28,17 +28,17 @@ gocator_ID={infile_p1}_initial
 gocator_trigger()
 gocator_write_data({filename})
 
-gocator_ID={infile_p1}_adjust_3
+gocator_ID={infile_p1}_adjust_3-1
 gocator_adjust(3)
 gocator_trigger()
 gocator_write_data({filename})
 
-gocator_ID={infile_p1}_adjust_1-1
-gocator_adjust(1)
+gocator_ID={infile_p1}_adjust_1-2
+gocator_adjust(3)
 gocator_trigger()
 gocator_write_data({filename})
 
-gocator_ID={infile_p1}_adjust_1-2
+gocator_ID={infile_p1}_adjust_1
 gocator_adjust(1)
 gocator_trigger()
 gocator_write_data({filename})

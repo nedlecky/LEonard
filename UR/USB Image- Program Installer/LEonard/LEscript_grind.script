@@ -880,7 +880,7 @@ def pattern_serpentine(dx_m, dy_m, n_xsteps, n_ysteps, n_cycles, return_initial_
       y_grid = y_grid + y_incr
 
       # Move to the corresponding position
-      local dc = [x_grid * grid_dx_m - x2, y_grid * grid_dy_m - y2, 0]
+      local dc = [x_grid * grid_dx_m - x2, y_grid * grid_dy_m - y2, 0,0,0,0]
       if move_count == n_moves_per_pass:
         drawgi_finish(dc)
       else:
@@ -955,7 +955,7 @@ def pattern_poly(circle_diam_m, n_sides, n_cycles, return_initial_offset_only = 
       local x = circle_radius_m * cos(theta)
       local y = circle_radius_m * sin(theta)
 
-      local dc = [x, y, 0]
+      local dc = [x, y, 0,0,0,0]
       if not ok_to_proceed() or i == n_sides:
         drawgi_finish(dc)
       else:
@@ -1028,7 +1028,7 @@ def pattern_circle(circle_diam_m, n_cycles, return_initial_offset_only = False):
       local x = circle_radius_m * cos(theta)
       local y = circle_radius_m * sin(theta)
 
-      local dc = [x, y, 0]
+      local dc = [x, y, 0,0,0,0]
       if not ok_to_proceed() or i == n_points:
         drawgi_finish(dc)
       else:
@@ -1104,7 +1104,7 @@ def pattern_spiral(circle1_diam_m, circle2_diam_m, n_revolutions, n_cycles, retu
       local x = r_m * cos(theta)
       local y = r_m * sin(theta)
 
-      local dc = [x, y, 0]
+      local dc = [x, y, 0, 0, 0, 0]
       if not ok_to_proceed() or revs_completed >= n_revolutions:
         drawgi_finish(dc)
       else:

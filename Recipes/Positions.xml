@@ -72,20 +72,26 @@
   </Positions>
   <Positions>
     <Name>gocator_mount</Name>
-    <Joints>[-2.15892,-1.275631,-1.93302,-1.503082,1.572137,2.906962]</Joints>
-    <Pose>p[-0.313983,-0.2336,0.093889,2.573444,1.80121,-0.000956]</Pose>
-    <IsSystem>true</IsSystem>
+    <Joints>[-1.994536,-1.693767,-2.011792,-1.301532,1.941065,2.864294]</Joints>
+    <Pose>p[-0.105517,-0.335526,-0.082677,2.218557,1.817424,0.612817]</Pose>
+    <IsSystem>false</IsSystem>
   </Positions>
   <Positions>
     <Name>gocator_home</Name>
-    <Joints>[-0.210835,-1.109655,-2.147312,-1.455473,1.572169,2.934775]</Joints>
-    <Pose>p[0.266739,-0.191848,0.048906,0.000007,-3.141579,-0.000017]</Pose>
-    <IsSystem>true</IsSystem>
+    <Joints>[-0.44141,-1.262893,-2.062313,-1.387395,1.571761,2.704165]</Joints>
+    <Pose>p[0.266735,-0.271784,0.01577,0.000065,-3.141466,-0.00004]</Pose>
+    <IsSystem>false</IsSystem>
   </Positions>
   <Positions>
     <Name>coupon_origin</Name>
-    <Joints>[-0.812145,-1.723534,-1.571915,-1.416992,1.570946,2.361397]</Joints>
-    <Pose>p[0.284768,-0.491885,0.042262,0.043832,3.141212,-0.000029]</Pose>
-    <IsSystem>true</IsSystem>
+    <Joints>[-0.746832,-1.629936,-1.676383,-1.406107,1.571093,2.426708]</Joints>
+    <Pose>p[0.286752,-0.444909,0.042253,0.043984,3.141235,-0.000046]</Pose>
+    <IsSystem>false</IsSystem>
+  </Positions>
+  <Positions>
+    <Name>p_start</Name>
+    <Joints>[-1.032885,-2.139811,-1.023832,-1.789287,1.721924,2.121904]</Joints>
+    <Pose>p[0.258811,-0.550695,0.027088,0.043421,3.105789,0.443115]</Pose>
+    <IsSystem>false</IsSystem>
   </Positions>
 </NewDataSet>

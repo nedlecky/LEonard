@@ -33,17 +33,17 @@ gocator_write_data({filename})
 
 gocator_adjust(3)
 gocator_trigger()
-gocator_ID=adjust_3
+gocator_ID=adjust_3-1
+gocator_write_data({filename})
+
+gocator_adjust(3)
+gocator_trigger()
+gocator_ID=adjust_3-2
 gocator_write_data({filename})
 
 gocator_adjust(1)
 gocator_trigger()
-gocator_ID=adjust_1-1
-gocator_write_data({filename})
-
-gocator_adjust(1)
-gocator_trigger()
-gocator_ID=adjust_1-2
+gocator_ID=adjust_1
 gocator_write_data({filename})
 
 count--

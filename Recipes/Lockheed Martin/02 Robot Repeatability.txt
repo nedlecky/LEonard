@@ -10,14 +10,14 @@ move_linear(coupon_origin)
 movel_rel_set_part_origin_here()
 gocator_trigger()
 
-movel_rel_part(0.050,0.050,0,0,0,0)
+movel_rel_part(0.025,0.100,0,0,0,0)
 save_position(p_start)
 
 gocator_ID=move_and_return
 
 count=5
 loop:
-move_linear(LM_origin)
+move_linear(coupon_origin)
 move_linear(p_start)
 
 gocator_trigger()

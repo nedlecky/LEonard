@@ -1,0 +1,9 @@
+# 00 Origin
+
+clear()
+
+select_tool(gocator3210)
+set_part_geometry(CYLINDER, {coupon_diameter})
+
+move_linear(coupon_origin)
+gocator_trigger()
