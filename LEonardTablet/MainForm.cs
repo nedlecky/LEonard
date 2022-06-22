@@ -1348,6 +1348,11 @@ namespace LEonardTablet
             }
         }
 
+        private void RobotAndSystemPause()
+        {
+            RobotSendHalt();
+            SetState(RunState.PAUSED);
+        }
         private void PauseBtn_Click(object sender, EventArgs e)
         {
             log.Info("PauseBtn{0}_Click(...)", PauseBtn.Text);
@@ -1355,8 +1360,7 @@ namespace LEonardTablet
             {
                 case RunState.RUNNING:
                     // Perform PAUSE function
-                    RobotSendHalt();
-                    SetState(RunState.PAUSED);
+                    RobotAndSystemPause();
                     break;
                 case RunState.PAUSED:
                     // Perform CONTINUE function
@@ -2359,11 +2363,19 @@ namespace LEonardTablet
                 return false;
             }
 
+            // pause
+            if (command == "pause()" || command == "pause")
+            {
+                LogInterpret("pause", lineNumber, origLine);
+                RobotAndSystemPause();
+                return true;
+            }
+
             // clear
             if (command == "clear()" || command == "clear")
             {
                 LogInterpret("clear", lineNumber, command);
-                ClearVariablesBtn_Click(null, null);
+                ClearNonSystemVariables();
                 return true;
             }
 
@@ -2422,8 +2434,8 @@ namespace LEonardTablet
                 {
                     int n = (int)randomParams[0];
                     double low = randomParams[1];
-                    double high= randomParams[2];
-                    for(int i=0; i<n; i++)
+                    double high = randomParams[2];
+                    for (int i = 0; i < n; i++)
                     {
                         double r = low + random.NextDouble() * (high - low);
                         WriteVariable($"rnd{i + 1}", $"{r:0.000000}");
@@ -2508,14 +2520,14 @@ namespace LEonardTablet
                                 double val = Convert.ToDouble(value);
                                 if (val > 0.0)
                                 {
-                                    log.Info("EXEC {0:0000}: [JUMPGTZERO] Line {1} --> {2:0000}", lineNumber, origLine, jumpLine);
+                                    log.Info("EXEC {0:0000}: [JUMP_GT_ZERO] Line {1} --> {2:0000}", lineNumber, origLine, jumpLine);
                                     SetCurrentLine(jumpLine);
                                 }
                                 return true;
                             }
                             catch
                             {
-                                ExecError($"Could not convert jump_not_zero variable\n{variableName} = {value}");
+                                ExecError($"Could not convert jump_gt_zero variable\n{variableName} = {value}");
                                 return true;
                             }
                         }
@@ -2790,7 +2802,7 @@ namespace LEonardTablet
                 {
                     return x * Math.PI / 180.0;
                 }
-                
+
                 log.Info($"gocator_adjust All Values: [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                 switch (version)
                 {
@@ -2858,7 +2870,7 @@ namespace LEonardTablet
                         string gp_headers = "gp_xangle,gp_yangle,gp_z_offset,gp_std_dev";
                         string gp_units = "deg,deg,in,in";
                         string headers = gc_headers + "," + gh_headers + "," + gp_headers;
-                        string units = gc_units + "," + gh_units+ ","+ gp_units;
+                        string units = gc_units + "," + gh_units + "," + gp_units;
 
                         writer.WriteLine(headers);
                         writer.WriteLine(units);
@@ -3752,27 +3764,23 @@ namespace LEonardTablet
             int n = 1;
             foreach (string request in requests)
             {
-                log.Info($"{n}: {request}");
-                // name=value
-                if (request.Contains("="))
+                log.Trace($"{prefix} {n}: {request}");
+                if (request.Contains("="))           // name=value
                     UpdateVariable(request);
-                else
+                else if (request.StartsWith("SET ")) // SET name value
                 {
-                    // SET name value
-                    if (request.StartsWith("SET "))
-                    {
-                        string[] s = request.Split(' ');
-                        if (s.Length == 3)
-                            WriteVariable(s[1], s[2]);
-                        else
-                            log.Error($"{prefix} Illegal SET statement: {request}");
-                    }
+                    string[] s = request.Split(' ');
+                    if (s.Length == 3)
+                        WriteVariable(s[1], s[2]);
                     else
-                        log.Error($"{prefix} Illegal callback command: {request}");
+                        log.Error($"{prefix} Illegal SET statement: {request}");
                 }
-                n++;
+                else
+                    log.Error($"{prefix} Illegal callback command: {request}");
             }
+            n++;
         }
+
         void DashboardCallback(string prefix, string message)
         {
             log.Debug($"{prefix}<== {message}");
@@ -4345,9 +4353,14 @@ namespace LEonardTablet
             }
             return false;
         }
-        private void ClearVariablesBtn_Click(object sender, EventArgs e)
+        private void ClearNonSystemVariables()
         {
             while (DeleteFirstNonSystemEntry(variables)) ;
+        }
+        private void ClearVariablesBtn_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == ConfirmMessageBox("This will clear all non-system variables. Proceed?"))
+                ClearNonSystemVariables();
         }
 
         private void ClearAndInitializeVariables()

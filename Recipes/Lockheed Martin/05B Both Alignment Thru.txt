@@ -4,9 +4,9 @@ clear()
 filename = 05B_both_alignment_thru
 
 select_tool(gocator3210)
-set_part_geometry(CYLINDER, 1000)
+set_part_geometry(CYLINDER, {coupon_diameter})
 
-move_linear(LM_origin)
+move_linear(coupon_origin)
 movel_rel_set_part_origin_here()
 gocator_trigger()
 
@@ -16,7 +16,7 @@ save_position(p_start)
 count=5
 
 loop:
-move_linear(LM_origin)
+move_linear(coupon_origin)
 move_linear(p_start)
 
 # Random +/- 0.25"

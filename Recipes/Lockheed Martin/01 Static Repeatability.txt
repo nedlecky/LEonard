@@ -4,13 +4,13 @@ clear()
 filename = 01_static_repeatability
 
 select_tool(gocator3210)
-set_part_geometry(CYLINDER, 1000)
+set_part_geometry(CYLINDER, {coupon_diameter})
 
-move_linear(LM_origin)
+move_linear(coupon_origin)
 movel_rel_set_part_origin_here()
 gocator_trigger()
 
-movel_rel_part(0.050,0.050,0,0,0,0)
+movel_rel_part(0.025,0.100,0,0,0,0)
 
 gocator_ID=static_pose
 

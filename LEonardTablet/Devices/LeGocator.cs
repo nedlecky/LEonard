@@ -24,10 +24,9 @@ namespace LEonardTablet
         {
             log.Debug("{0} LeGocator(form, {0}, {1})", logPrefix, onConnectMessage);
             tcpClient = new LeTcpClient(form, prefix, connectMsg);
-            tcpClient.receiveCallback = myForm.CommandCallback;
+            tcpClient.receiveCallback = TcpCallback;
 
         }
-
         ~LeGocator()
         {
             log.Debug("{0} ~LeGocator()", logPrefix);
@@ -73,6 +72,31 @@ namespace LEonardTablet
         public string Receive()
         {
             return tcpClient.Receive();
+        }
+        public void TcpCallback(string prefix, string message)
+        {
+
+            string[] requests = message.Split('#');
+            int n = 1;
+            foreach (string request in requests)
+            {
+                log.Trace($"{logPrefix} {n}: {request}");
+                if (request.Contains("="))           // name=value
+                    myForm.UpdateVariable(request);
+                else if (request.StartsWith("SET ")) // SET name value
+                {
+                    string[] s = request.Split(' ');
+                    if (s.Length == 3)
+                        myForm.WriteVariable(s[1], s[2]);
+                    else
+                        log.Error($"{prefix} Illegal SET statement: {request}");
+                }
+                else if (request.StartsWith("OK"))
+                    log.Debug($"{logPrefix} OK");
+                else
+                    log.Error($"{prefix} Unrecognized callback message: {request}");
+            }
+            n++;
         }
 
         public void PrepareToRun()
