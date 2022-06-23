@@ -68,8 +68,7 @@ namespace LEonardTablet
         }
         private RegistryKey MyRegistryKey()
         {
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardTablet");
+            RegistryKey AppNameKey = mainForm.GetAppNameKey();
             RegistryKey FormNameKey = AppNameKey.CreateSubKey("JoggingDialog");
             return FormNameKey;
         }

@@ -20,6 +20,9 @@ namespace LEonardTablet
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
+        MainForm mainForm;
+
+
         // These may be overridden prior to showing the dialog
         public double Value { get; set; } = 0;
         public string ValueOutString{ get; set; } = "??";
@@ -30,12 +33,14 @@ namespace LEonardTablet
         public double MinAllowed { get; set; } = 0;
         public double Default { get; set; } = -999;
 
-        public SetValueForm()
+        public SetValueForm(MainForm _mainForm)
         {
+            mainForm = _mainForm;
             InitializeComponent();
         }
         private void SetValueForm_Load(object sender, EventArgs e)
         {
+
             LoadPersistent();
             LabelLbl.Text = "ENTER\n" + Label;
             MakeValueOutString();
@@ -153,11 +158,15 @@ namespace LEonardTablet
                 val = "\b";
             SendKeys.Send(val);
         }
+
+        private RegistryKey GetMyFormKey()
+        {
+            RegistryKey AppNameKey = mainForm.GetAppNameKey();
+            return AppNameKey.CreateSubKey("SetValueForm");
+        }
         private void SavePersistent()
         {
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardTablet");
-            RegistryKey FormNameKey = AppNameKey.CreateSubKey("SetValueForm");
+            RegistryKey FormNameKey = GetMyFormKey();
 
             FormNameKey.SetValue("Left", Left);
             FormNameKey.SetValue("Top", Top);
@@ -166,9 +175,7 @@ namespace LEonardTablet
         }
         private void LoadPersistent()
         {
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardTablet");
-            RegistryKey FormNameKey = AppNameKey.CreateSubKey("SetValueForm");
+            RegistryKey FormNameKey = GetMyFormKey();
 
             Left = (Int32)FormNameKey.GetValue("Left", (MainForm.screenDesignWidth - Width) / 2);
             Top = (Int32)FormNameKey.GetValue("Top", (MainForm.screenDesignHeight - Height) / 2);

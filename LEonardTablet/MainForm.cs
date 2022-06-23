@@ -28,7 +28,7 @@ namespace LEonardTablet
     public partial class MainForm : Form
     {
 
-        static string LEonardTabletRoot = "./";
+        static string LEonardTabletRoot = null;
         private static NLog.Logger log;
 
         // TODO should be replaced with generic devices interface
@@ -136,8 +136,7 @@ namespace LEonardTablet
                 }
             }
 
-            LoadPersistent();
-            UserModeBox.SelectedIndex = (int)operatorMode;
+            LoadRootDirectory();
 
             // Set logfile variable in NLog
             LogManager.Configuration.Variables["LogfileName"] = LEonardTabletRoot + "/Logs/LEonardTablet.log";
@@ -149,10 +148,8 @@ namespace LEonardTablet
             log.Info(caption);
             log.Info("================================================================");
 
-            // Suggested root?
-            string suggestedRoot = Path.GetFullPath(Path.Combine(executionRoot, "../../../.."));
-            log.Info("Current root is {0}", LEonardTabletRoot);
-            log.Info("Suggested root is {0}", suggestedRoot);
+            LoadPersistent();
+            UserModeBox.SelectedIndex = (int)operatorMode;
 
             // 1-second tick
             HeartbeatTmr.Interval = 1000;
@@ -1044,7 +1041,7 @@ namespace LEonardTablet
                 case OperatorMode.OPERATOR:
                     break;
                 case OperatorMode.EDITOR:
-                    SetValueForm form = new SetValueForm()
+                    SetValueForm form = new SetValueForm(this)
                     {
                         Value = 0,
                         Label = "Passcode for EDITOR",
@@ -1060,7 +1057,7 @@ namespace LEonardTablet
                     }
                     break;
                 case OperatorMode.ENGINEERING:
-                    form = new SetValueForm()
+                    form = new SetValueForm(this)
                     {
                         Value = 0,
                         Label = "Passcode for ENGINEERING",
@@ -1676,25 +1673,34 @@ namespace LEonardTablet
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Data"));
         }
 
-        private string recipeFileToAutoload = "";
-        void LoadPersistent()
+        public RegistryKey GetAppNameKey()
         {
-            // Pull setup info from registry.... these are overwritten on exit or with various config save operations
-            // Note default values are specified here as well
-            log.Info("LoadPersistent()");
-
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardTablet");
+            return SoftwareKey.CreateSubKey("LEonardTablet");
 
-            // Window State
-            // Zebra L10 Tablet runs best at 2160x1440 100% mag
-            Left = 0;// (Int32)AppNameKey.GetValue("Left", 0);
-            Top = 0;// (Int32)AppNameKey.GetValue("Top", 0);
-            Width = screenDesignWidth;// (Int32)AppNameKey.GetValue("Width", 1920);
-            Height = screenDesignHeight;
+        }
 
-            // From Setup Tab
+
+        void LoadRootDirectory()
+        {
+            RegistryKey AppNameKey = GetAppNameKey();
+
             LEonardTabletRoot = (string)AppNameKey.GetValue("LEonardTabletRoot", "C:\\LEonardTablet");
+
+            // Suggested root?
+            string suggestedRoot = Path.GetFullPath(Path.Combine(executionRoot, "../../.."));
+            log.Info("Current root is {0}", LEonardTabletRoot);
+            log.Info("Suggested root is {0}", suggestedRoot);
+
+            if (LEonardTabletRoot != suggestedRoot)
+            {
+                DialogResult result = ConfirmMessageBox($"Root is set to\n{LEonardTabletRoot}\nYou are executing out of\n{suggestedRoot}\nChange?");
+                if (result == DialogResult.OK)
+                {
+                    LEonardTabletRoot = suggestedRoot;
+                }
+            }
+
             if (!Directory.Exists(LEonardTabletRoot))
             {
                 DialogResult result = ConfirmMessageBox(String.Format("Root Directory [{0}] does not exist. Create it?", LEonardTabletRoot));
@@ -1709,8 +1715,26 @@ namespace LEonardTablet
                     return;
                 }
             }
+        }
 
+        private string recipeFileToAutoload = "";
+        void LoadPersistent()
+        {
+            // Pull setup info from registry.... these are overwritten on exit or with various config save operations
+            // Note default values are specified here as well
+            log.Info("LoadPersistent()");
+
+            if (LEonardTabletRoot == null || LEonardTabletRoot=="") LoadRootDirectory();
             MakeStandardSubdirectories();
+
+            RegistryKey AppNameKey = GetAppNameKey();
+
+            // Window State
+            // Zebra L10 Tablet runs best at 2160x1440 100% mag
+            Left = 0;// (Int32)AppNameKey.GetValue("Left", 0);
+            Top = 0;// (Int32)AppNameKey.GetValue("Top", 0);
+            Width = screenDesignWidth;// (Int32)AppNameKey.GetValue("Width", 1920);
+            Height = screenDesignHeight;
 
 
             LEonardTabletRootLbl.Text = LEonardTabletRoot;
@@ -1777,8 +1801,7 @@ namespace LEonardTablet
         {
             log.Info("SavePersistent()");
 
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardTablet");
+            RegistryKey AppNameKey = GetAppNameKey();
 
             // Window State
             AppNameKey.SetValue("Left", Left);
@@ -1858,7 +1881,7 @@ namespace LEonardTablet
 
         private void DiameterLbl_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = Convert.ToDouble(DiameterLbl.Text),
                 Label = PartGeometryBox.Text + " DIAM, MM",
@@ -3429,7 +3452,7 @@ namespace LEonardTablet
         }
         private void SetLinearSpeedBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("robot_linear_speed_mmps"),
                 Label = "Robot LINEAR SPEED, mm/s",
@@ -3447,7 +3470,7 @@ namespace LEonardTablet
 
         private void SetLinearAccelBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("robot_linear_accel_mmpss"),
                 Label = "Robot LINEAR ACCELERATION, mm/s^2",
@@ -3465,7 +3488,7 @@ namespace LEonardTablet
 
         private void SetBlendRadiusBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("robot_blend_radius_mm"),
                 Label = "Robot BLEND RADIUS, mm",
@@ -3482,7 +3505,7 @@ namespace LEonardTablet
         }
         private void SetJointSpeedBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("robot_joint_speed_dps"),
                 Label = "Robot JOINT SPEED, deg/s",
@@ -3500,7 +3523,7 @@ namespace LEonardTablet
 
         private void SetJointAccelBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("robot_joint_accel_dpss"),
                 Label = "Robot JOINT ACCELERATION, deg/s^2",
@@ -3530,7 +3553,7 @@ namespace LEonardTablet
 
         private void SetTouchSpeedBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_touch_speed_mmps"),
                 Label = "Grind TOUCH SPEED, mm/s",
@@ -3548,7 +3571,7 @@ namespace LEonardTablet
 
         private void SetTouchRetractBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_touch_retract_mm"),
                 Label = "Grind TOUCH RETRACT DISTANCE, mm",
@@ -3565,7 +3588,7 @@ namespace LEonardTablet
         }
         private void SetForceDwellBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_force_dwell_ms"),
                 Label = "Grind FORCE DWELL TIME, mS",
@@ -3583,7 +3606,7 @@ namespace LEonardTablet
 
         private void SetMaxWaitBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_max_wait_ms"),
                 Label = "Grind MAX WAIT TIME, mS",
@@ -3600,7 +3623,7 @@ namespace LEonardTablet
         }
         private void SetMaxGrindBlendRadiusBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_max_blend_radius_mm"),
                 Label = "Grind MAX BLEND RADIUS, mm",
@@ -3617,7 +3640,7 @@ namespace LEonardTablet
         }
         private void SetTrialSpeedBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_trial_speed_mmps"),
                 Label = "Grind TRIAL SPEED, mm/s",
@@ -3634,7 +3657,7 @@ namespace LEonardTablet
         }
         private void SetGrindAccelBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_linear_accel_mmpss"),
                 Label = "Grind ACCELERATION, mm/s^2",
@@ -3651,7 +3674,7 @@ namespace LEonardTablet
         }
         private void SetPointFrequencyBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_point_frequency_hz"),
                 Label = "Grind POINT FREQUENCY, Hz",
@@ -3668,7 +3691,7 @@ namespace LEonardTablet
         }
         private void SetGrindJogSpeedBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_jog_speed_mmps"),
                 Label = "Grind JOG SPEED, mm/s",
@@ -3685,7 +3708,7 @@ namespace LEonardTablet
         }
         private void SetGrindJogAccel_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_jog_accel_mmpss"),
                 Label = "Grind JOG ACCEL, mm/s^2",
@@ -3703,7 +3726,7 @@ namespace LEonardTablet
 
         private void SetForceModeDampingBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_force_mode_damping"),
                 Label = "Grind FORCE MODE DAMPING",
@@ -3721,7 +3744,7 @@ namespace LEonardTablet
 
         private void SetForceModeGainScalingBtn_Click(object sender, EventArgs e)
         {
-            SetValueForm form = new SetValueForm()
+            SetValueForm form = new SetValueForm(this)
             {
                 Value = ReadVariableDouble("grind_force_mode_gain_scaling"),
                 Label = "Grind FORCE MODE GAIN SCALING",

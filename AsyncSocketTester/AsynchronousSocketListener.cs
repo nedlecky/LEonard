@@ -135,10 +135,10 @@ namespace AsyncSocketTester
                 }
             }
         }
-        public void Send(string message)
-        {
-            Send(handler, message);
-        }
+        //public void Send(string message)
+        //{
+        //    Send(handler, message);
+        //}
 
         private static void Send(Socket handler, String data)
         {
