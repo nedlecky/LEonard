@@ -1,0 +1,42 @@
+# 12 Probe Alignment
+
+clear()
+
+select_tool(gocator3210)
+set_part_geometry(CYLINDER, {coupon_diameter})
+
+move_linear(coupon_origin)
+movel_rel_set_part_origin_here()
+
+# Goto alignment hole at approx (9.000", 1.00")
+movel_rel_part(0.2286,0.0254,0,0,0,0)
+save_position(cp_align_approx)
+gocator_trigger()
+
+# Adjust alignment
+gocator_adjust(3)
+gocator_trigger()
+gocator_adjust(3)
+gocator_trigger()
+gocator_adjust(1)
+
+save_position(cp_align_aligned)
+
+show_me:
+move_linear(cp_align_aligned)
+
+# Offset to probe
+movel_incr_part(-0.023,0,0.165,0,0,0)
+prompt(Hit enter to align to top surface)
+movel_incr_part(0,0,0.005,0,0,0)
+prompt(Hit enter to insert)
+movel_incr_part(0,0,0.025,0,0,0)
+prompt(Hit enter to extract)
+movel_incr_part(0,0,-0.030,0,0,0)
+prompt(Hit enter to return to origin)
+move_linear(coupon_origin)
+
+
+
+
+
