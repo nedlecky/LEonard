@@ -83,15 +83,15 @@
     <IsSystem>false</IsSystem>
   </Positions>
   <Positions>
-    <Name>coupon_origin</Name>
+    <Name>cp_origin</Name>
     <Joints>[-0.746832,-1.629936,-1.676383,-1.406107,1.571093,2.426708]</Joints>
     <Pose>p[0.286752,-0.444909,0.042253,0.043984,3.141235,-0.000046]</Pose>
     <IsSystem>false</IsSystem>
   </Positions>
   <Positions>
     <Name>p_start</Name>
-    <Joints>[-0.615187,-1.333946,-1.981589,-1.324274,1.46209,2.554634]</Joints>
-    <Pose>p[0.238181,-0.393689,0.038992,-0.043933,-3.132784,0.205886]</Pose>
+    <Joints>[-0.299751,-1.171568,-2.145158,-1.324891,1.318998,2.864994]</Joints>
+    <Pose>p[0.264533,-0.345424,0.029208,-0.043631,-3.110683,0.410676]</Pose>
     <IsSystem>false</IsSystem>
   </Positions>
   <Positions>
@@ -102,14 +102,14 @@
   </Positions>
   <Positions>
     <Name>cp_align_approx</Name>
-    <Joints>[-1.066562,-1.269272,-2.009618,-1.376415,1.537757,2.106115]</Joints>
-    <Pose>p[0.058962,-0.41314,0.041387,-0.043886,-3.138612,0.10462]</Pose>
+    <Joints>[-1.066579,-1.269288,-2.009509,-1.376387,1.537766,2.106115]</Joints>
+    <Pose>p[0.058974,-0.413202,0.04139,-0.044019,-3.138563,0.10467]</Pose>
     <IsSystem>false</IsSystem>
   </Positions>
   <Positions>
     <Name>cp_align_aligned</Name>
-    <Joints>[-1.071446,-1.259033,-2.019814,-1.369829,1.541071,2.101127]</Joints>
-    <Pose>p[0.057872,-0.411773,0.040868,0.043556,3.134508,-0.110917]</Pose>
+    <Joints>[-1.07201,-1.259185,-2.019646,-1.369841,1.541507,2.100566]</Joints>
+    <Pose>p[0.057853,-0.411735,0.040879,0.043517,3.134169,-0.110502]</Pose>
     <IsSystem>false</IsSystem>
   </Positions>
 </NewDataSet>

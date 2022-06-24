@@ -1,14 +1,7 @@
-# 13 Inspect and Insert All
+# 50 Inspect All
 
 clear()
-filename = 13_inspect_and_insert_all_{DateTime}
-
-select_tool(gocator3210)
-set_part_geometry(CYLINDER, {coupon_diameter})
-
-move_linear(coupon_origin)
-movel_rel_set_part_origin_here()
-gocator_trigger()
+filename = {RecipeFilename}_{DateTime}
 
 infile_open(HoleData.csv)
 infile_scale(2,0.0254,3,0.0254,4,0.0254)
@@ -18,6 +11,7 @@ infile_readline()
 jump_gt_zero(infile_lineno,inspect)
 
 infile_close()
+movel_rel_part({origin})
 end
 
 
@@ -25,29 +19,22 @@ inspect:
 movel_rel_part({infile_p2},{infile_p3},{infile_p4},0,0,0)
 
 gocator_ID={infile_p1}_initial
-gocator_trigger()
+gocator_trigger(1000)
 gocator_write_data({filename})
 
 gocator_ID={infile_p1}_adjust_3-1
 gocator_adjust(3)
-gocator_trigger()
+gocator_trigger(1000)
 gocator_write_data({filename})
 
 gocator_ID={infile_p1}_adjust_1-2
 gocator_adjust(3)
-gocator_trigger()
+gocator_trigger(1000)
 gocator_write_data({filename})
 
 gocator_ID={infile_p1}_adjust_1
 gocator_adjust(1)
-gocator_trigger()
+gocator_trigger(1000)
 gocator_write_data({filename})
-
-# Offset to probe
-movel_incr_part(-0.023,0,0.165,0,0,0)
-#prompt(Hit enter to insert)
-movel_incr_part(0,0,0.030,0,0,0)
-sleep(5)
-movel_incr_part(0,0,-0.030,0,0,0)
 
 jump(next_hole)

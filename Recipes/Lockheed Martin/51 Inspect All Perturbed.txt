@@ -1,14 +1,7 @@
-# 11 Inspect All Perturbed
+# 51 Inspect All Perturbed
 
 clear()
-filename = 11_inspect_all_30in_perturbed_{DateTime}
-
-select_tool(gocator3210)
-set_part_geometry(CYLINDER, {coupon_diameter})
-
-move_linear(coupon_origin)
-movel_rel_set_part_origin_here()
-gocator_trigger()
+filename = {RecipeFilename}_{DateTime}
 
 infile_open(HoleData.csv)
 infile_scale(2,0.0254,3,0.0254,4,0.0254)
@@ -18,8 +11,8 @@ infile_readline()
 jump_gt_zero(infile_lineno,inspect)
 
 infile_close()
+movel_rel_part({origin})
 end
-
 
 
 inspect:
@@ -36,22 +29,22 @@ random(2,-0.0873,0.0873)
 movel_incr_tool(0,0,0,{rnd1},{rnd2},0)
 
 gocator_ID={infile_p1}_initial
-gocator_trigger()
+gocator_trigger(1000)
 gocator_write_data({filename})
 
 gocator_ID={infile_p1}_adjust_3-1
 gocator_adjust(3)
-gocator_trigger()
+gocator_trigger(1000)
 gocator_write_data({filename})
 
 gocator_ID={infile_p1}_adjust_3-2
 gocator_adjust(3)
-gocator_trigger()
+gocator_trigger(1000)
 gocator_write_data({filename})
 
 gocator_ID={infile_p1}_adjust_1
 gocator_adjust(1)
-gocator_trigger()
+gocator_trigger(1000)
 gocator_write_data({filename})
 
 jump(next_hole)

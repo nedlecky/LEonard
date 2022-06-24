@@ -1487,12 +1487,6 @@ namespace LEonardTablet
         }
 
 
-        /// <summary>
-        /// Load a filename into RecipeRTB and place the filename in RecipeFilenameLbl.Text
-        /// If the file does nbot exist, clear all of the above and return false. Else return true.
-        /// </summary>
-        /// <param name="file">The file to be loaded.</param>
-        /// <returns></returns>
         private string recipeAsLoaded = "";  // As it was when loaded so we can test for actual mods
         private bool RecipeWasModified()
         {
@@ -1724,7 +1718,7 @@ namespace LEonardTablet
             // Note default values are specified here as well
             log.Info("LoadPersistent()");
 
-            if (LEonardTabletRoot == null || LEonardTabletRoot=="") LoadRootDirectory();
+            if (LEonardTabletRoot == null || LEonardTabletRoot == "") LoadRootDirectory();
             MakeStandardSubdirectories();
 
             RegistryKey AppNameKey = GetAppNameKey();
@@ -2491,6 +2485,48 @@ namespace LEonardTablet
                 return true;
             }
 
+            // system_variable
+            if (command.StartsWith("system_variable("))
+            {
+                LogInterpret("system_variable", lineNumber, command);
+                string[] parameters = ExtractParameters(command, 2).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Unrecognized system_variable command");
+                    return true;
+                }
+                string variableName = parameters[0];
+                string value = ReadVariable(variableName, null);
+                if (value == null)
+                {
+                    ExecError("Unrecognized variable in system_variable command");
+                    return true;
+                }
+                SetSystemVariable(variableName, parameters[1] == "True");
+                return true;
+            }
+
+            // system_position
+            if (command.StartsWith("system_position("))
+            {
+                LogInterpret("system_position", lineNumber, command);
+                string[] parameters = ExtractParameters(command, 2).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Unrecognized system_position command");
+                    return true;
+                }
+                string positionName = parameters[0];
+                string value = ReadPositionJoint(positionName);
+                if (value == null)
+                {
+                    ExecError("Unrecognized position in system_position command");
+                    return true;
+                }
+                SetSystemPosition(positionName, parameters[1] == "True");
+                return true;
+            }
+
             // jump
             if (command.StartsWith("jump("))
             {
@@ -2775,11 +2811,16 @@ namespace LEonardTablet
             if (command.StartsWith("gocator_trigger("))
             {
                 LogInterpret("gocator_trigger", lineNumber, origLine);
-                // Wait for the vibe to die down
-                Thread.Sleep(500);
-                gocator.Trigger();
-                GocatorReadyLbl.BackColor = ColorFromBooleanName("False");
-                GocatorReadyLbl.Refresh();
+
+
+                int preDelay_ms;
+                if (ExtractIntParameter(command, out preDelay_ms))
+                {
+                    gocator.Trigger(preDelay_ms);
+                    GocatorReadyLbl.BackColor = ColorFromBooleanName("False");
+                    GocatorReadyLbl.Refresh();
+                }
+
                 return true;
             }
 
@@ -3925,6 +3966,8 @@ namespace LEonardTablet
         {
             if (name == "DateTime")
                 return DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss");
+            if (name == "RecipeFilename")
+                return Path.GetFileNameWithoutExtension(RecipeFilenameLbl.Text).Replace(' ','_').ToLower();
 
             foreach (DataRow row in variables.Rows)
             {
@@ -3937,6 +3980,19 @@ namespace LEonardTablet
             }
             //log.Error("ReadVariable({0}) Not Found", name);
             return defaultValue;
+        }
+        public bool SetSystemVariable(string name, bool isSystem)
+        {
+            foreach (DataRow row in variables.Rows)
+            {
+                if ((string)row["Name"] == name)
+                {
+                    row["IsSystem"] = isSystem;
+                    return true;
+                }
+            }
+            log.Error($"SetSystemVariable({name},{isSystem}) Not Found");
+            return false;
         }
 
         private Color ColorFromBooleanName(string name, bool invert = false)
@@ -4694,6 +4750,19 @@ namespace LEonardTablet
         }
 
 
+        public bool SetSystemPosition(string name, bool isSystem)
+        {
+            foreach (DataRow row in positions.Rows)
+            {
+                if ((string)row["Name"] == name)
+                {
+                    row["IsSystem"] = isSystem;
+                    return true;
+                }
+            }
+            log.Error($"SetSystemPosition({name}) Not Found");
+            return false;
+        }
         public bool WritePosition(string name, string joints = "", string pose = "", bool isSystem = false)
         {
             System.Threading.Monitor.Enter(lockObject);

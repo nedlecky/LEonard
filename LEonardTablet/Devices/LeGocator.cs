@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LEonardTablet
@@ -117,9 +118,11 @@ namespace LEonardTablet
             return response;
         }
 
-        public void Trigger()
+        public void Trigger(int preDelay_ms = 0, int postDelay_ms = 0)
         {
+            Thread.Sleep(preDelay_ms);
             Send("trigger");
+            Thread.Sleep(postDelay_ms);
             myForm.WriteVariable("gocator_ready", false, true);
         }
     }
