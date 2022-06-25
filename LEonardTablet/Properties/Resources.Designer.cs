@@ -59,15 +59,5 @@ namespace LeonardTablet.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Lecky_Engineering_Logo_12_4_2020_Full {
-            get {
-                object obj = ResourceManager.GetObject("Lecky_Engineering_Logo_12_4_2020_Full", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

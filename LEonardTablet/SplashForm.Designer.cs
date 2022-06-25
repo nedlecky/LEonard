@@ -35,7 +35,9 @@
             this.CloseBtn = new System.Windows.Forms.Button();
             this.DeveloperLogoPic = new System.Windows.Forms.PictureBox();
             this.VersionLbl = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.DeveloperLogoPic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // CloseTmr
@@ -56,10 +58,10 @@
             // 
             // CloseBtn
             // 
-            this.CloseBtn.BackColor = System.Drawing.Color.Green;
+            this.CloseBtn.BackColor = System.Drawing.Color.Goldenrod;
             this.CloseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CloseBtn.ForeColor = System.Drawing.Color.White;
-            this.CloseBtn.Location = new System.Drawing.Point(564, 288);
+            this.CloseBtn.Location = new System.Drawing.Point(446, 523);
             this.CloseBtn.Name = "CloseBtn";
             this.CloseBtn.Size = new System.Drawing.Size(127, 108);
             this.CloseBtn.TabIndex = 81;
@@ -72,9 +74,9 @@
             this.DeveloperLogoPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.DeveloperLogoPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DeveloperLogoPic.Image = ((System.Drawing.Image)(resources.GetObject("DeveloperLogoPic.Image")));
-            this.DeveloperLogoPic.Location = new System.Drawing.Point(179, 193);
+            this.DeveloperLogoPic.Location = new System.Drawing.Point(129, 523);
             this.DeveloperLogoPic.Name = "DeveloperLogoPic";
-            this.DeveloperLogoPic.Size = new System.Drawing.Size(319, 203);
+            this.DeveloperLogoPic.Size = new System.Drawing.Size(177, 108);
             this.DeveloperLogoPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.DeveloperLogoPic.TabIndex = 85;
             this.DeveloperLogoPic.TabStop = false;
@@ -91,13 +93,26 @@
             this.VersionLbl.Text = "VersionLbl\r\nLine 2";
             this.VersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(129, 170);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(444, 282);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 88;
+            this.pictureBox1.TabStop = false;
+            // 
             // SplashForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkOrange;
-            this.ClientSize = new System.Drawing.Size(702, 430);
+            this.BackColor = System.Drawing.Color.DarkGray;
+            this.ClientSize = new System.Drawing.Size(702, 673);
             this.ControlBox = false;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.VersionLbl);
             this.Controls.Add(this.DeveloperLogoPic);
             this.Controls.Add(this.CloseBtn);
@@ -110,6 +125,7 @@
             this.Load += new System.EventHandler(this.SplashForm_Load);
             this.Click += new System.EventHandler(this.SplashForm_Click);
             ((System.ComponentModel.ISupportInitialize)(this.DeveloperLogoPic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -121,5 +137,6 @@
         private System.Windows.Forms.Button CloseBtn;
         private System.Windows.Forms.PictureBox DeveloperLogoPic;
         private System.Windows.Forms.Label VersionLbl;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

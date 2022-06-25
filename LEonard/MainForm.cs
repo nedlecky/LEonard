@@ -836,13 +836,23 @@ namespace LEonard
                 for (int i = 0; i < 50; i++)
                 {
                     Thread.Sleep(100);
-                    IntPtr hWnd = interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle;
-                    Application.DoEvents();
-                    if (hWnd != (IntPtr)0)
+                    try
                     {
-                        SetWindowOnTop(hWnd);
-                        form.Close();
-                        break;
+                        log.Error($"ERROR UNKNOWN HERE");
+                        /*
+                        IntPtr hWnd = interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle;
+                        Application.DoEvents();
+                        if (hWnd != (IntPtr)0)
+                        {
+                            SetWindowOnTop(hWnd);
+                            form.Close();
+                            break;
+                        }
+                        */
+                    }
+                    catch
+                    {
+                        log.Error($"Cannot find hWnd");
                     }
                 }
                 form.Close();
