@@ -2889,7 +2889,8 @@ namespace LEonardTablet
                         else
                         {
                             ExecuteLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
-                            Thread.Sleep(500);
+                            // TODO this should be a wait complete
+                            Thread.Sleep(1000);
                             ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         }
                         break;
