@@ -3,8 +3,14 @@
 clear()
 origin=0,0,0,0,0,0
 system_variable(origin,True)
+
+# Offset from Gocator 0,0,0 to tip of the allen wrench!
 offset_to_probe = movel_incr_part(-0.0235,0,0.165,0,0,0)
 system_variable(offset_to_probe,True)
+
+# Coupon is 762mm diam (32in)
+coupon_diameter = 762
+system_variable(coupon_diameter,True)
 
 # Force all speeds and accelerations to good inspection ones!
 linear_speed = 100

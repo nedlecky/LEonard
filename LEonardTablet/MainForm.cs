@@ -38,6 +38,8 @@ namespace LEonardTablet
         FileManager fileManager = null;
         MessageDialog waitingForOperatorMessageForm = null;
         bool closeOperatorFormOnIndex = false;
+        SplashForm splashForm = null;
+
 
         static DataTable variables;
         static DataTable tools;
@@ -156,7 +158,11 @@ namespace LEonardTablet
             HeartbeatTmr.Enabled = true;
 
             // Real start of everyone will happen shortly
-            StartupTmr.Interval = 1000;
+            splashForm = new SplashForm()
+            {
+                AutoClose = true,
+            };
+            StartupTmr.Interval = 2000;
             StartupTmr.Enabled = true;
 
             SetRecipeState(RecipeState.NEW);
@@ -201,10 +207,7 @@ namespace LEonardTablet
 
         private void StartupTmr_Tick(object sender, EventArgs e)
         {
-            SplashForm splashForm = new SplashForm()
-            {
-                AutoClose = true,
-            };
+            Thread.Sleep(250);
             splashForm.Show();
 
             log.Info("StartupTmr()...");
@@ -1544,6 +1547,7 @@ namespace LEonardTablet
                 initialDirectory = Path.GetDirectoryName(RecipeFilenameLbl.Text);
             else
                 initialDirectory = Path.Combine(LEonardTabletRoot, "Recipes");
+
             FileOpenDialog dialog = new FileOpenDialog()
             {
                 Title = "Open an LEonardTablet Recipe",
@@ -1580,14 +1584,11 @@ namespace LEonardTablet
         {
             log.Info("SaveAsRecipeBtn_Click(...)");
 
-            // Default directory to save in
-            string initialDirectory = Path.Combine(LEonardTabletRoot, "Recipes");
-
-            // If we have a recipe loaded from some other folder, that should be the default directory
-            string recipeDirectoryName = Path.GetDirectoryName(RecipeFilenameLbl.Text);
-            if (recipeDirectoryName != "")
-                initialDirectory = recipeDirectoryName;
-
+            string initialDirectory;
+            if (RecipeFilenameLbl.Text != "Untitled" && RecipeFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(RecipeFilenameLbl.Text);
+            else
+                initialDirectory = Path.Combine(LEonardTabletRoot, "Recipes");
 
             FileSaveAsDialog dialog = new FileSaveAsDialog()
             {
@@ -5098,7 +5099,6 @@ namespace LEonardTablet
             //log.Info("RecipeRTB VScroll");
 
         }
-
     }
     public static class RichTextBoxExtensions
     {

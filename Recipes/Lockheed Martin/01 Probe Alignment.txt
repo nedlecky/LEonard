@@ -3,7 +3,7 @@
 clear()
 
 # Goto alignment hole at approx (9.000", 1.00")
-movel_rel_part(0.2286,0.0254,0,0,0,0)
+movel_rel_part(0.229,0.025,0,0,0,0)
 save_position(cp_align_approx)
 gocator_trigger(1000)
 
@@ -20,7 +20,7 @@ show_me:
 move_linear(cp_align_aligned)
 
 # Offset to probe
-movel_incr_part(-0.023,0,0.165,0,0,0)
+{offset_to_probe}
 prompt(Hit enter to align to top surface)
 movel_incr_part(0,0,0.005,0,0,0)
 prompt(Hit enter to insert)

@@ -98,6 +98,7 @@
             this.DiameterDimLbl = new System.Windows.Forms.Label();
             this.MainTab = new System.Windows.Forms.TabControl();
             this.RunPage = new System.Windows.Forms.TabPage();
+            this.GocatorReadyLbl = new System.Windows.Forms.Label();
             this.GocatorConnectBtn = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.GrindForceReportZLbl = new System.Windows.Forms.Label();
@@ -204,7 +205,6 @@
             this.VersionLbl = new System.Windows.Forms.Label();
             this.FootswitchPressedLbl = new System.Windows.Forms.Label();
             this.Time2Lbl = new System.Windows.Forms.Label();
-            this.GocatorReadyLbl = new System.Windows.Forms.Label();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionTestButtonGrp.SuspendLayout();
@@ -366,7 +366,7 @@
             this.LoadRecipeBtn.Name = "LoadRecipeBtn";
             this.LoadRecipeBtn.Size = new System.Drawing.Size(663, 95);
             this.LoadRecipeBtn.TabIndex = 73;
-            this.LoadRecipeBtn.Text = "Load";
+            this.LoadRecipeBtn.Text = "Untitled";
             this.LoadRecipeBtn.UseVisualStyleBackColor = false;
             this.LoadRecipeBtn.Click += new System.EventHandler(this.LoadRecipeBtn_Click);
             // 
@@ -1092,6 +1092,19 @@
             this.RunPage.TabIndex = 0;
             this.RunPage.Text = "Run";
             this.RunPage.UseVisualStyleBackColor = true;
+            // 
+            // GocatorReadyLbl
+            // 
+            this.GocatorReadyLbl.BackColor = System.Drawing.Color.Gray;
+            this.GocatorReadyLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GocatorReadyLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GocatorReadyLbl.ForeColor = System.Drawing.Color.White;
+            this.GocatorReadyLbl.Location = new System.Drawing.Point(1935, 786);
+            this.GocatorReadyLbl.Name = "GocatorReadyLbl";
+            this.GocatorReadyLbl.Size = new System.Drawing.Size(187, 125);
+            this.GocatorReadyLbl.TabIndex = 160;
+            this.GocatorReadyLbl.Text = "Gocator Ready";
+            this.GocatorReadyLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GocatorConnectBtn
             // 
@@ -2238,11 +2251,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 62);
+            this.label1.Location = new System.Drawing.Point(40, 62);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(440, 37);
+            this.label1.Size = new System.Drawing.Size(351, 37);
             this.label1.TabIndex = 68;
-            this.label1.Text = "LEonardTablet Root Directory";
+            this.label1.Text = "LEonard Root Directory";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LogPage
@@ -2416,19 +2429,6 @@
             this.Time2Lbl.TabIndex = 151;
             this.Time2Lbl.Text = "Time";
             this.Time2Lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // GocatorReadyLbl
-            // 
-            this.GocatorReadyLbl.BackColor = System.Drawing.Color.Gray;
-            this.GocatorReadyLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GocatorReadyLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GocatorReadyLbl.ForeColor = System.Drawing.Color.White;
-            this.GocatorReadyLbl.Location = new System.Drawing.Point(1935, 786);
-            this.GocatorReadyLbl.Name = "GocatorReadyLbl";
-            this.GocatorReadyLbl.Size = new System.Drawing.Size(187, 125);
-            this.GocatorReadyLbl.TabIndex = 160;
-            this.GocatorReadyLbl.Text = "Gocator Ready";
-            this.GocatorReadyLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
