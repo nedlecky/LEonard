@@ -47,8 +47,14 @@ namespace LEonardTablet
         static string[] diameterDefaults = { "0.00", "77.2", "81.9" };
 
         // App screen design sizes (Zebra L10 Tablet)
-        public const int screenDesignWidth = 2160;
-        public const int screenDesignHeight = 1440;
+        public const int tabletScreenDesignWidth = 2160;
+        public const int tabletScreenDesignHeight = 1440;
+        private enum UserInterfaceMode
+        {
+            TABLET,
+            FREE,
+        }
+        UserInterfaceMode userInterfaceMode = UserInterfaceMode.TABLET;
 
         private enum RunState
         {
@@ -127,9 +133,9 @@ namespace LEonardTablet
             // Check screen dimensions.....
             Rectangle r = Screen.FromControl(this).Bounds;
             log.Info("Screen Dimensions: {0}x{1}", r.Width, r.Height);
-            if (r.Width < screenDesignWidth || r.Height < screenDesignHeight)
+            if (r.Width < tabletScreenDesignWidth || r.Height < tabletScreenDesignHeight)
             {
-                DialogResult result = ConfirmMessageBox(String.Format("Screen dimensions for this application must be at least {0} x {1}. Continue anyway?", screenDesignWidth, screenDesignHeight));
+                DialogResult result = ConfirmMessageBox(String.Format("Screen dimensions for this application must be at least {0} x {1}. Continue anyway?", tabletScreenDesignWidth, tabletScreenDesignHeight));
                 if (result != DialogResult.OK)
                 {
                     forceClose = true;
@@ -1728,8 +1734,8 @@ namespace LEonardTablet
             // Zebra L10 Tablet runs best at 2160x1440 100% mag
             Left = 0;// (Int32)AppNameKey.GetValue("Left", 0);
             Top = 0;// (Int32)AppNameKey.GetValue("Top", 0);
-            Width = screenDesignWidth;// (Int32)AppNameKey.GetValue("Width", 1920);
-            Height = screenDesignHeight;
+            Width = tabletScreenDesignWidth;// (Int32)AppNameKey.GetValue("Width", 1920);
+            Height = tabletScreenDesignHeight;
 
 
             LEonardTabletRootLbl.Text = LEonardTabletRoot;
@@ -5068,8 +5074,8 @@ namespace LEonardTablet
             BigEditDialog bigeditForm = new BigEditDialog()
             {
                 Title = RecipeFilenameLbl.Text,
-                ScreenWidth = screenDesignWidth,
-                ScreenHeight = screenDesignHeight,
+                ScreenWidth = tabletScreenDesignWidth,
+                ScreenHeight = tabletScreenDesignHeight,
                 Recipe = RecipeRTB.Text
             };
             bigeditForm.ShowDialog();
@@ -5099,6 +5105,43 @@ namespace LEonardTablet
             //log.Info("RecipeRTB VScroll");
 
         }
+
+        // ===================================================================
+        // START UI CONTROL SYSTEM
+        // ===================================================================
+        private void UiTabletBtn_Click(object sender, EventArgs e)
+        {
+            userInterfaceMode = UserInterfaceMode.TABLET;
+
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.ControlBox = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.WindowState = FormWindowState.Normal;
+
+            Left = 0;
+            Top = 0;
+            Width = tabletScreenDesignWidth;
+            Height = tabletScreenDesignHeight;
+        }
+
+        private void UiFreeBtn_Click(object sender, EventArgs e)
+        {
+            userInterfaceMode = UserInterfaceMode.FREE;
+
+            Width = tabletScreenDesignWidth - 100;
+            Height = tabletScreenDesignHeight - 100;
+
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.ControlBox = true;
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
+            this.WindowState = FormWindowState.Normal;
+        }
+        // ===================================================================
+        // END UI CONTROL SYSTEM
+        // ===================================================================
+
     }
     public static class RichTextBoxExtensions
     {

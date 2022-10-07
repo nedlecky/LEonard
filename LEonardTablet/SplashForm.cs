@@ -44,8 +44,8 @@ namespace LEonardTablet
 
             if (AutoClose)
             {
-                Left = (MainForm.screenDesignWidth - Width) / 2;
-                Top = (MainForm.screenDesignHeight - Height) / 2;
+                Left = (MainForm.tabletScreenDesignWidth - Width) / 2;
+                Top = (MainForm.tabletScreenDesignHeight - Height) / 2;
                 CloseBtn.Visible = false;
                 CloseTmr.Interval = 10000;
                 CloseTmr.Enabled = true;

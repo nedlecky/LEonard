@@ -130,8 +130,8 @@ namespace LEonardTablet
         {
             RegistryKey FormNameKey = MyRegistryKey();
 
-            Left = (Int32)FormNameKey.GetValue("Left", (MainForm.screenDesignWidth - Width) / 2);
-            Top = (Int32)FormNameKey.GetValue("Top", (MainForm.screenDesignHeight - Height) / 2);
+            Left = (Int32)FormNameKey.GetValue("Left", (MainForm.tabletScreenDesignWidth - Width) / 2);
+            Top = (Int32)FormNameKey.GetValue("Top", (MainForm.tabletScreenDesignHeight - Height) / 2);
         }
     }
 }
