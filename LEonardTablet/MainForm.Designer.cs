@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
             this.RecipeRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
@@ -185,14 +185,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.LogPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.AllLogRTB = new System.Windows.Forms.RichTextBox();
-            this.ClearAllLogRtbBtn = new System.Windows.Forms.Button();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.ErrorLogRTB = new System.Windows.Forms.RichTextBox();
-            this.AboutBtn = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.LogLevelCombo = new System.Windows.Forms.ComboBox();
+            this.AboutBtn = new System.Windows.Forms.Button();
+            this.ClearAllLogRtbBtn = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.UrLogRTB = new System.Windows.Forms.RichTextBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.ExecLogRTB = new System.Windows.Forms.RichTextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.ErrorLogRTB = new System.Windows.Forms.RichTextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.UrDashboardLogRTB = new System.Windows.Forms.RichTextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.AllLogRTB = new System.Windows.Forms.RichTextBox();
             this.UiPage = new System.Windows.Forms.TabPage();
             this.UiFreeBtn = new System.Windows.Forms.Button();
             this.UiTabletBtn = new System.Windows.Forms.Button();
@@ -203,13 +210,10 @@
             this.VersionLbl = new System.Windows.Forms.Label();
             this.FootswitchPressedLbl = new System.Windows.Forms.Label();
             this.Time2Lbl = new System.Windows.Forms.Label();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.ExecLogRTB = new System.Windows.Forms.RichTextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.UrLogRTB = new System.Windows.Forms.RichTextBox();
-            this.UrDashboardLogRTB = new System.Windows.Forms.RichTextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BottomButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionTestButtonGrp.SuspendLayout();
@@ -230,14 +234,18 @@
             this.GeneralConfigGrp.SuspendLayout();
             this.LogPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.UiPage.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.UiPage.SuspendLayout();
+            this.BottomButtonLayoutPanel.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CurrentLineLbl
@@ -265,15 +273,15 @@
             // 
             // StepBtn
             // 
-            this.StepBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.StepBtn.BackColor = System.Drawing.Color.Gray;
+            this.StepBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StepBtn.Enabled = false;
             this.StepBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StepBtn.ForeColor = System.Drawing.Color.White;
-            this.StepBtn.Location = new System.Drawing.Point(226, 1289);
+            this.StepBtn.Location = new System.Drawing.Point(215, 2);
             this.StepBtn.Margin = new System.Windows.Forms.Padding(2);
             this.StepBtn.Name = "StepBtn";
-            this.StepBtn.Size = new System.Drawing.Size(197, 140);
+            this.StepBtn.Size = new System.Drawing.Size(209, 135);
             this.StepBtn.TabIndex = 1;
             this.StepBtn.Text = "Step";
             this.StepBtn.UseVisualStyleBackColor = false;
@@ -281,15 +289,15 @@
             // 
             // StopBtn
             // 
-            this.StopBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.StopBtn.BackColor = System.Drawing.Color.Gray;
+            this.StopBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StopBtn.Enabled = false;
             this.StopBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StopBtn.ForeColor = System.Drawing.Color.White;
-            this.StopBtn.Location = new System.Drawing.Point(656, 1288);
+            this.StopBtn.Location = new System.Drawing.Point(641, 2);
             this.StopBtn.Margin = new System.Windows.Forms.Padding(2);
             this.StopBtn.Name = "StopBtn";
-            this.StopBtn.Size = new System.Drawing.Size(197, 140);
+            this.StopBtn.Size = new System.Drawing.Size(209, 135);
             this.StopBtn.TabIndex = 3;
             this.StopBtn.Text = "Stop";
             this.StopBtn.UseVisualStyleBackColor = false;
@@ -297,15 +305,15 @@
             // 
             // PauseBtn
             // 
-            this.PauseBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.PauseBtn.BackColor = System.Drawing.Color.Gray;
+            this.PauseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PauseBtn.Enabled = false;
             this.PauseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PauseBtn.ForeColor = System.Drawing.Color.White;
-            this.PauseBtn.Location = new System.Drawing.Point(441, 1289);
+            this.PauseBtn.Location = new System.Drawing.Point(428, 2);
             this.PauseBtn.Margin = new System.Windows.Forms.Padding(2);
             this.PauseBtn.Name = "PauseBtn";
-            this.PauseBtn.Size = new System.Drawing.Size(197, 140);
+            this.PauseBtn.Size = new System.Drawing.Size(209, 135);
             this.PauseBtn.TabIndex = 2;
             this.PauseBtn.Text = "Pause";
             this.PauseBtn.UseVisualStyleBackColor = false;
@@ -313,15 +321,15 @@
             // 
             // StartBtn
             // 
-            this.StartBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.StartBtn.BackColor = System.Drawing.Color.Gray;
+            this.StartBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StartBtn.Enabled = false;
             this.StartBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartBtn.ForeColor = System.Drawing.Color.White;
-            this.StartBtn.Location = new System.Drawing.Point(11, 1288);
+            this.StartBtn.Location = new System.Drawing.Point(2, 2);
             this.StartBtn.Margin = new System.Windows.Forms.Padding(2);
             this.StartBtn.Name = "StartBtn";
-            this.StartBtn.Size = new System.Drawing.Size(197, 141);
+            this.StartBtn.Size = new System.Drawing.Size(209, 135);
             this.StartBtn.TabIndex = 0;
             this.StartBtn.Text = "Start";
             this.StartBtn.UseVisualStyleBackColor = false;
@@ -473,13 +481,13 @@
             // 
             // GrindContactEnabledBtn
             // 
-            this.GrindContactEnabledBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.GrindContactEnabledBtn.BackColor = System.Drawing.Color.Gray;
+            this.GrindContactEnabledBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrindContactEnabledBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrindContactEnabledBtn.ForeColor = System.Drawing.Color.White;
-            this.GrindContactEnabledBtn.Location = new System.Drawing.Point(871, 1289);
+            this.GrindContactEnabledBtn.Location = new System.Drawing.Point(855, 3);
             this.GrindContactEnabledBtn.Name = "GrindContactEnabledBtn";
-            this.GrindContactEnabledBtn.Size = new System.Drawing.Size(248, 140);
+            this.GrindContactEnabledBtn.Size = new System.Drawing.Size(207, 133);
             this.GrindContactEnabledBtn.TabIndex = 4;
             this.GrindContactEnabledBtn.Text = "Grind Contact Enabled";
             this.GrindContactEnabledBtn.UseVisualStyleBackColor = false;
@@ -641,14 +649,14 @@
             // 
             this.PositionsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.PositionsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.PositionsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PositionsGrd.Location = new System.Drawing.Point(6, 196);
             this.PositionsGrd.Name = "PositionsGrd";
@@ -738,14 +746,14 @@
             // 
             this.VariablesGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.VariablesGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VariablesGrd.Location = new System.Drawing.Point(6, 6);
             this.VariablesGrd.Name = "VariablesGrd";
@@ -839,13 +847,13 @@
             // 
             // MountedToolBox
             // 
-            this.MountedToolBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.MountedToolBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MountedToolBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MountedToolBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MountedToolBox.FormattingEnabled = true;
-            this.MountedToolBox.Location = new System.Drawing.Point(1142, 1288);
+            this.MountedToolBox.Location = new System.Drawing.Point(3, 3);
             this.MountedToolBox.Name = "MountedToolBox";
-            this.MountedToolBox.Size = new System.Drawing.Size(305, 63);
+            this.MountedToolBox.Size = new System.Drawing.Size(308, 63);
             this.MountedToolBox.TabIndex = 5;
             this.MountedToolBox.SelectedIndexChanged += new System.EventHandler(this.MountedToolBox_SelectedIndexChanged);
             // 
@@ -922,7 +930,7 @@
             this.DiameterDimLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DiameterDimLbl.AutoSize = true;
             this.DiameterDimLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DiameterDimLbl.Location = new System.Drawing.Point(1970, 1296);
+            this.DiameterDimLbl.Location = new System.Drawing.Point(228, 13);
             this.DiameterDimLbl.Name = "DiameterDimLbl";
             this.DiameterDimLbl.Size = new System.Drawing.Size(162, 42);
             this.DiameterDimLbl.TabIndex = 12;
@@ -1947,23 +1955,23 @@
             // 
             this.ToolsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.ToolsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.ToolsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle4;
             this.ToolsGrd.Location = new System.Drawing.Point(6, 43);
             this.ToolsGrd.Name = "ToolsGrd";
             this.ToolsGrd.RowTemplate.Height = 34;
@@ -2200,86 +2208,19 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(2128, 1164);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // groupBox4
+            // groupBox1
             // 
-            this.groupBox4.Controls.Add(this.AllLogRTB);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(3, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1377, 459);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "All Log Messages (Double-click to clear any of these)";
-            // 
-            // AllLogRTB
-            // 
-            this.AllLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AllLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AllLogRTB.Location = new System.Drawing.Point(3, 25);
-            this.AllLogRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.AllLogRTB.MaxLength = 1000000;
-            this.AllLogRTB.Name = "AllLogRTB";
-            this.AllLogRTB.ReadOnly = true;
-            this.AllLogRTB.Size = new System.Drawing.Size(1371, 431);
-            this.AllLogRTB.TabIndex = 0;
-            this.AllLogRTB.Text = "";
-            this.AllLogRTB.WordWrap = false;
-            // 
-            // ClearAllLogRtbBtn
-            // 
-            this.ClearAllLogRtbBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClearAllLogRtbBtn.BackColor = System.Drawing.Color.Green;
-            this.ClearAllLogRtbBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClearAllLogRtbBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearAllLogRtbBtn.Location = new System.Drawing.Point(358, 104);
-            this.ClearAllLogRtbBtn.Name = "ClearAllLogRtbBtn";
-            this.ClearAllLogRtbBtn.Size = new System.Drawing.Size(161, 116);
-            this.ClearAllLogRtbBtn.TabIndex = 5;
-            this.ClearAllLogRtbBtn.Text = "Clear All";
-            this.ClearAllLogRtbBtn.UseVisualStyleBackColor = false;
-            this.ClearAllLogRtbBtn.Click += new System.EventHandler(this.ClearAllLogRtbBtn_Click);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.ErrorLogRTB);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(3, 933);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(1377, 228);
-            this.groupBox6.TabIndex = 4;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Errors and Warnings";
-            // 
-            // ErrorLogRTB
-            // 
-            this.ErrorLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ErrorLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ErrorLogRTB.Location = new System.Drawing.Point(3, 25);
-            this.ErrorLogRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.ErrorLogRTB.MaxLength = 1000000;
-            this.ErrorLogRTB.Name = "ErrorLogRTB";
-            this.ErrorLogRTB.ReadOnly = true;
-            this.ErrorLogRTB.Size = new System.Drawing.Size(1371, 200);
-            this.ErrorLogRTB.TabIndex = 0;
-            this.ErrorLogRTB.Text = "";
-            this.ErrorLogRTB.WordWrap = false;
-            this.ErrorLogRTB.DoubleClick += new System.EventHandler(this.ErrorLogRTB_DoubleClick);
-            // 
-            // AboutBtn
-            // 
-            this.AboutBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AboutBtn.BackColor = System.Drawing.Color.Green;
-            this.AboutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutBtn.ForeColor = System.Drawing.Color.White;
-            this.AboutBtn.Location = new System.Drawing.Point(589, 104);
-            this.AboutBtn.Name = "AboutBtn";
-            this.AboutBtn.Size = new System.Drawing.Size(142, 116);
-            this.AboutBtn.TabIndex = 6;
-            this.AboutBtn.Text = "About";
-            this.AboutBtn.UseVisualStyleBackColor = false;
-            this.AboutBtn.Click += new System.EventHandler(this.AboutBtn_Click);
+            this.groupBox1.Controls.Add(this.groupBox3);
+            this.groupBox1.Controls.Add(this.AboutBtn);
+            this.groupBox1.Controls.Add(this.ClearAllLogRtbBtn);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(1386, 933);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(739, 228);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Settings";
             // 
             // groupBox3
             // 
@@ -2309,6 +2250,166 @@
             this.LogLevelCombo.Size = new System.Drawing.Size(291, 50);
             this.LogLevelCombo.TabIndex = 0;
             this.LogLevelCombo.SelectedIndexChanged += new System.EventHandler(this.DebugLevelCombo_SelectedIndexChanged);
+            // 
+            // AboutBtn
+            // 
+            this.AboutBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AboutBtn.BackColor = System.Drawing.Color.Green;
+            this.AboutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutBtn.ForeColor = System.Drawing.Color.White;
+            this.AboutBtn.Location = new System.Drawing.Point(589, 104);
+            this.AboutBtn.Name = "AboutBtn";
+            this.AboutBtn.Size = new System.Drawing.Size(142, 116);
+            this.AboutBtn.TabIndex = 6;
+            this.AboutBtn.Text = "About";
+            this.AboutBtn.UseVisualStyleBackColor = false;
+            this.AboutBtn.Click += new System.EventHandler(this.AboutBtn_Click);
+            // 
+            // ClearAllLogRtbBtn
+            // 
+            this.ClearAllLogRtbBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ClearAllLogRtbBtn.BackColor = System.Drawing.Color.Green;
+            this.ClearAllLogRtbBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearAllLogRtbBtn.ForeColor = System.Drawing.Color.White;
+            this.ClearAllLogRtbBtn.Location = new System.Drawing.Point(358, 104);
+            this.ClearAllLogRtbBtn.Name = "ClearAllLogRtbBtn";
+            this.ClearAllLogRtbBtn.Size = new System.Drawing.Size(161, 116);
+            this.ClearAllLogRtbBtn.TabIndex = 5;
+            this.ClearAllLogRtbBtn.Text = "Clear All";
+            this.ClearAllLogRtbBtn.UseVisualStyleBackColor = false;
+            this.ClearAllLogRtbBtn.Click += new System.EventHandler(this.ClearAllLogRtbBtn_Click);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.UrLogRTB);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(1386, 468);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(739, 459);
+            this.groupBox5.TabIndex = 3;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Robot Commands and Responses";
+            // 
+            // UrLogRTB
+            // 
+            this.UrLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UrLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UrLogRTB.Location = new System.Drawing.Point(3, 25);
+            this.UrLogRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.UrLogRTB.MaxLength = 1000000;
+            this.UrLogRTB.Name = "UrLogRTB";
+            this.UrLogRTB.ReadOnly = true;
+            this.UrLogRTB.Size = new System.Drawing.Size(733, 431);
+            this.UrLogRTB.TabIndex = 0;
+            this.UrLogRTB.Text = "";
+            this.UrLogRTB.WordWrap = false;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.ExecLogRTB);
+            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox10.Location = new System.Drawing.Point(3, 468);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(1377, 459);
+            this.groupBox10.TabIndex = 2;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Recipe Execution Messages";
+            // 
+            // ExecLogRTB
+            // 
+            this.ExecLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ExecLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExecLogRTB.Location = new System.Drawing.Point(3, 25);
+            this.ExecLogRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.ExecLogRTB.MaxLength = 1000000;
+            this.ExecLogRTB.Name = "ExecLogRTB";
+            this.ExecLogRTB.ReadOnly = true;
+            this.ExecLogRTB.Size = new System.Drawing.Size(1371, 431);
+            this.ExecLogRTB.TabIndex = 0;
+            this.ExecLogRTB.Text = "";
+            this.ExecLogRTB.WordWrap = false;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.ErrorLogRTB);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox6.Location = new System.Drawing.Point(3, 933);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(1377, 228);
+            this.groupBox6.TabIndex = 4;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Errors and Warnings";
+            // 
+            // ErrorLogRTB
+            // 
+            this.ErrorLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ErrorLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ErrorLogRTB.Location = new System.Drawing.Point(3, 25);
+            this.ErrorLogRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.ErrorLogRTB.MaxLength = 1000000;
+            this.ErrorLogRTB.Name = "ErrorLogRTB";
+            this.ErrorLogRTB.ReadOnly = true;
+            this.ErrorLogRTB.Size = new System.Drawing.Size(1371, 200);
+            this.ErrorLogRTB.TabIndex = 0;
+            this.ErrorLogRTB.Text = "";
+            this.ErrorLogRTB.WordWrap = false;
+            this.ErrorLogRTB.DoubleClick += new System.EventHandler(this.ErrorLogRTB_DoubleClick);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.UrDashboardLogRTB);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox7.Location = new System.Drawing.Point(1386, 3);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(739, 459);
+            this.groupBox7.TabIndex = 3;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Robot Dashboard Server";
+            // 
+            // UrDashboardLogRTB
+            // 
+            this.UrDashboardLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UrDashboardLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UrDashboardLogRTB.Location = new System.Drawing.Point(3, 25);
+            this.UrDashboardLogRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.UrDashboardLogRTB.MaxLength = 1000000;
+            this.UrDashboardLogRTB.Name = "UrDashboardLogRTB";
+            this.UrDashboardLogRTB.ReadOnly = true;
+            this.UrDashboardLogRTB.Size = new System.Drawing.Size(733, 431);
+            this.UrDashboardLogRTB.TabIndex = 0;
+            this.UrDashboardLogRTB.Text = "";
+            this.UrDashboardLogRTB.WordWrap = false;
+            this.UrDashboardLogRTB.DoubleClick += new System.EventHandler(this.UrDashboardLogRTB_DoubleClick);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.AllLogRTB);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(3, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(1377, 459);
+            this.groupBox4.TabIndex = 1;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "All Log Messages (Double-click to clear any of these)";
+            // 
+            // AllLogRTB
+            // 
+            this.AllLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AllLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AllLogRTB.Location = new System.Drawing.Point(3, 25);
+            this.AllLogRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.AllLogRTB.MaxLength = 1000000;
+            this.AllLogRTB.Name = "AllLogRTB";
+            this.AllLogRTB.ReadOnly = true;
+            this.AllLogRTB.Size = new System.Drawing.Size(1371, 431);
+            this.AllLogRTB.TabIndex = 0;
+            this.AllLogRTB.Text = "";
+            this.AllLogRTB.WordWrap = false;
             // 
             // UiPage
             // 
@@ -2361,7 +2462,7 @@
             this.DiameterLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DiameterLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DiameterLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DiameterLbl.Location = new System.Drawing.Point(1764, 1291);
+            this.DiameterLbl.Location = new System.Drawing.Point(13, 6);
             this.DiameterLbl.Name = "DiameterLbl";
             this.DiameterLbl.Size = new System.Drawing.Size(205, 52);
             this.DiameterLbl.TabIndex = 9;
@@ -2370,7 +2471,7 @@
             // 
             // PartGeometryBox
             // 
-            this.PartGeometryBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.PartGeometryBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartGeometryBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PartGeometryBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PartGeometryBox.FormattingEnabled = true;
@@ -2378,23 +2479,23 @@
             "FLAT",
             "CYLINDER",
             "SPHERE"});
-            this.PartGeometryBox.Location = new System.Drawing.Point(1453, 1288);
+            this.PartGeometryBox.Location = new System.Drawing.Point(3, 3);
             this.PartGeometryBox.Name = "PartGeometryBox";
-            this.PartGeometryBox.Size = new System.Drawing.Size(305, 63);
+            this.PartGeometryBox.Size = new System.Drawing.Size(308, 63);
             this.PartGeometryBox.TabIndex = 7;
             this.PartGeometryBox.SelectedIndexChanged += new System.EventHandler(this.PartGeometryBox_SelectedIndexChanged);
             // 
             // DoorClosedLbl
             // 
-            this.DoorClosedLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DoorClosedLbl.BackColor = System.Drawing.Color.Gray;
             this.DoorClosedLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DoorClosedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DoorClosedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DoorClosedLbl.ForeColor = System.Drawing.Color.White;
-            this.DoorClosedLbl.Location = new System.Drawing.Point(1142, 1359);
+            this.DoorClosedLbl.Location = new System.Drawing.Point(2, 66);
             this.DoorClosedLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.DoorClosedLbl.Name = "DoorClosedLbl";
-            this.DoorClosedLbl.Size = new System.Drawing.Size(305, 69);
+            this.DoorClosedLbl.Size = new System.Drawing.Size(310, 67);
             this.DoorClosedLbl.TabIndex = 6;
             this.DoorClosedLbl.Text = "Door Closed?";
             this.DoorClosedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2403,7 +2504,7 @@
             // 
             this.VersionLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.VersionLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VersionLbl.Location = new System.Drawing.Point(1765, 1367);
+            this.VersionLbl.Location = new System.Drawing.Point(31, 66);
             this.VersionLbl.Name = "VersionLbl";
             this.VersionLbl.Size = new System.Drawing.Size(384, 29);
             this.VersionLbl.TabIndex = 10;
@@ -2412,15 +2513,15 @@
             // 
             // FootswitchPressedLbl
             // 
-            this.FootswitchPressedLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.FootswitchPressedLbl.BackColor = System.Drawing.Color.Gray;
             this.FootswitchPressedLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FootswitchPressedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FootswitchPressedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FootswitchPressedLbl.ForeColor = System.Drawing.Color.White;
-            this.FootswitchPressedLbl.Location = new System.Drawing.Point(1453, 1360);
+            this.FootswitchPressedLbl.Location = new System.Drawing.Point(2, 66);
             this.FootswitchPressedLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.FootswitchPressedLbl.Name = "FootswitchPressedLbl";
-            this.FootswitchPressedLbl.Size = new System.Drawing.Size(305, 69);
+            this.FootswitchPressedLbl.Size = new System.Drawing.Size(310, 67);
             this.FootswitchPressedLbl.TabIndex = 8;
             this.FootswitchPressedLbl.Text = "Footswitch Pressed?";
             this.FootswitchPressedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2430,7 +2531,7 @@
             this.Time2Lbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Time2Lbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Time2Lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Time2Lbl.Location = new System.Drawing.Point(1765, 1397);
+            this.Time2Lbl.Location = new System.Drawing.Point(31, 97);
             this.Time2Lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Time2Lbl.Name = "Time2Lbl";
             this.Time2Lbl.Size = new System.Drawing.Size(384, 34);
@@ -2438,98 +2539,75 @@
             this.Time2Lbl.Text = "Time";
             this.Time2Lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox10
+            // BottomButtonLayoutPanel
             // 
-            this.groupBox10.Controls.Add(this.ExecLogRTB);
-            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox10.Location = new System.Drawing.Point(3, 468);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(1377, 459);
-            this.groupBox10.TabIndex = 2;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Recipe Execution Messages";
+            this.BottomButtonLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BottomButtonLayoutPanel.ColumnCount = 8;
+            this.BottomButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.BottomButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.BottomButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.BottomButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.BottomButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.BottomButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.BottomButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.BottomButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.BottomButtonLayoutPanel.Controls.Add(this.StartBtn, 0, 0);
+            this.BottomButtonLayoutPanel.Controls.Add(this.GrindContactEnabledBtn, 4, 0);
+            this.BottomButtonLayoutPanel.Controls.Add(this.StopBtn, 3, 0);
+            this.BottomButtonLayoutPanel.Controls.Add(this.StepBtn, 1, 0);
+            this.BottomButtonLayoutPanel.Controls.Add(this.PauseBtn, 2, 0);
+            this.BottomButtonLayoutPanel.Controls.Add(this.tableLayoutPanel3, 5, 0);
+            this.BottomButtonLayoutPanel.Controls.Add(this.tableLayoutPanel4, 6, 0);
+            this.BottomButtonLayoutPanel.Controls.Add(this.panel1, 7, 0);
+            this.BottomButtonLayoutPanel.Location = new System.Drawing.Point(8, 1289);
+            this.BottomButtonLayoutPanel.Name = "BottomButtonLayoutPanel";
+            this.BottomButtonLayoutPanel.RowCount = 1;
+            this.BottomButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.BottomButtonLayoutPanel.Size = new System.Drawing.Size(2136, 139);
+            this.BottomButtonLayoutPanel.TabIndex = 13;
             // 
-            // ExecLogRTB
+            // tableLayoutPanel3
             // 
-            this.ExecLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ExecLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExecLogRTB.Location = new System.Drawing.Point(3, 25);
-            this.ExecLogRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.ExecLogRTB.MaxLength = 1000000;
-            this.ExecLogRTB.Name = "ExecLogRTB";
-            this.ExecLogRTB.ReadOnly = true;
-            this.ExecLogRTB.Size = new System.Drawing.Size(1371, 431);
-            this.ExecLogRTB.TabIndex = 0;
-            this.ExecLogRTB.Text = "";
-            this.ExecLogRTB.WordWrap = false;
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.MountedToolBox, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.DoorClosedLbl, 0, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(1068, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(314, 133);
+            this.tableLayoutPanel3.TabIndex = 5;
             // 
-            // groupBox5
+            // tableLayoutPanel4
             // 
-            this.groupBox5.Controls.Add(this.UrLogRTB);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(1386, 468);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(739, 459);
-            this.groupBox5.TabIndex = 3;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Robot Commands and Responses";
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.PartGeometryBox, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.FootswitchPressedLbl, 0, 1);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(1388, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(314, 133);
+            this.tableLayoutPanel4.TabIndex = 6;
             // 
-            // UrLogRTB
+            // panel1
             // 
-            this.UrLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UrLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UrLogRTB.Location = new System.Drawing.Point(3, 25);
-            this.UrLogRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.UrLogRTB.MaxLength = 1000000;
-            this.UrLogRTB.Name = "UrLogRTB";
-            this.UrLogRTB.ReadOnly = true;
-            this.UrLogRTB.Size = new System.Drawing.Size(733, 431);
-            this.UrLogRTB.TabIndex = 0;
-            this.UrLogRTB.Text = "";
-            this.UrLogRTB.WordWrap = false;
-            // 
-            // UrDashboardLogRTB
-            // 
-            this.UrDashboardLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UrDashboardLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UrDashboardLogRTB.Location = new System.Drawing.Point(3, 25);
-            this.UrDashboardLogRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.UrDashboardLogRTB.MaxLength = 1000000;
-            this.UrDashboardLogRTB.Name = "UrDashboardLogRTB";
-            this.UrDashboardLogRTB.ReadOnly = true;
-            this.UrDashboardLogRTB.Size = new System.Drawing.Size(733, 431);
-            this.UrDashboardLogRTB.TabIndex = 0;
-            this.UrDashboardLogRTB.Text = "";
-            this.UrDashboardLogRTB.WordWrap = false;
-            this.UrDashboardLogRTB.DoubleClick += new System.EventHandler(this.UrDashboardLogRTB_DoubleClick);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.UrDashboardLogRTB);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox7.Location = new System.Drawing.Point(1386, 3);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(739, 459);
-            this.groupBox7.TabIndex = 3;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Robot Dashboard Server";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Controls.Add(this.AboutBtn);
-            this.groupBox1.Controls.Add(this.ClearAllLogRtbBtn);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(1386, 933);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(739, 228);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Settings";
+            this.panel1.Controls.Add(this.DiameterLbl);
+            this.panel1.Controls.Add(this.Time2Lbl);
+            this.panel1.Controls.Add(this.DiameterDimLbl);
+            this.panel1.Controls.Add(this.VersionLbl);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(1708, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(425, 133);
+            this.panel1.TabIndex = 7;
             // 
             // MainForm
             // 
@@ -2537,11 +2615,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2160, 1440);
             this.ControlBox = false;
-            this.Controls.Add(this.StepBtn);
-            this.Controls.Add(this.StopBtn);
-            this.Controls.Add(this.PauseBtn);
-            this.Controls.Add(this.StartBtn);
-            this.Controls.Add(this.GrindContactEnabledBtn);
+            this.Controls.Add(this.BottomButtonLayoutPanel);
             this.Controls.Add(this.JogRunBtn);
             this.Controls.Add(this.ExitBtn);
             this.Controls.Add(this.SaveAsRecipeBtn);
@@ -2549,14 +2623,6 @@
             this.Controls.Add(this.LoadRecipeBtn);
             this.Controls.Add(this.SaveRecipeBtn);
             this.Controls.Add(this.MainTab);
-            this.Controls.Add(this.Time2Lbl);
-            this.Controls.Add(this.FootswitchPressedLbl);
-            this.Controls.Add(this.VersionLbl);
-            this.Controls.Add(this.DoorClosedLbl);
-            this.Controls.Add(this.DiameterLbl);
-            this.Controls.Add(this.PartGeometryBox);
-            this.Controls.Add(this.MountedToolBox);
-            this.Controls.Add(this.DiameterDimLbl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -2590,16 +2656,20 @@
             this.GeneralConfigGrp.PerformLayout();
             this.LogPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.UiPage.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.UiPage.ResumeLayout(false);
+            this.BottomButtonLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -2781,6 +2851,10 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.RichTextBox UrDashboardLogRTB;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TableLayoutPanel BottomButtonLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
