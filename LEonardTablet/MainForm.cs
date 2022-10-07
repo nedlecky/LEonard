@@ -5138,6 +5138,7 @@ namespace LEonardTablet
             this.MinimizeBox = true;
             this.WindowState = FormWindowState.Normal;
         }
+
         // ===================================================================
         // END UI CONTROL SYSTEM
         // ===================================================================
