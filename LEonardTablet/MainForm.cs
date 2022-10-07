@@ -1017,14 +1017,14 @@ namespace LEonardTablet
             controlSpecs = new ControlSpec[]
             {
                 // Position Test Buttons
-                new ControlSpec(PositionTestButtonGrp, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
+                //new ControlSpec(PositionTestButtonGrp, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(LoadPositionsBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(SavePositionsBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(ClearPositionsBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(ClearAllPositionsBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
 
                 // Variable Test Buttons
-                new ControlSpec(VariableTestButtonGrp, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
+                //new ControlSpec(VariableTestButtonGrp, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(LoadVariablesBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(SaveVariablesBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(ClearVariablesBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
@@ -4166,7 +4166,7 @@ namespace LEonardTablet
                     switch (valueTrimmed)
                     {
                         case "False":
-                            DoorClosedLbl.Text = "DOOR OPEN";
+                            DoorClosedLbl.Text = "Door Open";
                             DoorClosedLbl.BackColor = Color.Red;
                             if (runState == RunState.RUNNING)
                             {
@@ -4175,11 +4175,11 @@ namespace LEonardTablet
                             }
                             break;
                         case "True":
-                            DoorClosedLbl.Text = "DOOR CLOSED";
+                            DoorClosedLbl.Text = "Door Closed";
                             DoorClosedLbl.BackColor = Color.Green;
                             break;
                         default:
-                            DoorClosedLbl.Text = "DOOR ????";
+                            DoorClosedLbl.Text = "Door ????";
                             DoorClosedLbl.BackColor = Color.Yellow;
                             break;
                     }
@@ -4188,21 +4188,21 @@ namespace LEonardTablet
                     switch (valueTrimmed)
                     {
                         case "False":
-                            FootswitchPressedLbl.Text = "FOOTSWITCH\nNot Pressed";
+                            FootswitchPressedLbl.Text = "Pedal Up";
                             FootswitchPressedLbl.BackColor = Color.Green;
                             if (runState != RunState.RUNNING)
                                 // Disable freedrive mode
                                 RobotSend("30,19,0");
                             break;
                         case "True":
-                            FootswitchPressedLbl.Text = "FOOTSWITCH PRESSED";
+                            FootswitchPressedLbl.Text = "Pedal Pressed";
                             FootswitchPressedLbl.BackColor = Color.Red;
                             if (runState != RunState.RUNNING)
                                 // Enable freedrive in base coords with all axes on
                                 RobotSend("30,19,1,0,1,1,1,1,1,1");
                             break;
                         default:
-                            FootswitchPressedLbl.Text = "FOOTSWITCH ????";
+                            FootswitchPressedLbl.Text = "Pedal ????";
                             FootswitchPressedLbl.BackColor = Color.Yellow;
                             break;
                     }
