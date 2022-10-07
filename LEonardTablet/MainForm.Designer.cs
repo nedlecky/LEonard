@@ -78,7 +78,6 @@
             this.RecipeCommandsRTB = new System.Windows.Forms.RichTextBox();
             this.revhistPage = new System.Windows.Forms.TabPage();
             this.RevHistRTB = new System.Windows.Forms.RichTextBox();
-            this.ExitBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.MountedToolBox = new System.Windows.Forms.ComboBox();
             this.UserModeBox = new System.Windows.Forms.ComboBox();
@@ -214,6 +213,8 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.ExitBtn = new System.Windows.Forms.Button();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionTestButtonGrp.SuspendLayout();
@@ -246,6 +247,7 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.TopButtonLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // CurrentLineLbl
@@ -349,15 +351,15 @@
             // 
             // SaveAsRecipeBtn
             // 
-            this.SaveAsRecipeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveAsRecipeBtn.BackColor = System.Drawing.Color.Gray;
+            this.SaveAsRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveAsRecipeBtn.Enabled = false;
             this.SaveAsRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveAsRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveAsRecipeBtn.Location = new System.Drawing.Point(1348, 9);
+            this.SaveAsRecipeBtn.Location = new System.Drawing.Point(715, 2);
             this.SaveAsRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SaveAsRecipeBtn.Name = "SaveAsRecipeBtn";
-            this.SaveAsRecipeBtn.Size = new System.Drawing.Size(188, 95);
+            this.SaveAsRecipeBtn.Size = new System.Drawing.Size(175, 94);
             this.SaveAsRecipeBtn.TabIndex = 4;
             this.SaveAsRecipeBtn.Text = "Save As...";
             this.SaveAsRecipeBtn.UseVisualStyleBackColor = false;
@@ -365,14 +367,14 @@
             // 
             // NewRecipeBtn
             // 
-            this.NewRecipeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.NewRecipeBtn.BackColor = System.Drawing.Color.Gray;
+            this.NewRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NewRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NewRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.NewRecipeBtn.Location = new System.Drawing.Point(1126, 9);
+            this.NewRecipeBtn.Location = new System.Drawing.Point(357, 2);
             this.NewRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.NewRecipeBtn.Name = "NewRecipeBtn";
-            this.NewRecipeBtn.Size = new System.Drawing.Size(99, 95);
+            this.NewRecipeBtn.Size = new System.Drawing.Size(175, 94);
             this.NewRecipeBtn.TabIndex = 2;
             this.NewRecipeBtn.Text = "New";
             this.NewRecipeBtn.UseVisualStyleBackColor = false;
@@ -380,14 +382,14 @@
             // 
             // LoadRecipeBtn
             // 
-            this.LoadRecipeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LoadRecipeBtn.BackColor = System.Drawing.Color.Gray;
+            this.LoadRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadRecipeBtn.Location = new System.Drawing.Point(557, 9);
+            this.LoadRecipeBtn.Location = new System.Drawing.Point(2, 2);
             this.LoadRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.LoadRecipeBtn.Name = "LoadRecipeBtn";
-            this.LoadRecipeBtn.Size = new System.Drawing.Size(562, 95);
+            this.LoadRecipeBtn.Size = new System.Drawing.Size(351, 94);
             this.LoadRecipeBtn.TabIndex = 1;
             this.LoadRecipeBtn.Text = "Untitled";
             this.LoadRecipeBtn.UseVisualStyleBackColor = false;
@@ -395,15 +397,15 @@
             // 
             // SaveRecipeBtn
             // 
-            this.SaveRecipeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveRecipeBtn.BackColor = System.Drawing.Color.Gray;
+            this.SaveRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveRecipeBtn.Enabled = false;
             this.SaveRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveRecipeBtn.Location = new System.Drawing.Point(1233, 9);
+            this.SaveRecipeBtn.Location = new System.Drawing.Point(536, 2);
             this.SaveRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SaveRecipeBtn.Name = "SaveRecipeBtn";
-            this.SaveRecipeBtn.Size = new System.Drawing.Size(107, 95);
+            this.SaveRecipeBtn.Size = new System.Drawing.Size(175, 94);
             this.SaveRecipeBtn.TabIndex = 3;
             this.SaveRecipeBtn.Text = "Save";
             this.SaveRecipeBtn.UseVisualStyleBackColor = false;
@@ -817,30 +819,16 @@
             this.RevHistRTB.TabIndex = 105;
             this.RevHistRTB.Text = "";
             // 
-            // ExitBtn
-            // 
-            this.ExitBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExitBtn.BackColor = System.Drawing.Color.Gray;
-            this.ExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExitBtn.ForeColor = System.Drawing.Color.White;
-            this.ExitBtn.Location = new System.Drawing.Point(1946, 9);
-            this.ExitBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.ExitBtn.Name = "ExitBtn";
-            this.ExitBtn.Size = new System.Drawing.Size(185, 95);
-            this.ExitBtn.TabIndex = 6;
-            this.ExitBtn.Text = "Exit";
-            this.ExitBtn.UseVisualStyleBackColor = false;
-            this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
-            // 
             // label6
             // 
             this.label6.BackColor = System.Drawing.Color.Gray;
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(1128, 1086);
+            this.label6.Location = new System.Drawing.Point(3, 66);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(305, 72);
+            this.label6.Size = new System.Drawing.Size(308, 67);
             this.label6.TabIndex = 97;
             this.label6.Text = "Tool";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -916,13 +904,14 @@
             // 
             this.label5.BackColor = System.Drawing.Color.Gray;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(1439, 1086);
+            this.label5.Location = new System.Drawing.Point(3, 66);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(667, 72);
+            this.label5.Size = new System.Drawing.Size(308, 67);
             this.label5.TabIndex = 115;
-            this.label5.Text = "Part Geometry";
+            this.label5.Text = "Part Geom";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DiameterDimLbl
@@ -1000,15 +989,14 @@
             this.RunPage.Controls.Add(this.RobotReadyLbl);
             this.RunPage.Controls.Add(this.RobotModeBtn);
             this.RunPage.Controls.Add(this.SafetyStatusBtn);
-            this.RunPage.Controls.Add(this.label5);
             this.RunPage.Controls.Add(this.ProgramStateBtn);
-            this.RunPage.Controls.Add(this.label6);
             this.RunPage.Location = new System.Drawing.Point(4, 100);
             this.RunPage.Name = "RunPage";
             this.RunPage.Padding = new System.Windows.Forms.Padding(3);
             this.RunPage.Size = new System.Drawing.Size(2132, 1168);
             this.RunPage.TabIndex = 0;
             this.RunPage.Text = "Run";
+            this.RunPage.ToolTipText = "Run";
             this.RunPage.UseVisualStyleBackColor = true;
             // 
             // GocatorReadyLbl
@@ -2444,14 +2432,14 @@
             // 
             // JogRunBtn
             // 
-            this.JogRunBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.JogRunBtn.BackColor = System.Drawing.Color.Green;
+            this.JogRunBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JogRunBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JogRunBtn.ForeColor = System.Drawing.Color.White;
-            this.JogRunBtn.Location = new System.Drawing.Point(1572, 9);
+            this.JogRunBtn.Location = new System.Drawing.Point(894, 2);
             this.JogRunBtn.Margin = new System.Windows.Forms.Padding(2);
             this.JogRunBtn.Name = "JogRunBtn";
-            this.JogRunBtn.Size = new System.Drawing.Size(333, 97);
+            this.JogRunBtn.Size = new System.Drawing.Size(175, 94);
             this.JogRunBtn.TabIndex = 5;
             this.JogRunBtn.Text = "Jog Robot";
             this.JogRunBtn.UseVisualStyleBackColor = false;
@@ -2492,10 +2480,10 @@
             this.DoorClosedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DoorClosedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DoorClosedLbl.ForeColor = System.Drawing.Color.White;
-            this.DoorClosedLbl.Location = new System.Drawing.Point(2, 66);
+            this.DoorClosedLbl.Location = new System.Drawing.Point(1073, 0);
             this.DoorClosedLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.DoorClosedLbl.Name = "DoorClosedLbl";
-            this.DoorClosedLbl.Size = new System.Drawing.Size(310, 67);
+            this.DoorClosedLbl.Size = new System.Drawing.Size(175, 98);
             this.DoorClosedLbl.TabIndex = 6;
             this.DoorClosedLbl.Text = "Door Closed?";
             this.DoorClosedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2518,10 +2506,10 @@
             this.FootswitchPressedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FootswitchPressedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FootswitchPressedLbl.ForeColor = System.Drawing.Color.White;
-            this.FootswitchPressedLbl.Location = new System.Drawing.Point(2, 66);
+            this.FootswitchPressedLbl.Location = new System.Drawing.Point(1252, 0);
             this.FootswitchPressedLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.FootswitchPressedLbl.Name = "FootswitchPressedLbl";
-            this.FootswitchPressedLbl.Size = new System.Drawing.Size(310, 67);
+            this.FootswitchPressedLbl.Size = new System.Drawing.Size(168, 98);
             this.FootswitchPressedLbl.TabIndex = 8;
             this.FootswitchPressedLbl.Text = "Footswitch Pressed?";
             this.FootswitchPressedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2572,7 +2560,7 @@
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Controls.Add(this.MountedToolBox, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.DoorClosedLbl, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(1068, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -2587,7 +2575,7 @@
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Controls.Add(this.PartGeometryBox, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.FootswitchPressedLbl, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.label5, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(1388, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -2609,19 +2597,57 @@
             this.panel1.Size = new System.Drawing.Size(425, 133);
             this.panel1.TabIndex = 7;
             // 
+            // TopButtonLayoutPanel
+            // 
+            this.TopButtonLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TopButtonLayoutPanel.ColumnCount = 8;
+            this.TopButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.2472F));
+            this.TopButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.23596F));
+            this.TopButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.23596F));
+            this.TopButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.23596F));
+            this.TopButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.23596F));
+            this.TopButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.23596F));
+            this.TopButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.78652F));
+            this.TopButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.78652F));
+            this.TopButtonLayoutPanel.Controls.Add(this.LoadRecipeBtn, 0, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.FootswitchPressedLbl, 6, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.NewRecipeBtn, 1, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.DoorClosedLbl, 5, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.JogRunBtn, 4, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.SaveRecipeBtn, 2, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.SaveAsRecipeBtn, 3, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.ExitBtn, 7, 0);
+            this.TopButtonLayoutPanel.Location = new System.Drawing.Point(548, 7);
+            this.TopButtonLayoutPanel.Name = "TopButtonLayoutPanel";
+            this.TopButtonLayoutPanel.RowCount = 1;
+            this.TopButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TopButtonLayoutPanel.Size = new System.Drawing.Size(1600, 98);
+            this.TopButtonLayoutPanel.TabIndex = 14;
+            // 
+            // ExitBtn
+            // 
+            this.ExitBtn.BackColor = System.Drawing.Color.Gray;
+            this.ExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExitBtn.ForeColor = System.Drawing.Color.White;
+            this.ExitBtn.Location = new System.Drawing.Point(1424, 2);
+            this.ExitBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.ExitBtn.Name = "ExitBtn";
+            this.ExitBtn.Size = new System.Drawing.Size(174, 94);
+            this.ExitBtn.TabIndex = 8;
+            this.ExitBtn.Text = "Exit";
+            this.ExitBtn.UseVisualStyleBackColor = false;
+            this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2160, 1440);
             this.ControlBox = false;
+            this.Controls.Add(this.TopButtonLayoutPanel);
             this.Controls.Add(this.BottomButtonLayoutPanel);
-            this.Controls.Add(this.JogRunBtn);
-            this.Controls.Add(this.ExitBtn);
-            this.Controls.Add(this.SaveAsRecipeBtn);
-            this.Controls.Add(this.NewRecipeBtn);
-            this.Controls.Add(this.LoadRecipeBtn);
-            this.Controls.Add(this.SaveRecipeBtn);
             this.Controls.Add(this.MainTab);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
@@ -2669,6 +2695,7 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.TopButtonLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2701,7 +2728,6 @@
         private System.Windows.Forms.Button SaveVariablesBtn;
         private System.Windows.Forms.Button ClearVariablesBtn;
         private System.Windows.Forms.DataGridView VariablesGrd;
-        private System.Windows.Forms.Button ExitBtn;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox MountedToolBox;
         private System.Windows.Forms.TabPage positionsPage;
@@ -2855,6 +2881,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel TopButtonLayoutPanel;
+        private System.Windows.Forms.Button ExitBtn;
     }
 }
 
