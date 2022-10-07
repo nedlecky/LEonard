@@ -88,38 +88,41 @@
             this.DiameterDimLbl = new System.Windows.Forms.Label();
             this.MainTab = new System.Windows.Forms.TabControl();
             this.RunPage = new System.Windows.Forms.TabPage();
+            this.RunTabLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.RecipeRTBCopy = new System.Windows.Forms.RichTextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.MoveToolMountBtn = new System.Windows.Forms.Button();
+            this.label22 = new System.Windows.Forms.Label();
+            this.MoveToolHomeBtn = new System.Windows.Forms.Button();
+            this.GrindForceReportZLbl = new System.Windows.Forms.Label();
+            this.RunStartedTimeLbl = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.RunElapsedTimeLbl = new System.Windows.Forms.Label();
+            this.RunStateLbl = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.CurrentLineLblCopy = new System.Windows.Forms.Label();
+            this.StepTimeRemainingLbl = new System.Windows.Forms.Label();
+            this.GrindCycleLbl = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.GrindNCyclesLbl = new System.Windows.Forms.Label();
+            this.StepTimeEstimateLbl = new System.Windows.Forms.Label();
+            this.Grind = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.StepElapsedTimeLbl = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.RobotConnectBtn = new System.Windows.Forms.Button();
             this.GocatorReadyLbl = new System.Windows.Forms.Label();
             this.GocatorConnectBtn = new System.Windows.Forms.Button();
-            this.label22 = new System.Windows.Forms.Label();
-            this.GrindForceReportZLbl = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.RobotSentLbl = new System.Windows.Forms.Label();
-            this.StepTimeRemainingLbl = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.StepTimeEstimateLbl = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.StepElapsedTimeLbl = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.MoveToolMountBtn = new System.Windows.Forms.Button();
-            this.MoveToolHomeBtn = new System.Windows.Forms.Button();
-            this.GrindProcessStateLbl = new System.Windows.Forms.Label();
             this.RobotCompletedLbl = new System.Windows.Forms.Label();
-            this.RunStartedTimeLbl = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.RobotConnectBtn = new System.Windows.Forms.Button();
-            this.RunElapsedTimeLbl = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.RecipeRTBCopy = new System.Windows.Forms.RichTextBox();
-            this.Grind = new System.Windows.Forms.Label();
-            this.GrindNCyclesLbl = new System.Windows.Forms.Label();
-            this.GrindCycleLbl = new System.Windows.Forms.Label();
-            this.CurrentLineLblCopy = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.RunStateLbl = new System.Windows.Forms.Label();
+            this.GrindProcessStateLbl = new System.Windows.Forms.Label();
             this.ProgramPage = new System.Windows.Forms.TabPage();
             this.BigEditBtn = new System.Windows.Forms.Button();
             this.SetupPage = new System.Windows.Forms.TabPage();
@@ -215,9 +218,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.RunTabLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.enginePage = new System.Windows.Forms.TabPage();
+            this.ProgramTabPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.FileBigEditPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionTestButtonGrp.SuspendLayout();
@@ -229,6 +232,9 @@
             this.revhistPage.SuspendLayout();
             this.MainTab.SuspendLayout();
             this.RunPage.SuspendLayout();
+            this.RunTabLayoutPanel.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.ProgramPage.SuspendLayout();
             this.SetupPage.SuspendLayout();
             this.DefaultMoveSetupGrp.SuspendLayout();
@@ -251,29 +257,30 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.TopButtonLayoutPanel.SuspendLayout();
-            this.RunTabLayoutPanel.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.ProgramTabPanel.SuspendLayout();
+            this.FileBigEditPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // CurrentLineLbl
             // 
             this.CurrentLineLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CurrentLineLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CurrentLineLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentLineLbl.Location = new System.Drawing.Point(5, 998);
+            this.CurrentLineLbl.Location = new System.Drawing.Point(3, 1038);
             this.CurrentLineLbl.Name = "CurrentLineLbl";
-            this.CurrentLineLbl.Size = new System.Drawing.Size(788, 44);
+            this.CurrentLineLbl.Size = new System.Drawing.Size(814, 40);
             this.CurrentLineLbl.TabIndex = 79;
             this.CurrentLineLbl.TextChanged += new System.EventHandler(this.CurrentLineLbl_TextChanged);
             // 
             // RecipeRTB
             // 
+            this.RecipeRTB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RecipeRTB.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecipeRTB.Location = new System.Drawing.Point(5, 5);
+            this.RecipeRTB.Location = new System.Drawing.Point(2, 2);
             this.RecipeRTB.Margin = new System.Windows.Forms.Padding(2);
             this.RecipeRTB.Name = "RecipeRTB";
             this.RecipeRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RecipeRTB.Size = new System.Drawing.Size(788, 977);
+            this.RecipeRTB.Size = new System.Drawing.Size(816, 1034);
             this.RecipeRTB.TabIndex = 72;
             this.RecipeRTB.Text = "";
             this.RecipeRTB.VScroll += new System.EventHandler(this.RecipeRTB_VScroll);
@@ -346,11 +353,12 @@
             // RecipeFilenameLbl
             // 
             this.RecipeFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RecipeFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RecipeFilenameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecipeFilenameLbl.Location = new System.Drawing.Point(5, 1054);
+            this.RecipeFilenameLbl.Location = new System.Drawing.Point(2, 0);
             this.RecipeFilenameLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RecipeFilenameLbl.Name = "RecipeFilenameLbl";
-            this.RecipeFilenameLbl.Size = new System.Drawing.Size(788, 90);
+            this.RecipeFilenameLbl.Size = new System.Drawing.Size(610, 74);
             this.RecipeFilenameLbl.TabIndex = 77;
             this.RecipeFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.RecipeFilenameLbl.TextChanged += new System.EventHandler(this.RecipeFilenameLbl_TextChanged);
@@ -506,14 +514,17 @@
             this.MonitorTab.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.MonitorTab.Controls.Add(this.positionsPage);
             this.MonitorTab.Controls.Add(this.variablesPage);
+            this.MonitorTab.Controls.Add(this.enginePage);
             this.MonitorTab.Controls.Add(this.manualPage);
             this.MonitorTab.Controls.Add(this.revhistPage);
+            this.MonitorTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MonitorTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MonitorTab.ItemSize = new System.Drawing.Size(150, 60);
-            this.MonitorTab.Location = new System.Drawing.Point(799, 35);
+            this.MonitorTab.Location = new System.Drawing.Point(823, 3);
             this.MonitorTab.Name = "MonitorTab";
+            this.ProgramTabPanel.SetRowSpan(this.MonitorTab, 3);
             this.MonitorTab.SelectedIndex = 0;
-            this.MonitorTab.Size = new System.Drawing.Size(1316, 1113);
+            this.MonitorTab.Size = new System.Drawing.Size(1296, 1152);
             this.MonitorTab.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.MonitorTab.TabIndex = 94;
             // 
@@ -527,7 +538,7 @@
             this.positionsPage.Controls.Add(this.PositionsGrd);
             this.positionsPage.Location = new System.Drawing.Point(4, 64);
             this.positionsPage.Name = "positionsPage";
-            this.positionsPage.Size = new System.Drawing.Size(1308, 1045);
+            this.positionsPage.Size = new System.Drawing.Size(1288, 1084);
             this.positionsPage.TabIndex = 2;
             this.positionsPage.Text = "Positions";
             this.positionsPage.UseVisualStyleBackColor = true;
@@ -966,6 +977,369 @@
             this.RunPage.ToolTipText = "Run";
             this.RunPage.UseVisualStyleBackColor = true;
             // 
+            // RunTabLayoutPanel
+            // 
+            this.RunTabLayoutPanel.ColumnCount = 3;
+            this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.RunTabLayoutPanel.Controls.Add(this.RecipeRTBCopy, 0, 0);
+            this.RunTabLayoutPanel.Controls.Add(this.panel2, 1, 0);
+            this.RunTabLayoutPanel.Controls.Add(this.panel3, 2, 0);
+            this.RunTabLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RunTabLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.RunTabLayoutPanel.Name = "RunTabLayoutPanel";
+            this.RunTabLayoutPanel.RowCount = 1;
+            this.RunTabLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.RunTabLayoutPanel.Size = new System.Drawing.Size(2122, 1158);
+            this.RunTabLayoutPanel.TabIndex = 161;
+            // 
+            // RecipeRTBCopy
+            // 
+            this.RecipeRTBCopy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RecipeRTBCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecipeRTBCopy.Location = new System.Drawing.Point(2, 2);
+            this.RecipeRTBCopy.Margin = new System.Windows.Forms.Padding(2);
+            this.RecipeRTBCopy.Name = "RecipeRTBCopy";
+            this.RecipeRTBCopy.ReadOnly = true;
+            this.RecipeRTBCopy.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.RecipeRTBCopy.Size = new System.Drawing.Size(738, 1154);
+            this.RecipeRTBCopy.TabIndex = 129;
+            this.RecipeRTBCopy.Text = "";
+            this.RecipeRTBCopy.VScroll += new System.EventHandler(this.RecipeRTBCopy_VScroll);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label18);
+            this.panel2.Controls.Add(this.label15);
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.label11);
+            this.panel2.Controls.Add(this.label12);
+            this.panel2.Controls.Add(this.MoveToolMountBtn);
+            this.panel2.Controls.Add(this.label22);
+            this.panel2.Controls.Add(this.MoveToolHomeBtn);
+            this.panel2.Controls.Add(this.TimeLbl);
+            this.panel2.Controls.Add(this.GrindForceReportZLbl);
+            this.panel2.Controls.Add(this.RunStartedTimeLbl);
+            this.panel2.Controls.Add(this.label21);
+            this.panel2.Controls.Add(this.RunElapsedTimeLbl);
+            this.panel2.Controls.Add(this.RunStateLbl);
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.CurrentLineLblCopy);
+            this.panel2.Controls.Add(this.StepTimeRemainingLbl);
+            this.panel2.Controls.Add(this.GrindCycleLbl);
+            this.panel2.Controls.Add(this.label17);
+            this.panel2.Controls.Add(this.GrindNCyclesLbl);
+            this.panel2.Controls.Add(this.StepTimeEstimateLbl);
+            this.panel2.Controls.Add(this.Grind);
+            this.panel2.Controls.Add(this.label13);
+            this.panel2.Controls.Add(this.label16);
+            this.panel2.Controls.Add(this.StepElapsedTimeLbl);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(745, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(842, 1152);
+            this.panel2.TabIndex = 130;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(198, 22);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(251, 46);
+            this.label18.TabIndex = 155;
+            this.label18.Text = "Current Time";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(415, 916);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(416, 110);
+            this.label15.TabIndex = 141;
+            this.label15.Text = "Joint Move to\r\nTool Home Pose:";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(246, 82);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(203, 46);
+            this.label14.TabIndex = 133;
+            this.label14.Text = "Start Time";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(14, 909);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(396, 115);
+            this.label11.TabIndex = 139;
+            this.label11.Text = "Joint Move to\r\nTool Mount Pose:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(157, 143);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(292, 46);
+            this.label12.TabIndex = 131;
+            this.label12.Text = "Total Run Time";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // MoveToolMountBtn
+            // 
+            this.MoveToolMountBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.MoveToolMountBtn.BackColor = System.Drawing.Color.Green;
+            this.MoveToolMountBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MoveToolMountBtn.ForeColor = System.Drawing.Color.White;
+            this.MoveToolMountBtn.Location = new System.Drawing.Point(14, 1026);
+            this.MoveToolMountBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.MoveToolMountBtn.Name = "MoveToolMountBtn";
+            this.MoveToolMountBtn.Size = new System.Drawing.Size(396, 115);
+            this.MoveToolMountBtn.TabIndex = 138;
+            this.MoveToolMountBtn.Text = "tool_mount";
+            this.MoveToolMountBtn.UseVisualStyleBackColor = false;
+            this.MoveToolMountBtn.Click += new System.EventHandler(this.MoveToolMountBtn_Click);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(573, 763);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(49, 46);
+            this.label22.TabIndex = 158;
+            this.label22.Text = "N";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // MoveToolHomeBtn
+            // 
+            this.MoveToolHomeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.MoveToolHomeBtn.BackColor = System.Drawing.Color.Green;
+            this.MoveToolHomeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MoveToolHomeBtn.ForeColor = System.Drawing.Color.White;
+            this.MoveToolHomeBtn.Location = new System.Drawing.Point(414, 1026);
+            this.MoveToolHomeBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.MoveToolHomeBtn.Name = "MoveToolHomeBtn";
+            this.MoveToolHomeBtn.Size = new System.Drawing.Size(417, 115);
+            this.MoveToolHomeBtn.TabIndex = 137;
+            this.MoveToolHomeBtn.Text = "tool_home";
+            this.MoveToolHomeBtn.UseVisualStyleBackColor = false;
+            this.MoveToolHomeBtn.Click += new System.EventHandler(this.MoveToolHomeBtn_Click);
+            // 
+            // GrindForceReportZLbl
+            // 
+            this.GrindForceReportZLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GrindForceReportZLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GrindForceReportZLbl.Location = new System.Drawing.Point(458, 760);
+            this.GrindForceReportZLbl.Name = "GrindForceReportZLbl";
+            this.GrindForceReportZLbl.Size = new System.Drawing.Size(112, 52);
+            this.GrindForceReportZLbl.TabIndex = 157;
+            this.GrindForceReportZLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // RunStartedTimeLbl
+            // 
+            this.RunStartedTimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RunStartedTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RunStartedTimeLbl.Location = new System.Drawing.Point(452, 80);
+            this.RunStartedTimeLbl.Name = "RunStartedTimeLbl";
+            this.RunStartedTimeLbl.Size = new System.Drawing.Size(353, 52);
+            this.RunStartedTimeLbl.TabIndex = 134;
+            this.RunStartedTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(36, 763);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(419, 46);
+            this.label21.TabIndex = 156;
+            this.label21.Text = "Last Reported Z Force";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // RunElapsedTimeLbl
+            // 
+            this.RunElapsedTimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RunElapsedTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RunElapsedTimeLbl.Location = new System.Drawing.Point(452, 141);
+            this.RunElapsedTimeLbl.Name = "RunElapsedTimeLbl";
+            this.RunElapsedTimeLbl.Size = new System.Drawing.Size(353, 52);
+            this.RunElapsedTimeLbl.TabIndex = 132;
+            this.RunElapsedTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // RunStateLbl
+            // 
+            this.RunStateLbl.BackColor = System.Drawing.Color.Gray;
+            this.RunStateLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.RunStateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RunStateLbl.ForeColor = System.Drawing.Color.White;
+            this.RunStateLbl.Location = new System.Drawing.Point(27, 247);
+            this.RunStateLbl.Name = "RunStateLbl";
+            this.RunStateLbl.Size = new System.Drawing.Size(786, 94);
+            this.RunStateLbl.TabIndex = 122;
+            this.RunStateLbl.Text = "Current Step";
+            this.RunStateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(226, 702);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(229, 46);
+            this.label10.TabIndex = 124;
+            this.label10.Text = "Grind Cycle";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // CurrentLineLblCopy
+            // 
+            this.CurrentLineLblCopy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CurrentLineLblCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrentLineLblCopy.Location = new System.Drawing.Point(27, 347);
+            this.CurrentLineLblCopy.Name = "CurrentLineLblCopy";
+            this.CurrentLineLblCopy.Size = new System.Drawing.Size(786, 160);
+            this.CurrentLineLblCopy.TabIndex = 125;
+            // 
+            // StepTimeRemainingLbl
+            // 
+            this.StepTimeRemainingLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.StepTimeRemainingLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StepTimeRemainingLbl.Location = new System.Drawing.Point(458, 639);
+            this.StepTimeRemainingLbl.Name = "StepTimeRemainingLbl";
+            this.StepTimeRemainingLbl.Size = new System.Drawing.Size(353, 52);
+            this.StepTimeRemainingLbl.TabIndex = 148;
+            this.StepTimeRemainingLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // GrindCycleLbl
+            // 
+            this.GrindCycleLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GrindCycleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GrindCycleLbl.Location = new System.Drawing.Point(458, 700);
+            this.GrindCycleLbl.Name = "GrindCycleLbl";
+            this.GrindCycleLbl.Size = new System.Drawing.Size(112, 52);
+            this.GrindCycleLbl.TabIndex = 126;
+            this.GrindCycleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(52, 639);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(402, 46);
+            this.label17.TabIndex = 147;
+            this.label17.Text = "Step Time Remaining";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // GrindNCyclesLbl
+            // 
+            this.GrindNCyclesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GrindNCyclesLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GrindNCyclesLbl.Location = new System.Drawing.Point(628, 702);
+            this.GrindNCyclesLbl.Name = "GrindNCyclesLbl";
+            this.GrindNCyclesLbl.Size = new System.Drawing.Size(100, 52);
+            this.GrindNCyclesLbl.TabIndex = 127;
+            this.GrindNCyclesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // StepTimeEstimateLbl
+            // 
+            this.StepTimeEstimateLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.StepTimeEstimateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StepTimeEstimateLbl.Location = new System.Drawing.Point(458, 580);
+            this.StepTimeEstimateLbl.Name = "StepTimeEstimateLbl";
+            this.StepTimeEstimateLbl.Size = new System.Drawing.Size(353, 52);
+            this.StepTimeEstimateLbl.TabIndex = 146;
+            this.StepTimeEstimateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Grind
+            // 
+            this.Grind.AutoSize = true;
+            this.Grind.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Grind.Location = new System.Drawing.Point(574, 706);
+            this.Grind.Name = "Grind";
+            this.Grind.Size = new System.Drawing.Size(54, 46);
+            this.Grind.TabIndex = 128;
+            this.Grind.Text = "of";
+            this.Grind.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(85, 586);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(367, 46);
+            this.label13.TabIndex = 145;
+            this.label13.Text = "Step Time Estimate";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(125, 528);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(329, 46);
+            this.label16.TabIndex = 143;
+            this.label16.Text = "Time in This Step";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // StepElapsedTimeLbl
+            // 
+            this.StepElapsedTimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.StepElapsedTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StepElapsedTimeLbl.Location = new System.Drawing.Point(458, 522);
+            this.StepElapsedTimeLbl.Name = "StepElapsedTimeLbl";
+            this.StepElapsedTimeLbl.Size = new System.Drawing.Size(353, 52);
+            this.StepElapsedTimeLbl.TabIndex = 144;
+            this.StepElapsedTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.RobotConnectBtn);
+            this.panel3.Controls.Add(this.GocatorReadyLbl);
+            this.panel3.Controls.Add(this.ProgramStateBtn);
+            this.panel3.Controls.Add(this.GocatorConnectBtn);
+            this.panel3.Controls.Add(this.SafetyStatusBtn);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.RobotModeBtn);
+            this.panel3.Controls.Add(this.UserModeBox);
+            this.panel3.Controls.Add(this.RobotReadyLbl);
+            this.panel3.Controls.Add(this.RobotSentLbl);
+            this.panel3.Controls.Add(this.GrindReadyLbl);
+            this.panel3.Controls.Add(this.RobotCommandStatusLbl);
+            this.panel3.Controls.Add(this.RobotCompletedLbl);
+            this.panel3.Controls.Add(this.GrindProcessStateLbl);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(1593, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(526, 1152);
+            this.panel3.TabIndex = 131;
+            // 
+            // RobotConnectBtn
+            // 
+            this.RobotConnectBtn.BackColor = System.Drawing.Color.Gray;
+            this.RobotConnectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RobotConnectBtn.ForeColor = System.Drawing.Color.White;
+            this.RobotConnectBtn.Location = new System.Drawing.Point(19, 96);
+            this.RobotConnectBtn.Name = "RobotConnectBtn";
+            this.RobotConnectBtn.Size = new System.Drawing.Size(275, 125);
+            this.RobotConnectBtn.TabIndex = 73;
+            this.RobotConnectBtn.Text = "Robot Connect";
+            this.RobotConnectBtn.UseVisualStyleBackColor = false;
+            this.RobotConnectBtn.Click += new System.EventHandler(this.RobotConnectBtn_Click);
+            // 
             // GocatorReadyLbl
             // 
             this.GocatorReadyLbl.BackColor = System.Drawing.Color.Gray;
@@ -992,49 +1366,6 @@
             this.GocatorConnectBtn.UseVisualStyleBackColor = false;
             this.GocatorConnectBtn.Click += new System.EventHandler(this.GocatorConnectBtn_Click);
             // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(573, 763);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(49, 46);
-            this.label22.TabIndex = 158;
-            this.label22.Text = "N";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // GrindForceReportZLbl
-            // 
-            this.GrindForceReportZLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GrindForceReportZLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GrindForceReportZLbl.Location = new System.Drawing.Point(458, 760);
-            this.GrindForceReportZLbl.Name = "GrindForceReportZLbl";
-            this.GrindForceReportZLbl.Size = new System.Drawing.Size(112, 52);
-            this.GrindForceReportZLbl.TabIndex = 157;
-            this.GrindForceReportZLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(36, 763);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(419, 46);
-            this.label21.TabIndex = 156;
-            this.label21.Text = "Last Reported Z Force";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(198, 22);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(251, 46);
-            this.label18.TabIndex = 155;
-            this.label18.Text = "Current Time";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // label9
             // 
             this.label9.Location = new System.Drawing.Point(105, 15);
@@ -1057,120 +1388,17 @@
             this.RobotSentLbl.TabIndex = 149;
             this.RobotSentLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // StepTimeRemainingLbl
+            // RobotCompletedLbl
             // 
-            this.StepTimeRemainingLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.StepTimeRemainingLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StepTimeRemainingLbl.Location = new System.Drawing.Point(458, 639);
-            this.StepTimeRemainingLbl.Name = "StepTimeRemainingLbl";
-            this.StepTimeRemainingLbl.Size = new System.Drawing.Size(353, 52);
-            this.StepTimeRemainingLbl.TabIndex = 148;
-            this.StepTimeRemainingLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(52, 639);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(402, 46);
-            this.label17.TabIndex = 147;
-            this.label17.Text = "Step Time Remaining";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // StepTimeEstimateLbl
-            // 
-            this.StepTimeEstimateLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.StepTimeEstimateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StepTimeEstimateLbl.Location = new System.Drawing.Point(458, 580);
-            this.StepTimeEstimateLbl.Name = "StepTimeEstimateLbl";
-            this.StepTimeEstimateLbl.Size = new System.Drawing.Size(353, 52);
-            this.StepTimeEstimateLbl.TabIndex = 146;
-            this.StepTimeEstimateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(85, 586);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(367, 46);
-            this.label13.TabIndex = 145;
-            this.label13.Text = "Step Time Estimate";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // StepElapsedTimeLbl
-            // 
-            this.StepElapsedTimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.StepElapsedTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StepElapsedTimeLbl.Location = new System.Drawing.Point(458, 522);
-            this.StepElapsedTimeLbl.Name = "StepElapsedTimeLbl";
-            this.StepElapsedTimeLbl.Size = new System.Drawing.Size(353, 52);
-            this.StepElapsedTimeLbl.TabIndex = 144;
-            this.StepElapsedTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(125, 528);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(329, 46);
-            this.label16.TabIndex = 143;
-            this.label16.Text = "Time in This Step";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(415, 916);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(416, 110);
-            this.label15.TabIndex = 141;
-            this.label15.Text = "Joint Move to\r\nTool Home Pose:";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(14, 909);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(396, 115);
-            this.label11.TabIndex = 139;
-            this.label11.Text = "Joint Move to\r\nTool Mount Pose:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // MoveToolMountBtn
-            // 
-            this.MoveToolMountBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.MoveToolMountBtn.BackColor = System.Drawing.Color.Green;
-            this.MoveToolMountBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MoveToolMountBtn.ForeColor = System.Drawing.Color.White;
-            this.MoveToolMountBtn.Location = new System.Drawing.Point(14, 1026);
-            this.MoveToolMountBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.MoveToolMountBtn.Name = "MoveToolMountBtn";
-            this.MoveToolMountBtn.Size = new System.Drawing.Size(396, 115);
-            this.MoveToolMountBtn.TabIndex = 138;
-            this.MoveToolMountBtn.Text = "tool_mount";
-            this.MoveToolMountBtn.UseVisualStyleBackColor = false;
-            this.MoveToolMountBtn.Click += new System.EventHandler(this.MoveToolMountBtn_Click);
-            // 
-            // MoveToolHomeBtn
-            // 
-            this.MoveToolHomeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.MoveToolHomeBtn.BackColor = System.Drawing.Color.Green;
-            this.MoveToolHomeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MoveToolHomeBtn.ForeColor = System.Drawing.Color.White;
-            this.MoveToolHomeBtn.Location = new System.Drawing.Point(414, 1026);
-            this.MoveToolHomeBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.MoveToolHomeBtn.Name = "MoveToolHomeBtn";
-            this.MoveToolHomeBtn.Size = new System.Drawing.Size(417, 115);
-            this.MoveToolHomeBtn.TabIndex = 137;
-            this.MoveToolHomeBtn.Text = "tool_home";
-            this.MoveToolHomeBtn.UseVisualStyleBackColor = false;
-            this.MoveToolHomeBtn.Click += new System.EventHandler(this.MoveToolHomeBtn_Click);
+            this.RobotCompletedLbl.BackColor = System.Drawing.Color.Gray;
+            this.RobotCompletedLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RobotCompletedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RobotCompletedLbl.ForeColor = System.Drawing.Color.White;
+            this.RobotCompletedLbl.Location = new System.Drawing.Point(314, 289);
+            this.RobotCompletedLbl.Name = "RobotCompletedLbl";
+            this.RobotCompletedLbl.Size = new System.Drawing.Size(187, 52);
+            this.RobotCompletedLbl.TabIndex = 135;
+            this.RobotCompletedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GrindProcessStateLbl
             // 
@@ -1185,159 +1413,10 @@
             this.GrindProcessStateLbl.Text = "Grind Process State";
             this.GrindProcessStateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // RobotCompletedLbl
-            // 
-            this.RobotCompletedLbl.BackColor = System.Drawing.Color.Gray;
-            this.RobotCompletedLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.RobotCompletedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RobotCompletedLbl.ForeColor = System.Drawing.Color.White;
-            this.RobotCompletedLbl.Location = new System.Drawing.Point(314, 289);
-            this.RobotCompletedLbl.Name = "RobotCompletedLbl";
-            this.RobotCompletedLbl.Size = new System.Drawing.Size(187, 52);
-            this.RobotCompletedLbl.TabIndex = 135;
-            this.RobotCompletedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // RunStartedTimeLbl
-            // 
-            this.RunStartedTimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.RunStartedTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RunStartedTimeLbl.Location = new System.Drawing.Point(452, 80);
-            this.RunStartedTimeLbl.Name = "RunStartedTimeLbl";
-            this.RunStartedTimeLbl.Size = new System.Drawing.Size(353, 52);
-            this.RunStartedTimeLbl.TabIndex = 134;
-            this.RunStartedTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(246, 82);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(203, 46);
-            this.label14.TabIndex = 133;
-            this.label14.Text = "Start Time";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // RobotConnectBtn
-            // 
-            this.RobotConnectBtn.BackColor = System.Drawing.Color.Gray;
-            this.RobotConnectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RobotConnectBtn.ForeColor = System.Drawing.Color.White;
-            this.RobotConnectBtn.Location = new System.Drawing.Point(19, 96);
-            this.RobotConnectBtn.Name = "RobotConnectBtn";
-            this.RobotConnectBtn.Size = new System.Drawing.Size(275, 125);
-            this.RobotConnectBtn.TabIndex = 73;
-            this.RobotConnectBtn.Text = "Robot Connect";
-            this.RobotConnectBtn.UseVisualStyleBackColor = false;
-            this.RobotConnectBtn.Click += new System.EventHandler(this.RobotConnectBtn_Click);
-            // 
-            // RunElapsedTimeLbl
-            // 
-            this.RunElapsedTimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.RunElapsedTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RunElapsedTimeLbl.Location = new System.Drawing.Point(452, 141);
-            this.RunElapsedTimeLbl.Name = "RunElapsedTimeLbl";
-            this.RunElapsedTimeLbl.Size = new System.Drawing.Size(353, 52);
-            this.RunElapsedTimeLbl.TabIndex = 132;
-            this.RunElapsedTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(157, 143);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(292, 46);
-            this.label12.TabIndex = 131;
-            this.label12.Text = "Total Run Time";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // RecipeRTBCopy
-            // 
-            this.RecipeRTBCopy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RecipeRTBCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecipeRTBCopy.Location = new System.Drawing.Point(2, 2);
-            this.RecipeRTBCopy.Margin = new System.Windows.Forms.Padding(2);
-            this.RecipeRTBCopy.Name = "RecipeRTBCopy";
-            this.RecipeRTBCopy.ReadOnly = true;
-            this.RecipeRTBCopy.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RecipeRTBCopy.Size = new System.Drawing.Size(738, 1154);
-            this.RecipeRTBCopy.TabIndex = 129;
-            this.RecipeRTBCopy.Text = "";
-            this.RecipeRTBCopy.VScroll += new System.EventHandler(this.RecipeRTBCopy_VScroll);
-            // 
-            // Grind
-            // 
-            this.Grind.AutoSize = true;
-            this.Grind.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Grind.Location = new System.Drawing.Point(574, 706);
-            this.Grind.Name = "Grind";
-            this.Grind.Size = new System.Drawing.Size(54, 46);
-            this.Grind.TabIndex = 128;
-            this.Grind.Text = "of";
-            this.Grind.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // GrindNCyclesLbl
-            // 
-            this.GrindNCyclesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GrindNCyclesLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GrindNCyclesLbl.Location = new System.Drawing.Point(628, 702);
-            this.GrindNCyclesLbl.Name = "GrindNCyclesLbl";
-            this.GrindNCyclesLbl.Size = new System.Drawing.Size(100, 52);
-            this.GrindNCyclesLbl.TabIndex = 127;
-            this.GrindNCyclesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // GrindCycleLbl
-            // 
-            this.GrindCycleLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GrindCycleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GrindCycleLbl.Location = new System.Drawing.Point(458, 700);
-            this.GrindCycleLbl.Name = "GrindCycleLbl";
-            this.GrindCycleLbl.Size = new System.Drawing.Size(112, 52);
-            this.GrindCycleLbl.TabIndex = 126;
-            this.GrindCycleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // CurrentLineLblCopy
-            // 
-            this.CurrentLineLblCopy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CurrentLineLblCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentLineLblCopy.Location = new System.Drawing.Point(27, 347);
-            this.CurrentLineLblCopy.Name = "CurrentLineLblCopy";
-            this.CurrentLineLblCopy.Size = new System.Drawing.Size(786, 160);
-            this.CurrentLineLblCopy.TabIndex = 125;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(226, 702);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(229, 46);
-            this.label10.TabIndex = 124;
-            this.label10.Text = "Grind Cycle";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // RunStateLbl
-            // 
-            this.RunStateLbl.BackColor = System.Drawing.Color.Gray;
-            this.RunStateLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.RunStateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RunStateLbl.ForeColor = System.Drawing.Color.White;
-            this.RunStateLbl.Location = new System.Drawing.Point(27, 247);
-            this.RunStateLbl.Name = "RunStateLbl";
-            this.RunStateLbl.Size = new System.Drawing.Size(786, 94);
-            this.RunStateLbl.TabIndex = 122;
-            this.RunStateLbl.Text = "Current Step";
-            this.RunStateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // ProgramPage
             // 
             this.ProgramPage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.ProgramPage.Controls.Add(this.BigEditBtn);
-            this.ProgramPage.Controls.Add(this.RecipeRTB);
-            this.ProgramPage.Controls.Add(this.CurrentLineLbl);
-            this.ProgramPage.Controls.Add(this.RecipeFilenameLbl);
-            this.ProgramPage.Controls.Add(this.MonitorTab);
+            this.ProgramPage.Controls.Add(this.ProgramTabPanel);
             this.ProgramPage.Location = new System.Drawing.Point(4, 100);
             this.ProgramPage.Name = "ProgramPage";
             this.ProgramPage.Padding = new System.Windows.Forms.Padding(3);
@@ -1349,13 +1428,14 @@
             // BigEditBtn
             // 
             this.BigEditBtn.BackColor = System.Drawing.Color.Gray;
+            this.BigEditBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BigEditBtn.Enabled = false;
             this.BigEditBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BigEditBtn.ForeColor = System.Drawing.Color.White;
-            this.BigEditBtn.Location = new System.Drawing.Point(623, 861);
+            this.BigEditBtn.Location = new System.Drawing.Point(616, 2);
             this.BigEditBtn.Margin = new System.Windows.Forms.Padding(2);
             this.BigEditBtn.Name = "BigEditBtn";
-            this.BigEditBtn.Size = new System.Drawing.Size(138, 111);
+            this.BigEditBtn.Size = new System.Drawing.Size(196, 70);
             this.BigEditBtn.TabIndex = 95;
             this.BigEditBtn.Text = "Big Edit";
             this.BigEditBtn.UseVisualStyleBackColor = false;
@@ -2612,77 +2692,48 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // RunTabLayoutPanel
+            // enginePage
             // 
-            this.RunTabLayoutPanel.ColumnCount = 3;
-            this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.RunTabLayoutPanel.Controls.Add(this.RecipeRTBCopy, 0, 0);
-            this.RunTabLayoutPanel.Controls.Add(this.panel2, 1, 0);
-            this.RunTabLayoutPanel.Controls.Add(this.panel3, 2, 0);
-            this.RunTabLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RunTabLayoutPanel.Location = new System.Drawing.Point(3, 3);
-            this.RunTabLayoutPanel.Name = "RunTabLayoutPanel";
-            this.RunTabLayoutPanel.RowCount = 1;
-            this.RunTabLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.RunTabLayoutPanel.Size = new System.Drawing.Size(2122, 1158);
-            this.RunTabLayoutPanel.TabIndex = 161;
+            this.enginePage.Location = new System.Drawing.Point(4, 64);
+            this.enginePage.Name = "enginePage";
+            this.enginePage.Size = new System.Drawing.Size(1308, 1045);
+            this.enginePage.TabIndex = 5;
+            this.enginePage.Text = "Engine";
+            this.enginePage.UseVisualStyleBackColor = true;
             // 
-            // panel2
+            // ProgramTabPanel
             // 
-            this.panel2.Controls.Add(this.label18);
-            this.panel2.Controls.Add(this.label15);
-            this.panel2.Controls.Add(this.label14);
-            this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.label12);
-            this.panel2.Controls.Add(this.MoveToolMountBtn);
-            this.panel2.Controls.Add(this.label22);
-            this.panel2.Controls.Add(this.MoveToolHomeBtn);
-            this.panel2.Controls.Add(this.TimeLbl);
-            this.panel2.Controls.Add(this.GrindForceReportZLbl);
-            this.panel2.Controls.Add(this.RunStartedTimeLbl);
-            this.panel2.Controls.Add(this.label21);
-            this.panel2.Controls.Add(this.RunElapsedTimeLbl);
-            this.panel2.Controls.Add(this.RunStateLbl);
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.CurrentLineLblCopy);
-            this.panel2.Controls.Add(this.StepTimeRemainingLbl);
-            this.panel2.Controls.Add(this.GrindCycleLbl);
-            this.panel2.Controls.Add(this.label17);
-            this.panel2.Controls.Add(this.GrindNCyclesLbl);
-            this.panel2.Controls.Add(this.StepTimeEstimateLbl);
-            this.panel2.Controls.Add(this.Grind);
-            this.panel2.Controls.Add(this.label13);
-            this.panel2.Controls.Add(this.label16);
-            this.panel2.Controls.Add(this.StepElapsedTimeLbl);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(745, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(842, 1152);
-            this.panel2.TabIndex = 130;
+            this.ProgramTabPanel.ColumnCount = 2;
+            this.ProgramTabPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.65031F));
+            this.ProgramTabPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.34969F));
+            this.ProgramTabPanel.Controls.Add(this.RecipeRTB, 0, 0);
+            this.ProgramTabPanel.Controls.Add(this.CurrentLineLbl, 0, 1);
+            this.ProgramTabPanel.Controls.Add(this.MonitorTab, 1, 0);
+            this.ProgramTabPanel.Controls.Add(this.FileBigEditPanel, 0, 2);
+            this.ProgramTabPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ProgramTabPanel.Location = new System.Drawing.Point(3, 3);
+            this.ProgramTabPanel.Name = "ProgramTabPanel";
+            this.ProgramTabPanel.RowCount = 3;
+            this.ProgramTabPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ProgramTabPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.ProgramTabPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.ProgramTabPanel.Size = new System.Drawing.Size(2122, 1158);
+            this.ProgramTabPanel.TabIndex = 96;
             // 
-            // panel3
+            // FileBigEditPanel
             // 
-            this.panel3.Controls.Add(this.RobotConnectBtn);
-            this.panel3.Controls.Add(this.GocatorReadyLbl);
-            this.panel3.Controls.Add(this.ProgramStateBtn);
-            this.panel3.Controls.Add(this.GocatorConnectBtn);
-            this.panel3.Controls.Add(this.SafetyStatusBtn);
-            this.panel3.Controls.Add(this.label9);
-            this.panel3.Controls.Add(this.RobotModeBtn);
-            this.panel3.Controls.Add(this.UserModeBox);
-            this.panel3.Controls.Add(this.RobotReadyLbl);
-            this.panel3.Controls.Add(this.RobotSentLbl);
-            this.panel3.Controls.Add(this.GrindReadyLbl);
-            this.panel3.Controls.Add(this.RobotCommandStatusLbl);
-            this.panel3.Controls.Add(this.RobotCompletedLbl);
-            this.panel3.Controls.Add(this.GrindProcessStateLbl);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(1593, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(526, 1152);
-            this.panel3.TabIndex = 131;
+            this.FileBigEditPanel.ColumnCount = 2;
+            this.FileBigEditPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.FileBigEditPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.FileBigEditPanel.Controls.Add(this.BigEditBtn, 1, 0);
+            this.FileBigEditPanel.Controls.Add(this.RecipeFilenameLbl, 0, 0);
+            this.FileBigEditPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FileBigEditPanel.Location = new System.Drawing.Point(3, 1081);
+            this.FileBigEditPanel.Name = "FileBigEditPanel";
+            this.FileBigEditPanel.RowCount = 1;
+            this.FileBigEditPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.FileBigEditPanel.Size = new System.Drawing.Size(814, 74);
+            this.FileBigEditPanel.TabIndex = 95;
             // 
             // MainForm
             // 
@@ -2714,6 +2765,10 @@
             this.revhistPage.ResumeLayout(false);
             this.MainTab.ResumeLayout(false);
             this.RunPage.ResumeLayout(false);
+            this.RunTabLayoutPanel.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ProgramPage.ResumeLayout(false);
             this.SetupPage.ResumeLayout(false);
             this.DefaultMoveSetupGrp.ResumeLayout(false);
@@ -2739,10 +2794,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.TopButtonLayoutPanel.ResumeLayout(false);
-            this.RunTabLayoutPanel.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
+            this.ProgramTabPanel.ResumeLayout(false);
+            this.FileBigEditPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2933,6 +2986,9 @@
         private System.Windows.Forms.TableLayoutPanel RunTabLayoutPanel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TabPage enginePage;
+        private System.Windows.Forms.TableLayoutPanel ProgramTabPanel;
+        private System.Windows.Forms.TableLayoutPanel FileBigEditPanel;
     }
 }
 
