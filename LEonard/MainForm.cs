@@ -19,17 +19,19 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LEonard;
 using Microsoft.Win32;
 using NLog;
+using LEonard;
+using Jint;
+using System.Net.NetworkInformation;
 
 namespace LEonard
 {
     public partial class MainForm : Form
     {
-
         static string LEonardRoot = null;
         private static NLog.Logger log;
+        Engine jintEngine;
 
         // TODO should be replaced with generic devices interface
         LeTcpServer robotCommandServer = null;
@@ -112,7 +114,29 @@ namespace LEonard
         public MainForm()
         {
             InitializeComponent();
+
+            jintEngine = new Engine()
+                // Expose the alert function in JavaScript that triggers the native function (previously created) Alert
+                .SetValue("alert", new Action<string>(JavaAlert))
+                .SetValue("print", new Action<string>(JavaPrint))
+            ;
         }
+
+        // ===================================================================
+        // START JAVA FUNCTIONS
+        // ===================================================================
+        private void JavaAlert(string Message)
+        {
+            MessageBox.Show(Message, "Window Alert", MessageBoxButtons.OK);
+        }
+        private void JavaPrint(string message)
+        {
+            Console.WriteLine(message);
+        }
+        // ===================================================================
+        // END JAVA FUNCTIONS
+        // ===================================================================
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             string companyName = Application.CompanyName;
@@ -1745,7 +1769,7 @@ namespace LEonard
             ControlBox = Convert.ToBoolean(UIKey.GetValue("ControlBox", "False"));
             MaximizeBox = Convert.ToBoolean(UIKey.GetValue("MaximizeBox", "False"));
             MinimizeBox = Convert.ToBoolean(UIKey.GetValue("MinimizeBox", "False"));
-            WindowState = (FormWindowState) UIKey.GetValue("WindowState", FormWindowState.Normal);
+            WindowState = (FormWindowState)UIKey.GetValue("WindowState", FormWindowState.Normal);
             UiFixedWidthTxt.Text = (string)UIKey.GetValue("UiFixedWidthTxt.Text", tabletScreenDesignWidth.ToString());
             UiFixedHeightTxt.Text = (string)UIKey.GetValue("UiFixedHeightTxt.Text", tabletScreenDesignHeight.ToString());
 
@@ -5169,11 +5193,38 @@ namespace LEonard
             this.WindowState = FormWindowState.Normal;
         }
 
+
         // ===================================================================
         // END UI CONTROL SYSTEM
         // ===================================================================
 
-    }
+        // ===================================================================
+        // START JAVA ENGINE
+        // ===================================================================
+        private void JavaRunBtn_Click(object sender, EventArgs e)
+        {
+            string script = JavaScriptRTB.Text;
+
+            try
+            {
+                jintEngine.Execute(script);
+            }
+            catch
+            {
+
+            }
+
+            double a = jintEngine.GetValue("a").AsNumber();
+            double b = jintEngine.GetValue("b").AsNumber();
+            double c = jintEngine.GetValue("c").AsNumber();
+            string aStr = jintEngine.GetValue("aStr").AsString();
+            log.Info($"Java Run: a={a} b={b} c={c} aStr={aStr}");
+        }
+    // ===================================================================
+    // END JAVA ENGINE
+    // ===================================================================
+}
+
     public static class RichTextBoxExtensions
     {
         /// <summary>
@@ -5192,3 +5243,4 @@ namespace LEonard
         }
     }
 }
+

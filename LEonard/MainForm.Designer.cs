@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
@@ -73,7 +74,10 @@
             this.ClearVariablesBtn = new System.Windows.Forms.Button();
             this.SaveVariablesBtn = new System.Windows.Forms.Button();
             this.LoadVariablesBtn = new System.Windows.Forms.Button();
-            this.enginePage = new System.Windows.Forms.TabPage();
+            this.javaEnginePage = new System.Windows.Forms.TabPage();
+            this.JavaRunBtn = new System.Windows.Forms.Button();
+            this.JavaScriptRTB = new System.Windows.Forms.RichTextBox();
+            this.pythonEnginePage = new System.Windows.Forms.TabPage();
             this.manualPage = new System.Windows.Forms.TabPage();
             this.ManualLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.RecipeCommandsRTB = new System.Windows.Forms.RichTextBox();
@@ -208,6 +212,9 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.AllLogRTB = new System.Windows.Forms.RichTextBox();
             this.UiPage = new System.Windows.Forms.TabPage();
+            this.UiDefaultBtn = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.UiFixedHeightTxt = new System.Windows.Forms.TextBox();
             this.UiFixedWidthTxt = new System.Windows.Forms.TextBox();
             this.UiFreeBtn = new System.Windows.Forms.Button();
@@ -225,9 +232,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.UiDefaultBtn = new System.Windows.Forms.Button();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -235,6 +239,7 @@
             this.variablesPage.SuspendLayout();
             this.VariablesLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).BeginInit();
+            this.javaEnginePage.SuspendLayout();
             this.manualPage.SuspendLayout();
             this.ManualLayoutPanel.SuspendLayout();
             this.revhistPage.SuspendLayout();
@@ -526,7 +531,8 @@
             this.MonitorTab.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.MonitorTab.Controls.Add(this.positionsPage);
             this.MonitorTab.Controls.Add(this.variablesPage);
-            this.MonitorTab.Controls.Add(this.enginePage);
+            this.MonitorTab.Controls.Add(this.javaEnginePage);
+            this.MonitorTab.Controls.Add(this.pythonEnginePage);
             this.MonitorTab.Controls.Add(this.manualPage);
             this.MonitorTab.Controls.Add(this.revhistPage);
             this.MonitorTab.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -824,14 +830,43 @@
             this.LoadVariablesBtn.UseVisualStyleBackColor = false;
             this.LoadVariablesBtn.Click += new System.EventHandler(this.LoadVariablesBtn_Click);
             // 
-            // enginePage
+            // javaEnginePage
             // 
-            this.enginePage.Location = new System.Drawing.Point(4, 64);
-            this.enginePage.Name = "enginePage";
-            this.enginePage.Size = new System.Drawing.Size(1288, 1084);
-            this.enginePage.TabIndex = 5;
-            this.enginePage.Text = "Engine";
-            this.enginePage.UseVisualStyleBackColor = true;
+            this.javaEnginePage.Controls.Add(this.JavaRunBtn);
+            this.javaEnginePage.Controls.Add(this.JavaScriptRTB);
+            this.javaEnginePage.Location = new System.Drawing.Point(4, 64);
+            this.javaEnginePage.Name = "javaEnginePage";
+            this.javaEnginePage.Size = new System.Drawing.Size(1288, 1084);
+            this.javaEnginePage.TabIndex = 5;
+            this.javaEnginePage.Text = "Java";
+            this.javaEnginePage.UseVisualStyleBackColor = true;
+            // 
+            // JavaRunBtn
+            // 
+            this.JavaRunBtn.Location = new System.Drawing.Point(19, 716);
+            this.JavaRunBtn.Name = "JavaRunBtn";
+            this.JavaRunBtn.Size = new System.Drawing.Size(164, 63);
+            this.JavaRunBtn.TabIndex = 1;
+            this.JavaRunBtn.Text = "Run";
+            this.JavaRunBtn.UseVisualStyleBackColor = true;
+            this.JavaRunBtn.Click += new System.EventHandler(this.JavaRunBtn_Click);
+            // 
+            // JavaScriptRTB
+            // 
+            this.JavaScriptRTB.Location = new System.Drawing.Point(19, 14);
+            this.JavaScriptRTB.Name = "JavaScriptRTB";
+            this.JavaScriptRTB.Size = new System.Drawing.Size(976, 696);
+            this.JavaScriptRTB.TabIndex = 0;
+            this.JavaScriptRTB.Text = resources.GetString("JavaScriptRTB.Text");
+            // 
+            // pythonEnginePage
+            // 
+            this.pythonEnginePage.Location = new System.Drawing.Point(4, 64);
+            this.pythonEnginePage.Name = "pythonEnginePage";
+            this.pythonEnginePage.Size = new System.Drawing.Size(1288, 1084);
+            this.pythonEnginePage.TabIndex = 6;
+            this.pythonEnginePage.Text = "Python";
+            this.pythonEnginePage.UseVisualStyleBackColor = true;
             // 
             // manualPage
             // 
@@ -2610,6 +2645,34 @@
             this.UiPage.Text = "UIcon";
             this.UiPage.UseVisualStyleBackColor = true;
             // 
+            // UiDefaultBtn
+            // 
+            this.UiDefaultBtn.Location = new System.Drawing.Point(34, 22);
+            this.UiDefaultBtn.Name = "UiDefaultBtn";
+            this.UiDefaultBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiDefaultBtn.TabIndex = 6;
+            this.UiDefaultBtn.Text = "Default";
+            this.UiDefaultBtn.UseVisualStyleBackColor = true;
+            this.UiDefaultBtn.Click += new System.EventHandler(this.UiDefaultBtn_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(369, 112);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(109, 37);
+            this.label23.TabIndex = 5;
+            this.label23.Text = "Height";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(244, 112);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(100, 37);
+            this.label20.TabIndex = 4;
+            this.label20.Text = "Width";
+            // 
             // UiFixedHeightTxt
             // 
             this.UiFixedHeightTxt.Location = new System.Drawing.Point(367, 152);
@@ -2866,34 +2929,6 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(244, 112);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(100, 37);
-            this.label20.TabIndex = 4;
-            this.label20.Text = "Width";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(369, 112);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(109, 37);
-            this.label23.TabIndex = 5;
-            this.label23.Text = "Height";
-            // 
-            // UiDefaultBtn
-            // 
-            this.UiDefaultBtn.Location = new System.Drawing.Point(34, 22);
-            this.UiDefaultBtn.Name = "UiDefaultBtn";
-            this.UiDefaultBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiDefaultBtn.TabIndex = 6;
-            this.UiDefaultBtn.Text = "Default";
-            this.UiDefaultBtn.UseVisualStyleBackColor = true;
-            this.UiDefaultBtn.Click += new System.EventHandler(this.UiDefaultBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2920,6 +2955,7 @@
             this.variablesPage.ResumeLayout(false);
             this.VariablesLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).EndInit();
+            this.javaEnginePage.ResumeLayout(false);
             this.manualPage.ResumeLayout(false);
             this.ManualLayoutPanel.ResumeLayout(false);
             this.revhistPage.ResumeLayout(false);
@@ -3144,7 +3180,7 @@
         private System.Windows.Forms.Button ExitBtn;
         private System.Windows.Forms.TableLayoutPanel RunTabLayoutPanel;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TabPage enginePage;
+        private System.Windows.Forms.TabPage javaEnginePage;
         private System.Windows.Forms.TableLayoutPanel ProgramTableLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel FileBigEditPanel;
         private System.Windows.Forms.TableLayoutPanel PositionLayoutPanel;
@@ -3158,6 +3194,9 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button UiDefaultBtn;
+        private System.Windows.Forms.TabPage pythonEnginePage;
+        private System.Windows.Forms.RichTextBox JavaScriptRTB;
+        private System.Windows.Forms.Button JavaRunBtn;
     }
 }
 
