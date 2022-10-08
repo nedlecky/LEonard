@@ -1,4 +1,4 @@
-﻿namespace LEonardTablet
+﻿namespace LEonard
 {
     partial class SplashForm
     {
@@ -61,7 +61,7 @@
             this.CloseBtn.BackColor = System.Drawing.Color.Goldenrod;
             this.CloseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CloseBtn.ForeColor = System.Drawing.Color.White;
-            this.CloseBtn.Location = new System.Drawing.Point(564, 519);
+            this.CloseBtn.Location = new System.Drawing.Point(446, 523);
             this.CloseBtn.Name = "CloseBtn";
             this.CloseBtn.Size = new System.Drawing.Size(127, 108);
             this.CloseBtn.TabIndex = 81;
@@ -74,7 +74,7 @@
             this.DeveloperLogoPic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.DeveloperLogoPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DeveloperLogoPic.Image = ((System.Drawing.Image)(resources.GetObject("DeveloperLogoPic.Image")));
-            this.DeveloperLogoPic.Location = new System.Drawing.Point(268, 519);
+            this.DeveloperLogoPic.Location = new System.Drawing.Point(129, 523);
             this.DeveloperLogoPic.Name = "DeveloperLogoPic";
             this.DeveloperLogoPic.Size = new System.Drawing.Size(177, 108);
             this.DeveloperLogoPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -98,7 +98,7 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(134, 170);
+            this.pictureBox1.Location = new System.Drawing.Point(129, 170);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(444, 282);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

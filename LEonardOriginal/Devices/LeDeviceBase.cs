@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public class LeDeviceBase
     {
@@ -18,12 +18,13 @@ namespace LEonardTablet
 
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
+
         public LeDeviceBase(MainForm form, string prefix = "", string connectMessage = "")
         {
             myForm = form;
             logPrefix = prefix;
             onConnectMessage = connectMessage;
-            log.Info($"LeDeviceBase(form, \"{logPrefix}\", \"{onConnectMessage}\")");
+            log.Info(string.Format("LeDeviceBase(form, {0}, {1})", logPrefix, onConnectMessage));
         }
 
         ~LeDeviceBase()

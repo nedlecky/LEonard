@@ -1,10 +1,15 @@
-﻿using System;
+﻿// File: LeDevNull.cs
+// Project: LEonardTablet
+// Author: Ned Lecky, Lecky Engineering LLC
+// Purpose: Null (Examaple) LEonard device
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LEonard
+namespace LEonardTablet
 {
     public class LeDevNull : LeDeviceBase, LeDeviceInterface
     {
@@ -26,6 +31,11 @@ namespace LEonard
         {
             log.Debug("{0} Connect({1})", logPrefix, portname);
             return 0;
+        }
+        public bool IsConnected()
+        {
+            log.Debug("{0} IsConnected()", logPrefix);
+            return false;
         }
 
         public int Disconnect()

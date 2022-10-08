@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public class StateObject
     {
@@ -38,8 +38,6 @@ namespace LEonardTablet
             new ManualResetEvent(false);
 
         public Action<string, string> receiveCallback { get; set; }
-        private bool fConnected = false;
-
 
         public LeTcpClientAsync(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
@@ -57,7 +55,6 @@ namespace LEonardTablet
         }
         public int Connect(string IP, string port)
         {
-            fConnected = false;
             myIp = IP;
             myPort = port;
 
@@ -98,19 +95,13 @@ namespace LEonardTablet
                     new AsyncCallback(ConnectCallback), client);
                 connectDone.WaitOne();
 
+                return 0;
             }
             catch (Exception ex)
             {
                 log.Error(ex, ex.ToString());
                 return 3;
             }
-
-            fConnected = true;
-            return 0;
-        }
-        public bool IsConnected()
-        {
-            return fConnected;
         }
         public int Disconnect()
         {
@@ -123,7 +114,6 @@ namespace LEonardTablet
                 client.Close();
                 client = null;
             }
-            fConnected = false;
             return 0;
         }
 
@@ -155,7 +145,7 @@ namespace LEonardTablet
             if (client == null) return "";
 
             log.Info("{0} Receive()", logPrefix);
-
+            
             try
             {
                 // Create the state object.  
@@ -251,7 +241,7 @@ namespace LEonardTablet
             }
             catch (Exception ex)
             {
-                log.Error(ex, "{0} {1}", logPrefix, ex.ToString());
+                log.Error(ex, "{0} {1}", logPrefix,  ex.ToString());
             }
         }
     }

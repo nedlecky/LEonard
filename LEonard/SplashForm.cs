@@ -1,5 +1,5 @@
 ﻿// File: SplashForm.cs
-// Project: LEonard
+// Project: LEonardTablet
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: Implements the splash screen (also used as the About dialog)
 
@@ -8,7 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace LEonard
+namespace LEonardTablet
 {
     public partial class SplashForm : Form
     {
@@ -27,6 +27,7 @@ namespace LEonard
 
         private void SplashForm_Load(object sender, EventArgs e)
         {
+
             string companyName = Application.CompanyName;
             string appName = Application.ProductName;
             string productVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -43,16 +44,17 @@ namespace LEonard
 
             if (AutoClose)
             {
-
-                Left = 100;// (MainForm.Width - Width) / 2;
-                Top = 100;// (MainForm.Height - Height) / 2;
+                Left = (MainForm.tabletScreenDesignWidth - Width) / 2;
+                Top = (MainForm.tabletScreenDesignHeight - Height) / 2;
                 CloseBtn.Visible = false;
-                CloseTmr.Interval = 5000;
+                CloseTmr.Interval = 10000;
                 CloseTmr.Enabled = true;
             }
             else
                 CloseBtn.Visible = true;
+            Refresh();
         }
+
 
         // Form closes with the Close button, a close timer, or any click anywhere in the form!
         private void CloseTmr_Tick(object sender, EventArgs e)

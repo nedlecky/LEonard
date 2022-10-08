@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LEonard
+namespace LEonardTablet
 {
     public class LeTcpClient : LeDeviceBase, LeDeviceInterface
     {
@@ -21,8 +22,9 @@ namespace LEonard
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public Action<string, string> receiveCallback { get; set; }
+        private bool fConnected = false;
 
-        public LeTcpClient(MainForm form, string prefix = "", string connectMsg="") : base(form, prefix, connectMsg)
+        public LeTcpClient(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
             log.Debug("{0} LeTcpClient(form, {0}, {1})", logPrefix, onConnectMessage);
         }
@@ -33,10 +35,13 @@ namespace LEonard
         public int Connect(string IPport)
         {
             string[] s = IPport.Split(':');
-            return Connect(s[0], s[1]);
+            int ret = Connect(s[0], s[1]);
+            fConnected = (ret == 0);
+            return ret;
         }
         public int Connect(string IP, string port)
         {
+            fConnected = false;
             myIp = IP;
             myPort = port;
 
@@ -46,7 +51,7 @@ namespace LEonard
             try
             {
                 Ping ping = new Ping();
-                PingReply PR = ping.Send(myIp,500);
+                PingReply PR = ping.Send(myIp, 500);
                 log.Debug("{0} Connect Ping returns {1}", logPrefix, PR.Status);
                 if (PR.Status != IPStatus.Success)
                 {
@@ -76,9 +81,15 @@ namespace LEonard
             }
 
             log.Debug("Connected");
-            if(onConnectMessage.Length>0) Send(onConnectMessage);
+            if (onConnectMessage.Length > 0) Send(onConnectMessage);
+            fConnected = true;
             return 0;
         }
+        public bool IsConnected()
+        {
+            return fConnected;
+        }
+
         public int Disconnect()
         {
             log.Info("{0} Disconnect()", logPrefix);
@@ -93,6 +104,7 @@ namespace LEonard
                 client.Close();
                 client = null;
             }
+            fConnected = false;
             return 0;
         }
 
@@ -119,7 +131,7 @@ namespace LEonard
                 return 1;
             }
 
-            log.Info("{0} ==> {1}", logPrefix, request);
+            log.Debug("{0} ==> {1}", logPrefix, request);
             try
             {
                 stream.Write(Encoding.ASCII.GetBytes(request + "\r"), 0, request.Length + 1);
@@ -142,34 +154,65 @@ namespace LEonard
 
         public string Receive()
         {
-            if (stream != null)
+            if (stream == null) return null;
+            int length = 0;
+            while (stream.DataAvailable && length < inputBufferLen) inputBuffer[length++] = (byte)stream.ReadByte();
+
+            if (length == 0) return null;
+            string input = Encoding.UTF8.GetString(inputBuffer, 0, length);
+            // TODO This delim should be programmable in the class
+            string[] inputLines = input.Split('\n');
+            int lineNo = 1;
+            foreach (string line in inputLines)
             {
-                int length = 0;
-                while (stream.DataAvailable && length < inputBufferLen) inputBuffer[length++] = (byte)stream.ReadByte();
-
-                if (length > 0)
+                string cleanLine = line.Trim();
+                if (cleanLine.Length > 0)
                 {
-                    string input = Encoding.UTF8.GetString(inputBuffer, 0, length);
-                    string[] inputLines = input.Split('\r');
-                    int lineNo = 1;
-                    foreach (string line in inputLines)
-                    {
-                        string cleanLine = line.Trim('\n');
-                        if (cleanLine.Length > 0)
-                        {
-                            log.Info("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);
+                    log.Debug("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);
 
-                            if (receiveCallback != null)
-                                receiveCallback(cleanLine, logPrefix);
-                        }
-                        lineNo++;
-                    }
+                    if (receiveCallback != null)
+                        receiveCallback(logPrefix, cleanLine);
                 }
-
-                // TODO: I think all these returns are ignored
-                return "";
+                lineNo++;
             }
-            return "";
+            return input.Trim();
+        }
+
+        public string InquiryResponse(string inquiry, int timeoutMs = 50)
+        {
+            // Purge any remaining responses
+            string response = Receive();
+            if (response != null)
+            {
+                log.Warn("{0} Already had a response waiting: {1}", logPrefix, response.Replace('\n', ' '));
+            }
+
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            Send(inquiry);
+
+            // Wait for awhile for the response!
+            while ((response = Receive()) == null && timer.ElapsedMilliseconds < timeoutMs) ;
+
+            if (response == null)
+            {
+                log.Info("{0} IR({1}) waited {2} mS. Retrying...", logPrefix, inquiry, timeoutMs);
+
+                // Let's just wait a bit more?
+                while ((response = Receive()) == null && timer.ElapsedMilliseconds < timeoutMs * 2) ;
+                timer.Stop();
+                if (response != null)
+                {
+                    log.Info("{0} IR({1}) Retry succeeded = {2}. [{3} mS]", logPrefix, inquiry, response, timer.ElapsedMilliseconds);
+                    return response;
+                }
+                log.Warn("{0} IR({1}) Retry failed. [{2} mS]", logPrefix, inquiry, timer.ElapsedMilliseconds);
+                return null;
+            }
+            timer.Stop();
+
+            log.Trace("{0} {1}={2} [{3} mS]", logPrefix, inquiry, response, timer.ElapsedMilliseconds);
+            return response;
         }
     }
 }

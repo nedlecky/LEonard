@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LEonard
+namespace LEonardTablet
 {
     public interface LeDeviceInterface
     {
@@ -13,6 +13,7 @@ namespace LEonard
         Process setupProcess { get; set; }
 
         int Connect(string address);
+        bool IsConnected();
         int Disconnect();
         int Send(string message);
         string Receive();

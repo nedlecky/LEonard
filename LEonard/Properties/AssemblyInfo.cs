@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LEonard")]
+[assembly: AssemblyTitle("LEonardTablet")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Lecky Engineering")]
-[assembly: AssemblyProduct("LEonard")]
-[assembly: AssemblyCopyright("Copyright © 2021, 2022")]
+[assembly: AssemblyCompany("Lecky Engineering LLC")]
+[assembly: AssemblyProduct("LEonardTablet")]
+[assembly: AssemblyCopyright("Copyright © 2020-2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8c976e92-197b-445c-ab0a-0b9cc89feaad")]
+[assembly: Guid("f7d044a8-5b81-4d11-be3f-211b2ae919ee")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2022.06.25.08")]
-[assembly: AssemblyFileVersion("2022.06.25.08")]
+[assembly: AssemblyVersion("2022.10.07.16")]
+[assembly: AssemblyFileVersion("2022.10.07.16")]
