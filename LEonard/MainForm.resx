@@ -132,9 +132,8 @@
   <metadata name="MessageTmr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>454, 14</value>
   </metadata>
-  <data name="JavaScriptRTB.Text" xml:space="preserve">
+  <data name="JavaScriptTxt.Text" xml:space="preserve">
     <value>print("Starting...");
-
 if(typeof a == 'undefined') a = 5;
 else a = a + 1;
 
@@ -142,8 +141,13 @@ b = 7.12;
 c = a * b;
 aStr = "A string " + a;
 print(c);
+logInfo(c);
+logError("Test error message");
 
-for(name in this)
-  print(name + " " + typeof name + " " + this[name]);</value>
+for(name in this) {
+  print(name + " " + typeof name + " " + this[name]);
+  logInfo(name + " " + typeof name + " " + this[name]);
+}
+</value>
   </data>
 </root>

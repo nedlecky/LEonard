@@ -115,27 +115,9 @@ namespace LEonard
         {
             InitializeComponent();
 
-            jintEngine = new Engine()
-                // Expose the alert function in JavaScript that triggers the native function (previously created) Alert
-                .SetValue("alert", new Action<string>(JavaAlert))
-                .SetValue("print", new Action<string>(JavaPrint))
-            ;
+            InitializeJavaEngine();
         }
 
-        // ===================================================================
-        // START JAVA FUNCTIONS
-        // ===================================================================
-        private void JavaAlert(string Message)
-        {
-            MessageBox.Show(Message, "Window Alert", MessageBoxButtons.OK);
-        }
-        private void JavaPrint(string message)
-        {
-            Console.WriteLine(message);
-        }
-        // ===================================================================
-        // END JAVA FUNCTIONS
-        // ===================================================================
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -5199,11 +5181,44 @@ namespace LEonard
         // ===================================================================
 
         // ===================================================================
+        // START JAVA FUNCTIONS
+        // ===================================================================
+        private void JavaAlert(string Message)
+        {
+            MessageBox.Show(Message, "Window Alert", MessageBoxButtons.OK);
+        }
+        private void JavaPrint(string message)
+        {
+            Console.WriteLine(message);
+        }
+        private void JavaLogInfo(string message)
+        {
+            log.Info(message);
+        }
+        private void JavaLogError(string message)
+        {
+            log.Error(message);
+        }
+        // ===================================================================
+        // END JAVA FUNCTIONS
+        // ===================================================================
+
+        // ===================================================================
         // START JAVA ENGINE
         // ===================================================================
+        private void InitializeJavaEngine()
+        {
+            jintEngine = new Engine()
+                    // Expose the alert function in JavaScript that triggers the native function (previously created) Alert
+                    .SetValue("alert", new Action<string>(JavaAlert))
+                    .SetValue("print", new Action<string>(JavaPrint))
+                    .SetValue("logInfo", new Action<string>(JavaLogInfo))
+                    .SetValue("logError", new Action<string>(JavaLogError))
+                ;
+        }
         private void JavaRunBtn_Click(object sender, EventArgs e)
         {
-            string script = JavaScriptRTB.Text;
+            string script = JavaScriptTxt.Text;
 
             try
             {
@@ -5220,10 +5235,10 @@ namespace LEonard
             string aStr = jintEngine.GetValue("aStr").AsString();
             log.Info($"Java Run: a={a} b={b} c={c} aStr={aStr}");
         }
-    // ===================================================================
-    // END JAVA ENGINE
-    // ===================================================================
-}
+        // ===================================================================
+        // END JAVA ENGINE
+        // ===================================================================
+    }
 
     public static class RichTextBoxExtensions
     {

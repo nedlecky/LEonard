@@ -31,9 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.CurrentLineLbl = new System.Windows.Forms.Label();
             this.RecipeRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
@@ -76,7 +76,6 @@
             this.LoadVariablesBtn = new System.Windows.Forms.Button();
             this.javaEnginePage = new System.Windows.Forms.TabPage();
             this.JavaRunBtn = new System.Windows.Forms.Button();
-            this.JavaScriptRTB = new System.Windows.Forms.RichTextBox();
             this.pythonEnginePage = new System.Windows.Forms.TabPage();
             this.manualPage = new System.Windows.Forms.TabPage();
             this.ManualLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -232,6 +231,7 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
+            this.JavaScriptTxt = new System.Windows.Forms.TextBox();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -832,8 +832,8 @@
             // 
             // javaEnginePage
             // 
+            this.javaEnginePage.Controls.Add(this.JavaScriptTxt);
             this.javaEnginePage.Controls.Add(this.JavaRunBtn);
-            this.javaEnginePage.Controls.Add(this.JavaScriptRTB);
             this.javaEnginePage.Location = new System.Drawing.Point(4, 64);
             this.javaEnginePage.Name = "javaEnginePage";
             this.javaEnginePage.Size = new System.Drawing.Size(1288, 1084);
@@ -850,14 +850,6 @@
             this.JavaRunBtn.Text = "Run";
             this.JavaRunBtn.UseVisualStyleBackColor = true;
             this.JavaRunBtn.Click += new System.EventHandler(this.JavaRunBtn_Click);
-            // 
-            // JavaScriptRTB
-            // 
-            this.JavaScriptRTB.Location = new System.Drawing.Point(19, 14);
-            this.JavaScriptRTB.Name = "JavaScriptRTB";
-            this.JavaScriptRTB.Size = new System.Drawing.Size(976, 696);
-            this.JavaScriptRTB.TabIndex = 0;
-            this.JavaScriptRTB.Text = resources.GetString("JavaScriptRTB.Text");
             // 
             // pythonEnginePage
             // 
@@ -2929,6 +2921,15 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
+            // JavaScriptTxt
+            // 
+            this.JavaScriptTxt.Location = new System.Drawing.Point(19, 12);
+            this.JavaScriptTxt.Multiline = true;
+            this.JavaScriptTxt.Name = "JavaScriptTxt";
+            this.JavaScriptTxt.Size = new System.Drawing.Size(945, 640);
+            this.JavaScriptTxt.TabIndex = 2;
+            this.JavaScriptTxt.Text = resources.GetString("JavaScriptTxt.Text");
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2956,6 +2957,7 @@
             this.VariablesLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).EndInit();
             this.javaEnginePage.ResumeLayout(false);
+            this.javaEnginePage.PerformLayout();
             this.manualPage.ResumeLayout(false);
             this.ManualLayoutPanel.ResumeLayout(false);
             this.revhistPage.ResumeLayout(false);
@@ -3195,8 +3197,8 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button UiDefaultBtn;
         private System.Windows.Forms.TabPage pythonEnginePage;
-        private System.Windows.Forms.RichTextBox JavaScriptRTB;
         private System.Windows.Forms.Button JavaRunBtn;
+        private System.Windows.Forms.TextBox JavaScriptTxt;
     }
 }
 
