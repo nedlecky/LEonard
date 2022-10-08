@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
             this.RecipeRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
@@ -75,6 +75,7 @@
             this.SaveVariablesBtn = new System.Windows.Forms.Button();
             this.LoadVariablesBtn = new System.Windows.Forms.Button();
             this.javaEnginePage = new System.Windows.Forms.TabPage();
+            this.JavaScriptTxt = new System.Windows.Forms.TextBox();
             this.JavaRunBtn = new System.Windows.Forms.Button();
             this.pythonEnginePage = new System.Windows.Forms.TabPage();
             this.manualPage = new System.Windows.Forms.TabPage();
@@ -231,7 +232,8 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.JavaScriptTxt = new System.Windows.Forms.TextBox();
+            this.pythonScriptTxt = new System.Windows.Forms.TextBox();
+            this.PythonRunBtn = new System.Windows.Forms.Button();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -240,6 +242,7 @@
             this.VariablesLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).BeginInit();
             this.javaEnginePage.SuspendLayout();
+            this.pythonEnginePage.SuspendLayout();
             this.manualPage.SuspendLayout();
             this.ManualLayoutPanel.SuspendLayout();
             this.revhistPage.SuspendLayout();
@@ -601,14 +604,14 @@
             // 
             this.PositionsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.PositionsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.PositionsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PositionLayoutPanel.SetColumnSpan(this.PositionsGrd, 4);
             this.PositionsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -756,14 +759,14 @@
             // 
             this.VariablesGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.VariablesGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VariablesLayoutPanel.SetColumnSpan(this.VariablesGrd, 4);
             this.VariablesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -841,6 +844,15 @@
             this.javaEnginePage.Text = "Java";
             this.javaEnginePage.UseVisualStyleBackColor = true;
             // 
+            // JavaScriptTxt
+            // 
+            this.JavaScriptTxt.Location = new System.Drawing.Point(19, 12);
+            this.JavaScriptTxt.Multiline = true;
+            this.JavaScriptTxt.Name = "JavaScriptTxt";
+            this.JavaScriptTxt.Size = new System.Drawing.Size(945, 640);
+            this.JavaScriptTxt.TabIndex = 2;
+            this.JavaScriptTxt.Text = resources.GetString("JavaScriptTxt.Text");
+            // 
             // JavaRunBtn
             // 
             this.JavaRunBtn.Location = new System.Drawing.Point(19, 716);
@@ -853,6 +865,8 @@
             // 
             // pythonEnginePage
             // 
+            this.pythonEnginePage.Controls.Add(this.pythonScriptTxt);
+            this.pythonEnginePage.Controls.Add(this.PythonRunBtn);
             this.pythonEnginePage.Location = new System.Drawing.Point(4, 64);
             this.pythonEnginePage.Name = "pythonEnginePage";
             this.pythonEnginePage.Size = new System.Drawing.Size(1288, 1084);
@@ -2165,23 +2179,23 @@
             // 
             this.ToolsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.ToolsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.ToolsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle8;
             this.ToolsGrd.Location = new System.Drawing.Point(6, 43);
             this.ToolsGrd.Name = "ToolsGrd";
             this.ToolsGrd.RowTemplate.Height = 34;
@@ -2921,14 +2935,24 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // JavaScriptTxt
+            // pythonScriptTxt
             // 
-            this.JavaScriptTxt.Location = new System.Drawing.Point(19, 12);
-            this.JavaScriptTxt.Multiline = true;
-            this.JavaScriptTxt.Name = "JavaScriptTxt";
-            this.JavaScriptTxt.Size = new System.Drawing.Size(945, 640);
-            this.JavaScriptTxt.TabIndex = 2;
-            this.JavaScriptTxt.Text = resources.GetString("JavaScriptTxt.Text");
+            this.pythonScriptTxt.Location = new System.Drawing.Point(19, 15);
+            this.pythonScriptTxt.Multiline = true;
+            this.pythonScriptTxt.Name = "pythonScriptTxt";
+            this.pythonScriptTxt.Size = new System.Drawing.Size(945, 640);
+            this.pythonScriptTxt.TabIndex = 4;
+            this.pythonScriptTxt.Text = "print \'Hello, world!\'\r\na = 5\r\nb = 7.12\r\nc = a * b\r\n";
+            // 
+            // PythonRunBtn
+            // 
+            this.PythonRunBtn.Location = new System.Drawing.Point(19, 719);
+            this.PythonRunBtn.Name = "PythonRunBtn";
+            this.PythonRunBtn.Size = new System.Drawing.Size(164, 63);
+            this.PythonRunBtn.TabIndex = 3;
+            this.PythonRunBtn.Text = "Run";
+            this.PythonRunBtn.UseVisualStyleBackColor = true;
+            this.PythonRunBtn.Click += new System.EventHandler(this.PythonRunBtn_Click);
             // 
             // MainForm
             // 
@@ -2958,6 +2982,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).EndInit();
             this.javaEnginePage.ResumeLayout(false);
             this.javaEnginePage.PerformLayout();
+            this.pythonEnginePage.ResumeLayout(false);
+            this.pythonEnginePage.PerformLayout();
             this.manualPage.ResumeLayout(false);
             this.ManualLayoutPanel.ResumeLayout(false);
             this.revhistPage.ResumeLayout(false);
@@ -3199,6 +3225,8 @@
         private System.Windows.Forms.TabPage pythonEnginePage;
         private System.Windows.Forms.Button JavaRunBtn;
         private System.Windows.Forms.TextBox JavaScriptTxt;
+        private System.Windows.Forms.TextBox pythonScriptTxt;
+        private System.Windows.Forms.Button PythonRunBtn;
     }
 }
 

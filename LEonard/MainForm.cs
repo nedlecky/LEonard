@@ -31,7 +31,9 @@ namespace LEonard
     {
         static string LEonardRoot = null;
         private static NLog.Logger log;
-        Engine jintEngine;
+        Engine javaEngine;
+        Microsoft.Scripting.Hosting.ScriptEngine pythonEngine;
+
 
         // TODO should be replaced with generic devices interface
         LeTcpServer robotCommandServer = null;
@@ -116,6 +118,7 @@ namespace LEonard
             InitializeComponent();
 
             InitializeJavaEngine();
+            InitializePythonEngine();
         }
 
 
@@ -5208,7 +5211,7 @@ namespace LEonard
         // ===================================================================
         private void InitializeJavaEngine()
         {
-            jintEngine = new Engine()
+            javaEngine = new Engine()
                     // Expose the alert function in JavaScript that triggers the native function (previously created) Alert
                     .SetValue("alert", new Action<string>(JavaAlert))
                     .SetValue("print", new Action<string>(JavaPrint))
@@ -5222,28 +5225,47 @@ namespace LEonard
 
             try
             {
-                jintEngine.Execute(script);
+                javaEngine.Execute(script);
             }
             catch
             {
 
             }
 
-            double a = jintEngine.GetValue("a").AsNumber();
-            double b = jintEngine.GetValue("b").AsNumber();
-            double c = jintEngine.GetValue("c").AsNumber();
-            string aStr = jintEngine.GetValue("aStr").AsString();
+            double a = javaEngine.GetValue("a").AsNumber();
+            double b = javaEngine.GetValue("b").AsNumber();
+            double c = javaEngine.GetValue("c").AsNumber();
+            string aStr = javaEngine.GetValue("aStr").AsString();
             log.Info($"Java Run: a={a} b={b} c={c} aStr={aStr}");
         }
         // ===================================================================
         // END JAVA ENGINE
         // ===================================================================
+
+        // ===================================================================
+        // START PYTHON ENGINE
+        // ===================================================================
+        private void InitializePythonEngine()
+        {
+            pythonEngine = IronPython.Hosting.Python.CreateEngine();
+        }
+
+        private void PythonRunBtn_Click(object sender, EventArgs e)
+        {
+            Microsoft.Scripting.Hosting.ScriptSource pythonScript =
+                pythonEngine.CreateScriptSourceFromString(pythonScriptTxt.Text);
+            pythonScript.Execute();
+        }
+        // ===================================================================
+        // END PYTHON ENGINE
+        // ===================================================================
+
     }
 
     public static class RichTextBoxExtensions
     {
         /// <summary>
-        /// Dependable replacement for RTB.GetFirstCharIndexFromLine. Actuall adds up the previous lines plus terminator.
+        /// Dependable replacement for RTB.GetFirstCharIndexFromLine. Actually adds up the previous lines plus terminator.
         /// When you don't do this, you get odd behavior with line wrapping and if you toggle it off, you get flashing of the control.
         /// </summary>
         /// <param name="n">0-indexed line number to examine</param>
