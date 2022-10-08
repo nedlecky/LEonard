@@ -1,5 +1,5 @@
 ﻿// File: LeDevNull.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: Null (Examaple) LEonard device
 
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public class LeDevNull : LeDeviceBase, LeDeviceInterface
     {

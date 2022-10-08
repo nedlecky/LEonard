@@ -1,7 +1,7 @@
 ﻿// File: MainForm.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
-// Purpose: The main code window for the LEonardTablet program
+// Purpose: The main code window for the LEonard program
 
 using System;
 using System.Collections.Generic;
@@ -19,16 +19,16 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LeonardTablet;
+using LEonard;
 using Microsoft.Win32;
 using NLog;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public partial class MainForm : Form
     {
 
-        static string LEonardTabletRoot = null;
+        static string LEonardRoot = null;
         private static NLog.Logger log;
 
         // TODO should be replaced with generic devices interface
@@ -77,7 +77,7 @@ namespace LEonardTablet
         string executionRoot = "";
 
         // System Defaults
-        const string DEFAULT_LEonardTabletRoot = "C:\\LEonard";
+        const string DEFAULT_LEonardRoot = "C:\\LEonard";
         const string DEFAULT_RobotProgramTxt = "LEonard/LEonard01.urp";
         const string DEFAULT_RobotIpTxt = "192.168.0.2";
         const string DEFAULT_ServerIpTxt = "192.168.0.252";
@@ -147,7 +147,7 @@ namespace LEonardTablet
             LoadRootDirectory();
 
             // Set logfile variable in NLog
-            LogManager.Configuration.Variables["LogfileName"] = LEonardTabletRoot + "/Logs/LEonardTablet.log";
+            LogManager.Configuration.Variables["LogfileName"] = LEonardRoot + "/Logs/LEonard.log";
             LogManager.ReconfigExistingLoggers();
 
             // Flag that we're starting
@@ -1552,11 +1552,11 @@ namespace LEonardTablet
             if (RecipeFilenameLbl.Text != "Untitled" && RecipeFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(RecipeFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardTabletRoot, "Recipes");
+                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
 
             FileOpenDialog dialog = new FileOpenDialog()
             {
-                Title = "Open an LEonardTablet Recipe",
+                Title = "Open a LEonard Recipe",
                 Filter = "*.txt",
                 InitialDirectory = initialDirectory
             };
@@ -1594,7 +1594,7 @@ namespace LEonardTablet
             if (RecipeFilenameLbl.Text != "Untitled" && RecipeFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(RecipeFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardTabletRoot, "Recipes");
+                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
 
             FileSaveAsDialog dialog = new FileSaveAsDialog()
             {
@@ -1640,8 +1640,8 @@ namespace LEonardTablet
             if (DialogResult.OK != ConfirmMessageBox("This will reset the General Configuration settings. Proceed?"))
                 return;
 
-            LEonardTabletRoot = DEFAULT_LEonardTabletRoot;
-            LEonardTabletRootLbl.Text = LEonardTabletRoot;
+            LEonardRoot = DEFAULT_LEonardRoot;
+            LEonardRootLbl.Text = LEonardRoot;
             RobotProgramTxt.Text = DEFAULT_RobotProgramTxt;
             ServerIpTxt.Text = DEFAULT_ServerIpTxt;
             RobotIpTxt.Text = DEFAULT_RobotIpTxt;
@@ -1669,15 +1669,15 @@ namespace LEonardTablet
         public void MakeStandardSubdirectories()
         {
             // Make standard subdirectories (if they don't exist)
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Logs"));
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Recipes"));
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardTabletRoot, "Data"));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Logs"));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Recipes"));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Data"));
         }
 
         public RegistryKey GetAppNameKey()
         {
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            return SoftwareKey.CreateSubKey("LEonardTablet");
+            return SoftwareKey.CreateSubKey("LEonard");
 
         }
 
@@ -1686,28 +1686,28 @@ namespace LEonardTablet
         {
             RegistryKey AppNameKey = GetAppNameKey();
 
-            LEonardTabletRoot = (string)AppNameKey.GetValue("LEonardTabletRoot", "C:\\LEonardTablet");
+            LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", "C:\\LEonard");
 
             // Suggested root?
             string suggestedRoot = Path.GetFullPath(Path.Combine(executionRoot, "../../.."));
-            log.Info("Current root is {0}", LEonardTabletRoot);
+            log.Info("Current root is {0}", LEonardRoot);
             log.Info("Suggested root is {0}", suggestedRoot);
 
-            if (LEonardTabletRoot != suggestedRoot)
+            if (LEonardRoot != suggestedRoot)
             {
-                DialogResult result = ConfirmMessageBox($"Root is set to\n{LEonardTabletRoot}\nYou are executing out of\n{suggestedRoot}\nChange?");
+                DialogResult result = ConfirmMessageBox($"Root is set to\n{LEonardRoot}\nYou are executing out of\n{suggestedRoot}\nChange?");
                 if (result == DialogResult.OK)
                 {
-                    LEonardTabletRoot = suggestedRoot;
+                    LEonardRoot = suggestedRoot;
                 }
             }
 
-            if (!Directory.Exists(LEonardTabletRoot))
+            if (!Directory.Exists(LEonardRoot))
             {
-                DialogResult result = ConfirmMessageBox(String.Format("Root Directory [{0}] does not exist. Create it?", LEonardTabletRoot));
+                DialogResult result = ConfirmMessageBox(String.Format("Root Directory [{0}] does not exist. Create it?", LEonardRoot));
                 if (result == DialogResult.OK)
                 {
-                    System.IO.Directory.CreateDirectory(LEonardTabletRoot);
+                    System.IO.Directory.CreateDirectory(LEonardRoot);
                 }
                 else
                 {
@@ -1725,7 +1725,7 @@ namespace LEonardTablet
             // Note default values are specified here as well
             log.Info("LoadPersistent()");
 
-            if (LEonardTabletRoot == null || LEonardTabletRoot == "") LoadRootDirectory();
+            if (LEonardRoot == null || LEonardRoot == "") LoadRootDirectory();
             MakeStandardSubdirectories();
 
             RegistryKey AppNameKey = GetAppNameKey();
@@ -1738,7 +1738,7 @@ namespace LEonardTablet
             Height = tabletScreenDesignHeight;
 
 
-            LEonardTabletRootLbl.Text = LEonardTabletRoot;
+            LEonardRootLbl.Text = LEonardRoot;
             RobotProgramTxt.Text = (string)AppNameKey.GetValue("RobotProgramTxt.Text", DEFAULT_RobotProgramTxt);
             RobotIpTxt.Text = (string)AppNameKey.GetValue("RobotIpTxt.Text", DEFAULT_RobotIpTxt);
             ServerIpTxt.Text = (string)AppNameKey.GetValue("ServerIpTxt.Text", DEFAULT_ServerIpTxt);
@@ -1811,7 +1811,7 @@ namespace LEonardTablet
             AppNameKey.SetValue("Height", Width);
 
             // From Setup Tab
-            AppNameKey.SetValue("LEonardTabletRoot", LEonardTabletRoot);
+            AppNameKey.SetValue("LEonardRoot", LEonardRoot);
             AppNameKey.SetValue("RobotProgramTxt.Text", RobotProgramTxt.Text);
             AppNameKey.SetValue("RobotIpTxt.Text", RobotIpTxt.Text);
             AppNameKey.SetValue("ServerIpTxt.Text", ServerIpTxt.Text);
@@ -1847,13 +1847,13 @@ namespace LEonardTablet
             log.Info("ChangeRootDirectoryBtn_Click(...)");
             DirectorySelectDialog dialog = new DirectorySelectDialog()
             {
-                SelectedPath = LEonardTabletRoot
+                SelectedPath = LEonardRoot
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                log.Info("New LEonardTabletRoot={0}", dialog.SelectedPath);
-                LEonardTabletRoot = dialog.SelectedPath;
-                LEonardTabletRootLbl.Text = LEonardTabletRoot;
+                log.Info("New LEonardRoot={0}", dialog.SelectedPath);
+                LEonardRoot = dialog.SelectedPath;
+                LEonardRootLbl.Text = LEonardRoot;
 
                 MakeStandardSubdirectories();
             }
@@ -2010,13 +2010,13 @@ namespace LEonardTablet
         /// <summary>
         /// Read file looking for lines of the form "name=value" and pass then to the variable write function
         /// </summary>
-        /// <param name="filename">File to import- assumed to reside in LEonardTabletRoot/Recipes</param>
+        /// <param name="filename">File to import- assumed to reside in LEonardRoot/Recipes</param>
         /// <returns>true if file import completed successfully</returns>
         private bool ImportFile(string filename)
         {
             try
             {
-                string[] lines = System.IO.File.ReadAllLines(Path.Combine(LEonardTabletRoot, "Recipes", filename));
+                string[] lines = System.IO.File.ReadAllLines(Path.Combine(LEonardRoot, "Recipes", filename));
 
                 foreach (string line in lines)
                 {
@@ -2042,7 +2042,7 @@ namespace LEonardTablet
             log.Info("PromptOperator(message={0}, closeOnReady={1}, isMotioWait={2}", message, closeOnReady, isMotionWait);
             waitingForOperatorMessageForm = new MessageDialog(this)
             {
-                Title = "LEonardTablet Prompt",
+                Title = "LEonard Prompt",
                 Label = message,
                 OkText = isMotionWait ? "STOP MOTION" : "&Continue Execution",
                 CancelText = isMotionWait ? "STOP MOTION" : "&Abort",
@@ -2926,7 +2926,7 @@ namespace LEonardTablet
                     return true;
                 }
 
-                string full_filename = Path.Combine(LEonardTabletRoot, "Data", filename);
+                string full_filename = Path.Combine(LEonardRoot, "Data", filename);
                 full_filename = Path.ChangeExtension(full_filename, ".csv");
 
                 try
@@ -3009,7 +3009,7 @@ namespace LEonardTablet
                     return true;
                 }
 
-                string full_filename = Path.Combine(LEonardTabletRoot, "Data", filename);
+                string full_filename = Path.Combine(LEonardRoot, "Data", filename);
                 if (fileManager == null)
                     fileManager = new FileManager(this);
 
@@ -3095,7 +3095,7 @@ namespace LEonardTablet
                     return true;
                 }
 
-                string full_filename = Path.Combine(LEonardTabletRoot, "Data", filename);
+                string full_filename = Path.Combine(LEonardRoot, "Data", filename);
                 full_filename = Path.ChangeExtension(full_filename, ".csv");
 
                 try
@@ -4401,7 +4401,7 @@ namespace LEonardTablet
 
         private void LoadVariablesBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardTabletRoot, "Recipes", variablesFilename);
+            string filename = Path.Combine(LEonardRoot, "Recipes", variablesFilename);
             log.Info("LoadVariables from {0}", filename);
             ClearAndInitializeVariables();
             try
@@ -4420,7 +4420,7 @@ namespace LEonardTablet
 
         private void SaveVariablesBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardTabletRoot, "Recipes", variablesFilename);
+            string filename = Path.Combine(LEonardRoot, "Recipes", variablesFilename);
             log.Info("SaveVariables to {0}", filename);
             variables.AcceptChanges();
             variables.WriteXml(filename, XmlWriteMode.WriteSchema, true);
@@ -4596,7 +4596,7 @@ namespace LEonardTablet
 
         private void LoadToolsBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardTabletRoot, "Recipes", toolsFilename);
+            string filename = Path.Combine(LEonardRoot, "Recipes", toolsFilename);
             log.Info("LoadTools from {0}", filename);
             ClearAndInitializeTools();
             try
@@ -4619,7 +4619,7 @@ namespace LEonardTablet
 
         private void SaveToolsBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardTabletRoot, "Recipes", toolsFilename);
+            string filename = Path.Combine(LEonardRoot, "Recipes", toolsFilename);
             log.Info("SaveTools to {0}", filename);
             tools.AcceptChanges();
             tools.WriteXml(filename, XmlWriteMode.WriteSchema, true);
@@ -4806,7 +4806,7 @@ namespace LEonardTablet
 
         private void LoadPositionsBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardTabletRoot, "Recipes", positionsFilename);
+            string filename = Path.Combine(LEonardRoot, "Recipes", positionsFilename);
             log.Info("LoadPositions from {0}", filename);
             ClearAndInitializePositions();
             try
@@ -4821,7 +4821,7 @@ namespace LEonardTablet
 
         private void SavePositionsBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardTabletRoot, "Recipes", positionsFilename);
+            string filename = Path.Combine(LEonardRoot, "Recipes", positionsFilename);
             log.Info("SavePositions to {0}", filename);
             positions.AcceptChanges();
             positions.WriteXml(filename, XmlWriteMode.WriteSchema, true);
@@ -5062,7 +5062,7 @@ namespace LEonardTablet
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
-            startInfo.Arguments = String.Format("file:\\{0}\\LEonardTablet%20User%20Manual.pdf", executionRoot);
+            startInfo.Arguments = String.Format("file:\\{0}\\LEonard%20User%20Manual.pdf", executionRoot);
             process.StartInfo = startInfo;
             process.Start();
         }

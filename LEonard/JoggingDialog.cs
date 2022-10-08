@@ -1,5 +1,5 @@
 ﻿// File: JoggingDialog.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: Jogging and Freedrive manual robot movement
 
@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LEonardTablet
+namespace LEonard
 {
 
     public partial class JoggingDialog : Form

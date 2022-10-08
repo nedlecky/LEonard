@@ -1,5 +1,5 @@
 ﻿// File: LeSerial.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: RS-232 Interface
 
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public class LeSerial : LeDeviceBase, LeDeviceInterface
     {

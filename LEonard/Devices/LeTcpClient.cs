@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public class LeTcpClient : LeDeviceBase, LeDeviceInterface
     {

@@ -1,4 +1,4 @@
-﻿namespace LEonardTablet
+﻿namespace LEonard
 {
     partial class FileOpenDialog
     {

@@ -1,4 +1,4 @@
-﻿namespace LEonardTablet
+﻿namespace LEonard
 {
     partial class SplashForm
     {
@@ -53,7 +53,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(680, 76);
             this.label2.TabIndex = 1;
-            this.label2.Text = "LEonardTablet";
+            this.label2.Text = "LEonard";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CloseBtn
@@ -121,7 +121,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SplashForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "LEonardTablet Information";
+            this.Text = "LEonard Information";
             this.Load += new System.EventHandler(this.SplashForm_Load);
             this.Click += new System.EventHandler(this.SplashForm_Click);
             ((System.ComponentModel.ISupportInitialize)(this.DeveloperLogoPic)).EndInit();

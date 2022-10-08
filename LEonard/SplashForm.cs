@@ -1,5 +1,5 @@
 ﻿// File: SplashForm.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: Implements the splash screen (also used as the About dialog)
 
@@ -8,7 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public partial class SplashForm : Form
     {

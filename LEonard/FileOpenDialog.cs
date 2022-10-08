@@ -1,5 +1,5 @@
 ﻿// File: FileOpenDialog.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: Custom File Open dialog with large buttons for use with touch screen
 
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public partial class FileOpenDialog : Form
     {

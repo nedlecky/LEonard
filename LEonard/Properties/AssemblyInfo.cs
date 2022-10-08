@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LEonardTablet")]
+[assembly: AssemblyTitle("LEonard")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lecky Engineering LLC")]
-[assembly: AssemblyProduct("LEonardTablet")]
-[assembly: AssemblyCopyright("Copyright © 2020-2022")]
+[assembly: AssemblyProduct("LEonard")]
+[assembly: AssemblyCopyright("Copyright © 2020-2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2022.10.07.16")]
-[assembly: AssemblyFileVersion("2022.10.07.16")]
+[assembly: AssemblyVersion("2022.10.08.6")]
+[assembly: AssemblyFileVersion("2022.10.08.6")]

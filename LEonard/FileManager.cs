@@ -1,4 +1,4 @@
-﻿using LEonardTablet;
+﻿using LEonard;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeonardTablet
+namespace LEonard
 {
     public class FileManager
     {

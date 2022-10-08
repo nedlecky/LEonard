@@ -1,5 +1,5 @@
 ﻿// File: MessageDialog.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: Two-button dialog with relabelable buttons optimized for use with touch screen
 
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public partial class MessageDialog : Form
     {

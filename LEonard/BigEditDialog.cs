@@ -1,5 +1,5 @@
 ﻿// File: BigEditDialog.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: Fullscreen (touch tablet) editor
 
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public partial class BigEditDialog : Form
     {

@@ -1,5 +1,5 @@
 ﻿// File: SetValueForm.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: A numeric data entry window for use with touch screen (or keyboard)
 
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LEonardTablet
+namespace LEonard
 {
     public partial class SetValueForm : Form
     {

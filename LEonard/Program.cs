@@ -1,7 +1,7 @@
 ﻿// File: Program.cs
-// Project: LEonardTablet
+// Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
-// Purpose: The main rouutine (unmodified from default) for LEonardTablet
+// Purpose: The main routine (unmodified from default) for LEonard
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LEonardTablet
+namespace LEonard
 {
     internal static class Program
     {
