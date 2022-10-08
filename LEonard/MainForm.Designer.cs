@@ -208,8 +208,10 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.AllLogRTB = new System.Windows.Forms.RichTextBox();
             this.UiPage = new System.Windows.Forms.TabPage();
+            this.UiFixedHeightTxt = new System.Windows.Forms.TextBox();
+            this.UiFixedWidthTxt = new System.Windows.Forms.TextBox();
             this.UiFreeBtn = new System.Windows.Forms.Button();
-            this.UiTabletBtn = new System.Windows.Forms.Button();
+            this.UiFixedBtn = new System.Windows.Forms.Button();
             this.JogRunBtn = new System.Windows.Forms.Button();
             this.DiameterLbl = new System.Windows.Forms.Label();
             this.PartGeometryBox = new System.Windows.Forms.ComboBox();
@@ -223,6 +225,9 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.UiDefaultBtn = new System.Windows.Forms.Button();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -2591,8 +2596,13 @@
             // 
             // UiPage
             // 
+            this.UiPage.Controls.Add(this.UiDefaultBtn);
+            this.UiPage.Controls.Add(this.label23);
+            this.UiPage.Controls.Add(this.label20);
+            this.UiPage.Controls.Add(this.UiFixedHeightTxt);
+            this.UiPage.Controls.Add(this.UiFixedWidthTxt);
             this.UiPage.Controls.Add(this.UiFreeBtn);
-            this.UiPage.Controls.Add(this.UiTabletBtn);
+            this.UiPage.Controls.Add(this.UiFixedBtn);
             this.UiPage.Location = new System.Drawing.Point(4, 100);
             this.UiPage.Name = "UiPage";
             this.UiPage.Size = new System.Drawing.Size(2132, 1168);
@@ -2600,9 +2610,25 @@
             this.UiPage.Text = "UIcon";
             this.UiPage.UseVisualStyleBackColor = true;
             // 
+            // UiFixedHeightTxt
+            // 
+            this.UiFixedHeightTxt.Location = new System.Drawing.Point(367, 152);
+            this.UiFixedHeightTxt.Name = "UiFixedHeightTxt";
+            this.UiFixedHeightTxt.Size = new System.Drawing.Size(100, 44);
+            this.UiFixedHeightTxt.TabIndex = 3;
+            this.UiFixedHeightTxt.Text = "1440";
+            // 
+            // UiFixedWidthTxt
+            // 
+            this.UiFixedWidthTxt.Location = new System.Drawing.Point(244, 152);
+            this.UiFixedWidthTxt.Name = "UiFixedWidthTxt";
+            this.UiFixedWidthTxt.Size = new System.Drawing.Size(100, 44);
+            this.UiFixedWidthTxt.TabIndex = 2;
+            this.UiFixedWidthTxt.Text = "2160";
+            // 
             // UiFreeBtn
             // 
-            this.UiFreeBtn.Location = new System.Drawing.Point(34, 130);
+            this.UiFreeBtn.Location = new System.Drawing.Point(34, 202);
             this.UiFreeBtn.Name = "UiFreeBtn";
             this.UiFreeBtn.Size = new System.Drawing.Size(189, 84);
             this.UiFreeBtn.TabIndex = 1;
@@ -2610,15 +2636,15 @@
             this.UiFreeBtn.UseVisualStyleBackColor = true;
             this.UiFreeBtn.Click += new System.EventHandler(this.UiFreeBtn_Click);
             // 
-            // UiTabletBtn
+            // UiFixedBtn
             // 
-            this.UiTabletBtn.Location = new System.Drawing.Point(34, 31);
-            this.UiTabletBtn.Name = "UiTabletBtn";
-            this.UiTabletBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiTabletBtn.TabIndex = 0;
-            this.UiTabletBtn.Text = "Tablet";
-            this.UiTabletBtn.UseVisualStyleBackColor = true;
-            this.UiTabletBtn.Click += new System.EventHandler(this.UiTabletBtn_Click);
+            this.UiFixedBtn.Location = new System.Drawing.Point(34, 112);
+            this.UiFixedBtn.Name = "UiFixedBtn";
+            this.UiFixedBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiFixedBtn.TabIndex = 0;
+            this.UiFixedBtn.Text = "Fixed";
+            this.UiFixedBtn.UseVisualStyleBackColor = true;
+            this.UiFixedBtn.Click += new System.EventHandler(this.UiFixedBtn_Click);
             // 
             // JogRunBtn
             // 
@@ -2840,6 +2866,34 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(244, 112);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(100, 37);
+            this.label20.TabIndex = 4;
+            this.label20.Text = "Width";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(369, 112);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(109, 37);
+            this.label23.TabIndex = 5;
+            this.label23.Text = "Height";
+            // 
+            // UiDefaultBtn
+            // 
+            this.UiDefaultBtn.Location = new System.Drawing.Point(34, 22);
+            this.UiDefaultBtn.Name = "UiDefaultBtn";
+            this.UiDefaultBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiDefaultBtn.TabIndex = 6;
+            this.UiDefaultBtn.Text = "Default";
+            this.UiDefaultBtn.UseVisualStyleBackColor = true;
+            this.UiDefaultBtn.Click += new System.EventHandler(this.UiDefaultBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2897,6 +2951,7 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.UiPage.ResumeLayout(false);
+            this.UiPage.PerformLayout();
             this.BottomButtonLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -3064,7 +3119,7 @@
         private System.Windows.Forms.Label GocatorReadyLbl;
         private System.Windows.Forms.TabPage UiPage;
         private System.Windows.Forms.Button UiFreeBtn;
-        private System.Windows.Forms.Button UiTabletBtn;
+        private System.Windows.Forms.Button UiFixedBtn;
         private System.Windows.Forms.TabPage LogPage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -3098,6 +3153,11 @@
         private System.Windows.Forms.TableLayoutPanel StatusLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel CommandCounterLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel DiamVersionLayoutPanel;
+        private System.Windows.Forms.TextBox UiFixedHeightTxt;
+        private System.Windows.Forms.TextBox UiFixedWidthTxt;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button UiDefaultBtn;
     }
 }
 

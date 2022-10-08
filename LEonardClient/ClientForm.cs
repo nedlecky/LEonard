@@ -66,11 +66,16 @@ namespace LEonardClient
             InitTmr.Enabled = true;
         }
 
+        public RegistryKey GetAppNameKey()
+        {
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+            RegistryKey LeckyEngineeringKey = SoftwareKey.CreateSubKey("Lecky Engineering");
+            return LeckyEngineeringKey.CreateSubKey("LEonardClient");
+        }
         void LoadPersistent()
         {
             log.Trace("LoadPersistent()");
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
+            RegistryKey AppNameKey = GetAppNameKey();
 
             Left = (Int32)AppNameKey.GetValue("Left", 0);
             Top = (Int32)AppNameKey.GetValue("Top", 100);
@@ -82,8 +87,7 @@ namespace LEonardClient
         {
             log.Trace("LoadPersistent()");
 
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonardClient");
+            RegistryKey AppNameKey = GetAppNameKey();
 
             AppNameKey.SetValue("Left", Left);
             AppNameKey.SetValue("Top", Top);

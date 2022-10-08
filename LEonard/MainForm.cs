@@ -150,13 +150,14 @@ namespace LEonard
             LogManager.Configuration.Variables["LogfileName"] = LEonardRoot + "/Logs/LEonard.log";
             LogManager.ReconfigExistingLoggers();
 
+            LoadPersistent();
+
             // Flag that we're starting
             log.Info("================================================================");
             log.Info(string.Format("Starting {0} in [{1}]", filename, executionRoot));
             log.Info(caption);
             log.Info("================================================================");
 
-            LoadPersistent();
             UserModeBox.SelectedIndex = (int)operatorMode;
 
             // 1-second tick
@@ -173,6 +174,8 @@ namespace LEonard
 
             SetRecipeState(RecipeState.NEW);
             SetState(RunState.IDLE);
+
+            ResumeLayout();
         }
         // Function key shortcut handling (primarily for development testing assistance)
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -1677,10 +1680,9 @@ namespace LEonard
         public RegistryKey GetAppNameKey()
         {
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            return SoftwareKey.CreateSubKey("LEonard");
-
+            RegistryKey LeckyEngineeringKey = SoftwareKey.CreateSubKey("Lecky Engineering");
+            return LeckyEngineeringKey.CreateSubKey("LEonard");
         }
-
 
         void LoadRootDirectory()
         {
@@ -1731,12 +1733,21 @@ namespace LEonard
             RegistryKey AppNameKey = GetAppNameKey();
 
             // Window State
+            RegistryKey UIKey = AppNameKey.CreateSubKey("UI");
             // Zebra L10 Tablet runs best at 2160x1440 100% mag
-            Left = 0;// (Int32)AppNameKey.GetValue("Left", 0);
-            Top = 0;// (Int32)AppNameKey.GetValue("Top", 0);
-            Width = tabletScreenDesignWidth;// (Int32)AppNameKey.GetValue("Width", 1920);
-            Height = tabletScreenDesignHeight;
-
+            SuspendLayout();
+            Left = (Int32)UIKey.GetValue("Left", 0);
+            Top = (Int32)UIKey.GetValue("Top", 0);
+            Width = (Int32)UIKey.GetValue("Width", tabletScreenDesignWidth);
+            Height = (Int32)UIKey.GetValue("Height", tabletScreenDesignHeight);
+            ResumeLayout();
+            FormBorderStyle = (FormBorderStyle)UIKey.GetValue("BorderStyle", FormBorderStyle.None);
+            ControlBox = Convert.ToBoolean(UIKey.GetValue("ControlBox", "False"));
+            MaximizeBox = Convert.ToBoolean(UIKey.GetValue("MaximizeBox", "False"));
+            MinimizeBox = Convert.ToBoolean(UIKey.GetValue("MinimizeBox", "False"));
+            WindowState = (FormWindowState) UIKey.GetValue("WindowState", FormWindowState.Normal);
+            UiFixedWidthTxt.Text = (string)UIKey.GetValue("UiFixedWidthTxt.Text", tabletScreenDesignWidth.ToString());
+            UiFixedHeightTxt.Text = (string)UIKey.GetValue("UiFixedHeightTxt.Text", tabletScreenDesignHeight.ToString());
 
             LEonardRootLbl.Text = LEonardRoot;
             RobotProgramTxt.Text = (string)AppNameKey.GetValue("RobotProgramTxt.Text", DEFAULT_RobotProgramTxt);
@@ -1805,10 +1816,18 @@ namespace LEonard
             RegistryKey AppNameKey = GetAppNameKey();
 
             // Window State
-            AppNameKey.SetValue("Left", Left);
-            AppNameKey.SetValue("Top", Top);
-            AppNameKey.SetValue("Width", Width);
-            AppNameKey.SetValue("Height", Width);
+            RegistryKey UIKey = AppNameKey.CreateSubKey("UI");
+            UIKey.SetValue("Left", Left);
+            UIKey.SetValue("Top", Top);
+            UIKey.SetValue("Width", Width);
+            UIKey.SetValue("Height", Height);
+            UIKey.SetValue("BorderStyle", (int)FormBorderStyle);
+            UIKey.SetValue("ControlBox", ControlBox);
+            UIKey.SetValue("MaximizeBox", MaximizeBox);
+            UIKey.SetValue("MinimizeBox", MinimizeBox);
+            UIKey.SetValue("WindowState", (int)WindowState);
+            UIKey.SetValue("UiFixedWidthTxt.Text", UiFixedWidthTxt.Text);
+            UIKey.SetValue("UiFixedHeightTxt.Text", UiFixedHeightTxt.Text);
 
             // From Setup Tab
             AppNameKey.SetValue("LEonardRoot", LEonardRoot);
@@ -3975,7 +3994,7 @@ namespace LEonard
             if (name == "DateTime")
                 return DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss");
             if (name == "RecipeFilename")
-                return Path.GetFileNameWithoutExtension(RecipeFilenameLbl.Text).Replace(' ','_').ToLower();
+                return Path.GetFileNameWithoutExtension(RecipeFilenameLbl.Text).Replace(' ', '_').ToLower();
 
             foreach (DataRow row in variables.Rows)
             {
@@ -5109,7 +5128,14 @@ namespace LEonard
         // ===================================================================
         // START UI CONTROL SYSTEM
         // ===================================================================
-        private void UiTabletBtn_Click(object sender, EventArgs e)
+        private void UiDefaultBtn_Click(object sender, EventArgs e)
+        {
+            UiFixedWidthTxt.Text = tabletScreenDesignWidth.ToString();
+            UiFixedHeightTxt.Text = tabletScreenDesignHeight.ToString();
+            UiFixedBtn_Click(null, null);
+        }
+
+        private void UiFixedBtn_Click(object sender, EventArgs e)
         {
             userInterfaceMode = UserInterfaceMode.TABLET;
 
@@ -5119,18 +5145,22 @@ namespace LEonard
             this.MinimizeBox = false;
             this.WindowState = FormWindowState.Normal;
 
+            int width = tabletScreenDesignWidth;
+            int height = tabletScreenDesignHeight;
+
+            bool good1 = int.TryParse(UiFixedWidthTxt.Text, out width);
+            bool good2 = int.TryParse(UiFixedHeightTxt.Text, out height);
+
             Left = 0;
             Top = 0;
-            Width = tabletScreenDesignWidth;
-            Height = tabletScreenDesignHeight;
+
+            Width = width;
+            Height = height;
         }
 
         private void UiFreeBtn_Click(object sender, EventArgs e)
         {
             userInterfaceMode = UserInterfaceMode.FREE;
-
-            Width = tabletScreenDesignWidth - 100;
-            Height = tabletScreenDesignHeight - 100;
 
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.ControlBox = true;

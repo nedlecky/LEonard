@@ -335,14 +335,19 @@ namespace LEonard
         // CONFIG UI
         // ***********************************************************************
 
+        public RegistryKey GetAppNameKey()
+        {
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+            RegistryKey LeckyEngineeringKey = SoftwareKey.CreateSubKey("Lecky Engineering");
+            return LeckyEngineeringKey.CreateSubKey("LEonardOriginal");
+        }
+
         void LoadPersistent()
         {
             // Pull setup info from registry.... these are overwritten on exit or with various config save operations
             // Note default values are specified here as well
             log.Info("LoadPersistent()");
-
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
+            RegistryKey AppNameKey = GetAppNameKey();
 
             Left = (Int32)AppNameKey.GetValue("Left", 0);
             Top = (Int32)AppNameKey.GetValue("Top", 100);
@@ -366,9 +371,7 @@ namespace LEonard
         void SavePersistent()
         {
             log.Info("SavePersistent()");
-
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-            RegistryKey AppNameKey = SoftwareKey.CreateSubKey("LEonard");
+            RegistryKey AppNameKey = GetAppNameKey();
 
             AppNameKey.SetValue("Left", Left);
             AppNameKey.SetValue("Top", Top);
@@ -400,19 +403,18 @@ namespace LEonard
             }
 
         }
-
         private void ChangeStartupDevicesBtn_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Title = "Select Startup LEonard Devices File";
-            dialog.Filter = "Device files|*.dev";
+            dialog.Filter = "Device files|*.ldev";
             dialog.InitialDirectory = LEonardRoot;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 StartupDevicesLbl.Text = dialog.FileName;
                 log.Info("Startup Devices file set to {0}", StartupDevicesLbl.Text);
 
-                if (MessageBox.Show("Load this file now?", "LEonard Confiormation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Load this file now?", "LEonard Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     LoadDevicesFile(StartupDevicesLbl.Text);
             }
         }
@@ -928,7 +930,7 @@ namespace LEonard
                 Form form = new MessageForm("Waiting", "Waiting for app to start");
                 form.Owner = this;
                 form.Show();
-                for (int i=0; i<50; i++)
+                for (int i = 0; i < 50; i++)
                 {
                     Thread.Sleep(100);
                     IntPtr hWnd = interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle;
@@ -1349,7 +1351,7 @@ namespace LEonard
         }
         private void JsPrint(string message)
         {
-            JavaScriptConsoleRTB.AppendText(message+'\n');
+            JavaScriptConsoleRTB.AppendText(message + '\n');
             JavaScriptConsoleRTB.ScrollToCaret();
         }
 
