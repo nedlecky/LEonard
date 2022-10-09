@@ -24,6 +24,7 @@ using NLog;
 using LEonard;
 using Jint;
 using System.Net.NetworkInformation;
+using static IronPython.Modules._ast;
 
 namespace LEonard
 {
@@ -158,6 +159,8 @@ namespace LEonard
             // Set logfile variable in NLog
             LogManager.Configuration.Variables["LogfileName"] = LEonardRoot + "/Logs/LEonard.log";
             LogManager.ReconfigExistingLoggers();
+
+            TakeControlInventory();
 
             LoadPersistent();
 
@@ -5137,11 +5140,103 @@ namespace LEonard
         // ===================================================================
         // START UI CONTROL SYSTEM
         // ===================================================================
+
+        public class ControlInfo
+        {
+            public Font originalFont;
+        }
+
+        public IEnumerable<Control> GetAll(Control control, Type type)
+        {
+            var controls = control.Controls.Cast<Control>();
+
+            return controls.SelectMany(ctrl => GetAll(ctrl, type))
+                                      .Concat(controls)
+                                      .Where(c => c.GetType() == type);
+        }
+
+        // Lists of all controls that get tweaked in UI management
+        IEnumerable<Control> buttonList;
+        IEnumerable<Control> comboboxList;
+        IEnumerable<Control> datagridviewList;
+        IEnumerable<Control> labelList;
+        IEnumerable<Control> richtextboxList;
+        IEnumerable<Control> tabcontrolList;
+        IEnumerable<Control> textboxList;
+
+        private void RememberInitialFont(Control ctl)
+        {
+            ControlInfo controlInfo = new ControlInfo();
+            controlInfo.originalFont = ctl.Font;
+            ctl.Tag = controlInfo;
+        }
+        private void TakeControlInventory()
+        {
+            buttonList = GetAll(this, typeof(Button));
+            log.Info("Button Count: " + buttonList.Count());
+            foreach (Button b in buttonList)
+            {
+                log.Info($"BTN {b.Text} {b.Font.Size}");
+                RememberInitialFont(b);
+            }
+
+            comboboxList = GetAll(this, typeof(ComboBox));
+            log.Info("ComboBox Count: " + comboboxList.Count());
+            foreach (ComboBox c in comboboxList)
+            {
+                log.Info($"COMBO {c.Text} {c.Font.Size}");
+                RememberInitialFont(c);
+            }
+
+            datagridviewList = GetAll(this, typeof(DataGridView));
+            log.Info("DataGridView Count: " + datagridviewList.Count());
+            foreach (DataGridView d in datagridviewList)
+            {
+                log.Info($"DGV {d.Text} {d.Font.Size}");
+                RememberInitialFont(d);
+            }
+
+            labelList = GetAll(this, typeof(Label));
+            log.Info("Label Count: " + labelList.Count());
+            foreach (Label l in labelList)
+            {
+                log.Info($"LBL {l.Text} {l.Font.Size}");
+                RememberInitialFont(l);
+            }
+
+            richtextboxList = GetAll(this, typeof(RichTextBox));
+            log.Info("RichTextBox Count: " + richtextboxList.Count());
+            foreach (RichTextBox r in richtextboxList)
+            {
+                log.Info($"RTB {r.Text} {r.Font.Size}");
+                RememberInitialFont(r);
+            }
+
+            tabcontrolList = GetAll(this, typeof(TabControl));
+            log.Info("TabControl Count: " + tabcontrolList.Count());
+            foreach (TabControl t in tabcontrolList)
+            {
+                log.Info($"TAB {t.Text} {t.Font.Size}");
+                RememberInitialFont(t);
+            }
+
+            textboxList = GetAll(this, typeof(TextBox));
+            log.Info("TextBox Count: " + textboxList.Count());
+            foreach (TextBox t in textboxList)
+            {
+                log.Info($"TXT {t.Text} {t.Font.Size}");
+                RememberInitialFont(t);
+            }
+        }
+
         private void UiDefaultBtn_Click(object sender, EventArgs e)
         {
             UiFixedWidthTxt.Text = tabletScreenDesignWidth.ToString();
             UiFixedHeightTxt.Text = tabletScreenDesignHeight.ToString();
             UiFixedBtn_Click(null, null);
+
+            UiTextScaleTxt.Text = "100";
+            UiTextScaleBtn_Click(null, null);
         }
 
         private void UiFixedBtn_Click(object sender, EventArgs e)
@@ -5178,6 +5273,27 @@ namespace LEonard
             this.WindowState = FormWindowState.Normal;
         }
 
+        void RescaleFont(Control ctl, float scale)
+        {
+            Font oldFont = ((ControlInfo)ctl.Tag).originalFont;
+            Font newFont = new Font(oldFont.FontFamily, oldFont.Size * scale / 100, oldFont.Style, oldFont.Unit);
+            ctl.Font = newFont;
+        }
+        private void UiTextScaleBtn_Click(object sender, EventArgs e)
+        {
+            float scale;
+            bool good = float.TryParse(UiTextScaleTxt.Text, out scale);
+            if (good)
+            {
+                foreach (Control c in buttonList) RescaleFont(c, scale);
+                foreach (Control c in comboboxList) RescaleFont(c, scale);
+                foreach (Control c in datagridviewList) RescaleFont(c, scale);
+                foreach (Control c in labelList) RescaleFont(c, scale);
+                foreach (Control c in richtextboxList) RescaleFont(c, scale);
+                foreach (Control c in tabcontrolList) RescaleFont(c, scale);
+                foreach (Control c in textboxList) RescaleFont(c, scale);
+            }
+        }
 
         // ===================================================================
         // END UI CONTROL SYSTEM
@@ -5256,6 +5372,7 @@ namespace LEonard
                 pythonEngine.CreateScriptSourceFromString(pythonScriptTxt.Text);
             pythonScript.Execute();
         }
+
         // ===================================================================
         // END PYTHON ENGINE
         // ===================================================================

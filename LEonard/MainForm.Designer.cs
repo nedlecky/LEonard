@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
             this.RecipeRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
@@ -78,6 +78,8 @@
             this.JavaScriptTxt = new System.Windows.Forms.TextBox();
             this.JavaRunBtn = new System.Windows.Forms.Button();
             this.pythonEnginePage = new System.Windows.Forms.TabPage();
+            this.pythonScriptTxt = new System.Windows.Forms.TextBox();
+            this.PythonRunBtn = new System.Windows.Forms.Button();
             this.manualPage = new System.Windows.Forms.TabPage();
             this.ManualLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.RecipeCommandsRTB = new System.Windows.Forms.RichTextBox();
@@ -212,6 +214,9 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.AllLogRTB = new System.Windows.Forms.RichTextBox();
             this.UiPage = new System.Windows.Forms.TabPage();
+            this.label24 = new System.Windows.Forms.Label();
+            this.UiTextScaleTxt = new System.Windows.Forms.TextBox();
+            this.UiTextScaleBtn = new System.Windows.Forms.Button();
             this.UiDefaultBtn = new System.Windows.Forms.Button();
             this.label23 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -232,8 +237,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.pythonScriptTxt = new System.Windows.Forms.TextBox();
-            this.PythonRunBtn = new System.Windows.Forms.Button();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -604,14 +607,14 @@
             // 
             this.PositionsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.PositionsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.PositionsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PositionLayoutPanel.SetColumnSpan(this.PositionsGrd, 4);
             this.PositionsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -759,14 +762,14 @@
             // 
             this.VariablesGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.VariablesGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VariablesLayoutPanel.SetColumnSpan(this.VariablesGrd, 4);
             this.VariablesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -873,6 +876,25 @@
             this.pythonEnginePage.TabIndex = 6;
             this.pythonEnginePage.Text = "Python";
             this.pythonEnginePage.UseVisualStyleBackColor = true;
+            // 
+            // pythonScriptTxt
+            // 
+            this.pythonScriptTxt.Location = new System.Drawing.Point(19, 15);
+            this.pythonScriptTxt.Multiline = true;
+            this.pythonScriptTxt.Name = "pythonScriptTxt";
+            this.pythonScriptTxt.Size = new System.Drawing.Size(945, 640);
+            this.pythonScriptTxt.TabIndex = 4;
+            this.pythonScriptTxt.Text = "print \'Hello, world!\'\r\na = 5\r\nb = 7.12\r\nc = a * b\r\n";
+            // 
+            // PythonRunBtn
+            // 
+            this.PythonRunBtn.Location = new System.Drawing.Point(19, 719);
+            this.PythonRunBtn.Name = "PythonRunBtn";
+            this.PythonRunBtn.Size = new System.Drawing.Size(164, 63);
+            this.PythonRunBtn.TabIndex = 3;
+            this.PythonRunBtn.Text = "Run";
+            this.PythonRunBtn.UseVisualStyleBackColor = true;
+            this.PythonRunBtn.Click += new System.EventHandler(this.PythonRunBtn_Click);
             // 
             // manualPage
             // 
@@ -2179,23 +2201,23 @@
             // 
             this.ToolsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.ToolsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.ToolsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle12;
             this.ToolsGrd.Location = new System.Drawing.Point(6, 43);
             this.ToolsGrd.Name = "ToolsGrd";
             this.ToolsGrd.RowTemplate.Height = 34;
@@ -2637,6 +2659,9 @@
             // 
             // UiPage
             // 
+            this.UiPage.Controls.Add(this.label24);
+            this.UiPage.Controls.Add(this.UiTextScaleTxt);
+            this.UiPage.Controls.Add(this.UiTextScaleBtn);
             this.UiPage.Controls.Add(this.UiDefaultBtn);
             this.UiPage.Controls.Add(this.label23);
             this.UiPage.Controls.Add(this.label20);
@@ -2650,6 +2675,33 @@
             this.UiPage.TabIndex = 6;
             this.UiPage.Text = "UIcon";
             this.UiPage.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(272, 341);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(45, 37);
+            this.label24.TabIndex = 9;
+            this.label24.Text = "%";
+            // 
+            // UiTextScaleTxt
+            // 
+            this.UiTextScaleTxt.Location = new System.Drawing.Point(244, 381);
+            this.UiTextScaleTxt.Name = "UiTextScaleTxt";
+            this.UiTextScaleTxt.Size = new System.Drawing.Size(100, 44);
+            this.UiTextScaleTxt.TabIndex = 8;
+            this.UiTextScaleTxt.Text = "100";
+            // 
+            // UiTextScaleBtn
+            // 
+            this.UiTextScaleBtn.Location = new System.Drawing.Point(34, 341);
+            this.UiTextScaleBtn.Name = "UiTextScaleBtn";
+            this.UiTextScaleBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiTextScaleBtn.TabIndex = 7;
+            this.UiTextScaleBtn.Text = "Text Scale";
+            this.UiTextScaleBtn.UseVisualStyleBackColor = true;
+            this.UiTextScaleBtn.Click += new System.EventHandler(this.UiTextScaleBtn_Click);
             // 
             // UiDefaultBtn
             // 
@@ -2935,25 +2987,6 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // pythonScriptTxt
-            // 
-            this.pythonScriptTxt.Location = new System.Drawing.Point(19, 15);
-            this.pythonScriptTxt.Multiline = true;
-            this.pythonScriptTxt.Name = "pythonScriptTxt";
-            this.pythonScriptTxt.Size = new System.Drawing.Size(945, 640);
-            this.pythonScriptTxt.TabIndex = 4;
-            this.pythonScriptTxt.Text = "print \'Hello, world!\'\r\na = 5\r\nb = 7.12\r\nc = a * b\r\n";
-            // 
-            // PythonRunBtn
-            // 
-            this.PythonRunBtn.Location = new System.Drawing.Point(19, 719);
-            this.PythonRunBtn.Name = "PythonRunBtn";
-            this.PythonRunBtn.Size = new System.Drawing.Size(164, 63);
-            this.PythonRunBtn.TabIndex = 3;
-            this.PythonRunBtn.Text = "Run";
-            this.PythonRunBtn.UseVisualStyleBackColor = true;
-            this.PythonRunBtn.Click += new System.EventHandler(this.PythonRunBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3227,6 +3260,9 @@
         private System.Windows.Forms.TextBox JavaScriptTxt;
         private System.Windows.Forms.TextBox pythonScriptTxt;
         private System.Windows.Forms.Button PythonRunBtn;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox UiTextScaleTxt;
+        private System.Windows.Forms.Button UiTextScaleBtn;
     }
 }
 
