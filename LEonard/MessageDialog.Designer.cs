@@ -144,6 +144,7 @@
             this.Text = "LEonard Message";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessageDialog_FormClosing);
             this.Load += new System.EventHandler(this.MessageDialog_Load);
+            this.Resize += new System.EventHandler(this.MessageDialog_Resize);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
