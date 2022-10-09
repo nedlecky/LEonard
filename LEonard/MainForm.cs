@@ -231,6 +231,7 @@ namespace LEonard
             if (!uiUpdatesAreLive) return;
             
             suggestedSystemScale = 100.0 * (double)Width / (double)tabletScreenDesignWidth;
+            if (suggestedSystemScale > 100) suggestedSystemScale = 100;
             log?.Info($"MainForm Resize to {Width} x {Height}");
             log?.Info($"Suggest {suggestedSystemScale}");
 
@@ -5242,8 +5243,17 @@ namespace LEonard
             UiFixedHeightTxt.Text = tabletScreenDesignHeight.ToString();
             UiFixedBtn_Click(null, null);
 
-            UiTextScaleTxt.Text = "100";
-            UiTextScaleBtn_Click(null, null);
+            //UiTextScaleTxt.Text = "100";
+            //UiTextScaleBtn_Click(null, null);
+        }
+        private void UiFullscreenBtn_Click(object sender, EventArgs e)
+        {
+            Rectangle r = Screen.FromControl(this).Bounds;
+            log.Info("Screen Dimensions: {0}x{1}", r.Width, r.Height);
+
+            UiFixedWidthTxt.Text = r.Width.ToString();
+            UiFixedHeightTxt.Text = r.Height.ToString();
+            UiFixedBtn_Click(null, null);
         }
 
         private void UiFixedBtn_Click(object sender, EventArgs e)
@@ -5387,6 +5397,7 @@ namespace LEonard
                 pythonEngine.CreateScriptSourceFromString(pythonScriptTxt.Text);
             pythonScript.Execute();
         }
+
 
         // ===================================================================
         // END PYTHON ENGINE
