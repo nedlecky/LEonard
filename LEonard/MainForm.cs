@@ -779,10 +779,7 @@ namespace LEonard
                     SaveRecipeBtn.Enabled = RecipeWasModified();
                     SaveAsRecipeBtn.Enabled = true;
 
-                    ToolSetupGrp.Enabled = true;
-                    GeneralConfigGrp.Enabled = true;
-                    DefaultMoveSetupGrp.Enabled = true;
-                    GrindingMoveSetupGrp.Enabled = true;
+                    SetupTab.Enabled = true;
 
                     StartBtn.Enabled = false;
                     StepBtn.Enabled = false;
@@ -824,10 +821,7 @@ namespace LEonard
                     SaveRecipeBtn.Enabled = RecipeWasModified();
                     SaveAsRecipeBtn.Enabled = true;
 
-                    ToolSetupGrp.Enabled = true;
-                    GeneralConfigGrp.Enabled = true;
-                    DefaultMoveSetupGrp.Enabled = true;
-                    GrindingMoveSetupGrp.Enabled = true;
+                    SetupTab.Enabled = true;
 
                     StartBtn.Enabled = true;
                     StepBtn.Enabled = true;
@@ -871,10 +865,7 @@ namespace LEonard
                     SaveRecipeBtn.Enabled = false;
                     SaveAsRecipeBtn.Enabled = false;
 
-                    ToolSetupGrp.Enabled = false;
-                    GeneralConfigGrp.Enabled = false;
-                    DefaultMoveSetupGrp.Enabled = false;
-                    GrindingMoveSetupGrp.Enabled = false;
+                    SetupTab.Enabled = false;
 
                     StartBtn.Enabled = false;
                     StepBtn.Enabled = false;
@@ -920,10 +911,7 @@ namespace LEonard
                     SaveRecipeBtn.Enabled = false;
                     SaveAsRecipeBtn.Enabled = false;
 
-                    ToolSetupGrp.Enabled = true;
-                    GeneralConfigGrp.Enabled = false;
-                    DefaultMoveSetupGrp.Enabled = true;
-                    GrindingMoveSetupGrp.Enabled = true;
+                    SetupTab.Enabled = true;
 
                     StartBtn.Enabled = false;
                     StepBtn.Enabled = true;
