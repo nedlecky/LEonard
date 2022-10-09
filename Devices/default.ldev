@@ -1,0 +1,199 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Devices" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Devices">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ID" type="xs:int" />
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Enabled" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Connected" type="xs:boolean" minOccurs="0" />
+                <xs:element name="DeviceType" type="xs:string" minOccurs="0" />
+                <xs:element name="Address" type="xs:string" minOccurs="0" />
+                <xs:element name="MessageTag" type="xs:string" minOccurs="0" />
+                <xs:element name="CallBack" type="xs:string" minOccurs="0" />
+                <xs:element name="OnConnectSend" type="xs:string" minOccurs="0" />
+                <xs:element name="OnDisconnectSend" type="xs:string" minOccurs="0" />
+                <xs:element name="RuntimeAutostart" type="xs:boolean" minOccurs="0" />
+                <xs:element name="RuntimeWorkingDirectory" type="xs:string" minOccurs="0" />
+                <xs:element name="RuntimeFileName" type="xs:string" minOccurs="0" />
+                <xs:element name="RuntimeArguments" type="xs:string" minOccurs="0" />
+                <xs:element name="SetupWorkingDirectory" type="xs:string" minOccurs="0" />
+                <xs:element name="SetupFileName" type="xs:string" minOccurs="0" />
+                <xs:element name="SetupArguments" type="xs:string" minOccurs="0" />
+                <xs:element name="SpeedSendButtons" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Devices" />
+        <xs:field xpath="ID" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <Devices>
+    <ID>0</ID>
+    <Name>Command</Name>
+    <Enabled>true</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>TcpServer</DeviceType>
+    <Address>127.0.0.1:1000</Address>
+    <MessageTag>CTL</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend>Hello!</OnConnectSend>
+    <OnDisconnectSend>exit()</OnDisconnectSend>
+    <RuntimeAutostart>true</RuntimeAutostart>
+    <RuntimeWorkingDirectory>C:\Users\nedlecky\Documents\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
+    <RuntimeFileName>LEonardClient.exe</RuntimeFileName>
+    <RuntimeArguments />
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>test()|exit()</SpeedSendButtons>
+  </Devices>
+  <Devices>
+    <ID>1</ID>
+    <Name>UR-5e</Name>
+    <Enabled>true</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>TcpServer</DeviceType>
+    <Address>192.168.0.252:30000</Address>
+    <MessageTag>AUX1</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend />
+    <OnDisconnectSend>(98,0,0,0,0)</OnDisconnectSend>
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files\RealVNC\VNC Viewer</SetupWorkingDirectory>
+    <SetupFileName>vncviewer.exe</SetupFileName>
+    <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
+    <SpeedSendButtons>(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)</SpeedSendButtons>
+  </Devices>
+  <Devices>
+    <ID>2</ID>
+    <Name>Sherlock</Name>
+    <Enabled>false</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>TcpServer</DeviceType>
+    <Address>127.0.0.1:20000</Address>
+    <MessageTag>AUX2S</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend>init()</OnConnectSend>
+    <OnDisconnectSend />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory>C:\Program Files\Teledyne DALSA\Sherlockx64\Bin</RuntimeWorkingDirectory>
+    <RuntimeFileName>IpeStudio.exe</RuntimeFileName>
+    <RuntimeArguments />
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>GO</SpeedSendButtons>
+  </Devices>
+  <Devices>
+    <ID>3</ID>
+    <Name>HALCON</Name>
+    <Enabled>true</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>TcpClient</DeviceType>
+    <Address>127.0.0.1:21000</Address>
+    <MessageTag>AUX2H</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend>init()</OnConnectSend>
+    <OnDisconnectSend />
+    <RuntimeAutostart>true</RuntimeAutostart>
+    <RuntimeWorkingDirectory>C:\Users\nedlecky\AppData\Local\Programs\MVTec\HALCON-21.11-Progress\bin\x64-win64</RuntimeWorkingDirectory>
+    <RuntimeFileName>hdevelop.exe</RuntimeFileName>
+    <RuntimeArguments>"C:\Users\nedlecky\Documents\GitHub\MVTech\HALCON\LE01 Socket Test (Auto).hdev" -run</RuntimeArguments>
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>GO</SpeedSendButtons>
+  </Devices>
+  <Devices>
+    <ID>4</ID>
+    <Name>Keyence</Name>
+    <Enabled>true</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>TcpClient</DeviceType>
+    <Address>192.168.0.10:8500</Address>
+    <MessageTag>AUX2K</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend>TE</OnConnectSend>
+    <OnDisconnectSend />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files (x86)\KEYENCE\CV-X Series Terminal-Software\bin</SetupWorkingDirectory>
+    <SetupFileName>CV-X Series Terminal-Software.exe</SetupFileName>
+    <SetupArguments>C:\Users\nedlecky\Desktop\Keyence\ned1.cxn</SetupArguments>
+    <SpeedSendButtons>T1|T2</SpeedSendButtons>
+  </Devices>
+  <Devices>
+    <ID>5</ID>
+    <Name>Dataman 1</Name>
+    <Enabled>true</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>Serial</DeviceType>
+    <Address>COM3</Address>
+    <MessageTag>AUX31</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend>+</OnConnectSend>
+    <OnDisconnectSend />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files (x86)\Cognex\DataMan\DataMan Software v6.1.10_SR3</SetupWorkingDirectory>
+    <SetupFileName>SetupTool.exe</SetupFileName>
+    <SetupArguments />
+    <SpeedSendButtons>+</SpeedSendButtons>
+  </Devices>
+  <Devices>
+    <ID>6</ID>
+    <Name>Dataman 2</Name>
+    <Enabled>true</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>Serial</DeviceType>
+    <Address>COM4</Address>
+    <MessageTag>AUX32</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend>+</OnConnectSend>
+    <OnDisconnectSend />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files (x86)\Cognex\DataMan\DataMan Software v6.1.10_SR3</SetupWorkingDirectory>
+    <SetupFileName>SetupTool.exe</SetupFileName>
+    <SetupArguments />
+    <SpeedSendButtons>+</SpeedSendButtons>
+  </Devices>
+  <Devices>
+    <ID>7</ID>
+    <Name>Chrome</Name>
+    <Enabled>false</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>Null</DeviceType>
+    <Address />
+    <MessageTag>CTL</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend />
+    <OnDisconnectSend />
+    <RuntimeAutostart>true</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName>Chrome.exe</RuntimeFileName>
+    <RuntimeArguments>/incognito 192.168.0.171</RuntimeArguments>
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons />
+  </Devices>
+</NewDataSet>

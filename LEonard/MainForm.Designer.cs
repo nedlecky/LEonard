@@ -144,13 +144,15 @@
             this.generalPage = new System.Windows.Forms.TabPage();
             this.SetupGeneralLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.AllowRunningOfflineChk = new System.Windows.Forms.CheckBox();
             this.LEonardRootLbl = new System.Windows.Forms.Label();
             this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
-            this.SetupGeneralBtnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.StartupDevicesLbl = new System.Windows.Forms.Label();
             this.SaveConfigBtn = new System.Windows.Forms.Button();
             this.LoadConfigBtn = new System.Windows.Forms.Button();
             this.DefaultConfigBtn = new System.Windows.Forms.Button();
+            this.AutoConnectOnLoadChk = new System.Windows.Forms.CheckBox();
+            this.AllowRunningOfflineChk = new System.Windows.Forms.CheckBox();
             this.devicesPage = new System.Windows.Forms.TabPage();
             this.SetupDevicesLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.button8 = new System.Windows.Forms.Button();
@@ -159,7 +161,7 @@
             this.DevicesGrd = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.ReloadDevicesBtn = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.DevicesFilenameLbl = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.ConnectAllDevicesBtn = new System.Windows.Forms.Button();
@@ -298,7 +300,6 @@
             this.SetupTab.SuspendLayout();
             this.generalPage.SuspendLayout();
             this.SetupGeneralLayoutPanel.SuspendLayout();
-            this.SetupGeneralBtnLayoutPanel.SuspendLayout();
             this.devicesPage.SuspendLayout();
             this.SetupDevicesLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrd)).BeginInit();
@@ -1816,89 +1817,89 @@
             // 
             // SetupGeneralLayoutPanel
             // 
-            this.SetupGeneralLayoutPanel.ColumnCount = 3;
-            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.47952F));
-            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.96903F));
-            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.55145F));
+            this.SetupGeneralLayoutPanel.ColumnCount = 6;
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.Controls.Add(this.LoadConfigBtn, 3, 4);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.SaveConfigBtn, 4, 4);
             this.SetupGeneralLayoutPanel.Controls.Add(this.label1, 0, 0);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.AllowRunningOfflineChk, 0, 1);
             this.SetupGeneralLayoutPanel.Controls.Add(this.LEonardRootLbl, 1, 0);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.ChangeRootDirectoryBtn, 2, 0);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.SetupGeneralBtnLayoutPanel, 2, 2);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.DefaultConfigBtn, 5, 4);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.label2, 0, 1);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.StartupDevicesLbl, 1, 1);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.AllowRunningOfflineChk, 0, 4);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.ChangeRootDirectoryBtn, 4, 0);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.AutoConnectOnLoadChk, 4, 1);
             this.SetupGeneralLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupGeneralLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.SetupGeneralLayoutPanel.Name = "SetupGeneralLayoutPanel";
-            this.SetupGeneralLayoutPanel.RowCount = 6;
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.RowCount = 5;
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.315789F));
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.315789F));
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.52631F));
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.05264F));
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.78947F));
             this.SetupGeneralLayoutPanel.Size = new System.Drawing.Size(2120, 1114);
             this.SetupGeneralLayoutPanel.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label1.Location = new System.Drawing.Point(85, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(351, 37);
+            this.label1.Size = new System.Drawing.Size(265, 70);
             this.label1.TabIndex = 68;
-            this.label1.Text = "LEonard Root Directory";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // AllowRunningOfflineChk
-            // 
-            this.AllowRunningOfflineChk.Appearance = System.Windows.Forms.Appearance.Button;
-            this.AllowRunningOfflineChk.AutoSize = true;
-            this.AllowRunningOfflineChk.BackColor = System.Drawing.Color.Gray;
-            this.AllowRunningOfflineChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AllowRunningOfflineChk.ForeColor = System.Drawing.Color.White;
-            this.AllowRunningOfflineChk.Location = new System.Drawing.Point(3, 188);
-            this.AllowRunningOfflineChk.Name = "AllowRunningOfflineChk";
-            this.AllowRunningOfflineChk.Size = new System.Drawing.Size(325, 43);
-            this.AllowRunningOfflineChk.TabIndex = 89;
-            this.AllowRunningOfflineChk.Text = "Allow Running Offline";
-            this.AllowRunningOfflineChk.UseMnemonic = false;
-            this.AllowRunningOfflineChk.UseVisualStyleBackColor = false;
-            this.AllowRunningOfflineChk.CheckedChanged += new System.EventHandler(this.AllowRunningOfflineChk_CheckedChanged);
+            this.label1.Text = "LEonard Root Dir";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LEonardRootLbl
             // 
             this.LEonardRootLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LEonardRootLbl.Location = new System.Drawing.Point(437, 0);
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.LEonardRootLbl, 3);
+            this.LEonardRootLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LEonardRootLbl.Location = new System.Drawing.Point(356, 0);
             this.LEonardRootLbl.Name = "LEonardRootLbl";
-            this.LEonardRootLbl.Size = new System.Drawing.Size(606, 46);
+            this.LEonardRootLbl.Size = new System.Drawing.Size(1053, 70);
             this.LEonardRootLbl.TabIndex = 69;
             this.LEonardRootLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ChangeRootDirectoryBtn
             // 
-            this.ChangeRootDirectoryBtn.Location = new System.Drawing.Point(1093, 3);
+            this.ChangeRootDirectoryBtn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ChangeRootDirectoryBtn.Location = new System.Drawing.Point(1415, 3);
             this.ChangeRootDirectoryBtn.Name = "ChangeRootDirectoryBtn";
-            this.ChangeRootDirectoryBtn.Size = new System.Drawing.Size(60, 46);
+            this.ChangeRootDirectoryBtn.Size = new System.Drawing.Size(60, 64);
             this.ChangeRootDirectoryBtn.TabIndex = 70;
             this.ChangeRootDirectoryBtn.Text = "...";
             this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
             this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
             // 
-            // SetupGeneralBtnLayoutPanel
+            // label2
             // 
-            this.SetupGeneralBtnLayoutPanel.ColumnCount = 3;
-            this.SetupGeneralBtnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.SetupGeneralBtnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.SetupGeneralBtnLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.SetupGeneralBtnLayoutPanel.Controls.Add(this.SaveConfigBtn, 1, 0);
-            this.SetupGeneralBtnLayoutPanel.Controls.Add(this.LoadConfigBtn, 0, 0);
-            this.SetupGeneralBtnLayoutPanel.Controls.Add(this.DefaultConfigBtn, 2, 0);
-            this.SetupGeneralBtnLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetupGeneralBtnLayoutPanel.Location = new System.Drawing.Point(1093, 373);
-            this.SetupGeneralBtnLayoutPanel.Name = "SetupGeneralBtnLayoutPanel";
-            this.SetupGeneralBtnLayoutPanel.RowCount = 1;
-            this.SetupGeneralBtnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.SetupGeneralBtnLayoutPanel.Size = new System.Drawing.Size(1024, 179);
-            this.SetupGeneralBtnLayoutPanel.TabIndex = 90;
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label2.Location = new System.Drawing.Point(49, 70);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(301, 70);
+            this.label2.TabIndex = 91;
+            this.label2.Text = "Startup Devices File";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // StartupDevicesLbl
+            // 
+            this.StartupDevicesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.StartupDevicesLbl, 3);
+            this.StartupDevicesLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StartupDevicesLbl.Location = new System.Drawing.Point(356, 70);
+            this.StartupDevicesLbl.Name = "StartupDevicesLbl";
+            this.StartupDevicesLbl.Size = new System.Drawing.Size(1053, 70);
+            this.StartupDevicesLbl.TabIndex = 92;
+            this.StartupDevicesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SaveConfigBtn
             // 
@@ -1906,9 +1907,9 @@
             this.SaveConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveConfigBtn.Location = new System.Drawing.Point(344, 3);
+            this.SaveConfigBtn.Location = new System.Drawing.Point(1415, 939);
             this.SaveConfigBtn.Name = "SaveConfigBtn";
-            this.SaveConfigBtn.Size = new System.Drawing.Size(335, 173);
+            this.SaveConfigBtn.Size = new System.Drawing.Size(347, 172);
             this.SaveConfigBtn.TabIndex = 100;
             this.SaveConfigBtn.Text = "Save";
             this.SaveConfigBtn.UseVisualStyleBackColor = false;
@@ -1920,9 +1921,9 @@
             this.LoadConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadConfigBtn.Location = new System.Drawing.Point(3, 3);
+            this.LoadConfigBtn.Location = new System.Drawing.Point(1062, 939);
             this.LoadConfigBtn.Name = "LoadConfigBtn";
-            this.LoadConfigBtn.Size = new System.Drawing.Size(335, 173);
+            this.LoadConfigBtn.Size = new System.Drawing.Size(347, 172);
             this.LoadConfigBtn.TabIndex = 98;
             this.LoadConfigBtn.Text = "Reload";
             this.LoadConfigBtn.UseVisualStyleBackColor = false;
@@ -1934,13 +1935,45 @@
             this.DefaultConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DefaultConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DefaultConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.DefaultConfigBtn.Location = new System.Drawing.Point(685, 3);
+            this.DefaultConfigBtn.Location = new System.Drawing.Point(1768, 939);
             this.DefaultConfigBtn.Name = "DefaultConfigBtn";
-            this.DefaultConfigBtn.Size = new System.Drawing.Size(336, 173);
+            this.DefaultConfigBtn.Size = new System.Drawing.Size(349, 172);
             this.DefaultConfigBtn.TabIndex = 99;
             this.DefaultConfigBtn.Text = "Restore Defaults";
             this.DefaultConfigBtn.UseVisualStyleBackColor = false;
             this.DefaultConfigBtn.Click += new System.EventHandler(this.DefaultConfigBtn_Click);
+            // 
+            // AutoConnectOnLoadChk
+            // 
+            this.AutoConnectOnLoadChk.AutoSize = true;
+            this.AutoConnectOnLoadChk.BackColor = System.Drawing.Color.Gray;
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
+            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Left;
+            this.AutoConnectOnLoadChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutoConnectOnLoadChk.ForeColor = System.Drawing.Color.White;
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1415, 73);
+            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(543, 64);
+            this.AutoConnectOnLoadChk.TabIndex = 116;
+            this.AutoConnectOnLoadChk.Text = "Auto Connect when Loading Devices";
+            this.AutoConnectOnLoadChk.UseMnemonic = false;
+            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = false;
+            // 
+            // AllowRunningOfflineChk
+            // 
+            this.AllowRunningOfflineChk.Appearance = System.Windows.Forms.Appearance.Button;
+            this.AllowRunningOfflineChk.AutoSize = true;
+            this.AllowRunningOfflineChk.BackColor = System.Drawing.Color.Gray;
+            this.AllowRunningOfflineChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AllowRunningOfflineChk.ForeColor = System.Drawing.Color.White;
+            this.AllowRunningOfflineChk.Location = new System.Drawing.Point(3, 939);
+            this.AllowRunningOfflineChk.Name = "AllowRunningOfflineChk";
+            this.AllowRunningOfflineChk.Size = new System.Drawing.Size(325, 43);
+            this.AllowRunningOfflineChk.TabIndex = 89;
+            this.AllowRunningOfflineChk.Text = "Allow Running Offline";
+            this.AllowRunningOfflineChk.UseMnemonic = false;
+            this.AllowRunningOfflineChk.UseVisualStyleBackColor = false;
+            this.AllowRunningOfflineChk.CheckedChanged += new System.EventHandler(this.AllowRunningOfflineChk_CheckedChanged);
             // 
             // devicesPage
             // 
@@ -1974,7 +2007,7 @@
             this.SetupDevicesLayoutPanel.Controls.Add(this.DevicesGrd, 0, 1);
             this.SetupDevicesLayoutPanel.Controls.Add(this.label4, 0, 4);
             this.SetupDevicesLayoutPanel.Controls.Add(this.ReloadDevicesBtn, 0, 3);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.label2, 0, 2);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DevicesFilenameLbl, 0, 2);
             this.SetupDevicesLayoutPanel.Controls.Add(this.button11, 4, 0);
             this.SetupDevicesLayoutPanel.Controls.Add(this.button12, 7, 0);
             this.SetupDevicesLayoutPanel.Controls.Add(this.ConnectAllDevicesBtn, 10, 0);
@@ -2082,18 +2115,18 @@
             this.ReloadDevicesBtn.UseVisualStyleBackColor = false;
             this.ReloadDevicesBtn.Click += new System.EventHandler(this.ReloadDevicesBtn_Click);
             // 
-            // label2
+            // DevicesFilenameLbl
             // 
-            this.label2.AutoSize = true;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SetupDevicesLayoutPanel.SetColumnSpan(this.label2, 7);
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 931);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1226, 65);
-            this.label2.TabIndex = 102;
-            this.label2.Text = "label2";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.DevicesFilenameLbl.AutoSize = true;
+            this.DevicesFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SetupDevicesLayoutPanel.SetColumnSpan(this.DevicesFilenameLbl, 7);
+            this.DevicesFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DevicesFilenameLbl.Location = new System.Drawing.Point(3, 931);
+            this.DevicesFilenameLbl.Name = "DevicesFilenameLbl";
+            this.DevicesFilenameLbl.Size = new System.Drawing.Size(1226, 65);
+            this.DevicesFilenameLbl.TabIndex = 102;
+            this.DevicesFilenameLbl.Text = "Untitled";
+            this.DevicesFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button11
             // 
@@ -2274,14 +2307,15 @@
             // SetStartupDevicesFileBtn
             // 
             this.SetStartupDevicesFileBtn.BackColor = System.Drawing.Color.Green;
+            this.SetupDevicesLayoutPanel.SetColumnSpan(this.SetStartupDevicesFileBtn, 2);
             this.SetStartupDevicesFileBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetStartupDevicesFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetStartupDevicesFileBtn.ForeColor = System.Drawing.Color.White;
             this.SetStartupDevicesFileBtn.Location = new System.Drawing.Point(1235, 934);
             this.SetStartupDevicesFileBtn.Name = "SetStartupDevicesFileBtn";
-            this.SetStartupDevicesFileBtn.Size = new System.Drawing.Size(170, 59);
+            this.SetStartupDevicesFileBtn.Size = new System.Drawing.Size(346, 59);
             this.SetStartupDevicesFileBtn.TabIndex = 103;
-            this.SetStartupDevicesFileBtn.Text = "At Startup";
+            this.SetStartupDevicesFileBtn.Text = "Use This File At Startup";
             this.SetStartupDevicesFileBtn.UseVisualStyleBackColor = false;
             this.SetStartupDevicesFileBtn.Click += new System.EventHandler(this.SetStartupDevicesFileBtn_Click);
             // 
@@ -3707,7 +3741,6 @@
             this.generalPage.ResumeLayout(false);
             this.SetupGeneralLayoutPanel.ResumeLayout(false);
             this.SetupGeneralLayoutPanel.PerformLayout();
-            this.SetupGeneralBtnLayoutPanel.ResumeLayout(false);
             this.devicesPage.ResumeLayout(false);
             this.SetupDevicesLayoutPanel.ResumeLayout(false);
             this.SetupDevicesLayoutPanel.PerformLayout();
@@ -3950,7 +3983,6 @@
         private System.Windows.Forms.TabPage grindPage;
         private System.Windows.Forms.TabPage generalPage;
         private System.Windows.Forms.TableLayoutPanel SetupGeneralLayoutPanel;
-        private System.Windows.Forms.TableLayoutPanel SetupGeneralBtnLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel SetupDevicesLayoutPanel;
         private System.Windows.Forms.DataGridView DevicesGrd;
         private System.Windows.Forms.TableLayoutPanel SetupGrindLayoutPanel;
@@ -3963,7 +3995,7 @@
         private System.Windows.Forms.Button ReloadDevicesBtn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label DevicesFilenameLbl;
         private System.Windows.Forms.Button SetStartupDevicesFileBtn;
         private System.Windows.Forms.Button SaveAsDevicesBtn;
         private System.Windows.Forms.Button ClearDevicesBtn;
@@ -3981,6 +4013,9 @@
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button LoadDevicesBtn;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label StartupDevicesLbl;
+        private System.Windows.Forms.CheckBox AutoConnectOnLoadChk;
     }
 }
 

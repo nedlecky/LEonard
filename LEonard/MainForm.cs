@@ -254,6 +254,13 @@ namespace LEonard
             MessageTmr.Interval = 100;
             MessageTmr.Enabled = true;
 
+            //StartThreads();
+
+            if (StartupDevicesLbl.Text.Length > 0)
+            {
+                LoadDevicesFile(StartupDevicesLbl.Text);
+            }
+
             RobotConnectBtn_Click(null, null);
             GocatorConnectBtn_Click(null, null);
 
@@ -1469,25 +1476,117 @@ namespace LEonard
         {
 
         }
+        int LoadDevicesFile(string name)
+        {
+            DisconnectAllDevicesBtn_Click(null, null);
+            log.Info($"LoadDevices from {name}");
+            devices = new DataTable("Devices");
+            try
+            {
+                devices.ReadXml(name);
+                DevicesGrd.DataSource = devices;
+                foreach (DataGridViewColumn col in DevicesGrd.Columns)
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DevicesFilenameLbl.Text = name;
+
+                // Mark all as not connected
+                foreach (DataRow row in devices.Rows)
+                {
+                    row["Connected"] = false;
+                }
+                //currentDeviceRowIndex = 0;
+
+                if (AutoConnectOnLoadChk.Checked)
+                {
+                    log.Info("Autoconnecting all devices");
+                    ConnectAllDevicesBtn_Click(null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Can't load {0}", name);
+            }
+
+            return 0;
+        }
 
         private void LoadDevicesBtn_Click(object sender, EventArgs e)
         {
+            log.Info("LoadDevicesBtn_Click(...)");
 
+            string initialDirectory;
+            if (DevicesFilenameLbl.Text != "Untitled" && DevicesFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(DevicesFilenameLbl.Text);
+            else
+                initialDirectory = Path.Combine(LEonardRoot, "Devices");
+
+            FileOpenDialog dialog = new FileOpenDialog(this)
+            {
+                Title = "Open a LEonard Device File",
+                Filter = "*.ldev",
+                InitialDirectory = initialDirectory
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+                LoadDevicesFile(dialog.FileName);
         }
 
         private void SaveDevicesBtn_Click(object sender, EventArgs e)
         {
+            devices.AcceptChanges();
 
+            if (DevicesFilenameLbl.Text == "Untitled" || DevicesFilenameLbl.Text == "")
+                SaveAsDevicesBtn_Click(null, null);
+            else
+            {
+                log.Info($"SaveDevices to {DevicesFilenameLbl.Text}");
+                devices.WriteXml(DevicesFilenameLbl.Text, XmlWriteMode.WriteSchema, true);
+            }
         }
 
         private void SaveAsDevicesBtn_Click(object sender, EventArgs e)
         {
+            log.Info("SaveAsDevicesBtn_Click(...)");
 
+            string initialDirectory;
+            if (DevicesFilenameLbl.Text != "Untitled" && DevicesFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(DevicesFilenameLbl.Text);
+            else
+                initialDirectory = Path.Combine(LEonardRoot, "Devices");
+
+            FileSaveAsDialog dialog = new FileSaveAsDialog(this)
+            {
+                Title = "Save a LEonard Device File As...",
+                Filter = "*.ldev",
+                InitialDirectory = initialDirectory,
+                FileName = DevicesFilenameLbl.Text,
+                Extension = "ldev"
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (dialog.FileName != "")
+                {
+                    string filename = dialog.FileName;
+                    if (!filename.EndsWith(".ldev")) filename += ".ldev";
+                    bool okToSave = true;
+                    if (File.Exists(filename))
+                    {
+                        if (DialogResult.OK != ConfirmMessageBox($"File {filename} already exists. Overwrite?"))
+                            okToSave = false;
+                    }
+                    if (okToSave)
+                    {
+                        DevicesFilenameLbl.Text = filename;
+                        SaveDevicesBtn_Click(null, null);
+                    }
+                }
+            }
         }
 
         private void SetStartupDevicesFileBtn_Click(object sender, EventArgs e)
         {
-
+            StartupDevicesLbl.Text = DevicesFilenameLbl.Text;
+            log.Info("Startup Devices file set to {0}", DevicesFilenameLbl.Text);
         }
 
 
@@ -1906,9 +2005,10 @@ namespace LEonard
         public void MakeStandardSubdirectories()
         {
             // Make standard subdirectories (if they don't exist)
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Logs"));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Devices"));
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Recipes"));
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Data"));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Logs"));
         }
 
         public RegistryKey GetAppNameKey()
@@ -1991,6 +2091,9 @@ namespace LEonard
             ServerIpTxt.Text = (string)AppNameKey.GetValue("ServerIpTxt.Text", DEFAULT_ServerIpTxt);
             AllowRunningOfflineChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AllowRunningOfflineChk.Checked", "False"));
 
+            StartupDevicesLbl.Text = (string)AppNameKey.GetValue("StartupDevicesLbl.Text", "");
+            AutoConnectOnLoadChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoConnectOnLoadChk.Checked", "False"));
+
             // Operator Mode
             // Ignore persistence here: if we're running in debug it will kindly start us in Engineering mode else Operator
 #if DEBUG
@@ -2072,6 +2175,8 @@ namespace LEonard
             AppNameKey.SetValue("RobotIpTxt.Text", RobotIpTxt.Text);
             AppNameKey.SetValue("ServerIpTxt.Text", ServerIpTxt.Text);
             AppNameKey.SetValue("AllowRunningOfflineChk.Checked", AllowRunningOfflineChk.Checked);
+            AppNameKey.SetValue("StartupDevicesLbl.Text", StartupDevicesLbl.Text);
+            AppNameKey.SetValue("AutoConnectOnLoadChk.Checked", AutoConnectOnLoadChk.Checked);
 
             // Operator Mode
             AppNameKey.SetValue("operatorMode", (Int32)operatorMode);
