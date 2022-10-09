@@ -13,12 +13,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using static LEonard.MainForm;
 
 namespace LEonard
 {
     public partial class FileOpenDialog : Form
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+
+        MainForm mainForm;
+        IEnumerable<Control> allResizeControlList;
+        int originalWidth;
 
         public string Title { get; set; }
         public string Filter { get; set; }
@@ -28,9 +33,10 @@ namespace LEonard
         private string[] fileList;
         private List<string> directoryList;
 
-        public FileOpenDialog()
+        public FileOpenDialog(MainForm _mainForm)
         {
             InitializeComponent();
+            mainForm = _mainForm;
         }
 
         private void FileOpenForm_Load(object sender, EventArgs e)
@@ -123,7 +129,7 @@ namespace LEonard
             {
 
                 string deleteFilename = Path.Combine(DirectoryNameLbl.Text, FileListBox.SelectedItem.ToString());
-                MessageDialog messageForm = new MessageDialog()
+                MessageDialog messageForm = new MessageDialog(mainForm)
                 {
                     Title = "System Confirmation",
                     Label = $"Delete FILE {deleteFilename}\n ARE YOU SURE?",
@@ -144,7 +150,7 @@ namespace LEonard
                 if (DirectoryListBox.SelectedItem.ToString() != "..") // Don't delete your parent directory!
                 {
                     string deleteDirectory = Path.Combine(DirectoryNameLbl.Text, DirectoryListBox.SelectedItem.ToString());
-                    MessageDialog messageForm = new MessageDialog()
+                    MessageDialog messageForm = new MessageDialog(mainForm)
                     {
                         Title = "System Confirmation",
                         Label = $"Delete DIRECTORY AND CONTENTS\n{deleteDirectory}",
@@ -164,7 +170,7 @@ namespace LEonard
 
         private void NewFolderBtn_Click(object sender, EventArgs e)
         {
-            MessageDialog messageForm = new MessageDialog()
+            MessageDialog messageForm = new MessageDialog(mainForm)
             {
                 Title = "System Confirmation",
                 Label = $"Create new folder in\n{DirectoryNameLbl.Text}?",

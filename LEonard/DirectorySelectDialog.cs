@@ -3,6 +3,7 @@
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: Custom Directory Select dialog with large buttons for use with touch screen
 
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,26 +14,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static LEonard.MainForm;
 
 namespace LEonard
 {
     public partial class DirectorySelectDialog : Form
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+
+        MainForm mainForm;
+        IEnumerable<Control> allResizeControlList;
+        int originalWidth;
+
         public string SelectedPath { get; set; }
         public string Title { get; set; }
 
         List<string> directoryList;
-        public DirectorySelectDialog()
+        public DirectorySelectDialog(MainForm _mainForm)
         {
             InitializeComponent();
+            mainForm = _mainForm;
         }
 
         private void DirectorySelectDialog_Load(object sender, EventArgs e)
         {
+            originalWidth = Width;
+            allResizeControlList = TakeControlInventory(this);
+
+            LoadPersistent();
+
             TitleLbl.Text = Title;
             LoadDirectory(SelectedPath);
         }
+        private void DirectorySelectDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SavePersistent();
+        }
+
 
         // **********************************************************************************************
         // DirectoryListBox Methods
@@ -80,7 +98,7 @@ namespace LEonard
                 if (DirectoryListBox.SelectedItem.ToString() != "..") // Don't delete your parent directory!
                 {
                     string deleteDirectory = Path.Combine(DirectoryNameLbl.Text, DirectoryListBox.SelectedItem.ToString());
-                    MessageDialog messageForm = new MessageDialog()
+                    MessageDialog messageForm = new MessageDialog(mainForm)
                     {
                         Title = "System Confirmation",
                         Label = $"Delete DIRECTORY AND CONTENTS\n{deleteDirectory}",
@@ -99,7 +117,7 @@ namespace LEonard
         }
         private void NewFolderBtn_Click(object sender, EventArgs e)
         {
-            MessageDialog messageForm = new MessageDialog()
+            MessageDialog messageForm = new MessageDialog(mainForm)
             {
                 Title = "System Confirmation",
                 Label = $"Create new folder in\n{DirectoryNameLbl.Text}?",
@@ -117,6 +135,32 @@ namespace LEonard
                 log.Info("Folder Created: {0}", createDirectory);
                 LoadDirectory(DirectoryNameLbl.Text);
             }
+        }
+        private RegistryKey MyRegistryKey()
+        {
+            RegistryKey AppNameKey = mainForm.GetAppNameKey();
+            RegistryKey FormNameKey = AppNameKey.CreateSubKey("DirectorySelectDialog");
+
+            return FormNameKey;
+        }
+
+        private void SavePersistent()
+        {
+            RegistryKey FormNameKey = MyRegistryKey();
+
+            FormNameKey.SetValue("Left", Left);
+            FormNameKey.SetValue("Top", Top);
+            FormNameKey.SetValue("Width", Width);
+            FormNameKey.SetValue("Height", Height);
+        }
+        private void LoadPersistent()
+        {
+            RegistryKey FormNameKey = MyRegistryKey();
+
+            Width = (Int32)FormNameKey.GetValue("Width", 1300);
+            Height = (Int32)FormNameKey.GetValue("Height", 1100);
+            Left = (Int32)FormNameKey.GetValue("Left", (mainForm.Width - Width) / 2);
+            Top = (Int32)FormNameKey.GetValue("Top", (mainForm.Height - Height) / 2);
         }
 
         // **********************************************************************************************
@@ -152,6 +196,12 @@ namespace LEonard
                 directoryList.Add(directory);
             }
             DirectoryNameLbl.Text = path;
+        }
+
+        private void DirectorySelectDialog_Resize(object sender, EventArgs e)
+        {
+            double scale = Math.Min(100.0 * Width / originalWidth, 100);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scale);
         }
     }
 }

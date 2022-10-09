@@ -39,7 +39,7 @@ namespace LEonard
 
         public bool IsMotionWait { get; set; } = false;
 
-        public MessageDialog(MainForm _mainForm = null)
+        public MessageDialog(MainForm _mainForm)
         {
             InitializeComponent();
             mainForm = _mainForm;

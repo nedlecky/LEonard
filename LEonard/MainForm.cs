@@ -1574,7 +1574,7 @@ namespace LEonard
             else
                 initialDirectory = Path.Combine(LEonardRoot, "Recipes");
 
-            FileOpenDialog dialog = new FileOpenDialog()
+            FileOpenDialog dialog = new FileOpenDialog(this)
             {
                 Title = "Open a LEonard Recipe",
                 Filter = "*.txt",
@@ -1616,7 +1616,7 @@ namespace LEonard
             else
                 initialDirectory = Path.Combine(LEonardRoot, "Recipes");
 
-            FileSaveAsDialog dialog = new FileSaveAsDialog()
+            FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {
                 Title = "Save a LEonard Recipe As...",
                 Filter = "*.txt",
@@ -1884,8 +1884,9 @@ namespace LEonard
         private void ChangeRootDirectoryBtn_Click(object sender, EventArgs e)
         {
             log.Info("ChangeRootDirectoryBtn_Click(...)");
-            DirectorySelectDialog dialog = new DirectorySelectDialog()
+            DirectorySelectDialog dialog = new DirectorySelectDialog(this)
             {
+                Title= "Select LEonard Root Directory",
                 SelectedPath = LEonardRoot
             };
             if (dialog.ShowDialog() == DialogResult.OK)
