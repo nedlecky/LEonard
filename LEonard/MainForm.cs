@@ -164,6 +164,11 @@ namespace LEonard
 
             LoadPersistent();
 
+            splashForm = new SplashForm(this)
+            {
+                AutoClose = true,
+            };
+
             // Flag that we're starting
             log.Info("================================================================");
             log.Info(string.Format("Starting {0} in [{1}]", filename, executionRoot));
@@ -177,10 +182,6 @@ namespace LEonard
             HeartbeatTmr.Enabled = true;
 
             // Real start of everyone will happen shortly
-            splashForm = new SplashForm()
-            {
-                AutoClose = true,
-            };
             StartupTmr.Interval = 2000;
             StartupTmr.Enabled = true;
 
@@ -225,6 +226,18 @@ namespace LEonard
                     break;
             }
         }
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (!uiUpdatesAreLive) return;
+            
+            suggestedSystemScale = 100.0 * (double)Width / (double)tabletScreenDesignWidth;
+            log?.Info($"MainForm Resize to {Width} x {Height}");
+            log?.Info($"Suggest {suggestedSystemScale}");
+
+            UiTextScaleTxt.Text = $"{suggestedSystemScale:0.#}";
+            UiTextScaleBtn_Click(null, null);
+        }
+
 
         private void StartupTmr_Tick(object sender, EventArgs e)
         {
@@ -249,6 +262,7 @@ namespace LEonard
                 }
 
             log.Info("StartupTmr complete");
+            uiUpdatesAreLive = true;
         }
         bool forceClose = false;
         private void CloseTmr_Tick(object sender, EventArgs e)
@@ -1261,7 +1275,7 @@ namespace LEonard
 
         private void AboutBtn_Click(object sender, EventArgs e)
         {
-            SplashForm splashForm = new SplashForm()
+            SplashForm splashForm = new SplashForm(this)
             {
                 AutoClose = false
             };
@@ -1760,6 +1774,8 @@ namespace LEonard
             WindowState = (FormWindowState)UIKey.GetValue("WindowState", FormWindowState.Normal);
             UiFixedWidthTxt.Text = (string)UIKey.GetValue("UiFixedWidthTxt.Text", tabletScreenDesignWidth.ToString());
             UiFixedHeightTxt.Text = (string)UIKey.GetValue("UiFixedHeightTxt.Text", tabletScreenDesignHeight.ToString());
+            UiTextScaleTxt.Text = (string)UIKey.GetValue("UiTextScaleTxt.Text", "100");
+            UiTextScaleBtn_Click(null, null);
 
             LEonardRootLbl.Text = LEonardRoot;
             RobotProgramTxt.Text = (string)AppNameKey.GetValue("RobotProgramTxt.Text", DEFAULT_RobotProgramTxt);
@@ -1840,6 +1856,7 @@ namespace LEonard
             UIKey.SetValue("WindowState", (int)WindowState);
             UIKey.SetValue("UiFixedWidthTxt.Text", UiFixedWidthTxt.Text);
             UIKey.SetValue("UiFixedHeightTxt.Text", UiFixedHeightTxt.Text);
+            UIKey.SetValue("UiTextScaleTxt.Text", UiTextScaleTxt.Text);
 
             // From Setup Tab
             AppNameKey.SetValue("LEonardRoot", LEonardRoot);
@@ -5141,6 +5158,8 @@ namespace LEonard
         // START UI CONTROL SYSTEM
         // ===================================================================
 
+        double suggestedSystemScale = 100.0;
+        bool uiUpdatesAreLive=false;
         public class ControlInfo
         {
             public Font originalFont;
@@ -5279,19 +5298,27 @@ namespace LEonard
             Font newFont = new Font(oldFont.FontFamily, oldFont.Size * scale / 100, oldFont.Style, oldFont.Unit);
             ctl.Font = newFont;
         }
+
+        void ScaleUiText(float scale)
+        {
+            foreach (Control c in buttonList) RescaleFont(c, scale);
+            foreach (Control c in comboboxList) RescaleFont(c, scale);
+            foreach (Control c in datagridviewList) RescaleFont(c, scale);
+            foreach (Control c in labelList) RescaleFont(c, scale);
+            foreach (Control c in richtextboxList) RescaleFont(c, scale);
+            foreach (Control c in tabcontrolList) RescaleFont(c, scale);
+            foreach (Control c in textboxList) RescaleFont(c, scale);
+        }
         private void UiTextScaleBtn_Click(object sender, EventArgs e)
         {
             float scale;
             bool good = float.TryParse(UiTextScaleTxt.Text, out scale);
             if (good)
+                ScaleUiText(scale);
+            else
             {
-                foreach (Control c in buttonList) RescaleFont(c, scale);
-                foreach (Control c in comboboxList) RescaleFont(c, scale);
-                foreach (Control c in datagridviewList) RescaleFont(c, scale);
-                foreach (Control c in labelList) RescaleFont(c, scale);
-                foreach (Control c in richtextboxList) RescaleFont(c, scale);
-                foreach (Control c in tabcontrolList) RescaleFont(c, scale);
-                foreach (Control c in textboxList) RescaleFont(c, scale);
+                UiTextScaleTxt.Text = "100";
+                UiTextScaleBtn_Click(null, null);
             }
         }
 

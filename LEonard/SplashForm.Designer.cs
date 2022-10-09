@@ -36,6 +36,7 @@
             this.DeveloperLogoPic = new System.Windows.Forms.PictureBox();
             this.VersionLbl = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ShowTmr = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DeveloperLogoPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -138,5 +139,6 @@
         private System.Windows.Forms.PictureBox DeveloperLogoPic;
         private System.Windows.Forms.Label VersionLbl;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Timer ShowTmr;
     }
 }

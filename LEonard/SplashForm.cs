@@ -15,19 +15,16 @@ namespace LEonard
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public bool AutoClose { get; set; } = true;
+        MainForm mainForm;
 
-        public SplashForm()
+        public SplashForm(MainForm form)
         {
+            mainForm = form;
             InitializeComponent();
         }
 
-        // App screen design sizes (Zebra L10 Tablet)
-        //const int screenDesignWidth = 2160;
-        //const int screenDesignHeight = 1440;
-
         private void SplashForm_Load(object sender, EventArgs e)
         {
-
             string companyName = Application.CompanyName;
             string appName = Application.ProductName;
             string productVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -39,20 +36,18 @@ namespace LEonard
             caption += "\n RUNNING IN DEBUG MODE";
 #endif
             Text = caption;
-
             VersionLbl.Text = caption;
 
             if (AutoClose)
             {
-                Left = (MainForm.tabletScreenDesignWidth - Width) / 2;
-                Top = (MainForm.tabletScreenDesignHeight - Height) / 2;
+                Left = mainForm.Left + (mainForm.Width - Width) / 2;
+                Top = mainForm.Top + (mainForm.Height - Height) / 2;
                 CloseBtn.Visible = false;
                 CloseTmr.Interval = 10000;
                 CloseTmr.Enabled = true;
             }
             else
                 CloseBtn.Visible = true;
-            Refresh();
         }
 
 
