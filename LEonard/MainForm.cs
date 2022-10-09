@@ -46,6 +46,7 @@ namespace LEonard
         SplashForm splashForm = null;
 
 
+        static DataTable devices;
         static DataTable variables;
         static DataTable tools;
         static DataTable positions;
@@ -1278,6 +1279,222 @@ namespace LEonard
         // END MAIN UI BUTTONS
         // ===================================================================
 
+        // ===================================================================
+        // START DEVICES INTERFACE
+        // ===================================================================
+        private void ClearAndInitializeDevices()
+        {
+            devices = new DataTable("Devices");
+
+            DataColumn id = devices.Columns.Add("ID", typeof(System.Int32));
+            devices.Columns.Add("Name", typeof(System.String));
+            devices.Columns.Add("Enabled", typeof(System.Boolean));
+            devices.Columns.Add("Connected", typeof(System.Boolean));
+            devices.Columns.Add("DeviceType", typeof(System.String));
+            devices.Columns.Add("Address", typeof(System.String));
+            devices.Columns.Add("MessageTag", typeof(System.String));
+            devices.Columns.Add("CallBack", typeof(System.String));
+            devices.Columns.Add("OnConnectSend", typeof(System.String));
+            devices.Columns.Add("OnDisconnectSend", typeof(System.String));
+            devices.Columns.Add("RuntimeAutostart", typeof(System.Boolean));
+            devices.Columns.Add("RuntimeWorkingDirectory", typeof(System.String));
+            devices.Columns.Add("RuntimeFileName", typeof(System.String));
+            devices.Columns.Add("RuntimeArguments", typeof(System.String));
+            devices.Columns.Add("SetupWorkingDirectory", typeof(System.String));
+            devices.Columns.Add("SetupFileName", typeof(System.String));
+            devices.Columns.Add("SetupArguments", typeof(System.String));
+            devices.Columns.Add("SpeedSendButtons", typeof(System.String));
+
+            //devices.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //devices.Columns[0].
+
+            devices.PrimaryKey = new DataColumn[] { id };
+            DevicesGrd.DataSource = devices;
+        }
+        private void CreateDefaultDevices()
+        {
+            // HALCON Direct WORKS
+            // start.FileName = "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64\\hdevelop.exe";
+            // start.Arguments = "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run";
+
+            // DATAMAN Direct WORKS
+            //start.WorkingDirectory = "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3";
+            //start.FileName = "SetupTool.exe";
+            //start.Arguments = "";
+
+            // HALCON Through Link WORKS
+            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "MVTec HDevelop XL 21.11 Progress (user).lnk");
+
+            // DATAMAN Through Link WORKS
+            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "v6.1.10_SR3 Setup Tool.lnk");
+
+            // Sherlock Through Link MIN/REST/Exit don't work
+            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "Sherlockx64.lnk");
+
+            // Sherlock Direct MIN/REST/Exit don't work
+            //start.WorkingDirectory = "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin";
+            //start.FileName = "IpeStudio.exe";
+
+            // KEYENCE Simulator Direct WORKS
+            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Simulation-Software\\bin_X400";
+            //start.FileName = "CV-X Series Workspace-Software.exe";
+
+            // KEYENCE Terminal Direct WORKS
+            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin";
+            //start.FileName = "CV-X Series Terminal-Software.exe";
+            //start.Arguments = "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn";
+
+            devices.Rows.Add(new object[] {
+                0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
+                "CTL", "general", "Hello!", "exit()",
+                true,
+                "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
+                "LEonardClient.exe",
+                "",
+                "",
+                "",
+                "",
+                "test()|exit()"
+            });
+            devices.Rows.Add(new object[] {
+                1, "UR-5e", true, false, "TcpServer", "192.168.0.252:30000",
+                "AUX1", "general", "", "(98,0,0,0,0)",
+                false,
+                "",
+                "",
+                "",
+                "C:\\Program Files\\RealVNC\\VNC Viewer",
+                "vncviewer.exe",
+                "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
+                "(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)"
+            });
+            devices.Rows.Add(new object[] {
+                2, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
+                "AUX2S", "general", "init()", "",
+                false,
+                "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
+                "IpeStudio.exe",
+                "",
+                "",
+                "",
+                "",
+                "GO"
+            });
+            devices.Rows.Add(new object[] {
+                3, "HALCON", true, false, "TcpClient", "127.0.0.1:21000",
+                "AUX2H", "general", "init()", "",
+                true,
+                "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
+                "hdevelop.exe",
+                "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run",
+                "",
+                "",
+                "",
+                "GO"
+            });
+            devices.Rows.Add(new object[] {
+                4, "Keyence", true, false, "TcpClient", "192.168.0.10:8500",
+                "AUX2K", "general", "TE", "",
+                false,
+                "",
+                "",
+                "",
+                "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin",
+                "CV-X Series Terminal-Software.exe",
+                "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn",
+                "T1|T2"
+            });
+            devices.Rows.Add(new object[] {
+                5, "Dataman 1", true, false, "Serial", "COM3",
+                "AUX31", "general", "+", "",
+                false,
+                "",
+                "",
+                "",
+                "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
+                "SetupTool.exe",
+                "",
+                "+"
+            });
+            devices.Rows.Add(new object[] {
+                6, "Dataman 2", true, false, "Serial", "COM4",
+                "AUX32", "general", "+", "",
+                false,
+                "",
+                "",
+                "",
+                "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
+                "SetupTool.exe",
+                "",
+                "+"
+            });
+            devices.Rows.Add(new object[] {
+                7, "Chrome", false, false, "Null", "",
+                "CTL", "general", "", "",
+                true,
+                "",
+                "Chrome.exe",
+                "/incognito 192.168.0.171",
+                "",
+                "",
+                "",
+                ""
+            });
+        }
+
+        private void ClearDevicesBtn_Click(object sender, EventArgs e)
+        {
+
+            if (DialogResult.OK == ConfirmMessageBox("This will clear all existing devices. Proceed?"))
+            {
+                DisconnectAllDevicesBtn_Click(null, null);
+
+                ClearAndInitializeDevices();
+                if (DialogResult.OK == ConfirmMessageBox("Would you like to create the default devices?"))
+                    CreateDefaultDevices();
+            }
+        }
+        private void ConnectAllDevicesBtn_Click(object sender, EventArgs e)
+        {
+            log.Info("ConnectAllDevicesBtn_Click");
+
+        }
+
+        private void DisconnectAllDevicesBtn_Click(object sender, EventArgs e)
+        {
+            log.Info("DisconnectAllDevicesBtn_Click");
+
+        }
+        private void ReloadDevicesBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoadDevicesBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveDevicesBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveAsDevicesBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SetStartupDevicesFileBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        // ===================================================================
+        // END DEVICES INTERFACE
+        // ===================================================================
+
 
         // ===================================================================
         // START GRIND
@@ -1886,7 +2103,7 @@ namespace LEonard
             log.Info("ChangeRootDirectoryBtn_Click(...)");
             DirectorySelectDialog dialog = new DirectorySelectDialog(this)
             {
-                Title= "Select LEonard Root Directory",
+                Title = "Select LEonard Root Directory",
                 SelectedPath = LEonardRoot
             };
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -4720,9 +4937,11 @@ namespace LEonard
         private void ClearToolsBtn_Click(object sender, EventArgs e)
         {
             if (DialogResult.OK == ConfirmMessageBox("This will clear all existing tools. Proceed?"))
+            {
                 ClearAndInitializeTools();
-            if (DialogResult.OK == ConfirmMessageBox("Would you like to create the default tools?"))
-                CreateDefaultTools();
+                if (DialogResult.OK == ConfirmMessageBox("Would you like to create the default tools?"))
+                    CreateDefaultTools();
+            }
         }
 
         private void MoveToolMountBtn_Click(object sender, EventArgs e)
@@ -5393,7 +5612,6 @@ namespace LEonard
                 pythonEngine.CreateScriptSourceFromString(pythonScriptTxt.Text);
             pythonScript.Execute();
         }
-
 
         // ===================================================================
         // END PYTHON ENGINE

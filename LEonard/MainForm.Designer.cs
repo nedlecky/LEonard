@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
             this.RecipeRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
@@ -153,34 +153,54 @@
             this.DefaultConfigBtn = new System.Windows.Forms.Button();
             this.devicesPage = new System.Windows.Forms.TabPage();
             this.SetupDevicesLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.RobotIpTxt = new System.Windows.Forms.TextBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.DevicesGrd = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ReloadDevicesBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.ConnectAllDevicesBtn = new System.Windows.Forms.Button();
+            this.DisconnectAllDevicesBtn = new System.Windows.Forms.Button();
+            this.RuntimeAppHelperLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.SetupAppHelperLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.button18 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
+            this.SetStartupDevicesFileBtn = new System.Windows.Forms.Button();
+            this.RobotIpTxt = new System.Windows.Forms.TextBox();
             this.ServerIpTxt = new System.Windows.Forms.TextBox();
             this.RobotProgramTxt = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.DevicesGrd = new System.Windows.Forms.DataGridView();
+            this.ClearDevicesBtn = new System.Windows.Forms.Button();
+            this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
+            this.SaveDevicesBtn = new System.Windows.Forms.Button();
+            this.LoadDevicesBtn = new System.Windows.Forms.Button();
             this.toolsPage = new System.Windows.Forms.TabPage();
             this.SetupToolsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.CoolantOffBtn = new System.Windows.Forms.Button();
-            this.ToolsGrd = new System.Windows.Forms.DataGridView();
             this.SetDoorClosedInputBtn = new System.Windows.Forms.Button();
-            this.CoolantTestBtn = new System.Windows.Forms.Button();
             this.SetFootswitchPressedInputBtn = new System.Windows.Forms.Button();
-            this.SelectToolBtn = new System.Windows.Forms.Button();
-            this.ToolOffBtn = new System.Windows.Forms.Button();
-            this.JointMoveMountBtn = new System.Windows.Forms.Button();
-            this.ToolTestBtn = new System.Windows.Forms.Button();
-            this.JointMoveHomeBtn = new System.Windows.Forms.Button();
             this.FootswitchIoLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.FootswitchPressedInputTxt = new System.Windows.Forms.TextBox();
             this.FootswitchPressedInputLbl = new System.Windows.Forms.Label();
             this.DoorIoLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.DoorClosedInputLbl = new System.Windows.Forms.Label();
             this.DoorClosedInputTxt = new System.Windows.Forms.TextBox();
-            this.ClearToolsBtn = new System.Windows.Forms.Button();
-            this.SaveToolsBtn = new System.Windows.Forms.Button();
+            this.ToolsGrd = new System.Windows.Forms.DataGridView();
+            this.SelectToolBtn = new System.Windows.Forms.Button();
+            this.JointMoveMountBtn = new System.Windows.Forms.Button();
+            this.JointMoveHomeBtn = new System.Windows.Forms.Button();
+            this.ToolTestBtn = new System.Windows.Forms.Button();
+            this.ToolOffBtn = new System.Windows.Forms.Button();
+            this.CoolantTestBtn = new System.Windows.Forms.Button();
+            this.CoolantOffBtn = new System.Windows.Forms.Button();
             this.LoadToolsBtn = new System.Windows.Forms.Button();
+            this.SaveToolsBtn = new System.Windows.Forms.Button();
+            this.ClearToolsBtn = new System.Windows.Forms.Button();
             this.grindPage = new System.Windows.Forms.TabPage();
             this.SetupGrindLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SetMoveDefaultsBtn = new System.Windows.Forms.Button();
@@ -210,10 +230,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.LogPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.LogLevelGroupBox = new System.Windows.Forms.GroupBox();
-            this.LogLevelCombo = new System.Windows.Forms.ComboBox();
-            this.AboutBtn = new System.Windows.Forms.Button();
-            this.ClearAllLogRtbBtn = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.UrLogRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -224,7 +240,13 @@
             this.UrDashboardLogRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.AllLogRTB = new System.Windows.Forms.RichTextBox();
+            this.LogPageControlsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.LogLevelGroupBox = new System.Windows.Forms.GroupBox();
+            this.LogLevelCombo = new System.Windows.Forms.ComboBox();
+            this.AboutBtn = new System.Windows.Forms.Button();
+            this.ClearAllLogRtbBtn = new System.Windows.Forms.Button();
             this.UiPage = new System.Windows.Forms.TabPage();
+            this.UiFullscreenBtn = new System.Windows.Forms.Button();
             this.label24 = new System.Windows.Forms.Label();
             this.UiTextScaleTxt = new System.Windows.Forms.TextBox();
             this.UiTextScaleBtn = new System.Windows.Forms.Button();
@@ -248,8 +270,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.UiFullscreenBtn = new System.Windows.Forms.Button();
-            this.LogPageControlsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -282,28 +302,30 @@
             this.devicesPage.SuspendLayout();
             this.SetupDevicesLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrd)).BeginInit();
+            this.RuntimeAppHelperLayoutPanel.SuspendLayout();
+            this.SetupAppHelperLayoutPanel.SuspendLayout();
             this.toolsPage.SuspendLayout();
             this.SetupToolsLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ToolsGrd)).BeginInit();
             this.FootswitchIoLayoutPanel.SuspendLayout();
             this.DoorIoLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ToolsGrd)).BeginInit();
             this.grindPage.SuspendLayout();
             this.SetupGrindLayoutPanel.SuspendLayout();
             this.LogPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.LogLevelGroupBox.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.LogPageControlsLayoutPanel.SuspendLayout();
+            this.LogLevelGroupBox.SuspendLayout();
             this.UiPage.SuspendLayout();
             this.BottomButtonLayoutPanel.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.DiamVersionLayoutPanel.SuspendLayout();
             this.TopButtonLayoutPanel.SuspendLayout();
-            this.LogPageControlsLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // CurrentLineLbl
@@ -633,14 +655,14 @@
             // 
             this.PositionsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.PositionsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.PositionsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PositionLayoutPanel.SetColumnSpan(this.PositionsGrd, 4);
             this.PositionsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -788,14 +810,14 @@
             // 
             this.VariablesGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.VariablesGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VariablesLayoutPanel.SetColumnSpan(this.VariablesGrd, 4);
             this.VariablesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1933,95 +1955,416 @@
             // 
             // SetupDevicesLayoutPanel
             // 
-            this.SetupDevicesLayoutPanel.ColumnCount = 2;
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.SetupDevicesLayoutPanel.Controls.Add(this.RobotIpTxt, 1, 5);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.label2, 0, 5);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.ServerIpTxt, 1, 4);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.RobotProgramTxt, 1, 3);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.label4, 0, 3);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.label3, 0, 4);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.DevicesGrd, 0, 0);
+            this.SetupDevicesLayoutPanel.ColumnCount = 12;
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.SetupDevicesLayoutPanel.Controls.Add(this.button8, 2, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.button1, 0, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.button2, 1, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DevicesGrd, 0, 1);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.label4, 0, 4);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.ReloadDevicesBtn, 0, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.label2, 0, 2);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.button11, 4, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.button12, 7, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.ConnectAllDevicesBtn, 10, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DisconnectAllDevicesBtn, 11, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.RuntimeAppHelperLayoutPanel, 5, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.SetupAppHelperLayoutPanel, 8, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.SetStartupDevicesFileBtn, 7, 2);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.RobotIpTxt, 4, 4);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.ServerIpTxt, 3, 4);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.RobotProgramTxt, 2, 4);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.ClearDevicesBtn, 4, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.SaveAsDevicesBtn, 3, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.SaveDevicesBtn, 2, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.LoadDevicesBtn, 1, 3);
             this.SetupDevicesLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupDevicesLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.SetupDevicesLayoutPanel.Name = "SetupDevicesLayoutPanel";
-            this.SetupDevicesLayoutPanel.RowCount = 6;
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.SetupDevicesLayoutPanel.RowCount = 5;
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.82357F));
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.33326F));
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.941189F));
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.941189F));
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.960793F));
             this.SetupDevicesLayoutPanel.Size = new System.Drawing.Size(2114, 1108);
             this.SetupDevicesLayoutPanel.TabIndex = 0;
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.Green;
+            this.button8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.ForeColor = System.Drawing.Color.White;
+            this.button8.Location = new System.Drawing.Point(354, 2);
+            this.button8.Margin = new System.Windows.Forms.Padding(2);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(172, 193);
+            this.button8.TabIndex = 106;
+            this.button8.Text = "Reconnect";
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Green;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(172, 193);
+            this.button1.TabIndex = 99;
+            this.button1.Text = "Connect";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Green;
+            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(178, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(172, 193);
+            this.button2.TabIndex = 98;
+            this.button2.Text = "Disconnect";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // DevicesGrd
+            // 
+            this.DevicesGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.DevicesGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.DevicesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SetupDevicesLayoutPanel.SetColumnSpan(this.DevicesGrd, 12);
+            this.DevicesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DevicesGrd.Location = new System.Drawing.Point(3, 200);
+            this.DevicesGrd.Name = "DevicesGrd";
+            this.DevicesGrd.Size = new System.Drawing.Size(2108, 728);
+            this.DevicesGrd.TabIndex = 89;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.SetupDevicesLayoutPanel.SetColumnSpan(this.label4, 2);
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(3, 1061);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(346, 47);
+            this.label4.TabIndex = 88;
+            this.label4.Text = "Program, ServerIP, Robot IP";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ReloadDevicesBtn
+            // 
+            this.ReloadDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.ReloadDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReloadDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReloadDevicesBtn.ForeColor = System.Drawing.Color.White;
+            this.ReloadDevicesBtn.Location = new System.Drawing.Point(3, 999);
+            this.ReloadDevicesBtn.Name = "ReloadDevicesBtn";
+            this.ReloadDevicesBtn.Size = new System.Drawing.Size(170, 59);
+            this.ReloadDevicesBtn.TabIndex = 100;
+            this.ReloadDevicesBtn.Text = "Reload";
+            this.ReloadDevicesBtn.UseVisualStyleBackColor = false;
+            this.ReloadDevicesBtn.Click += new System.EventHandler(this.ReloadDevicesBtn_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SetupDevicesLayoutPanel.SetColumnSpan(this.label2, 7);
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(3, 931);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(1226, 65);
+            this.label2.TabIndex = 102;
+            this.label2.Text = "label2";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // button11
+            // 
+            this.button11.BackColor = System.Drawing.Color.Green;
+            this.button11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button11.ForeColor = System.Drawing.Color.White;
+            this.button11.Location = new System.Drawing.Point(706, 2);
+            this.button11.Margin = new System.Windows.Forms.Padding(2);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(172, 193);
+            this.button11.TabIndex = 109;
+            this.button11.Text = "Runtime App";
+            this.button11.UseVisualStyleBackColor = false;
+            // 
+            // button12
+            // 
+            this.button12.BackColor = System.Drawing.Color.Green;
+            this.button12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button12.ForeColor = System.Drawing.Color.White;
+            this.button12.Location = new System.Drawing.Point(1234, 2);
+            this.button12.Margin = new System.Windows.Forms.Padding(2);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(172, 193);
+            this.button12.TabIndex = 110;
+            this.button12.Text = "Setup App";
+            this.button12.UseVisualStyleBackColor = false;
+            // 
+            // ConnectAllDevicesBtn
+            // 
+            this.ConnectAllDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.ConnectAllDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ConnectAllDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConnectAllDevicesBtn.ForeColor = System.Drawing.Color.White;
+            this.ConnectAllDevicesBtn.Location = new System.Drawing.Point(1762, 2);
+            this.ConnectAllDevicesBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.ConnectAllDevicesBtn.Name = "ConnectAllDevicesBtn";
+            this.ConnectAllDevicesBtn.Size = new System.Drawing.Size(172, 193);
+            this.ConnectAllDevicesBtn.TabIndex = 107;
+            this.ConnectAllDevicesBtn.Text = "Connect All";
+            this.ConnectAllDevicesBtn.UseVisualStyleBackColor = false;
+            this.ConnectAllDevicesBtn.Click += new System.EventHandler(this.ConnectAllDevicesBtn_Click);
+            // 
+            // DisconnectAllDevicesBtn
+            // 
+            this.DisconnectAllDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.DisconnectAllDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DisconnectAllDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisconnectAllDevicesBtn.ForeColor = System.Drawing.Color.White;
+            this.DisconnectAllDevicesBtn.Location = new System.Drawing.Point(1938, 2);
+            this.DisconnectAllDevicesBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DisconnectAllDevicesBtn.Name = "DisconnectAllDevicesBtn";
+            this.DisconnectAllDevicesBtn.Size = new System.Drawing.Size(174, 193);
+            this.DisconnectAllDevicesBtn.TabIndex = 108;
+            this.DisconnectAllDevicesBtn.Text = "Disconnect All";
+            this.DisconnectAllDevicesBtn.UseVisualStyleBackColor = false;
+            this.DisconnectAllDevicesBtn.Click += new System.EventHandler(this.DisconnectAllDevicesBtn_Click);
+            // 
+            // RuntimeAppHelperLayoutPanel
+            // 
+            this.RuntimeAppHelperLayoutPanel.ColumnCount = 1;
+            this.RuntimeAppHelperLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.RuntimeAppHelperLayoutPanel.Controls.Add(this.button15, 0, 2);
+            this.RuntimeAppHelperLayoutPanel.Controls.Add(this.button14, 0, 1);
+            this.RuntimeAppHelperLayoutPanel.Controls.Add(this.button13, 0, 0);
+            this.RuntimeAppHelperLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RuntimeAppHelperLayoutPanel.Location = new System.Drawing.Point(883, 3);
+            this.RuntimeAppHelperLayoutPanel.Name = "RuntimeAppHelperLayoutPanel";
+            this.RuntimeAppHelperLayoutPanel.RowCount = 3;
+            this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.RuntimeAppHelperLayoutPanel.Size = new System.Drawing.Size(170, 191);
+            this.RuntimeAppHelperLayoutPanel.TabIndex = 111;
+            // 
+            // button15
+            // 
+            this.button15.BackColor = System.Drawing.Color.Green;
+            this.button15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button15.ForeColor = System.Drawing.Color.White;
+            this.button15.Location = new System.Drawing.Point(2, 128);
+            this.button15.Margin = new System.Windows.Forms.Padding(2);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(166, 61);
+            this.button15.TabIndex = 115;
+            this.button15.Text = "Exit";
+            this.button15.UseVisualStyleBackColor = false;
+            // 
+            // button14
+            // 
+            this.button14.BackColor = System.Drawing.Color.Green;
+            this.button14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button14.ForeColor = System.Drawing.Color.White;
+            this.button14.Location = new System.Drawing.Point(2, 65);
+            this.button14.Margin = new System.Windows.Forms.Padding(2);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(166, 59);
+            this.button14.TabIndex = 114;
+            this.button14.Text = "Min";
+            this.button14.UseVisualStyleBackColor = false;
+            // 
+            // button13
+            // 
+            this.button13.BackColor = System.Drawing.Color.Green;
+            this.button13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button13.ForeColor = System.Drawing.Color.White;
+            this.button13.Location = new System.Drawing.Point(2, 2);
+            this.button13.Margin = new System.Windows.Forms.Padding(2);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(166, 59);
+            this.button13.TabIndex = 113;
+            this.button13.Text = "Max";
+            this.button13.UseVisualStyleBackColor = false;
+            // 
+            // SetupAppHelperLayoutPanel
+            // 
+            this.SetupAppHelperLayoutPanel.ColumnCount = 1;
+            this.SetupAppHelperLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.SetupAppHelperLayoutPanel.Controls.Add(this.button18, 0, 2);
+            this.SetupAppHelperLayoutPanel.Controls.Add(this.button16, 0, 0);
+            this.SetupAppHelperLayoutPanel.Controls.Add(this.button17, 0, 1);
+            this.SetupAppHelperLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SetupAppHelperLayoutPanel.Location = new System.Drawing.Point(1411, 3);
+            this.SetupAppHelperLayoutPanel.Name = "SetupAppHelperLayoutPanel";
+            this.SetupAppHelperLayoutPanel.RowCount = 3;
+            this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.SetupAppHelperLayoutPanel.Size = new System.Drawing.Size(170, 191);
+            this.SetupAppHelperLayoutPanel.TabIndex = 112;
+            // 
+            // button18
+            // 
+            this.button18.BackColor = System.Drawing.Color.Green;
+            this.button18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button18.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button18.ForeColor = System.Drawing.Color.White;
+            this.button18.Location = new System.Drawing.Point(2, 128);
+            this.button18.Margin = new System.Windows.Forms.Padding(2);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(166, 61);
+            this.button18.TabIndex = 116;
+            this.button18.Text = "Exit";
+            this.button18.UseVisualStyleBackColor = false;
+            // 
+            // button16
+            // 
+            this.button16.BackColor = System.Drawing.Color.Green;
+            this.button16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button16.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button16.ForeColor = System.Drawing.Color.White;
+            this.button16.Location = new System.Drawing.Point(2, 2);
+            this.button16.Margin = new System.Windows.Forms.Padding(2);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(166, 59);
+            this.button16.TabIndex = 114;
+            this.button16.Text = "Max";
+            this.button16.UseVisualStyleBackColor = false;
+            // 
+            // button17
+            // 
+            this.button17.BackColor = System.Drawing.Color.Green;
+            this.button17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button17.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button17.ForeColor = System.Drawing.Color.White;
+            this.button17.Location = new System.Drawing.Point(2, 65);
+            this.button17.Margin = new System.Windows.Forms.Padding(2);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(166, 59);
+            this.button17.TabIndex = 115;
+            this.button17.Text = "Min";
+            this.button17.UseVisualStyleBackColor = false;
+            // 
+            // SetStartupDevicesFileBtn
+            // 
+            this.SetStartupDevicesFileBtn.BackColor = System.Drawing.Color.Green;
+            this.SetStartupDevicesFileBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SetStartupDevicesFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SetStartupDevicesFileBtn.ForeColor = System.Drawing.Color.White;
+            this.SetStartupDevicesFileBtn.Location = new System.Drawing.Point(1235, 934);
+            this.SetStartupDevicesFileBtn.Name = "SetStartupDevicesFileBtn";
+            this.SetStartupDevicesFileBtn.Size = new System.Drawing.Size(170, 59);
+            this.SetStartupDevicesFileBtn.TabIndex = 103;
+            this.SetStartupDevicesFileBtn.Text = "At Startup";
+            this.SetStartupDevicesFileBtn.UseVisualStyleBackColor = false;
+            this.SetStartupDevicesFileBtn.Click += new System.EventHandler(this.SetStartupDevicesFileBtn_Click);
             // 
             // RobotIpTxt
             // 
             this.RobotIpTxt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RobotIpTxt.Location = new System.Drawing.Point(1060, 997);
+            this.RobotIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RobotIpTxt.Location = new System.Drawing.Point(707, 1064);
             this.RobotIpTxt.Name = "RobotIpTxt";
-            this.RobotIpTxt.Size = new System.Drawing.Size(1051, 44);
+            this.RobotIpTxt.Size = new System.Drawing.Size(170, 35);
             this.RobotIpTxt.TabIndex = 72;
             this.RobotIpTxt.Text = "192.168.0.2";
-            // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 994);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1051, 114);
-            this.label2.TabIndex = 78;
-            this.label2.Text = "UR Robot IP Address";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ServerIpTxt
             // 
             this.ServerIpTxt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ServerIpTxt.Location = new System.Drawing.Point(1060, 887);
+            this.ServerIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerIpTxt.Location = new System.Drawing.Point(531, 1064);
             this.ServerIpTxt.Name = "ServerIpTxt";
-            this.ServerIpTxt.Size = new System.Drawing.Size(1051, 44);
+            this.ServerIpTxt.Size = new System.Drawing.Size(170, 35);
             this.ServerIpTxt.TabIndex = 79;
             this.ServerIpTxt.Text = "192.168.0.253";
             // 
             // RobotProgramTxt
             // 
             this.RobotProgramTxt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RobotProgramTxt.Location = new System.Drawing.Point(1060, 777);
+            this.RobotProgramTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RobotProgramTxt.Location = new System.Drawing.Point(355, 1064);
             this.RobotProgramTxt.Name = "RobotProgramTxt";
-            this.RobotProgramTxt.Size = new System.Drawing.Size(1051, 44);
+            this.RobotProgramTxt.Size = new System.Drawing.Size(170, 35);
             this.RobotProgramTxt.TabIndex = 87;
             // 
-            // label4
+            // ClearDevicesBtn
             // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(3, 774);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(1051, 110);
-            this.label4.TabIndex = 88;
-            this.label4.Text = "Robot Program to Load";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ClearDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.ClearDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearDevicesBtn.ForeColor = System.Drawing.Color.White;
+            this.ClearDevicesBtn.Location = new System.Drawing.Point(707, 999);
+            this.ClearDevicesBtn.Name = "ClearDevicesBtn";
+            this.ClearDevicesBtn.Size = new System.Drawing.Size(170, 59);
+            this.ClearDevicesBtn.TabIndex = 105;
+            this.ClearDevicesBtn.Text = "Clear";
+            this.ClearDevicesBtn.UseVisualStyleBackColor = false;
+            this.ClearDevicesBtn.Click += new System.EventHandler(this.ClearDevicesBtn_Click);
             // 
-            // label3
+            // SaveAsDevicesBtn
             // 
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 884);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(1051, 110);
-            this.label3.TabIndex = 71;
-            this.label3.Text = "Local IP for Server";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.SaveAsDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveAsDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveAsDevicesBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(531, 999);
+            this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
+            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(170, 59);
+            this.SaveAsDevicesBtn.TabIndex = 104;
+            this.SaveAsDevicesBtn.Text = "Save As...";
+            this.SaveAsDevicesBtn.UseVisualStyleBackColor = false;
+            this.SaveAsDevicesBtn.Click += new System.EventHandler(this.SaveAsDevicesBtn_Click);
             // 
-            // DevicesGrd
+            // SaveDevicesBtn
             // 
-            this.DevicesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SetupDevicesLayoutPanel.SetColumnSpan(this.DevicesGrd, 2);
-            this.DevicesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DevicesGrd.Location = new System.Drawing.Point(3, 3);
-            this.DevicesGrd.Name = "DevicesGrd";
-            this.DevicesGrd.Size = new System.Drawing.Size(2108, 658);
-            this.DevicesGrd.TabIndex = 89;
+            this.SaveDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveDevicesBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(355, 999);
+            this.SaveDevicesBtn.Name = "SaveDevicesBtn";
+            this.SaveDevicesBtn.Size = new System.Drawing.Size(170, 59);
+            this.SaveDevicesBtn.TabIndex = 101;
+            this.SaveDevicesBtn.Text = "Save";
+            this.SaveDevicesBtn.UseVisualStyleBackColor = false;
+            this.SaveDevicesBtn.Click += new System.EventHandler(this.SaveDevicesBtn_Click);
+            // 
+            // LoadDevicesBtn
+            // 
+            this.LoadDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.LoadDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadDevicesBtn.ForeColor = System.Drawing.Color.White;
+            this.LoadDevicesBtn.Location = new System.Drawing.Point(179, 999);
+            this.LoadDevicesBtn.Name = "LoadDevicesBtn";
+            this.LoadDevicesBtn.Size = new System.Drawing.Size(170, 59);
+            this.LoadDevicesBtn.TabIndex = 113;
+            this.LoadDevicesBtn.Text = "Load";
+            this.LoadDevicesBtn.UseVisualStyleBackColor = false;
+            this.LoadDevicesBtn.Click += new System.EventHandler(this.LoadDevicesBtn_Click);
             // 
             // toolsPage
             // 
@@ -2048,73 +2391,30 @@
             this.SetupToolsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
             this.SetupToolsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
             this.SetupToolsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupToolsLayoutPanel.Controls.Add(this.CoolantOffBtn, 6, 1);
-            this.SetupToolsLayoutPanel.Controls.Add(this.ToolsGrd, 0, 0);
             this.SetupToolsLayoutPanel.Controls.Add(this.SetDoorClosedInputBtn, 3, 2);
-            this.SetupToolsLayoutPanel.Controls.Add(this.CoolantTestBtn, 5, 1);
             this.SetupToolsLayoutPanel.Controls.Add(this.SetFootswitchPressedInputBtn, 0, 2);
-            this.SetupToolsLayoutPanel.Controls.Add(this.SelectToolBtn, 0, 1);
-            this.SetupToolsLayoutPanel.Controls.Add(this.ToolOffBtn, 4, 1);
-            this.SetupToolsLayoutPanel.Controls.Add(this.JointMoveMountBtn, 1, 1);
-            this.SetupToolsLayoutPanel.Controls.Add(this.ToolTestBtn, 3, 1);
-            this.SetupToolsLayoutPanel.Controls.Add(this.JointMoveHomeBtn, 2, 1);
             this.SetupToolsLayoutPanel.Controls.Add(this.FootswitchIoLayoutPanel, 1, 2);
             this.SetupToolsLayoutPanel.Controls.Add(this.DoorIoLayoutPanel, 4, 2);
-            this.SetupToolsLayoutPanel.Controls.Add(this.ClearToolsBtn, 10, 1);
-            this.SetupToolsLayoutPanel.Controls.Add(this.SaveToolsBtn, 9, 1);
-            this.SetupToolsLayoutPanel.Controls.Add(this.LoadToolsBtn, 8, 1);
+            this.SetupToolsLayoutPanel.Controls.Add(this.ToolsGrd, 0, 1);
+            this.SetupToolsLayoutPanel.Controls.Add(this.SelectToolBtn, 0, 0);
+            this.SetupToolsLayoutPanel.Controls.Add(this.JointMoveMountBtn, 1, 0);
+            this.SetupToolsLayoutPanel.Controls.Add(this.JointMoveHomeBtn, 2, 0);
+            this.SetupToolsLayoutPanel.Controls.Add(this.ToolTestBtn, 3, 0);
+            this.SetupToolsLayoutPanel.Controls.Add(this.ToolOffBtn, 4, 0);
+            this.SetupToolsLayoutPanel.Controls.Add(this.CoolantTestBtn, 5, 0);
+            this.SetupToolsLayoutPanel.Controls.Add(this.CoolantOffBtn, 6, 0);
+            this.SetupToolsLayoutPanel.Controls.Add(this.LoadToolsBtn, 8, 2);
+            this.SetupToolsLayoutPanel.Controls.Add(this.SaveToolsBtn, 9, 2);
+            this.SetupToolsLayoutPanel.Controls.Add(this.ClearToolsBtn, 10, 2);
             this.SetupToolsLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupToolsLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.SetupToolsLayoutPanel.Name = "SetupToolsLayoutPanel";
             this.SetupToolsLayoutPanel.RowCount = 3;
-            this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.SetupToolsLayoutPanel.Size = new System.Drawing.Size(2114, 1108);
             this.SetupToolsLayoutPanel.TabIndex = 0;
-            // 
-            // CoolantOffBtn
-            // 
-            this.CoolantOffBtn.BackColor = System.Drawing.Color.Green;
-            this.CoolantOffBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CoolantOffBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CoolantOffBtn.ForeColor = System.Drawing.Color.White;
-            this.CoolantOffBtn.Location = new System.Drawing.Point(1155, 889);
-            this.CoolantOffBtn.Name = "CoolantOffBtn";
-            this.CoolantOffBtn.Size = new System.Drawing.Size(186, 104);
-            this.CoolantOffBtn.TabIndex = 128;
-            this.CoolantOffBtn.Text = "Cool Off";
-            this.CoolantOffBtn.UseVisualStyleBackColor = false;
-            this.CoolantOffBtn.Click += new System.EventHandler(this.CoolantOffBtn_Click);
-            // 
-            // ToolsGrd
-            // 
-            this.ToolsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.ToolsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
-            this.ToolsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SetupToolsLayoutPanel.SetColumnSpan(this.ToolsGrd, 11);
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle24;
-            this.ToolsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ToolsGrd.Location = new System.Drawing.Point(3, 3);
-            this.ToolsGrd.Name = "ToolsGrd";
-            this.ToolsGrd.RowTemplate.Height = 34;
-            this.ToolsGrd.Size = new System.Drawing.Size(2108, 880);
-            this.ToolsGrd.TabIndex = 85;
             // 
             // SetDoorClosedInputBtn
             // 
@@ -2130,20 +2430,6 @@
             this.SetDoorClosedInputBtn.UseVisualStyleBackColor = false;
             this.SetDoorClosedInputBtn.Click += new System.EventHandler(this.SetDoorClosedInputBtn_Click);
             // 
-            // CoolantTestBtn
-            // 
-            this.CoolantTestBtn.BackColor = System.Drawing.Color.Green;
-            this.CoolantTestBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CoolantTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CoolantTestBtn.ForeColor = System.Drawing.Color.White;
-            this.CoolantTestBtn.Location = new System.Drawing.Point(963, 889);
-            this.CoolantTestBtn.Name = "CoolantTestBtn";
-            this.CoolantTestBtn.Size = new System.Drawing.Size(186, 104);
-            this.CoolantTestBtn.TabIndex = 127;
-            this.CoolantTestBtn.Text = "Cool Test";
-            this.CoolantTestBtn.UseVisualStyleBackColor = false;
-            this.CoolantTestBtn.Click += new System.EventHandler(this.CoolantTestBtn_Click);
-            // 
             // SetFootswitchPressedInputBtn
             // 
             this.SetFootswitchPressedInputBtn.BackColor = System.Drawing.Color.Green;
@@ -2157,76 +2443,6 @@
             this.SetFootswitchPressedInputBtn.Text = "Set Footswitch Pressed Input";
             this.SetFootswitchPressedInputBtn.UseVisualStyleBackColor = false;
             this.SetFootswitchPressedInputBtn.Click += new System.EventHandler(this.SetFootswitchInputBtn_Click);
-            // 
-            // SelectToolBtn
-            // 
-            this.SelectToolBtn.BackColor = System.Drawing.Color.Green;
-            this.SelectToolBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SelectToolBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectToolBtn.ForeColor = System.Drawing.Color.White;
-            this.SelectToolBtn.Location = new System.Drawing.Point(3, 889);
-            this.SelectToolBtn.Name = "SelectToolBtn";
-            this.SelectToolBtn.Size = new System.Drawing.Size(186, 104);
-            this.SelectToolBtn.TabIndex = 95;
-            this.SelectToolBtn.Text = "Select";
-            this.SelectToolBtn.UseVisualStyleBackColor = false;
-            this.SelectToolBtn.Click += new System.EventHandler(this.SelectToolBtn_Click);
-            // 
-            // ToolOffBtn
-            // 
-            this.ToolOffBtn.BackColor = System.Drawing.Color.Green;
-            this.ToolOffBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ToolOffBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ToolOffBtn.ForeColor = System.Drawing.Color.White;
-            this.ToolOffBtn.Location = new System.Drawing.Point(771, 889);
-            this.ToolOffBtn.Name = "ToolOffBtn";
-            this.ToolOffBtn.Size = new System.Drawing.Size(186, 104);
-            this.ToolOffBtn.TabIndex = 126;
-            this.ToolOffBtn.Text = "Tool Off";
-            this.ToolOffBtn.UseVisualStyleBackColor = false;
-            this.ToolOffBtn.Click += new System.EventHandler(this.ToolOffBtn_Click);
-            // 
-            // JointMoveMountBtn
-            // 
-            this.JointMoveMountBtn.BackColor = System.Drawing.Color.Green;
-            this.JointMoveMountBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JointMoveMountBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.JointMoveMountBtn.ForeColor = System.Drawing.Color.White;
-            this.JointMoveMountBtn.Location = new System.Drawing.Point(195, 889);
-            this.JointMoveMountBtn.Name = "JointMoveMountBtn";
-            this.JointMoveMountBtn.Size = new System.Drawing.Size(186, 104);
-            this.JointMoveMountBtn.TabIndex = 120;
-            this.JointMoveMountBtn.Text = "Joint Move to Mount";
-            this.JointMoveMountBtn.UseVisualStyleBackColor = false;
-            this.JointMoveMountBtn.Click += new System.EventHandler(this.JointMoveMountBtn_Click);
-            // 
-            // ToolTestBtn
-            // 
-            this.ToolTestBtn.BackColor = System.Drawing.Color.Green;
-            this.ToolTestBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ToolTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ToolTestBtn.ForeColor = System.Drawing.Color.White;
-            this.ToolTestBtn.Location = new System.Drawing.Point(579, 889);
-            this.ToolTestBtn.Name = "ToolTestBtn";
-            this.ToolTestBtn.Size = new System.Drawing.Size(186, 104);
-            this.ToolTestBtn.TabIndex = 125;
-            this.ToolTestBtn.Text = "Tool Test";
-            this.ToolTestBtn.UseVisualStyleBackColor = false;
-            this.ToolTestBtn.Click += new System.EventHandler(this.ToolTestBtn_Click);
-            // 
-            // JointMoveHomeBtn
-            // 
-            this.JointMoveHomeBtn.BackColor = System.Drawing.Color.Green;
-            this.JointMoveHomeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JointMoveHomeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.JointMoveHomeBtn.ForeColor = System.Drawing.Color.White;
-            this.JointMoveHomeBtn.Location = new System.Drawing.Point(387, 889);
-            this.JointMoveHomeBtn.Name = "JointMoveHomeBtn";
-            this.JointMoveHomeBtn.Size = new System.Drawing.Size(186, 104);
-            this.JointMoveHomeBtn.TabIndex = 119;
-            this.JointMoveHomeBtn.Text = "Joint Move to Home";
-            this.JointMoveHomeBtn.UseVisualStyleBackColor = false;
-            this.JointMoveHomeBtn.Click += new System.EventHandler(this.JointMoveHomeBtn_Click);
             // 
             // FootswitchIoLayoutPanel
             // 
@@ -2298,33 +2514,132 @@
             this.DoorClosedInputTxt.TabIndex = 118;
             this.DoorClosedInputTxt.Text = "1,1";
             // 
-            // ClearToolsBtn
+            // ToolsGrd
             // 
-            this.ClearToolsBtn.BackColor = System.Drawing.Color.Green;
-            this.ClearToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClearToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClearToolsBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearToolsBtn.Location = new System.Drawing.Point(1923, 889);
-            this.ClearToolsBtn.Name = "ClearToolsBtn";
-            this.ClearToolsBtn.Size = new System.Drawing.Size(188, 104);
-            this.ClearToolsBtn.TabIndex = 92;
-            this.ClearToolsBtn.Text = "Clear";
-            this.ClearToolsBtn.UseVisualStyleBackColor = false;
-            this.ClearToolsBtn.Click += new System.EventHandler(this.ClearToolsBtn_Click);
+            this.ToolsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.ToolsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.ToolsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SetupToolsLayoutPanel.SetColumnSpan(this.ToolsGrd, 11);
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle4;
+            this.ToolsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ToolsGrd.Location = new System.Drawing.Point(3, 113);
+            this.ToolsGrd.Name = "ToolsGrd";
+            this.ToolsGrd.RowTemplate.Height = 34;
+            this.ToolsGrd.Size = new System.Drawing.Size(2108, 880);
+            this.ToolsGrd.TabIndex = 85;
             // 
-            // SaveToolsBtn
+            // SelectToolBtn
             // 
-            this.SaveToolsBtn.BackColor = System.Drawing.Color.Green;
-            this.SaveToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveToolsBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveToolsBtn.Location = new System.Drawing.Point(1731, 889);
-            this.SaveToolsBtn.Name = "SaveToolsBtn";
-            this.SaveToolsBtn.Size = new System.Drawing.Size(186, 104);
-            this.SaveToolsBtn.TabIndex = 93;
-            this.SaveToolsBtn.Text = "Save";
-            this.SaveToolsBtn.UseVisualStyleBackColor = false;
-            this.SaveToolsBtn.Click += new System.EventHandler(this.SaveToolsBtn_Click);
+            this.SelectToolBtn.BackColor = System.Drawing.Color.Green;
+            this.SelectToolBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SelectToolBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SelectToolBtn.ForeColor = System.Drawing.Color.White;
+            this.SelectToolBtn.Location = new System.Drawing.Point(3, 3);
+            this.SelectToolBtn.Name = "SelectToolBtn";
+            this.SelectToolBtn.Size = new System.Drawing.Size(186, 104);
+            this.SelectToolBtn.TabIndex = 95;
+            this.SelectToolBtn.Text = "Select";
+            this.SelectToolBtn.UseVisualStyleBackColor = false;
+            this.SelectToolBtn.Click += new System.EventHandler(this.SelectToolBtn_Click);
+            // 
+            // JointMoveMountBtn
+            // 
+            this.JointMoveMountBtn.BackColor = System.Drawing.Color.Green;
+            this.JointMoveMountBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JointMoveMountBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JointMoveMountBtn.ForeColor = System.Drawing.Color.White;
+            this.JointMoveMountBtn.Location = new System.Drawing.Point(195, 3);
+            this.JointMoveMountBtn.Name = "JointMoveMountBtn";
+            this.JointMoveMountBtn.Size = new System.Drawing.Size(186, 104);
+            this.JointMoveMountBtn.TabIndex = 120;
+            this.JointMoveMountBtn.Text = "Joint Move to Mount";
+            this.JointMoveMountBtn.UseVisualStyleBackColor = false;
+            this.JointMoveMountBtn.Click += new System.EventHandler(this.JointMoveMountBtn_Click);
+            // 
+            // JointMoveHomeBtn
+            // 
+            this.JointMoveHomeBtn.BackColor = System.Drawing.Color.Green;
+            this.JointMoveHomeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JointMoveHomeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JointMoveHomeBtn.ForeColor = System.Drawing.Color.White;
+            this.JointMoveHomeBtn.Location = new System.Drawing.Point(387, 3);
+            this.JointMoveHomeBtn.Name = "JointMoveHomeBtn";
+            this.JointMoveHomeBtn.Size = new System.Drawing.Size(186, 104);
+            this.JointMoveHomeBtn.TabIndex = 119;
+            this.JointMoveHomeBtn.Text = "Joint Move to Home";
+            this.JointMoveHomeBtn.UseVisualStyleBackColor = false;
+            this.JointMoveHomeBtn.Click += new System.EventHandler(this.JointMoveHomeBtn_Click);
+            // 
+            // ToolTestBtn
+            // 
+            this.ToolTestBtn.BackColor = System.Drawing.Color.Green;
+            this.ToolTestBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ToolTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ToolTestBtn.ForeColor = System.Drawing.Color.White;
+            this.ToolTestBtn.Location = new System.Drawing.Point(579, 3);
+            this.ToolTestBtn.Name = "ToolTestBtn";
+            this.ToolTestBtn.Size = new System.Drawing.Size(186, 104);
+            this.ToolTestBtn.TabIndex = 125;
+            this.ToolTestBtn.Text = "Tool Test";
+            this.ToolTestBtn.UseVisualStyleBackColor = false;
+            this.ToolTestBtn.Click += new System.EventHandler(this.ToolTestBtn_Click);
+            // 
+            // ToolOffBtn
+            // 
+            this.ToolOffBtn.BackColor = System.Drawing.Color.Green;
+            this.ToolOffBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ToolOffBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ToolOffBtn.ForeColor = System.Drawing.Color.White;
+            this.ToolOffBtn.Location = new System.Drawing.Point(771, 3);
+            this.ToolOffBtn.Name = "ToolOffBtn";
+            this.ToolOffBtn.Size = new System.Drawing.Size(186, 104);
+            this.ToolOffBtn.TabIndex = 126;
+            this.ToolOffBtn.Text = "Tool Off";
+            this.ToolOffBtn.UseVisualStyleBackColor = false;
+            this.ToolOffBtn.Click += new System.EventHandler(this.ToolOffBtn_Click);
+            // 
+            // CoolantTestBtn
+            // 
+            this.CoolantTestBtn.BackColor = System.Drawing.Color.Green;
+            this.CoolantTestBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CoolantTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CoolantTestBtn.ForeColor = System.Drawing.Color.White;
+            this.CoolantTestBtn.Location = new System.Drawing.Point(963, 3);
+            this.CoolantTestBtn.Name = "CoolantTestBtn";
+            this.CoolantTestBtn.Size = new System.Drawing.Size(186, 104);
+            this.CoolantTestBtn.TabIndex = 127;
+            this.CoolantTestBtn.Text = "Cool Test";
+            this.CoolantTestBtn.UseVisualStyleBackColor = false;
+            this.CoolantTestBtn.Click += new System.EventHandler(this.CoolantTestBtn_Click);
+            // 
+            // CoolantOffBtn
+            // 
+            this.CoolantOffBtn.BackColor = System.Drawing.Color.Green;
+            this.CoolantOffBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CoolantOffBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CoolantOffBtn.ForeColor = System.Drawing.Color.White;
+            this.CoolantOffBtn.Location = new System.Drawing.Point(1155, 3);
+            this.CoolantOffBtn.Name = "CoolantOffBtn";
+            this.CoolantOffBtn.Size = new System.Drawing.Size(186, 104);
+            this.CoolantOffBtn.TabIndex = 128;
+            this.CoolantOffBtn.Text = "Cool Off";
+            this.CoolantOffBtn.UseVisualStyleBackColor = false;
+            this.CoolantOffBtn.Click += new System.EventHandler(this.CoolantOffBtn_Click);
             // 
             // LoadToolsBtn
             // 
@@ -2332,13 +2647,41 @@
             this.LoadToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadToolsBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadToolsBtn.Location = new System.Drawing.Point(1539, 889);
+            this.LoadToolsBtn.Location = new System.Drawing.Point(1539, 999);
             this.LoadToolsBtn.Name = "LoadToolsBtn";
-            this.LoadToolsBtn.Size = new System.Drawing.Size(186, 104);
+            this.LoadToolsBtn.Size = new System.Drawing.Size(186, 106);
             this.LoadToolsBtn.TabIndex = 94;
             this.LoadToolsBtn.Text = "Reload";
             this.LoadToolsBtn.UseVisualStyleBackColor = false;
             this.LoadToolsBtn.Click += new System.EventHandler(this.LoadToolsBtn_Click);
+            // 
+            // SaveToolsBtn
+            // 
+            this.SaveToolsBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveToolsBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveToolsBtn.Location = new System.Drawing.Point(1731, 999);
+            this.SaveToolsBtn.Name = "SaveToolsBtn";
+            this.SaveToolsBtn.Size = new System.Drawing.Size(186, 106);
+            this.SaveToolsBtn.TabIndex = 93;
+            this.SaveToolsBtn.Text = "Save";
+            this.SaveToolsBtn.UseVisualStyleBackColor = false;
+            this.SaveToolsBtn.Click += new System.EventHandler(this.SaveToolsBtn_Click);
+            // 
+            // ClearToolsBtn
+            // 
+            this.ClearToolsBtn.BackColor = System.Drawing.Color.Green;
+            this.ClearToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ClearToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearToolsBtn.ForeColor = System.Drawing.Color.White;
+            this.ClearToolsBtn.Location = new System.Drawing.Point(1923, 999);
+            this.ClearToolsBtn.Name = "ClearToolsBtn";
+            this.ClearToolsBtn.Size = new System.Drawing.Size(188, 106);
+            this.ClearToolsBtn.TabIndex = 92;
+            this.ClearToolsBtn.Text = "Clear";
+            this.ClearToolsBtn.UseVisualStyleBackColor = false;
+            this.ClearToolsBtn.Click += new System.EventHandler(this.ClearToolsBtn_Click);
             // 
             // grindPage
             // 
@@ -2760,65 +3103,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(2128, 1164);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // LogLevelGroupBox
-            // 
-            this.LogLevelGroupBox.Controls.Add(this.LogLevelCombo);
-            this.LogLevelGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LogLevelGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogLevelGroupBox.Location = new System.Drawing.Point(3, 3);
-            this.LogLevelGroupBox.Name = "LogLevelGroupBox";
-            this.LogLevelGroupBox.Size = new System.Drawing.Size(348, 118);
-            this.LogLevelGroupBox.TabIndex = 7;
-            this.LogLevelGroupBox.TabStop = false;
-            this.LogLevelGroupBox.Text = "Log Level";
-            // 
-            // LogLevelCombo
-            // 
-            this.LogLevelCombo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogLevelCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.LogLevelCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogLevelCombo.FormattingEnabled = true;
-            this.LogLevelCombo.Items.AddRange(new object[] {
-            "Error",
-            "Warn",
-            "Info",
-            "Debug",
-            "Trace"});
-            this.LogLevelCombo.Location = new System.Drawing.Point(23, 43);
-            this.LogLevelCombo.Name = "LogLevelCombo";
-            this.LogLevelCombo.Size = new System.Drawing.Size(251, 50);
-            this.LogLevelCombo.TabIndex = 0;
-            this.LogLevelCombo.SelectedIndexChanged += new System.EventHandler(this.DebugLevelCombo_SelectedIndexChanged);
-            // 
-            // AboutBtn
-            // 
-            this.AboutBtn.BackColor = System.Drawing.Color.Green;
-            this.AboutBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AboutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutBtn.ForeColor = System.Drawing.Color.White;
-            this.AboutBtn.Location = new System.Drawing.Point(549, 3);
-            this.AboutBtn.Name = "AboutBtn";
-            this.AboutBtn.Size = new System.Drawing.Size(187, 222);
-            this.AboutBtn.TabIndex = 6;
-            this.AboutBtn.Text = "About";
-            this.AboutBtn.UseVisualStyleBackColor = false;
-            this.AboutBtn.Click += new System.EventHandler(this.AboutBtn_Click);
-            // 
-            // ClearAllLogRtbBtn
-            // 
-            this.ClearAllLogRtbBtn.BackColor = System.Drawing.Color.Green;
-            this.ClearAllLogRtbBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClearAllLogRtbBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClearAllLogRtbBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearAllLogRtbBtn.Location = new System.Drawing.Point(357, 3);
-            this.ClearAllLogRtbBtn.Name = "ClearAllLogRtbBtn";
-            this.ClearAllLogRtbBtn.Size = new System.Drawing.Size(186, 222);
-            this.ClearAllLogRtbBtn.TabIndex = 5;
-            this.ClearAllLogRtbBtn.Text = "Clear All";
-            this.ClearAllLogRtbBtn.UseVisualStyleBackColor = false;
-            this.ClearAllLogRtbBtn.Click += new System.EventHandler(this.ClearAllLogRtbBtn_Click);
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.UrLogRTB);
@@ -2951,6 +3235,82 @@
             this.AllLogRTB.Text = "";
             this.AllLogRTB.WordWrap = false;
             // 
+            // LogPageControlsLayoutPanel
+            // 
+            this.LogPageControlsLayoutPanel.ColumnCount = 3;
+            this.LogPageControlsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.95055F));
+            this.LogPageControlsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.02472F));
+            this.LogPageControlsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.02472F));
+            this.LogPageControlsLayoutPanel.Controls.Add(this.LogLevelGroupBox, 0, 0);
+            this.LogPageControlsLayoutPanel.Controls.Add(this.AboutBtn, 2, 0);
+            this.LogPageControlsLayoutPanel.Controls.Add(this.ClearAllLogRtbBtn, 1, 0);
+            this.LogPageControlsLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LogPageControlsLayoutPanel.Location = new System.Drawing.Point(1386, 933);
+            this.LogPageControlsLayoutPanel.Name = "LogPageControlsLayoutPanel";
+            this.LogPageControlsLayoutPanel.RowCount = 1;
+            this.LogPageControlsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.LogPageControlsLayoutPanel.Size = new System.Drawing.Size(739, 228);
+            this.LogPageControlsLayoutPanel.TabIndex = 5;
+            // 
+            // LogLevelGroupBox
+            // 
+            this.LogLevelGroupBox.Controls.Add(this.LogLevelCombo);
+            this.LogLevelGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LogLevelGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogLevelGroupBox.Location = new System.Drawing.Point(3, 3);
+            this.LogLevelGroupBox.Name = "LogLevelGroupBox";
+            this.LogLevelGroupBox.Size = new System.Drawing.Size(348, 118);
+            this.LogLevelGroupBox.TabIndex = 7;
+            this.LogLevelGroupBox.TabStop = false;
+            this.LogLevelGroupBox.Text = "Log Level";
+            // 
+            // LogLevelCombo
+            // 
+            this.LogLevelCombo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogLevelCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LogLevelCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogLevelCombo.FormattingEnabled = true;
+            this.LogLevelCombo.Items.AddRange(new object[] {
+            "Error",
+            "Warn",
+            "Info",
+            "Debug",
+            "Trace"});
+            this.LogLevelCombo.Location = new System.Drawing.Point(23, 43);
+            this.LogLevelCombo.Name = "LogLevelCombo";
+            this.LogLevelCombo.Size = new System.Drawing.Size(251, 50);
+            this.LogLevelCombo.TabIndex = 0;
+            this.LogLevelCombo.SelectedIndexChanged += new System.EventHandler(this.DebugLevelCombo_SelectedIndexChanged);
+            // 
+            // AboutBtn
+            // 
+            this.AboutBtn.BackColor = System.Drawing.Color.Green;
+            this.AboutBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AboutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutBtn.ForeColor = System.Drawing.Color.White;
+            this.AboutBtn.Location = new System.Drawing.Point(549, 3);
+            this.AboutBtn.Name = "AboutBtn";
+            this.AboutBtn.Size = new System.Drawing.Size(187, 222);
+            this.AboutBtn.TabIndex = 6;
+            this.AboutBtn.Text = "About";
+            this.AboutBtn.UseVisualStyleBackColor = false;
+            this.AboutBtn.Click += new System.EventHandler(this.AboutBtn_Click);
+            // 
+            // ClearAllLogRtbBtn
+            // 
+            this.ClearAllLogRtbBtn.BackColor = System.Drawing.Color.Green;
+            this.ClearAllLogRtbBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ClearAllLogRtbBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearAllLogRtbBtn.ForeColor = System.Drawing.Color.White;
+            this.ClearAllLogRtbBtn.Location = new System.Drawing.Point(357, 3);
+            this.ClearAllLogRtbBtn.Name = "ClearAllLogRtbBtn";
+            this.ClearAllLogRtbBtn.Size = new System.Drawing.Size(186, 222);
+            this.ClearAllLogRtbBtn.TabIndex = 5;
+            this.ClearAllLogRtbBtn.Text = "Clear All";
+            this.ClearAllLogRtbBtn.UseVisualStyleBackColor = false;
+            this.ClearAllLogRtbBtn.Click += new System.EventHandler(this.ClearAllLogRtbBtn_Click);
+            // 
             // UiPage
             // 
             this.UiPage.Controls.Add(this.UiFullscreenBtn);
@@ -2970,6 +3330,16 @@
             this.UiPage.TabIndex = 6;
             this.UiPage.Text = "UIcon";
             this.UiPage.UseVisualStyleBackColor = true;
+            // 
+            // UiFullscreenBtn
+            // 
+            this.UiFullscreenBtn.Location = new System.Drawing.Point(34, 112);
+            this.UiFullscreenBtn.Name = "UiFullscreenBtn";
+            this.UiFullscreenBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiFullscreenBtn.TabIndex = 10;
+            this.UiFullscreenBtn.Text = "Fullscreen";
+            this.UiFullscreenBtn.UseVisualStyleBackColor = true;
+            this.UiFullscreenBtn.Click += new System.EventHandler(this.UiFullscreenBtn_Click);
             // 
             // label24
             // 
@@ -3283,33 +3653,6 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // UiFullscreenBtn
-            // 
-            this.UiFullscreenBtn.Location = new System.Drawing.Point(34, 112);
-            this.UiFullscreenBtn.Name = "UiFullscreenBtn";
-            this.UiFullscreenBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiFullscreenBtn.TabIndex = 10;
-            this.UiFullscreenBtn.Text = "Fullscreen";
-            this.UiFullscreenBtn.UseVisualStyleBackColor = true;
-            this.UiFullscreenBtn.Click += new System.EventHandler(this.UiFullscreenBtn_Click);
-            // 
-            // LogPageControlsLayoutPanel
-            // 
-            this.LogPageControlsLayoutPanel.ColumnCount = 3;
-            this.LogPageControlsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.95055F));
-            this.LogPageControlsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.02472F));
-            this.LogPageControlsLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.02472F));
-            this.LogPageControlsLayoutPanel.Controls.Add(this.LogLevelGroupBox, 0, 0);
-            this.LogPageControlsLayoutPanel.Controls.Add(this.AboutBtn, 2, 0);
-            this.LogPageControlsLayoutPanel.Controls.Add(this.ClearAllLogRtbBtn, 1, 0);
-            this.LogPageControlsLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LogPageControlsLayoutPanel.Location = new System.Drawing.Point(1386, 933);
-            this.LogPageControlsLayoutPanel.Name = "LogPageControlsLayoutPanel";
-            this.LogPageControlsLayoutPanel.RowCount = 1;
-            this.LogPageControlsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.LogPageControlsLayoutPanel.Size = new System.Drawing.Size(739, 228);
-            this.LogPageControlsLayoutPanel.TabIndex = 5;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3369,23 +3712,26 @@
             this.SetupDevicesLayoutPanel.ResumeLayout(false);
             this.SetupDevicesLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrd)).EndInit();
+            this.RuntimeAppHelperLayoutPanel.ResumeLayout(false);
+            this.SetupAppHelperLayoutPanel.ResumeLayout(false);
             this.toolsPage.ResumeLayout(false);
             this.SetupToolsLayoutPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ToolsGrd)).EndInit();
             this.FootswitchIoLayoutPanel.ResumeLayout(false);
             this.FootswitchIoLayoutPanel.PerformLayout();
             this.DoorIoLayoutPanel.ResumeLayout(false);
             this.DoorIoLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ToolsGrd)).EndInit();
             this.grindPage.ResumeLayout(false);
             this.SetupGrindLayoutPanel.ResumeLayout(false);
             this.LogPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.LogLevelGroupBox.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.LogPageControlsLayoutPanel.ResumeLayout(false);
+            this.LogLevelGroupBox.ResumeLayout(false);
             this.UiPage.ResumeLayout(false);
             this.UiPage.PerformLayout();
             this.BottomButtonLayoutPanel.ResumeLayout(false);
@@ -3394,7 +3740,6 @@
             this.DiamVersionLayoutPanel.ResumeLayout(false);
             this.DiamVersionLayoutPanel.PerformLayout();
             this.TopButtonLayoutPanel.ResumeLayout(false);
-            this.LogPageControlsLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3461,9 +3806,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox RobotProgramTxt;
         private System.Windows.Forms.TextBox ServerIpTxt;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox RobotIpTxt;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label LEonardRootLbl;
         private System.Windows.Forms.Button ChangeRootDirectoryBtn;
         private System.Windows.Forms.Label label1;
@@ -3616,6 +3959,28 @@
         private System.Windows.Forms.TableLayoutPanel LastReportedZLayoutPanel;
         private System.Windows.Forms.Button UiFullscreenBtn;
         private System.Windows.Forms.TableLayoutPanel LogPageControlsLayoutPanel;
+        private System.Windows.Forms.Button SaveDevicesBtn;
+        private System.Windows.Forms.Button ReloadDevicesBtn;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button SetStartupDevicesFileBtn;
+        private System.Windows.Forms.Button SaveAsDevicesBtn;
+        private System.Windows.Forms.Button ClearDevicesBtn;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button ConnectAllDevicesBtn;
+        private System.Windows.Forms.Button DisconnectAllDevicesBtn;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.TableLayoutPanel RuntimeAppHelperLayoutPanel;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.TableLayoutPanel SetupAppHelperLayoutPanel;
+        private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button LoadDevicesBtn;
     }
 }
 
