@@ -50,7 +50,6 @@ namespace LEonard
                 CloseBtn.Visible = true;
         }
 
-
         // Form closes with the Close button, a close timer, or any click anywhere in the form!
         private void CloseTmr_Tick(object sender, EventArgs e)
         {
