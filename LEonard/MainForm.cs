@@ -122,6 +122,8 @@ namespace LEonard
             InitializePythonEngine();
         }
 
+        // Lists of all controls that get tweaked in UI management
+        IEnumerable<Control> allFontResizableList;
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -160,7 +162,7 @@ namespace LEonard
             LogManager.Configuration.Variables["LogfileName"] = LEonardRoot + "/Logs/LEonard.log";
             LogManager.ReconfigExistingLoggers();
 
-            TakeControlInventory();
+            allFontResizableList = TakeControlInventory(this);
 
             LoadPersistent();
 
@@ -229,7 +231,7 @@ namespace LEonard
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (!uiUpdatesAreLive) return;
-            
+
             suggestedSystemScale = 100.0 * (double)Width / (double)tabletScreenDesignWidth;
             if (suggestedSystemScale > 100) suggestedSystemScale = 100;
             log?.Info($"MainForm Resize to {Width} x {Height}");
@@ -5148,13 +5150,13 @@ namespace LEonard
         // ===================================================================
 
         double suggestedSystemScale = 100.0;
-        bool uiUpdatesAreLive=false;
+        bool uiUpdatesAreLive = false;
         public class ControlInfo
         {
             public Font originalFont;
         }
 
-        public IEnumerable<Control> GetAll(Control control, Type type)
+        public static IEnumerable<Control> GetAll(Control control, Type type)
         {
             var controls = control.Controls.Cast<Control>();
 
@@ -5162,41 +5164,37 @@ namespace LEonard
                                       .Concat(controls)
                                       .Where(c => c.GetType() == type);
         }
-
-        // Lists of all controls that get tweaked in UI management
-        IEnumerable<Control> buttonList;
-        IEnumerable<Control> comboboxList;
-        IEnumerable<Control> datagridviewList;
-        IEnumerable<Control> labelList;
-        IEnumerable<Control> richtextboxList;
-        IEnumerable<Control> tabcontrolList;
-        IEnumerable<Control> textboxList;
-
-        private void RememberInitialFont(Control ctl)
+        public static void RememberInitialFont(Control ctl)
         {
             ControlInfo controlInfo = new ControlInfo();
             controlInfo.originalFont = ctl.Font;
             ctl.Tag = controlInfo;
         }
-        private void TakeControlInventory()
+        public static void RescaleFont(Control ctl, double scale)
         {
-            buttonList = GetAll(this, typeof(Button));
+            Font oldFont = ((ControlInfo)ctl.Tag).originalFont;
+            Font newFont = new Font(oldFont.FontFamily, (float)(oldFont.Size * scale / 100), oldFont.Style, oldFont.Unit);
+            ctl.Font = newFont;
+        }
+
+        public static IEnumerable<Control> TakeControlInventory(Control ctl)
+        {
+            IEnumerable<Control> buttonList = GetAll(ctl, typeof(Button));
             log.Info("Button Count: " + buttonList.Count());
             foreach (Button b in buttonList)
             {
                 log.Info($"BTN {b.Text} {b.Font.Size}");
                 RememberInitialFont(b);
             }
-
-            comboboxList = GetAll(this, typeof(ComboBox));
+            IEnumerable<Control> comboboxList = GetAll(ctl, typeof(ComboBox));
             log.Info("ComboBox Count: " + comboboxList.Count());
-            foreach (ComboBox c in comboboxList)
+            foreach (ComboBox cb in comboboxList)
             {
-                log.Info($"COMBO {c.Text} {c.Font.Size}");
-                RememberInitialFont(c);
+                log.Info($"COMBO {cb.Text} {cb.Font.Size}");
+                RememberInitialFont(cb);
             }
 
-            datagridviewList = GetAll(this, typeof(DataGridView));
+            IEnumerable<Control> datagridviewList = GetAll(ctl, typeof(DataGridView));
             log.Info("DataGridView Count: " + datagridviewList.Count());
             foreach (DataGridView d in datagridviewList)
             {
@@ -5204,7 +5202,7 @@ namespace LEonard
                 RememberInitialFont(d);
             }
 
-            labelList = GetAll(this, typeof(Label));
+            IEnumerable<Control> labelList = GetAll(ctl, typeof(Label));
             log.Info("Label Count: " + labelList.Count());
             foreach (Label l in labelList)
             {
@@ -5212,7 +5210,7 @@ namespace LEonard
                 RememberInitialFont(l);
             }
 
-            richtextboxList = GetAll(this, typeof(RichTextBox));
+            IEnumerable<Control> richtextboxList = GetAll(ctl, typeof(RichTextBox));
             log.Info("RichTextBox Count: " + richtextboxList.Count());
             foreach (RichTextBox r in richtextboxList)
             {
@@ -5220,7 +5218,7 @@ namespace LEonard
                 RememberInitialFont(r);
             }
 
-            tabcontrolList = GetAll(this, typeof(TabControl));
+            IEnumerable<Control> tabcontrolList = GetAll(ctl, typeof(TabControl));
             log.Info("TabControl Count: " + tabcontrolList.Count());
             foreach (TabControl t in tabcontrolList)
             {
@@ -5228,13 +5226,23 @@ namespace LEonard
                 RememberInitialFont(t);
             }
 
-            textboxList = GetAll(this, typeof(TextBox));
+            IEnumerable<Control> textboxList = GetAll(ctl, typeof(TextBox));
             log.Info("TextBox Count: " + textboxList.Count());
             foreach (TextBox t in textboxList)
             {
                 log.Info($"TXT {t.Text} {t.Font.Size}");
                 RememberInitialFont(t);
             }
+
+            IEnumerable<Control> returnList = buttonList;
+            returnList = returnList.Concat(comboboxList);
+            returnList = returnList.Concat(datagridviewList);
+            returnList = returnList.Concat(labelList);
+            returnList = returnList.Concat(richtextboxList);
+            returnList = returnList.Concat(tabcontrolList);
+            returnList = returnList.Concat(textboxList);
+
+            return returnList;
         }
 
         private void UiDefaultBtn_Click(object sender, EventArgs e)
@@ -5290,22 +5298,9 @@ namespace LEonard
             this.WindowState = FormWindowState.Normal;
         }
 
-        void RescaleFont(Control ctl, float scale)
-        {
-            Font oldFont = ((ControlInfo)ctl.Tag).originalFont;
-            Font newFont = new Font(oldFont.FontFamily, oldFont.Size * scale / 100, oldFont.Style, oldFont.Unit);
-            ctl.Font = newFont;
-        }
-
         void ScaleUiText(float scale)
         {
-            foreach (Control c in buttonList) RescaleFont(c, scale);
-            foreach (Control c in comboboxList) RescaleFont(c, scale);
-            foreach (Control c in datagridviewList) RescaleFont(c, scale);
-            foreach (Control c in labelList) RescaleFont(c, scale);
-            foreach (Control c in richtextboxList) RescaleFont(c, scale);
-            foreach (Control c in tabcontrolList) RescaleFont(c, scale);
-            foreach (Control c in textboxList) RescaleFont(c, scale);
+            foreach (Control c in allFontResizableList) RescaleFont(c, scale);
         }
         private void UiTextScaleBtn_Click(object sender, EventArgs e)
         {

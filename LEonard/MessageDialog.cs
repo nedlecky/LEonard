@@ -21,6 +21,10 @@ namespace LEonard
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
+        MainForm mainForm;
+        IEnumerable<Control> allResizeControlList;
+        int originalWidth;
+
         public DialogResult result = DialogResult.OK;
 
         // Can override these before showing dialog
@@ -35,12 +39,6 @@ namespace LEonard
 
         public bool IsMotionWait { get; set; } = false;
 
-
-
-        MainForm mainForm;
-        int originalWidth;
-        bool uiUpdatesAreLive = false;
-
         public MessageDialog(MainForm _mainForm = null)
         {
             InitializeComponent();
@@ -49,12 +47,10 @@ namespace LEonard
 
         private void MessageDialog_Load(object sender, EventArgs e)
         {
-            TakeControlInventory();
             originalWidth = Width;
+            allResizeControlList = TakeControlInventory(this);
 
             LoadPersistent();
-            ScaleUiText();
-            uiUpdatesAreLive = true;
 
             Text = Title;
             label1.Text = Label;
@@ -146,59 +142,10 @@ namespace LEonard
             Top = (Int32)FormNameKey.GetValue("Top", (mainForm.Height - Height) / 2);
         }
 
-        public IEnumerable<Control> GetAll(Control control, Type type)
-        {
-            var controls = control.Controls.Cast<Control>();
-
-            return controls.SelectMany(ctrl => GetAll(ctrl, type))
-                                      .Concat(controls)
-                                      .Where(c => c.GetType() == type);
-        }
-
-        // Lists of all controls that get tweaked in UI management
-        IEnumerable<Control> buttonList;
-        IEnumerable<Control> labelList;
-        IEnumerable<Control> textboxList;
-
-        private void RememberInitialFont(Control ctl)
-        {
-            ControlInfo controlInfo = new ControlInfo();
-            controlInfo.originalFont = ctl.Font;
-            ctl.Tag = controlInfo;
-        }
-        private void TakeControlInventory()
-        {
-            buttonList = GetAll(this, typeof(Button));
-            labelList = GetAll(this, typeof(Label));
-            textboxList = GetAll(this, typeof(TextBox));
-
-            log.Info("Button Count: " + buttonList.Count());
-            log.Info("Label Count: " + labelList.Count());
-            log.Info("TextBox Count: " + textboxList.Count());
-
-            foreach (Control c in buttonList) RememberInitialFont(c);
-            foreach (Control c in labelList) RememberInitialFont(c);
-            foreach (Control c in textboxList) RememberInitialFont(c);
-        }
-        void RescaleFont(Control ctl, double scale)
-        {
-            Font oldFont = ((ControlInfo)ctl.Tag).originalFont;
-            Font newFont = new Font(oldFont.FontFamily, (float)(oldFont.Size * scale / 100.0), oldFont.Style, oldFont.Unit);
-            ctl.Font = newFont;
-        }
-
-        void ScaleUiText()
-        {
-            double scale = 100.0 * Width / originalWidth;
-
-            foreach (Control c in buttonList) RescaleFont(c, scale);
-            foreach (Control c in labelList) RescaleFont(c, scale);
-            foreach (Control c in textboxList) RescaleFont(c, scale);
-        }
-
         private void MessageDialog_Resize(object sender, EventArgs e)
         {
-            if (uiUpdatesAreLive) ScaleUiText();
+            double scale = Math.Min(100.0 * Width / originalWidth, 100);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scale);
         }
     }
 }

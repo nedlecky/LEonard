@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static LEonard.MainForm;
 
 namespace LEonard
 {
@@ -21,11 +22,12 @@ namespace LEonard
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         MainForm mainForm;
-
+        IEnumerable<Control> allResizeControlList;
+        int originalWidth;
 
         // These may be overridden prior to showing the dialog
         public double Value { get; set; } = 0;
-        public string ValueOutString{ get; set; } = "??";
+        public string ValueOutString { get; set; } = "??";
         public string Label { get; set; } = "Unspecified";
         public int NumberOfDecimals { get; set; } = 3;
         public bool IsPassword { get; set; } = false;
@@ -40,6 +42,8 @@ namespace LEonard
         }
         private void SetValueForm_Load(object sender, EventArgs e)
         {
+            originalWidth = Width;
+            allResizeControlList = MainForm.TakeControlInventory(this);
 
             LoadPersistent();
             LabelLbl.Text = "ENTER\n" + Label;
@@ -49,7 +53,7 @@ namespace LEonard
             string minmaxString = "";
             if (MinAllowed != 0 || MaxAllowed != 0)
             {
-                string formatter = String.Format("Limit {{0:F{0}}} to {{1:F{0}}}",  NumberOfDecimals);
+                string formatter = String.Format("Limit {{0:F{0}}} to {{1:F{0}}}", NumberOfDecimals);
                 minmaxString += String.Format(formatter, MinAllowed, MaxAllowed);
             }
             if (Default != -999)
@@ -171,14 +175,22 @@ namespace LEonard
             FormNameKey.SetValue("Left", Left);
             FormNameKey.SetValue("Top", Top);
             FormNameKey.SetValue("Width", Width);
-            FormNameKey.SetValue("Height", Width);
+            FormNameKey.SetValue("Height", Height);
         }
         private void LoadPersistent()
         {
             RegistryKey FormNameKey = GetMyFormKey();
 
-            Left = (Int32)FormNameKey.GetValue("Left", (MainForm.tabletScreenDesignWidth - Width) / 2);
-            Top = (Int32)FormNameKey.GetValue("Top", (MainForm.tabletScreenDesignHeight - Height) / 2);
+            Width = (Int32)FormNameKey.GetValue("Width", 900);
+            Height = (Int32)FormNameKey.GetValue("Height", 500);
+            Left = (Int32)FormNameKey.GetValue("Left", (mainForm.Width - Width) / 2);
+            Top = (Int32)FormNameKey.GetValue("Top", (mainForm.Height - Height) / 2);
+        }
+
+        private void SetValueForm_Resize(object sender, EventArgs e)
+        {
+            double scale = Math.Min(100.0 * Width / originalWidth, 100);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scale);
         }
     }
 }
