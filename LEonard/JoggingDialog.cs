@@ -190,7 +190,7 @@ namespace LEonard
         }
 
         string lastJogCommand;
-                private void Jog(double[] p)
+        private void Jog(double[] p)
         {
             lastJogCommand = null;
             switch (CoordBox.Text)
@@ -342,8 +342,8 @@ namespace LEonard
         private void ALignButton_Click(object sender, EventArgs e)
         {
             string robotPrefix = MainForm.GetRobotPrefix("movel_rot_only");
-            if(robotPrefix!=null)
-            mainForm.RobotSend($"{robotPrefix},0,{Deg2Rad(180)},0");
+            if (robotPrefix != null)
+                mainForm.RobotSend($"{robotPrefix},0,{Deg2Rad(180)},0");
         }
 
         [DllImport("user32.dll")]

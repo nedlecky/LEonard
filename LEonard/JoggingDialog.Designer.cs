@@ -668,10 +668,11 @@
             this.Controls.Add(this.PurposeLbl);
             this.Controls.Add(this.FreedriveBtn);
             this.Controls.Add(this.ExitBtn);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "JoggingDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Jog Robot";
+            this.Text = "LEonard Robot Jogging";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.JoggingDialog_FormClosing);
             this.Load += new System.EventHandler(this.JoggingForm_Load);
             this.FreedriveGrp.ResumeLayout(false);

@@ -48,7 +48,7 @@
             this.OpenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OpenBtn.ForeColor = System.Drawing.Color.White;
             this.OpenBtn.Location = new System.Drawing.Point(397, 826);
-            this.OpenBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OpenBtn.Margin = new System.Windows.Forms.Padding(2);
             this.OpenBtn.Name = "OpenBtn";
             this.OpenBtn.Size = new System.Drawing.Size(228, 131);
             this.OpenBtn.TabIndex = 79;
@@ -63,7 +63,7 @@
             this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.ForeColor = System.Drawing.Color.White;
             this.CancelBtn.Location = new System.Drawing.Point(667, 826);
-            this.CancelBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CancelBtn.Margin = new System.Windows.Forms.Padding(2);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(228, 131);
             this.CancelBtn.TabIndex = 78;
@@ -122,7 +122,7 @@
             this.FileNameTxt.AcceptsReturn = true;
             this.FileNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FileNameTxt.Location = new System.Drawing.Point(361, 728);
-            this.FileNameTxt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FileNameTxt.Margin = new System.Windows.Forms.Padding(2);
             this.FileNameTxt.Name = "FileNameTxt";
             this.FileNameTxt.Size = new System.Drawing.Size(676, 62);
             this.FileNameTxt.TabIndex = 85;
@@ -132,7 +132,7 @@
             // 
             this.PreviewRTB.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PreviewRTB.Location = new System.Drawing.Point(1041, 96);
-            this.PreviewRTB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PreviewRTB.Margin = new System.Windows.Forms.Padding(2);
             this.PreviewRTB.Name = "PreviewRTB";
             this.PreviewRTB.ReadOnly = true;
             this.PreviewRTB.Size = new System.Drawing.Size(476, 863);
@@ -194,6 +194,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
             this.ClientSize = new System.Drawing.Size(1525, 968);
+            this.ControlBox = false;
             this.Controls.Add(this.NewFolderBtn);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.label2);
@@ -206,9 +207,11 @@
             this.Controls.Add(this.FileListBox);
             this.Controls.Add(this.OpenBtn);
             this.Controls.Add(this.CancelBtn);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FileOpenDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "LEonard File Open";
             this.Load += new System.EventHandler(this.FileOpenForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

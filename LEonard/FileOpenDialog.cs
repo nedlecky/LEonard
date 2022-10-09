@@ -35,6 +35,7 @@ namespace LEonard
 
         private void FileOpenForm_Load(object sender, EventArgs e)
         {
+            Text = "File Open";
             TitleLbl.Text = Title;
             LoadDirectory(InitialDirectory);
         }

@@ -330,10 +330,9 @@
             this.Controls.Add(this.Button2);
             this.Controls.Add(this.EnterBtn);
             this.Controls.Add(this.Button1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "SetValueForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Set Value";
+            this.Text = "LEonard Set Value";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SetValueForm_FormClosing);
             this.Load += new System.EventHandler(this.SetValueForm_Load);
             this.ResumeLayout(false);

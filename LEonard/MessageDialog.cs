@@ -37,7 +37,7 @@ namespace LEonard
 
 
         MainForm mainForm;
-        public MessageDialog(MainForm _mainForm = null)
+        public MessageDialog(MainForm _mainForm=null)
         {
             InitializeComponent();
             mainForm = _mainForm;
@@ -124,14 +124,16 @@ namespace LEonard
             FormNameKey.SetValue("Left", Left);
             FormNameKey.SetValue("Top", Top);
             FormNameKey.SetValue("Width", Width);
-            FormNameKey.SetValue("Height", Width);
+            FormNameKey.SetValue("Height", Height);
         }
         private void LoadPersistent()
         {
             RegistryKey FormNameKey = MyRegistryKey();
 
-            Left = (Int32)FormNameKey.GetValue("Left", (MainForm.tabletScreenDesignWidth - Width) / 2);
-            Top = (Int32)FormNameKey.GetValue("Top", (MainForm.tabletScreenDesignHeight - Height) / 2);
+            Width = (Int32)FormNameKey.GetValue("Width", 1300);
+            Height = (Int32)FormNameKey.GetValue("Height", 800);
+            Left = (Int32)FormNameKey.GetValue("Left", (mainForm.Width - Width) / 2);
+            Top = (Int32)FormNameKey.GetValue("Top", (mainForm.Height - Height) / 2);
         }
     }
 }

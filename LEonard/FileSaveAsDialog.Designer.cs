@@ -168,6 +168,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
             this.ClientSize = new System.Drawing.Size(1160, 979);
+            this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.NewFolderBtn);
@@ -178,9 +179,11 @@
             this.Controls.Add(this.FileListBox);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.CancelBtn);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FileSaveAsDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "LEonard File Save As";
             this.Load += new System.EventHandler(this.FileSaveAsDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
