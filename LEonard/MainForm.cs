@@ -1474,7 +1474,10 @@ namespace LEonard
         }
         private void ReloadDevicesBtn_Click(object sender, EventArgs e)
         {
+            log.Info("ReloadDevicesBtn_Click");
 
+            if(DevicesFilenameLbl.Text != "Untitled" && DevicesFilenameLbl.Text.Length>2)
+                LoadDevicesFile(DevicesFilenameLbl.Text);
         }
         int LoadDevicesFile(string name)
         {

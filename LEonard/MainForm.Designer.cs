@@ -143,16 +143,16 @@
             this.SetupTab = new System.Windows.Forms.TabControl();
             this.generalPage = new System.Windows.Forms.TabPage();
             this.SetupGeneralLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.LoadConfigBtn = new System.Windows.Forms.Button();
+            this.SaveConfigBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.LEonardRootLbl = new System.Windows.Forms.Label();
-            this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
+            this.DefaultConfigBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.StartupDevicesLbl = new System.Windows.Forms.Label();
-            this.SaveConfigBtn = new System.Windows.Forms.Button();
-            this.LoadConfigBtn = new System.Windows.Forms.Button();
-            this.DefaultConfigBtn = new System.Windows.Forms.Button();
-            this.AutoConnectOnLoadChk = new System.Windows.Forms.CheckBox();
             this.AllowRunningOfflineChk = new System.Windows.Forms.CheckBox();
+            this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
+            this.AutoConnectOnLoadChk = new System.Windows.Forms.CheckBox();
             this.devicesPage = new System.Windows.Forms.TabPage();
             this.SetupDevicesLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.button8 = new System.Windows.Forms.Button();
@@ -160,7 +160,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.DevicesGrd = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
-            this.ReloadDevicesBtn = new System.Windows.Forms.Button();
             this.DevicesFilenameLbl = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
@@ -182,6 +181,7 @@
             this.SaveAsDevicesBtn = new System.Windows.Forms.Button();
             this.SaveDevicesBtn = new System.Windows.Forms.Button();
             this.LoadDevicesBtn = new System.Windows.Forms.Button();
+            this.ReloadDevicesBtn = new System.Windows.Forms.Button();
             this.toolsPage = new System.Windows.Forms.TabPage();
             this.SetupToolsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SetDoorClosedInputBtn = new System.Windows.Forms.Button();
@@ -247,18 +247,6 @@
             this.LogLevelCombo = new System.Windows.Forms.ComboBox();
             this.AboutBtn = new System.Windows.Forms.Button();
             this.ClearAllLogRtbBtn = new System.Windows.Forms.Button();
-            this.UiPage = new System.Windows.Forms.TabPage();
-            this.UiFullscreenBtn = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
-            this.UiTextScaleTxt = new System.Windows.Forms.TextBox();
-            this.UiTextScaleBtn = new System.Windows.Forms.Button();
-            this.UiDefaultBtn = new System.Windows.Forms.Button();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.UiFixedHeightTxt = new System.Windows.Forms.TextBox();
-            this.UiFixedWidthTxt = new System.Windows.Forms.TextBox();
-            this.UiFreeBtn = new System.Windows.Forms.Button();
-            this.UiFixedBtn = new System.Windows.Forms.Button();
             this.JogRunBtn = new System.Windows.Forms.Button();
             this.DiameterLbl = new System.Windows.Forms.Label();
             this.PartGeometryBox = new System.Windows.Forms.ComboBox();
@@ -272,6 +260,18 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
+            this.viewPage = new System.Windows.Forms.TabPage();
+            this.UiFullscreenBtn = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.UiTextScaleTxt = new System.Windows.Forms.TextBox();
+            this.UiTextScaleBtn = new System.Windows.Forms.Button();
+            this.UiDefaultBtn = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.UiFixedHeightTxt = new System.Windows.Forms.TextBox();
+            this.UiFixedWidthTxt = new System.Windows.Forms.TextBox();
+            this.UiFreeBtn = new System.Windows.Forms.Button();
+            this.UiFixedBtn = new System.Windows.Forms.Button();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -321,12 +321,12 @@
             this.groupBox4.SuspendLayout();
             this.LogPageControlsLayoutPanel.SuspendLayout();
             this.LogLevelGroupBox.SuspendLayout();
-            this.UiPage.SuspendLayout();
             this.BottomButtonLayoutPanel.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.DiamVersionLayoutPanel.SuspendLayout();
             this.TopButtonLayoutPanel.SuspendLayout();
+            this.viewPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // CurrentLineLbl
@@ -438,10 +438,10 @@
             this.SaveAsRecipeBtn.Enabled = false;
             this.SaveAsRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveAsRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveAsRecipeBtn.Location = new System.Drawing.Point(801, 2);
+            this.SaveAsRecipeBtn.Location = new System.Drawing.Point(862, 2);
             this.SaveAsRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SaveAsRecipeBtn.Name = "SaveAsRecipeBtn";
-            this.SaveAsRecipeBtn.Size = new System.Drawing.Size(162, 94);
+            this.SaveAsRecipeBtn.Size = new System.Drawing.Size(175, 94);
             this.SaveAsRecipeBtn.TabIndex = 4;
             this.SaveAsRecipeBtn.Text = "Save As...";
             this.SaveAsRecipeBtn.UseVisualStyleBackColor = false;
@@ -453,10 +453,10 @@
             this.NewRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NewRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NewRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.NewRecipeBtn.Location = new System.Drawing.Point(469, 2);
+            this.NewRecipeBtn.Location = new System.Drawing.Point(504, 2);
             this.NewRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.NewRecipeBtn.Name = "NewRecipeBtn";
-            this.NewRecipeBtn.Size = new System.Drawing.Size(162, 94);
+            this.NewRecipeBtn.Size = new System.Drawing.Size(175, 94);
             this.NewRecipeBtn.TabIndex = 2;
             this.NewRecipeBtn.Text = "New";
             this.NewRecipeBtn.UseVisualStyleBackColor = false;
@@ -471,7 +471,7 @@
             this.LoadRecipeBtn.Location = new System.Drawing.Point(22, 2);
             this.LoadRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.LoadRecipeBtn.Name = "LoadRecipeBtn";
-            this.LoadRecipeBtn.Size = new System.Drawing.Size(443, 94);
+            this.LoadRecipeBtn.Size = new System.Drawing.Size(478, 94);
             this.LoadRecipeBtn.TabIndex = 1;
             this.LoadRecipeBtn.Text = "Untitled";
             this.LoadRecipeBtn.UseVisualStyleBackColor = false;
@@ -484,10 +484,10 @@
             this.SaveRecipeBtn.Enabled = false;
             this.SaveRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveRecipeBtn.Location = new System.Drawing.Point(635, 2);
+            this.SaveRecipeBtn.Location = new System.Drawing.Point(683, 2);
             this.SaveRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SaveRecipeBtn.Name = "SaveRecipeBtn";
-            this.SaveRecipeBtn.Size = new System.Drawing.Size(162, 94);
+            this.SaveRecipeBtn.Size = new System.Drawing.Size(175, 94);
             this.SaveRecipeBtn.TabIndex = 3;
             this.SaveRecipeBtn.Text = "Save";
             this.SaveRecipeBtn.UseVisualStyleBackColor = false;
@@ -592,7 +592,7 @@
             this.MonitorTab.Controls.Add(this.revhistPage);
             this.MonitorTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MonitorTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MonitorTab.ItemSize = new System.Drawing.Size(150, 60);
+            this.MonitorTab.ItemSize = new System.Drawing.Size(150, 96);
             this.MonitorTab.Location = new System.Drawing.Point(823, 3);
             this.MonitorTab.Name = "MonitorTab";
             this.ProgramTableLayoutPanel.SetRowSpan(this.MonitorTab, 3);
@@ -604,9 +604,9 @@
             // positionsPage
             // 
             this.positionsPage.Controls.Add(this.PositionLayoutPanel);
-            this.positionsPage.Location = new System.Drawing.Point(4, 64);
+            this.positionsPage.Location = new System.Drawing.Point(4, 100);
             this.positionsPage.Name = "positionsPage";
-            this.positionsPage.Size = new System.Drawing.Size(1288, 1084);
+            this.positionsPage.Size = new System.Drawing.Size(1288, 1048);
             this.positionsPage.TabIndex = 2;
             this.positionsPage.Text = "Positions";
             this.positionsPage.UseVisualStyleBackColor = true;
@@ -634,7 +634,7 @@
             this.PositionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.PositionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.PositionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.PositionLayoutPanel.Size = new System.Drawing.Size(1288, 1084);
+            this.PositionLayoutPanel.Size = new System.Drawing.Size(1288, 1048);
             this.PositionLayoutPanel.TabIndex = 101;
             // 
             // PositionMovePoseBtn
@@ -671,7 +671,7 @@
             this.PositionsGrd.Name = "PositionsGrd";
             this.PositionsGrd.RowTemplate.Height = 34;
             this.PositionsGrd.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.Size = new System.Drawing.Size(1282, 848);
+            this.PositionsGrd.Size = new System.Drawing.Size(1282, 812);
             this.PositionsGrd.TabIndex = 85;
             // 
             // ClearAllPositionsBtn
@@ -680,7 +680,7 @@
             this.ClearAllPositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearAllPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearAllPositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearAllPositionsBtn.Location = new System.Drawing.Point(969, 1007);
+            this.ClearAllPositionsBtn.Location = new System.Drawing.Point(969, 971);
             this.ClearAllPositionsBtn.Name = "ClearAllPositionsBtn";
             this.ClearAllPositionsBtn.Size = new System.Drawing.Size(316, 74);
             this.ClearAllPositionsBtn.TabIndex = 95;
@@ -694,7 +694,7 @@
             this.ClearPositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearPositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearPositionsBtn.Location = new System.Drawing.Point(647, 1007);
+            this.ClearPositionsBtn.Location = new System.Drawing.Point(647, 971);
             this.ClearPositionsBtn.Name = "ClearPositionsBtn";
             this.ClearPositionsBtn.Size = new System.Drawing.Size(316, 74);
             this.ClearPositionsBtn.TabIndex = 92;
@@ -708,7 +708,7 @@
             this.SavePositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SavePositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SavePositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.SavePositionsBtn.Location = new System.Drawing.Point(325, 1007);
+            this.SavePositionsBtn.Location = new System.Drawing.Point(325, 971);
             this.SavePositionsBtn.Name = "SavePositionsBtn";
             this.SavePositionsBtn.Size = new System.Drawing.Size(316, 74);
             this.SavePositionsBtn.TabIndex = 93;
@@ -722,7 +722,7 @@
             this.LoadPositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadPositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadPositionsBtn.Location = new System.Drawing.Point(3, 1007);
+            this.LoadPositionsBtn.Location = new System.Drawing.Point(3, 971);
             this.LoadPositionsBtn.Name = "LoadPositionsBtn";
             this.LoadPositionsBtn.Size = new System.Drawing.Size(316, 74);
             this.LoadPositionsBtn.TabIndex = 94;
@@ -1138,14 +1138,13 @@
             this.MainTab.Controls.Add(this.ProgramPage);
             this.MainTab.Controls.Add(this.SetupPage);
             this.MainTab.Controls.Add(this.LogPage);
-            this.MainTab.Controls.Add(this.UiPage);
             this.MainTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainTab.ItemSize = new System.Drawing.Size(96, 96);
             this.MainTab.Location = new System.Drawing.Point(8, 11);
-            this.MainTab.Multiline = true;
             this.MainTab.Name = "MainTab";
             this.MainTab.SelectedIndex = 0;
             this.MainTab.Size = new System.Drawing.Size(2140, 1272);
+            this.MainTab.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.MainTab.TabIndex = 0;
             this.MainTab.SelectedIndexChanged += new System.EventHandler(this.MainTab_SelectedIndexChanged);
             this.MainTab.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.MainTab_Selecting);
@@ -1722,7 +1721,7 @@
             this.ProgramPage.Padding = new System.Windows.Forms.Padding(3);
             this.ProgramPage.Size = new System.Drawing.Size(2132, 1168);
             this.ProgramPage.TabIndex = 1;
-            this.ProgramPage.Text = "Program";
+            this.ProgramPage.Text = "Code";
             this.ProgramPage.UseVisualStyleBackColor = true;
             // 
             // ProgramTableLayoutPanel
@@ -1794,11 +1793,14 @@
             // 
             // SetupTab
             // 
+            this.SetupTab.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.SetupTab.Controls.Add(this.generalPage);
             this.SetupTab.Controls.Add(this.devicesPage);
             this.SetupTab.Controls.Add(this.toolsPage);
+            this.SetupTab.Controls.Add(this.viewPage);
             this.SetupTab.Controls.Add(this.grindPage);
             this.SetupTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SetupTab.ItemSize = new System.Drawing.Size(150, 96);
             this.SetupTab.Location = new System.Drawing.Point(0, 0);
             this.SetupTab.Name = "SetupTab";
             this.SetupTab.SelectedIndex = 0;
@@ -1808,9 +1810,9 @@
             // generalPage
             // 
             this.generalPage.Controls.Add(this.SetupGeneralLayoutPanel);
-            this.generalPage.Location = new System.Drawing.Point(4, 46);
+            this.generalPage.Location = new System.Drawing.Point(4, 100);
             this.generalPage.Name = "generalPage";
-            this.generalPage.Size = new System.Drawing.Size(2120, 1114);
+            this.generalPage.Size = new System.Drawing.Size(2120, 1060);
             this.generalPage.TabIndex = 5;
             this.generalPage.Text = "General";
             this.generalPage.UseVisualStyleBackColor = true;
@@ -1843,8 +1845,36 @@
             this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.52631F));
             this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.05264F));
             this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.78947F));
-            this.SetupGeneralLayoutPanel.Size = new System.Drawing.Size(2120, 1114);
+            this.SetupGeneralLayoutPanel.Size = new System.Drawing.Size(2120, 1060);
             this.SetupGeneralLayoutPanel.TabIndex = 0;
+            // 
+            // LoadConfigBtn
+            // 
+            this.LoadConfigBtn.BackColor = System.Drawing.Color.Green;
+            this.LoadConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoadConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadConfigBtn.ForeColor = System.Drawing.Color.White;
+            this.LoadConfigBtn.Location = new System.Drawing.Point(1062, 893);
+            this.LoadConfigBtn.Name = "LoadConfigBtn";
+            this.LoadConfigBtn.Size = new System.Drawing.Size(347, 164);
+            this.LoadConfigBtn.TabIndex = 98;
+            this.LoadConfigBtn.Text = "Reload";
+            this.LoadConfigBtn.UseVisualStyleBackColor = false;
+            this.LoadConfigBtn.Click += new System.EventHandler(this.LoadConfigBtn_Click);
+            // 
+            // SaveConfigBtn
+            // 
+            this.SaveConfigBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveConfigBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveConfigBtn.Location = new System.Drawing.Point(1415, 893);
+            this.SaveConfigBtn.Name = "SaveConfigBtn";
+            this.SaveConfigBtn.Size = new System.Drawing.Size(347, 164);
+            this.SaveConfigBtn.TabIndex = 100;
+            this.SaveConfigBtn.Text = "Save";
+            this.SaveConfigBtn.UseVisualStyleBackColor = false;
+            this.SaveConfigBtn.Click += new System.EventHandler(this.SaveConfigBtn_Click);
             // 
             // label1
             // 
@@ -1852,7 +1882,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Right;
             this.label1.Location = new System.Drawing.Point(85, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(265, 70);
+            this.label1.Size = new System.Drawing.Size(265, 66);
             this.label1.TabIndex = 68;
             this.label1.Text = "LEonard Root Dir";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1864,28 +1894,31 @@
             this.LEonardRootLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LEonardRootLbl.Location = new System.Drawing.Point(356, 0);
             this.LEonardRootLbl.Name = "LEonardRootLbl";
-            this.LEonardRootLbl.Size = new System.Drawing.Size(1053, 70);
+            this.LEonardRootLbl.Size = new System.Drawing.Size(1053, 66);
             this.LEonardRootLbl.TabIndex = 69;
             this.LEonardRootLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // ChangeRootDirectoryBtn
+            // DefaultConfigBtn
             // 
-            this.ChangeRootDirectoryBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ChangeRootDirectoryBtn.Location = new System.Drawing.Point(1415, 3);
-            this.ChangeRootDirectoryBtn.Name = "ChangeRootDirectoryBtn";
-            this.ChangeRootDirectoryBtn.Size = new System.Drawing.Size(60, 64);
-            this.ChangeRootDirectoryBtn.TabIndex = 70;
-            this.ChangeRootDirectoryBtn.Text = "...";
-            this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
-            this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
+            this.DefaultConfigBtn.BackColor = System.Drawing.Color.Green;
+            this.DefaultConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DefaultConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DefaultConfigBtn.ForeColor = System.Drawing.Color.White;
+            this.DefaultConfigBtn.Location = new System.Drawing.Point(1768, 893);
+            this.DefaultConfigBtn.Name = "DefaultConfigBtn";
+            this.DefaultConfigBtn.Size = new System.Drawing.Size(349, 164);
+            this.DefaultConfigBtn.TabIndex = 99;
+            this.DefaultConfigBtn.Text = "Restore Defaults";
+            this.DefaultConfigBtn.UseVisualStyleBackColor = false;
+            this.DefaultConfigBtn.Click += new System.EventHandler(this.DefaultConfigBtn_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label2.Location = new System.Drawing.Point(49, 70);
+            this.label2.Location = new System.Drawing.Point(49, 66);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(301, 70);
+            this.label2.Size = new System.Drawing.Size(301, 66);
             this.label2.TabIndex = 91;
             this.label2.Text = "Startup Devices File";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1895,53 +1928,38 @@
             this.StartupDevicesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SetupGeneralLayoutPanel.SetColumnSpan(this.StartupDevicesLbl, 3);
             this.StartupDevicesLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StartupDevicesLbl.Location = new System.Drawing.Point(356, 70);
+            this.StartupDevicesLbl.Location = new System.Drawing.Point(356, 66);
             this.StartupDevicesLbl.Name = "StartupDevicesLbl";
-            this.StartupDevicesLbl.Size = new System.Drawing.Size(1053, 70);
+            this.StartupDevicesLbl.Size = new System.Drawing.Size(1053, 66);
             this.StartupDevicesLbl.TabIndex = 92;
             this.StartupDevicesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // SaveConfigBtn
+            // AllowRunningOfflineChk
             // 
-            this.SaveConfigBtn.BackColor = System.Drawing.Color.Green;
-            this.SaveConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveConfigBtn.Location = new System.Drawing.Point(1415, 939);
-            this.SaveConfigBtn.Name = "SaveConfigBtn";
-            this.SaveConfigBtn.Size = new System.Drawing.Size(347, 172);
-            this.SaveConfigBtn.TabIndex = 100;
-            this.SaveConfigBtn.Text = "Save";
-            this.SaveConfigBtn.UseVisualStyleBackColor = false;
-            this.SaveConfigBtn.Click += new System.EventHandler(this.SaveConfigBtn_Click);
+            this.AllowRunningOfflineChk.Appearance = System.Windows.Forms.Appearance.Button;
+            this.AllowRunningOfflineChk.AutoSize = true;
+            this.AllowRunningOfflineChk.BackColor = System.Drawing.Color.Gray;
+            this.AllowRunningOfflineChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AllowRunningOfflineChk.ForeColor = System.Drawing.Color.White;
+            this.AllowRunningOfflineChk.Location = new System.Drawing.Point(3, 893);
+            this.AllowRunningOfflineChk.Name = "AllowRunningOfflineChk";
+            this.AllowRunningOfflineChk.Size = new System.Drawing.Size(325, 43);
+            this.AllowRunningOfflineChk.TabIndex = 89;
+            this.AllowRunningOfflineChk.Text = "Allow Running Offline";
+            this.AllowRunningOfflineChk.UseMnemonic = false;
+            this.AllowRunningOfflineChk.UseVisualStyleBackColor = false;
+            this.AllowRunningOfflineChk.CheckedChanged += new System.EventHandler(this.AllowRunningOfflineChk_CheckedChanged);
             // 
-            // LoadConfigBtn
+            // ChangeRootDirectoryBtn
             // 
-            this.LoadConfigBtn.BackColor = System.Drawing.Color.Green;
-            this.LoadConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LoadConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadConfigBtn.Location = new System.Drawing.Point(1062, 939);
-            this.LoadConfigBtn.Name = "LoadConfigBtn";
-            this.LoadConfigBtn.Size = new System.Drawing.Size(347, 172);
-            this.LoadConfigBtn.TabIndex = 98;
-            this.LoadConfigBtn.Text = "Reload";
-            this.LoadConfigBtn.UseVisualStyleBackColor = false;
-            this.LoadConfigBtn.Click += new System.EventHandler(this.LoadConfigBtn_Click);
-            // 
-            // DefaultConfigBtn
-            // 
-            this.DefaultConfigBtn.BackColor = System.Drawing.Color.Green;
-            this.DefaultConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DefaultConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DefaultConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.DefaultConfigBtn.Location = new System.Drawing.Point(1768, 939);
-            this.DefaultConfigBtn.Name = "DefaultConfigBtn";
-            this.DefaultConfigBtn.Size = new System.Drawing.Size(349, 172);
-            this.DefaultConfigBtn.TabIndex = 99;
-            this.DefaultConfigBtn.Text = "Restore Defaults";
-            this.DefaultConfigBtn.UseVisualStyleBackColor = false;
-            this.DefaultConfigBtn.Click += new System.EventHandler(this.DefaultConfigBtn_Click);
+            this.ChangeRootDirectoryBtn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ChangeRootDirectoryBtn.Location = new System.Drawing.Point(1415, 3);
+            this.ChangeRootDirectoryBtn.Name = "ChangeRootDirectoryBtn";
+            this.ChangeRootDirectoryBtn.Size = new System.Drawing.Size(60, 60);
+            this.ChangeRootDirectoryBtn.TabIndex = 70;
+            this.ChangeRootDirectoryBtn.Text = "...";
+            this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
+            this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
             // 
             // AutoConnectOnLoadChk
             // 
@@ -1951,37 +1969,21 @@
             this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Left;
             this.AutoConnectOnLoadChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AutoConnectOnLoadChk.ForeColor = System.Drawing.Color.White;
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1415, 73);
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1415, 69);
             this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(543, 64);
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(543, 60);
             this.AutoConnectOnLoadChk.TabIndex = 116;
             this.AutoConnectOnLoadChk.Text = "Auto Connect when Loading Devices";
             this.AutoConnectOnLoadChk.UseMnemonic = false;
             this.AutoConnectOnLoadChk.UseVisualStyleBackColor = false;
             // 
-            // AllowRunningOfflineChk
-            // 
-            this.AllowRunningOfflineChk.Appearance = System.Windows.Forms.Appearance.Button;
-            this.AllowRunningOfflineChk.AutoSize = true;
-            this.AllowRunningOfflineChk.BackColor = System.Drawing.Color.Gray;
-            this.AllowRunningOfflineChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AllowRunningOfflineChk.ForeColor = System.Drawing.Color.White;
-            this.AllowRunningOfflineChk.Location = new System.Drawing.Point(3, 939);
-            this.AllowRunningOfflineChk.Name = "AllowRunningOfflineChk";
-            this.AllowRunningOfflineChk.Size = new System.Drawing.Size(325, 43);
-            this.AllowRunningOfflineChk.TabIndex = 89;
-            this.AllowRunningOfflineChk.Text = "Allow Running Offline";
-            this.AllowRunningOfflineChk.UseMnemonic = false;
-            this.AllowRunningOfflineChk.UseVisualStyleBackColor = false;
-            this.AllowRunningOfflineChk.CheckedChanged += new System.EventHandler(this.AllowRunningOfflineChk_CheckedChanged);
-            // 
             // devicesPage
             // 
             this.devicesPage.Controls.Add(this.SetupDevicesLayoutPanel);
-            this.devicesPage.Location = new System.Drawing.Point(4, 46);
+            this.devicesPage.Location = new System.Drawing.Point(4, 100);
             this.devicesPage.Name = "devicesPage";
             this.devicesPage.Padding = new System.Windows.Forms.Padding(3);
-            this.devicesPage.Size = new System.Drawing.Size(2120, 1114);
+            this.devicesPage.Size = new System.Drawing.Size(2120, 1060);
             this.devicesPage.TabIndex = 1;
             this.devicesPage.Text = "Devices";
             this.devicesPage.UseVisualStyleBackColor = true;
@@ -2006,7 +2008,6 @@
             this.SetupDevicesLayoutPanel.Controls.Add(this.button2, 1, 0);
             this.SetupDevicesLayoutPanel.Controls.Add(this.DevicesGrd, 0, 1);
             this.SetupDevicesLayoutPanel.Controls.Add(this.label4, 0, 4);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.ReloadDevicesBtn, 0, 3);
             this.SetupDevicesLayoutPanel.Controls.Add(this.DevicesFilenameLbl, 0, 2);
             this.SetupDevicesLayoutPanel.Controls.Add(this.button11, 4, 0);
             this.SetupDevicesLayoutPanel.Controls.Add(this.button12, 7, 0);
@@ -2018,10 +2019,11 @@
             this.SetupDevicesLayoutPanel.Controls.Add(this.RobotIpTxt, 4, 4);
             this.SetupDevicesLayoutPanel.Controls.Add(this.ServerIpTxt, 3, 4);
             this.SetupDevicesLayoutPanel.Controls.Add(this.RobotProgramTxt, 2, 4);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.ClearDevicesBtn, 4, 3);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.SaveAsDevicesBtn, 3, 3);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.SaveDevicesBtn, 2, 3);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.LoadDevicesBtn, 1, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.ClearDevicesBtn, 11, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.SaveAsDevicesBtn, 10, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.SaveDevicesBtn, 9, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.LoadDevicesBtn, 8, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.ReloadDevicesBtn, 7, 3);
             this.SetupDevicesLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupDevicesLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.SetupDevicesLayoutPanel.Name = "SetupDevicesLayoutPanel";
@@ -2031,7 +2033,7 @@
             this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.941189F));
             this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.941189F));
             this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.960793F));
-            this.SetupDevicesLayoutPanel.Size = new System.Drawing.Size(2114, 1108);
+            this.SetupDevicesLayoutPanel.Size = new System.Drawing.Size(2114, 1054);
             this.SetupDevicesLayoutPanel.TabIndex = 0;
             // 
             // button8
@@ -2043,7 +2045,7 @@
             this.button8.Location = new System.Drawing.Point(354, 2);
             this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(172, 193);
+            this.button8.Size = new System.Drawing.Size(172, 183);
             this.button8.TabIndex = 106;
             this.button8.Text = "Reconnect";
             this.button8.UseVisualStyleBackColor = false;
@@ -2057,7 +2059,7 @@
             this.button1.Location = new System.Drawing.Point(2, 2);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(172, 193);
+            this.button1.Size = new System.Drawing.Size(172, 183);
             this.button1.TabIndex = 99;
             this.button1.Text = "Connect";
             this.button1.UseVisualStyleBackColor = false;
@@ -2071,7 +2073,7 @@
             this.button2.Location = new System.Drawing.Point(178, 2);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(172, 193);
+            this.button2.Size = new System.Drawing.Size(172, 183);
             this.button2.TabIndex = 98;
             this.button2.Text = "Disconnect";
             this.button2.UseVisualStyleBackColor = false;
@@ -2083,9 +2085,9 @@
             this.DevicesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.DevicesGrd, 12);
             this.DevicesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DevicesGrd.Location = new System.Drawing.Point(3, 200);
+            this.DevicesGrd.Location = new System.Drawing.Point(3, 190);
             this.DevicesGrd.Name = "DevicesGrd";
-            this.DevicesGrd.Size = new System.Drawing.Size(2108, 728);
+            this.DevicesGrd.Size = new System.Drawing.Size(2108, 693);
             this.DevicesGrd.TabIndex = 89;
             // 
             // label4
@@ -2094,26 +2096,12 @@
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.label4, 2);
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 1061);
+            this.label4.Location = new System.Drawing.Point(3, 1010);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(346, 47);
+            this.label4.Size = new System.Drawing.Size(346, 44);
             this.label4.TabIndex = 88;
             this.label4.Text = "Program, ServerIP, Robot IP";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // ReloadDevicesBtn
-            // 
-            this.ReloadDevicesBtn.BackColor = System.Drawing.Color.Green;
-            this.ReloadDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ReloadDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReloadDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.ReloadDevicesBtn.Location = new System.Drawing.Point(3, 999);
-            this.ReloadDevicesBtn.Name = "ReloadDevicesBtn";
-            this.ReloadDevicesBtn.Size = new System.Drawing.Size(170, 59);
-            this.ReloadDevicesBtn.TabIndex = 100;
-            this.ReloadDevicesBtn.Text = "Reload";
-            this.ReloadDevicesBtn.UseVisualStyleBackColor = false;
-            this.ReloadDevicesBtn.Click += new System.EventHandler(this.ReloadDevicesBtn_Click);
             // 
             // DevicesFilenameLbl
             // 
@@ -2121,9 +2109,9 @@
             this.DevicesFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.DevicesFilenameLbl, 7);
             this.DevicesFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DevicesFilenameLbl.Location = new System.Drawing.Point(3, 931);
+            this.DevicesFilenameLbl.Location = new System.Drawing.Point(3, 886);
             this.DevicesFilenameLbl.Name = "DevicesFilenameLbl";
-            this.DevicesFilenameLbl.Size = new System.Drawing.Size(1226, 65);
+            this.DevicesFilenameLbl.Size = new System.Drawing.Size(1226, 62);
             this.DevicesFilenameLbl.TabIndex = 102;
             this.DevicesFilenameLbl.Text = "Untitled";
             this.DevicesFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2137,7 +2125,7 @@
             this.button11.Location = new System.Drawing.Point(706, 2);
             this.button11.Margin = new System.Windows.Forms.Padding(2);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(172, 193);
+            this.button11.Size = new System.Drawing.Size(172, 183);
             this.button11.TabIndex = 109;
             this.button11.Text = "Runtime App";
             this.button11.UseVisualStyleBackColor = false;
@@ -2151,7 +2139,7 @@
             this.button12.Location = new System.Drawing.Point(1234, 2);
             this.button12.Margin = new System.Windows.Forms.Padding(2);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(172, 193);
+            this.button12.Size = new System.Drawing.Size(172, 183);
             this.button12.TabIndex = 110;
             this.button12.Text = "Setup App";
             this.button12.UseVisualStyleBackColor = false;
@@ -2165,7 +2153,7 @@
             this.ConnectAllDevicesBtn.Location = new System.Drawing.Point(1762, 2);
             this.ConnectAllDevicesBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ConnectAllDevicesBtn.Name = "ConnectAllDevicesBtn";
-            this.ConnectAllDevicesBtn.Size = new System.Drawing.Size(172, 193);
+            this.ConnectAllDevicesBtn.Size = new System.Drawing.Size(172, 183);
             this.ConnectAllDevicesBtn.TabIndex = 107;
             this.ConnectAllDevicesBtn.Text = "Connect All";
             this.ConnectAllDevicesBtn.UseVisualStyleBackColor = false;
@@ -2180,7 +2168,7 @@
             this.DisconnectAllDevicesBtn.Location = new System.Drawing.Point(1938, 2);
             this.DisconnectAllDevicesBtn.Margin = new System.Windows.Forms.Padding(2);
             this.DisconnectAllDevicesBtn.Name = "DisconnectAllDevicesBtn";
-            this.DisconnectAllDevicesBtn.Size = new System.Drawing.Size(174, 193);
+            this.DisconnectAllDevicesBtn.Size = new System.Drawing.Size(174, 183);
             this.DisconnectAllDevicesBtn.TabIndex = 108;
             this.DisconnectAllDevicesBtn.Text = "Disconnect All";
             this.DisconnectAllDevicesBtn.UseVisualStyleBackColor = false;
@@ -2200,7 +2188,7 @@
             this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.RuntimeAppHelperLayoutPanel.Size = new System.Drawing.Size(170, 191);
+            this.RuntimeAppHelperLayoutPanel.Size = new System.Drawing.Size(170, 181);
             this.RuntimeAppHelperLayoutPanel.TabIndex = 111;
             // 
             // button15
@@ -2209,10 +2197,10 @@
             this.button15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button15.ForeColor = System.Drawing.Color.White;
-            this.button15.Location = new System.Drawing.Point(2, 128);
+            this.button15.Location = new System.Drawing.Point(2, 122);
             this.button15.Margin = new System.Windows.Forms.Padding(2);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(166, 61);
+            this.button15.Size = new System.Drawing.Size(166, 57);
             this.button15.TabIndex = 115;
             this.button15.Text = "Exit";
             this.button15.UseVisualStyleBackColor = false;
@@ -2223,10 +2211,10 @@
             this.button14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button14.ForeColor = System.Drawing.Color.White;
-            this.button14.Location = new System.Drawing.Point(2, 65);
+            this.button14.Location = new System.Drawing.Point(2, 62);
             this.button14.Margin = new System.Windows.Forms.Padding(2);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(166, 59);
+            this.button14.Size = new System.Drawing.Size(166, 56);
             this.button14.TabIndex = 114;
             this.button14.Text = "Min";
             this.button14.UseVisualStyleBackColor = false;
@@ -2240,7 +2228,7 @@
             this.button13.Location = new System.Drawing.Point(2, 2);
             this.button13.Margin = new System.Windows.Forms.Padding(2);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(166, 59);
+            this.button13.Size = new System.Drawing.Size(166, 56);
             this.button13.TabIndex = 113;
             this.button13.Text = "Max";
             this.button13.UseVisualStyleBackColor = false;
@@ -2259,7 +2247,7 @@
             this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.SetupAppHelperLayoutPanel.Size = new System.Drawing.Size(170, 191);
+            this.SetupAppHelperLayoutPanel.Size = new System.Drawing.Size(170, 181);
             this.SetupAppHelperLayoutPanel.TabIndex = 112;
             // 
             // button18
@@ -2268,10 +2256,10 @@
             this.button18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button18.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button18.ForeColor = System.Drawing.Color.White;
-            this.button18.Location = new System.Drawing.Point(2, 128);
+            this.button18.Location = new System.Drawing.Point(2, 122);
             this.button18.Margin = new System.Windows.Forms.Padding(2);
             this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(166, 61);
+            this.button18.Size = new System.Drawing.Size(166, 57);
             this.button18.TabIndex = 116;
             this.button18.Text = "Exit";
             this.button18.UseVisualStyleBackColor = false;
@@ -2285,7 +2273,7 @@
             this.button16.Location = new System.Drawing.Point(2, 2);
             this.button16.Margin = new System.Windows.Forms.Padding(2);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(166, 59);
+            this.button16.Size = new System.Drawing.Size(166, 56);
             this.button16.TabIndex = 114;
             this.button16.Text = "Max";
             this.button16.UseVisualStyleBackColor = false;
@@ -2296,10 +2284,10 @@
             this.button17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button17.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button17.ForeColor = System.Drawing.Color.White;
-            this.button17.Location = new System.Drawing.Point(2, 65);
+            this.button17.Location = new System.Drawing.Point(2, 62);
             this.button17.Margin = new System.Windows.Forms.Padding(2);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(166, 59);
+            this.button17.Size = new System.Drawing.Size(166, 56);
             this.button17.TabIndex = 115;
             this.button17.Text = "Min";
             this.button17.UseVisualStyleBackColor = false;
@@ -2311,9 +2299,9 @@
             this.SetStartupDevicesFileBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetStartupDevicesFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetStartupDevicesFileBtn.ForeColor = System.Drawing.Color.White;
-            this.SetStartupDevicesFileBtn.Location = new System.Drawing.Point(1235, 934);
+            this.SetStartupDevicesFileBtn.Location = new System.Drawing.Point(1235, 889);
             this.SetStartupDevicesFileBtn.Name = "SetStartupDevicesFileBtn";
-            this.SetStartupDevicesFileBtn.Size = new System.Drawing.Size(346, 59);
+            this.SetStartupDevicesFileBtn.Size = new System.Drawing.Size(346, 56);
             this.SetStartupDevicesFileBtn.TabIndex = 103;
             this.SetStartupDevicesFileBtn.Text = "Use This File At Startup";
             this.SetStartupDevicesFileBtn.UseVisualStyleBackColor = false;
@@ -2323,7 +2311,7 @@
             // 
             this.RobotIpTxt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RobotIpTxt.Location = new System.Drawing.Point(707, 1064);
+            this.RobotIpTxt.Location = new System.Drawing.Point(707, 1013);
             this.RobotIpTxt.Name = "RobotIpTxt";
             this.RobotIpTxt.Size = new System.Drawing.Size(170, 35);
             this.RobotIpTxt.TabIndex = 72;
@@ -2333,7 +2321,7 @@
             // 
             this.ServerIpTxt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ServerIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ServerIpTxt.Location = new System.Drawing.Point(531, 1064);
+            this.ServerIpTxt.Location = new System.Drawing.Point(531, 1013);
             this.ServerIpTxt.Name = "ServerIpTxt";
             this.ServerIpTxt.Size = new System.Drawing.Size(170, 35);
             this.ServerIpTxt.TabIndex = 79;
@@ -2343,7 +2331,7 @@
             // 
             this.RobotProgramTxt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotProgramTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RobotProgramTxt.Location = new System.Drawing.Point(355, 1064);
+            this.RobotProgramTxt.Location = new System.Drawing.Point(355, 1013);
             this.RobotProgramTxt.Name = "RobotProgramTxt";
             this.RobotProgramTxt.Size = new System.Drawing.Size(170, 35);
             this.RobotProgramTxt.TabIndex = 87;
@@ -2351,11 +2339,12 @@
             // ClearDevicesBtn
             // 
             this.ClearDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.ClearDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearDevicesBtn.Location = new System.Drawing.Point(707, 999);
+            this.ClearDevicesBtn.Location = new System.Drawing.Point(1939, 951);
             this.ClearDevicesBtn.Name = "ClearDevicesBtn";
-            this.ClearDevicesBtn.Size = new System.Drawing.Size(170, 59);
+            this.ClearDevicesBtn.Size = new System.Drawing.Size(172, 56);
             this.ClearDevicesBtn.TabIndex = 105;
             this.ClearDevicesBtn.Text = "Clear";
             this.ClearDevicesBtn.UseVisualStyleBackColor = false;
@@ -2364,11 +2353,12 @@
             // SaveAsDevicesBtn
             // 
             this.SaveAsDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveAsDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveAsDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveAsDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(531, 999);
+            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(1763, 951);
             this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
-            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(170, 59);
+            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(170, 56);
             this.SaveAsDevicesBtn.TabIndex = 104;
             this.SaveAsDevicesBtn.Text = "Save As...";
             this.SaveAsDevicesBtn.UseVisualStyleBackColor = false;
@@ -2377,11 +2367,12 @@
             // SaveDevicesBtn
             // 
             this.SaveDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveDevicesBtn.Location = new System.Drawing.Point(355, 999);
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(1587, 951);
             this.SaveDevicesBtn.Name = "SaveDevicesBtn";
-            this.SaveDevicesBtn.Size = new System.Drawing.Size(170, 59);
+            this.SaveDevicesBtn.Size = new System.Drawing.Size(170, 56);
             this.SaveDevicesBtn.TabIndex = 101;
             this.SaveDevicesBtn.Text = "Save";
             this.SaveDevicesBtn.UseVisualStyleBackColor = false;
@@ -2390,23 +2381,38 @@
             // LoadDevicesBtn
             // 
             this.LoadDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.LoadDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadDevicesBtn.Location = new System.Drawing.Point(179, 999);
+            this.LoadDevicesBtn.Location = new System.Drawing.Point(1411, 951);
             this.LoadDevicesBtn.Name = "LoadDevicesBtn";
-            this.LoadDevicesBtn.Size = new System.Drawing.Size(170, 59);
+            this.LoadDevicesBtn.Size = new System.Drawing.Size(170, 56);
             this.LoadDevicesBtn.TabIndex = 113;
             this.LoadDevicesBtn.Text = "Load";
             this.LoadDevicesBtn.UseVisualStyleBackColor = false;
             this.LoadDevicesBtn.Click += new System.EventHandler(this.LoadDevicesBtn_Click);
             // 
+            // ReloadDevicesBtn
+            // 
+            this.ReloadDevicesBtn.BackColor = System.Drawing.Color.Green;
+            this.ReloadDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReloadDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReloadDevicesBtn.ForeColor = System.Drawing.Color.White;
+            this.ReloadDevicesBtn.Location = new System.Drawing.Point(1235, 951);
+            this.ReloadDevicesBtn.Name = "ReloadDevicesBtn";
+            this.ReloadDevicesBtn.Size = new System.Drawing.Size(170, 56);
+            this.ReloadDevicesBtn.TabIndex = 100;
+            this.ReloadDevicesBtn.Text = "Reload";
+            this.ReloadDevicesBtn.UseVisualStyleBackColor = false;
+            this.ReloadDevicesBtn.Click += new System.EventHandler(this.ReloadDevicesBtn_Click);
+            // 
             // toolsPage
             // 
             this.toolsPage.Controls.Add(this.SetupToolsLayoutPanel);
-            this.toolsPage.Location = new System.Drawing.Point(4, 46);
+            this.toolsPage.Location = new System.Drawing.Point(4, 100);
             this.toolsPage.Name = "toolsPage";
             this.toolsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.toolsPage.Size = new System.Drawing.Size(2120, 1114);
+            this.toolsPage.Size = new System.Drawing.Size(2120, 1060);
             this.toolsPage.TabIndex = 0;
             this.toolsPage.Text = "Tools";
             this.toolsPage.UseVisualStyleBackColor = true;
@@ -2447,7 +2453,7 @@
             this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.SetupToolsLayoutPanel.Size = new System.Drawing.Size(2114, 1108);
+            this.SetupToolsLayoutPanel.Size = new System.Drawing.Size(2114, 1054);
             this.SetupToolsLayoutPanel.TabIndex = 0;
             // 
             // SetDoorClosedInputBtn
@@ -2456,9 +2462,9 @@
             this.SetDoorClosedInputBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetDoorClosedInputBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetDoorClosedInputBtn.ForeColor = System.Drawing.Color.White;
-            this.SetDoorClosedInputBtn.Location = new System.Drawing.Point(579, 999);
+            this.SetDoorClosedInputBtn.Location = new System.Drawing.Point(579, 951);
             this.SetDoorClosedInputBtn.Name = "SetDoorClosedInputBtn";
-            this.SetDoorClosedInputBtn.Size = new System.Drawing.Size(186, 106);
+            this.SetDoorClosedInputBtn.Size = new System.Drawing.Size(186, 100);
             this.SetDoorClosedInputBtn.TabIndex = 96;
             this.SetDoorClosedInputBtn.Text = "Set Door Closed Input";
             this.SetDoorClosedInputBtn.UseVisualStyleBackColor = false;
@@ -2470,9 +2476,9 @@
             this.SetFootswitchPressedInputBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetFootswitchPressedInputBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetFootswitchPressedInputBtn.ForeColor = System.Drawing.Color.White;
-            this.SetFootswitchPressedInputBtn.Location = new System.Drawing.Point(3, 999);
+            this.SetFootswitchPressedInputBtn.Location = new System.Drawing.Point(3, 951);
             this.SetFootswitchPressedInputBtn.Name = "SetFootswitchPressedInputBtn";
-            this.SetFootswitchPressedInputBtn.Size = new System.Drawing.Size(186, 106);
+            this.SetFootswitchPressedInputBtn.Size = new System.Drawing.Size(186, 100);
             this.SetFootswitchPressedInputBtn.TabIndex = 121;
             this.SetFootswitchPressedInputBtn.Text = "Set Footswitch Pressed Input";
             this.SetFootswitchPressedInputBtn.UseVisualStyleBackColor = false;
@@ -2485,12 +2491,12 @@
             this.FootswitchIoLayoutPanel.Controls.Add(this.FootswitchPressedInputTxt, 0, 0);
             this.FootswitchIoLayoutPanel.Controls.Add(this.FootswitchPressedInputLbl, 0, 1);
             this.FootswitchIoLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FootswitchIoLayoutPanel.Location = new System.Drawing.Point(195, 999);
+            this.FootswitchIoLayoutPanel.Location = new System.Drawing.Point(195, 951);
             this.FootswitchIoLayoutPanel.Name = "FootswitchIoLayoutPanel";
             this.FootswitchIoLayoutPanel.RowCount = 2;
             this.FootswitchIoLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.FootswitchIoLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.FootswitchIoLayoutPanel.Size = new System.Drawing.Size(186, 106);
+            this.FootswitchIoLayoutPanel.Size = new System.Drawing.Size(186, 100);
             this.FootswitchIoLayoutPanel.TabIndex = 129;
             // 
             // FootswitchPressedInputTxt
@@ -2506,9 +2512,9 @@
             // 
             this.FootswitchPressedInputLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FootswitchPressedInputLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FootswitchPressedInputLbl.Location = new System.Drawing.Point(3, 53);
+            this.FootswitchPressedInputLbl.Location = new System.Drawing.Point(3, 50);
             this.FootswitchPressedInputLbl.Name = "FootswitchPressedInputLbl";
-            this.FootswitchPressedInputLbl.Size = new System.Drawing.Size(180, 53);
+            this.FootswitchPressedInputLbl.Size = new System.Drawing.Size(180, 50);
             this.FootswitchPressedInputLbl.TabIndex = 123;
             this.FootswitchPressedInputLbl.Text = "7,1";
             this.FootswitchPressedInputLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2520,21 +2526,21 @@
             this.DoorIoLayoutPanel.Controls.Add(this.DoorClosedInputLbl, 0, 1);
             this.DoorIoLayoutPanel.Controls.Add(this.DoorClosedInputTxt, 0, 0);
             this.DoorIoLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DoorIoLayoutPanel.Location = new System.Drawing.Point(771, 999);
+            this.DoorIoLayoutPanel.Location = new System.Drawing.Point(771, 951);
             this.DoorIoLayoutPanel.Name = "DoorIoLayoutPanel";
             this.DoorIoLayoutPanel.RowCount = 2;
             this.DoorIoLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.DoorIoLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.DoorIoLayoutPanel.Size = new System.Drawing.Size(186, 106);
+            this.DoorIoLayoutPanel.Size = new System.Drawing.Size(186, 100);
             this.DoorIoLayoutPanel.TabIndex = 130;
             // 
             // DoorClosedInputLbl
             // 
             this.DoorClosedInputLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DoorClosedInputLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DoorClosedInputLbl.Location = new System.Drawing.Point(3, 53);
+            this.DoorClosedInputLbl.Location = new System.Drawing.Point(3, 50);
             this.DoorClosedInputLbl.Name = "DoorClosedInputLbl";
-            this.DoorClosedInputLbl.Size = new System.Drawing.Size(180, 53);
+            this.DoorClosedInputLbl.Size = new System.Drawing.Size(180, 50);
             this.DoorClosedInputLbl.TabIndex = 124;
             this.DoorClosedInputLbl.Text = "1,1";
             this.DoorClosedInputLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2571,10 +2577,10 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle4;
             this.ToolsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ToolsGrd.Location = new System.Drawing.Point(3, 113);
+            this.ToolsGrd.Location = new System.Drawing.Point(3, 108);
             this.ToolsGrd.Name = "ToolsGrd";
             this.ToolsGrd.RowTemplate.Height = 34;
-            this.ToolsGrd.Size = new System.Drawing.Size(2108, 880);
+            this.ToolsGrd.Size = new System.Drawing.Size(2108, 837);
             this.ToolsGrd.TabIndex = 85;
             // 
             // SelectToolBtn
@@ -2585,7 +2591,7 @@
             this.SelectToolBtn.ForeColor = System.Drawing.Color.White;
             this.SelectToolBtn.Location = new System.Drawing.Point(3, 3);
             this.SelectToolBtn.Name = "SelectToolBtn";
-            this.SelectToolBtn.Size = new System.Drawing.Size(186, 104);
+            this.SelectToolBtn.Size = new System.Drawing.Size(186, 99);
             this.SelectToolBtn.TabIndex = 95;
             this.SelectToolBtn.Text = "Select";
             this.SelectToolBtn.UseVisualStyleBackColor = false;
@@ -2599,7 +2605,7 @@
             this.JointMoveMountBtn.ForeColor = System.Drawing.Color.White;
             this.JointMoveMountBtn.Location = new System.Drawing.Point(195, 3);
             this.JointMoveMountBtn.Name = "JointMoveMountBtn";
-            this.JointMoveMountBtn.Size = new System.Drawing.Size(186, 104);
+            this.JointMoveMountBtn.Size = new System.Drawing.Size(186, 99);
             this.JointMoveMountBtn.TabIndex = 120;
             this.JointMoveMountBtn.Text = "Joint Move to Mount";
             this.JointMoveMountBtn.UseVisualStyleBackColor = false;
@@ -2613,7 +2619,7 @@
             this.JointMoveHomeBtn.ForeColor = System.Drawing.Color.White;
             this.JointMoveHomeBtn.Location = new System.Drawing.Point(387, 3);
             this.JointMoveHomeBtn.Name = "JointMoveHomeBtn";
-            this.JointMoveHomeBtn.Size = new System.Drawing.Size(186, 104);
+            this.JointMoveHomeBtn.Size = new System.Drawing.Size(186, 99);
             this.JointMoveHomeBtn.TabIndex = 119;
             this.JointMoveHomeBtn.Text = "Joint Move to Home";
             this.JointMoveHomeBtn.UseVisualStyleBackColor = false;
@@ -2627,7 +2633,7 @@
             this.ToolTestBtn.ForeColor = System.Drawing.Color.White;
             this.ToolTestBtn.Location = new System.Drawing.Point(579, 3);
             this.ToolTestBtn.Name = "ToolTestBtn";
-            this.ToolTestBtn.Size = new System.Drawing.Size(186, 104);
+            this.ToolTestBtn.Size = new System.Drawing.Size(186, 99);
             this.ToolTestBtn.TabIndex = 125;
             this.ToolTestBtn.Text = "Tool Test";
             this.ToolTestBtn.UseVisualStyleBackColor = false;
@@ -2641,7 +2647,7 @@
             this.ToolOffBtn.ForeColor = System.Drawing.Color.White;
             this.ToolOffBtn.Location = new System.Drawing.Point(771, 3);
             this.ToolOffBtn.Name = "ToolOffBtn";
-            this.ToolOffBtn.Size = new System.Drawing.Size(186, 104);
+            this.ToolOffBtn.Size = new System.Drawing.Size(186, 99);
             this.ToolOffBtn.TabIndex = 126;
             this.ToolOffBtn.Text = "Tool Off";
             this.ToolOffBtn.UseVisualStyleBackColor = false;
@@ -2655,7 +2661,7 @@
             this.CoolantTestBtn.ForeColor = System.Drawing.Color.White;
             this.CoolantTestBtn.Location = new System.Drawing.Point(963, 3);
             this.CoolantTestBtn.Name = "CoolantTestBtn";
-            this.CoolantTestBtn.Size = new System.Drawing.Size(186, 104);
+            this.CoolantTestBtn.Size = new System.Drawing.Size(186, 99);
             this.CoolantTestBtn.TabIndex = 127;
             this.CoolantTestBtn.Text = "Cool Test";
             this.CoolantTestBtn.UseVisualStyleBackColor = false;
@@ -2669,7 +2675,7 @@
             this.CoolantOffBtn.ForeColor = System.Drawing.Color.White;
             this.CoolantOffBtn.Location = new System.Drawing.Point(1155, 3);
             this.CoolantOffBtn.Name = "CoolantOffBtn";
-            this.CoolantOffBtn.Size = new System.Drawing.Size(186, 104);
+            this.CoolantOffBtn.Size = new System.Drawing.Size(186, 99);
             this.CoolantOffBtn.TabIndex = 128;
             this.CoolantOffBtn.Text = "Cool Off";
             this.CoolantOffBtn.UseVisualStyleBackColor = false;
@@ -2681,9 +2687,9 @@
             this.LoadToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadToolsBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadToolsBtn.Location = new System.Drawing.Point(1539, 999);
+            this.LoadToolsBtn.Location = new System.Drawing.Point(1539, 951);
             this.LoadToolsBtn.Name = "LoadToolsBtn";
-            this.LoadToolsBtn.Size = new System.Drawing.Size(186, 106);
+            this.LoadToolsBtn.Size = new System.Drawing.Size(186, 100);
             this.LoadToolsBtn.TabIndex = 94;
             this.LoadToolsBtn.Text = "Reload";
             this.LoadToolsBtn.UseVisualStyleBackColor = false;
@@ -2695,9 +2701,9 @@
             this.SaveToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveToolsBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveToolsBtn.Location = new System.Drawing.Point(1731, 999);
+            this.SaveToolsBtn.Location = new System.Drawing.Point(1731, 951);
             this.SaveToolsBtn.Name = "SaveToolsBtn";
-            this.SaveToolsBtn.Size = new System.Drawing.Size(186, 106);
+            this.SaveToolsBtn.Size = new System.Drawing.Size(186, 100);
             this.SaveToolsBtn.TabIndex = 93;
             this.SaveToolsBtn.Text = "Save";
             this.SaveToolsBtn.UseVisualStyleBackColor = false;
@@ -2709,9 +2715,9 @@
             this.ClearToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearToolsBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearToolsBtn.Location = new System.Drawing.Point(1923, 999);
+            this.ClearToolsBtn.Location = new System.Drawing.Point(1923, 951);
             this.ClearToolsBtn.Name = "ClearToolsBtn";
-            this.ClearToolsBtn.Size = new System.Drawing.Size(188, 106);
+            this.ClearToolsBtn.Size = new System.Drawing.Size(188, 100);
             this.ClearToolsBtn.TabIndex = 92;
             this.ClearToolsBtn.Text = "Clear";
             this.ClearToolsBtn.UseVisualStyleBackColor = false;
@@ -2720,9 +2726,9 @@
             // grindPage
             // 
             this.grindPage.Controls.Add(this.SetupGrindLayoutPanel);
-            this.grindPage.Location = new System.Drawing.Point(4, 46);
+            this.grindPage.Location = new System.Drawing.Point(4, 100);
             this.grindPage.Name = "grindPage";
-            this.grindPage.Size = new System.Drawing.Size(2120, 1114);
+            this.grindPage.Size = new System.Drawing.Size(2120, 1060);
             this.grindPage.TabIndex = 2;
             this.grindPage.Text = "Grind";
             this.grindPage.UseVisualStyleBackColor = true;
@@ -2767,7 +2773,7 @@
             this.SetupGrindLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.SetupGrindLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.SetupGrindLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGrindLayoutPanel.Size = new System.Drawing.Size(2120, 1114);
+            this.SetupGrindLayoutPanel.Size = new System.Drawing.Size(2120, 1060);
             this.SetupGrindLayoutPanel.TabIndex = 0;
             // 
             // SetMoveDefaultsBtn
@@ -2776,9 +2782,9 @@
             this.SetMoveDefaultsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetMoveDefaultsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetMoveDefaultsBtn.ForeColor = System.Drawing.Color.White;
-            this.SetMoveDefaultsBtn.Location = new System.Drawing.Point(798, 558);
+            this.SetMoveDefaultsBtn.Location = new System.Drawing.Point(798, 531);
             this.SetMoveDefaultsBtn.Name = "SetMoveDefaultsBtn";
-            this.SetMoveDefaultsBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetMoveDefaultsBtn.Size = new System.Drawing.Size(259, 170);
             this.SetMoveDefaultsBtn.TabIndex = 122;
             this.SetMoveDefaultsBtn.Text = "Restore Defaults";
             this.SetMoveDefaultsBtn.UseVisualStyleBackColor = false;
@@ -2790,9 +2796,9 @@
             this.SetPointFrequencyBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetPointFrequencyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetPointFrequencyBtn.ForeColor = System.Drawing.Color.White;
-            this.SetPointFrequencyBtn.Location = new System.Drawing.Point(1328, 188);
+            this.SetPointFrequencyBtn.Location = new System.Drawing.Point(1328, 179);
             this.SetPointFrequencyBtn.Name = "SetPointFrequencyBtn";
-            this.SetPointFrequencyBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetPointFrequencyBtn.Size = new System.Drawing.Size(259, 170);
             this.SetPointFrequencyBtn.TabIndex = 122;
             this.SetPointFrequencyBtn.Text = "Set Point Frequency";
             this.SetPointFrequencyBtn.UseVisualStyleBackColor = false;
@@ -2804,9 +2810,9 @@
             this.SetBlendRadiusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetBlendRadiusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetBlendRadiusBtn.ForeColor = System.Drawing.Color.White;
-            this.SetBlendRadiusBtn.Location = new System.Drawing.Point(533, 558);
+            this.SetBlendRadiusBtn.Location = new System.Drawing.Point(533, 531);
             this.SetBlendRadiusBtn.Name = "SetBlendRadiusBtn";
-            this.SetBlendRadiusBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetBlendRadiusBtn.Size = new System.Drawing.Size(259, 170);
             this.SetBlendRadiusBtn.TabIndex = 111;
             this.SetBlendRadiusBtn.Text = "Set Blend Radius";
             this.SetBlendRadiusBtn.UseVisualStyleBackColor = false;
@@ -2818,9 +2824,9 @@
             this.SetForceModeGainScalingBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetForceModeGainScalingBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetForceModeGainScalingBtn.ForeColor = System.Drawing.Color.White;
-            this.SetForceModeGainScalingBtn.Location = new System.Drawing.Point(798, 188);
+            this.SetForceModeGainScalingBtn.Location = new System.Drawing.Point(798, 179);
             this.SetForceModeGainScalingBtn.Name = "SetForceModeGainScalingBtn";
-            this.SetForceModeGainScalingBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetForceModeGainScalingBtn.Size = new System.Drawing.Size(259, 170);
             this.SetForceModeGainScalingBtn.TabIndex = 125;
             this.SetForceModeGainScalingBtn.Text = "Set Force Mode Gain Scaling";
             this.SetForceModeGainScalingBtn.UseVisualStyleBackColor = false;
@@ -2832,9 +2838,9 @@
             this.SetForceModeDampingBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetForceModeDampingBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetForceModeDampingBtn.ForeColor = System.Drawing.Color.White;
-            this.SetForceModeDampingBtn.Location = new System.Drawing.Point(533, 188);
+            this.SetForceModeDampingBtn.Location = new System.Drawing.Point(533, 179);
             this.SetForceModeDampingBtn.Name = "SetForceModeDampingBtn";
-            this.SetForceModeDampingBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetForceModeDampingBtn.Size = new System.Drawing.Size(259, 170);
             this.SetForceModeDampingBtn.TabIndex = 126;
             this.SetForceModeDampingBtn.Text = "Set Force Mode Damping";
             this.SetForceModeDampingBtn.UseVisualStyleBackColor = false;
@@ -2846,9 +2852,9 @@
             this.SetJointAccelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetJointAccelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetJointAccelBtn.ForeColor = System.Drawing.Color.White;
-            this.SetJointAccelBtn.Location = new System.Drawing.Point(268, 743);
+            this.SetJointAccelBtn.Location = new System.Drawing.Point(268, 707);
             this.SetJointAccelBtn.Name = "SetJointAccelBtn";
-            this.SetJointAccelBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetJointAccelBtn.Size = new System.Drawing.Size(259, 170);
             this.SetJointAccelBtn.TabIndex = 113;
             this.SetJointAccelBtn.Text = "Set Joint Accel";
             this.SetJointAccelBtn.UseVisualStyleBackColor = false;
@@ -2862,7 +2868,7 @@
             this.SetTrialSpeedBtn.ForeColor = System.Drawing.Color.White;
             this.SetTrialSpeedBtn.Location = new System.Drawing.Point(3, 3);
             this.SetTrialSpeedBtn.Name = "SetTrialSpeedBtn";
-            this.SetTrialSpeedBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetTrialSpeedBtn.Size = new System.Drawing.Size(259, 170);
             this.SetTrialSpeedBtn.TabIndex = 119;
             this.SetTrialSpeedBtn.Text = "Set Trial Speed";
             this.SetTrialSpeedBtn.UseVisualStyleBackColor = false;
@@ -2874,9 +2880,9 @@
             this.SetJointSpeedBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetJointSpeedBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetJointSpeedBtn.ForeColor = System.Drawing.Color.White;
-            this.SetJointSpeedBtn.Location = new System.Drawing.Point(268, 558);
+            this.SetJointSpeedBtn.Location = new System.Drawing.Point(268, 531);
             this.SetJointSpeedBtn.Name = "SetJointSpeedBtn";
-            this.SetJointSpeedBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetJointSpeedBtn.Size = new System.Drawing.Size(259, 170);
             this.SetJointSpeedBtn.TabIndex = 112;
             this.SetJointSpeedBtn.Text = "Set Joint Speed";
             this.SetJointSpeedBtn.UseVisualStyleBackColor = false;
@@ -2890,7 +2896,7 @@
             this.SetGrindAccelBtn.ForeColor = System.Drawing.Color.White;
             this.SetGrindAccelBtn.Location = new System.Drawing.Point(268, 3);
             this.SetGrindAccelBtn.Name = "SetGrindAccelBtn";
-            this.SetGrindAccelBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetGrindAccelBtn.Size = new System.Drawing.Size(259, 170);
             this.SetGrindAccelBtn.TabIndex = 120;
             this.SetGrindAccelBtn.Text = "Set Acceleration";
             this.SetGrindAccelBtn.UseVisualStyleBackColor = false;
@@ -2902,9 +2908,9 @@
             this.SetGrindJogAccelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetGrindJogAccelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetGrindJogAccelBtn.ForeColor = System.Drawing.Color.White;
-            this.SetGrindJogAccelBtn.Location = new System.Drawing.Point(268, 188);
+            this.SetGrindJogAccelBtn.Location = new System.Drawing.Point(268, 179);
             this.SetGrindJogAccelBtn.Name = "SetGrindJogAccelBtn";
-            this.SetGrindJogAccelBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetGrindJogAccelBtn.Size = new System.Drawing.Size(259, 170);
             this.SetGrindJogAccelBtn.TabIndex = 124;
             this.SetGrindJogAccelBtn.Text = "Set Jog Accel";
             this.SetGrindJogAccelBtn.UseVisualStyleBackColor = false;
@@ -2918,7 +2924,7 @@
             this.SetMaxGrindBlendRadiusBtn.ForeColor = System.Drawing.Color.White;
             this.SetMaxGrindBlendRadiusBtn.Location = new System.Drawing.Point(533, 3);
             this.SetMaxGrindBlendRadiusBtn.Name = "SetMaxGrindBlendRadiusBtn";
-            this.SetMaxGrindBlendRadiusBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetMaxGrindBlendRadiusBtn.Size = new System.Drawing.Size(259, 170);
             this.SetMaxGrindBlendRadiusBtn.TabIndex = 118;
             this.SetMaxGrindBlendRadiusBtn.Text = "Set Max Blend Radius";
             this.SetMaxGrindBlendRadiusBtn.UseVisualStyleBackColor = false;
@@ -2930,9 +2936,9 @@
             this.SetLinearSpeedBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetLinearSpeedBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetLinearSpeedBtn.ForeColor = System.Drawing.Color.White;
-            this.SetLinearSpeedBtn.Location = new System.Drawing.Point(3, 558);
+            this.SetLinearSpeedBtn.Location = new System.Drawing.Point(3, 531);
             this.SetLinearSpeedBtn.Name = "SetLinearSpeedBtn";
-            this.SetLinearSpeedBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetLinearSpeedBtn.Size = new System.Drawing.Size(259, 170);
             this.SetLinearSpeedBtn.TabIndex = 109;
             this.SetLinearSpeedBtn.Text = "Set Linear Speed";
             this.SetLinearSpeedBtn.UseVisualStyleBackColor = false;
@@ -2944,9 +2950,9 @@
             this.SetGrindJogSpeedBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetGrindJogSpeedBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetGrindJogSpeedBtn.ForeColor = System.Drawing.Color.White;
-            this.SetGrindJogSpeedBtn.Location = new System.Drawing.Point(3, 188);
+            this.SetGrindJogSpeedBtn.Location = new System.Drawing.Point(3, 179);
             this.SetGrindJogSpeedBtn.Name = "SetGrindJogSpeedBtn";
-            this.SetGrindJogSpeedBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetGrindJogSpeedBtn.Size = new System.Drawing.Size(259, 170);
             this.SetGrindJogSpeedBtn.TabIndex = 123;
             this.SetGrindJogSpeedBtn.Text = "Set Jog Speed";
             this.SetGrindJogSpeedBtn.UseVisualStyleBackColor = false;
@@ -2960,7 +2966,7 @@
             this.SetTouchSpeedBtn.ForeColor = System.Drawing.Color.White;
             this.SetTouchSpeedBtn.Location = new System.Drawing.Point(798, 3);
             this.SetTouchSpeedBtn.Name = "SetTouchSpeedBtn";
-            this.SetTouchSpeedBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetTouchSpeedBtn.Size = new System.Drawing.Size(259, 170);
             this.SetTouchSpeedBtn.TabIndex = 115;
             this.SetTouchSpeedBtn.Text = "Set Touch Speed";
             this.SetTouchSpeedBtn.UseVisualStyleBackColor = false;
@@ -2974,7 +2980,7 @@
             this.SetTouchRetractBtn.ForeColor = System.Drawing.Color.White;
             this.SetTouchRetractBtn.Location = new System.Drawing.Point(1063, 3);
             this.SetTouchRetractBtn.Name = "SetTouchRetractBtn";
-            this.SetTouchRetractBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetTouchRetractBtn.Size = new System.Drawing.Size(259, 170);
             this.SetTouchRetractBtn.TabIndex = 114;
             this.SetTouchRetractBtn.Text = "Set Touch Retract";
             this.SetTouchRetractBtn.UseVisualStyleBackColor = false;
@@ -2988,7 +2994,7 @@
             this.SetForceDwellBtn.ForeColor = System.Drawing.Color.White;
             this.SetForceDwellBtn.Location = new System.Drawing.Point(1328, 3);
             this.SetForceDwellBtn.Name = "SetForceDwellBtn";
-            this.SetForceDwellBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetForceDwellBtn.Size = new System.Drawing.Size(259, 170);
             this.SetForceDwellBtn.TabIndex = 116;
             this.SetForceDwellBtn.Text = "Set Force Dwell";
             this.SetForceDwellBtn.UseVisualStyleBackColor = false;
@@ -3002,7 +3008,7 @@
             this.SetMaxWaitBtn.ForeColor = System.Drawing.Color.White;
             this.SetMaxWaitBtn.Location = new System.Drawing.Point(1593, 3);
             this.SetMaxWaitBtn.Name = "SetMaxWaitBtn";
-            this.SetMaxWaitBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetMaxWaitBtn.Size = new System.Drawing.Size(259, 170);
             this.SetMaxWaitBtn.TabIndex = 117;
             this.SetMaxWaitBtn.Text = "Set Max Wait";
             this.SetMaxWaitBtn.UseVisualStyleBackColor = false;
@@ -3016,7 +3022,7 @@
             this.SetGrindDefaultsBtn.ForeColor = System.Drawing.Color.White;
             this.SetGrindDefaultsBtn.Location = new System.Drawing.Point(1858, 3);
             this.SetGrindDefaultsBtn.Name = "SetGrindDefaultsBtn";
-            this.SetGrindDefaultsBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetGrindDefaultsBtn.Size = new System.Drawing.Size(259, 170);
             this.SetGrindDefaultsBtn.TabIndex = 121;
             this.SetGrindDefaultsBtn.Text = "Restore Defaults";
             this.SetGrindDefaultsBtn.UseVisualStyleBackColor = false;
@@ -3028,9 +3034,9 @@
             this.SetLinearAccelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetLinearAccelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetLinearAccelBtn.ForeColor = System.Drawing.Color.White;
-            this.SetLinearAccelBtn.Location = new System.Drawing.Point(3, 743);
+            this.SetLinearAccelBtn.Location = new System.Drawing.Point(3, 707);
             this.SetLinearAccelBtn.Name = "SetLinearAccelBtn";
-            this.SetLinearAccelBtn.Size = new System.Drawing.Size(259, 179);
+            this.SetLinearAccelBtn.Size = new System.Drawing.Size(259, 170);
             this.SetLinearAccelBtn.TabIndex = 110;
             this.SetLinearAccelBtn.Text = "Set Linear Accel";
             this.SetLinearAccelBtn.UseVisualStyleBackColor = false;
@@ -3345,137 +3351,16 @@
             this.ClearAllLogRtbBtn.UseVisualStyleBackColor = false;
             this.ClearAllLogRtbBtn.Click += new System.EventHandler(this.ClearAllLogRtbBtn_Click);
             // 
-            // UiPage
-            // 
-            this.UiPage.Controls.Add(this.UiFullscreenBtn);
-            this.UiPage.Controls.Add(this.label24);
-            this.UiPage.Controls.Add(this.UiTextScaleTxt);
-            this.UiPage.Controls.Add(this.UiTextScaleBtn);
-            this.UiPage.Controls.Add(this.UiDefaultBtn);
-            this.UiPage.Controls.Add(this.label23);
-            this.UiPage.Controls.Add(this.label20);
-            this.UiPage.Controls.Add(this.UiFixedHeightTxt);
-            this.UiPage.Controls.Add(this.UiFixedWidthTxt);
-            this.UiPage.Controls.Add(this.UiFreeBtn);
-            this.UiPage.Controls.Add(this.UiFixedBtn);
-            this.UiPage.Location = new System.Drawing.Point(4, 100);
-            this.UiPage.Name = "UiPage";
-            this.UiPage.Size = new System.Drawing.Size(2132, 1168);
-            this.UiPage.TabIndex = 6;
-            this.UiPage.Text = "UIcon";
-            this.UiPage.UseVisualStyleBackColor = true;
-            // 
-            // UiFullscreenBtn
-            // 
-            this.UiFullscreenBtn.Location = new System.Drawing.Point(34, 112);
-            this.UiFullscreenBtn.Name = "UiFullscreenBtn";
-            this.UiFullscreenBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiFullscreenBtn.TabIndex = 10;
-            this.UiFullscreenBtn.Text = "Fullscreen";
-            this.UiFullscreenBtn.UseVisualStyleBackColor = true;
-            this.UiFullscreenBtn.Click += new System.EventHandler(this.UiFullscreenBtn_Click);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(349, 472);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(45, 37);
-            this.label24.TabIndex = 9;
-            this.label24.Text = "%";
-            // 
-            // UiTextScaleTxt
-            // 
-            this.UiTextScaleTxt.Location = new System.Drawing.Point(243, 465);
-            this.UiTextScaleTxt.Name = "UiTextScaleTxt";
-            this.UiTextScaleTxt.Size = new System.Drawing.Size(100, 44);
-            this.UiTextScaleTxt.TabIndex = 8;
-            this.UiTextScaleTxt.Text = "100";
-            // 
-            // UiTextScaleBtn
-            // 
-            this.UiTextScaleBtn.Location = new System.Drawing.Point(33, 441);
-            this.UiTextScaleBtn.Name = "UiTextScaleBtn";
-            this.UiTextScaleBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiTextScaleBtn.TabIndex = 7;
-            this.UiTextScaleBtn.Text = "Text Scale";
-            this.UiTextScaleBtn.UseVisualStyleBackColor = true;
-            this.UiTextScaleBtn.Click += new System.EventHandler(this.UiTextScaleBtn_Click);
-            // 
-            // UiDefaultBtn
-            // 
-            this.UiDefaultBtn.Location = new System.Drawing.Point(34, 22);
-            this.UiDefaultBtn.Name = "UiDefaultBtn";
-            this.UiDefaultBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiDefaultBtn.TabIndex = 6;
-            this.UiDefaultBtn.Text = "Default";
-            this.UiDefaultBtn.UseVisualStyleBackColor = true;
-            this.UiDefaultBtn.Click += new System.EventHandler(this.UiDefaultBtn_Click);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(368, 212);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(109, 37);
-            this.label23.TabIndex = 5;
-            this.label23.Text = "Height";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(243, 212);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(100, 37);
-            this.label20.TabIndex = 4;
-            this.label20.Text = "Width";
-            // 
-            // UiFixedHeightTxt
-            // 
-            this.UiFixedHeightTxt.Location = new System.Drawing.Point(366, 252);
-            this.UiFixedHeightTxt.Name = "UiFixedHeightTxt";
-            this.UiFixedHeightTxt.Size = new System.Drawing.Size(100, 44);
-            this.UiFixedHeightTxt.TabIndex = 3;
-            this.UiFixedHeightTxt.Text = "1440";
-            // 
-            // UiFixedWidthTxt
-            // 
-            this.UiFixedWidthTxt.Location = new System.Drawing.Point(243, 252);
-            this.UiFixedWidthTxt.Name = "UiFixedWidthTxt";
-            this.UiFixedWidthTxt.Size = new System.Drawing.Size(100, 44);
-            this.UiFixedWidthTxt.TabIndex = 2;
-            this.UiFixedWidthTxt.Text = "2160";
-            // 
-            // UiFreeBtn
-            // 
-            this.UiFreeBtn.Location = new System.Drawing.Point(33, 302);
-            this.UiFreeBtn.Name = "UiFreeBtn";
-            this.UiFreeBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiFreeBtn.TabIndex = 1;
-            this.UiFreeBtn.Text = "Free";
-            this.UiFreeBtn.UseVisualStyleBackColor = true;
-            this.UiFreeBtn.Click += new System.EventHandler(this.UiFreeBtn_Click);
-            // 
-            // UiFixedBtn
-            // 
-            this.UiFixedBtn.Location = new System.Drawing.Point(33, 212);
-            this.UiFixedBtn.Name = "UiFixedBtn";
-            this.UiFixedBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiFixedBtn.TabIndex = 0;
-            this.UiFixedBtn.Text = "Fixed";
-            this.UiFixedBtn.UseVisualStyleBackColor = true;
-            this.UiFixedBtn.Click += new System.EventHandler(this.UiFixedBtn_Click);
-            // 
             // JogRunBtn
             // 
             this.JogRunBtn.BackColor = System.Drawing.Color.Green;
             this.JogRunBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JogRunBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JogRunBtn.ForeColor = System.Drawing.Color.White;
-            this.JogRunBtn.Location = new System.Drawing.Point(967, 2);
+            this.JogRunBtn.Location = new System.Drawing.Point(1041, 2);
             this.JogRunBtn.Margin = new System.Windows.Forms.Padding(2);
             this.JogRunBtn.Name = "JogRunBtn";
-            this.JogRunBtn.Size = new System.Drawing.Size(162, 94);
+            this.JogRunBtn.Size = new System.Drawing.Size(175, 94);
             this.JogRunBtn.TabIndex = 5;
             this.JogRunBtn.Text = "Jog Robot";
             this.JogRunBtn.UseVisualStyleBackColor = false;
@@ -3516,10 +3401,10 @@
             this.DoorClosedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DoorClosedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DoorClosedLbl.ForeColor = System.Drawing.Color.White;
-            this.DoorClosedLbl.Location = new System.Drawing.Point(1133, 0);
+            this.DoorClosedLbl.Location = new System.Drawing.Point(1220, 0);
             this.DoorClosedLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.DoorClosedLbl.Name = "DoorClosedLbl";
-            this.DoorClosedLbl.Size = new System.Drawing.Size(155, 98);
+            this.DoorClosedLbl.Size = new System.Drawing.Size(168, 98);
             this.DoorClosedLbl.TabIndex = 6;
             this.DoorClosedLbl.Text = "Door State";
             this.DoorClosedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3543,10 +3428,10 @@
             this.FootswitchPressedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FootswitchPressedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FootswitchPressedLbl.ForeColor = System.Drawing.Color.White;
-            this.FootswitchPressedLbl.Location = new System.Drawing.Point(1292, 0);
+            this.FootswitchPressedLbl.Location = new System.Drawing.Point(1392, 0);
             this.FootswitchPressedLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.FootswitchPressedLbl.Name = "FootswitchPressedLbl";
-            this.FootswitchPressedLbl.Size = new System.Drawing.Size(155, 98);
+            this.FootswitchPressedLbl.Size = new System.Drawing.Size(168, 98);
             this.FootswitchPressedLbl.TabIndex = 8;
             this.FootswitchPressedLbl.Text = "Pedal State";
             this.FootswitchPressedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3665,11 +3550,11 @@
             this.TopButtonLayoutPanel.Controls.Add(this.SaveRecipeBtn, 3, 0);
             this.TopButtonLayoutPanel.Controls.Add(this.NewRecipeBtn, 2, 0);
             this.TopButtonLayoutPanel.Controls.Add(this.LoadRecipeBtn, 1, 0);
-            this.TopButtonLayoutPanel.Location = new System.Drawing.Point(548, 7);
+            this.TopButtonLayoutPanel.Location = new System.Drawing.Point(421, 7);
             this.TopButtonLayoutPanel.Name = "TopButtonLayoutPanel";
             this.TopButtonLayoutPanel.RowCount = 1;
             this.TopButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TopButtonLayoutPanel.Size = new System.Drawing.Size(1600, 98);
+            this.TopButtonLayoutPanel.Size = new System.Drawing.Size(1727, 98);
             this.TopButtonLayoutPanel.TabIndex = 14;
             // 
             // ExitBtn
@@ -3678,14 +3563,135 @@
             this.ExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExitBtn.ForeColor = System.Drawing.Color.White;
-            this.ExitBtn.Location = new System.Drawing.Point(1451, 2);
+            this.ExitBtn.Location = new System.Drawing.Point(1564, 2);
             this.ExitBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ExitBtn.Name = "ExitBtn";
-            this.ExitBtn.Size = new System.Drawing.Size(147, 94);
+            this.ExitBtn.Size = new System.Drawing.Size(161, 94);
             this.ExitBtn.TabIndex = 8;
             this.ExitBtn.Text = "Exit";
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
+            // 
+            // viewPage
+            // 
+            this.viewPage.Controls.Add(this.UiFullscreenBtn);
+            this.viewPage.Controls.Add(this.label24);
+            this.viewPage.Controls.Add(this.UiTextScaleTxt);
+            this.viewPage.Controls.Add(this.UiTextScaleBtn);
+            this.viewPage.Controls.Add(this.UiDefaultBtn);
+            this.viewPage.Controls.Add(this.label23);
+            this.viewPage.Controls.Add(this.label20);
+            this.viewPage.Controls.Add(this.UiFixedHeightTxt);
+            this.viewPage.Controls.Add(this.UiFixedWidthTxt);
+            this.viewPage.Controls.Add(this.UiFreeBtn);
+            this.viewPage.Controls.Add(this.UiFixedBtn);
+            this.viewPage.Location = new System.Drawing.Point(4, 100);
+            this.viewPage.Name = "viewPage";
+            this.viewPage.Size = new System.Drawing.Size(2120, 1060);
+            this.viewPage.TabIndex = 6;
+            this.viewPage.Text = "View";
+            this.viewPage.UseVisualStyleBackColor = true;
+            // 
+            // UiFullscreenBtn
+            // 
+            this.UiFullscreenBtn.Location = new System.Drawing.Point(26, 110);
+            this.UiFullscreenBtn.Name = "UiFullscreenBtn";
+            this.UiFullscreenBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiFullscreenBtn.TabIndex = 21;
+            this.UiFullscreenBtn.Text = "Fullscreen";
+            this.UiFullscreenBtn.UseVisualStyleBackColor = true;
+            this.UiFullscreenBtn.Click += new System.EventHandler(this.UiFullscreenBtn_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(341, 470);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(45, 37);
+            this.label24.TabIndex = 20;
+            this.label24.Text = "%";
+            // 
+            // UiTextScaleTxt
+            // 
+            this.UiTextScaleTxt.Location = new System.Drawing.Point(235, 463);
+            this.UiTextScaleTxt.Name = "UiTextScaleTxt";
+            this.UiTextScaleTxt.Size = new System.Drawing.Size(100, 44);
+            this.UiTextScaleTxt.TabIndex = 19;
+            this.UiTextScaleTxt.Text = "100";
+            // 
+            // UiTextScaleBtn
+            // 
+            this.UiTextScaleBtn.Location = new System.Drawing.Point(25, 439);
+            this.UiTextScaleBtn.Name = "UiTextScaleBtn";
+            this.UiTextScaleBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiTextScaleBtn.TabIndex = 18;
+            this.UiTextScaleBtn.Text = "Text Scale";
+            this.UiTextScaleBtn.UseVisualStyleBackColor = true;
+            this.UiTextScaleBtn.Click += new System.EventHandler(this.UiTextScaleBtn_Click);
+            // 
+            // UiDefaultBtn
+            // 
+            this.UiDefaultBtn.Location = new System.Drawing.Point(26, 20);
+            this.UiDefaultBtn.Name = "UiDefaultBtn";
+            this.UiDefaultBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiDefaultBtn.TabIndex = 17;
+            this.UiDefaultBtn.Text = "Default";
+            this.UiDefaultBtn.UseVisualStyleBackColor = true;
+            this.UiDefaultBtn.Click += new System.EventHandler(this.UiDefaultBtn_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(360, 210);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(109, 37);
+            this.label23.TabIndex = 16;
+            this.label23.Text = "Height";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(235, 210);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(100, 37);
+            this.label20.TabIndex = 15;
+            this.label20.Text = "Width";
+            // 
+            // UiFixedHeightTxt
+            // 
+            this.UiFixedHeightTxt.Location = new System.Drawing.Point(358, 250);
+            this.UiFixedHeightTxt.Name = "UiFixedHeightTxt";
+            this.UiFixedHeightTxt.Size = new System.Drawing.Size(100, 44);
+            this.UiFixedHeightTxt.TabIndex = 14;
+            this.UiFixedHeightTxt.Text = "1440";
+            // 
+            // UiFixedWidthTxt
+            // 
+            this.UiFixedWidthTxt.Location = new System.Drawing.Point(235, 250);
+            this.UiFixedWidthTxt.Name = "UiFixedWidthTxt";
+            this.UiFixedWidthTxt.Size = new System.Drawing.Size(100, 44);
+            this.UiFixedWidthTxt.TabIndex = 13;
+            this.UiFixedWidthTxt.Text = "2160";
+            // 
+            // UiFreeBtn
+            // 
+            this.UiFreeBtn.Location = new System.Drawing.Point(25, 300);
+            this.UiFreeBtn.Name = "UiFreeBtn";
+            this.UiFreeBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiFreeBtn.TabIndex = 12;
+            this.UiFreeBtn.Text = "Free";
+            this.UiFreeBtn.UseVisualStyleBackColor = true;
+            this.UiFreeBtn.Click += new System.EventHandler(this.UiFreeBtn_Click);
+            // 
+            // UiFixedBtn
+            // 
+            this.UiFixedBtn.Location = new System.Drawing.Point(25, 210);
+            this.UiFixedBtn.Name = "UiFixedBtn";
+            this.UiFixedBtn.Size = new System.Drawing.Size(189, 84);
+            this.UiFixedBtn.TabIndex = 11;
+            this.UiFixedBtn.Text = "Fixed";
+            this.UiFixedBtn.UseVisualStyleBackColor = true;
+            this.UiFixedBtn.Click += new System.EventHandler(this.UiFixedBtn_Click);
             // 
             // MainForm
             // 
@@ -3765,14 +3771,14 @@
             this.groupBox4.ResumeLayout(false);
             this.LogPageControlsLayoutPanel.ResumeLayout(false);
             this.LogLevelGroupBox.ResumeLayout(false);
-            this.UiPage.ResumeLayout(false);
-            this.UiPage.PerformLayout();
             this.BottomButtonLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.DiamVersionLayoutPanel.ResumeLayout(false);
             this.DiamVersionLayoutPanel.PerformLayout();
             this.TopButtonLayoutPanel.ResumeLayout(false);
+            this.viewPage.ResumeLayout(false);
+            this.viewPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3926,9 +3932,6 @@
         private System.Windows.Forms.Button SetForceModeGainScalingBtn;
         private System.Windows.Forms.Button GocatorConnectBtn;
         private System.Windows.Forms.Label GocatorReadyLbl;
-        private System.Windows.Forms.TabPage UiPage;
-        private System.Windows.Forms.Button UiFreeBtn;
-        private System.Windows.Forms.Button UiFixedBtn;
         private System.Windows.Forms.TabPage LogPage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -3961,19 +3964,11 @@
         private System.Windows.Forms.TableLayoutPanel StatusLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel CommandCounterLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel DiamVersionLayoutPanel;
-        private System.Windows.Forms.TextBox UiFixedHeightTxt;
-        private System.Windows.Forms.TextBox UiFixedWidthTxt;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Button UiDefaultBtn;
         private System.Windows.Forms.TabPage pythonEnginePage;
         private System.Windows.Forms.Button JavaRunBtn;
         private System.Windows.Forms.TextBox JavaScriptTxt;
         private System.Windows.Forms.TextBox pythonScriptTxt;
         private System.Windows.Forms.Button PythonRunBtn;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox UiTextScaleTxt;
-        private System.Windows.Forms.Button UiTextScaleBtn;
         private System.Windows.Forms.TabControl SetupTab;
         private System.Windows.Forms.TabPage toolsPage;
         private System.Windows.Forms.TableLayoutPanel SetupToolsLayoutPanel;
@@ -3989,7 +3984,6 @@
         private System.Windows.Forms.TableLayoutPanel RunCenterColumnLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel GrindNofNLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel LastReportedZLayoutPanel;
-        private System.Windows.Forms.Button UiFullscreenBtn;
         private System.Windows.Forms.TableLayoutPanel LogPageControlsLayoutPanel;
         private System.Windows.Forms.Button SaveDevicesBtn;
         private System.Windows.Forms.Button ReloadDevicesBtn;
@@ -4016,6 +4010,18 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label StartupDevicesLbl;
         private System.Windows.Forms.CheckBox AutoConnectOnLoadChk;
+        private System.Windows.Forms.TabPage viewPage;
+        private System.Windows.Forms.Button UiFullscreenBtn;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox UiTextScaleTxt;
+        private System.Windows.Forms.Button UiTextScaleBtn;
+        private System.Windows.Forms.Button UiDefaultBtn;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox UiFixedHeightTxt;
+        private System.Windows.Forms.TextBox UiFixedWidthTxt;
+        private System.Windows.Forms.Button UiFreeBtn;
+        private System.Windows.Forms.Button UiFixedBtn;
     }
 }
 
