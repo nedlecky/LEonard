@@ -703,7 +703,7 @@ namespace LEonard
         {
             string tabName = MainTab.TabPages[MainTab.SelectedIndex].Text;
 
-            if (tabName == "Log")
+            if (tabName == "Logs")
             {
                 // This forces the log RTBs to all update... otherwise there are artifacts left over from NLog the first time in on program start
                 for (int i = 0; i < 2; i++)
@@ -5424,7 +5424,6 @@ namespace LEonard
 
         private void FullManualBtn_Click(object sender, EventArgs e)
         {
-            string ExecutionRoot = AppDomain.CurrentDomain.BaseDirectory;
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -5685,7 +5684,7 @@ namespace LEonard
         }
         private void JavaRunBtn_Click(object sender, EventArgs e)
         {
-            string script = JavaScriptTxt.Text;
+            string script = JavaTxt.Text;
 
             try
             {
@@ -5702,6 +5701,25 @@ namespace LEonard
             string aStr = javaEngine.GetValue("aStr").AsString();
             log.Info($"Java Run: a={a} b={b} c={c} aStr={aStr}");
         }
+        private void JavaNewBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void JavaLoadBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void JavaSaveBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void JavaSaveAsBtn_Click(object sender, EventArgs e)
+        {
+
+        }
         // ===================================================================
         // END JAVA ENGINE
         // ===================================================================
@@ -5717,9 +5735,30 @@ namespace LEonard
         private void PythonRunBtn_Click(object sender, EventArgs e)
         {
             Microsoft.Scripting.Hosting.ScriptSource pythonScript =
-                pythonEngine.CreateScriptSourceFromString(pythonScriptTxt.Text);
+                pythonEngine.CreateScriptSourceFromString(PythonCodeTxt.Text);
             pythonScript.Execute();
         }
+
+        private void PythonNewBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PythonLoadBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PythonSaveBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PythonSaveAsBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         // ===================================================================
         // END PYTHON ENGINE
