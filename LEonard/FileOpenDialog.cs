@@ -29,6 +29,7 @@ namespace LEonard
         public string Filter { get; set; }
         public string InitialDirectory { get; set; }
         public string FileName { get; set; }
+        public string Extension { get; set; } = ".txt";
 
         private string[] fileList;
         private List<string> directoryList;
@@ -102,7 +103,7 @@ namespace LEonard
             {
                 if (FileNameTxt.Text.Length == 0) return;
                 string filename = Path.Combine(DirectoryNameLbl.Text, FileNameTxt.Text);
-                FileName = Path.ChangeExtension(filename, ".txt");
+                FileName = Path.ChangeExtension(filename, Extension);
             }
             else
             {

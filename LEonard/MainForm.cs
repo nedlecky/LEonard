@@ -1476,7 +1476,7 @@ namespace LEonard
         {
             log.Info("ReloadDevicesBtn_Click");
 
-            if(DevicesFilenameLbl.Text != "Untitled" && DevicesFilenameLbl.Text.Length>2)
+            if (DevicesFilenameLbl.Text != "Untitled" && DevicesFilenameLbl.Text.Length > 2)
                 LoadDevicesFile(DevicesFilenameLbl.Text);
         }
         int LoadDevicesFile(string name)
@@ -1563,7 +1563,7 @@ namespace LEonard
                 Filter = "*.ldev",
                 InitialDirectory = initialDirectory,
                 FileName = DevicesFilenameLbl.Text,
-                Extension = "ldev"
+                Extension = ".ldev"
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -5684,7 +5684,7 @@ namespace LEonard
         }
         private void JavaRunBtn_Click(object sender, EventArgs e)
         {
-            string script = JavaTxt.Text;
+            string script = JavaCodeRTB.Text;
 
             try
             {
@@ -5703,23 +5703,123 @@ namespace LEonard
         }
         private void JavaNewBtn_Click(object sender, EventArgs e)
         {
+            log.Info("JavaNewBtn_Click(...)");
+
+            if (JavaCodeRTB.Modified)
+            {
+                var result = ConfirmMessageBox($"Java code [{JavaFilenameLbl.Text}] has changed.\nSave changes?");
+                if (result == DialogResult.OK)
+                    JavaSaveBtn_Click(null, null);
+            }
+
+            JavaCodeRTB.Text = "";
+            JavaRunBtn.Enabled = false;
+            JavaNewBtn.Enabled = false;
+            JavaSaveBtn.Enabled = false;
+            JavaSaveAsBtn.Enabled = false;
+            JavaFilenameLbl.Text = "Untitled";
 
         }
 
         private void JavaLoadBtn_Click(object sender, EventArgs e)
         {
+            log.Info("JavaLoadBtn_Click(...)");
+            if (JavaCodeRTB.Modified)
+            {
+                var result = ConfirmMessageBox($"Java code [{JavaFilenameLbl.Text}] has changed.\nSave changes?");
+                if (result == DialogResult.OK)
+                    JavaSaveAsBtn_Click(null, null);
+            }
 
+            string initialDirectory;
+            if (JavaFilenameLbl.Text != "Untitled" && JavaFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(JavaFilenameLbl.Text);
+            else
+                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+
+            FileOpenDialog dialog = new FileOpenDialog(this)
+            {
+                Title = "Open a LEonard Java Program",
+                Filter = "*.js",
+                InitialDirectory = initialDirectory,
+                Extension = ".js"
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                JavaFilenameLbl.Text = dialog.FileName;
+                JavaCodeRTB.LoadFile(JavaFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+
+                JavaCodeRTB.Modified = false;
+                JavaSaveAsBtn.Enabled = true;
+                JavaSaveBtn.Enabled = false;
+                JavaNewBtn.Enabled = true;
+            }
         }
 
         private void JavaSaveBtn_Click(object sender, EventArgs e)
         {
-
+            log.Info("JavaSaveBtn_Click(...)");
+            if (JavaFilenameLbl.Text == "Untitled" || JavaFilenameLbl.Text == "")
+                JavaSaveAsBtn_Click(null, null);
+            else
+            {
+                log.Info("Save Java program to {0}", JavaFilenameLbl.Text);
+                JavaCodeRTB.SaveFile(JavaFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                JavaCodeRTB.Modified = false;
+                JavaSaveBtn.Enabled = false;
+            }
         }
 
         private void JavaSaveAsBtn_Click(object sender, EventArgs e)
         {
+            log.Info("JavaSaveAsBtn_Click(...)");
 
+            string initialDirectory;
+            if (JavaFilenameLbl.Text != "Untitled" && JavaFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(JavaFilenameLbl.Text);
+            else
+                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+
+            FileSaveAsDialog dialog = new FileSaveAsDialog(this)
+            {
+                Title = "Save a LEonard Java Program As...",
+                Filter = "*.js",
+                InitialDirectory = initialDirectory,
+                FileName = JavaFilenameLbl.Text,
+                Extension = ".js"
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (dialog.FileName != "")
+                {
+                    string filename = dialog.FileName;
+                    if (!filename.EndsWith(".js")) filename += ".js";
+                    bool okToSave = true;
+                    if (File.Exists(filename))
+                    {
+                        if (DialogResult.OK != ConfirmMessageBox(string.Format("File {0} already exists. Overwrite?", filename)))
+                            okToSave = false;
+                    }
+                    if (okToSave)
+                    {
+                        JavaFilenameLbl.Text = filename;
+                        JavaCodeRTB.SaveFile(JavaFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+
+                        JavaCodeRTB.Modified = false;
+                        JavaSaveAsBtn.Enabled = false;
+                        JavaSaveBtn.Enabled = false;
+                    }
+                }
+            }
         }
+        private void JavaCodeRTB_TextChanged(object sender, EventArgs e)
+        {
+            JavaSaveBtn.Enabled = true;
+            JavaSaveAsBtn.Enabled = true;
+            JavaRunBtn.Enabled = true;
+        }
+
         // ===================================================================
         // END JAVA ENGINE
         // ===================================================================
@@ -5735,30 +5835,128 @@ namespace LEonard
         private void PythonRunBtn_Click(object sender, EventArgs e)
         {
             Microsoft.Scripting.Hosting.ScriptSource pythonScript =
-                pythonEngine.CreateScriptSourceFromString(PythonCodeTxt.Text);
+                pythonEngine.CreateScriptSourceFromString(PythonCodeRTB.Text);
             pythonScript.Execute();
         }
 
         private void PythonNewBtn_Click(object sender, EventArgs e)
         {
+            log.Info("PythonNewBtn_Click(...)");
 
+            if (PythonCodeRTB.Modified)
+            {
+                var result = ConfirmMessageBox($"Python code [{PythonFilenameLbl.Text}] has changed.\nSave changes?");
+                if (result == DialogResult.OK)
+                    PythonSaveBtn_Click(null, null);
+            }
+
+            PythonCodeRTB.Text = "";
+            PythonRunBtn.Enabled = false;
+            PythonNewBtn.Enabled = false;
+            PythonSaveBtn.Enabled = false;
+            PythonSaveAsBtn.Enabled = false;
+            PythonFilenameLbl.Text = "Untitled";
         }
 
         private void PythonLoadBtn_Click(object sender, EventArgs e)
         {
+            log.Info("PythonLoadBtn_Click(...)");
+            if (PythonCodeRTB.Modified)
+            {
+                var result = ConfirmMessageBox($"Python code [{PythonFilenameLbl.Text}] has changed.\nSave changes?");
+                if (result == DialogResult.OK)
+                    PythonSaveAsBtn_Click(null, null);
+            }
 
+            string initialDirectory;
+            if (PythonFilenameLbl.Text != "Untitled" && PythonFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(PythonFilenameLbl.Text);
+            else
+                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+
+            FileOpenDialog dialog = new FileOpenDialog(this)
+            {
+                Title = "Open a LEonard Python Program",
+                Filter = "*.py",
+                InitialDirectory = initialDirectory,
+                Extension = ".py"
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                PythonFilenameLbl.Text = dialog.FileName;
+                PythonCodeRTB.LoadFile(PythonFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+
+                PythonCodeRTB.Modified = false;
+                PythonSaveAsBtn.Enabled = true;
+                PythonSaveBtn.Enabled = false;
+                PythonNewBtn.Enabled = true;
+            }
         }
 
         private void PythonSaveBtn_Click(object sender, EventArgs e)
         {
-
+            log.Info("PythonSaveBtn_Click(...)");
+            if (PythonFilenameLbl.Text == "Untitled" || PythonFilenameLbl.Text == "")
+                PythonSaveAsBtn_Click(null, null);
+            else
+            {
+                log.Info("Save Python program to {0}", PythonFilenameLbl.Text);
+                PythonCodeRTB.SaveFile(PythonFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                PythonCodeRTB.Modified = false;
+                PythonSaveBtn.Enabled = false;
+            }
         }
 
         private void PythonSaveAsBtn_Click(object sender, EventArgs e)
         {
+            log.Info("PythonSaveAsBtn_Click(...)");
 
+            string initialDirectory;
+            if (PythonFilenameLbl.Text != "Untitled" && PythonFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(PythonFilenameLbl.Text);
+            else
+                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+
+            FileSaveAsDialog dialog = new FileSaveAsDialog(this)
+            {
+                Title = "Save a LEonard Python Program As...",
+                Filter = "*.py",
+                InitialDirectory = initialDirectory,
+                FileName = PythonFilenameLbl.Text,
+                Extension = ".py"
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (dialog.FileName != "")
+                {
+                    string filename = dialog.FileName;
+                    if (!filename.EndsWith(".py")) filename += ".py";
+                    bool okToSave = true;
+                    if (File.Exists(filename))
+                    {
+                        if (DialogResult.OK != ConfirmMessageBox(string.Format("File {0} already exists. Overwrite?", filename)))
+                            okToSave = false;
+                    }
+                    if (okToSave)
+                    {
+                        PythonFilenameLbl.Text = filename;
+                        PythonCodeRTB.SaveFile(PythonFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+
+                        PythonCodeRTB.Modified = false;
+                        PythonSaveAsBtn.Enabled = false;
+                        PythonSaveBtn.Enabled = false;
+                    }
+                }
+            }
         }
 
+        private void PythonCodeRTB_TextChanged(object sender, EventArgs e)
+        {
+            PythonSaveBtn.Enabled = true;
+            PythonSaveAsBtn.Enabled = true;
+            PythonRunBtn.Enabled = true;
+        }
 
         // ===================================================================
         // END PYTHON ENGINE
