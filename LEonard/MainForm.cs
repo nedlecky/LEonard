@@ -52,9 +52,26 @@ namespace LEonard
         static DataTable positions;
         static string[] diameterDefaults = { "0.00", "77.2", "81.9" };
 
-        // App screen design sizes (Zebra L10 Tablet)
-        public const int tabletScreenDesignWidth = 2160;
-        public const int tabletScreenDesignHeight = 1440;
+        // App screen design sizes (Zebra L10 Tablet as installed at Tosoh Quartz)
+        public const int tabletScreenDesignWidth = 2160;  // 2160 / 1920 = 112.5%
+        public const int tabletScreenDesignHeight = 1440; // 1440 / 1080 = 133.3%
+        // Aspect Ratio: 2160 / 1440 = 1.5 (15:10)
+
+        // App screen design sizes (Zebra L10 Tablet according to spec)
+        public const int tablet2ScreenDesignWidth = 1920;  // 1920 / 1920 = 100%
+        public const int tablet2ScreenDesignHeight = 1200; // 1200 / 1080 = 111.1%
+        // Aspect Ratio: 1920 / 1200 = 1.6 (16:10)
+
+        // App screen design sizes (LeckyOne Laptop)
+        public const int laptopScreenDesignWidth = 1920;   // 100%
+        public const int laptopScreenDesignHeight = 1080;  // 100%
+        // Aspect Ratio: 1920 / 1080 = 1.78 (16:9)
+
+        // App screen design sizes (Big Viewsonic Monitors)
+        public const int largeScreenDesignWidth = 2560;   // 2560 / 1920 = 133.3%
+        public const int largeScreenDesignHeight = 1440;  // 1440 / 1080 = 133.3%
+        // Aspect Ratio: 2560 / 1440 = 1.78 (16:9)
+
         private enum UserInterfaceMode
         {
             TABLET,
