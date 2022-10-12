@@ -35,7 +35,6 @@ namespace LEonard
         Engine javaEngine;
         Microsoft.Scripting.Hosting.ScriptEngine pythonEngine;
 
-
         // TODO should be replaced with generic devices interface
         LeTcpServer robotCommandServer = null;
         LeTcpClient robotDashboardClient = null;
@@ -52,7 +51,7 @@ namespace LEonard
         static DataTable positions;
         static string[] diameterDefaults = { "0.00", "77.2", "81.9" };
 
-        // App screen design sizes (Zebra L10 Tablet as installed at Tosoh Quartz)
+        // App screen design sizes (Zebra ET80A Tablet as installed at Tosoh Quartz, what the unit shows as recommended resolution)
         public const int tabletScreenDesignWidth = 2160;  // 2160 / 1920 = 112.5%
         public const int tabletScreenDesignHeight = 1440; // 1440 / 1080 = 133.3%
         // Aspect Ratio: 2160 / 1440 = 1.5 (15:10)

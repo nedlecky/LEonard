@@ -45,7 +45,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1278, 432);
+            this.label1.Size = new System.Drawing.Size(1278, 393);
             this.label1.TabIndex = 1;
             this.label1.Text = "label1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -57,10 +57,10 @@
             this.CancelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.ForeColor = System.Drawing.Color.White;
-            this.CancelBtn.Location = new System.Drawing.Point(704, 563);
+            this.CancelBtn.Location = new System.Drawing.Point(704, 512);
             this.CancelBtn.Margin = new System.Windows.Forms.Padding(2);
             this.CancelBtn.Name = "CancelBtn";
-            this.CancelBtn.Size = new System.Drawing.Size(329, 196);
+            this.CancelBtn.Size = new System.Drawing.Size(329, 176);
             this.CancelBtn.TabIndex = 5;
             this.CancelBtn.Text = "&Cancel";
             this.CancelBtn.UseVisualStyleBackColor = false;
@@ -73,10 +73,10 @@
             this.OkBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OkBtn.ForeColor = System.Drawing.Color.White;
-            this.OkBtn.Location = new System.Drawing.Point(248, 563);
+            this.OkBtn.Location = new System.Drawing.Point(248, 512);
             this.OkBtn.Margin = new System.Windows.Forms.Padding(2);
             this.OkBtn.Name = "OkBtn";
-            this.OkBtn.Size = new System.Drawing.Size(329, 196);
+            this.OkBtn.Size = new System.Drawing.Size(329, 176);
             this.OkBtn.TabIndex = 6;
             this.OkBtn.Text = "&OK";
             this.OkBtn.UseVisualStyleBackColor = false;
@@ -87,7 +87,7 @@
             this.tableLayoutPanel.SetColumnSpan(this.TypeInTxt, 3);
             this.TypeInTxt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TypeInTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TypeInTxt.Location = new System.Drawing.Point(582, 435);
+            this.TypeInTxt.Location = new System.Drawing.Point(582, 396);
             this.TypeInTxt.Name = "TypeInTxt";
             this.TypeInTxt.Size = new System.Drawing.Size(699, 44);
             this.TypeInTxt.TabIndex = 7;
@@ -95,11 +95,12 @@
             // 
             // TypeInLbl
             // 
+            this.tableLayoutPanel.SetColumnSpan(this.TypeInLbl, 2);
             this.TypeInLbl.Dock = System.Windows.Forms.DockStyle.Top;
             this.TypeInLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TypeInLbl.Location = new System.Drawing.Point(249, 432);
+            this.TypeInLbl.Location = new System.Drawing.Point(3, 393);
             this.TypeInLbl.Name = "TypeInLbl";
-            this.TypeInLbl.Size = new System.Drawing.Size(327, 44);
+            this.TypeInLbl.Size = new System.Drawing.Size(573, 44);
             this.TypeInLbl.TabIndex = 8;
             this.TypeInLbl.Text = "TypeInLbl";
             this.TypeInLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -114,16 +115,17 @@
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.23077F));
             this.tableLayoutPanel.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.TypeInTxt, 2, 1);
-            this.tableLayoutPanel.Controls.Add(this.TypeInLbl, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.CancelBtn, 3, 2);
             this.tableLayoutPanel.Controls.Add(this.OkBtn, 1, 2);
+            this.tableLayoutPanel.Controls.Add(this.TypeInLbl, 0, 1);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 3;
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 56.81818F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.04546F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.13636F));
+            this.tableLayoutPanel.RowCount = 4;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.65289F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.49587F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.76033F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(1284, 761);
             this.tableLayoutPanel.TabIndex = 9;
             // 
