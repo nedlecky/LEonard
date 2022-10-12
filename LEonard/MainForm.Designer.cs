@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
             this.RecipeRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
@@ -74,12 +74,31 @@
             this.SaveVariablesBtn = new System.Windows.Forms.Button();
             this.LoadVariablesBtn = new System.Windows.Forms.Button();
             this.javaEnginePage = new System.Windows.Forms.TabPage();
+            this.JavaScreenLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.JavaFilenameLbl = new System.Windows.Forms.Label();
             this.JavaRunBtn = new System.Windows.Forms.Button();
+            this.JavaNewBtn = new System.Windows.Forms.Button();
+            this.JavaLoadBtn = new System.Windows.Forms.Button();
+            this.JavaSaveBtn = new System.Windows.Forms.Button();
+            this.JavaSaveAsBtn = new System.Windows.Forms.Button();
+            this.JavaConsoleRTB = new System.Windows.Forms.RichTextBox();
+            this.JavaVariablesRTB = new System.Windows.Forms.RichTextBox();
+            this.JavaCodeRTB = new System.Windows.Forms.RichTextBox();
             this.pythonEnginePage = new System.Windows.Forms.TabPage();
+            this.PythonScreenLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.PythonFilenameLbl = new System.Windows.Forms.Label();
             this.PythonRunBtn = new System.Windows.Forms.Button();
+            this.PythonNewBtn = new System.Windows.Forms.Button();
+            this.PythonLoadBtn = new System.Windows.Forms.Button();
+            this.PythonSaveBtn = new System.Windows.Forms.Button();
+            this.PythonSaveAsBtn = new System.Windows.Forms.Button();
+            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
+            this.PythonCodeRTB = new System.Windows.Forms.RichTextBox();
             this.manualPage = new System.Windows.Forms.TabPage();
             this.ManualLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.RecipeCommandsRTB = new System.Windows.Forms.RichTextBox();
+            this.FullManualBtn = new System.Windows.Forms.Button();
             this.revhistPage = new System.Windows.Forms.TabPage();
             this.RevHistRTB = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -199,6 +218,18 @@
             this.LoadToolsBtn = new System.Windows.Forms.Button();
             this.SaveToolsBtn = new System.Windows.Forms.Button();
             this.ClearToolsBtn = new System.Windows.Forms.Button();
+            this.viewPage = new System.Windows.Forms.TabPage();
+            this.UiFullscreenBtn = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.UiTextScaleTxt = new System.Windows.Forms.TextBox();
+            this.UiTextScaleBtn = new System.Windows.Forms.Button();
+            this.UiDefaultBtn = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.UiFixedHeightTxt = new System.Windows.Forms.TextBox();
+            this.UiFixedWidthTxt = new System.Windows.Forms.TextBox();
+            this.UiFreeBtn = new System.Windows.Forms.Button();
+            this.UiFixedBtn = new System.Windows.Forms.Button();
             this.grindPage = new System.Windows.Forms.TabPage();
             this.SetupGrindLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SetMoveDefaultsBtn = new System.Windows.Forms.Button();
@@ -256,37 +287,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.viewPage = new System.Windows.Forms.TabPage();
-            this.UiFullscreenBtn = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
-            this.UiTextScaleTxt = new System.Windows.Forms.TextBox();
-            this.UiTextScaleBtn = new System.Windows.Forms.Button();
-            this.UiDefaultBtn = new System.Windows.Forms.Button();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.UiFixedHeightTxt = new System.Windows.Forms.TextBox();
-            this.UiFixedWidthTxt = new System.Windows.Forms.TextBox();
-            this.UiFreeBtn = new System.Windows.Forms.Button();
-            this.UiFixedBtn = new System.Windows.Forms.Button();
-            this.JavaScreenLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.JavaFilenameLbl = new System.Windows.Forms.Label();
-            this.JavaNewBtn = new System.Windows.Forms.Button();
-            this.JavaLoadBtn = new System.Windows.Forms.Button();
-            this.JavaSaveBtn = new System.Windows.Forms.Button();
-            this.JavaSaveAsBtn = new System.Windows.Forms.Button();
-            this.PythonScreenLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.PythonFilenameLbl = new System.Windows.Forms.Label();
-            this.PythonNewBtn = new System.Windows.Forms.Button();
-            this.PythonLoadBtn = new System.Windows.Forms.Button();
-            this.PythonSaveBtn = new System.Windows.Forms.Button();
-            this.PythonSaveAsBtn = new System.Windows.Forms.Button();
-            this.JavaConsoleRTB = new System.Windows.Forms.RichTextBox();
-            this.JavaVariablesRTB = new System.Windows.Forms.RichTextBox();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
-            this.FullManualBtn = new System.Windows.Forms.Button();
-            this.JavaCodeRTB = new System.Windows.Forms.RichTextBox();
-            this.PythonCodeRTB = new System.Windows.Forms.RichTextBox();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -295,7 +295,9 @@
             this.VariablesLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).BeginInit();
             this.javaEnginePage.SuspendLayout();
+            this.JavaScreenLayoutPanel.SuspendLayout();
             this.pythonEnginePage.SuspendLayout();
+            this.PythonScreenLayoutPanel.SuspendLayout();
             this.manualPage.SuspendLayout();
             this.ManualLayoutPanel.SuspendLayout();
             this.revhistPage.SuspendLayout();
@@ -325,6 +327,7 @@
             this.FootswitchIoLayoutPanel.SuspendLayout();
             this.DoorIoLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ToolsGrd)).BeginInit();
+            this.viewPage.SuspendLayout();
             this.grindPage.SuspendLayout();
             this.SetupGrindLayoutPanel.SuspendLayout();
             this.LogsPage.SuspendLayout();
@@ -341,9 +344,6 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.DiamVersionLayoutPanel.SuspendLayout();
             this.TopButtonLayoutPanel.SuspendLayout();
-            this.viewPage.SuspendLayout();
-            this.JavaScreenLayoutPanel.SuspendLayout();
-            this.PythonScreenLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // CurrentLineLbl
@@ -351,9 +351,9 @@
             this.CurrentLineLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.CurrentLineLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CurrentLineLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentLineLbl.Location = new System.Drawing.Point(3, 1028);
+            this.CurrentLineLbl.Location = new System.Drawing.Point(3, 668);
             this.CurrentLineLbl.Name = "CurrentLineLbl";
-            this.CurrentLineLbl.Size = new System.Drawing.Size(814, 40);
+            this.CurrentLineLbl.Size = new System.Drawing.Size(721, 40);
             this.CurrentLineLbl.TabIndex = 79;
             this.CurrentLineLbl.TextChanged += new System.EventHandler(this.CurrentLineLbl_TextChanged);
             // 
@@ -365,7 +365,7 @@
             this.RecipeRTB.Margin = new System.Windows.Forms.Padding(2);
             this.RecipeRTB.Name = "RecipeRTB";
             this.RecipeRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RecipeRTB.Size = new System.Drawing.Size(816, 1024);
+            this.RecipeRTB.Size = new System.Drawing.Size(723, 664);
             this.RecipeRTB.TabIndex = 72;
             this.RecipeRTB.Text = "";
             this.RecipeRTB.VScroll += new System.EventHandler(this.RecipeRTB_VScroll);
@@ -378,10 +378,10 @@
             this.StepBtn.Enabled = false;
             this.StepBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StepBtn.ForeColor = System.Drawing.Color.White;
-            this.StepBtn.Location = new System.Drawing.Point(215, 2);
+            this.StepBtn.Location = new System.Drawing.Point(191, 2);
             this.StepBtn.Margin = new System.Windows.Forms.Padding(2);
             this.StepBtn.Name = "StepBtn";
-            this.StepBtn.Size = new System.Drawing.Size(209, 135);
+            this.StepBtn.Size = new System.Drawing.Size(185, 135);
             this.StepBtn.TabIndex = 1;
             this.StepBtn.Text = "Step";
             this.StepBtn.UseVisualStyleBackColor = false;
@@ -394,10 +394,10 @@
             this.StopBtn.Enabled = false;
             this.StopBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StopBtn.ForeColor = System.Drawing.Color.White;
-            this.StopBtn.Location = new System.Drawing.Point(641, 2);
+            this.StopBtn.Location = new System.Drawing.Point(569, 2);
             this.StopBtn.Margin = new System.Windows.Forms.Padding(2);
             this.StopBtn.Name = "StopBtn";
-            this.StopBtn.Size = new System.Drawing.Size(209, 135);
+            this.StopBtn.Size = new System.Drawing.Size(185, 135);
             this.StopBtn.TabIndex = 3;
             this.StopBtn.Text = "Stop";
             this.StopBtn.UseVisualStyleBackColor = false;
@@ -410,10 +410,10 @@
             this.PauseBtn.Enabled = false;
             this.PauseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PauseBtn.ForeColor = System.Drawing.Color.White;
-            this.PauseBtn.Location = new System.Drawing.Point(428, 2);
+            this.PauseBtn.Location = new System.Drawing.Point(380, 2);
             this.PauseBtn.Margin = new System.Windows.Forms.Padding(2);
             this.PauseBtn.Name = "PauseBtn";
-            this.PauseBtn.Size = new System.Drawing.Size(209, 135);
+            this.PauseBtn.Size = new System.Drawing.Size(185, 135);
             this.PauseBtn.TabIndex = 2;
             this.PauseBtn.Text = "Pause";
             this.PauseBtn.UseVisualStyleBackColor = false;
@@ -429,7 +429,7 @@
             this.StartBtn.Location = new System.Drawing.Point(2, 2);
             this.StartBtn.Margin = new System.Windows.Forms.Padding(2);
             this.StartBtn.Name = "StartBtn";
-            this.StartBtn.Size = new System.Drawing.Size(209, 135);
+            this.StartBtn.Size = new System.Drawing.Size(185, 135);
             this.StartBtn.TabIndex = 0;
             this.StartBtn.Text = "Start";
             this.StartBtn.UseVisualStyleBackColor = false;
@@ -443,7 +443,7 @@
             this.RecipeFilenameLbl.Location = new System.Drawing.Point(2, 0);
             this.RecipeFilenameLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RecipeFilenameLbl.Name = "RecipeFilenameLbl";
-            this.RecipeFilenameLbl.Size = new System.Drawing.Size(610, 84);
+            this.RecipeFilenameLbl.Size = new System.Drawing.Size(517, 84);
             this.RecipeFilenameLbl.TabIndex = 77;
             this.RecipeFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.RecipeFilenameLbl.TextChanged += new System.EventHandler(this.RecipeFilenameLbl_TextChanged);
@@ -455,10 +455,10 @@
             this.SaveAsRecipeBtn.Enabled = false;
             this.SaveAsRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveAsRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveAsRecipeBtn.Location = new System.Drawing.Point(862, 2);
+            this.SaveAsRecipeBtn.Location = new System.Drawing.Point(745, 2);
             this.SaveAsRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SaveAsRecipeBtn.Name = "SaveAsRecipeBtn";
-            this.SaveAsRecipeBtn.Size = new System.Drawing.Size(175, 94);
+            this.SaveAsRecipeBtn.Size = new System.Drawing.Size(150, 94);
             this.SaveAsRecipeBtn.TabIndex = 4;
             this.SaveAsRecipeBtn.Text = "Save As...";
             this.SaveAsRecipeBtn.UseVisualStyleBackColor = false;
@@ -470,10 +470,10 @@
             this.NewRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NewRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NewRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.NewRecipeBtn.Location = new System.Drawing.Point(504, 2);
+            this.NewRecipeBtn.Location = new System.Drawing.Point(437, 2);
             this.NewRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.NewRecipeBtn.Name = "NewRecipeBtn";
-            this.NewRecipeBtn.Size = new System.Drawing.Size(175, 94);
+            this.NewRecipeBtn.Size = new System.Drawing.Size(150, 94);
             this.NewRecipeBtn.TabIndex = 2;
             this.NewRecipeBtn.Text = "New";
             this.NewRecipeBtn.UseVisualStyleBackColor = false;
@@ -488,7 +488,7 @@
             this.LoadRecipeBtn.Location = new System.Drawing.Point(22, 2);
             this.LoadRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.LoadRecipeBtn.Name = "LoadRecipeBtn";
-            this.LoadRecipeBtn.Size = new System.Drawing.Size(478, 94);
+            this.LoadRecipeBtn.Size = new System.Drawing.Size(411, 94);
             this.LoadRecipeBtn.TabIndex = 1;
             this.LoadRecipeBtn.Text = "Untitled";
             this.LoadRecipeBtn.UseVisualStyleBackColor = false;
@@ -501,10 +501,10 @@
             this.SaveRecipeBtn.Enabled = false;
             this.SaveRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveRecipeBtn.Location = new System.Drawing.Point(683, 2);
+            this.SaveRecipeBtn.Location = new System.Drawing.Point(591, 2);
             this.SaveRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SaveRecipeBtn.Name = "SaveRecipeBtn";
-            this.SaveRecipeBtn.Size = new System.Drawing.Size(175, 94);
+            this.SaveRecipeBtn.Size = new System.Drawing.Size(150, 94);
             this.SaveRecipeBtn.TabIndex = 3;
             this.SaveRecipeBtn.Text = "Save";
             this.SaveRecipeBtn.UseVisualStyleBackColor = false;
@@ -519,10 +519,10 @@
             this.TimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TimeLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeLbl.Location = new System.Drawing.Point(423, 0);
+            this.TimeLbl.Location = new System.Drawing.Point(375, 0);
             this.TimeLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.TimeLbl.Name = "TimeLbl";
-            this.TimeLbl.Size = new System.Drawing.Size(417, 77);
+            this.TimeLbl.Size = new System.Drawing.Size(369, 53);
             this.TimeLbl.TabIndex = 5;
             this.TimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -549,9 +549,9 @@
             this.RobotCommandStatusLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotCommandStatusLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RobotCommandStatusLbl.ForeColor = System.Drawing.Color.White;
-            this.RobotCommandStatusLbl.Location = new System.Drawing.Point(325, 70);
+            this.RobotCommandStatusLbl.Location = new System.Drawing.Point(288, 70);
             this.RobotCommandStatusLbl.Name = "RobotCommandStatusLbl";
-            this.RobotCommandStatusLbl.Size = new System.Drawing.Size(198, 135);
+            this.RobotCommandStatusLbl.Size = new System.Drawing.Size(175, 90);
             this.RobotCommandStatusLbl.TabIndex = 78;
             this.RobotCommandStatusLbl.Text = "Command Status";
             this.RobotCommandStatusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -563,9 +563,9 @@
             this.GrindReadyLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrindReadyLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrindReadyLbl.ForeColor = System.Drawing.Color.White;
-            this.GrindReadyLbl.Location = new System.Drawing.Point(325, 340);
+            this.GrindReadyLbl.Location = new System.Drawing.Point(288, 250);
             this.GrindReadyLbl.Name = "GrindReadyLbl";
-            this.GrindReadyLbl.Size = new System.Drawing.Size(198, 135);
+            this.GrindReadyLbl.Size = new System.Drawing.Size(175, 90);
             this.GrindReadyLbl.TabIndex = 88;
             this.GrindReadyLbl.Text = "Grind Ready";
             this.GrindReadyLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -577,9 +577,9 @@
             this.RobotReadyLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotReadyLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RobotReadyLbl.ForeColor = System.Drawing.Color.White;
-            this.RobotReadyLbl.Location = new System.Drawing.Point(325, 205);
+            this.RobotReadyLbl.Location = new System.Drawing.Point(288, 160);
             this.RobotReadyLbl.Name = "RobotReadyLbl";
-            this.RobotReadyLbl.Size = new System.Drawing.Size(198, 135);
+            this.RobotReadyLbl.Size = new System.Drawing.Size(175, 90);
             this.RobotReadyLbl.TabIndex = 89;
             this.RobotReadyLbl.Text = "Robot Ready";
             this.RobotReadyLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -590,9 +590,9 @@
             this.GrindContactEnabledBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrindContactEnabledBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrindContactEnabledBtn.ForeColor = System.Drawing.Color.White;
-            this.GrindContactEnabledBtn.Location = new System.Drawing.Point(855, 3);
+            this.GrindContactEnabledBtn.Location = new System.Drawing.Point(759, 3);
             this.GrindContactEnabledBtn.Name = "GrindContactEnabledBtn";
-            this.GrindContactEnabledBtn.Size = new System.Drawing.Size(207, 133);
+            this.GrindContactEnabledBtn.Size = new System.Drawing.Size(183, 133);
             this.GrindContactEnabledBtn.TabIndex = 4;
             this.GrindContactEnabledBtn.Text = "Grind Contact Enabled";
             this.GrindContactEnabledBtn.UseVisualStyleBackColor = false;
@@ -610,11 +610,11 @@
             this.MonitorTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MonitorTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MonitorTab.ItemSize = new System.Drawing.Size(150, 96);
-            this.MonitorTab.Location = new System.Drawing.Point(823, 3);
+            this.MonitorTab.Location = new System.Drawing.Point(730, 3);
             this.MonitorTab.Name = "MonitorTab";
             this.ProgramTableLayoutPanel.SetRowSpan(this.MonitorTab, 3);
             this.MonitorTab.SelectedIndex = 0;
-            this.MonitorTab.Size = new System.Drawing.Size(1296, 1152);
+            this.MonitorTab.Size = new System.Drawing.Size(1149, 792);
             this.MonitorTab.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.MonitorTab.TabIndex = 94;
             // 
@@ -623,7 +623,7 @@
             this.positionsPage.Controls.Add(this.PositionLayoutPanel);
             this.positionsPage.Location = new System.Drawing.Point(4, 100);
             this.positionsPage.Name = "positionsPage";
-            this.positionsPage.Size = new System.Drawing.Size(1288, 1048);
+            this.positionsPage.Size = new System.Drawing.Size(1141, 688);
             this.positionsPage.TabIndex = 2;
             this.positionsPage.Text = "Positions";
             this.positionsPage.UseVisualStyleBackColor = true;
@@ -651,7 +651,7 @@
             this.PositionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.PositionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.PositionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.PositionLayoutPanel.Size = new System.Drawing.Size(1288, 1048);
+            this.PositionLayoutPanel.Size = new System.Drawing.Size(1141, 688);
             this.PositionLayoutPanel.TabIndex = 101;
             // 
             // PositionMovePoseBtn
@@ -663,7 +663,7 @@
             this.PositionMovePoseBtn.Location = new System.Drawing.Point(2, 2);
             this.PositionMovePoseBtn.Margin = new System.Windows.Forms.Padding(2);
             this.PositionMovePoseBtn.Name = "PositionMovePoseBtn";
-            this.PositionMovePoseBtn.Size = new System.Drawing.Size(318, 146);
+            this.PositionMovePoseBtn.Size = new System.Drawing.Size(281, 146);
             this.PositionMovePoseBtn.TabIndex = 97;
             this.PositionMovePoseBtn.Text = "Linear Move to Pose";
             this.PositionMovePoseBtn.UseVisualStyleBackColor = false;
@@ -673,14 +673,14 @@
             // 
             this.PositionsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.PositionsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.PositionsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PositionLayoutPanel.SetColumnSpan(this.PositionsGrd, 4);
             this.PositionsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -688,7 +688,7 @@
             this.PositionsGrd.Name = "PositionsGrd";
             this.PositionsGrd.RowTemplate.Height = 34;
             this.PositionsGrd.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.Size = new System.Drawing.Size(1282, 812);
+            this.PositionsGrd.Size = new System.Drawing.Size(1135, 452);
             this.PositionsGrd.TabIndex = 85;
             // 
             // ClearAllPositionsBtn
@@ -697,9 +697,9 @@
             this.ClearAllPositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearAllPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearAllPositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearAllPositionsBtn.Location = new System.Drawing.Point(969, 971);
+            this.ClearAllPositionsBtn.Location = new System.Drawing.Point(858, 611);
             this.ClearAllPositionsBtn.Name = "ClearAllPositionsBtn";
-            this.ClearAllPositionsBtn.Size = new System.Drawing.Size(316, 74);
+            this.ClearAllPositionsBtn.Size = new System.Drawing.Size(280, 74);
             this.ClearAllPositionsBtn.TabIndex = 95;
             this.ClearAllPositionsBtn.Text = "Clear All";
             this.ClearAllPositionsBtn.UseVisualStyleBackColor = false;
@@ -711,9 +711,9 @@
             this.ClearPositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearPositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearPositionsBtn.Location = new System.Drawing.Point(647, 971);
+            this.ClearPositionsBtn.Location = new System.Drawing.Point(573, 611);
             this.ClearPositionsBtn.Name = "ClearPositionsBtn";
-            this.ClearPositionsBtn.Size = new System.Drawing.Size(316, 74);
+            this.ClearPositionsBtn.Size = new System.Drawing.Size(279, 74);
             this.ClearPositionsBtn.TabIndex = 92;
             this.ClearPositionsBtn.Text = "Clear";
             this.ClearPositionsBtn.UseVisualStyleBackColor = false;
@@ -725,9 +725,9 @@
             this.SavePositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SavePositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SavePositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.SavePositionsBtn.Location = new System.Drawing.Point(325, 971);
+            this.SavePositionsBtn.Location = new System.Drawing.Point(288, 611);
             this.SavePositionsBtn.Name = "SavePositionsBtn";
-            this.SavePositionsBtn.Size = new System.Drawing.Size(316, 74);
+            this.SavePositionsBtn.Size = new System.Drawing.Size(279, 74);
             this.SavePositionsBtn.TabIndex = 93;
             this.SavePositionsBtn.Text = "Save";
             this.SavePositionsBtn.UseVisualStyleBackColor = false;
@@ -739,9 +739,9 @@
             this.LoadPositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadPositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadPositionsBtn.Location = new System.Drawing.Point(3, 971);
+            this.LoadPositionsBtn.Location = new System.Drawing.Point(3, 611);
             this.LoadPositionsBtn.Name = "LoadPositionsBtn";
-            this.LoadPositionsBtn.Size = new System.Drawing.Size(316, 74);
+            this.LoadPositionsBtn.Size = new System.Drawing.Size(279, 74);
             this.LoadPositionsBtn.TabIndex = 94;
             this.LoadPositionsBtn.Text = "Reload";
             this.LoadPositionsBtn.UseVisualStyleBackColor = false;
@@ -753,10 +753,10 @@
             this.PositionMoveArmBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PositionMoveArmBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PositionMoveArmBtn.ForeColor = System.Drawing.Color.White;
-            this.PositionMoveArmBtn.Location = new System.Drawing.Point(324, 2);
+            this.PositionMoveArmBtn.Location = new System.Drawing.Point(287, 2);
             this.PositionMoveArmBtn.Margin = new System.Windows.Forms.Padding(2);
             this.PositionMoveArmBtn.Name = "PositionMoveArmBtn";
-            this.PositionMoveArmBtn.Size = new System.Drawing.Size(318, 146);
+            this.PositionMoveArmBtn.Size = new System.Drawing.Size(281, 146);
             this.PositionMoveArmBtn.TabIndex = 98;
             this.PositionMoveArmBtn.Text = "Joint Move to Position";
             this.PositionMoveArmBtn.UseVisualStyleBackColor = false;
@@ -768,10 +768,10 @@
             this.JogBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JogBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JogBtn.ForeColor = System.Drawing.Color.White;
-            this.JogBtn.Location = new System.Drawing.Point(968, 2);
+            this.JogBtn.Location = new System.Drawing.Point(857, 2);
             this.JogBtn.Margin = new System.Windows.Forms.Padding(2);
             this.JogBtn.Name = "JogBtn";
-            this.JogBtn.Size = new System.Drawing.Size(318, 146);
+            this.JogBtn.Size = new System.Drawing.Size(282, 146);
             this.JogBtn.TabIndex = 100;
             this.JogBtn.Text = "Jog Only";
             this.JogBtn.UseVisualStyleBackColor = false;
@@ -783,10 +783,10 @@
             this.PositionSetBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PositionSetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PositionSetBtn.ForeColor = System.Drawing.Color.White;
-            this.PositionSetBtn.Location = new System.Drawing.Point(646, 2);
+            this.PositionSetBtn.Location = new System.Drawing.Point(572, 2);
             this.PositionSetBtn.Margin = new System.Windows.Forms.Padding(2);
             this.PositionSetBtn.Name = "PositionSetBtn";
-            this.PositionSetBtn.Size = new System.Drawing.Size(318, 146);
+            this.PositionSetBtn.Size = new System.Drawing.Size(281, 146);
             this.PositionSetBtn.TabIndex = 96;
             this.PositionSetBtn.Text = "Set Position";
             this.PositionSetBtn.UseVisualStyleBackColor = false;
@@ -798,7 +798,7 @@
             this.variablesPage.Location = new System.Drawing.Point(4, 100);
             this.variablesPage.Name = "variablesPage";
             this.variablesPage.Padding = new System.Windows.Forms.Padding(3);
-            this.variablesPage.Size = new System.Drawing.Size(1288, 1048);
+            this.variablesPage.Size = new System.Drawing.Size(1141, 688);
             this.variablesPage.TabIndex = 0;
             this.variablesPage.Text = "Variables";
             this.variablesPage.UseVisualStyleBackColor = true;
@@ -821,21 +821,21 @@
             this.VariablesLayoutPanel.RowCount = 2;
             this.VariablesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.VariablesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.VariablesLayoutPanel.Size = new System.Drawing.Size(1282, 1042);
+            this.VariablesLayoutPanel.Size = new System.Drawing.Size(1135, 682);
             this.VariablesLayoutPanel.TabIndex = 92;
             // 
             // VariablesGrd
             // 
             this.VariablesGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.VariablesGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VariablesLayoutPanel.SetColumnSpan(this.VariablesGrd, 4);
             this.VariablesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -843,7 +843,7 @@
             this.VariablesGrd.Name = "VariablesGrd";
             this.VariablesGrd.RowTemplate.Height = 34;
             this.VariablesGrd.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.VariablesGrd.Size = new System.Drawing.Size(1276, 956);
+            this.VariablesGrd.Size = new System.Drawing.Size(1129, 596);
             this.VariablesGrd.TabIndex = 84;
             // 
             // ClearAllVariablesBtn
@@ -852,9 +852,9 @@
             this.ClearAllVariablesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearAllVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearAllVariablesBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearAllVariablesBtn.Location = new System.Drawing.Point(963, 965);
+            this.ClearAllVariablesBtn.Location = new System.Drawing.Point(852, 605);
             this.ClearAllVariablesBtn.Name = "ClearAllVariablesBtn";
-            this.ClearAllVariablesBtn.Size = new System.Drawing.Size(316, 74);
+            this.ClearAllVariablesBtn.Size = new System.Drawing.Size(280, 74);
             this.ClearAllVariablesBtn.TabIndex = 91;
             this.ClearAllVariablesBtn.Text = "Clear All";
             this.ClearAllVariablesBtn.UseVisualStyleBackColor = false;
@@ -866,9 +866,9 @@
             this.ClearVariablesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearVariablesBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearVariablesBtn.Location = new System.Drawing.Point(643, 965);
+            this.ClearVariablesBtn.Location = new System.Drawing.Point(569, 605);
             this.ClearVariablesBtn.Name = "ClearVariablesBtn";
-            this.ClearVariablesBtn.Size = new System.Drawing.Size(314, 74);
+            this.ClearVariablesBtn.Size = new System.Drawing.Size(277, 74);
             this.ClearVariablesBtn.TabIndex = 88;
             this.ClearVariablesBtn.Text = "Clear";
             this.ClearVariablesBtn.UseVisualStyleBackColor = false;
@@ -880,9 +880,9 @@
             this.SaveVariablesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveVariablesBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveVariablesBtn.Location = new System.Drawing.Point(323, 965);
+            this.SaveVariablesBtn.Location = new System.Drawing.Point(286, 605);
             this.SaveVariablesBtn.Name = "SaveVariablesBtn";
-            this.SaveVariablesBtn.Size = new System.Drawing.Size(314, 74);
+            this.SaveVariablesBtn.Size = new System.Drawing.Size(277, 74);
             this.SaveVariablesBtn.TabIndex = 89;
             this.SaveVariablesBtn.Text = "Save";
             this.SaveVariablesBtn.UseVisualStyleBackColor = false;
@@ -894,9 +894,9 @@
             this.LoadVariablesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadVariablesBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadVariablesBtn.Location = new System.Drawing.Point(3, 965);
+            this.LoadVariablesBtn.Location = new System.Drawing.Point(3, 605);
             this.LoadVariablesBtn.Name = "LoadVariablesBtn";
-            this.LoadVariablesBtn.Size = new System.Drawing.Size(314, 74);
+            this.LoadVariablesBtn.Size = new System.Drawing.Size(277, 74);
             this.LoadVariablesBtn.TabIndex = 90;
             this.LoadVariablesBtn.Text = "Reload";
             this.LoadVariablesBtn.UseVisualStyleBackColor = false;
@@ -907,51 +907,291 @@
             this.javaEnginePage.Controls.Add(this.JavaScreenLayoutPanel);
             this.javaEnginePage.Location = new System.Drawing.Point(4, 100);
             this.javaEnginePage.Name = "javaEnginePage";
-            this.javaEnginePage.Size = new System.Drawing.Size(1288, 1048);
+            this.javaEnginePage.Size = new System.Drawing.Size(1141, 688);
             this.javaEnginePage.TabIndex = 5;
             this.javaEnginePage.Text = "Java";
             this.javaEnginePage.UseVisualStyleBackColor = true;
+            // 
+            // JavaScreenLayoutPanel
+            // 
+            this.JavaScreenLayoutPanel.ColumnCount = 6;
+            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaFilenameLbl, 0, 0);
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaRunBtn, 0, 2);
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaNewBtn, 2, 2);
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaLoadBtn, 3, 2);
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaSaveBtn, 4, 2);
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaSaveAsBtn, 5, 2);
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaConsoleRTB, 0, 3);
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaVariablesRTB, 3, 3);
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaCodeRTB, 0, 1);
+            this.JavaScreenLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaScreenLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.JavaScreenLayoutPanel.Name = "JavaScreenLayoutPanel";
+            this.JavaScreenLayoutPanel.RowCount = 4;
+            this.JavaScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4F));
+            this.JavaScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            this.JavaScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
+            this.JavaScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23F));
+            this.JavaScreenLayoutPanel.Size = new System.Drawing.Size(1141, 688);
+            this.JavaScreenLayoutPanel.TabIndex = 3;
+            // 
+            // JavaFilenameLbl
+            // 
+            this.JavaFilenameLbl.AutoSize = true;
+            this.JavaFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.JavaScreenLayoutPanel.SetColumnSpan(this.JavaFilenameLbl, 6);
+            this.JavaFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaFilenameLbl.Location = new System.Drawing.Point(3, 0);
+            this.JavaFilenameLbl.Name = "JavaFilenameLbl";
+            this.JavaFilenameLbl.Size = new System.Drawing.Size(1135, 27);
+            this.JavaFilenameLbl.TabIndex = 0;
+            this.JavaFilenameLbl.Text = "Untitled";
             // 
             // JavaRunBtn
             // 
             this.JavaRunBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JavaRunBtn.Enabled = false;
-            this.JavaRunBtn.Location = new System.Drawing.Point(3, 725);
+            this.JavaRunBtn.Location = new System.Drawing.Point(3, 477);
             this.JavaRunBtn.Name = "JavaRunBtn";
-            this.JavaRunBtn.Size = new System.Drawing.Size(208, 77);
+            this.JavaRunBtn.Size = new System.Drawing.Size(184, 49);
             this.JavaRunBtn.TabIndex = 1;
             this.JavaRunBtn.Text = "Run";
             this.JavaRunBtn.UseVisualStyleBackColor = true;
             this.JavaRunBtn.Click += new System.EventHandler(this.JavaRunBtn_Click);
+            // 
+            // JavaNewBtn
+            // 
+            this.JavaNewBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaNewBtn.Enabled = false;
+            this.JavaNewBtn.Location = new System.Drawing.Point(383, 477);
+            this.JavaNewBtn.Name = "JavaNewBtn";
+            this.JavaNewBtn.Size = new System.Drawing.Size(184, 49);
+            this.JavaNewBtn.TabIndex = 3;
+            this.JavaNewBtn.Text = "New";
+            this.JavaNewBtn.UseVisualStyleBackColor = true;
+            this.JavaNewBtn.Click += new System.EventHandler(this.JavaNewBtn_Click);
+            // 
+            // JavaLoadBtn
+            // 
+            this.JavaLoadBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaLoadBtn.Location = new System.Drawing.Point(573, 477);
+            this.JavaLoadBtn.Name = "JavaLoadBtn";
+            this.JavaLoadBtn.Size = new System.Drawing.Size(184, 49);
+            this.JavaLoadBtn.TabIndex = 4;
+            this.JavaLoadBtn.Text = "Load...";
+            this.JavaLoadBtn.UseVisualStyleBackColor = true;
+            this.JavaLoadBtn.Click += new System.EventHandler(this.JavaLoadBtn_Click);
+            // 
+            // JavaSaveBtn
+            // 
+            this.JavaSaveBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaSaveBtn.Enabled = false;
+            this.JavaSaveBtn.Location = new System.Drawing.Point(763, 477);
+            this.JavaSaveBtn.Name = "JavaSaveBtn";
+            this.JavaSaveBtn.Size = new System.Drawing.Size(184, 49);
+            this.JavaSaveBtn.TabIndex = 5;
+            this.JavaSaveBtn.Text = "Save";
+            this.JavaSaveBtn.UseVisualStyleBackColor = true;
+            this.JavaSaveBtn.Click += new System.EventHandler(this.JavaSaveBtn_Click);
+            // 
+            // JavaSaveAsBtn
+            // 
+            this.JavaSaveAsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaSaveAsBtn.Enabled = false;
+            this.JavaSaveAsBtn.Location = new System.Drawing.Point(953, 477);
+            this.JavaSaveAsBtn.Name = "JavaSaveAsBtn";
+            this.JavaSaveAsBtn.Size = new System.Drawing.Size(185, 49);
+            this.JavaSaveAsBtn.TabIndex = 6;
+            this.JavaSaveAsBtn.Text = "Save As...";
+            this.JavaSaveAsBtn.UseVisualStyleBackColor = true;
+            this.JavaSaveAsBtn.Click += new System.EventHandler(this.JavaSaveAsBtn_Click);
+            // 
+            // JavaConsoleRTB
+            // 
+            this.JavaScreenLayoutPanel.SetColumnSpan(this.JavaConsoleRTB, 3);
+            this.JavaConsoleRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaConsoleRTB.Location = new System.Drawing.Point(3, 532);
+            this.JavaConsoleRTB.Name = "JavaConsoleRTB";
+            this.JavaConsoleRTB.Size = new System.Drawing.Size(564, 153);
+            this.JavaConsoleRTB.TabIndex = 7;
+            this.JavaConsoleRTB.Text = "";
+            // 
+            // JavaVariablesRTB
+            // 
+            this.JavaScreenLayoutPanel.SetColumnSpan(this.JavaVariablesRTB, 3);
+            this.JavaVariablesRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaVariablesRTB.Location = new System.Drawing.Point(573, 532);
+            this.JavaVariablesRTB.Name = "JavaVariablesRTB";
+            this.JavaVariablesRTB.Size = new System.Drawing.Size(565, 153);
+            this.JavaVariablesRTB.TabIndex = 8;
+            this.JavaVariablesRTB.Text = "";
+            // 
+            // JavaCodeRTB
+            // 
+            this.JavaScreenLayoutPanel.SetColumnSpan(this.JavaCodeRTB, 6);
+            this.JavaCodeRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaCodeRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JavaCodeRTB.Location = new System.Drawing.Point(3, 30);
+            this.JavaCodeRTB.Name = "JavaCodeRTB";
+            this.JavaCodeRTB.Size = new System.Drawing.Size(1135, 441);
+            this.JavaCodeRTB.TabIndex = 9;
+            this.JavaCodeRTB.Text = "";
+            this.JavaCodeRTB.TextChanged += new System.EventHandler(this.JavaCodeRTB_TextChanged);
             // 
             // pythonEnginePage
             // 
             this.pythonEnginePage.Controls.Add(this.PythonScreenLayoutPanel);
             this.pythonEnginePage.Location = new System.Drawing.Point(4, 100);
             this.pythonEnginePage.Name = "pythonEnginePage";
-            this.pythonEnginePage.Size = new System.Drawing.Size(1288, 1048);
+            this.pythonEnginePage.Size = new System.Drawing.Size(1141, 688);
             this.pythonEnginePage.TabIndex = 6;
             this.pythonEnginePage.Text = "Python";
             this.pythonEnginePage.UseVisualStyleBackColor = true;
+            // 
+            // PythonScreenLayoutPanel
+            // 
+            this.PythonScreenLayoutPanel.ColumnCount = 6;
+            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.PythonScreenLayoutPanel.Controls.Add(this.PythonFilenameLbl, 0, 0);
+            this.PythonScreenLayoutPanel.Controls.Add(this.PythonRunBtn, 0, 2);
+            this.PythonScreenLayoutPanel.Controls.Add(this.PythonNewBtn, 2, 2);
+            this.PythonScreenLayoutPanel.Controls.Add(this.PythonLoadBtn, 3, 2);
+            this.PythonScreenLayoutPanel.Controls.Add(this.PythonSaveBtn, 4, 2);
+            this.PythonScreenLayoutPanel.Controls.Add(this.PythonSaveAsBtn, 5, 2);
+            this.PythonScreenLayoutPanel.Controls.Add(this.richTextBox3, 0, 3);
+            this.PythonScreenLayoutPanel.Controls.Add(this.richTextBox4, 3, 3);
+            this.PythonScreenLayoutPanel.Controls.Add(this.PythonCodeRTB, 0, 1);
+            this.PythonScreenLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonScreenLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.PythonScreenLayoutPanel.Name = "PythonScreenLayoutPanel";
+            this.PythonScreenLayoutPanel.RowCount = 4;
+            this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4F));
+            this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
+            this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23F));
+            this.PythonScreenLayoutPanel.Size = new System.Drawing.Size(1141, 688);
+            this.PythonScreenLayoutPanel.TabIndex = 5;
+            // 
+            // PythonFilenameLbl
+            // 
+            this.PythonFilenameLbl.AutoSize = true;
+            this.PythonFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PythonScreenLayoutPanel.SetColumnSpan(this.PythonFilenameLbl, 6);
+            this.PythonFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonFilenameLbl.Location = new System.Drawing.Point(3, 0);
+            this.PythonFilenameLbl.Name = "PythonFilenameLbl";
+            this.PythonFilenameLbl.Size = new System.Drawing.Size(1135, 27);
+            this.PythonFilenameLbl.TabIndex = 0;
+            this.PythonFilenameLbl.Text = "Untitled";
             // 
             // PythonRunBtn
             // 
             this.PythonRunBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PythonRunBtn.Enabled = false;
-            this.PythonRunBtn.Location = new System.Drawing.Point(3, 725);
+            this.PythonRunBtn.Location = new System.Drawing.Point(3, 477);
             this.PythonRunBtn.Name = "PythonRunBtn";
-            this.PythonRunBtn.Size = new System.Drawing.Size(208, 77);
+            this.PythonRunBtn.Size = new System.Drawing.Size(184, 49);
             this.PythonRunBtn.TabIndex = 3;
             this.PythonRunBtn.Text = "Run";
             this.PythonRunBtn.UseVisualStyleBackColor = true;
             this.PythonRunBtn.Click += new System.EventHandler(this.PythonRunBtn_Click);
+            // 
+            // PythonNewBtn
+            // 
+            this.PythonNewBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonNewBtn.Enabled = false;
+            this.PythonNewBtn.Location = new System.Drawing.Point(383, 477);
+            this.PythonNewBtn.Name = "PythonNewBtn";
+            this.PythonNewBtn.Size = new System.Drawing.Size(184, 49);
+            this.PythonNewBtn.TabIndex = 3;
+            this.PythonNewBtn.Text = "New";
+            this.PythonNewBtn.UseVisualStyleBackColor = true;
+            this.PythonNewBtn.Click += new System.EventHandler(this.PythonNewBtn_Click);
+            // 
+            // PythonLoadBtn
+            // 
+            this.PythonLoadBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonLoadBtn.Location = new System.Drawing.Point(573, 477);
+            this.PythonLoadBtn.Name = "PythonLoadBtn";
+            this.PythonLoadBtn.Size = new System.Drawing.Size(184, 49);
+            this.PythonLoadBtn.TabIndex = 4;
+            this.PythonLoadBtn.Text = "Load...";
+            this.PythonLoadBtn.UseVisualStyleBackColor = true;
+            this.PythonLoadBtn.Click += new System.EventHandler(this.PythonLoadBtn_Click);
+            // 
+            // PythonSaveBtn
+            // 
+            this.PythonSaveBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonSaveBtn.Enabled = false;
+            this.PythonSaveBtn.Location = new System.Drawing.Point(763, 477);
+            this.PythonSaveBtn.Name = "PythonSaveBtn";
+            this.PythonSaveBtn.Size = new System.Drawing.Size(184, 49);
+            this.PythonSaveBtn.TabIndex = 5;
+            this.PythonSaveBtn.Text = "Save";
+            this.PythonSaveBtn.UseVisualStyleBackColor = true;
+            this.PythonSaveBtn.Click += new System.EventHandler(this.PythonSaveBtn_Click);
+            // 
+            // PythonSaveAsBtn
+            // 
+            this.PythonSaveAsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonSaveAsBtn.Enabled = false;
+            this.PythonSaveAsBtn.Location = new System.Drawing.Point(953, 477);
+            this.PythonSaveAsBtn.Name = "PythonSaveAsBtn";
+            this.PythonSaveAsBtn.Size = new System.Drawing.Size(185, 49);
+            this.PythonSaveAsBtn.TabIndex = 6;
+            this.PythonSaveAsBtn.Text = "Save As...";
+            this.PythonSaveAsBtn.UseVisualStyleBackColor = true;
+            this.PythonSaveAsBtn.Click += new System.EventHandler(this.PythonSaveAsBtn_Click);
+            // 
+            // richTextBox3
+            // 
+            this.PythonScreenLayoutPanel.SetColumnSpan(this.richTextBox3, 3);
+            this.richTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox3.Location = new System.Drawing.Point(3, 532);
+            this.richTextBox3.Name = "richTextBox3";
+            this.richTextBox3.Size = new System.Drawing.Size(564, 153);
+            this.richTextBox3.TabIndex = 8;
+            this.richTextBox3.Text = "";
+            // 
+            // richTextBox4
+            // 
+            this.PythonScreenLayoutPanel.SetColumnSpan(this.richTextBox4, 3);
+            this.richTextBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox4.Location = new System.Drawing.Point(573, 532);
+            this.richTextBox4.Name = "richTextBox4";
+            this.richTextBox4.Size = new System.Drawing.Size(565, 153);
+            this.richTextBox4.TabIndex = 9;
+            this.richTextBox4.Text = "";
+            // 
+            // PythonCodeRTB
+            // 
+            this.PythonScreenLayoutPanel.SetColumnSpan(this.PythonCodeRTB, 6);
+            this.PythonCodeRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonCodeRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PythonCodeRTB.Location = new System.Drawing.Point(3, 30);
+            this.PythonCodeRTB.Name = "PythonCodeRTB";
+            this.PythonCodeRTB.Size = new System.Drawing.Size(1135, 441);
+            this.PythonCodeRTB.TabIndex = 10;
+            this.PythonCodeRTB.Text = "";
+            this.PythonCodeRTB.TextChanged += new System.EventHandler(this.PythonCodeRTB_TextChanged);
             // 
             // manualPage
             // 
             this.manualPage.Controls.Add(this.ManualLayoutPanel);
             this.manualPage.Location = new System.Drawing.Point(4, 100);
             this.manualPage.Name = "manualPage";
-            this.manualPage.Size = new System.Drawing.Size(1288, 1048);
+            this.manualPage.Size = new System.Drawing.Size(1141, 688);
             this.manualPage.TabIndex = 3;
             this.manualPage.Text = "Manual";
             this.manualPage.UseVisualStyleBackColor = true;
@@ -971,7 +1211,7 @@
             this.ManualLayoutPanel.RowCount = 2;
             this.ManualLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ManualLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.ManualLayoutPanel.Size = new System.Drawing.Size(1288, 1048);
+            this.ManualLayoutPanel.Size = new System.Drawing.Size(1141, 688);
             this.ManualLayoutPanel.TabIndex = 106;
             // 
             // RecipeCommandsRTB
@@ -984,16 +1224,29 @@
             this.RecipeCommandsRTB.Name = "RecipeCommandsRTB";
             this.RecipeCommandsRTB.ReadOnly = true;
             this.RecipeCommandsRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RecipeCommandsRTB.Size = new System.Drawing.Size(1284, 984);
+            this.RecipeCommandsRTB.Size = new System.Drawing.Size(1137, 624);
             this.RecipeCommandsRTB.TabIndex = 104;
             this.RecipeCommandsRTB.Text = "";
+            // 
+            // FullManualBtn
+            // 
+            this.FullManualBtn.AutoSize = true;
+            this.ManualLayoutPanel.SetColumnSpan(this.FullManualBtn, 2);
+            this.FullManualBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FullManualBtn.Location = new System.Drawing.Point(573, 631);
+            this.FullManualBtn.Name = "FullManualBtn";
+            this.FullManualBtn.Size = new System.Drawing.Size(565, 54);
+            this.FullManualBtn.TabIndex = 106;
+            this.FullManualBtn.Text = "Show Full Manual PDF in Chrome";
+            this.FullManualBtn.UseVisualStyleBackColor = true;
+            this.FullManualBtn.Click += new System.EventHandler(this.FullManualBtn_Click);
             // 
             // revhistPage
             // 
             this.revhistPage.Controls.Add(this.RevHistRTB);
             this.revhistPage.Location = new System.Drawing.Point(4, 100);
             this.revhistPage.Name = "revhistPage";
-            this.revhistPage.Size = new System.Drawing.Size(1288, 1048);
+            this.revhistPage.Size = new System.Drawing.Size(1141, 688);
             this.revhistPage.TabIndex = 4;
             this.revhistPage.Text = "RevHist";
             this.revhistPage.UseVisualStyleBackColor = true;
@@ -1007,7 +1260,7 @@
             this.RevHistRTB.Name = "RevHistRTB";
             this.RevHistRTB.ReadOnly = true;
             this.RevHistRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RevHistRTB.Size = new System.Drawing.Size(1288, 1048);
+            this.RevHistRTB.Size = new System.Drawing.Size(1141, 688);
             this.RevHistRTB.TabIndex = 105;
             this.RevHistRTB.Text = "";
             // 
@@ -1020,7 +1273,7 @@
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(3, 66);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(308, 67);
+            this.label6.Size = new System.Drawing.Size(272, 67);
             this.label6.TabIndex = 97;
             this.label6.Text = "Tool";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1033,7 +1286,7 @@
             this.MountedToolBox.FormattingEnabled = true;
             this.MountedToolBox.Location = new System.Drawing.Point(3, 3);
             this.MountedToolBox.Name = "MountedToolBox";
-            this.MountedToolBox.Size = new System.Drawing.Size(308, 63);
+            this.MountedToolBox.Size = new System.Drawing.Size(272, 63);
             this.MountedToolBox.TabIndex = 5;
             this.MountedToolBox.SelectedIndexChanged += new System.EventHandler(this.MountedToolBox_SelectedIndexChanged);
             // 
@@ -1050,7 +1303,7 @@
             "ENGINEERING"});
             this.UserModeBox.Location = new System.Drawing.Point(3, 3);
             this.UserModeBox.Name = "UserModeBox";
-            this.UserModeBox.Size = new System.Drawing.Size(316, 47);
+            this.UserModeBox.Size = new System.Drawing.Size(279, 47);
             this.UserModeBox.TabIndex = 103;
             this.UserModeBox.SelectedIndexChanged += new System.EventHandler(this.OperatorModeBox_SelectedIndexChanged);
             // 
@@ -1060,9 +1313,9 @@
             this.RobotModeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotModeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RobotModeBtn.ForeColor = System.Drawing.Color.White;
-            this.RobotModeBtn.Location = new System.Drawing.Point(3, 208);
+            this.RobotModeBtn.Location = new System.Drawing.Point(3, 163);
             this.RobotModeBtn.Name = "RobotModeBtn";
-            this.RobotModeBtn.Size = new System.Drawing.Size(316, 129);
+            this.RobotModeBtn.Size = new System.Drawing.Size(279, 84);
             this.RobotModeBtn.TabIndex = 106;
             this.RobotModeBtn.Text = "Robot Mode";
             this.RobotModeBtn.UseVisualStyleBackColor = false;
@@ -1074,9 +1327,9 @@
             this.SafetyStatusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SafetyStatusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SafetyStatusBtn.ForeColor = System.Drawing.Color.White;
-            this.SafetyStatusBtn.Location = new System.Drawing.Point(3, 343);
+            this.SafetyStatusBtn.Location = new System.Drawing.Point(3, 253);
             this.SafetyStatusBtn.Name = "SafetyStatusBtn";
-            this.SafetyStatusBtn.Size = new System.Drawing.Size(316, 129);
+            this.SafetyStatusBtn.Size = new System.Drawing.Size(279, 84);
             this.SafetyStatusBtn.TabIndex = 107;
             this.SafetyStatusBtn.Text = "Safety Status";
             this.SafetyStatusBtn.UseVisualStyleBackColor = false;
@@ -1088,9 +1341,9 @@
             this.ProgramStateBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ProgramStateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProgramStateBtn.ForeColor = System.Drawing.Color.White;
-            this.ProgramStateBtn.Location = new System.Drawing.Point(3, 478);
+            this.ProgramStateBtn.Location = new System.Drawing.Point(3, 343);
             this.ProgramStateBtn.Name = "ProgramStateBtn";
-            this.ProgramStateBtn.Size = new System.Drawing.Size(316, 129);
+            this.ProgramStateBtn.Size = new System.Drawing.Size(279, 84);
             this.ProgramStateBtn.TabIndex = 108;
             this.ProgramStateBtn.Text = "Program State";
             this.ProgramStateBtn.UseVisualStyleBackColor = false;
@@ -1105,7 +1358,7 @@
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(3, 66);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(308, 67);
+            this.label5.Size = new System.Drawing.Size(272, 67);
             this.label5.TabIndex = 115;
             this.label5.Text = "Part Geom";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1115,9 +1368,9 @@
             this.DiameterDimLbl.AutoSize = true;
             this.DiameterDimLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DiameterDimLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DiameterDimLbl.Location = new System.Drawing.Point(215, 0);
+            this.DiameterDimLbl.Location = new System.Drawing.Point(191, 0);
             this.DiameterDimLbl.Name = "DiameterDimLbl";
-            this.DiameterDimLbl.Size = new System.Drawing.Size(207, 59);
+            this.DiameterDimLbl.Size = new System.Drawing.Size(183, 59);
             this.DiameterDimLbl.TabIndex = 12;
             this.DiameterDimLbl.Text = "dia (mm)";
             this.DiameterDimLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1137,7 +1390,7 @@
             this.MainTab.Location = new System.Drawing.Point(8, 11);
             this.MainTab.Name = "MainTab";
             this.MainTab.SelectedIndex = 0;
-            this.MainTab.Size = new System.Drawing.Size(2140, 1272);
+            this.MainTab.Size = new System.Drawing.Size(1900, 912);
             this.MainTab.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.MainTab.TabIndex = 0;
             this.MainTab.SelectedIndexChanged += new System.EventHandler(this.MainTab_SelectedIndexChanged);
@@ -1150,7 +1403,7 @@
             this.RunPage.Location = new System.Drawing.Point(4, 100);
             this.RunPage.Name = "RunPage";
             this.RunPage.Padding = new System.Windows.Forms.Padding(3);
-            this.RunPage.Size = new System.Drawing.Size(2132, 1168);
+            this.RunPage.Size = new System.Drawing.Size(1892, 808);
             this.RunPage.TabIndex = 0;
             this.RunPage.Text = "Run";
             this.RunPage.ToolTipText = "Run";
@@ -1170,7 +1423,7 @@
             this.RunTabLayoutPanel.Name = "RunTabLayoutPanel";
             this.RunTabLayoutPanel.RowCount = 1;
             this.RunTabLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.RunTabLayoutPanel.Size = new System.Drawing.Size(2122, 1158);
+            this.RunTabLayoutPanel.Size = new System.Drawing.Size(1882, 798);
             this.RunTabLayoutPanel.TabIndex = 161;
             // 
             // StatusLayoutPanel
@@ -1192,7 +1445,7 @@
             this.StatusLayoutPanel.Controls.Add(this.GrindReadyLbl, 1, 4);
             this.StatusLayoutPanel.Controls.Add(this.GrindProcessStateLbl, 1, 5);
             this.StatusLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StatusLayoutPanel.Location = new System.Drawing.Point(1593, 3);
+            this.StatusLayoutPanel.Location = new System.Drawing.Point(1413, 3);
             this.StatusLayoutPanel.Name = "StatusLayoutPanel";
             this.StatusLayoutPanel.RowCount = 10;
             this.StatusLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
@@ -1205,16 +1458,16 @@
             this.StatusLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.StatusLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.StatusLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.StatusLayoutPanel.Size = new System.Drawing.Size(526, 1152);
+            this.StatusLayoutPanel.Size = new System.Drawing.Size(466, 792);
             this.StatusLayoutPanel.TabIndex = 161;
             // 
             // label9
             // 
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(324, 0);
+            this.label9.Location = new System.Drawing.Point(287, 0);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(200, 50);
+            this.label9.Size = new System.Drawing.Size(177, 50);
             this.label9.TabIndex = 154;
             this.label9.Text = "User";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1227,7 +1480,7 @@
             this.RobotConnectBtn.ForeColor = System.Drawing.Color.White;
             this.RobotConnectBtn.Location = new System.Drawing.Point(3, 73);
             this.RobotConnectBtn.Name = "RobotConnectBtn";
-            this.RobotConnectBtn.Size = new System.Drawing.Size(316, 129);
+            this.RobotConnectBtn.Size = new System.Drawing.Size(279, 84);
             this.RobotConnectBtn.TabIndex = 73;
             this.RobotConnectBtn.Text = "Robot Connect";
             this.RobotConnectBtn.UseVisualStyleBackColor = false;
@@ -1239,9 +1492,9 @@
             this.GocatorConnectBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GocatorConnectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GocatorConnectBtn.ForeColor = System.Drawing.Color.White;
-            this.GocatorConnectBtn.Location = new System.Drawing.Point(3, 883);
+            this.GocatorConnectBtn.Location = new System.Drawing.Point(3, 613);
             this.GocatorConnectBtn.Name = "GocatorConnectBtn";
-            this.GocatorConnectBtn.Size = new System.Drawing.Size(316, 129);
+            this.GocatorConnectBtn.Size = new System.Drawing.Size(279, 84);
             this.GocatorConnectBtn.TabIndex = 159;
             this.GocatorConnectBtn.Text = "Gocator Connect";
             this.GocatorConnectBtn.UseVisualStyleBackColor = false;
@@ -1254,9 +1507,9 @@
             this.GocatorReadyLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GocatorReadyLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GocatorReadyLbl.ForeColor = System.Drawing.Color.White;
-            this.GocatorReadyLbl.Location = new System.Drawing.Point(325, 880);
+            this.GocatorReadyLbl.Location = new System.Drawing.Point(288, 610);
             this.GocatorReadyLbl.Name = "GocatorReadyLbl";
-            this.GocatorReadyLbl.Size = new System.Drawing.Size(198, 135);
+            this.GocatorReadyLbl.Size = new System.Drawing.Size(175, 90);
             this.GocatorReadyLbl.TabIndex = 160;
             this.GocatorReadyLbl.Text = "Gocator Ready";
             this.GocatorReadyLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1268,12 +1521,12 @@
             this.CommandCounterLayoutPanel.Controls.Add(this.RobotSentLbl, 0, 0);
             this.CommandCounterLayoutPanel.Controls.Add(this.RobotCompletedLbl, 0, 1);
             this.CommandCounterLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CommandCounterLayoutPanel.Location = new System.Drawing.Point(325, 1018);
+            this.CommandCounterLayoutPanel.Location = new System.Drawing.Point(288, 703);
             this.CommandCounterLayoutPanel.Name = "CommandCounterLayoutPanel";
             this.CommandCounterLayoutPanel.RowCount = 2;
             this.CommandCounterLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.CommandCounterLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.CommandCounterLayoutPanel.Size = new System.Drawing.Size(198, 131);
+            this.CommandCounterLayoutPanel.Size = new System.Drawing.Size(175, 86);
             this.CommandCounterLayoutPanel.TabIndex = 160;
             // 
             // RobotSentLbl
@@ -1285,7 +1538,7 @@
             this.RobotSentLbl.ForeColor = System.Drawing.Color.White;
             this.RobotSentLbl.Location = new System.Drawing.Point(3, 0);
             this.RobotSentLbl.Name = "RobotSentLbl";
-            this.RobotSentLbl.Size = new System.Drawing.Size(192, 65);
+            this.RobotSentLbl.Size = new System.Drawing.Size(169, 43);
             this.RobotSentLbl.TabIndex = 149;
             this.RobotSentLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1296,9 +1549,9 @@
             this.RobotCompletedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotCompletedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RobotCompletedLbl.ForeColor = System.Drawing.Color.White;
-            this.RobotCompletedLbl.Location = new System.Drawing.Point(3, 65);
+            this.RobotCompletedLbl.Location = new System.Drawing.Point(3, 43);
             this.RobotCompletedLbl.Name = "RobotCompletedLbl";
-            this.RobotCompletedLbl.Size = new System.Drawing.Size(192, 66);
+            this.RobotCompletedLbl.Size = new System.Drawing.Size(169, 43);
             this.RobotCompletedLbl.TabIndex = 135;
             this.RobotCompletedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1309,9 +1562,9 @@
             this.GrindProcessStateLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrindProcessStateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrindProcessStateLbl.ForeColor = System.Drawing.Color.White;
-            this.GrindProcessStateLbl.Location = new System.Drawing.Point(325, 475);
+            this.GrindProcessStateLbl.Location = new System.Drawing.Point(288, 340);
             this.GrindProcessStateLbl.Name = "GrindProcessStateLbl";
-            this.GrindProcessStateLbl.Size = new System.Drawing.Size(198, 135);
+            this.GrindProcessStateLbl.Size = new System.Drawing.Size(175, 90);
             this.GrindProcessStateLbl.TabIndex = 136;
             this.GrindProcessStateLbl.Text = "Grind Process State";
             this.GrindProcessStateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1325,7 +1578,7 @@
             this.RecipeRTBCopy.Name = "RecipeRTBCopy";
             this.RecipeRTBCopy.ReadOnly = true;
             this.RecipeRTBCopy.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RecipeRTBCopy.Size = new System.Drawing.Size(738, 1154);
+            this.RecipeRTBCopy.Size = new System.Drawing.Size(654, 794);
             this.RecipeRTBCopy.TabIndex = 129;
             this.RecipeRTBCopy.Text = "";
             this.RecipeRTBCopy.VScroll += new System.EventHandler(this.RecipeRTBCopy_VScroll);
@@ -1333,9 +1586,9 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.RunCenterColumnLayoutPanel);
-            this.panel2.Location = new System.Drawing.Point(745, 3);
+            this.panel2.Location = new System.Drawing.Point(661, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(842, 1152);
+            this.panel2.Size = new System.Drawing.Size(746, 792);
             this.panel2.TabIndex = 130;
             // 
             // RunCenterColumnLayoutPanel
@@ -1382,7 +1635,7 @@
             this.RunCenterColumnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.761326F));
             this.RunCenterColumnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.761326F));
             this.RunCenterColumnLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.761326F));
-            this.RunCenterColumnLayoutPanel.Size = new System.Drawing.Size(842, 1152);
+            this.RunCenterColumnLayoutPanel.Size = new System.Drawing.Size(746, 792);
             this.RunCenterColumnLayoutPanel.TabIndex = 159;
             // 
             // label18
@@ -1392,7 +1645,7 @@
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.Location = new System.Drawing.Point(3, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(415, 77);
+            this.label18.Size = new System.Drawing.Size(367, 53);
             this.label18.TabIndex = 155;
             this.label18.Text = "Current Time";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1403,10 +1656,10 @@
             this.MoveToolHomeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MoveToolHomeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MoveToolHomeBtn.ForeColor = System.Drawing.Color.White;
-            this.MoveToolHomeBtn.Location = new System.Drawing.Point(423, 1066);
+            this.MoveToolHomeBtn.Location = new System.Drawing.Point(375, 734);
             this.MoveToolHomeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.MoveToolHomeBtn.Name = "MoveToolHomeBtn";
-            this.MoveToolHomeBtn.Size = new System.Drawing.Size(417, 84);
+            this.MoveToolHomeBtn.Size = new System.Drawing.Size(369, 56);
             this.MoveToolHomeBtn.TabIndex = 137;
             this.MoveToolHomeBtn.Text = "tool_home";
             this.MoveToolHomeBtn.UseVisualStyleBackColor = false;
@@ -1418,10 +1671,10 @@
             this.MoveToolMountBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MoveToolMountBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MoveToolMountBtn.ForeColor = System.Drawing.Color.White;
-            this.MoveToolMountBtn.Location = new System.Drawing.Point(2, 1066);
+            this.MoveToolMountBtn.Location = new System.Drawing.Point(2, 734);
             this.MoveToolMountBtn.Margin = new System.Windows.Forms.Padding(2);
             this.MoveToolMountBtn.Name = "MoveToolMountBtn";
-            this.MoveToolMountBtn.Size = new System.Drawing.Size(417, 84);
+            this.MoveToolMountBtn.Size = new System.Drawing.Size(369, 56);
             this.MoveToolMountBtn.TabIndex = 138;
             this.MoveToolMountBtn.Text = "tool_mount";
             this.MoveToolMountBtn.UseVisualStyleBackColor = false;
@@ -1432,9 +1685,9 @@
             this.label14.AutoSize = true;
             this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(3, 77);
+            this.label14.Location = new System.Drawing.Point(3, 53);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(415, 77);
+            this.label14.Size = new System.Drawing.Size(367, 53);
             this.label14.TabIndex = 133;
             this.label14.Text = "Start Time";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1444,9 +1697,9 @@
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(3, 154);
+            this.label12.Location = new System.Drawing.Point(3, 106);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(415, 77);
+            this.label12.Size = new System.Drawing.Size(367, 53);
             this.label12.TabIndex = 131;
             this.label12.Text = "Total Run Time";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1456,9 +1709,9 @@
             this.RunStartedTimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.RunStartedTimeLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RunStartedTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RunStartedTimeLbl.Location = new System.Drawing.Point(424, 77);
+            this.RunStartedTimeLbl.Location = new System.Drawing.Point(376, 53);
             this.RunStartedTimeLbl.Name = "RunStartedTimeLbl";
-            this.RunStartedTimeLbl.Size = new System.Drawing.Size(415, 77);
+            this.RunStartedTimeLbl.Size = new System.Drawing.Size(367, 53);
             this.RunStartedTimeLbl.TabIndex = 134;
             this.RunStartedTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1467,9 +1720,9 @@
             this.RunElapsedTimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.RunElapsedTimeLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RunElapsedTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RunElapsedTimeLbl.Location = new System.Drawing.Point(424, 154);
+            this.RunElapsedTimeLbl.Location = new System.Drawing.Point(376, 106);
             this.RunElapsedTimeLbl.Name = "RunElapsedTimeLbl";
-            this.RunElapsedTimeLbl.Size = new System.Drawing.Size(415, 77);
+            this.RunElapsedTimeLbl.Size = new System.Drawing.Size(367, 53);
             this.RunElapsedTimeLbl.TabIndex = 132;
             this.RunElapsedTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1481,9 +1734,9 @@
             this.RunStateLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RunStateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RunStateLbl.ForeColor = System.Drawing.Color.White;
-            this.RunStateLbl.Location = new System.Drawing.Point(3, 231);
+            this.RunStateLbl.Location = new System.Drawing.Point(3, 159);
             this.RunStateLbl.Name = "RunStateLbl";
-            this.RunStateLbl.Size = new System.Drawing.Size(836, 77);
+            this.RunStateLbl.Size = new System.Drawing.Size(740, 53);
             this.RunStateLbl.TabIndex = 122;
             this.RunStateLbl.Text = "Current Step";
             this.RunStateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1493,9 +1746,9 @@
             this.label21.AutoSize = true;
             this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(3, 833);
+            this.label21.Location = new System.Drawing.Point(3, 573);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(415, 77);
+            this.label21.Size = new System.Drawing.Size(367, 53);
             this.label21.TabIndex = 156;
             this.label21.Text = "Last Z Force";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1506,9 +1759,9 @@
             this.RunCenterColumnLayoutPanel.SetColumnSpan(this.CurrentLineLblCopy, 2);
             this.CurrentLineLblCopy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CurrentLineLblCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentLineLblCopy.Location = new System.Drawing.Point(3, 308);
+            this.CurrentLineLblCopy.Location = new System.Drawing.Point(3, 212);
             this.CurrentLineLblCopy.Name = "CurrentLineLblCopy";
-            this.CurrentLineLblCopy.Size = new System.Drawing.Size(836, 217);
+            this.CurrentLineLblCopy.Size = new System.Drawing.Size(740, 149);
             this.CurrentLineLblCopy.TabIndex = 125;
             // 
             // label10
@@ -1516,9 +1769,9 @@
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(3, 756);
+            this.label10.Location = new System.Drawing.Point(3, 520);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(415, 77);
+            this.label10.Size = new System.Drawing.Size(367, 53);
             this.label10.TabIndex = 124;
             this.label10.Text = "Grind Cycle";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1528,9 +1781,9 @@
             this.label16.AutoSize = true;
             this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(3, 525);
+            this.label16.Location = new System.Drawing.Point(3, 361);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(415, 77);
+            this.label16.Size = new System.Drawing.Size(367, 53);
             this.label16.TabIndex = 143;
             this.label16.Text = "Time in Step";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1540,9 +1793,9 @@
             this.StepTimeRemainingLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.StepTimeRemainingLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StepTimeRemainingLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StepTimeRemainingLbl.Location = new System.Drawing.Point(424, 679);
+            this.StepTimeRemainingLbl.Location = new System.Drawing.Point(376, 467);
             this.StepTimeRemainingLbl.Name = "StepTimeRemainingLbl";
-            this.StepTimeRemainingLbl.Size = new System.Drawing.Size(415, 77);
+            this.StepTimeRemainingLbl.Size = new System.Drawing.Size(367, 53);
             this.StepTimeRemainingLbl.TabIndex = 148;
             this.StepTimeRemainingLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1551,9 +1804,9 @@
             this.StepElapsedTimeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.StepElapsedTimeLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StepElapsedTimeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StepElapsedTimeLbl.Location = new System.Drawing.Point(424, 525);
+            this.StepElapsedTimeLbl.Location = new System.Drawing.Point(376, 361);
             this.StepElapsedTimeLbl.Name = "StepElapsedTimeLbl";
-            this.StepElapsedTimeLbl.Size = new System.Drawing.Size(415, 77);
+            this.StepElapsedTimeLbl.Size = new System.Drawing.Size(367, 53);
             this.StepElapsedTimeLbl.TabIndex = 144;
             this.StepElapsedTimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1562,9 +1815,9 @@
             this.label13.AutoSize = true;
             this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(3, 602);
+            this.label13.Location = new System.Drawing.Point(3, 414);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(415, 77);
+            this.label13.Size = new System.Drawing.Size(367, 53);
             this.label13.TabIndex = 145;
             this.label13.Text = "Time Estimate";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1574,9 +1827,9 @@
             this.label17.AutoSize = true;
             this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(3, 679);
+            this.label17.Location = new System.Drawing.Point(3, 467);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(415, 77);
+            this.label17.Size = new System.Drawing.Size(367, 53);
             this.label17.TabIndex = 147;
             this.label17.Text = "Time Remaining";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1586,9 +1839,9 @@
             this.StepTimeEstimateLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.StepTimeEstimateLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StepTimeEstimateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StepTimeEstimateLbl.Location = new System.Drawing.Point(424, 602);
+            this.StepTimeEstimateLbl.Location = new System.Drawing.Point(376, 414);
             this.StepTimeEstimateLbl.Name = "StepTimeEstimateLbl";
-            this.StepTimeEstimateLbl.Size = new System.Drawing.Size(415, 77);
+            this.StepTimeEstimateLbl.Size = new System.Drawing.Size(367, 53);
             this.StepTimeEstimateLbl.TabIndex = 146;
             this.StepTimeEstimateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1602,11 +1855,11 @@
             this.GrindNofNLayoutPanel.Controls.Add(this.Grind, 1, 0);
             this.GrindNofNLayoutPanel.Controls.Add(this.GrindNCyclesLbl, 2, 0);
             this.GrindNofNLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GrindNofNLayoutPanel.Location = new System.Drawing.Point(424, 759);
+            this.GrindNofNLayoutPanel.Location = new System.Drawing.Point(376, 523);
             this.GrindNofNLayoutPanel.Name = "GrindNofNLayoutPanel";
             this.GrindNofNLayoutPanel.RowCount = 1;
             this.GrindNofNLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.GrindNofNLayoutPanel.Size = new System.Drawing.Size(415, 71);
+            this.GrindNofNLayoutPanel.Size = new System.Drawing.Size(367, 47);
             this.GrindNofNLayoutPanel.TabIndex = 156;
             // 
             // GrindCycleLbl
@@ -1616,7 +1869,7 @@
             this.GrindCycleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrindCycleLbl.Location = new System.Drawing.Point(3, 0);
             this.GrindCycleLbl.Name = "GrindCycleLbl";
-            this.GrindCycleLbl.Size = new System.Drawing.Size(132, 71);
+            this.GrindCycleLbl.Size = new System.Drawing.Size(116, 47);
             this.GrindCycleLbl.TabIndex = 126;
             this.GrindCycleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1625,9 +1878,9 @@
             this.Grind.AutoSize = true;
             this.Grind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Grind.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Grind.Location = new System.Drawing.Point(141, 0);
+            this.Grind.Location = new System.Drawing.Point(125, 0);
             this.Grind.Name = "Grind";
-            this.Grind.Size = new System.Drawing.Size(132, 71);
+            this.Grind.Size = new System.Drawing.Size(116, 47);
             this.Grind.TabIndex = 128;
             this.Grind.Text = "of";
             this.Grind.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1637,9 +1890,9 @@
             this.GrindNCyclesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.GrindNCyclesLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GrindNCyclesLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GrindNCyclesLbl.Location = new System.Drawing.Point(279, 0);
+            this.GrindNCyclesLbl.Location = new System.Drawing.Point(247, 0);
             this.GrindNCyclesLbl.Name = "GrindNCyclesLbl";
-            this.GrindNCyclesLbl.Size = new System.Drawing.Size(133, 71);
+            this.GrindNCyclesLbl.Size = new System.Drawing.Size(117, 47);
             this.GrindNCyclesLbl.TabIndex = 127;
             this.GrindNCyclesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1652,11 +1905,11 @@
             this.LastReportedZLayoutPanel.Controls.Add(this.GrindForceReportZLbl, 0, 0);
             this.LastReportedZLayoutPanel.Controls.Add(this.label22, 1, 0);
             this.LastReportedZLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LastReportedZLayoutPanel.Location = new System.Drawing.Point(424, 836);
+            this.LastReportedZLayoutPanel.Location = new System.Drawing.Point(376, 576);
             this.LastReportedZLayoutPanel.Name = "LastReportedZLayoutPanel";
             this.LastReportedZLayoutPanel.RowCount = 1;
             this.LastReportedZLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.LastReportedZLayoutPanel.Size = new System.Drawing.Size(415, 71);
+            this.LastReportedZLayoutPanel.Size = new System.Drawing.Size(367, 47);
             this.LastReportedZLayoutPanel.TabIndex = 157;
             // 
             // GrindForceReportZLbl
@@ -1666,7 +1919,7 @@
             this.GrindForceReportZLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GrindForceReportZLbl.Location = new System.Drawing.Point(3, 0);
             this.GrindForceReportZLbl.Name = "GrindForceReportZLbl";
-            this.GrindForceReportZLbl.Size = new System.Drawing.Size(132, 71);
+            this.GrindForceReportZLbl.Size = new System.Drawing.Size(116, 47);
             this.GrindForceReportZLbl.TabIndex = 157;
             this.GrindForceReportZLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1675,9 +1928,9 @@
             this.label22.AutoSize = true;
             this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(141, 0);
+            this.label22.Location = new System.Drawing.Point(125, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(132, 71);
+            this.label22.Size = new System.Drawing.Size(116, 47);
             this.label22.TabIndex = 158;
             this.label22.Text = "N";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1686,10 +1939,10 @@
             // 
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(3, 910);
+            this.label11.Location = new System.Drawing.Point(3, 626);
             this.label11.Name = "label11";
             this.RunCenterColumnLayoutPanel.SetRowSpan(this.label11, 2);
-            this.label11.Size = new System.Drawing.Size(415, 154);
+            this.label11.Size = new System.Drawing.Size(367, 106);
             this.label11.TabIndex = 139;
             this.label11.Text = "Joint Move to\r\nTool Mount Pose";
             this.label11.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1698,10 +1951,10 @@
             // 
             this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(424, 910);
+            this.label15.Location = new System.Drawing.Point(376, 626);
             this.label15.Name = "label15";
             this.RunCenterColumnLayoutPanel.SetRowSpan(this.label15, 2);
-            this.label15.Size = new System.Drawing.Size(415, 154);
+            this.label15.Size = new System.Drawing.Size(367, 106);
             this.label15.TabIndex = 141;
             this.label15.Text = "Joint Move to\r\nTool Home Pose";
             this.label15.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1713,7 +1966,7 @@
             this.ProgramPage.Location = new System.Drawing.Point(4, 100);
             this.ProgramPage.Name = "ProgramPage";
             this.ProgramPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ProgramPage.Size = new System.Drawing.Size(2132, 1168);
+            this.ProgramPage.Size = new System.Drawing.Size(1892, 808);
             this.ProgramPage.TabIndex = 1;
             this.ProgramPage.Text = "Code";
             this.ProgramPage.UseVisualStyleBackColor = true;
@@ -1734,7 +1987,7 @@
             this.ProgramTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ProgramTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.ProgramTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.ProgramTableLayoutPanel.Size = new System.Drawing.Size(2122, 1158);
+            this.ProgramTableLayoutPanel.Size = new System.Drawing.Size(1882, 798);
             this.ProgramTableLayoutPanel.TabIndex = 96;
             // 
             // FileBigEditPanel
@@ -1745,11 +1998,11 @@
             this.FileBigEditPanel.Controls.Add(this.BigEditBtn, 1, 0);
             this.FileBigEditPanel.Controls.Add(this.RecipeFilenameLbl, 0, 0);
             this.FileBigEditPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FileBigEditPanel.Location = new System.Drawing.Point(3, 1071);
+            this.FileBigEditPanel.Location = new System.Drawing.Point(3, 711);
             this.FileBigEditPanel.Name = "FileBigEditPanel";
             this.FileBigEditPanel.RowCount = 1;
             this.FileBigEditPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.FileBigEditPanel.Size = new System.Drawing.Size(814, 84);
+            this.FileBigEditPanel.Size = new System.Drawing.Size(721, 84);
             this.FileBigEditPanel.TabIndex = 95;
             // 
             // BigEditBtn
@@ -1759,7 +2012,7 @@
             this.BigEditBtn.Enabled = false;
             this.BigEditBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BigEditBtn.ForeColor = System.Drawing.Color.White;
-            this.BigEditBtn.Location = new System.Drawing.Point(616, 2);
+            this.BigEditBtn.Location = new System.Drawing.Point(523, 2);
             this.BigEditBtn.Margin = new System.Windows.Forms.Padding(2);
             this.BigEditBtn.Name = "BigEditBtn";
             this.BigEditBtn.Size = new System.Drawing.Size(196, 80);
@@ -1780,7 +2033,7 @@
             this.SetupPage.Controls.Add(this.label7);
             this.SetupPage.Location = new System.Drawing.Point(4, 100);
             this.SetupPage.Name = "SetupPage";
-            this.SetupPage.Size = new System.Drawing.Size(2132, 1168);
+            this.SetupPage.Size = new System.Drawing.Size(1892, 808);
             this.SetupPage.TabIndex = 2;
             this.SetupPage.Text = "Setup";
             this.SetupPage.UseVisualStyleBackColor = true;
@@ -1798,7 +2051,7 @@
             this.SetupTab.Location = new System.Drawing.Point(0, 0);
             this.SetupTab.Name = "SetupTab";
             this.SetupTab.SelectedIndex = 0;
-            this.SetupTab.Size = new System.Drawing.Size(2128, 1164);
+            this.SetupTab.Size = new System.Drawing.Size(1888, 804);
             this.SetupTab.TabIndex = 161;
             // 
             // generalPage
@@ -1806,7 +2059,7 @@
             this.generalPage.Controls.Add(this.SetupGeneralLayoutPanel);
             this.generalPage.Location = new System.Drawing.Point(4, 100);
             this.generalPage.Name = "generalPage";
-            this.generalPage.Size = new System.Drawing.Size(2120, 1060);
+            this.generalPage.Size = new System.Drawing.Size(1880, 700);
             this.generalPage.TabIndex = 5;
             this.generalPage.Text = "General";
             this.generalPage.UseVisualStyleBackColor = true;
@@ -1839,7 +2092,7 @@
             this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.52631F));
             this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.05264F));
             this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.78947F));
-            this.SetupGeneralLayoutPanel.Size = new System.Drawing.Size(2120, 1060);
+            this.SetupGeneralLayoutPanel.Size = new System.Drawing.Size(1880, 700);
             this.SetupGeneralLayoutPanel.TabIndex = 0;
             // 
             // LoadConfigBtn
@@ -1848,9 +2101,9 @@
             this.LoadConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadConfigBtn.Location = new System.Drawing.Point(1062, 893);
+            this.LoadConfigBtn.Location = new System.Drawing.Point(942, 591);
             this.LoadConfigBtn.Name = "LoadConfigBtn";
-            this.LoadConfigBtn.Size = new System.Drawing.Size(347, 164);
+            this.LoadConfigBtn.Size = new System.Drawing.Size(307, 106);
             this.LoadConfigBtn.TabIndex = 98;
             this.LoadConfigBtn.Text = "Reload";
             this.LoadConfigBtn.UseVisualStyleBackColor = false;
@@ -1862,9 +2115,9 @@
             this.SaveConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveConfigBtn.Location = new System.Drawing.Point(1415, 893);
+            this.SaveConfigBtn.Location = new System.Drawing.Point(1255, 591);
             this.SaveConfigBtn.Name = "SaveConfigBtn";
-            this.SaveConfigBtn.Size = new System.Drawing.Size(347, 164);
+            this.SaveConfigBtn.Size = new System.Drawing.Size(307, 106);
             this.SaveConfigBtn.TabIndex = 100;
             this.SaveConfigBtn.Text = "Save";
             this.SaveConfigBtn.UseVisualStyleBackColor = false;
@@ -1874,9 +2127,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label1.Location = new System.Drawing.Point(85, 0);
+            this.label1.Location = new System.Drawing.Point(45, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(265, 66);
+            this.label1.Size = new System.Drawing.Size(265, 44);
             this.label1.TabIndex = 68;
             this.label1.Text = "LEonard Root Dir";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1886,9 +2139,9 @@
             this.LEonardRootLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SetupGeneralLayoutPanel.SetColumnSpan(this.LEonardRootLbl, 3);
             this.LEonardRootLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LEonardRootLbl.Location = new System.Drawing.Point(356, 0);
+            this.LEonardRootLbl.Location = new System.Drawing.Point(316, 0);
             this.LEonardRootLbl.Name = "LEonardRootLbl";
-            this.LEonardRootLbl.Size = new System.Drawing.Size(1053, 66);
+            this.LEonardRootLbl.Size = new System.Drawing.Size(933, 44);
             this.LEonardRootLbl.TabIndex = 69;
             this.LEonardRootLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1898,9 +2151,9 @@
             this.DefaultConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DefaultConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DefaultConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.DefaultConfigBtn.Location = new System.Drawing.Point(1768, 893);
+            this.DefaultConfigBtn.Location = new System.Drawing.Point(1568, 591);
             this.DefaultConfigBtn.Name = "DefaultConfigBtn";
-            this.DefaultConfigBtn.Size = new System.Drawing.Size(349, 164);
+            this.DefaultConfigBtn.Size = new System.Drawing.Size(309, 106);
             this.DefaultConfigBtn.TabIndex = 99;
             this.DefaultConfigBtn.Text = "Restore Defaults";
             this.DefaultConfigBtn.UseVisualStyleBackColor = false;
@@ -1910,9 +2163,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label2.Location = new System.Drawing.Point(49, 66);
+            this.label2.Location = new System.Drawing.Point(9, 44);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(301, 66);
+            this.label2.Size = new System.Drawing.Size(301, 44);
             this.label2.TabIndex = 91;
             this.label2.Text = "Startup Devices File";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1922,9 +2175,9 @@
             this.StartupDevicesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SetupGeneralLayoutPanel.SetColumnSpan(this.StartupDevicesLbl, 3);
             this.StartupDevicesLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StartupDevicesLbl.Location = new System.Drawing.Point(356, 66);
+            this.StartupDevicesLbl.Location = new System.Drawing.Point(316, 44);
             this.StartupDevicesLbl.Name = "StartupDevicesLbl";
-            this.StartupDevicesLbl.Size = new System.Drawing.Size(1053, 66);
+            this.StartupDevicesLbl.Size = new System.Drawing.Size(933, 44);
             this.StartupDevicesLbl.TabIndex = 92;
             this.StartupDevicesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1935,9 +2188,9 @@
             this.AllowRunningOfflineChk.BackColor = System.Drawing.Color.Gray;
             this.AllowRunningOfflineChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AllowRunningOfflineChk.ForeColor = System.Drawing.Color.White;
-            this.AllowRunningOfflineChk.Location = new System.Drawing.Point(3, 893);
+            this.AllowRunningOfflineChk.Location = new System.Drawing.Point(3, 591);
             this.AllowRunningOfflineChk.Name = "AllowRunningOfflineChk";
-            this.AllowRunningOfflineChk.Size = new System.Drawing.Size(325, 43);
+            this.AllowRunningOfflineChk.Size = new System.Drawing.Size(307, 43);
             this.AllowRunningOfflineChk.TabIndex = 89;
             this.AllowRunningOfflineChk.Text = "Allow Running Offline";
             this.AllowRunningOfflineChk.UseMnemonic = false;
@@ -1947,9 +2200,9 @@
             // ChangeRootDirectoryBtn
             // 
             this.ChangeRootDirectoryBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ChangeRootDirectoryBtn.Location = new System.Drawing.Point(1415, 3);
+            this.ChangeRootDirectoryBtn.Location = new System.Drawing.Point(1255, 3);
             this.ChangeRootDirectoryBtn.Name = "ChangeRootDirectoryBtn";
-            this.ChangeRootDirectoryBtn.Size = new System.Drawing.Size(60, 60);
+            this.ChangeRootDirectoryBtn.Size = new System.Drawing.Size(60, 38);
             this.ChangeRootDirectoryBtn.TabIndex = 70;
             this.ChangeRootDirectoryBtn.Text = "...";
             this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
@@ -1963,9 +2216,9 @@
             this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Left;
             this.AutoConnectOnLoadChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AutoConnectOnLoadChk.ForeColor = System.Drawing.Color.White;
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1415, 69);
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
             this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(543, 60);
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(543, 38);
             this.AutoConnectOnLoadChk.TabIndex = 116;
             this.AutoConnectOnLoadChk.Text = "Auto Connect when Loading Devices";
             this.AutoConnectOnLoadChk.UseMnemonic = false;
@@ -1977,7 +2230,7 @@
             this.devicesPage.Location = new System.Drawing.Point(4, 100);
             this.devicesPage.Name = "devicesPage";
             this.devicesPage.Padding = new System.Windows.Forms.Padding(3);
-            this.devicesPage.Size = new System.Drawing.Size(2120, 1060);
+            this.devicesPage.Size = new System.Drawing.Size(1880, 700);
             this.devicesPage.TabIndex = 1;
             this.devicesPage.Text = "Devices";
             this.devicesPage.UseVisualStyleBackColor = true;
@@ -2027,7 +2280,7 @@
             this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.941189F));
             this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.941189F));
             this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.960793F));
-            this.SetupDevicesLayoutPanel.Size = new System.Drawing.Size(2114, 1054);
+            this.SetupDevicesLayoutPanel.Size = new System.Drawing.Size(1874, 694);
             this.SetupDevicesLayoutPanel.TabIndex = 0;
             // 
             // button8
@@ -2036,10 +2289,10 @@
             this.button8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(354, 2);
+            this.button8.Location = new System.Drawing.Point(314, 2);
             this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(172, 183);
+            this.button8.Size = new System.Drawing.Size(152, 119);
             this.button8.TabIndex = 106;
             this.button8.Text = "Reconnect";
             this.button8.UseVisualStyleBackColor = false;
@@ -2053,7 +2306,7 @@
             this.button1.Location = new System.Drawing.Point(2, 2);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(172, 183);
+            this.button1.Size = new System.Drawing.Size(152, 119);
             this.button1.TabIndex = 99;
             this.button1.Text = "Connect";
             this.button1.UseVisualStyleBackColor = false;
@@ -2064,10 +2317,10 @@
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(178, 2);
+            this.button2.Location = new System.Drawing.Point(158, 2);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(172, 183);
+            this.button2.Size = new System.Drawing.Size(152, 119);
             this.button2.TabIndex = 98;
             this.button2.Text = "Disconnect";
             this.button2.UseVisualStyleBackColor = false;
@@ -2079,9 +2332,9 @@
             this.DevicesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.DevicesGrd, 12);
             this.DevicesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DevicesGrd.Location = new System.Drawing.Point(3, 190);
+            this.DevicesGrd.Location = new System.Drawing.Point(3, 126);
             this.DevicesGrd.Name = "DevicesGrd";
-            this.DevicesGrd.Size = new System.Drawing.Size(2108, 693);
+            this.DevicesGrd.Size = new System.Drawing.Size(1868, 454);
             this.DevicesGrd.TabIndex = 89;
             // 
             // label4
@@ -2089,10 +2342,10 @@
             this.label4.AutoSize = true;
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.label4, 2);
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 1010);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(3, 665);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(346, 44);
+            this.label4.Size = new System.Drawing.Size(306, 29);
             this.label4.TabIndex = 88;
             this.label4.Text = "Program, ServerIP, Robot IP";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2103,9 +2356,9 @@
             this.DevicesFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.DevicesFilenameLbl, 7);
             this.DevicesFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DevicesFilenameLbl.Location = new System.Drawing.Point(3, 886);
+            this.DevicesFilenameLbl.Location = new System.Drawing.Point(3, 583);
             this.DevicesFilenameLbl.Name = "DevicesFilenameLbl";
-            this.DevicesFilenameLbl.Size = new System.Drawing.Size(1226, 62);
+            this.DevicesFilenameLbl.Size = new System.Drawing.Size(1086, 41);
             this.DevicesFilenameLbl.TabIndex = 102;
             this.DevicesFilenameLbl.Text = "Untitled";
             this.DevicesFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2116,10 +2369,10 @@
             this.button11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button11.ForeColor = System.Drawing.Color.White;
-            this.button11.Location = new System.Drawing.Point(706, 2);
+            this.button11.Location = new System.Drawing.Point(626, 2);
             this.button11.Margin = new System.Windows.Forms.Padding(2);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(172, 183);
+            this.button11.Size = new System.Drawing.Size(152, 119);
             this.button11.TabIndex = 109;
             this.button11.Text = "Runtime App";
             this.button11.UseVisualStyleBackColor = false;
@@ -2130,10 +2383,10 @@
             this.button12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button12.ForeColor = System.Drawing.Color.White;
-            this.button12.Location = new System.Drawing.Point(1234, 2);
+            this.button12.Location = new System.Drawing.Point(1094, 2);
             this.button12.Margin = new System.Windows.Forms.Padding(2);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(172, 183);
+            this.button12.Size = new System.Drawing.Size(152, 119);
             this.button12.TabIndex = 110;
             this.button12.Text = "Setup App";
             this.button12.UseVisualStyleBackColor = false;
@@ -2144,10 +2397,10 @@
             this.ConnectAllDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ConnectAllDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConnectAllDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.ConnectAllDevicesBtn.Location = new System.Drawing.Point(1762, 2);
+            this.ConnectAllDevicesBtn.Location = new System.Drawing.Point(1562, 2);
             this.ConnectAllDevicesBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ConnectAllDevicesBtn.Name = "ConnectAllDevicesBtn";
-            this.ConnectAllDevicesBtn.Size = new System.Drawing.Size(172, 183);
+            this.ConnectAllDevicesBtn.Size = new System.Drawing.Size(152, 119);
             this.ConnectAllDevicesBtn.TabIndex = 107;
             this.ConnectAllDevicesBtn.Text = "Connect All";
             this.ConnectAllDevicesBtn.UseVisualStyleBackColor = false;
@@ -2159,10 +2412,10 @@
             this.DisconnectAllDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DisconnectAllDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DisconnectAllDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.DisconnectAllDevicesBtn.Location = new System.Drawing.Point(1938, 2);
+            this.DisconnectAllDevicesBtn.Location = new System.Drawing.Point(1718, 2);
             this.DisconnectAllDevicesBtn.Margin = new System.Windows.Forms.Padding(2);
             this.DisconnectAllDevicesBtn.Name = "DisconnectAllDevicesBtn";
-            this.DisconnectAllDevicesBtn.Size = new System.Drawing.Size(174, 183);
+            this.DisconnectAllDevicesBtn.Size = new System.Drawing.Size(154, 119);
             this.DisconnectAllDevicesBtn.TabIndex = 108;
             this.DisconnectAllDevicesBtn.Text = "Disconnect All";
             this.DisconnectAllDevicesBtn.UseVisualStyleBackColor = false;
@@ -2176,13 +2429,13 @@
             this.RuntimeAppHelperLayoutPanel.Controls.Add(this.button14, 0, 1);
             this.RuntimeAppHelperLayoutPanel.Controls.Add(this.button13, 0, 0);
             this.RuntimeAppHelperLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RuntimeAppHelperLayoutPanel.Location = new System.Drawing.Point(883, 3);
+            this.RuntimeAppHelperLayoutPanel.Location = new System.Drawing.Point(783, 3);
             this.RuntimeAppHelperLayoutPanel.Name = "RuntimeAppHelperLayoutPanel";
             this.RuntimeAppHelperLayoutPanel.RowCount = 3;
             this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.RuntimeAppHelperLayoutPanel.Size = new System.Drawing.Size(170, 181);
+            this.RuntimeAppHelperLayoutPanel.Size = new System.Drawing.Size(150, 117);
             this.RuntimeAppHelperLayoutPanel.TabIndex = 111;
             // 
             // button15
@@ -2191,10 +2444,10 @@
             this.button15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button15.ForeColor = System.Drawing.Color.White;
-            this.button15.Location = new System.Drawing.Point(2, 122);
+            this.button15.Location = new System.Drawing.Point(2, 80);
             this.button15.Margin = new System.Windows.Forms.Padding(2);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(166, 57);
+            this.button15.Size = new System.Drawing.Size(146, 35);
             this.button15.TabIndex = 115;
             this.button15.Text = "Exit";
             this.button15.UseVisualStyleBackColor = false;
@@ -2205,10 +2458,10 @@
             this.button14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button14.ForeColor = System.Drawing.Color.White;
-            this.button14.Location = new System.Drawing.Point(2, 62);
+            this.button14.Location = new System.Drawing.Point(2, 41);
             this.button14.Margin = new System.Windows.Forms.Padding(2);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(166, 56);
+            this.button14.Size = new System.Drawing.Size(146, 35);
             this.button14.TabIndex = 114;
             this.button14.Text = "Min";
             this.button14.UseVisualStyleBackColor = false;
@@ -2222,7 +2475,7 @@
             this.button13.Location = new System.Drawing.Point(2, 2);
             this.button13.Margin = new System.Windows.Forms.Padding(2);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(166, 56);
+            this.button13.Size = new System.Drawing.Size(146, 35);
             this.button13.TabIndex = 113;
             this.button13.Text = "Max";
             this.button13.UseVisualStyleBackColor = false;
@@ -2235,13 +2488,13 @@
             this.SetupAppHelperLayoutPanel.Controls.Add(this.button16, 0, 0);
             this.SetupAppHelperLayoutPanel.Controls.Add(this.button17, 0, 1);
             this.SetupAppHelperLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetupAppHelperLayoutPanel.Location = new System.Drawing.Point(1411, 3);
+            this.SetupAppHelperLayoutPanel.Location = new System.Drawing.Point(1251, 3);
             this.SetupAppHelperLayoutPanel.Name = "SetupAppHelperLayoutPanel";
             this.SetupAppHelperLayoutPanel.RowCount = 3;
             this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.SetupAppHelperLayoutPanel.Size = new System.Drawing.Size(170, 181);
+            this.SetupAppHelperLayoutPanel.Size = new System.Drawing.Size(150, 117);
             this.SetupAppHelperLayoutPanel.TabIndex = 112;
             // 
             // button18
@@ -2250,10 +2503,10 @@
             this.button18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button18.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button18.ForeColor = System.Drawing.Color.White;
-            this.button18.Location = new System.Drawing.Point(2, 122);
+            this.button18.Location = new System.Drawing.Point(2, 80);
             this.button18.Margin = new System.Windows.Forms.Padding(2);
             this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(166, 57);
+            this.button18.Size = new System.Drawing.Size(146, 35);
             this.button18.TabIndex = 116;
             this.button18.Text = "Exit";
             this.button18.UseVisualStyleBackColor = false;
@@ -2267,7 +2520,7 @@
             this.button16.Location = new System.Drawing.Point(2, 2);
             this.button16.Margin = new System.Windows.Forms.Padding(2);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(166, 56);
+            this.button16.Size = new System.Drawing.Size(146, 35);
             this.button16.TabIndex = 114;
             this.button16.Text = "Max";
             this.button16.UseVisualStyleBackColor = false;
@@ -2278,10 +2531,10 @@
             this.button17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button17.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button17.ForeColor = System.Drawing.Color.White;
-            this.button17.Location = new System.Drawing.Point(2, 62);
+            this.button17.Location = new System.Drawing.Point(2, 41);
             this.button17.Margin = new System.Windows.Forms.Padding(2);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(166, 56);
+            this.button17.Size = new System.Drawing.Size(146, 35);
             this.button17.TabIndex = 115;
             this.button17.Text = "Min";
             this.button17.UseVisualStyleBackColor = false;
@@ -2293,9 +2546,9 @@
             this.SetStartupDevicesFileBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetStartupDevicesFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetStartupDevicesFileBtn.ForeColor = System.Drawing.Color.White;
-            this.SetStartupDevicesFileBtn.Location = new System.Drawing.Point(1235, 889);
+            this.SetStartupDevicesFileBtn.Location = new System.Drawing.Point(1095, 586);
             this.SetStartupDevicesFileBtn.Name = "SetStartupDevicesFileBtn";
-            this.SetStartupDevicesFileBtn.Size = new System.Drawing.Size(346, 56);
+            this.SetStartupDevicesFileBtn.Size = new System.Drawing.Size(306, 35);
             this.SetStartupDevicesFileBtn.TabIndex = 103;
             this.SetStartupDevicesFileBtn.Text = "Use This File At Startup";
             this.SetStartupDevicesFileBtn.UseVisualStyleBackColor = false;
@@ -2304,30 +2557,30 @@
             // RobotIpTxt
             // 
             this.RobotIpTxt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RobotIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RobotIpTxt.Location = new System.Drawing.Point(707, 1013);
+            this.RobotIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RobotIpTxt.Location = new System.Drawing.Point(627, 668);
             this.RobotIpTxt.Name = "RobotIpTxt";
-            this.RobotIpTxt.Size = new System.Drawing.Size(170, 35);
+            this.RobotIpTxt.Size = new System.Drawing.Size(150, 31);
             this.RobotIpTxt.TabIndex = 72;
             this.RobotIpTxt.Text = "192.168.0.2";
             // 
             // ServerIpTxt
             // 
             this.ServerIpTxt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ServerIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ServerIpTxt.Location = new System.Drawing.Point(531, 1013);
+            this.ServerIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerIpTxt.Location = new System.Drawing.Point(471, 668);
             this.ServerIpTxt.Name = "ServerIpTxt";
-            this.ServerIpTxt.Size = new System.Drawing.Size(170, 35);
+            this.ServerIpTxt.Size = new System.Drawing.Size(150, 31);
             this.ServerIpTxt.TabIndex = 79;
             this.ServerIpTxt.Text = "192.168.0.253";
             // 
             // RobotProgramTxt
             // 
             this.RobotProgramTxt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RobotProgramTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RobotProgramTxt.Location = new System.Drawing.Point(355, 1013);
+            this.RobotProgramTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RobotProgramTxt.Location = new System.Drawing.Point(315, 668);
             this.RobotProgramTxt.Name = "RobotProgramTxt";
-            this.RobotProgramTxt.Size = new System.Drawing.Size(170, 35);
+            this.RobotProgramTxt.Size = new System.Drawing.Size(150, 31);
             this.RobotProgramTxt.TabIndex = 87;
             // 
             // ClearDevicesBtn
@@ -2336,9 +2589,9 @@
             this.ClearDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearDevicesBtn.Location = new System.Drawing.Point(1939, 951);
+            this.ClearDevicesBtn.Location = new System.Drawing.Point(1719, 627);
             this.ClearDevicesBtn.Name = "ClearDevicesBtn";
-            this.ClearDevicesBtn.Size = new System.Drawing.Size(172, 56);
+            this.ClearDevicesBtn.Size = new System.Drawing.Size(152, 35);
             this.ClearDevicesBtn.TabIndex = 105;
             this.ClearDevicesBtn.Text = "Clear";
             this.ClearDevicesBtn.UseVisualStyleBackColor = false;
@@ -2350,9 +2603,9 @@
             this.SaveAsDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveAsDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveAsDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(1763, 951);
+            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(1563, 627);
             this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
-            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(170, 56);
+            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(150, 35);
             this.SaveAsDevicesBtn.TabIndex = 104;
             this.SaveAsDevicesBtn.Text = "Save As...";
             this.SaveAsDevicesBtn.UseVisualStyleBackColor = false;
@@ -2364,9 +2617,9 @@
             this.SaveDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveDevicesBtn.Location = new System.Drawing.Point(1587, 951);
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(1407, 627);
             this.SaveDevicesBtn.Name = "SaveDevicesBtn";
-            this.SaveDevicesBtn.Size = new System.Drawing.Size(170, 56);
+            this.SaveDevicesBtn.Size = new System.Drawing.Size(150, 35);
             this.SaveDevicesBtn.TabIndex = 101;
             this.SaveDevicesBtn.Text = "Save";
             this.SaveDevicesBtn.UseVisualStyleBackColor = false;
@@ -2378,9 +2631,9 @@
             this.LoadDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadDevicesBtn.Location = new System.Drawing.Point(1411, 951);
+            this.LoadDevicesBtn.Location = new System.Drawing.Point(1251, 627);
             this.LoadDevicesBtn.Name = "LoadDevicesBtn";
-            this.LoadDevicesBtn.Size = new System.Drawing.Size(170, 56);
+            this.LoadDevicesBtn.Size = new System.Drawing.Size(150, 35);
             this.LoadDevicesBtn.TabIndex = 113;
             this.LoadDevicesBtn.Text = "Load";
             this.LoadDevicesBtn.UseVisualStyleBackColor = false;
@@ -2392,9 +2645,9 @@
             this.ReloadDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ReloadDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReloadDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.ReloadDevicesBtn.Location = new System.Drawing.Point(1235, 951);
+            this.ReloadDevicesBtn.Location = new System.Drawing.Point(1095, 627);
             this.ReloadDevicesBtn.Name = "ReloadDevicesBtn";
-            this.ReloadDevicesBtn.Size = new System.Drawing.Size(170, 56);
+            this.ReloadDevicesBtn.Size = new System.Drawing.Size(150, 35);
             this.ReloadDevicesBtn.TabIndex = 100;
             this.ReloadDevicesBtn.Text = "Reload";
             this.ReloadDevicesBtn.UseVisualStyleBackColor = false;
@@ -2406,7 +2659,7 @@
             this.toolsPage.Location = new System.Drawing.Point(4, 100);
             this.toolsPage.Name = "toolsPage";
             this.toolsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.toolsPage.Size = new System.Drawing.Size(2120, 1060);
+            this.toolsPage.Size = new System.Drawing.Size(1880, 700);
             this.toolsPage.TabIndex = 0;
             this.toolsPage.Text = "Tools";
             this.toolsPage.UseVisualStyleBackColor = true;
@@ -2444,10 +2697,10 @@
             this.SetupToolsLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.SetupToolsLayoutPanel.Name = "SetupToolsLayoutPanel";
             this.SetupToolsLayoutPanel.RowCount = 3;
-            this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.SetupToolsLayoutPanel.Size = new System.Drawing.Size(2114, 1054);
+            this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.803922F));
+            this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.43137F));
+            this.SetupToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
+            this.SetupToolsLayoutPanel.Size = new System.Drawing.Size(1874, 694);
             this.SetupToolsLayoutPanel.TabIndex = 0;
             // 
             // SetDoorClosedInputBtn
@@ -2456,9 +2709,9 @@
             this.SetDoorClosedInputBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetDoorClosedInputBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetDoorClosedInputBtn.ForeColor = System.Drawing.Color.White;
-            this.SetDoorClosedInputBtn.Location = new System.Drawing.Point(579, 951);
+            this.SetDoorClosedInputBtn.Location = new System.Drawing.Point(513, 615);
             this.SetDoorClosedInputBtn.Name = "SetDoorClosedInputBtn";
-            this.SetDoorClosedInputBtn.Size = new System.Drawing.Size(186, 100);
+            this.SetDoorClosedInputBtn.Size = new System.Drawing.Size(164, 76);
             this.SetDoorClosedInputBtn.TabIndex = 96;
             this.SetDoorClosedInputBtn.Text = "Set Door Closed Input";
             this.SetDoorClosedInputBtn.UseVisualStyleBackColor = false;
@@ -2470,9 +2723,9 @@
             this.SetFootswitchPressedInputBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetFootswitchPressedInputBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetFootswitchPressedInputBtn.ForeColor = System.Drawing.Color.White;
-            this.SetFootswitchPressedInputBtn.Location = new System.Drawing.Point(3, 951);
+            this.SetFootswitchPressedInputBtn.Location = new System.Drawing.Point(3, 615);
             this.SetFootswitchPressedInputBtn.Name = "SetFootswitchPressedInputBtn";
-            this.SetFootswitchPressedInputBtn.Size = new System.Drawing.Size(186, 100);
+            this.SetFootswitchPressedInputBtn.Size = new System.Drawing.Size(164, 76);
             this.SetFootswitchPressedInputBtn.TabIndex = 121;
             this.SetFootswitchPressedInputBtn.Text = "Set Footswitch Pressed Input";
             this.SetFootswitchPressedInputBtn.UseVisualStyleBackColor = false;
@@ -2485,20 +2738,21 @@
             this.FootswitchIoLayoutPanel.Controls.Add(this.FootswitchPressedInputTxt, 0, 0);
             this.FootswitchIoLayoutPanel.Controls.Add(this.FootswitchPressedInputLbl, 0, 1);
             this.FootswitchIoLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FootswitchIoLayoutPanel.Location = new System.Drawing.Point(195, 951);
+            this.FootswitchIoLayoutPanel.Location = new System.Drawing.Point(173, 615);
             this.FootswitchIoLayoutPanel.Name = "FootswitchIoLayoutPanel";
             this.FootswitchIoLayoutPanel.RowCount = 2;
             this.FootswitchIoLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.FootswitchIoLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.FootswitchIoLayoutPanel.Size = new System.Drawing.Size(186, 100);
+            this.FootswitchIoLayoutPanel.Size = new System.Drawing.Size(164, 76);
             this.FootswitchIoLayoutPanel.TabIndex = 129;
             // 
             // FootswitchPressedInputTxt
             // 
             this.FootswitchPressedInputTxt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FootswitchPressedInputTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FootswitchPressedInputTxt.Location = new System.Drawing.Point(3, 3);
             this.FootswitchPressedInputTxt.Name = "FootswitchPressedInputTxt";
-            this.FootswitchPressedInputTxt.Size = new System.Drawing.Size(180, 44);
+            this.FootswitchPressedInputTxt.Size = new System.Drawing.Size(158, 35);
             this.FootswitchPressedInputTxt.TabIndex = 122;
             this.FootswitchPressedInputTxt.Text = "7,1";
             // 
@@ -2506,9 +2760,10 @@
             // 
             this.FootswitchPressedInputLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FootswitchPressedInputLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FootswitchPressedInputLbl.Location = new System.Drawing.Point(3, 50);
+            this.FootswitchPressedInputLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FootswitchPressedInputLbl.Location = new System.Drawing.Point(3, 38);
             this.FootswitchPressedInputLbl.Name = "FootswitchPressedInputLbl";
-            this.FootswitchPressedInputLbl.Size = new System.Drawing.Size(180, 50);
+            this.FootswitchPressedInputLbl.Size = new System.Drawing.Size(158, 38);
             this.FootswitchPressedInputLbl.TabIndex = 123;
             this.FootswitchPressedInputLbl.Text = "7,1";
             this.FootswitchPressedInputLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2520,21 +2775,22 @@
             this.DoorIoLayoutPanel.Controls.Add(this.DoorClosedInputLbl, 0, 1);
             this.DoorIoLayoutPanel.Controls.Add(this.DoorClosedInputTxt, 0, 0);
             this.DoorIoLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DoorIoLayoutPanel.Location = new System.Drawing.Point(771, 951);
+            this.DoorIoLayoutPanel.Location = new System.Drawing.Point(683, 615);
             this.DoorIoLayoutPanel.Name = "DoorIoLayoutPanel";
             this.DoorIoLayoutPanel.RowCount = 2;
             this.DoorIoLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.DoorIoLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.DoorIoLayoutPanel.Size = new System.Drawing.Size(186, 100);
+            this.DoorIoLayoutPanel.Size = new System.Drawing.Size(164, 76);
             this.DoorIoLayoutPanel.TabIndex = 130;
             // 
             // DoorClosedInputLbl
             // 
             this.DoorClosedInputLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DoorClosedInputLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DoorClosedInputLbl.Location = new System.Drawing.Point(3, 50);
+            this.DoorClosedInputLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DoorClosedInputLbl.Location = new System.Drawing.Point(3, 38);
             this.DoorClosedInputLbl.Name = "DoorClosedInputLbl";
-            this.DoorClosedInputLbl.Size = new System.Drawing.Size(180, 50);
+            this.DoorClosedInputLbl.Size = new System.Drawing.Size(158, 38);
             this.DoorClosedInputLbl.TabIndex = 124;
             this.DoorClosedInputLbl.Text = "1,1";
             this.DoorClosedInputLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2542,9 +2798,10 @@
             // DoorClosedInputTxt
             // 
             this.DoorClosedInputTxt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DoorClosedInputTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DoorClosedInputTxt.Location = new System.Drawing.Point(3, 3);
             this.DoorClosedInputTxt.Name = "DoorClosedInputTxt";
-            this.DoorClosedInputTxt.Size = new System.Drawing.Size(180, 44);
+            this.DoorClosedInputTxt.Size = new System.Drawing.Size(158, 35);
             this.DoorClosedInputTxt.TabIndex = 118;
             this.DoorClosedInputTxt.Text = "1,1";
             // 
@@ -2552,29 +2809,29 @@
             // 
             this.ToolsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.ToolsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.ToolsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupToolsLayoutPanel.SetColumnSpan(this.ToolsGrd, 11);
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle12;
             this.ToolsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ToolsGrd.Location = new System.Drawing.Point(3, 108);
+            this.ToolsGrd.Location = new System.Drawing.Point(3, 71);
             this.ToolsGrd.Name = "ToolsGrd";
             this.ToolsGrd.RowTemplate.Height = 34;
-            this.ToolsGrd.Size = new System.Drawing.Size(2108, 837);
+            this.ToolsGrd.Size = new System.Drawing.Size(1868, 538);
             this.ToolsGrd.TabIndex = 85;
             // 
             // SelectToolBtn
@@ -2585,7 +2842,7 @@
             this.SelectToolBtn.ForeColor = System.Drawing.Color.White;
             this.SelectToolBtn.Location = new System.Drawing.Point(3, 3);
             this.SelectToolBtn.Name = "SelectToolBtn";
-            this.SelectToolBtn.Size = new System.Drawing.Size(186, 99);
+            this.SelectToolBtn.Size = new System.Drawing.Size(164, 62);
             this.SelectToolBtn.TabIndex = 95;
             this.SelectToolBtn.Text = "Select";
             this.SelectToolBtn.UseVisualStyleBackColor = false;
@@ -2597,9 +2854,9 @@
             this.JointMoveMountBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JointMoveMountBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JointMoveMountBtn.ForeColor = System.Drawing.Color.White;
-            this.JointMoveMountBtn.Location = new System.Drawing.Point(195, 3);
+            this.JointMoveMountBtn.Location = new System.Drawing.Point(173, 3);
             this.JointMoveMountBtn.Name = "JointMoveMountBtn";
-            this.JointMoveMountBtn.Size = new System.Drawing.Size(186, 99);
+            this.JointMoveMountBtn.Size = new System.Drawing.Size(164, 62);
             this.JointMoveMountBtn.TabIndex = 120;
             this.JointMoveMountBtn.Text = "Joint Move to Mount";
             this.JointMoveMountBtn.UseVisualStyleBackColor = false;
@@ -2611,9 +2868,9 @@
             this.JointMoveHomeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JointMoveHomeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JointMoveHomeBtn.ForeColor = System.Drawing.Color.White;
-            this.JointMoveHomeBtn.Location = new System.Drawing.Point(387, 3);
+            this.JointMoveHomeBtn.Location = new System.Drawing.Point(343, 3);
             this.JointMoveHomeBtn.Name = "JointMoveHomeBtn";
-            this.JointMoveHomeBtn.Size = new System.Drawing.Size(186, 99);
+            this.JointMoveHomeBtn.Size = new System.Drawing.Size(164, 62);
             this.JointMoveHomeBtn.TabIndex = 119;
             this.JointMoveHomeBtn.Text = "Joint Move to Home";
             this.JointMoveHomeBtn.UseVisualStyleBackColor = false;
@@ -2625,9 +2882,9 @@
             this.ToolTestBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ToolTestBtn.ForeColor = System.Drawing.Color.White;
-            this.ToolTestBtn.Location = new System.Drawing.Point(579, 3);
+            this.ToolTestBtn.Location = new System.Drawing.Point(513, 3);
             this.ToolTestBtn.Name = "ToolTestBtn";
-            this.ToolTestBtn.Size = new System.Drawing.Size(186, 99);
+            this.ToolTestBtn.Size = new System.Drawing.Size(164, 62);
             this.ToolTestBtn.TabIndex = 125;
             this.ToolTestBtn.Text = "Tool Test";
             this.ToolTestBtn.UseVisualStyleBackColor = false;
@@ -2639,9 +2896,9 @@
             this.ToolOffBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolOffBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ToolOffBtn.ForeColor = System.Drawing.Color.White;
-            this.ToolOffBtn.Location = new System.Drawing.Point(771, 3);
+            this.ToolOffBtn.Location = new System.Drawing.Point(683, 3);
             this.ToolOffBtn.Name = "ToolOffBtn";
-            this.ToolOffBtn.Size = new System.Drawing.Size(186, 99);
+            this.ToolOffBtn.Size = new System.Drawing.Size(164, 62);
             this.ToolOffBtn.TabIndex = 126;
             this.ToolOffBtn.Text = "Tool Off";
             this.ToolOffBtn.UseVisualStyleBackColor = false;
@@ -2653,9 +2910,9 @@
             this.CoolantTestBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CoolantTestBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CoolantTestBtn.ForeColor = System.Drawing.Color.White;
-            this.CoolantTestBtn.Location = new System.Drawing.Point(963, 3);
+            this.CoolantTestBtn.Location = new System.Drawing.Point(853, 3);
             this.CoolantTestBtn.Name = "CoolantTestBtn";
-            this.CoolantTestBtn.Size = new System.Drawing.Size(186, 99);
+            this.CoolantTestBtn.Size = new System.Drawing.Size(164, 62);
             this.CoolantTestBtn.TabIndex = 127;
             this.CoolantTestBtn.Text = "Cool Test";
             this.CoolantTestBtn.UseVisualStyleBackColor = false;
@@ -2667,9 +2924,9 @@
             this.CoolantOffBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CoolantOffBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CoolantOffBtn.ForeColor = System.Drawing.Color.White;
-            this.CoolantOffBtn.Location = new System.Drawing.Point(1155, 3);
+            this.CoolantOffBtn.Location = new System.Drawing.Point(1023, 3);
             this.CoolantOffBtn.Name = "CoolantOffBtn";
-            this.CoolantOffBtn.Size = new System.Drawing.Size(186, 99);
+            this.CoolantOffBtn.Size = new System.Drawing.Size(164, 62);
             this.CoolantOffBtn.TabIndex = 128;
             this.CoolantOffBtn.Text = "Cool Off";
             this.CoolantOffBtn.UseVisualStyleBackColor = false;
@@ -2681,9 +2938,9 @@
             this.LoadToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadToolsBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadToolsBtn.Location = new System.Drawing.Point(1539, 951);
+            this.LoadToolsBtn.Location = new System.Drawing.Point(1363, 615);
             this.LoadToolsBtn.Name = "LoadToolsBtn";
-            this.LoadToolsBtn.Size = new System.Drawing.Size(186, 100);
+            this.LoadToolsBtn.Size = new System.Drawing.Size(164, 76);
             this.LoadToolsBtn.TabIndex = 94;
             this.LoadToolsBtn.Text = "Reload";
             this.LoadToolsBtn.UseVisualStyleBackColor = false;
@@ -2695,9 +2952,9 @@
             this.SaveToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveToolsBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveToolsBtn.Location = new System.Drawing.Point(1731, 951);
+            this.SaveToolsBtn.Location = new System.Drawing.Point(1533, 615);
             this.SaveToolsBtn.Name = "SaveToolsBtn";
-            this.SaveToolsBtn.Size = new System.Drawing.Size(186, 100);
+            this.SaveToolsBtn.Size = new System.Drawing.Size(164, 76);
             this.SaveToolsBtn.TabIndex = 93;
             this.SaveToolsBtn.Text = "Save";
             this.SaveToolsBtn.UseVisualStyleBackColor = false;
@@ -2709,20 +2966,141 @@
             this.ClearToolsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearToolsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearToolsBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearToolsBtn.Location = new System.Drawing.Point(1923, 951);
+            this.ClearToolsBtn.Location = new System.Drawing.Point(1703, 615);
             this.ClearToolsBtn.Name = "ClearToolsBtn";
-            this.ClearToolsBtn.Size = new System.Drawing.Size(188, 100);
+            this.ClearToolsBtn.Size = new System.Drawing.Size(168, 76);
             this.ClearToolsBtn.TabIndex = 92;
             this.ClearToolsBtn.Text = "Clear";
             this.ClearToolsBtn.UseVisualStyleBackColor = false;
             this.ClearToolsBtn.Click += new System.EventHandler(this.ClearToolsBtn_Click);
+            // 
+            // viewPage
+            // 
+            this.viewPage.Controls.Add(this.UiFullscreenBtn);
+            this.viewPage.Controls.Add(this.label24);
+            this.viewPage.Controls.Add(this.UiTextScaleTxt);
+            this.viewPage.Controls.Add(this.UiTextScaleBtn);
+            this.viewPage.Controls.Add(this.UiDefaultBtn);
+            this.viewPage.Controls.Add(this.label23);
+            this.viewPage.Controls.Add(this.label20);
+            this.viewPage.Controls.Add(this.UiFixedHeightTxt);
+            this.viewPage.Controls.Add(this.UiFixedWidthTxt);
+            this.viewPage.Controls.Add(this.UiFreeBtn);
+            this.viewPage.Controls.Add(this.UiFixedBtn);
+            this.viewPage.Location = new System.Drawing.Point(4, 100);
+            this.viewPage.Name = "viewPage";
+            this.viewPage.Size = new System.Drawing.Size(1880, 700);
+            this.viewPage.TabIndex = 6;
+            this.viewPage.Text = "View";
+            this.viewPage.UseVisualStyleBackColor = true;
+            // 
+            // UiFullscreenBtn
+            // 
+            this.UiFullscreenBtn.Location = new System.Drawing.Point(26, 110);
+            this.UiFullscreenBtn.Name = "UiFullscreenBtn";
+            this.UiFullscreenBtn.Size = new System.Drawing.Size(249, 84);
+            this.UiFullscreenBtn.TabIndex = 21;
+            this.UiFullscreenBtn.Text = "Fullscreen";
+            this.UiFullscreenBtn.UseVisualStyleBackColor = true;
+            this.UiFullscreenBtn.Click += new System.EventHandler(this.UiFullscreenBtn_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(406, 463);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(45, 37);
+            this.label24.TabIndex = 20;
+            this.label24.Text = "%";
+            // 
+            // UiTextScaleTxt
+            // 
+            this.UiTextScaleTxt.Location = new System.Drawing.Point(303, 460);
+            this.UiTextScaleTxt.Name = "UiTextScaleTxt";
+            this.UiTextScaleTxt.Size = new System.Drawing.Size(100, 44);
+            this.UiTextScaleTxt.TabIndex = 19;
+            this.UiTextScaleTxt.Text = "100";
+            // 
+            // UiTextScaleBtn
+            // 
+            this.UiTextScaleBtn.Location = new System.Drawing.Point(25, 439);
+            this.UiTextScaleBtn.Name = "UiTextScaleBtn";
+            this.UiTextScaleBtn.Size = new System.Drawing.Size(250, 84);
+            this.UiTextScaleBtn.TabIndex = 18;
+            this.UiTextScaleBtn.Text = "Text Scale";
+            this.UiTextScaleBtn.UseVisualStyleBackColor = true;
+            this.UiTextScaleBtn.Click += new System.EventHandler(this.UiTextScaleBtn_Click);
+            // 
+            // UiDefaultBtn
+            // 
+            this.UiDefaultBtn.Location = new System.Drawing.Point(26, 20);
+            this.UiDefaultBtn.Name = "UiDefaultBtn";
+            this.UiDefaultBtn.Size = new System.Drawing.Size(249, 84);
+            this.UiDefaultBtn.TabIndex = 17;
+            this.UiDefaultBtn.Text = "Default Tablet 2160 x 1440";
+            this.UiDefaultBtn.UseVisualStyleBackColor = true;
+            this.UiDefaultBtn.Click += new System.EventHandler(this.UiDefaultBtn_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(428, 210);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(109, 37);
+            this.label23.TabIndex = 16;
+            this.label23.Text = "Height";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(303, 210);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(100, 37);
+            this.label20.TabIndex = 15;
+            this.label20.Text = "Width";
+            // 
+            // UiFixedHeightTxt
+            // 
+            this.UiFixedHeightTxt.Location = new System.Drawing.Point(426, 250);
+            this.UiFixedHeightTxt.Name = "UiFixedHeightTxt";
+            this.UiFixedHeightTxt.Size = new System.Drawing.Size(100, 44);
+            this.UiFixedHeightTxt.TabIndex = 14;
+            this.UiFixedHeightTxt.Text = "1440";
+            // 
+            // UiFixedWidthTxt
+            // 
+            this.UiFixedWidthTxt.Location = new System.Drawing.Point(303, 250);
+            this.UiFixedWidthTxt.Name = "UiFixedWidthTxt";
+            this.UiFixedWidthTxt.Size = new System.Drawing.Size(100, 44);
+            this.UiFixedWidthTxt.TabIndex = 13;
+            this.UiFixedWidthTxt.Text = "2160";
+            // 
+            // UiFreeBtn
+            // 
+            this.UiFreeBtn.Location = new System.Drawing.Point(25, 300);
+            this.UiFreeBtn.Name = "UiFreeBtn";
+            this.UiFreeBtn.Size = new System.Drawing.Size(250, 84);
+            this.UiFreeBtn.TabIndex = 12;
+            this.UiFreeBtn.Text = "Free";
+            this.UiFreeBtn.UseVisualStyleBackColor = true;
+            this.UiFreeBtn.Click += new System.EventHandler(this.UiFreeBtn_Click);
+            // 
+            // UiFixedBtn
+            // 
+            this.UiFixedBtn.Location = new System.Drawing.Point(25, 210);
+            this.UiFixedBtn.Name = "UiFixedBtn";
+            this.UiFixedBtn.Size = new System.Drawing.Size(250, 84);
+            this.UiFixedBtn.TabIndex = 11;
+            this.UiFixedBtn.Text = "Fixed";
+            this.UiFixedBtn.UseVisualStyleBackColor = true;
+            this.UiFixedBtn.Click += new System.EventHandler(this.UiFixedBtn_Click);
             // 
             // grindPage
             // 
             this.grindPage.Controls.Add(this.SetupGrindLayoutPanel);
             this.grindPage.Location = new System.Drawing.Point(4, 100);
             this.grindPage.Name = "grindPage";
-            this.grindPage.Size = new System.Drawing.Size(2120, 1060);
+            this.grindPage.Size = new System.Drawing.Size(1880, 700);
             this.grindPage.TabIndex = 2;
             this.grindPage.Text = "Grind";
             this.grindPage.UseVisualStyleBackColor = true;
@@ -2767,7 +3145,7 @@
             this.SetupGrindLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.SetupGrindLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.SetupGrindLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGrindLayoutPanel.Size = new System.Drawing.Size(2120, 1060);
+            this.SetupGrindLayoutPanel.Size = new System.Drawing.Size(1880, 700);
             this.SetupGrindLayoutPanel.TabIndex = 0;
             // 
             // SetMoveDefaultsBtn
@@ -2776,9 +3154,9 @@
             this.SetMoveDefaultsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetMoveDefaultsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetMoveDefaultsBtn.ForeColor = System.Drawing.Color.White;
-            this.SetMoveDefaultsBtn.Location = new System.Drawing.Point(798, 531);
+            this.SetMoveDefaultsBtn.Location = new System.Drawing.Point(708, 351);
             this.SetMoveDefaultsBtn.Name = "SetMoveDefaultsBtn";
-            this.SetMoveDefaultsBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetMoveDefaultsBtn.Size = new System.Drawing.Size(229, 110);
             this.SetMoveDefaultsBtn.TabIndex = 122;
             this.SetMoveDefaultsBtn.Text = "Restore Defaults";
             this.SetMoveDefaultsBtn.UseVisualStyleBackColor = false;
@@ -2790,9 +3168,9 @@
             this.SetPointFrequencyBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetPointFrequencyBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetPointFrequencyBtn.ForeColor = System.Drawing.Color.White;
-            this.SetPointFrequencyBtn.Location = new System.Drawing.Point(1328, 179);
+            this.SetPointFrequencyBtn.Location = new System.Drawing.Point(1178, 119);
             this.SetPointFrequencyBtn.Name = "SetPointFrequencyBtn";
-            this.SetPointFrequencyBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetPointFrequencyBtn.Size = new System.Drawing.Size(229, 110);
             this.SetPointFrequencyBtn.TabIndex = 122;
             this.SetPointFrequencyBtn.Text = "Set Point Frequency";
             this.SetPointFrequencyBtn.UseVisualStyleBackColor = false;
@@ -2804,9 +3182,9 @@
             this.SetBlendRadiusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetBlendRadiusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetBlendRadiusBtn.ForeColor = System.Drawing.Color.White;
-            this.SetBlendRadiusBtn.Location = new System.Drawing.Point(533, 531);
+            this.SetBlendRadiusBtn.Location = new System.Drawing.Point(473, 351);
             this.SetBlendRadiusBtn.Name = "SetBlendRadiusBtn";
-            this.SetBlendRadiusBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetBlendRadiusBtn.Size = new System.Drawing.Size(229, 110);
             this.SetBlendRadiusBtn.TabIndex = 111;
             this.SetBlendRadiusBtn.Text = "Set Blend Radius";
             this.SetBlendRadiusBtn.UseVisualStyleBackColor = false;
@@ -2818,9 +3196,9 @@
             this.SetForceModeGainScalingBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetForceModeGainScalingBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetForceModeGainScalingBtn.ForeColor = System.Drawing.Color.White;
-            this.SetForceModeGainScalingBtn.Location = new System.Drawing.Point(798, 179);
+            this.SetForceModeGainScalingBtn.Location = new System.Drawing.Point(708, 119);
             this.SetForceModeGainScalingBtn.Name = "SetForceModeGainScalingBtn";
-            this.SetForceModeGainScalingBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetForceModeGainScalingBtn.Size = new System.Drawing.Size(229, 110);
             this.SetForceModeGainScalingBtn.TabIndex = 125;
             this.SetForceModeGainScalingBtn.Text = "Set Force Mode Gain Scaling";
             this.SetForceModeGainScalingBtn.UseVisualStyleBackColor = false;
@@ -2832,9 +3210,9 @@
             this.SetForceModeDampingBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetForceModeDampingBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetForceModeDampingBtn.ForeColor = System.Drawing.Color.White;
-            this.SetForceModeDampingBtn.Location = new System.Drawing.Point(533, 179);
+            this.SetForceModeDampingBtn.Location = new System.Drawing.Point(473, 119);
             this.SetForceModeDampingBtn.Name = "SetForceModeDampingBtn";
-            this.SetForceModeDampingBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetForceModeDampingBtn.Size = new System.Drawing.Size(229, 110);
             this.SetForceModeDampingBtn.TabIndex = 126;
             this.SetForceModeDampingBtn.Text = "Set Force Mode Damping";
             this.SetForceModeDampingBtn.UseVisualStyleBackColor = false;
@@ -2846,9 +3224,9 @@
             this.SetJointAccelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetJointAccelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetJointAccelBtn.ForeColor = System.Drawing.Color.White;
-            this.SetJointAccelBtn.Location = new System.Drawing.Point(268, 707);
+            this.SetJointAccelBtn.Location = new System.Drawing.Point(238, 467);
             this.SetJointAccelBtn.Name = "SetJointAccelBtn";
-            this.SetJointAccelBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetJointAccelBtn.Size = new System.Drawing.Size(229, 110);
             this.SetJointAccelBtn.TabIndex = 113;
             this.SetJointAccelBtn.Text = "Set Joint Accel";
             this.SetJointAccelBtn.UseVisualStyleBackColor = false;
@@ -2862,7 +3240,7 @@
             this.SetTrialSpeedBtn.ForeColor = System.Drawing.Color.White;
             this.SetTrialSpeedBtn.Location = new System.Drawing.Point(3, 3);
             this.SetTrialSpeedBtn.Name = "SetTrialSpeedBtn";
-            this.SetTrialSpeedBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetTrialSpeedBtn.Size = new System.Drawing.Size(229, 110);
             this.SetTrialSpeedBtn.TabIndex = 119;
             this.SetTrialSpeedBtn.Text = "Set Trial Speed";
             this.SetTrialSpeedBtn.UseVisualStyleBackColor = false;
@@ -2874,9 +3252,9 @@
             this.SetJointSpeedBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetJointSpeedBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetJointSpeedBtn.ForeColor = System.Drawing.Color.White;
-            this.SetJointSpeedBtn.Location = new System.Drawing.Point(268, 531);
+            this.SetJointSpeedBtn.Location = new System.Drawing.Point(238, 351);
             this.SetJointSpeedBtn.Name = "SetJointSpeedBtn";
-            this.SetJointSpeedBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetJointSpeedBtn.Size = new System.Drawing.Size(229, 110);
             this.SetJointSpeedBtn.TabIndex = 112;
             this.SetJointSpeedBtn.Text = "Set Joint Speed";
             this.SetJointSpeedBtn.UseVisualStyleBackColor = false;
@@ -2888,9 +3266,9 @@
             this.SetGrindAccelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetGrindAccelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetGrindAccelBtn.ForeColor = System.Drawing.Color.White;
-            this.SetGrindAccelBtn.Location = new System.Drawing.Point(268, 3);
+            this.SetGrindAccelBtn.Location = new System.Drawing.Point(238, 3);
             this.SetGrindAccelBtn.Name = "SetGrindAccelBtn";
-            this.SetGrindAccelBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetGrindAccelBtn.Size = new System.Drawing.Size(229, 110);
             this.SetGrindAccelBtn.TabIndex = 120;
             this.SetGrindAccelBtn.Text = "Set Acceleration";
             this.SetGrindAccelBtn.UseVisualStyleBackColor = false;
@@ -2902,9 +3280,9 @@
             this.SetGrindJogAccelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetGrindJogAccelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetGrindJogAccelBtn.ForeColor = System.Drawing.Color.White;
-            this.SetGrindJogAccelBtn.Location = new System.Drawing.Point(268, 179);
+            this.SetGrindJogAccelBtn.Location = new System.Drawing.Point(238, 119);
             this.SetGrindJogAccelBtn.Name = "SetGrindJogAccelBtn";
-            this.SetGrindJogAccelBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetGrindJogAccelBtn.Size = new System.Drawing.Size(229, 110);
             this.SetGrindJogAccelBtn.TabIndex = 124;
             this.SetGrindJogAccelBtn.Text = "Set Jog Accel";
             this.SetGrindJogAccelBtn.UseVisualStyleBackColor = false;
@@ -2916,9 +3294,9 @@
             this.SetMaxGrindBlendRadiusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetMaxGrindBlendRadiusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetMaxGrindBlendRadiusBtn.ForeColor = System.Drawing.Color.White;
-            this.SetMaxGrindBlendRadiusBtn.Location = new System.Drawing.Point(533, 3);
+            this.SetMaxGrindBlendRadiusBtn.Location = new System.Drawing.Point(473, 3);
             this.SetMaxGrindBlendRadiusBtn.Name = "SetMaxGrindBlendRadiusBtn";
-            this.SetMaxGrindBlendRadiusBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetMaxGrindBlendRadiusBtn.Size = new System.Drawing.Size(229, 110);
             this.SetMaxGrindBlendRadiusBtn.TabIndex = 118;
             this.SetMaxGrindBlendRadiusBtn.Text = "Set Max Blend Radius";
             this.SetMaxGrindBlendRadiusBtn.UseVisualStyleBackColor = false;
@@ -2930,9 +3308,9 @@
             this.SetLinearSpeedBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetLinearSpeedBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetLinearSpeedBtn.ForeColor = System.Drawing.Color.White;
-            this.SetLinearSpeedBtn.Location = new System.Drawing.Point(3, 531);
+            this.SetLinearSpeedBtn.Location = new System.Drawing.Point(3, 351);
             this.SetLinearSpeedBtn.Name = "SetLinearSpeedBtn";
-            this.SetLinearSpeedBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetLinearSpeedBtn.Size = new System.Drawing.Size(229, 110);
             this.SetLinearSpeedBtn.TabIndex = 109;
             this.SetLinearSpeedBtn.Text = "Set Linear Speed";
             this.SetLinearSpeedBtn.UseVisualStyleBackColor = false;
@@ -2944,9 +3322,9 @@
             this.SetGrindJogSpeedBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetGrindJogSpeedBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetGrindJogSpeedBtn.ForeColor = System.Drawing.Color.White;
-            this.SetGrindJogSpeedBtn.Location = new System.Drawing.Point(3, 179);
+            this.SetGrindJogSpeedBtn.Location = new System.Drawing.Point(3, 119);
             this.SetGrindJogSpeedBtn.Name = "SetGrindJogSpeedBtn";
-            this.SetGrindJogSpeedBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetGrindJogSpeedBtn.Size = new System.Drawing.Size(229, 110);
             this.SetGrindJogSpeedBtn.TabIndex = 123;
             this.SetGrindJogSpeedBtn.Text = "Set Jog Speed";
             this.SetGrindJogSpeedBtn.UseVisualStyleBackColor = false;
@@ -2958,9 +3336,9 @@
             this.SetTouchSpeedBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetTouchSpeedBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetTouchSpeedBtn.ForeColor = System.Drawing.Color.White;
-            this.SetTouchSpeedBtn.Location = new System.Drawing.Point(798, 3);
+            this.SetTouchSpeedBtn.Location = new System.Drawing.Point(708, 3);
             this.SetTouchSpeedBtn.Name = "SetTouchSpeedBtn";
-            this.SetTouchSpeedBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetTouchSpeedBtn.Size = new System.Drawing.Size(229, 110);
             this.SetTouchSpeedBtn.TabIndex = 115;
             this.SetTouchSpeedBtn.Text = "Set Touch Speed";
             this.SetTouchSpeedBtn.UseVisualStyleBackColor = false;
@@ -2972,9 +3350,9 @@
             this.SetTouchRetractBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetTouchRetractBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetTouchRetractBtn.ForeColor = System.Drawing.Color.White;
-            this.SetTouchRetractBtn.Location = new System.Drawing.Point(1063, 3);
+            this.SetTouchRetractBtn.Location = new System.Drawing.Point(943, 3);
             this.SetTouchRetractBtn.Name = "SetTouchRetractBtn";
-            this.SetTouchRetractBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetTouchRetractBtn.Size = new System.Drawing.Size(229, 110);
             this.SetTouchRetractBtn.TabIndex = 114;
             this.SetTouchRetractBtn.Text = "Set Touch Retract";
             this.SetTouchRetractBtn.UseVisualStyleBackColor = false;
@@ -2986,9 +3364,9 @@
             this.SetForceDwellBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetForceDwellBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetForceDwellBtn.ForeColor = System.Drawing.Color.White;
-            this.SetForceDwellBtn.Location = new System.Drawing.Point(1328, 3);
+            this.SetForceDwellBtn.Location = new System.Drawing.Point(1178, 3);
             this.SetForceDwellBtn.Name = "SetForceDwellBtn";
-            this.SetForceDwellBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetForceDwellBtn.Size = new System.Drawing.Size(229, 110);
             this.SetForceDwellBtn.TabIndex = 116;
             this.SetForceDwellBtn.Text = "Set Force Dwell";
             this.SetForceDwellBtn.UseVisualStyleBackColor = false;
@@ -3000,9 +3378,9 @@
             this.SetMaxWaitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetMaxWaitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetMaxWaitBtn.ForeColor = System.Drawing.Color.White;
-            this.SetMaxWaitBtn.Location = new System.Drawing.Point(1593, 3);
+            this.SetMaxWaitBtn.Location = new System.Drawing.Point(1413, 3);
             this.SetMaxWaitBtn.Name = "SetMaxWaitBtn";
-            this.SetMaxWaitBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetMaxWaitBtn.Size = new System.Drawing.Size(229, 110);
             this.SetMaxWaitBtn.TabIndex = 117;
             this.SetMaxWaitBtn.Text = "Set Max Wait";
             this.SetMaxWaitBtn.UseVisualStyleBackColor = false;
@@ -3014,9 +3392,9 @@
             this.SetGrindDefaultsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetGrindDefaultsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetGrindDefaultsBtn.ForeColor = System.Drawing.Color.White;
-            this.SetGrindDefaultsBtn.Location = new System.Drawing.Point(1858, 3);
+            this.SetGrindDefaultsBtn.Location = new System.Drawing.Point(1648, 3);
             this.SetGrindDefaultsBtn.Name = "SetGrindDefaultsBtn";
-            this.SetGrindDefaultsBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetGrindDefaultsBtn.Size = new System.Drawing.Size(229, 110);
             this.SetGrindDefaultsBtn.TabIndex = 121;
             this.SetGrindDefaultsBtn.Text = "Restore Defaults";
             this.SetGrindDefaultsBtn.UseVisualStyleBackColor = false;
@@ -3028,9 +3406,9 @@
             this.SetLinearAccelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetLinearAccelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetLinearAccelBtn.ForeColor = System.Drawing.Color.White;
-            this.SetLinearAccelBtn.Location = new System.Drawing.Point(3, 707);
+            this.SetLinearAccelBtn.Location = new System.Drawing.Point(3, 467);
             this.SetLinearAccelBtn.Name = "SetLinearAccelBtn";
-            this.SetLinearAccelBtn.Size = new System.Drawing.Size(259, 170);
+            this.SetLinearAccelBtn.Size = new System.Drawing.Size(229, 110);
             this.SetLinearAccelBtn.TabIndex = 110;
             this.SetLinearAccelBtn.Text = "Set Linear Accel";
             this.SetLinearAccelBtn.UseVisualStyleBackColor = false;
@@ -3111,7 +3489,7 @@
             this.LogsPage.Controls.Add(this.tableLayoutPanel1);
             this.LogsPage.Location = new System.Drawing.Point(4, 100);
             this.LogsPage.Name = "LogsPage";
-            this.LogsPage.Size = new System.Drawing.Size(2132, 1168);
+            this.LogsPage.Size = new System.Drawing.Size(1892, 808);
             this.LogsPage.TabIndex = 5;
             this.LogsPage.Text = "Logs";
             this.LogsPage.UseVisualStyleBackColor = true;
@@ -3134,7 +3512,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(2128, 1164);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1888, 804);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // groupBox5
@@ -3142,9 +3520,9 @@
             this.groupBox5.Controls.Add(this.UrLogRTB);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(1386, 468);
+            this.groupBox5.Location = new System.Drawing.Point(1230, 324);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(739, 459);
+            this.groupBox5.Size = new System.Drawing.Size(655, 315);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Robot Commands and Responses";
@@ -3158,7 +3536,7 @@
             this.UrLogRTB.MaxLength = 1000000;
             this.UrLogRTB.Name = "UrLogRTB";
             this.UrLogRTB.ReadOnly = true;
-            this.UrLogRTB.Size = new System.Drawing.Size(733, 431);
+            this.UrLogRTB.Size = new System.Drawing.Size(649, 287);
             this.UrLogRTB.TabIndex = 0;
             this.UrLogRTB.Text = "";
             this.UrLogRTB.WordWrap = false;
@@ -3168,9 +3546,9 @@
             this.groupBox10.Controls.Add(this.ExecLogRTB);
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox10.Location = new System.Drawing.Point(3, 468);
+            this.groupBox10.Location = new System.Drawing.Point(3, 324);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(1377, 459);
+            this.groupBox10.Size = new System.Drawing.Size(1221, 315);
             this.groupBox10.TabIndex = 2;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Recipe Execution Messages";
@@ -3184,7 +3562,7 @@
             this.ExecLogRTB.MaxLength = 1000000;
             this.ExecLogRTB.Name = "ExecLogRTB";
             this.ExecLogRTB.ReadOnly = true;
-            this.ExecLogRTB.Size = new System.Drawing.Size(1371, 431);
+            this.ExecLogRTB.Size = new System.Drawing.Size(1215, 287);
             this.ExecLogRTB.TabIndex = 0;
             this.ExecLogRTB.Text = "";
             this.ExecLogRTB.WordWrap = false;
@@ -3194,9 +3572,9 @@
             this.groupBox6.Controls.Add(this.ErrorLogRTB);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(3, 933);
+            this.groupBox6.Location = new System.Drawing.Point(3, 645);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(1377, 228);
+            this.groupBox6.Size = new System.Drawing.Size(1221, 156);
             this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Errors and Warnings";
@@ -3210,7 +3588,7 @@
             this.ErrorLogRTB.MaxLength = 1000000;
             this.ErrorLogRTB.Name = "ErrorLogRTB";
             this.ErrorLogRTB.ReadOnly = true;
-            this.ErrorLogRTB.Size = new System.Drawing.Size(1371, 200);
+            this.ErrorLogRTB.Size = new System.Drawing.Size(1215, 128);
             this.ErrorLogRTB.TabIndex = 0;
             this.ErrorLogRTB.Text = "";
             this.ErrorLogRTB.WordWrap = false;
@@ -3221,9 +3599,9 @@
             this.groupBox7.Controls.Add(this.UrDashboardLogRTB);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox7.Location = new System.Drawing.Point(1386, 3);
+            this.groupBox7.Location = new System.Drawing.Point(1230, 3);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(739, 459);
+            this.groupBox7.Size = new System.Drawing.Size(655, 315);
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Robot Dashboard Server";
@@ -3237,7 +3615,7 @@
             this.UrDashboardLogRTB.MaxLength = 1000000;
             this.UrDashboardLogRTB.Name = "UrDashboardLogRTB";
             this.UrDashboardLogRTB.ReadOnly = true;
-            this.UrDashboardLogRTB.Size = new System.Drawing.Size(733, 431);
+            this.UrDashboardLogRTB.Size = new System.Drawing.Size(649, 287);
             this.UrDashboardLogRTB.TabIndex = 0;
             this.UrDashboardLogRTB.Text = "";
             this.UrDashboardLogRTB.WordWrap = false;
@@ -3250,7 +3628,7 @@
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1377, 459);
+            this.groupBox4.Size = new System.Drawing.Size(1221, 315);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "All Log Messages (Double-click to clear any of these)";
@@ -3264,7 +3642,7 @@
             this.AllLogRTB.MaxLength = 1000000;
             this.AllLogRTB.Name = "AllLogRTB";
             this.AllLogRTB.ReadOnly = true;
-            this.AllLogRTB.Size = new System.Drawing.Size(1371, 431);
+            this.AllLogRTB.Size = new System.Drawing.Size(1215, 287);
             this.AllLogRTB.TabIndex = 0;
             this.AllLogRTB.Text = "";
             this.AllLogRTB.WordWrap = false;
@@ -3279,11 +3657,11 @@
             this.LogPageControlsLayoutPanel.Controls.Add(this.AboutBtn, 2, 0);
             this.LogPageControlsLayoutPanel.Controls.Add(this.ClearAllLogRtbBtn, 1, 0);
             this.LogPageControlsLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LogPageControlsLayoutPanel.Location = new System.Drawing.Point(1386, 933);
+            this.LogPageControlsLayoutPanel.Location = new System.Drawing.Point(1230, 645);
             this.LogPageControlsLayoutPanel.Name = "LogPageControlsLayoutPanel";
             this.LogPageControlsLayoutPanel.RowCount = 1;
             this.LogPageControlsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.LogPageControlsLayoutPanel.Size = new System.Drawing.Size(739, 228);
+            this.LogPageControlsLayoutPanel.Size = new System.Drawing.Size(655, 156);
             this.LogPageControlsLayoutPanel.TabIndex = 5;
             // 
             // LogLevelGroupBox
@@ -3293,7 +3671,7 @@
             this.LogLevelGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LogLevelGroupBox.Location = new System.Drawing.Point(3, 3);
             this.LogLevelGroupBox.Name = "LogLevelGroupBox";
-            this.LogLevelGroupBox.Size = new System.Drawing.Size(348, 118);
+            this.LogLevelGroupBox.Size = new System.Drawing.Size(308, 118);
             this.LogLevelGroupBox.TabIndex = 7;
             this.LogLevelGroupBox.TabStop = false;
             this.LogLevelGroupBox.Text = "Log Level";
@@ -3313,7 +3691,7 @@
             "Trace"});
             this.LogLevelCombo.Location = new System.Drawing.Point(23, 43);
             this.LogLevelCombo.Name = "LogLevelCombo";
-            this.LogLevelCombo.Size = new System.Drawing.Size(251, 50);
+            this.LogLevelCombo.Size = new System.Drawing.Size(211, 50);
             this.LogLevelCombo.TabIndex = 0;
             this.LogLevelCombo.SelectedIndexChanged += new System.EventHandler(this.DebugLevelCombo_SelectedIndexChanged);
             // 
@@ -3323,9 +3701,9 @@
             this.AboutBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AboutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AboutBtn.ForeColor = System.Drawing.Color.White;
-            this.AboutBtn.Location = new System.Drawing.Point(549, 3);
+            this.AboutBtn.Location = new System.Drawing.Point(487, 3);
             this.AboutBtn.Name = "AboutBtn";
-            this.AboutBtn.Size = new System.Drawing.Size(187, 222);
+            this.AboutBtn.Size = new System.Drawing.Size(165, 150);
             this.AboutBtn.TabIndex = 6;
             this.AboutBtn.Text = "About";
             this.AboutBtn.UseVisualStyleBackColor = false;
@@ -3337,9 +3715,9 @@
             this.ClearAllLogRtbBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearAllLogRtbBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearAllLogRtbBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearAllLogRtbBtn.Location = new System.Drawing.Point(357, 3);
+            this.ClearAllLogRtbBtn.Location = new System.Drawing.Point(317, 3);
             this.ClearAllLogRtbBtn.Name = "ClearAllLogRtbBtn";
-            this.ClearAllLogRtbBtn.Size = new System.Drawing.Size(186, 222);
+            this.ClearAllLogRtbBtn.Size = new System.Drawing.Size(164, 150);
             this.ClearAllLogRtbBtn.TabIndex = 5;
             this.ClearAllLogRtbBtn.Text = "Clear All";
             this.ClearAllLogRtbBtn.UseVisualStyleBackColor = false;
@@ -3351,10 +3729,10 @@
             this.JogRunBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JogRunBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JogRunBtn.ForeColor = System.Drawing.Color.White;
-            this.JogRunBtn.Location = new System.Drawing.Point(1041, 2);
+            this.JogRunBtn.Location = new System.Drawing.Point(899, 2);
             this.JogRunBtn.Margin = new System.Windows.Forms.Padding(2);
             this.JogRunBtn.Name = "JogRunBtn";
-            this.JogRunBtn.Size = new System.Drawing.Size(175, 94);
+            this.JogRunBtn.Size = new System.Drawing.Size(150, 94);
             this.JogRunBtn.TabIndex = 5;
             this.JogRunBtn.Text = "Jog Robot";
             this.JogRunBtn.UseVisualStyleBackColor = false;
@@ -3367,7 +3745,7 @@
             this.DiameterLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiameterLbl.Location = new System.Drawing.Point(3, 0);
             this.DiameterLbl.Name = "DiameterLbl";
-            this.DiameterLbl.Size = new System.Drawing.Size(206, 59);
+            this.DiameterLbl.Size = new System.Drawing.Size(182, 59);
             this.DiameterLbl.TabIndex = 9;
             this.DiameterLbl.Text = "25.0";
             this.DiameterLbl.Click += new System.EventHandler(this.DiameterLbl_Click);
@@ -3384,7 +3762,7 @@
             "SPHERE"});
             this.PartGeometryBox.Location = new System.Drawing.Point(3, 3);
             this.PartGeometryBox.Name = "PartGeometryBox";
-            this.PartGeometryBox.Size = new System.Drawing.Size(308, 63);
+            this.PartGeometryBox.Size = new System.Drawing.Size(272, 63);
             this.PartGeometryBox.TabIndex = 7;
             this.PartGeometryBox.SelectedIndexChanged += new System.EventHandler(this.PartGeometryBox_SelectedIndexChanged);
             // 
@@ -3395,10 +3773,10 @@
             this.DoorClosedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DoorClosedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DoorClosedLbl.ForeColor = System.Drawing.Color.White;
-            this.DoorClosedLbl.Location = new System.Drawing.Point(1220, 0);
+            this.DoorClosedLbl.Location = new System.Drawing.Point(1053, 0);
             this.DoorClosedLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.DoorClosedLbl.Name = "DoorClosedLbl";
-            this.DoorClosedLbl.Size = new System.Drawing.Size(168, 98);
+            this.DoorClosedLbl.Size = new System.Drawing.Size(144, 98);
             this.DoorClosedLbl.TabIndex = 6;
             this.DoorClosedLbl.Text = "Door State";
             this.DoorClosedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3410,7 +3788,7 @@
             this.VersionLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VersionLbl.Location = new System.Drawing.Point(3, 73);
             this.VersionLbl.Name = "VersionLbl";
-            this.VersionLbl.Size = new System.Drawing.Size(419, 29);
+            this.VersionLbl.Size = new System.Drawing.Size(371, 29);
             this.VersionLbl.TabIndex = 10;
             this.VersionLbl.Text = "VersionLbl";
             this.VersionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3422,10 +3800,10 @@
             this.FootswitchPressedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FootswitchPressedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FootswitchPressedLbl.ForeColor = System.Drawing.Color.White;
-            this.FootswitchPressedLbl.Location = new System.Drawing.Point(1392, 0);
+            this.FootswitchPressedLbl.Location = new System.Drawing.Point(1201, 0);
             this.FootswitchPressedLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.FootswitchPressedLbl.Name = "FootswitchPressedLbl";
-            this.FootswitchPressedLbl.Size = new System.Drawing.Size(168, 98);
+            this.FootswitchPressedLbl.Size = new System.Drawing.Size(144, 98);
             this.FootswitchPressedLbl.TabIndex = 8;
             this.FootswitchPressedLbl.Text = "Pedal State";
             this.FootswitchPressedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3439,7 +3817,7 @@
             this.Time2Lbl.Location = new System.Drawing.Point(2, 102);
             this.Time2Lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Time2Lbl.Name = "Time2Lbl";
-            this.Time2Lbl.Size = new System.Drawing.Size(421, 31);
+            this.Time2Lbl.Size = new System.Drawing.Size(373, 31);
             this.Time2Lbl.TabIndex = 11;
             this.Time2Lbl.Text = "Time";
             this.Time2Lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3465,11 +3843,11 @@
             this.BottomButtonLayoutPanel.Controls.Add(this.tableLayoutPanel3, 5, 0);
             this.BottomButtonLayoutPanel.Controls.Add(this.tableLayoutPanel4, 6, 0);
             this.BottomButtonLayoutPanel.Controls.Add(this.DiamVersionLayoutPanel, 7, 0);
-            this.BottomButtonLayoutPanel.Location = new System.Drawing.Point(8, 1289);
+            this.BottomButtonLayoutPanel.Location = new System.Drawing.Point(8, 929);
             this.BottomButtonLayoutPanel.Name = "BottomButtonLayoutPanel";
             this.BottomButtonLayoutPanel.RowCount = 1;
             this.BottomButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.BottomButtonLayoutPanel.Size = new System.Drawing.Size(2136, 139);
+            this.BottomButtonLayoutPanel.Size = new System.Drawing.Size(1896, 139);
             this.BottomButtonLayoutPanel.TabIndex = 13;
             // 
             // tableLayoutPanel3
@@ -3479,12 +3857,12 @@
             this.tableLayoutPanel3.Controls.Add(this.MountedToolBox, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(1068, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(948, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(314, 133);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(278, 133);
             this.tableLayoutPanel3.TabIndex = 5;
             // 
             // tableLayoutPanel4
@@ -3494,12 +3872,12 @@
             this.tableLayoutPanel4.Controls.Add(this.PartGeometryBox, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.label5, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(1388, 3);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(1232, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(314, 133);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(278, 133);
             this.tableLayoutPanel4.TabIndex = 6;
             // 
             // DiamVersionLayoutPanel
@@ -3512,14 +3890,14 @@
             this.DiamVersionLayoutPanel.Controls.Add(this.Time2Lbl, 0, 3);
             this.DiamVersionLayoutPanel.Controls.Add(this.VersionLbl, 0, 2);
             this.DiamVersionLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DiamVersionLayoutPanel.Location = new System.Drawing.Point(1708, 3);
+            this.DiamVersionLayoutPanel.Location = new System.Drawing.Point(1516, 3);
             this.DiamVersionLayoutPanel.Name = "DiamVersionLayoutPanel";
             this.DiamVersionLayoutPanel.RowCount = 4;
             this.DiamVersionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.44444F));
             this.DiamVersionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.DiamVersionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
             this.DiamVersionLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
-            this.DiamVersionLayoutPanel.Size = new System.Drawing.Size(425, 133);
+            this.DiamVersionLayoutPanel.Size = new System.Drawing.Size(377, 133);
             this.DiamVersionLayoutPanel.TabIndex = 7;
             // 
             // TopButtonLayoutPanel
@@ -3548,7 +3926,7 @@
             this.TopButtonLayoutPanel.Name = "TopButtonLayoutPanel";
             this.TopButtonLayoutPanel.RowCount = 1;
             this.TopButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TopButtonLayoutPanel.Size = new System.Drawing.Size(1727, 98);
+            this.TopButtonLayoutPanel.Size = new System.Drawing.Size(1487, 98);
             this.TopButtonLayoutPanel.TabIndex = 14;
             // 
             // ExitBtn
@@ -3557,394 +3935,20 @@
             this.ExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExitBtn.ForeColor = System.Drawing.Color.White;
-            this.ExitBtn.Location = new System.Drawing.Point(1564, 2);
+            this.ExitBtn.Location = new System.Drawing.Point(1349, 2);
             this.ExitBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ExitBtn.Name = "ExitBtn";
-            this.ExitBtn.Size = new System.Drawing.Size(161, 94);
+            this.ExitBtn.Size = new System.Drawing.Size(136, 94);
             this.ExitBtn.TabIndex = 8;
             this.ExitBtn.Text = "Exit";
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // viewPage
-            // 
-            this.viewPage.Controls.Add(this.UiFullscreenBtn);
-            this.viewPage.Controls.Add(this.label24);
-            this.viewPage.Controls.Add(this.UiTextScaleTxt);
-            this.viewPage.Controls.Add(this.UiTextScaleBtn);
-            this.viewPage.Controls.Add(this.UiDefaultBtn);
-            this.viewPage.Controls.Add(this.label23);
-            this.viewPage.Controls.Add(this.label20);
-            this.viewPage.Controls.Add(this.UiFixedHeightTxt);
-            this.viewPage.Controls.Add(this.UiFixedWidthTxt);
-            this.viewPage.Controls.Add(this.UiFreeBtn);
-            this.viewPage.Controls.Add(this.UiFixedBtn);
-            this.viewPage.Location = new System.Drawing.Point(4, 100);
-            this.viewPage.Name = "viewPage";
-            this.viewPage.Size = new System.Drawing.Size(2120, 1060);
-            this.viewPage.TabIndex = 6;
-            this.viewPage.Text = "View";
-            this.viewPage.UseVisualStyleBackColor = true;
-            // 
-            // UiFullscreenBtn
-            // 
-            this.UiFullscreenBtn.Location = new System.Drawing.Point(26, 110);
-            this.UiFullscreenBtn.Name = "UiFullscreenBtn";
-            this.UiFullscreenBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiFullscreenBtn.TabIndex = 21;
-            this.UiFullscreenBtn.Text = "Fullscreen";
-            this.UiFullscreenBtn.UseVisualStyleBackColor = true;
-            this.UiFullscreenBtn.Click += new System.EventHandler(this.UiFullscreenBtn_Click);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(341, 470);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(45, 37);
-            this.label24.TabIndex = 20;
-            this.label24.Text = "%";
-            // 
-            // UiTextScaleTxt
-            // 
-            this.UiTextScaleTxt.Location = new System.Drawing.Point(235, 463);
-            this.UiTextScaleTxt.Name = "UiTextScaleTxt";
-            this.UiTextScaleTxt.Size = new System.Drawing.Size(100, 44);
-            this.UiTextScaleTxt.TabIndex = 19;
-            this.UiTextScaleTxt.Text = "100";
-            // 
-            // UiTextScaleBtn
-            // 
-            this.UiTextScaleBtn.Location = new System.Drawing.Point(25, 439);
-            this.UiTextScaleBtn.Name = "UiTextScaleBtn";
-            this.UiTextScaleBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiTextScaleBtn.TabIndex = 18;
-            this.UiTextScaleBtn.Text = "Text Scale";
-            this.UiTextScaleBtn.UseVisualStyleBackColor = true;
-            this.UiTextScaleBtn.Click += new System.EventHandler(this.UiTextScaleBtn_Click);
-            // 
-            // UiDefaultBtn
-            // 
-            this.UiDefaultBtn.Location = new System.Drawing.Point(26, 20);
-            this.UiDefaultBtn.Name = "UiDefaultBtn";
-            this.UiDefaultBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiDefaultBtn.TabIndex = 17;
-            this.UiDefaultBtn.Text = "Default";
-            this.UiDefaultBtn.UseVisualStyleBackColor = true;
-            this.UiDefaultBtn.Click += new System.EventHandler(this.UiDefaultBtn_Click);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(360, 210);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(109, 37);
-            this.label23.TabIndex = 16;
-            this.label23.Text = "Height";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(235, 210);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(100, 37);
-            this.label20.TabIndex = 15;
-            this.label20.Text = "Width";
-            // 
-            // UiFixedHeightTxt
-            // 
-            this.UiFixedHeightTxt.Location = new System.Drawing.Point(358, 250);
-            this.UiFixedHeightTxt.Name = "UiFixedHeightTxt";
-            this.UiFixedHeightTxt.Size = new System.Drawing.Size(100, 44);
-            this.UiFixedHeightTxt.TabIndex = 14;
-            this.UiFixedHeightTxt.Text = "1440";
-            // 
-            // UiFixedWidthTxt
-            // 
-            this.UiFixedWidthTxt.Location = new System.Drawing.Point(235, 250);
-            this.UiFixedWidthTxt.Name = "UiFixedWidthTxt";
-            this.UiFixedWidthTxt.Size = new System.Drawing.Size(100, 44);
-            this.UiFixedWidthTxt.TabIndex = 13;
-            this.UiFixedWidthTxt.Text = "2160";
-            // 
-            // UiFreeBtn
-            // 
-            this.UiFreeBtn.Location = new System.Drawing.Point(25, 300);
-            this.UiFreeBtn.Name = "UiFreeBtn";
-            this.UiFreeBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiFreeBtn.TabIndex = 12;
-            this.UiFreeBtn.Text = "Free";
-            this.UiFreeBtn.UseVisualStyleBackColor = true;
-            this.UiFreeBtn.Click += new System.EventHandler(this.UiFreeBtn_Click);
-            // 
-            // UiFixedBtn
-            // 
-            this.UiFixedBtn.Location = new System.Drawing.Point(25, 210);
-            this.UiFixedBtn.Name = "UiFixedBtn";
-            this.UiFixedBtn.Size = new System.Drawing.Size(189, 84);
-            this.UiFixedBtn.TabIndex = 11;
-            this.UiFixedBtn.Text = "Fixed";
-            this.UiFixedBtn.UseVisualStyleBackColor = true;
-            this.UiFixedBtn.Click += new System.EventHandler(this.UiFixedBtn_Click);
-            // 
-            // JavaScreenLayoutPanel
-            // 
-            this.JavaScreenLayoutPanel.ColumnCount = 6;
-            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.JavaScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.JavaScreenLayoutPanel.Controls.Add(this.JavaFilenameLbl, 0, 0);
-            this.JavaScreenLayoutPanel.Controls.Add(this.JavaRunBtn, 0, 2);
-            this.JavaScreenLayoutPanel.Controls.Add(this.JavaNewBtn, 2, 2);
-            this.JavaScreenLayoutPanel.Controls.Add(this.JavaLoadBtn, 3, 2);
-            this.JavaScreenLayoutPanel.Controls.Add(this.JavaSaveBtn, 4, 2);
-            this.JavaScreenLayoutPanel.Controls.Add(this.JavaSaveAsBtn, 5, 2);
-            this.JavaScreenLayoutPanel.Controls.Add(this.JavaConsoleRTB, 0, 3);
-            this.JavaScreenLayoutPanel.Controls.Add(this.JavaVariablesRTB, 3, 3);
-            this.JavaScreenLayoutPanel.Controls.Add(this.JavaCodeRTB, 0, 1);
-            this.JavaScreenLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaScreenLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.JavaScreenLayoutPanel.Name = "JavaScreenLayoutPanel";
-            this.JavaScreenLayoutPanel.RowCount = 4;
-            this.JavaScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4F));
-            this.JavaScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.JavaScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.JavaScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23F));
-            this.JavaScreenLayoutPanel.Size = new System.Drawing.Size(1288, 1048);
-            this.JavaScreenLayoutPanel.TabIndex = 3;
-            // 
-            // JavaFilenameLbl
-            // 
-            this.JavaFilenameLbl.AutoSize = true;
-            this.JavaFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.JavaScreenLayoutPanel.SetColumnSpan(this.JavaFilenameLbl, 6);
-            this.JavaFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaFilenameLbl.Location = new System.Drawing.Point(3, 0);
-            this.JavaFilenameLbl.Name = "JavaFilenameLbl";
-            this.JavaFilenameLbl.Size = new System.Drawing.Size(1282, 41);
-            this.JavaFilenameLbl.TabIndex = 0;
-            this.JavaFilenameLbl.Text = "Untitled";
-            // 
-            // JavaNewBtn
-            // 
-            this.JavaNewBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaNewBtn.Enabled = false;
-            this.JavaNewBtn.Location = new System.Drawing.Point(431, 725);
-            this.JavaNewBtn.Name = "JavaNewBtn";
-            this.JavaNewBtn.Size = new System.Drawing.Size(208, 77);
-            this.JavaNewBtn.TabIndex = 3;
-            this.JavaNewBtn.Text = "New";
-            this.JavaNewBtn.UseVisualStyleBackColor = true;
-            this.JavaNewBtn.Click += new System.EventHandler(this.JavaNewBtn_Click);
-            // 
-            // JavaLoadBtn
-            // 
-            this.JavaLoadBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaLoadBtn.Location = new System.Drawing.Point(645, 725);
-            this.JavaLoadBtn.Name = "JavaLoadBtn";
-            this.JavaLoadBtn.Size = new System.Drawing.Size(208, 77);
-            this.JavaLoadBtn.TabIndex = 4;
-            this.JavaLoadBtn.Text = "Load...";
-            this.JavaLoadBtn.UseVisualStyleBackColor = true;
-            this.JavaLoadBtn.Click += new System.EventHandler(this.JavaLoadBtn_Click);
-            // 
-            // JavaSaveBtn
-            // 
-            this.JavaSaveBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaSaveBtn.Enabled = false;
-            this.JavaSaveBtn.Location = new System.Drawing.Point(859, 725);
-            this.JavaSaveBtn.Name = "JavaSaveBtn";
-            this.JavaSaveBtn.Size = new System.Drawing.Size(208, 77);
-            this.JavaSaveBtn.TabIndex = 5;
-            this.JavaSaveBtn.Text = "Save";
-            this.JavaSaveBtn.UseVisualStyleBackColor = true;
-            this.JavaSaveBtn.Click += new System.EventHandler(this.JavaSaveBtn_Click);
-            // 
-            // JavaSaveAsBtn
-            // 
-            this.JavaSaveAsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaSaveAsBtn.Enabled = false;
-            this.JavaSaveAsBtn.Location = new System.Drawing.Point(1073, 725);
-            this.JavaSaveAsBtn.Name = "JavaSaveAsBtn";
-            this.JavaSaveAsBtn.Size = new System.Drawing.Size(212, 77);
-            this.JavaSaveAsBtn.TabIndex = 6;
-            this.JavaSaveAsBtn.Text = "Save As...";
-            this.JavaSaveAsBtn.UseVisualStyleBackColor = true;
-            this.JavaSaveAsBtn.Click += new System.EventHandler(this.JavaSaveAsBtn_Click);
-            // 
-            // PythonScreenLayoutPanel
-            // 
-            this.PythonScreenLayoutPanel.ColumnCount = 6;
-            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
-            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
-            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
-            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
-            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
-            this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
-            this.PythonScreenLayoutPanel.Controls.Add(this.PythonFilenameLbl, 0, 0);
-            this.PythonScreenLayoutPanel.Controls.Add(this.PythonRunBtn, 0, 2);
-            this.PythonScreenLayoutPanel.Controls.Add(this.PythonNewBtn, 2, 2);
-            this.PythonScreenLayoutPanel.Controls.Add(this.PythonLoadBtn, 3, 2);
-            this.PythonScreenLayoutPanel.Controls.Add(this.PythonSaveBtn, 4, 2);
-            this.PythonScreenLayoutPanel.Controls.Add(this.PythonSaveAsBtn, 5, 2);
-            this.PythonScreenLayoutPanel.Controls.Add(this.richTextBox3, 0, 3);
-            this.PythonScreenLayoutPanel.Controls.Add(this.richTextBox4, 3, 3);
-            this.PythonScreenLayoutPanel.Controls.Add(this.PythonCodeRTB, 0, 1);
-            this.PythonScreenLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PythonScreenLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.PythonScreenLayoutPanel.Name = "PythonScreenLayoutPanel";
-            this.PythonScreenLayoutPanel.RowCount = 4;
-            this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4F));
-            this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8F));
-            this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23F));
-            this.PythonScreenLayoutPanel.Size = new System.Drawing.Size(1288, 1048);
-            this.PythonScreenLayoutPanel.TabIndex = 5;
-            // 
-            // PythonFilenameLbl
-            // 
-            this.PythonFilenameLbl.AutoSize = true;
-            this.PythonFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PythonScreenLayoutPanel.SetColumnSpan(this.PythonFilenameLbl, 6);
-            this.PythonFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PythonFilenameLbl.Location = new System.Drawing.Point(3, 0);
-            this.PythonFilenameLbl.Name = "PythonFilenameLbl";
-            this.PythonFilenameLbl.Size = new System.Drawing.Size(1282, 41);
-            this.PythonFilenameLbl.TabIndex = 0;
-            this.PythonFilenameLbl.Text = "Untitled";
-            // 
-            // PythonNewBtn
-            // 
-            this.PythonNewBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PythonNewBtn.Enabled = false;
-            this.PythonNewBtn.Location = new System.Drawing.Point(431, 725);
-            this.PythonNewBtn.Name = "PythonNewBtn";
-            this.PythonNewBtn.Size = new System.Drawing.Size(208, 77);
-            this.PythonNewBtn.TabIndex = 3;
-            this.PythonNewBtn.Text = "New";
-            this.PythonNewBtn.UseVisualStyleBackColor = true;
-            this.PythonNewBtn.Click += new System.EventHandler(this.PythonNewBtn_Click);
-            // 
-            // PythonLoadBtn
-            // 
-            this.PythonLoadBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PythonLoadBtn.Location = new System.Drawing.Point(645, 725);
-            this.PythonLoadBtn.Name = "PythonLoadBtn";
-            this.PythonLoadBtn.Size = new System.Drawing.Size(208, 77);
-            this.PythonLoadBtn.TabIndex = 4;
-            this.PythonLoadBtn.Text = "Load...";
-            this.PythonLoadBtn.UseVisualStyleBackColor = true;
-            this.PythonLoadBtn.Click += new System.EventHandler(this.PythonLoadBtn_Click);
-            // 
-            // PythonSaveBtn
-            // 
-            this.PythonSaveBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PythonSaveBtn.Enabled = false;
-            this.PythonSaveBtn.Location = new System.Drawing.Point(859, 725);
-            this.PythonSaveBtn.Name = "PythonSaveBtn";
-            this.PythonSaveBtn.Size = new System.Drawing.Size(208, 77);
-            this.PythonSaveBtn.TabIndex = 5;
-            this.PythonSaveBtn.Text = "Save";
-            this.PythonSaveBtn.UseVisualStyleBackColor = true;
-            this.PythonSaveBtn.Click += new System.EventHandler(this.PythonSaveBtn_Click);
-            // 
-            // PythonSaveAsBtn
-            // 
-            this.PythonSaveAsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PythonSaveAsBtn.Enabled = false;
-            this.PythonSaveAsBtn.Location = new System.Drawing.Point(1073, 725);
-            this.PythonSaveAsBtn.Name = "PythonSaveAsBtn";
-            this.PythonSaveAsBtn.Size = new System.Drawing.Size(212, 77);
-            this.PythonSaveAsBtn.TabIndex = 6;
-            this.PythonSaveAsBtn.Text = "Save As...";
-            this.PythonSaveAsBtn.UseVisualStyleBackColor = true;
-            this.PythonSaveAsBtn.Click += new System.EventHandler(this.PythonSaveAsBtn_Click);
-            // 
-            // JavaConsoleRTB
-            // 
-            this.JavaScreenLayoutPanel.SetColumnSpan(this.JavaConsoleRTB, 3);
-            this.JavaConsoleRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaConsoleRTB.Location = new System.Drawing.Point(3, 808);
-            this.JavaConsoleRTB.Name = "JavaConsoleRTB";
-            this.JavaConsoleRTB.Size = new System.Drawing.Size(636, 237);
-            this.JavaConsoleRTB.TabIndex = 7;
-            this.JavaConsoleRTB.Text = "";
-            // 
-            // JavaVariablesRTB
-            // 
-            this.JavaScreenLayoutPanel.SetColumnSpan(this.JavaVariablesRTB, 3);
-            this.JavaVariablesRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaVariablesRTB.Location = new System.Drawing.Point(645, 808);
-            this.JavaVariablesRTB.Name = "JavaVariablesRTB";
-            this.JavaVariablesRTB.Size = new System.Drawing.Size(640, 237);
-            this.JavaVariablesRTB.TabIndex = 8;
-            this.JavaVariablesRTB.Text = "";
-            // 
-            // richTextBox3
-            // 
-            this.PythonScreenLayoutPanel.SetColumnSpan(this.richTextBox3, 3);
-            this.richTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox3.Location = new System.Drawing.Point(3, 808);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(636, 237);
-            this.richTextBox3.TabIndex = 8;
-            this.richTextBox3.Text = "";
-            // 
-            // richTextBox4
-            // 
-            this.PythonScreenLayoutPanel.SetColumnSpan(this.richTextBox4, 3);
-            this.richTextBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox4.Location = new System.Drawing.Point(645, 808);
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(640, 237);
-            this.richTextBox4.TabIndex = 9;
-            this.richTextBox4.Text = "";
-            // 
-            // FullManualBtn
-            // 
-            this.FullManualBtn.AutoSize = true;
-            this.ManualLayoutPanel.SetColumnSpan(this.FullManualBtn, 2);
-            this.FullManualBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FullManualBtn.Location = new System.Drawing.Point(647, 991);
-            this.FullManualBtn.Name = "FullManualBtn";
-            this.FullManualBtn.Size = new System.Drawing.Size(638, 54);
-            this.FullManualBtn.TabIndex = 106;
-            this.FullManualBtn.Text = "Show Full Manual PDF in Chrome";
-            this.FullManualBtn.UseVisualStyleBackColor = true;
-            this.FullManualBtn.Click += new System.EventHandler(this.FullManualBtn_Click);
-            // 
-            // JavaCodeRTB
-            // 
-            this.JavaScreenLayoutPanel.SetColumnSpan(this.JavaCodeRTB, 6);
-            this.JavaCodeRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaCodeRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.JavaCodeRTB.Location = new System.Drawing.Point(3, 44);
-            this.JavaCodeRTB.Name = "JavaCodeRTB";
-            this.JavaCodeRTB.Size = new System.Drawing.Size(1282, 675);
-            this.JavaCodeRTB.TabIndex = 9;
-            this.JavaCodeRTB.Text = "";
-            this.JavaCodeRTB.TextChanged += new System.EventHandler(this.JavaCodeRTB_TextChanged);
-            // 
-            // PythonCodeRTB
-            // 
-            this.PythonScreenLayoutPanel.SetColumnSpan(this.PythonCodeRTB, 6);
-            this.PythonCodeRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PythonCodeRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PythonCodeRTB.Location = new System.Drawing.Point(3, 44);
-            this.PythonCodeRTB.Name = "PythonCodeRTB";
-            this.PythonCodeRTB.Size = new System.Drawing.Size(1282, 675);
-            this.PythonCodeRTB.TabIndex = 10;
-            this.PythonCodeRTB.Text = "";
-            this.PythonCodeRTB.TextChanged += new System.EventHandler(this.PythonCodeRTB_TextChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2160, 1440);
+            this.ClientSize = new System.Drawing.Size(1920, 1080);
             this.ControlBox = false;
             this.Controls.Add(this.TopButtonLayoutPanel);
             this.Controls.Add(this.MainTab);
@@ -3968,7 +3972,11 @@
             this.VariablesLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.VariablesGrd)).EndInit();
             this.javaEnginePage.ResumeLayout(false);
+            this.JavaScreenLayoutPanel.ResumeLayout(false);
+            this.JavaScreenLayoutPanel.PerformLayout();
             this.pythonEnginePage.ResumeLayout(false);
+            this.PythonScreenLayoutPanel.ResumeLayout(false);
+            this.PythonScreenLayoutPanel.PerformLayout();
             this.manualPage.ResumeLayout(false);
             this.ManualLayoutPanel.ResumeLayout(false);
             this.ManualLayoutPanel.PerformLayout();
@@ -4006,6 +4014,8 @@
             this.DoorIoLayoutPanel.ResumeLayout(false);
             this.DoorIoLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ToolsGrd)).EndInit();
+            this.viewPage.ResumeLayout(false);
+            this.viewPage.PerformLayout();
             this.grindPage.ResumeLayout(false);
             this.SetupGrindLayoutPanel.ResumeLayout(false);
             this.LogsPage.ResumeLayout(false);
@@ -4023,12 +4033,6 @@
             this.DiamVersionLayoutPanel.ResumeLayout(false);
             this.DiamVersionLayoutPanel.PerformLayout();
             this.TopButtonLayoutPanel.ResumeLayout(false);
-            this.viewPage.ResumeLayout(false);
-            this.viewPage.PerformLayout();
-            this.JavaScreenLayoutPanel.ResumeLayout(false);
-            this.JavaScreenLayoutPanel.PerformLayout();
-            this.PythonScreenLayoutPanel.ResumeLayout(false);
-            this.PythonScreenLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
