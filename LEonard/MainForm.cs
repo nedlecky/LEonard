@@ -52,32 +52,16 @@ namespace LEonard
         static DataTable positions;
         static string[] diameterDefaults = { "0.00", "77.2", "81.9" };
 
-        // App screen design sizes (Zebra ET80A Tablet as installed at Tosoh Quartz, what the unit shows as recommended resolution)
-        public const int tabletScreenDesignWidth = 2160;  // 2160 / 1920 = 112.5%
-        public const int tabletScreenDesignHeight = 1440; // 1440 / 1080 = 133.3%
-        // Aspect Ratio: 2160 / 1440 = 1.5 (15:10)
-
-        // App screen design sizes (Zebra L10 Tablet according to spec)
-        //public const int tablet2ScreenDesignWidth = 1920;  // 1920 / 1920 = 100%
-        //public const int tablet2ScreenDesignHeight = 1200; // 1200 / 1080 = 111.1%
-        // Aspect Ratio: 1920 / 1200 = 1.6 (16:10)
-
-        // App screen design sizes (LeckyOne Laptop)
-        //public const int laptopScreenDesignWidth = 1920;   // 100%
-        //public const int laptopScreenDesignHeight = 1080;  // 100%
-        // Aspect Ratio: 1920 / 1080 = 1.78 (16:9)
-
-        // App screen design sizes (Big Viewsonic Monitors)
-        //public const int largeScreenDesignWidth = 2560;   // 2560 / 1920 = 133.3%
-        //public const int largeScreenDesignHeight = 1440;  // 1440 / 1080 = 133.3%
-        // Aspect Ratio: 2560 / 1440 = 1.78 (16:9)
+        // MainForm size as designed in Visual Studio
+        public const int screenDesignWidth = 1920;
+        public const int screenDesignHeight = 1080;
 
         private enum UserInterfaceMode
         {
-            TABLET,
+            FIXED,
             FREE,
         }
-        UserInterfaceMode userInterfaceMode = UserInterfaceMode.TABLET;
+        UserInterfaceMode userInterfaceMode = UserInterfaceMode.FIXED;
 
         private enum RunState
         {
@@ -163,9 +147,9 @@ namespace LEonard
             // Check screen dimensions.....
             Rectangle r = Screen.FromControl(this).Bounds;
             log.Info("Screen Dimensions: {0}x{1}", r.Width, r.Height);
-            if (r.Width < tabletScreenDesignWidth || r.Height < tabletScreenDesignHeight)
+            if (r.Width < screenDesignWidth || r.Height < screenDesignHeight)
             {
-                DialogResult result = ConfirmMessageBox(String.Format("Screen dimensions for this application must be at least {0} x {1}. Continue anyway?", tabletScreenDesignWidth, tabletScreenDesignHeight));
+                DialogResult result = ConfirmMessageBox(String.Format("Screen dimensions for this application must be at least {0} x {1}. Continue anyway?", screenDesignWidth, screenDesignHeight));
                 if (result != DialogResult.OK)
                 {
                     forceClose = true;
@@ -250,13 +234,12 @@ namespace LEonard
         {
             if (!uiUpdatesAreLive) return;
 
-            suggestedSystemScale = 100.0 * (double)Width / (double)tabletScreenDesignWidth;
+            suggestedSystemScale = 100.0 * (double)Width / (double)screenDesignWidth;
             if (suggestedSystemScale > 100) suggestedSystemScale = 100;
             log?.Info($"MainForm Resize to {Width} x {Height}");
             log?.Info($"Suggest {suggestedSystemScale}");
 
-            UiTextScaleTxt.Text = $"{suggestedSystemScale:0.#}";
-            UiTextScaleBtn_Click(null, null);
+            ScaleUiText(suggestedSystemScale);
         }
 
 
@@ -2088,22 +2071,17 @@ namespace LEonard
 
             // Window State
             RegistryKey UIKey = AppNameKey.CreateSubKey("UI");
-            // Zebra L10 Tablet runs best at 2160x1440 100% mag
             SuspendLayout();
             Left = (Int32)UIKey.GetValue("Left", 0);
             Top = (Int32)UIKey.GetValue("Top", 0);
-            Width = (Int32)UIKey.GetValue("Width", tabletScreenDesignWidth);
-            Height = (Int32)UIKey.GetValue("Height", tabletScreenDesignHeight);
+            Width = (Int32)UIKey.GetValue("Width", screenDesignWidth);
+            Height = (Int32)UIKey.GetValue("Height", screenDesignHeight);
             ResumeLayout();
             FormBorderStyle = (FormBorderStyle)UIKey.GetValue("BorderStyle", FormBorderStyle.None);
             ControlBox = Convert.ToBoolean(UIKey.GetValue("ControlBox", "False"));
             MaximizeBox = Convert.ToBoolean(UIKey.GetValue("MaximizeBox", "False"));
             MinimizeBox = Convert.ToBoolean(UIKey.GetValue("MinimizeBox", "False"));
             WindowState = (FormWindowState)UIKey.GetValue("WindowState", FormWindowState.Normal);
-            UiFixedWidthTxt.Text = (string)UIKey.GetValue("UiFixedWidthTxt.Text", tabletScreenDesignWidth.ToString());
-            UiFixedHeightTxt.Text = (string)UIKey.GetValue("UiFixedHeightTxt.Text", tabletScreenDesignHeight.ToString());
-            UiTextScaleTxt.Text = (string)UIKey.GetValue("UiTextScaleTxt.Text", "100");
-            UiTextScaleBtn_Click(null, null);
 
             LEonardRootLbl.Text = LEonardRoot;
             RobotProgramTxt.Text = (string)AppNameKey.GetValue("RobotProgramTxt.Text", DEFAULT_RobotProgramTxt);
@@ -2126,6 +2104,11 @@ namespace LEonard
             // Debug Level selection (forced to INFO now)
             // DebugLevelCombo.Text = (string)AppNameKey.GetValue("DebugLevelCombo.Text", "Info");
             LogLevelCombo.Text = "Info";
+
+            // Restore display mode
+            LoadDisplaysBtn_Click(null, null);
+            SelectedDisplayLbl.Text = (string)AppNameKey.GetValue("SelectedDisplayLbl.Text", "Default");
+            SelectDisplayMode(SelectedDisplayLbl.Text);
 
             // Load the tools table
             LoadToolsBtn_Click(null, null);
@@ -2188,9 +2171,6 @@ namespace LEonard
             UIKey.SetValue("MaximizeBox", MaximizeBox);
             UIKey.SetValue("MinimizeBox", MinimizeBox);
             UIKey.SetValue("WindowState", (int)WindowState);
-            UIKey.SetValue("UiFixedWidthTxt.Text", UiFixedWidthTxt.Text);
-            UIKey.SetValue("UiFixedHeightTxt.Text", UiFixedHeightTxt.Text);
-            UIKey.SetValue("UiTextScaleTxt.Text", UiTextScaleTxt.Text);
 
             // From Setup Tab
             AppNameKey.SetValue("LEonardRoot", LEonardRoot);
@@ -5464,8 +5444,8 @@ namespace LEonard
             BigEditDialog bigeditForm = new BigEditDialog()
             {
                 Title = RecipeFilenameLbl.Text,
-                ScreenWidth = tabletScreenDesignWidth,
-                ScreenHeight = tabletScreenDesignHeight,
+                ScreenWidth = screenDesignWidth,
+                ScreenHeight = screenDesignHeight,
                 Recipe = RecipeRTB.Text
             };
             bigeditForm.ShowDialog();
@@ -5596,48 +5576,6 @@ namespace LEonard
             return returnList;
         }
 
-        private void UiDefaultBtn_Click(object sender, EventArgs e)
-        {
-            UiFixedWidthTxt.Text = tabletScreenDesignWidth.ToString();
-            UiFixedHeightTxt.Text = tabletScreenDesignHeight.ToString();
-            UiFixedBtn_Click(null, null);
-
-            //UiTextScaleTxt.Text = "100";
-            //UiTextScaleBtn_Click(null, null);
-        }
-        private void UiFullscreenBtn_Click(object sender, EventArgs e)
-        {
-            Rectangle r = Screen.FromControl(this).Bounds;
-            log.Info("Screen Dimensions: {0}x{1}", r.Width, r.Height);
-
-            UiFixedWidthTxt.Text = r.Width.ToString();
-            UiFixedHeightTxt.Text = r.Height.ToString();
-            UiFixedBtn_Click(null, null);
-        }
-
-        private void UiFixedBtn_Click(object sender, EventArgs e)
-        {
-            userInterfaceMode = UserInterfaceMode.TABLET;
-
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.ControlBox = false;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.WindowState = FormWindowState.Normal;
-
-            int width = tabletScreenDesignWidth;
-            int height = tabletScreenDesignHeight;
-
-            bool good1 = int.TryParse(UiFixedWidthTxt.Text, out width);
-            bool good2 = int.TryParse(UiFixedHeightTxt.Text, out height);
-
-            Left = 0;
-            Top = 0;
-
-            Width = width;
-            Height = height;
-        }
-
         void ScaleUiText(double scale)
         {
             foreach (Control c in allFontResizableList) RescaleFont(c, scale);
@@ -5648,9 +5586,10 @@ namespace LEonard
         {
             displays = new DataTable("Displays");
             DataColumn name = displays.Columns.Add("Name", typeof(System.String));
-            displays.Columns.Add("Width", typeof(System.Double));
-            displays.Columns.Add("Height", typeof(System.Double));
-            displays.Columns.Add("Fixed", typeof(System.Boolean));
+            displays.Columns.Add("Width", typeof(System.Int32));
+            displays.Columns.Add("Height", typeof(System.Int32));
+            displays.Columns.Add("Resizable", typeof(System.Boolean));
+            displays.Columns.Add("Fullscreen", typeof(System.Boolean));
             displays.Columns.Add("FontScale", typeof(System.Double));
             displays.CaseSensitive = true;
             displays.PrimaryKey = new DataColumn[] { name };
@@ -5678,12 +5617,95 @@ namespace LEonard
         // Aspect Ratio: 2560 / 1440 = 1.78 (16:9)
         private void CreateDefaultDisplays()
         {
-            displays.Rows.Add(new object[] { "Zebra ET80A", 2160, 1440, true, 100 });
-            displays.Rows.Add(new object[] { "Zebra L10", 1920, 1200, true, 100 });
-            displays.Rows.Add(new object[] { "My Laptop", 1920, 1200, true, 100 });
-            displays.Rows.Add(new object[] { "Large Monitor", 2560, 1440, true, 100 });
-            displays.Rows.Add(new object[] { "Free", 1800, 1000, false, 100 });
+            displays.Rows.Add(new object[] { "Zebra ET80A", 2160, 1440, false, false, 100 });
+            displays.Rows.Add(new object[] { "Zebra L10", 1920, 1200, false, false, 100 });
+            displays.Rows.Add(new object[] { "My Laptop", 1920, 1200, false, false, 100 });
+            displays.Rows.Add(new object[] { "Large Monitor", 2560, 1440, false, true, 100 });
+            displays.Rows.Add(new object[] { "Resize Medium", 1800, 1000, true, false, 100 });
+            displays.Rows.Add(new object[] { "Resize Fullscreen", 1800, 1000, true, true, 100 });
         }
+
+
+        private void SelectDisplayMode(string name)
+        {
+
+            log.Info($"Selecting display mode {name}");
+
+            DataRow referencedRow = null;
+            
+            foreach (DataRow row in displays.Rows)
+            {
+                if ((string)row["Name"] == name)
+                {
+                    log.Trace("FindDisplay({0}) = {1}", row["Name"], row.ToString());
+                    referencedRow=row;
+                }
+            }
+            if (referencedRow == null)
+            {
+                return;
+            }
+
+            //DisplaysGrd.Rows[2].Selected = true;
+            //selectedRow.Selected
+            SelectedDisplayLbl.Text = name;
+            int width = (int)referencedRow["Width"];//"](int)SelectedRow(DisplaysGrd)["Width"];
+            int height = (int)referencedRow["Height"];
+            bool isResizable = (bool)referencedRow["resizable"];
+            bool isFullscreen = (bool)referencedRow["Fullscreen"];
+            //double fontScale = (double)referencedRow["FontScale"];
+
+            Rectangle screenRect = Screen.FromControl(this).Bounds;
+            log.Info("Screen Dimensions: {0}x{1}", screenRect.Width, screenRect.Height);
+
+
+            if (isResizable)
+            {
+                // Resizable
+                userInterfaceMode = UserInterfaceMode.FREE;
+
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.ControlBox = true;
+                this.MaximizeBox = true;
+                this.MinimizeBox = true;
+                this.WindowState = FormWindowState.Normal;
+
+            }
+            else
+            {
+                // Fixed Size
+                userInterfaceMode = UserInterfaceMode.FIXED;
+
+
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.ControlBox = false;
+                this.MaximizeBox = false;
+                this.MinimizeBox = false;
+                this.WindowState = FormWindowState.Normal;
+            }
+
+            if (isFullscreen)
+            {
+                // Fullscreen
+
+                // Todo- not 0,0 if on other monitor!
+                Left = 0;
+                Top = 0;
+                Width = screenRect.Width;
+                Height = screenRect.Height;
+            }
+            else
+            {
+                // Not Fullscreen
+
+                // Todo- not 0,0 if on other monitor!
+                Left = 0;
+                Top = 0;
+                Width = width;
+                Height = height;
+            }
+        }
+
 
         private void SelectDisplayBtn_Click(object sender, EventArgs e)
         {
@@ -5692,60 +5714,7 @@ namespace LEonard
                 ErrorMessageBox("Please select a display in the displays table.");
             else
             {
-                log.Info($"Selecting display {name}");
-
-                SelectedDisplayLbl.Text = name;
-                double width = (double)SelectedRow(DisplaysGrd)["Width"];
-                double height = (double)SelectedRow(DisplaysGrd)["Height"];
-                bool isFixed = (bool)SelectedRow(DisplaysGrd)["Fixed"];
-                double fontScale = (double)SelectedRow(DisplaysGrd)["FontScale"];
-
-                if(isFixed)
-                {
-                    Rectangle r = Screen.FromControl(this).Bounds;
-                    log.Info("Screen Dimensions: {0}x{1}", r.Width, r.Height);
-
-                    UiFixedWidthTxt.Text = r.Width.ToString();
-                    UiFixedHeightTxt.Text = r.Height.ToString();
-                    UiFixedBtn_Click(null, null);
-
-                }
-                else
-                if()
-                {
-                    userInterfaceMode = UserInterfaceMode.TABLET;
-
-                    this.FormBorderStyle = FormBorderStyle.None;
-                    this.ControlBox = false;
-                    this.MaximizeBox = false;
-                    this.MinimizeBox = false;
-                    this.WindowState = FormWindowState.Normal;
-
-                    int width = tabletScreenDesignWidth;
-                    int height = tabletScreenDesignHeight;
-
-                    bool good1 = int.TryParse(UiFixedWidthTxt.Text, out width);
-                    bool good2 = int.TryParse(UiFixedHeightTxt.Text, out height);
-
-                    Left = 0;
-                    Top = 0;
-
-                    Width = width;
-                    Height = height;
-
-                }
-                else
-                {
-                    userInterfaceMode = UserInterfaceMode.FREE;
-
-                    this.FormBorderStyle = FormBorderStyle.Sizable;
-                    this.ControlBox = true;
-                    this.MaximizeBox = true;
-                    this.MinimizeBox = true;
-                    this.WindowState = FormWindowState.Normal;
-                }
-
-                ScaleUiText(fontScale);
+                SelectDisplayMode(name);
             }
         }
 
@@ -5768,7 +5737,6 @@ namespace LEonard
             }
 
             DisplaysGrd.DataSource = displays;
-            RefreshMountedToolBox();
         }
 
         private void SaveDisplaysBtn_Click(object sender, EventArgs e)
