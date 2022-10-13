@@ -46,6 +46,7 @@ namespace LEonard
 
 
         static DataTable devices;
+        static DataTable displays;
         static DataTable variables;
         static DataTable tools;
         static DataTable positions;
@@ -57,18 +58,18 @@ namespace LEonard
         // Aspect Ratio: 2160 / 1440 = 1.5 (15:10)
 
         // App screen design sizes (Zebra L10 Tablet according to spec)
-        public const int tablet2ScreenDesignWidth = 1920;  // 1920 / 1920 = 100%
-        public const int tablet2ScreenDesignHeight = 1200; // 1200 / 1080 = 111.1%
+        //public const int tablet2ScreenDesignWidth = 1920;  // 1920 / 1920 = 100%
+        //public const int tablet2ScreenDesignHeight = 1200; // 1200 / 1080 = 111.1%
         // Aspect Ratio: 1920 / 1200 = 1.6 (16:10)
 
         // App screen design sizes (LeckyOne Laptop)
-        public const int laptopScreenDesignWidth = 1920;   // 100%
-        public const int laptopScreenDesignHeight = 1080;  // 100%
+        //public const int laptopScreenDesignWidth = 1920;   // 100%
+        //public const int laptopScreenDesignHeight = 1080;  // 100%
         // Aspect Ratio: 1920 / 1080 = 1.78 (16:9)
 
         // App screen design sizes (Big Viewsonic Monitors)
-        public const int largeScreenDesignWidth = 2560;   // 2560 / 1920 = 133.3%
-        public const int largeScreenDesignHeight = 1440;  // 1440 / 1080 = 133.3%
+        //public const int largeScreenDesignWidth = 2560;   // 2560 / 1920 = 133.3%
+        //public const int largeScreenDesignHeight = 1440;  // 1440 / 1080 = 133.3%
         // Aspect Ratio: 2560 / 1440 = 1.78 (16:9)
 
         private enum UserInterfaceMode
@@ -2129,6 +2130,9 @@ namespace LEonard
             // Load the tools table
             LoadToolsBtn_Click(null, null);
 
+            // Load the displays table
+            LoadDisplaysBtn_Click(null, null);
+
             // Load the positions table
             LoadPositionsBtn_Click(null, null);
 
@@ -2202,6 +2206,10 @@ namespace LEonard
 
             // Debug Level selection
             AppNameKey.SetValue("DebugLevelCombo.Text", LogLevelCombo.Text);
+
+            // Save currently selected display and displays table
+            AppNameKey.SetValue("SelectedDisplayLbl.Text", SelectedDisplayLbl.Text);
+            SaveDisplaysBtn_Click(null, null);
 
             // Save currently mounted tool and tools table
             AppNameKey.SetValue("MountedToolBox.Text", MountedToolBox.Text);
@@ -5630,31 +5638,154 @@ namespace LEonard
             Height = height;
         }
 
-        private void UiFreeBtn_Click(object sender, EventArgs e)
-        {
-            userInterfaceMode = UserInterfaceMode.FREE;
-
-            this.FormBorderStyle = FormBorderStyle.Sizable;
-            this.ControlBox = true;
-            this.MaximizeBox = true;
-            this.MinimizeBox = true;
-            this.WindowState = FormWindowState.Normal;
-        }
-
-        void ScaleUiText(float scale)
+        void ScaleUiText(double scale)
         {
             foreach (Control c in allFontResizableList) RescaleFont(c, scale);
         }
-        private void UiTextScaleBtn_Click(object sender, EventArgs e)
+
+        readonly string displaysFilename = "Displays.xml";
+        private void ClearAndInitializeDisplays()
         {
-            float scale;
-            bool good = float.TryParse(UiTextScaleTxt.Text, out scale);
-            if (good)
-                ScaleUiText(scale);
+            displays = new DataTable("Displays");
+            DataColumn name = displays.Columns.Add("Name", typeof(System.String));
+            displays.Columns.Add("Width", typeof(System.Double));
+            displays.Columns.Add("Height", typeof(System.Double));
+            displays.Columns.Add("Fixed", typeof(System.Boolean));
+            displays.Columns.Add("FontScale", typeof(System.Double));
+            displays.CaseSensitive = true;
+            displays.PrimaryKey = new DataColumn[] { name };
+
+            DisplaysGrd.DataSource = displays;
+        }
+        // App screen design sizes (Zebra ET80A Tablet as installed at Tosoh Quartz, what the unit shows as recommended resolution)
+        //public const int tabletScreenDesignWidth = 2160;  // 2160 / 1920 = 112.5%
+        //public const int tabletScreenDesignHeight = 1440; // 1440 / 1080 = 133.3%
+        // Aspect Ratio: 2160 / 1440 = 1.5 (15:10)
+
+        // App screen design sizes (Zebra L10 Tablet according to spec)
+        //public const int tablet2ScreenDesignWidth = 1920;  // 1920 / 1920 = 100%
+        //public const int tablet2ScreenDesignHeight = 1200; // 1200 / 1080 = 111.1%
+        // Aspect Ratio: 1920 / 1200 = 1.6 (16:10)
+
+        // App screen design sizes (LeckyOne Laptop)
+        //public const int laptopScreenDesignWidth = 1920;   // 100%
+        //public const int laptopScreenDesignHeight = 1080;  // 100%
+        // Aspect Ratio: 1920 / 1080 = 1.78 (16:9)
+
+        // App screen design sizes (Big Viewsonic Monitors)
+        //public const int largeScreenDesignWidth = 2560;   // 2560 / 1920 = 133.3%
+        //public const int largeScreenDesignHeight = 1440;  // 1440 / 1080 = 133.3%
+        // Aspect Ratio: 2560 / 1440 = 1.78 (16:9)
+        private void CreateDefaultDisplays()
+        {
+            displays.Rows.Add(new object[] { "Zebra ET80A", 2160, 1440, true, 100 });
+            displays.Rows.Add(new object[] { "Zebra L10", 1920, 1200, true, 100 });
+            displays.Rows.Add(new object[] { "My Laptop", 1920, 1200, true, 100 });
+            displays.Rows.Add(new object[] { "Large Monitor", 2560, 1440, true, 100 });
+            displays.Rows.Add(new object[] { "Free", 1800, 1000, false, 100 });
+        }
+
+        private void SelectDisplayBtn_Click(object sender, EventArgs e)
+        {
+            string name = SelectedName(DisplaysGrd);
+            if (name == null)
+                ErrorMessageBox("Please select a display in the displays table.");
             else
             {
-                UiTextScaleTxt.Text = "100";
-                UiTextScaleBtn_Click(null, null);
+                log.Info($"Selecting display {name}");
+
+                SelectedDisplayLbl.Text = name;
+                double width = (double)SelectedRow(DisplaysGrd)["Width"];
+                double height = (double)SelectedRow(DisplaysGrd)["Height"];
+                bool isFixed = (bool)SelectedRow(DisplaysGrd)["Fixed"];
+                double fontScale = (double)SelectedRow(DisplaysGrd)["FontScale"];
+
+                if(isFixed)
+                {
+                    Rectangle r = Screen.FromControl(this).Bounds;
+                    log.Info("Screen Dimensions: {0}x{1}", r.Width, r.Height);
+
+                    UiFixedWidthTxt.Text = r.Width.ToString();
+                    UiFixedHeightTxt.Text = r.Height.ToString();
+                    UiFixedBtn_Click(null, null);
+
+                }
+                else
+                if()
+                {
+                    userInterfaceMode = UserInterfaceMode.TABLET;
+
+                    this.FormBorderStyle = FormBorderStyle.None;
+                    this.ControlBox = false;
+                    this.MaximizeBox = false;
+                    this.MinimizeBox = false;
+                    this.WindowState = FormWindowState.Normal;
+
+                    int width = tabletScreenDesignWidth;
+                    int height = tabletScreenDesignHeight;
+
+                    bool good1 = int.TryParse(UiFixedWidthTxt.Text, out width);
+                    bool good2 = int.TryParse(UiFixedHeightTxt.Text, out height);
+
+                    Left = 0;
+                    Top = 0;
+
+                    Width = width;
+                    Height = height;
+
+                }
+                else
+                {
+                    userInterfaceMode = UserInterfaceMode.FREE;
+
+                    this.FormBorderStyle = FormBorderStyle.Sizable;
+                    this.ControlBox = true;
+                    this.MaximizeBox = true;
+                    this.MinimizeBox = true;
+                    this.WindowState = FormWindowState.Normal;
+                }
+
+                ScaleUiText(fontScale);
+            }
+        }
+
+        private void LoadDisplaysBtn_Click(object sender, EventArgs e)
+        {
+            string filename = Path.Combine(LEonardRoot, "Recipes", displaysFilename);
+            log.Info("ReloadDisplaysBtn_Click from {0}", filename);
+            ClearAndInitializeDisplays();
+            try
+            {
+                displays.ReadXml(filename);
+            }
+            catch
+            {
+                DialogResult result = ConfirmMessageBox("Could not load displays. Create some defaults?");
+                if (result == DialogResult.OK)
+                {
+                    CreateDefaultDisplays();
+                }
+            }
+
+            DisplaysGrd.DataSource = displays;
+            RefreshMountedToolBox();
+        }
+
+        private void SaveDisplaysBtn_Click(object sender, EventArgs e)
+        {
+            string filename = Path.Combine(LEonardRoot, "Recipes", displaysFilename);
+            log.Info("SaveDisplaysBtn_Click to {0}", filename);
+            displays.AcceptChanges();
+            displays.WriteXml(filename, XmlWriteMode.WriteSchema, true);
+        }
+
+        private void ClearDisplaysButton_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == ConfirmMessageBox("This will clear all existing displays. Proceed?"))
+            {
+                ClearAndInitializeDisplays();
+                if (DialogResult.OK == ConfirmMessageBox("Would you like to create the default displays?"))
+                    CreateDefaultDisplays();
             }
         }
 
@@ -5973,6 +6104,7 @@ namespace LEonard
             PythonSaveAsBtn.Enabled = true;
             PythonRunBtn.Enabled = true;
         }
+
 
         // ===================================================================
         // END PYTHON ENGINE

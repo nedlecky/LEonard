@@ -1,0 +1,54 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Displays" msdata:CaseSensitive="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Displays" msdata:CaseSensitive="True">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Name" type="xs:string" />
+                <xs:element name="Width" type="xs:double" minOccurs="0" />
+                <xs:element name="Height" type="xs:double" minOccurs="0" />
+                <xs:element name="FullScreen" type="xs:boolean" minOccurs="0" />
+                <xs:element name="FontScale" type="xs:double" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Displays" />
+        <xs:field xpath="Name" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <Displays>
+    <Name>Zebra ET80A</Name>
+    <Width>2160</Width>
+    <Height>1440</Height>
+    <FullScreen>true</FullScreen>
+    <FontScale>100</FontScale>
+  </Displays>
+  <Displays>
+    <Name>Zebra L10</Name>
+    <Width>1920</Width>
+    <Height>1200</Height>
+    <FullScreen>true</FullScreen>
+    <FontScale>50</FontScale>
+  </Displays>
+  <Displays>
+    <Name>My Laptop</Name>
+    <Width>1920</Width>
+    <Height>1200</Height>
+    <FullScreen>true</FullScreen>
+    <FontScale>100</FontScale>
+  </Displays>
+  <Displays>
+    <Name>Large Monitor</Name>
+    <Width>2560</Width>
+    <Height>1440</Height>
+    <FullScreen>true</FullScreen>
+    <FontScale>100</FontScale>
+  </Displays>
+</NewDataSet>
