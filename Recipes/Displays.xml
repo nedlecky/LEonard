@@ -74,8 +74,10 @@
   </Displays>
   <Displays>
     <Name>nnn</Name>
-    <Width>123</Width>
-    <Height>123</Height>
-    <Fullscreen>true</Fullscreen>
+    <Width>1000</Width>
+    <Height>1000</Height>
+    <Resizable>false</Resizable>
+    <Fullscreen>false</Fullscreen>
+    <FontScale>80</FontScale>
   </Displays>
 </NewDataSet>

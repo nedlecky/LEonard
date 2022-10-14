@@ -189,7 +189,7 @@ namespace LEonard
 
         private void SetValueForm_Resize(object sender, EventArgs e)
         {
-            double scale = Math.Min(100.0 * Width / originalWidth, 100);
+            double scale = Math.Min(100.0 * Width / originalWidth, 150);
             foreach (Control c in allResizeControlList) RescaleFont(c, scale);
         }
     }

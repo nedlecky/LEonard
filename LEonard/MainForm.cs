@@ -58,13 +58,6 @@ namespace LEonard
         public const int screenDesignWidth = 1920;
         public const int screenDesignHeight = 1080;
 
-        private enum UserInterfaceMode
-        {
-            FIXED,
-            FREE,
-        }
-        UserInterfaceMode userInterfaceMode = UserInterfaceMode.FIXED;
-
         private enum RunState
         {
             INIT,
@@ -90,6 +83,7 @@ namespace LEonard
         const string DEFAULT_RobotProgramTxt = "LEonard/LEonard01.urp";
         const string DEFAULT_RobotIpTxt = "192.168.0.2";
         const string DEFAULT_ServerIpTxt = "192.168.0.252";
+        const double maxFontScaleUpPct = 125;
 
         // I/O Defaults
         const string DEFAULT_door_closed_input = "1,1";
@@ -131,6 +125,10 @@ namespace LEonard
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // Startup logging system (which also displays messages)
+            log = NLog.LogManager.GetCurrentClassLogger();
+            log.Info("MainForm_Load(...)");
+
             string companyName = Application.CompanyName;
             string appName = Application.ProductName;
             string productVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -143,10 +141,9 @@ namespace LEonard
 #endif
             this.Text = caption;
             VersionLbl.Text = caption;
-            // Startup logging system (which also displays messages)
-            log = NLog.LogManager.GetCurrentClassLogger();
 
             // Check screen dimensions.....
+            // TODO Good SPOT FOR DONGLE CHECK
             Rectangle r = Screen.FromControl(this).Bounds;
             log.Info("Screen Dimensions: {0}x{1}", r.Width, r.Height);
             if (r.Width < screenDesignWidth || r.Height < screenDesignHeight)
@@ -196,6 +193,7 @@ namespace LEonard
 
             ResumeLayout();
         }
+
         // Function key shortcut handling (primarily for development testing assistance)
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -237,9 +235,9 @@ namespace LEonard
             if (!uiUpdatesAreLive) return;
 
             suggestedSystemScale = 100.0 * (double)Width / (double)screenDesignWidth;
-            if (suggestedSystemScale > 100) suggestedSystemScale = 100;
+            if (suggestedSystemScale > maxFontScaleUpPct) suggestedSystemScale = maxFontScaleUpPct;
             log?.Info($"MainForm Resize to {Width} x {Height}");
-            log?.Info($"Suggest {suggestedSystemScale}");
+            log?.Info($"Resizing font to {suggestedSystemScale}%");
 
             ScaleUiText(suggestedSystemScale);
         }
@@ -258,11 +256,12 @@ namespace LEonard
 
             //StartThreads();
 
+            // TODO this should happen in devices
+            // Connect to the robot and Gocator
             if (StartupDevicesLbl.Text.Length > 0)
             {
                 LoadDevicesFile(StartupDevicesLbl.Text);
             }
-
             RobotConnectBtn_Click(null, null);
             GocatorConnectBtn_Click(null, null);
 
@@ -2107,16 +2106,13 @@ namespace LEonard
             // DebugLevelCombo.Text = (string)AppNameKey.GetValue("DebugLevelCombo.Text", "Info");
             LogLevelCombo.Text = "Info";
 
-            // Restore display mode
+            // Restore displays table and set display mode
             LoadDisplaysBtn_Click(null, null);
             SelectedDisplayLbl.Text = (string)AppNameKey.GetValue("SelectedDisplayLbl.Text", "Default");
             SelectDisplayMode(SelectedDisplayLbl.Text);
 
             // Load the tools table
             LoadToolsBtn_Click(null, null);
-
-            // Load the displays table
-            LoadDisplaysBtn_Click(null, null);
 
             // Load the positions table
             LoadPositionsBtn_Click(null, null);
@@ -3071,7 +3067,8 @@ namespace LEonard
             if (command.StartsWith("select_tool("))
             {
                 LogInterpret("select_tool", lineNumber, origLine);
-                DataRow row = FindTool(ExtractParameters(command, 1));
+                string name = ExtractParameters(command,1);
+                DataRow row = FindTool(name);
                 if (row == null)
                 {
                     log.Error("Unknown tool specified in EXEC: {0.000} {1}", lineNumber, command);
@@ -3104,6 +3101,10 @@ namespace LEonard
                     mountedToolBoxActionDisabled = true;
                     MountedToolBox.Text = (string)row["Name"];
                     mountedToolBoxActionDisabled = false;
+
+                    // Highlight the corresponding row in the DataGridView
+                    SelectDataGridViewRow(ToolsGrd, name);
+
                     // Give the UI some time to process all of those command returns!!!
                     Thread.Sleep(1000);
                 }
@@ -5521,57 +5522,57 @@ namespace LEonard
         public static IEnumerable<Control> TakeControlInventory(Control ctl)
         {
             IEnumerable<Control> buttonList = GetAll(ctl, typeof(Button));
-            log.Info("Button Count: " + buttonList.Count());
+            //log.Info("Button Count: " + buttonList.Count());
             foreach (Button b in buttonList)
             {
-                log.Info($"BTN {b.Text} {b.Font.Size}");
+                //log.Info($"BTN {b.Text} {b.Font.Size}");
                 RememberInitialFont(b);
             }
             IEnumerable<Control> comboboxList = GetAll(ctl, typeof(ComboBox));
-            log.Info("ComboBox Count: " + comboboxList.Count());
+            //log.Info("ComboBox Count: " + comboboxList.Count());
             foreach (ComboBox cb in comboboxList)
             {
-                log.Info($"COMBO {cb.Text} {cb.Font.Size}");
+                //log.Info($"COMBO {cb.Text} {cb.Font.Size}");
                 RememberInitialFont(cb);
             }
 
             IEnumerable<Control> datagridviewList = GetAll(ctl, typeof(DataGridView));
-            log.Info("DataGridView Count: " + datagridviewList.Count());
+            //log.Info("DataGridView Count: " + datagridviewList.Count());
             foreach (DataGridView d in datagridviewList)
             {
-                log.Info($"DGV {d.Text} {d.Font.Size}");
+                //log.Info($"DGV {d.Text} {d.Font.Size}");
                 RememberInitialFont(d);
             }
 
             IEnumerable<Control> labelList = GetAll(ctl, typeof(Label));
-            log.Info("Label Count: " + labelList.Count());
+            //log.Info("Label Count: " + labelList.Count());
             foreach (Label l in labelList)
             {
-                log.Info($"LBL {l.Text} {l.Font.Size}");
+                //log.Info($"LBL {l.Text} {l.Font.Size}");
                 RememberInitialFont(l);
             }
 
             IEnumerable<Control> richtextboxList = GetAll(ctl, typeof(RichTextBox));
-            log.Info("RichTextBox Count: " + richtextboxList.Count());
+            //log.Info("RichTextBox Count: " + richtextboxList.Count());
             foreach (RichTextBox r in richtextboxList)
             {
-                log.Info($"RTB {r.Text} {r.Font.Size}");
+                //log.Info($"RTB {r.Text} {r.Font.Size}");
                 RememberInitialFont(r);
             }
 
             IEnumerable<Control> tabcontrolList = GetAll(ctl, typeof(TabControl));
-            log.Info("TabControl Count: " + tabcontrolList.Count());
+            //log.Info("TabControl Count: " + tabcontrolList.Count());
             foreach (TabControl t in tabcontrolList)
             {
-                log.Info($"TAB {t.Text} {t.Font.Size}");
+                //log.Info($"TAB {t.Text} {t.Font.Size}");
                 RememberInitialFont(t);
             }
 
             IEnumerable<Control> textboxList = GetAll(ctl, typeof(TextBox));
-            log.Info("TextBox Count: " + textboxList.Count());
+            //log.Info("TextBox Count: " + textboxList.Count());
             foreach (TextBox t in textboxList)
             {
-                log.Info($"TXT {t.Text} {t.Font.Size}");
+                //log.Info($"TXT {t.Text} {t.Font.Size}");
                 RememberInitialFont(t);
             }
 
@@ -5580,7 +5581,8 @@ namespace LEonard
             returnList = returnList.Concat(datagridviewList);
             returnList = returnList.Concat(labelList);
             returnList = returnList.Concat(richtextboxList);
-            returnList = returnList.Concat(tabcontrolList);
+            // TODO Tabs don't resize so we shouldn't resize their text for now!
+            // returnList = returnList.Concat(tabcontrolList);
             returnList = returnList.Concat(textboxList);
 
             return returnList;
@@ -5635,14 +5637,33 @@ namespace LEonard
             displays.Rows.Add(new object[] { "Resize Fullscreen", 1800, 1000, true, true, 100 });
         }
 
+        private void SelectDataGridViewRow(DataGridView dgv,string name)
+        {
+            log.Info($"SelectDataGridViewRow({dgv.Name},{name})");
+            // Highlight the corresponding row in the DataGridView
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                try
+                {
+                    string rowName = row.Cells[0].Value?.ToString();
+                    bool select = (rowName == name);
+                    log.Info($"looking at DataGridRow {rowName} select={select}");
+                    row.Selected = (rowName == name);
+                }
+                catch
+                {
+
+                }
+            }
+        }
 
         private void SelectDisplayMode(string name)
         {
 
-            log.Info($"Selecting display mode {name}");
+            log.Info($"SelectDisplayMode({name})");
 
+            // Find the row in the DataTable with the name
             DataRow referencedRow = null;
-
             foreach (DataRow row in displays.Rows)
             {
                 if ((string)row["Name"] == name)
@@ -5656,10 +5677,12 @@ namespace LEonard
                 return;
             }
 
-            //DisplaysGrd.Rows[2].Selected = true;
-            //selectedRow.Selected
+            // Highlight the corresponding row in the DataGridView
+            SelectDataGridViewRow(DisplaysGrd,name);
+
+            // Now enforce all of the desired screen parameters
             SelectedDisplayLbl.Text = name;
-            int width = (int)referencedRow["Width"];//"](int)SelectedRow(DisplaysGrd)["Width"];
+            int width = (int)referencedRow["Width"];
             int height = (int)referencedRow["Height"];
             bool isResizable = (bool)referencedRow["Resizable"];
             bool isFullscreen = (bool)referencedRow["Fullscreen"];
@@ -5672,21 +5695,15 @@ namespace LEonard
             if (isResizable)
             {
                 // Resizable
-                userInterfaceMode = UserInterfaceMode.FREE;
-
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.ControlBox = true;
                 this.MaximizeBox = true;
                 this.MinimizeBox = true;
                 this.WindowState = FormWindowState.Normal;
-
             }
             else
             {
                 // Fixed Size
-                userInterfaceMode = UserInterfaceMode.FIXED;
-
-
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.ControlBox = false;
                 this.MaximizeBox = false;
@@ -5731,7 +5748,7 @@ namespace LEonard
         private void LoadDisplaysBtn_Click(object sender, EventArgs e)
         {
             string filename = Path.Combine(LEonardRoot, "Recipes", displaysFilename);
-            log.Info("ReloadDisplaysBtn_Click from {0}", filename);
+            log.Info("LoadDisplays from {0}", filename);
             ClearAndInitializeDisplays();
             try
             {
@@ -5767,6 +5784,13 @@ namespace LEonard
             }
         }
 
+        private void CrawlRTB(RichTextBox rtb, string message)
+        {
+            rtb.Text += message + Environment.NewLine;
+            rtb.SelectionStart = rtb.Text.Length;
+            rtb.ScrollToCaret();
+        }
+
         // ===================================================================
         // END UI CONTROL SYSTEM
         // ===================================================================
@@ -5781,6 +5805,7 @@ namespace LEonard
         private void JavaPrint(string message)
         {
             log.Info("JVP " + message);
+            CrawlRTB(JavaConsoleRTB, message);
         }
         private void JavaLogInfo(string message)
         {
@@ -5790,6 +5815,25 @@ namespace LEonard
         {
             log.Error(message);
         }
+        private void JavaUpdateVariablesRTB()
+        {
+            string finalUpdate = "";
+
+            foreach (KeyValuePair<string, Jint.Runtime.Descriptors.PropertyDescriptor> kp in javaEngine.Global.GetOwnProperties())
+            {
+
+                string varType = "";
+                if (kp.Value.Value.IsString()) varType = "S";
+                else if (kp.Value.Value.IsNumber()) varType = "N";
+                else if (kp.Value.Value.IsBoolean()) varType = "B";
+                if (varType.Length > 0)
+                {
+                    finalUpdate += varType + " " + kp.Key.ToString() + " = " + kp.Value.Value.ToString() + "\n";
+                }
+            }
+            JavaVariablesRTB.Text = finalUpdate;
+        }
+
         // ===================================================================
         // END JAVA FUNCTIONS
         // ===================================================================
@@ -5819,12 +5863,7 @@ namespace LEonard
             {
 
             }
-
-            double a = javaEngine.GetValue("a").AsNumber();
-            double b = javaEngine.GetValue("b").AsNumber();
-            double c = javaEngine.GetValue("c").AsNumber();
-            string aStr = javaEngine.GetValue("aStr").AsString();
-            log.Info($"Java Run: a={a} b={b} c={c} aStr={aStr}");
+            JavaUpdateVariablesRTB();
         }
         private void JavaNewBtn_Click(object sender, EventArgs e)
         {
@@ -6018,7 +6057,6 @@ namespace LEonard
                 return false;
             }
 
-
             PythonFilenameLbl.Text = filename;
             PythonCodeRTB.Modified = false;
             PythonSaveAsBtn.Enabled = true;
@@ -6119,6 +6157,17 @@ namespace LEonard
             PythonRunBtn.Enabled = true;
         }
 
+        private void SetupTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string tabName = SetupTab.TabPages[SetupTab.SelectedIndex].Text;
+
+
+            // On selecting the setup tab, highlight the Tool and Display currently selected
+            if (tabName == "Tools")
+                SelectDataGridViewRow(ToolsGrd, MountedToolBox.Text);
+            if (tabName == "Displays")
+                SelectDataGridViewRow(DisplaysGrd, SelectedDisplayLbl.Text);
+        }
 
         // ===================================================================
         // END PYTHON ENGINE
