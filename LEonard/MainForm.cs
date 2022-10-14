@@ -25,6 +25,8 @@ using LEonard;
 using Jint;
 using System.Net.NetworkInformation;
 using static IronPython.Modules._ast;
+using static IronPython.Modules.PythonIterTools;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace LEonard
 {
@@ -1187,8 +1189,8 @@ namespace LEonard
                     robotDashboardClient?.Send("power on");
                     break;
                 default:
-                    log.Error("Unknown robot mode button state! {0}", RobotModeBtn.Text);
-                    ErrorMessageBox(String.Format("Unsure how to recover from {0}", RobotModeBtn.Text));
+                    log.Error($"Unknown robot mode button state! {RobotModeBtn.Text}");
+                    ErrorMessageBox($"Unsure how to recover from {RobotModeBtn.Text}");
                     break;
             }
         }
@@ -2152,6 +2154,10 @@ namespace LEonard
             for (int i = 0; i < 3; i++)
                 diameterDefaults[i] = (string)AppNameKey.GetValue(String.Format("Diameter[{0}].Text", i), i == 0 ? "0.0" : "100.0");
             PartGeometryBox.Text = (string)AppNameKey.GetValue("PartGeometryBox.Text", "FLAT");
+
+            // Load last loaded Java and Python programs
+            LoadJavaProgram((string)AppNameKey.GetValue("JavaFilenameLbl.Text", "Untitled"));
+            LoadPythonProgram((string)AppNameKey.GetValue("PythonFilenameLbl.Text", "Untitled"));
         }
 
         void SavePersistent()
@@ -2208,6 +2214,10 @@ namespace LEonard
             AppNameKey.SetValue("PartGeometryBox.Text", PartGeometryBox.Text);
             for (int i = 0; i < 3; i++)
                 AppNameKey.SetValue(String.Format("Diameter[{0}].Text", i), diameterDefaults[i]);
+
+            // Save currently loaded Java and Python programs
+            AppNameKey.SetValue("JavaFilenameLbl.Text", JavaFilenameLbl.Text);
+            AppNameKey.SetValue("PythonFilenameLbl.Text", PythonFilenameLbl.Text);
         }
 
         private void ChangeRootDirectoryBtn_Click(object sender, EventArgs e)
@@ -5632,13 +5642,13 @@ namespace LEonard
             log.Info($"Selecting display mode {name}");
 
             DataRow referencedRow = null;
-            
+
             foreach (DataRow row in displays.Rows)
             {
                 if ((string)row["Name"] == name)
                 {
                     log.Trace("FindDisplay({0}) = {1}", row["Name"], row.ToString());
-                    referencedRow=row;
+                    referencedRow = row;
                 }
             }
             if (referencedRow == null)
@@ -5651,7 +5661,7 @@ namespace LEonard
             SelectedDisplayLbl.Text = name;
             int width = (int)referencedRow["Width"];//"](int)SelectedRow(DisplaysGrd)["Width"];
             int height = (int)referencedRow["Height"];
-            bool isResizable = (bool)referencedRow["resizable"];
+            bool isResizable = (bool)referencedRow["Resizable"];
             bool isFullscreen = (bool)referencedRow["Fullscreen"];
             //double fontScale = (double)referencedRow["FontScale"];
 
@@ -5764,13 +5774,13 @@ namespace LEonard
         // ===================================================================
         // START JAVA FUNCTIONS
         // ===================================================================
-        private void JavaAlert(string Message)
+        private void JavaAlert(string message)
         {
-            MessageBox.Show(Message, "Window Alert", MessageBoxButtons.OK);
+            PromptOperator("Java:\n" + message);
         }
         private void JavaPrint(string message)
         {
-            Console.WriteLine(message);
+            log.Info("JVP " + message);
         }
         private void JavaLogInfo(string message)
         {
@@ -5833,9 +5843,34 @@ namespace LEonard
             JavaSaveBtn.Enabled = false;
             JavaSaveAsBtn.Enabled = false;
             JavaFilenameLbl.Text = "Untitled";
-
         }
 
+        private bool LoadJavaProgram(string filename)
+        {
+            if (filename == null || filename == "Untitled" || filename.Length < 2)
+            {
+                JavaFilenameLbl.Text = "Untitled";
+                return false;
+            }
+
+            try
+            {
+                JavaCodeRTB.LoadFile(filename, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+            }
+            catch
+            {
+                ErrorMessageBox($"Cannot load Java program {filename}");
+                return false;
+            }
+
+            JavaFilenameLbl.Text = filename;
+            JavaCodeRTB.Modified = false;
+            JavaSaveAsBtn.Enabled = true;
+            JavaSaveBtn.Enabled = false;
+            JavaNewBtn.Enabled = true;
+
+            return true;
+        }
         private void JavaLoadBtn_Click(object sender, EventArgs e)
         {
             log.Info("JavaLoadBtn_Click(...)");
@@ -5861,15 +5896,7 @@ namespace LEonard
             };
 
             if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                JavaFilenameLbl.Text = dialog.FileName;
-                JavaCodeRTB.LoadFile(JavaFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-
-                JavaCodeRTB.Modified = false;
-                JavaSaveAsBtn.Enabled = true;
-                JavaSaveBtn.Enabled = false;
-                JavaNewBtn.Enabled = true;
-            }
+                LoadJavaProgram(dialog.FileName);
         }
 
         private void JavaSaveBtn_Click(object sender, EventArgs e)
@@ -5973,6 +6000,33 @@ namespace LEonard
             PythonFilenameLbl.Text = "Untitled";
         }
 
+        private bool LoadPythonProgram(string filename)
+        {
+            if (filename == null || filename == "Untitled" || filename.Length < 2)
+            {
+                PythonFilenameLbl.Text = "Untitled";
+                return false;
+            }
+
+            try
+            {
+                PythonCodeRTB.LoadFile(filename, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+            }
+            catch
+            {
+                ErrorMessageBox($"Cannot load Python program {filename}");
+                return false;
+            }
+
+
+            PythonFilenameLbl.Text = filename;
+            PythonCodeRTB.Modified = false;
+            PythonSaveAsBtn.Enabled = true;
+            PythonSaveBtn.Enabled = false;
+            PythonNewBtn.Enabled = true;
+
+            return true;
+        }
         private void PythonLoadBtn_Click(object sender, EventArgs e)
         {
             log.Info("PythonLoadBtn_Click(...)");
@@ -5998,15 +6052,7 @@ namespace LEonard
             };
 
             if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                PythonFilenameLbl.Text = dialog.FileName;
-                PythonCodeRTB.LoadFile(PythonFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-
-                PythonCodeRTB.Modified = false;
-                PythonSaveAsBtn.Enabled = true;
-                PythonSaveBtn.Enabled = false;
-                PythonNewBtn.Enabled = true;
-            }
+                LoadPythonProgram(dialog.FileName);
         }
 
         private void PythonSaveBtn_Click(object sender, EventArgs e)
