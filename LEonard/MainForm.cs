@@ -29,6 +29,9 @@ using static IronPython.Modules.PythonIterTools;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using System.Configuration;
 using System.Net.Http.Headers;
+using Microsoft.Scripting.Hosting;
+using System.ServiceModel.Channels;
+using Microsoft.Scripting.Runtime;
 
 namespace LEonard
 {
@@ -36,8 +39,9 @@ namespace LEonard
     {
         static string LEonardRoot = null;
         private static NLog.Logger log;
-        Engine javaEngine;
+        Jint.Engine javaEngine;
         Microsoft.Scripting.Hosting.ScriptEngine pythonEngine;
+        Microsoft.Scripting.Hosting.ScriptScope pythonScope;
 
         // TODO should be replaced with generic devices interface
         LeTcpServer robotCommandServer = null;
@@ -329,10 +333,25 @@ namespace LEonard
             {
                 if (RecipeWasModified())
                 {
-                    var result = ConfirmMessageBox(String.Format("Closing Application!\nRecipe [{0}] has changed.\nSave changes before exit?", LoadRecipeBtn.Text));
+                    var result = ConfirmMessageBox($"Closing Application!\nRecipe [{LoadRecipeBtn.Text}] has changed.\nSave changes before exit?");
                     if (result == DialogResult.OK)
                         SaveRecipeBtn_Click(null, null);
                 }
+
+                if (JavaCodeRTB.Modified)
+                {
+                    var result = ConfirmMessageBox($"Closing Application!\nJava code [{JavaFilenameLbl.Text}] has changed.\nSave changes before exit?");
+                    if (result == DialogResult.OK)
+                        JavaSaveBtn_Click(null, null);
+                }
+
+                if (PythonCodeRTB.Modified)
+                {
+                    var result = ConfirmMessageBox($"Closing Application!\nPython code [{PythonFilenameLbl.Text}] has changed.\nSave changes before exit?");
+                    if (result == DialogResult.OK)
+                        PythonSaveBtn_Click(null, null);
+                }
+
 
                 CloseTmr.Interval = 500;
                 CloseTmr.Enabled = true;
@@ -5800,6 +5819,7 @@ namespace LEonard
         // ===================================================================
         // START JAVA FUNCTIONS
         // ===================================================================
+        /*
         private void JavaAlert(string message)
         {
             PromptOperator("Java:\n" + message);
@@ -5825,6 +5845,11 @@ namespace LEonard
         {
             WriteVariable(name, value);
         }
+        private string JavaReadVariable(string name)
+        {
+            return ReadVariable(name);
+        }
+        */
         private void JavaUpdateVariablesRTB()
         {
             string finalUpdate = "";
@@ -5854,12 +5879,13 @@ namespace LEonard
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
-                    .SetValue("alert", new Action<string>(JavaAlert))
-                    .SetValue("print", new Action<string>(JavaPrint))
-                    .SetValue("logInfo", new Action<string>(JavaLogInfo))
-                    .SetValue("logError", new Action<string>(JavaLogError))
-                    .SetValue("LeExec", new Action<string>(JavaExecuteLine))
-                    .SetValue("LeWriteVariable", new Action<string,string>(JavaWriteVariable))
+                    .SetValue("alert", new Action<string>((string prompt) => PromptOperator("Java:\n" + prompt)))
+                    .SetValue("print", new Action<string>((string msg) => CrawlRTB(JavaConsoleRTB, msg)))
+                    .SetValue("logInfo", new Action<string>((string msg) => log.Info(msg)))
+                    .SetValue("logError", new Action<string>(s => log.Error(s)))
+                    .SetValue("LeExec", new Action<string>((string line) => ExecuteLine(-1, line)))
+                    .SetValue("LeWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)))
+                    .SetValue("LeReadVariable", new Func<string, string>((string name) => ReadVariable(name)))
                 ;
         }
         private void JavaRunBtn_Click(object sender, EventArgs e)
@@ -6022,13 +6048,32 @@ namespace LEonard
         private void InitializePythonEngine()
         {
             pythonEngine = IronPython.Hosting.Python.CreateEngine();
+            pythonScope = pythonEngine.CreateScope();
+
+            pythonScope.SetVariable("alert", new Action<string>((string prompt) => PromptOperator("Java:\n" + prompt)));
+            pythonScope.SetVariable("print", new Action<string>((string msg) => CrawlRTB(PythonConsoleRTB, msg)));
+            pythonScope.SetVariable("logInfo", new Action<string>((string msg) => log.Info(msg)));
+            pythonScope.SetVariable("logError", new Action<string>(s => log.Error(s)));
+            pythonScope.SetVariable("LeExec", new Action<string>((string line) => ExecuteLine(-1, line)));
+            pythonScope.SetVariable("LeWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)));
+            pythonScope.SetVariable("LeReadVariable", new Func<string, string>((string name) => ReadVariable(name)));
+
+            pythonScope.SetVariable("foo", "fighter");
         }
 
         private void PythonRunBtn_Click(object sender, EventArgs e)
         {
-            Microsoft.Scripting.Hosting.ScriptSource pythonScript =
-                pythonEngine.CreateScriptSourceFromString(PythonCodeRTB.Text);
-            pythonScript.Execute();
+            //Microsoft.Scripting.Hosting.ScriptSource pythonScript =
+            //    pythonEngine.CreateScriptSourceFromString(PythonCodeRTB.Text);
+            Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(PythonCodeRTB.Text);
+            try
+            {
+                pythonScript.Execute();
+            }
+            catch
+            {
+
+            }
         }
 
         private void PythonNewBtn_Click(object sender, EventArgs e)

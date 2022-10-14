@@ -10,3 +10,5 @@ print('Ran Counter=' + counter);
 LeWriteVariable('counter',counter)
 LeExec('prompt(abc)')
 
+rg = LeReadVariable('robot_geometry');
+
