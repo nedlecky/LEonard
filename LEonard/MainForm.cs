@@ -27,6 +27,8 @@ using System.Net.NetworkInformation;
 using static IronPython.Modules._ast;
 using static IronPython.Modules.PythonIterTools;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Configuration;
+using System.Net.Http.Headers;
 
 namespace LEonard
 {
@@ -3067,7 +3069,7 @@ namespace LEonard
             if (command.StartsWith("select_tool("))
             {
                 LogInterpret("select_tool", lineNumber, origLine);
-                string name = ExtractParameters(command,1);
+                string name = ExtractParameters(command, 1);
                 DataRow row = FindTool(name);
                 if (row == null)
                 {
@@ -5637,7 +5639,7 @@ namespace LEonard
             displays.Rows.Add(new object[] { "Resize Fullscreen", 1800, 1000, true, true, 100 });
         }
 
-        private void SelectDataGridViewRow(DataGridView dgv,string name)
+        private void SelectDataGridViewRow(DataGridView dgv, string name)
         {
             log.Info($"SelectDataGridViewRow({dgv.Name},{name})");
             // Highlight the corresponding row in the DataGridView
@@ -5678,7 +5680,7 @@ namespace LEonard
             }
 
             // Highlight the corresponding row in the DataGridView
-            SelectDataGridViewRow(DisplaysGrd,name);
+            SelectDataGridViewRow(DisplaysGrd, name);
 
             // Now enforce all of the desired screen parameters
             SelectedDisplayLbl.Text = name;
@@ -5815,6 +5817,14 @@ namespace LEonard
         {
             log.Error(message);
         }
+        private void JavaExecuteLine(string message)
+        {
+            ExecuteLine(-1, message);
+        }
+        private void JavaWriteVariable(string name, string value)
+        {
+            WriteVariable(name, value);
+        }
         private void JavaUpdateVariablesRTB()
         {
             string finalUpdate = "";
@@ -5844,11 +5854,12 @@ namespace LEonard
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
-                    // Expose the alert function in JavaScript that triggers the native function (previously created) Alert
                     .SetValue("alert", new Action<string>(JavaAlert))
                     .SetValue("print", new Action<string>(JavaPrint))
                     .SetValue("logInfo", new Action<string>(JavaLogInfo))
                     .SetValue("logError", new Action<string>(JavaLogError))
+                    .SetValue("LeExec", new Action<string>(JavaExecuteLine))
+                    .SetValue("LeWriteVariable", new Action<string,string>(JavaWriteVariable))
                 ;
         }
         private void JavaRunBtn_Click(object sender, EventArgs e)

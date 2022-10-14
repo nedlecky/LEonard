@@ -7,3 +7,6 @@ else
 
 print('Ran Counter=' + counter);
 
+LeWriteVariable('counter',counter)
+LeExec('prompt(abc)')
+
