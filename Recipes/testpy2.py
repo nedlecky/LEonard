@@ -1,7 +1,13 @@
-print 'Hello, world!'
+lePrint('Hello, world!')
 a = 5
 b = 7.12
 c = a * b
-print a,b,c
+print(a,b,c)
+lePrint(str(a)+' '+str(b)+' '+str(c))
 
-print LeExecute
+lePrint('foo')
+lePrompt('ppp')
+
+leWriteVariable('py1',str(b))
+
+leExec('py1 += 13')

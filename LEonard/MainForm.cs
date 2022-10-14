@@ -5879,13 +5879,13 @@ namespace LEonard
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
-                    .SetValue("alert", new Action<string>((string prompt) => PromptOperator("Java:\n" + prompt)))
-                    .SetValue("print", new Action<string>((string msg) => CrawlRTB(JavaConsoleRTB, msg)))
-                    .SetValue("logInfo", new Action<string>((string msg) => log.Info(msg)))
-                    .SetValue("logError", new Action<string>(s => log.Error(s)))
-                    .SetValue("LeExec", new Action<string>((string line) => ExecuteLine(-1, line)))
-                    .SetValue("LeWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)))
-                    .SetValue("LeReadVariable", new Func<string, string>((string name) => ReadVariable(name)))
+                    .SetValue("lePrompt", new Action<string>((string prompt) => PromptOperator("Java Prompt:\n" + prompt)))
+                    .SetValue("lePrint", new Action<string>((string msg) => CrawlRTB(JavaConsoleRTB, msg)))
+                    .SetValue("leLogInfo", new Action<string>((string msg) => log.Info(msg)))
+                    .SetValue("leLogError", new Action<string>(s => log.Error(s)))
+                    .SetValue("leExec", new Action<string>((string line) => ExecuteLine(-1, line)))
+                    .SetValue("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)))
+                    .SetValue("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)))
                 ;
         }
         private void JavaRunBtn_Click(object sender, EventArgs e)
@@ -6050,14 +6050,15 @@ namespace LEonard
             pythonEngine = IronPython.Hosting.Python.CreateEngine();
             pythonScope = pythonEngine.CreateScope();
 
-            pythonScope.SetVariable("alert", new Action<string>((string prompt) => PromptOperator("Java:\n" + prompt)));
-            pythonScope.SetVariable("print", new Action<string>((string msg) => CrawlRTB(PythonConsoleRTB, msg)));
-            pythonScope.SetVariable("logInfo", new Action<string>((string msg) => log.Info(msg)));
-            pythonScope.SetVariable("logError", new Action<string>(s => log.Error(s)));
-            pythonScope.SetVariable("LeExec", new Action<string>((string line) => ExecuteLine(-1, line)));
-            pythonScope.SetVariable("LeWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)));
-            pythonScope.SetVariable("LeReadVariable", new Func<string, string>((string name) => ReadVariable(name)));
+            pythonScope.RemoveVariable("print");
 
+            pythonScope.SetVariable("lePrompt", new Action<string>((string prompt) => PromptOperator("Python Prompt:\n" + prompt)));
+            pythonScope.SetVariable("lePrint", new Action<string>((string msg) => CrawlRTB(PythonConsoleRTB, msg)));
+            pythonScope.SetVariable("leLogInfo", new Action<string>((string msg) => log.Info(msg)));
+            pythonScope.SetVariable("leLogError", new Action<string>(s => log.Error(s)));
+            pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLine(-1, line)));
+            pythonScope.SetVariable("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)));
+            pythonScope.SetVariable("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)));
             pythonScope.SetVariable("foo", "fighter");
         }
 
@@ -6065,10 +6066,10 @@ namespace LEonard
         {
             //Microsoft.Scripting.Hosting.ScriptSource pythonScript =
             //    pythonEngine.CreateScriptSourceFromString(PythonCodeRTB.Text);
-            Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(PythonCodeRTB.Text);
             try
             {
-                pythonScript.Execute();
+                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(PythonCodeRTB.Text);
+                pythonScript.Execute(pythonScope);
             }
             catch
             {

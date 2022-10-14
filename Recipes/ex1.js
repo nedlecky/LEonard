@@ -5,10 +5,11 @@ if(typeof counter == 'undefined')
 else
   counter = counter + 1;
 
-print('Ran Counter=' + counter);
+lePrint('Ran Counter=' + counter);
 
-LeWriteVariable('counter',counter)
-LeExec('prompt(abc)')
+leWriteVariable('counter',counter)
+leExec('prompt(abc)')
+lePrompt('ppp')
 
-rg = LeReadVariable('robot_geometry');
+rg = leReadVariable('robot_geometry');
 
