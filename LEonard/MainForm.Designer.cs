@@ -250,6 +250,11 @@
             this.SetMaxWaitBtn = new System.Windows.Forms.Button();
             this.SetGrindDefaultsBtn = new System.Windows.Forms.Button();
             this.SetLinearAccelBtn = new System.Windows.Forms.Button();
+            this.licensePage = new System.Windows.Forms.TabPage();
+            this.SetupLicenseLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.GetLicenseStatusBtn = new System.Windows.Forms.Button();
+            this.TrialLicenseBtn = new System.Windows.Forms.Button();
+            this.LicenseStatusLbl = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.RobotPolyscopeVersionLbl = new System.Windows.Forms.Label();
             this.RobotSerialNumberLbl = new System.Windows.Forms.Label();
@@ -286,10 +291,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.licensePage = new System.Windows.Forms.TabPage();
-            this.TrialLicenseBtn = new System.Windows.Forms.Button();
-            this.LicenseStatusLbl = new System.Windows.Forms.Label();
-            this.GetLicenseStatusBtn = new System.Windows.Forms.Button();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -334,6 +335,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DisplaysGrd)).BeginInit();
             this.grindPage.SuspendLayout();
             this.SetupGrindLayoutPanel.SuspendLayout();
+            this.licensePage.SuspendLayout();
+            this.SetupLicenseLayoutPanel.SuspendLayout();
             this.LogsPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -348,7 +351,6 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.DiamVersionLayoutPanel.SuspendLayout();
             this.TopButtonLayoutPanel.SuspendLayout();
-            this.licensePage.SuspendLayout();
             this.SuspendLayout();
             // 
             // CurrentLineLbl
@@ -3456,6 +3458,85 @@
             this.SetLinearAccelBtn.UseVisualStyleBackColor = false;
             this.SetLinearAccelBtn.Click += new System.EventHandler(this.SetLinearAccelBtn_Click);
             // 
+            // licensePage
+            // 
+            this.licensePage.Controls.Add(this.SetupLicenseLayoutPanel);
+            this.licensePage.Location = new System.Drawing.Point(4, 100);
+            this.licensePage.Name = "licensePage";
+            this.licensePage.Size = new System.Drawing.Size(1880, 700);
+            this.licensePage.TabIndex = 7;
+            this.licensePage.Text = "License";
+            this.licensePage.UseVisualStyleBackColor = true;
+            // 
+            // SetupLicenseLayoutPanel
+            // 
+            this.SetupLicenseLayoutPanel.ColumnCount = 8;
+            this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.Controls.Add(this.GetLicenseStatusBtn, 0, 0);
+            this.SetupLicenseLayoutPanel.Controls.Add(this.TrialLicenseBtn, 2, 0);
+            this.SetupLicenseLayoutPanel.Controls.Add(this.LicenseStatusLbl, 0, 1);
+            this.SetupLicenseLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SetupLicenseLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.SetupLicenseLayoutPanel.Name = "SetupLicenseLayoutPanel";
+            this.SetupLicenseLayoutPanel.RowCount = 8;
+            this.SetupLicenseLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.SetupLicenseLayoutPanel.Size = new System.Drawing.Size(1880, 700);
+            this.SetupLicenseLayoutPanel.TabIndex = 102;
+            // 
+            // GetLicenseStatusBtn
+            // 
+            this.GetLicenseStatusBtn.BackColor = System.Drawing.Color.Green;
+            this.GetLicenseStatusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GetLicenseStatusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GetLicenseStatusBtn.ForeColor = System.Drawing.Color.White;
+            this.GetLicenseStatusBtn.Location = new System.Drawing.Point(3, 3);
+            this.GetLicenseStatusBtn.Name = "GetLicenseStatusBtn";
+            this.GetLicenseStatusBtn.Size = new System.Drawing.Size(229, 81);
+            this.GetLicenseStatusBtn.TabIndex = 101;
+            this.GetLicenseStatusBtn.Text = "Get Status";
+            this.GetLicenseStatusBtn.UseVisualStyleBackColor = false;
+            this.GetLicenseStatusBtn.Click += new System.EventHandler(this.GetLicenseStatusBtn_Click);
+            // 
+            // TrialLicenseBtn
+            // 
+            this.TrialLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.TrialLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TrialLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TrialLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.TrialLicenseBtn.Location = new System.Drawing.Point(473, 3);
+            this.TrialLicenseBtn.Name = "TrialLicenseBtn";
+            this.TrialLicenseBtn.Size = new System.Drawing.Size(229, 81);
+            this.TrialLicenseBtn.TabIndex = 99;
+            this.TrialLicenseBtn.Text = "Create 30-day Trial";
+            this.TrialLicenseBtn.UseVisualStyleBackColor = false;
+            this.TrialLicenseBtn.Click += new System.EventHandler(this.TrialLicenseBtn_Click);
+            // 
+            // LicenseStatusLbl
+            // 
+            this.LicenseStatusLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.SetupLicenseLayoutPanel.SetColumnSpan(this.LicenseStatusLbl, 3);
+            this.LicenseStatusLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LicenseStatusLbl.Location = new System.Drawing.Point(3, 87);
+            this.LicenseStatusLbl.Name = "LicenseStatusLbl";
+            this.SetupLicenseLayoutPanel.SetRowSpan(this.LicenseStatusLbl, 6);
+            this.LicenseStatusLbl.Size = new System.Drawing.Size(699, 522);
+            this.LicenseStatusLbl.TabIndex = 100;
+            this.LicenseStatusLbl.Text = "License Status";
+            // 
             // label19
             // 
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -3986,53 +4067,6 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // licensePage
-            // 
-            this.licensePage.Controls.Add(this.GetLicenseStatusBtn);
-            this.licensePage.Controls.Add(this.LicenseStatusLbl);
-            this.licensePage.Controls.Add(this.TrialLicenseBtn);
-            this.licensePage.Location = new System.Drawing.Point(4, 100);
-            this.licensePage.Name = "licensePage";
-            this.licensePage.Size = new System.Drawing.Size(1880, 700);
-            this.licensePage.TabIndex = 7;
-            this.licensePage.Text = "License";
-            this.licensePage.UseVisualStyleBackColor = true;
-            // 
-            // TrialLicenseBtn
-            // 
-            this.TrialLicenseBtn.BackColor = System.Drawing.Color.Green;
-            this.TrialLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TrialLicenseBtn.ForeColor = System.Drawing.Color.White;
-            this.TrialLicenseBtn.Location = new System.Drawing.Point(8, 8);
-            this.TrialLicenseBtn.Name = "TrialLicenseBtn";
-            this.TrialLicenseBtn.Size = new System.Drawing.Size(307, 106);
-            this.TrialLicenseBtn.TabIndex = 99;
-            this.TrialLicenseBtn.Text = "Create 30-day Trial";
-            this.TrialLicenseBtn.UseVisualStyleBackColor = false;
-            this.TrialLicenseBtn.Click += new System.EventHandler(this.TrialLicenseBtn_Click);
-            // 
-            // LicenseStatusLbl
-            // 
-            this.LicenseStatusLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LicenseStatusLbl.Location = new System.Drawing.Point(357, 8);
-            this.LicenseStatusLbl.Name = "LicenseStatusLbl";
-            this.LicenseStatusLbl.Size = new System.Drawing.Size(602, 309);
-            this.LicenseStatusLbl.TabIndex = 100;
-            this.LicenseStatusLbl.Text = "License Status";
-            // 
-            // GetLicenseStatusBtn
-            // 
-            this.GetLicenseStatusBtn.BackColor = System.Drawing.Color.Green;
-            this.GetLicenseStatusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GetLicenseStatusBtn.ForeColor = System.Drawing.Color.White;
-            this.GetLicenseStatusBtn.Location = new System.Drawing.Point(357, 333);
-            this.GetLicenseStatusBtn.Name = "GetLicenseStatusBtn";
-            this.GetLicenseStatusBtn.Size = new System.Drawing.Size(602, 106);
-            this.GetLicenseStatusBtn.TabIndex = 101;
-            this.GetLicenseStatusBtn.Text = "Get Status";
-            this.GetLicenseStatusBtn.UseVisualStyleBackColor = false;
-            this.GetLicenseStatusBtn.Click += new System.EventHandler(this.GetLicenseStatusBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4109,6 +4143,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DisplaysGrd)).EndInit();
             this.grindPage.ResumeLayout(false);
             this.SetupGrindLayoutPanel.ResumeLayout(false);
+            this.licensePage.ResumeLayout(false);
+            this.SetupLicenseLayoutPanel.ResumeLayout(false);
             this.LogsPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -4124,7 +4160,6 @@
             this.DiamVersionLayoutPanel.ResumeLayout(false);
             this.DiamVersionLayoutPanel.PerformLayout();
             this.TopButtonLayoutPanel.ResumeLayout(false);
-            this.licensePage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -4385,6 +4420,7 @@
         private System.Windows.Forms.Button TrialLicenseBtn;
         private System.Windows.Forms.Label LicenseStatusLbl;
         private System.Windows.Forms.Button GetLicenseStatusBtn;
+        private System.Windows.Forms.TableLayoutPanel SetupLicenseLayoutPanel;
     }
 }
 

@@ -5679,7 +5679,7 @@ namespace LEonard
                 {
                     string rowName = row.Cells[0].Value?.ToString();
                     bool select = (rowName == name);
-                    log.Info($"looking at DataGridRow {rowName} select={select}");
+                    //log.Info($"looking at DataGridRow {rowName} select={select}");
                     row.Selected = (rowName == name);
                 }
                 catch
@@ -6291,6 +6291,7 @@ namespace LEonard
         {
             LicenseStatusLbl.Text = protection.GetStatus();
         }
+
         // ===================================================================
         // END LICENSING
         // ===================================================================

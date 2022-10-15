@@ -26,30 +26,70 @@ namespace Leonard
     [Serializable()]
     public class License : ISerializable
     {
+        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         public string cpuInfo;
         public string machineGuid;
         public DateTime expirationDateTime;
 
+        // Options
+        public bool hasJava;
+        public bool hasPython;
+        public bool hasUR;
+        public bool hasGrinding;
+        public bool hasGocator;
+
         public License()
         {
-        cpuInfo = "BFEBFBFF000A0652";
-        machineGuid = "2bdc9592-e3ab-4669-a866-af6652c76935";
-        // Yesterday, all my licenses seemed so OK...
-        expirationDateTime = DateTime.Now - TimeSpan.FromDays(1);
-    }
+            cpuInfo = "";
+            machineGuid = "";
+            expirationDateTime = DateTime.Now - TimeSpan.FromDays(1);
 
-    //Serialization functions
-    public License(SerializationInfo info, StreamingContext ctxt)
+            // Options
+            hasJava = false;
+            hasPython = false;
+            hasUR = false;
+            hasGrinding = false;
+            hasGocator = false;
+        }
+
+        //Serialization functions
+        public License(SerializationInfo info, StreamingContext ctxt)
         {
-            cpuInfo = (string)info.GetValue("CpuInfo", typeof(string));
-            machineGuid = (string)info.GetValue("MachineGuid", typeof(string));
-            expirationDateTime = (DateTime)info.GetValue("ExpirationDateTime", typeof(DateTime));
+            try
+            {
+                cpuInfo = (string)info.GetValue("cpuInfo", typeof(string));
+                machineGuid = (string)info.GetValue("machineGuid", typeof(string));
+                expirationDateTime = (DateTime)info.GetValue("expirationDateTime", typeof(DateTime));
+                hasJava = (bool)info.GetValue("hasJava", typeof(bool));
+                hasPython = (bool)info.GetValue("hasPython", typeof(bool));
+                hasUR = (bool)info.GetValue("hasUR", typeof(bool));
+                hasGrinding = (bool)info.GetValue("hasGrinding", typeof(bool));
+                hasGocator = (bool)info.GetValue("hasGocator", typeof(bool));
+            }
+            catch 
+            {
+                //mainForm.ErrorMessageBox($"License: input serializer");
+                log.Error($"License: input serializer");
+            }
         }
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            info.AddValue("CpuInfo", cpuInfo);
-            info.AddValue("MachineGuid", machineGuid);
-            info.AddValue("ExpirationDateTime", expirationDateTime);
+            try
+            {
+                info.AddValue("cpuInfo", cpuInfo);
+                info.AddValue("machineGuid", machineGuid);
+                info.AddValue("expirationDateTime", expirationDateTime);
+                info.AddValue("hasJava", hasJava);
+                info.AddValue("hasPython", hasPython);
+                info.AddValue("hasUR", hasUR);
+                info.AddValue("hasGrinding", hasGrinding);
+                info.AddValue("hasGocator", hasGocator);
+            }
+            catch
+            {
+                //mainForm.ErrorMessageBox($"License: output serializer");
+                log.Error($"License: output serializer");
+            }
         }
     }
     public class Protection
@@ -61,9 +101,8 @@ namespace Leonard
         private static License license;
         private static MainForm mainForm;
 
-        byte[] key = { 1, 2, 3, 4, 5, 6, 7, 8 }; // Where to store these keys is the tricky part, 
-                                                 // you may need to obfuscate them or get the user to input a password each time
-        byte[] iv = { 1, 2, 3, 4, 5, 6, 7, 8 };
+        byte[] key = { 1, 2, 7, 4, 5, 6, 13, 8 };
+        byte[] iv = { 1, 2, 7, 4, 5, 6, 9, 8 };
 
         public Protection(LEonard.MainForm mf, string filename)
         {
@@ -74,9 +113,6 @@ namespace Leonard
             cpuInfo = GetCpuInfo();
             machineGuid = GetMachineGuid();
             dateTime = DateTime.Now;
-            //log.Info($"cpuInfo = {cpuInfo}");
-            //log.Info($"machineGuid = {machineGuid}");
-            //log.Info($"dateTime = {dateTime.ToString()}");
 
             LoadLicense(filename);
         }
@@ -149,6 +185,12 @@ namespace Leonard
             license.machineGuid = machineGuid;
             license.cpuInfo = cpuInfo;
             license.expirationDateTime = dateTime + TimeSpan.FromDays(30);
+
+            license.hasJava = true;
+            license.hasPython = true;
+            license.hasUR = true;
+            license.hasGrinding = true;
+            license.hasGocator = true;
         }
 
         public string GetMachineGuid()
@@ -178,23 +220,29 @@ namespace Leonard
 
         public string GetStatus()
         {
+            dateTime = DateTime.Now;
+
             bool goodGuid = (machineGuid == license.machineGuid);
             bool goodCpuInfo = (cpuInfo == license.cpuInfo);
             bool goodDateTime = (dateTime < license.expirationDateTime);
 
-            string ret = $"CPU ID OK: {goodCpuInfo}";
-            ret += $"\nWINDOWS ID OK: {goodGuid}";
-            ret += $"\nDAYS REMAINING: {(license.expirationDateTime - dateTime).TotalDays:0.00} days";
+            string ret = $"CPU ID OK: {goodCpuInfo}\n";
+            ret += $"WINDOWS ID OK: {goodGuid}\n";
+            ret += $"DAYS REMAINING: {(license.expirationDateTime - dateTime).TotalDays:0.0000} days\n\n";
+
+            ret += $"OPTIONS\n";
+            ret += $"  Java: {license.hasJava}\n";
+            ret += $"  Python: {license.hasPython}\n";
+            ret += $"  Universal Robots: {license.hasUR}\n";
+            ret += $"  Grinding Package: {license.hasGrinding}\n";
+            ret += $"  Gocator: {license.hasGocator}\n";
 
             return ret;
         }
 
         public bool RunLEonard()
         {
-            // License Info
-
-            DateTime datetime = DateTime.Now;
-
+            dateTime = DateTime.Now;
 
             bool goodGuid = (machineGuid == license.machineGuid);
             bool goodCpuInfo = (cpuInfo == license.cpuInfo);
