@@ -32,6 +32,7 @@ using System.Net.Http.Headers;
 using Microsoft.Scripting.Hosting;
 using System.ServiceModel.Channels;
 using Microsoft.Scripting.Runtime;
+using Leonard;
 
 namespace LEonard
 {
@@ -42,6 +43,7 @@ namespace LEonard
         Jint.Engine javaEngine;
         Microsoft.Scripting.Hosting.ScriptEngine pythonEngine;
         Microsoft.Scripting.Hosting.ScriptScope pythonScope;
+        Protection protection;
 
         // TODO should be replaced with generic devices interface
         LeTcpServer robotCommandServer = null;
@@ -198,6 +200,8 @@ namespace LEonard
             SetState(RunState.IDLE);
 
             ResumeLayout();
+
+            protection = new Protection();
         }
 
         // Function key shortcut handling (primarily for development testing assistance)
@@ -1668,6 +1672,12 @@ namespace LEonard
 
         private bool OkToRun()
         {
+            if (!protection.RunLEonard())
+            {
+                ErrorMessageBox("Cannot run. LEonard license missing!");
+                return false;
+            }
+
             if (!ProgramStateBtn.Text.StartsWith("PLAYING"))
             {
                 ErrorMessageBox("Cannot run. Program not running!");
@@ -5890,6 +5900,12 @@ namespace LEonard
         }
         private void JavaRunBtn_Click(object sender, EventArgs e)
         {
+            if (!protection.RunLEonard())
+            {
+                ErrorMessageBox("Cannot run. LEonard license missing!");
+                return;
+            }
+
             string script = JavaCodeRTB.Text;
 
             try
@@ -6064,8 +6080,12 @@ namespace LEonard
 
         private void PythonRunBtn_Click(object sender, EventArgs e)
         {
-            //Microsoft.Scripting.Hosting.ScriptSource pythonScript =
-            //    pythonEngine.CreateScriptSourceFromString(PythonCodeRTB.Text);
+            if (!protection.RunLEonard())
+            {
+                ErrorMessageBox("Cannot run. LEonard license missing!");
+                return;
+            }
+
             try
             {
                 Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(PythonCodeRTB.Text);
