@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
@@ -27,6 +28,9 @@ namespace Leonard
     public class License : ISerializable
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+
+        public string version;
+        public DateTime createdDateTime;
         public string cpuInfo;
         public string machineGuid;
         public DateTime expirationDateTime;
@@ -40,9 +44,11 @@ namespace Leonard
 
         public License()
         {
+            version = "";
+            createdDateTime = new DateTime(0);
             cpuInfo = "";
             machineGuid = "";
-            expirationDateTime = DateTime.Now - TimeSpan.FromDays(1);
+            expirationDateTime = new DateTime(0);
 
             // Options
             hasJava = false;
@@ -57,6 +63,8 @@ namespace Leonard
         {
             try
             {
+                version = (string)info.GetValue("version", typeof(string));
+                createdDateTime = (DateTime)info.GetValue("createdDateTime", typeof(DateTime));
                 cpuInfo = (string)info.GetValue("cpuInfo", typeof(string));
                 machineGuid = (string)info.GetValue("machineGuid", typeof(string));
                 expirationDateTime = (DateTime)info.GetValue("expirationDateTime", typeof(DateTime));
@@ -66,16 +74,18 @@ namespace Leonard
                 hasGrinding = (bool)info.GetValue("hasGrinding", typeof(bool));
                 hasGocator = (bool)info.GetValue("hasGocator", typeof(bool));
             }
-            catch 
+            catch
             {
                 //mainForm.ErrorMessageBox($"License: input serializer");
-                log.Error($"License: input serializer");
+                log.Error($"License: input serializer error");
             }
         }
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             try
             {
+                info.AddValue("version", version);
+                info.AddValue("createdDateTime", createdDateTime);
                 info.AddValue("cpuInfo", cpuInfo);
                 info.AddValue("machineGuid", machineGuid);
                 info.AddValue("expirationDateTime", expirationDateTime);
@@ -88,8 +98,28 @@ namespace Leonard
             catch
             {
                 //mainForm.ErrorMessageBox($"License: output serializer");
-                log.Error($"License: output serializer");
+                log.Error($"License: output serializer error");
             }
+        }
+        public void ToggleJava()
+        {
+            hasJava = !hasJava;
+        }
+        public void TogglePython()
+        {
+            hasPython = !hasPython;
+        }
+        public void ToggleUR()
+        {
+            hasUR = !hasUR;
+        }
+        public void ToggleGrinding()
+        {
+            hasGrinding = !hasGrinding;
+        }
+        public void ToggleGocator()
+        {
+            hasGocator = !hasGocator;
         }
     }
     public class Protection
@@ -98,11 +128,12 @@ namespace Leonard
         private static string machineGuid = "";
         private static string cpuInfo = "";
         private static DateTime dateTime;
-        private static License license;
+        private static string version = "";
+        public static License license;
         private static MainForm mainForm;
 
-        byte[] key = { 1, 2, 7, 4, 5, 6, 13, 8 };
-        byte[] iv = { 1, 2, 7, 4, 5, 6, 9, 8 };
+        byte[] key = { 8, 17, 62, 44, 53, 67, 130, 78 };
+        byte[] iv = { 9, 14, 27, 84, 100, 12, 7, 123 };
 
         public Protection(LEonard.MainForm mf, string filename)
         {
@@ -113,24 +144,9 @@ namespace Leonard
             cpuInfo = GetCpuInfo();
             machineGuid = GetMachineGuid();
             dateTime = DateTime.Now;
+            version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             LoadLicense(filename);
-        }
-
-        private string GetCpuInfo()
-        {
-            string cpuInfo = "";
-
-            ManagementClass mc = new ManagementClass("win32_processor");
-            ManagementObjectCollection moc = mc.GetInstances();
-
-            foreach (ManagementObject mo in moc)
-            {
-                log.Info($"mo =  {mo.ToString()}");
-                cpuInfo = mo.Properties["processorID"].Value.ToString();
-                break;
-            }
-            return cpuInfo;
         }
 
         public bool LoadLicense(string filename)
@@ -180,17 +196,125 @@ namespace Leonard
             }
         }
 
-        public void CreateTrialLicense()
+        public void CreateNewLicense()
         {
+            license.version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            license.createdDateTime = DateTime.Now;
             license.machineGuid = machineGuid;
             license.cpuInfo = cpuInfo;
-            license.expirationDateTime = dateTime + TimeSpan.FromDays(30);
+            license.expirationDateTime = new DateTime(0);
 
             license.hasJava = true;
             license.hasPython = true;
             license.hasUR = true;
             license.hasGrinding = true;
             license.hasGocator = true;
+        }
+        public void CreateTrialLicense(int nDays)
+        {
+            CreateNewLicense();
+
+            license.expirationDateTime = dateTime + TimeSpan.FromDays(nDays);
+        }
+
+
+        private bool HasGoodGuid()
+        {
+            return (machineGuid == license.machineGuid);
+        }
+        private bool HasGoodCpuInfo()
+        {
+            return (cpuInfo == license.cpuInfo);
+        }
+        private bool HasGoodDateTime()
+        {
+            bool goodDateTime = true;
+            if (license.expirationDateTime != new DateTime(0))
+                goodDateTime = (dateTime < license.expirationDateTime);
+
+            return goodDateTime;
+        }
+        private bool HasGoodVersion()
+        {
+
+            return true;
+
+        }
+
+        private string BoolOkFail(bool b)
+        {
+            return b ? "OK" : "FAIL";
+        }
+        private string BoolEnabledDisabled(bool b)
+        {
+            return b ? "ENABLED" : "DISABLED";
+        }
+        public string GetStatus()
+        {
+            // Reset Protection object to current time!
+            dateTime = DateTime.Now;
+
+            bool goodGuid = HasGoodGuid();
+            bool goodCpuInfo = HasGoodCpuInfo();
+            bool goodDateTime = HasGoodDateTime();
+            bool goodVersion = HasGoodVersion();
+
+            string ret = "LEonard License File\nLecky Engineering LLC c. 2021-2023\n";
+            ret += $"Created: {license.createdDateTime}\n\n";
+
+            ret += $"VERSION {BoolOkFail(goodVersion)}\n  EXPECTED: {license.version}\n  USING: {version}\n\n";
+
+            ret += $"CPU SERIAL NUMBER {BoolOkFail(goodCpuInfo)}\n  {license.cpuInfo}\n\n";
+
+            ret += $"WINDOWS GUID {BoolOkFail(goodGuid)}\n  {license.machineGuid}\n\n";
+
+            ret += $"DAYS REMAINING {BoolOkFail(goodDateTime)}\n";
+            if (license.expirationDateTime == new DateTime(0))
+                ret += $"  PERPETUAL\n";
+            else
+                ret += $"  {(license.expirationDateTime - dateTime).TotalDays:0.0000} days\n";
+
+            ret += $"\nOPTIONS:\n";
+            ret += $"  Java: {BoolEnabledDisabled(license.hasJava)}\n";
+            ret += $"  Python: {BoolEnabledDisabled(license.hasPython)}\n";
+            ret += $"  Universal Robots: {BoolEnabledDisabled(license.hasUR)}\n";
+            ret += $"  Grinding Package: {BoolEnabledDisabled(license.hasGrinding)}\n";
+            ret += $"  Gocator: {BoolEnabledDisabled(license.hasGocator)}\n";
+
+            return ret;
+        }
+
+        public bool RunLEonard()
+        {
+            dateTime = DateTime.Now;
+
+            bool goodGuid = HasGoodGuid();
+            bool goodCpuInfo = HasGoodCpuInfo();
+            bool goodDateTime = HasGoodDateTime();
+            bool goodVersion = HasGoodVersion();
+
+            log.Info($"cpuInfo = {cpuInfo}   expectedCpuInfo = {license.cpuInfo}");
+            log.Info($"machineGUID = {machineGuid}   expectedMachineGUID = {license.machineGuid}");
+            log.Info($"now = {dateTime}   expiration = {license.version}");
+            log.Info($"version = {version}   expectedVersion = {license.version}");
+            log.Info($"Good? {goodGuid} {goodCpuInfo} {goodDateTime} {goodVersion}");
+
+            return goodGuid && goodCpuInfo && goodDateTime && goodVersion;
+        }
+        private string GetCpuInfo()
+        {
+            string cpuInfo = "";
+
+            ManagementClass mc = new ManagementClass("win32_processor");
+            ManagementObjectCollection moc = mc.GetInstances();
+
+            foreach (ManagementObject mo in moc)
+            {
+                log.Info($"mo =  {mo.ToString()}");
+                cpuInfo = mo.Properties["processorID"].Value.ToString();
+                break;
+            }
+            return cpuInfo;
         }
 
         public string GetMachineGuid()
@@ -218,42 +342,5 @@ namespace Leonard
             }
         }
 
-        public string GetStatus()
-        {
-            dateTime = DateTime.Now;
-
-            bool goodGuid = (machineGuid == license.machineGuid);
-            bool goodCpuInfo = (cpuInfo == license.cpuInfo);
-            bool goodDateTime = (dateTime < license.expirationDateTime);
-
-            string ret = $"CPU ID OK: {goodCpuInfo}\n";
-            ret += $"WINDOWS ID OK: {goodGuid}\n";
-            ret += $"DAYS REMAINING: {(license.expirationDateTime - dateTime).TotalDays:0.0000} days\n\n";
-
-            ret += $"OPTIONS\n";
-            ret += $"  Java: {license.hasJava}\n";
-            ret += $"  Python: {license.hasPython}\n";
-            ret += $"  Universal Robots: {license.hasUR}\n";
-            ret += $"  Grinding Package: {license.hasGrinding}\n";
-            ret += $"  Gocator: {license.hasGocator}\n";
-
-            return ret;
-        }
-
-        public bool RunLEonard()
-        {
-            dateTime = DateTime.Now;
-
-            bool goodGuid = (machineGuid == license.machineGuid);
-            bool goodCpuInfo = (cpuInfo == license.cpuInfo);
-            bool goodDateTime = (dateTime < license.expirationDateTime);
-            log.Info($"Good? {goodGuid} {goodCpuInfo} {goodDateTime}");
-            log.Info($"cpuInfo = \"{cpuInfo}\" len={cpuInfo.Length}");
-            log.Info($"machineGUID = \"{machineGuid}\" len={machineGuid.Length}");
-            log.Info($"expectedCpuInfo = \"{license.cpuInfo}\" len={license.cpuInfo.Length}");
-            log.Info($"expectedMachineGUID = \"{license.machineGuid}\" len ={license.machineGuid.Length}");
-
-            return goodGuid && goodCpuInfo && goodDateTime;
-        }
     }
 }

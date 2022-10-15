@@ -26,13 +26,15 @@ using Jint;
 using System.Net.NetworkInformation;
 using static IronPython.Modules._ast;
 using static IronPython.Modules.PythonIterTools;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using System.Configuration;
 using System.Net.Http.Headers;
 using Microsoft.Scripting.Hosting;
 using System.ServiceModel.Channels;
 using Microsoft.Scripting.Runtime;
 using Leonard;
+//using static Community.CsharpSqlite.Sqlite3;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LEonard
 {
@@ -6239,14 +6241,22 @@ namespace LEonard
         {
             string tabName = SetupTab.TabPages[SetupTab.SelectedIndex].Text;
 
-
-            // On selecting the setup tab, highlight the Tool and Display currently selected
+            // Actions to take on entering particular tabs
             if (tabName == "Tools")
+                // Highlight the curent tool selected in the grid
                 SelectDataGridViewRow(ToolsGrd, MountedToolBox.Text);
+
             if (tabName == "Displays")
+                // Highlight the curent display selected in the grid
                 SelectDataGridViewRow(DisplaysGrd, SelectedDisplayLbl.Text);
+
             if (tabName == "License")
-                GetLicenseStatusBtn_Click(null, null);
+            {
+                // Hide adjustment controls!
+                LicenseAdjustGrp.Visible = false;
+                // Update current license status
+                GetLicenseStatus();
+            }
         }
 
         // ===================================================================
@@ -6256,7 +6266,12 @@ namespace LEonard
         // ===================================================================
         // START LICENSING
         // ===================================================================
-        private void TrialLicenseBtn_Click(object sender, EventArgs e)
+
+        private void GetLicenseStatus()
+        {
+            LicenseStatusLbl.Text = protection.GetStatus();
+        }
+        private void LicenseStatusLbl_DoubleClick(object sender, EventArgs e)
         {
             Random rnd = new Random();
             int challenge = rnd.Next(10000, 99999);
@@ -6264,7 +6279,7 @@ namespace LEonard
             SetValueForm form = new SetValueForm(this)
             {
                 Value = 0,
-                Label = $"Passcode {challenge} for TRIAL LICENSE",
+                Label = $"Passcode {challenge} for ADJUST LICENSE",
                 NumberOfDecimals = 0,
                 MaxAllowed = 999999,
                 MinAllowed = 0,
@@ -6272,31 +6287,85 @@ namespace LEonard
             };
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                if (form.Value != challenge+1)
+                if (form.Value == challenge + 1)
                 {
+                    LicenseAdjustGrp.Visible = true;
+                    SaveLicenseBtn.Enabled = false;
+                }
+                else
+                {
+                    LicenseAdjustGrp.Visible = false;
                     ErrorMessageBox("Incorrect licensing passcode");
                     return;
-                }
-
-                if (DialogResult.OK == ConfirmMessageBox("Create 30-day trial license?"))
-                {
-                    protection.CreateTrialLicense();
-                    protection.SaveLicense(licenseFilename);
-                    GetLicenseStatusBtn_Click(null, null);
                 }
             }
         }
 
-        private void GetLicenseStatusBtn_Click(object sender, EventArgs e)
+        private void TrialLicenseBtn_Click(object sender, EventArgs e)
         {
-            LicenseStatusLbl.Text = protection.GetStatus();
+            protection.CreateTrialLicense(30);
+            protection.SaveLicense(licenseFilename);
+            protection.LoadLicense(licenseFilename);
+            GetLicenseStatus();
+            SaveLicenseBtn.Enabled = true;
+        }
+        private void JavaLicenseBtn_Click(object sender, EventArgs e)
+        {
+            Protection.license.ToggleJava();
+            GetLicenseStatus();
+            SaveLicenseBtn.Enabled = true;
+        }
+
+        private void PythonLicenseBtn_Click(object sender, EventArgs e)
+        {
+            Protection.license.TogglePython();
+            GetLicenseStatus();
+            SaveLicenseBtn.Enabled = true;
+        }
+
+        private void UrLicenseBtn_Click(object sender, EventArgs e)
+        {
+            Protection.license.ToggleUR();
+            GetLicenseStatus();
+            SaveLicenseBtn.Enabled = true;
+        }
+
+        private void GrindingLicenseBtn_Click(object sender, EventArgs e)
+        {
+            Protection.license.ToggleGrinding();
+            GetLicenseStatus();
+            SaveLicenseBtn.Enabled = true;
+        }
+
+        private void GocatorLicenseBtn_Click(object sender, EventArgs e)
+        {
+            Protection.license.ToggleGocator();
+            GetLicenseStatus();
+            SaveLicenseBtn.Enabled = true;
+        }
+
+        private void NewLicenseBtn_Click(object sender, EventArgs e)
+        {
+            protection.CreateNewLicense();
+            GetLicenseStatus();
+            SaveLicenseBtn.Enabled = true;
+        }
+
+        private void ReloadLicenseBtn_Click(object sender, EventArgs e)
+        {
+            protection.LoadLicense(licenseFilename);
+            GetLicenseStatus();
+            SaveLicenseBtn.Enabled = false;
+        }
+        private void SaveLicenseBtn_Click(object sender, EventArgs e)
+        {
+            protection.SaveLicense(licenseFilename);
+            SaveLicenseBtn.Enabled = false;
         }
 
         // ===================================================================
         // END LICENSING
         // ===================================================================
-
-
     }
 
     public static class RichTextBoxExtensions

@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
             this.RecipeRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
@@ -252,9 +252,15 @@
             this.SetLinearAccelBtn = new System.Windows.Forms.Button();
             this.licensePage = new System.Windows.Forms.TabPage();
             this.SetupLicenseLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.GetLicenseStatusBtn = new System.Windows.Forms.Button();
-            this.TrialLicenseBtn = new System.Windows.Forms.Button();
             this.LicenseStatusLbl = new System.Windows.Forms.Label();
+            this.LicenseAdjustGrp = new System.Windows.Forms.GroupBox();
+            this.AdjustmentButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.GocatorLicenseBtn = new System.Windows.Forms.Button();
+            this.GrindingLicenseBtn = new System.Windows.Forms.Button();
+            this.UrLicenseBtn = new System.Windows.Forms.Button();
+            this.PythonLicenseBtn = new System.Windows.Forms.Button();
+            this.JavaLicenseBtn = new System.Windows.Forms.Button();
+            this.TrialLicenseBtn = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.RobotPolyscopeVersionLbl = new System.Windows.Forms.Label();
             this.RobotSerialNumberLbl = new System.Windows.Forms.Label();
@@ -291,6 +297,9 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
+            this.SaveLicenseBtn = new System.Windows.Forms.Button();
+            this.NewLicenseBtn = new System.Windows.Forms.Button();
+            this.ReloadLicenseBtn = new System.Windows.Forms.Button();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -337,6 +346,8 @@
             this.SetupGrindLayoutPanel.SuspendLayout();
             this.licensePage.SuspendLayout();
             this.SetupLicenseLayoutPanel.SuspendLayout();
+            this.LicenseAdjustGrp.SuspendLayout();
+            this.AdjustmentButtonLayoutPanel.SuspendLayout();
             this.LogsPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -668,14 +679,14 @@
             // 
             this.PositionsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.PositionsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.PositionsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PositionLayoutPanel.SetColumnSpan(this.PositionsGrd, 4);
             this.PositionsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -823,14 +834,14 @@
             // 
             this.VariablesGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.VariablesGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VariablesLayoutPanel.SetColumnSpan(this.VariablesGrd, 4);
             this.VariablesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2812,24 +2823,24 @@
             // 
             this.ToolsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.ToolsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.ToolsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupToolsLayoutPanel.SetColumnSpan(this.ToolsGrd, 11);
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle4;
             this.ToolsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolsGrd.Location = new System.Drawing.Point(3, 84);
             this.ToolsGrd.Name = "ToolsGrd";
@@ -3023,24 +3034,24 @@
             // 
             this.DisplaysGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DisplaysGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DisplaysGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DisplaysGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.DisplaysGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupDisplayLayoutPanel.SetColumnSpan(this.DisplaysGrd, 11);
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DisplaysGrd.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DisplaysGrd.DefaultCellStyle = dataGridViewCellStyle6;
             this.DisplaysGrd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DisplaysGrd.Location = new System.Drawing.Point(3, 85);
             this.DisplaysGrd.Name = "DisplaysGrd";
@@ -3479,9 +3490,8 @@
             this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.SetupLicenseLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.SetupLicenseLayoutPanel.Controls.Add(this.GetLicenseStatusBtn, 0, 0);
-            this.SetupLicenseLayoutPanel.Controls.Add(this.TrialLicenseBtn, 2, 0);
-            this.SetupLicenseLayoutPanel.Controls.Add(this.LicenseStatusLbl, 0, 1);
+            this.SetupLicenseLayoutPanel.Controls.Add(this.LicenseStatusLbl, 0, 0);
+            this.SetupLicenseLayoutPanel.Controls.Add(this.LicenseAdjustGrp, 4, 1);
             this.SetupLicenseLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupLicenseLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.SetupLicenseLayoutPanel.Name = "SetupLicenseLayoutPanel";
@@ -3497,19 +3507,131 @@
             this.SetupLicenseLayoutPanel.Size = new System.Drawing.Size(1880, 700);
             this.SetupLicenseLayoutPanel.TabIndex = 102;
             // 
-            // GetLicenseStatusBtn
+            // LicenseStatusLbl
             // 
-            this.GetLicenseStatusBtn.BackColor = System.Drawing.Color.Green;
-            this.GetLicenseStatusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GetLicenseStatusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GetLicenseStatusBtn.ForeColor = System.Drawing.Color.White;
-            this.GetLicenseStatusBtn.Location = new System.Drawing.Point(3, 3);
-            this.GetLicenseStatusBtn.Name = "GetLicenseStatusBtn";
-            this.GetLicenseStatusBtn.Size = new System.Drawing.Size(229, 81);
-            this.GetLicenseStatusBtn.TabIndex = 101;
-            this.GetLicenseStatusBtn.Text = "Get Status";
-            this.GetLicenseStatusBtn.UseVisualStyleBackColor = false;
-            this.GetLicenseStatusBtn.Click += new System.EventHandler(this.GetLicenseStatusBtn_Click);
+            this.LicenseStatusLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SetupLicenseLayoutPanel.SetColumnSpan(this.LicenseStatusLbl, 3);
+            this.LicenseStatusLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LicenseStatusLbl.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LicenseStatusLbl.Location = new System.Drawing.Point(3, 0);
+            this.LicenseStatusLbl.Name = "LicenseStatusLbl";
+            this.SetupLicenseLayoutPanel.SetRowSpan(this.LicenseStatusLbl, 8);
+            this.LicenseStatusLbl.Size = new System.Drawing.Size(699, 700);
+            this.LicenseStatusLbl.TabIndex = 100;
+            this.LicenseStatusLbl.Text = "License Status";
+            this.LicenseStatusLbl.DoubleClick += new System.EventHandler(this.LicenseStatusLbl_DoubleClick);
+            // 
+            // LicenseAdjustGrp
+            // 
+            this.SetupLicenseLayoutPanel.SetColumnSpan(this.LicenseAdjustGrp, 4);
+            this.LicenseAdjustGrp.Controls.Add(this.AdjustmentButtonLayoutPanel);
+            this.LicenseAdjustGrp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LicenseAdjustGrp.Location = new System.Drawing.Point(943, 90);
+            this.LicenseAdjustGrp.Name = "LicenseAdjustGrp";
+            this.SetupLicenseLayoutPanel.SetRowSpan(this.LicenseAdjustGrp, 7);
+            this.LicenseAdjustGrp.Size = new System.Drawing.Size(934, 607);
+            this.LicenseAdjustGrp.TabIndex = 104;
+            this.LicenseAdjustGrp.TabStop = false;
+            this.LicenseAdjustGrp.Text = "Adjustments";
+            // 
+            // AdjustmentButtonLayoutPanel
+            // 
+            this.AdjustmentButtonLayoutPanel.ColumnCount = 4;
+            this.AdjustmentButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.AdjustmentButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.AdjustmentButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.AdjustmentButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.AdjustmentButtonLayoutPanel.Controls.Add(this.SaveLicenseBtn, 3, 5);
+            this.AdjustmentButtonLayoutPanel.Controls.Add(this.ReloadLicenseBtn, 2, 5);
+            this.AdjustmentButtonLayoutPanel.Controls.Add(this.JavaLicenseBtn, 1, 0);
+            this.AdjustmentButtonLayoutPanel.Controls.Add(this.PythonLicenseBtn, 1, 1);
+            this.AdjustmentButtonLayoutPanel.Controls.Add(this.UrLicenseBtn, 1, 2);
+            this.AdjustmentButtonLayoutPanel.Controls.Add(this.GrindingLicenseBtn, 1, 3);
+            this.AdjustmentButtonLayoutPanel.Controls.Add(this.GocatorLicenseBtn, 1, 4);
+            this.AdjustmentButtonLayoutPanel.Controls.Add(this.NewLicenseBtn, 0, 0);
+            this.AdjustmentButtonLayoutPanel.Controls.Add(this.TrialLicenseBtn, 0, 1);
+            this.AdjustmentButtonLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AdjustmentButtonLayoutPanel.Location = new System.Drawing.Point(3, 40);
+            this.AdjustmentButtonLayoutPanel.Name = "AdjustmentButtonLayoutPanel";
+            this.AdjustmentButtonLayoutPanel.RowCount = 6;
+            this.AdjustmentButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.AdjustmentButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.AdjustmentButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.AdjustmentButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.AdjustmentButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.AdjustmentButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
+            this.AdjustmentButtonLayoutPanel.Size = new System.Drawing.Size(928, 564);
+            this.AdjustmentButtonLayoutPanel.TabIndex = 0;
+            // 
+            // GocatorLicenseBtn
+            // 
+            this.GocatorLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.GocatorLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GocatorLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GocatorLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.GocatorLicenseBtn.Location = new System.Drawing.Point(235, 379);
+            this.GocatorLicenseBtn.Name = "GocatorLicenseBtn";
+            this.GocatorLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.GocatorLicenseBtn.TabIndex = 107;
+            this.GocatorLicenseBtn.Text = "Gocator?";
+            this.GocatorLicenseBtn.UseVisualStyleBackColor = false;
+            this.GocatorLicenseBtn.Click += new System.EventHandler(this.GocatorLicenseBtn_Click);
+            // 
+            // GrindingLicenseBtn
+            // 
+            this.GrindingLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.GrindingLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GrindingLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GrindingLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.GrindingLicenseBtn.Location = new System.Drawing.Point(235, 285);
+            this.GrindingLicenseBtn.Name = "GrindingLicenseBtn";
+            this.GrindingLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.GrindingLicenseBtn.TabIndex = 106;
+            this.GrindingLicenseBtn.Text = "Grinding?";
+            this.GrindingLicenseBtn.UseVisualStyleBackColor = false;
+            this.GrindingLicenseBtn.Click += new System.EventHandler(this.GrindingLicenseBtn_Click);
+            // 
+            // UrLicenseBtn
+            // 
+            this.UrLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.UrLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UrLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UrLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.UrLicenseBtn.Location = new System.Drawing.Point(235, 191);
+            this.UrLicenseBtn.Name = "UrLicenseBtn";
+            this.UrLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.UrLicenseBtn.TabIndex = 105;
+            this.UrLicenseBtn.Text = "UR?";
+            this.UrLicenseBtn.UseVisualStyleBackColor = false;
+            this.UrLicenseBtn.Click += new System.EventHandler(this.UrLicenseBtn_Click);
+            // 
+            // PythonLicenseBtn
+            // 
+            this.PythonLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.PythonLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PythonLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.PythonLicenseBtn.Location = new System.Drawing.Point(235, 97);
+            this.PythonLicenseBtn.Name = "PythonLicenseBtn";
+            this.PythonLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.PythonLicenseBtn.TabIndex = 104;
+            this.PythonLicenseBtn.Text = "Python?";
+            this.PythonLicenseBtn.UseVisualStyleBackColor = false;
+            this.PythonLicenseBtn.Click += new System.EventHandler(this.PythonLicenseBtn_Click);
+            // 
+            // JavaLicenseBtn
+            // 
+            this.JavaLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.JavaLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JavaLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.JavaLicenseBtn.Location = new System.Drawing.Point(235, 3);
+            this.JavaLicenseBtn.Name = "JavaLicenseBtn";
+            this.JavaLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.JavaLicenseBtn.TabIndex = 103;
+            this.JavaLicenseBtn.Text = "Java?";
+            this.JavaLicenseBtn.UseVisualStyleBackColor = false;
+            this.JavaLicenseBtn.Click += new System.EventHandler(this.JavaLicenseBtn_Click);
             // 
             // TrialLicenseBtn
             // 
@@ -3517,25 +3639,13 @@
             this.TrialLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TrialLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TrialLicenseBtn.ForeColor = System.Drawing.Color.White;
-            this.TrialLicenseBtn.Location = new System.Drawing.Point(473, 3);
+            this.TrialLicenseBtn.Location = new System.Drawing.Point(3, 97);
             this.TrialLicenseBtn.Name = "TrialLicenseBtn";
-            this.TrialLicenseBtn.Size = new System.Drawing.Size(229, 81);
+            this.TrialLicenseBtn.Size = new System.Drawing.Size(226, 88);
             this.TrialLicenseBtn.TabIndex = 99;
             this.TrialLicenseBtn.Text = "Create 30-day Trial";
             this.TrialLicenseBtn.UseVisualStyleBackColor = false;
             this.TrialLicenseBtn.Click += new System.EventHandler(this.TrialLicenseBtn_Click);
-            // 
-            // LicenseStatusLbl
-            // 
-            this.LicenseStatusLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.SetupLicenseLayoutPanel.SetColumnSpan(this.LicenseStatusLbl, 3);
-            this.LicenseStatusLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LicenseStatusLbl.Location = new System.Drawing.Point(3, 87);
-            this.LicenseStatusLbl.Name = "LicenseStatusLbl";
-            this.SetupLicenseLayoutPanel.SetRowSpan(this.LicenseStatusLbl, 6);
-            this.LicenseStatusLbl.Size = new System.Drawing.Size(699, 522);
-            this.LicenseStatusLbl.TabIndex = 100;
-            this.LicenseStatusLbl.Text = "License Status";
             // 
             // label19
             // 
@@ -4067,6 +4177,49 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
+            // SaveLicenseBtn
+            // 
+            this.SaveLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveLicenseBtn.Enabled = false;
+            this.SaveLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveLicenseBtn.Location = new System.Drawing.Point(699, 473);
+            this.SaveLicenseBtn.Name = "SaveLicenseBtn";
+            this.SaveLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.SaveLicenseBtn.TabIndex = 108;
+            this.SaveLicenseBtn.Text = "Save";
+            this.SaveLicenseBtn.UseVisualStyleBackColor = false;
+            this.SaveLicenseBtn.Click += new System.EventHandler(this.SaveLicenseBtn_Click);
+            // 
+            // NewLicenseBtn
+            // 
+            this.NewLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.NewLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NewLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.NewLicenseBtn.Location = new System.Drawing.Point(3, 3);
+            this.NewLicenseBtn.Name = "NewLicenseBtn";
+            this.NewLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.NewLicenseBtn.TabIndex = 109;
+            this.NewLicenseBtn.Text = "New Full License";
+            this.NewLicenseBtn.UseVisualStyleBackColor = false;
+            this.NewLicenseBtn.Click += new System.EventHandler(this.NewLicenseBtn_Click);
+            // 
+            // ReloadLicenseBtn
+            // 
+            this.ReloadLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.ReloadLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReloadLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReloadLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.ReloadLicenseBtn.Location = new System.Drawing.Point(467, 473);
+            this.ReloadLicenseBtn.Name = "ReloadLicenseBtn";
+            this.ReloadLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.ReloadLicenseBtn.TabIndex = 110;
+            this.ReloadLicenseBtn.Text = "Reload";
+            this.ReloadLicenseBtn.UseVisualStyleBackColor = false;
+            this.ReloadLicenseBtn.Click += new System.EventHandler(this.ReloadLicenseBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4145,6 +4298,8 @@
             this.SetupGrindLayoutPanel.ResumeLayout(false);
             this.licensePage.ResumeLayout(false);
             this.SetupLicenseLayoutPanel.ResumeLayout(false);
+            this.LicenseAdjustGrp.ResumeLayout(false);
+            this.AdjustmentButtonLayoutPanel.ResumeLayout(false);
             this.LogsPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -4419,8 +4574,17 @@
         private System.Windows.Forms.TabPage licensePage;
         private System.Windows.Forms.Button TrialLicenseBtn;
         private System.Windows.Forms.Label LicenseStatusLbl;
-        private System.Windows.Forms.Button GetLicenseStatusBtn;
         private System.Windows.Forms.TableLayoutPanel SetupLicenseLayoutPanel;
+        private System.Windows.Forms.Button JavaLicenseBtn;
+        private System.Windows.Forms.GroupBox LicenseAdjustGrp;
+        private System.Windows.Forms.TableLayoutPanel AdjustmentButtonLayoutPanel;
+        private System.Windows.Forms.Button GocatorLicenseBtn;
+        private System.Windows.Forms.Button GrindingLicenseBtn;
+        private System.Windows.Forms.Button UrLicenseBtn;
+        private System.Windows.Forms.Button PythonLicenseBtn;
+        private System.Windows.Forms.Button SaveLicenseBtn;
+        private System.Windows.Forms.Button NewLicenseBtn;
+        private System.Windows.Forms.Button ReloadLicenseBtn;
     }
 }
 
