@@ -53,7 +53,7 @@ namespace LEonard
         MessageDialog waitingForOperatorMessageForm = null;
         bool closeOperatorFormOnIndex = false;
         SplashForm splashForm = null;
-
+        string licenseFilename;
 
         static DataTable devices;
         static DataTable displays;
@@ -201,7 +201,8 @@ namespace LEonard
 
             ResumeLayout();
 
-            protection = new Protection();
+            licenseFilename = Path.Combine(LEonardRoot, "license.txt");
+            protection = new Protection(this, licenseFilename);
         }
 
         // Function key shortcut handling (primarily for development testing assistance)
@@ -311,7 +312,7 @@ namespace LEonard
             DialogResult result = messageForm.ShowDialog();
             return result;
         }
-        private DialogResult ErrorMessageBox(string message)
+        public DialogResult ErrorMessageBox(string message)
         {
             MessageDialog messageForm = new MessageDialog(this)
             {
@@ -6244,11 +6245,56 @@ namespace LEonard
                 SelectDataGridViewRow(ToolsGrd, MountedToolBox.Text);
             if (tabName == "Displays")
                 SelectDataGridViewRow(DisplaysGrd, SelectedDisplayLbl.Text);
+            if (tabName == "License")
+                GetLicenseStatusBtn_Click(null, null);
         }
 
         // ===================================================================
         // END PYTHON ENGINE
         // ===================================================================
+
+        // ===================================================================
+        // START LICENSING
+        // ===================================================================
+        private void TrialLicenseBtn_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            int challenge = rnd.Next(10000, 99999);
+
+            SetValueForm form = new SetValueForm(this)
+            {
+                Value = 0,
+                Label = $"Passcode {challenge} for TRIAL LICENSE",
+                NumberOfDecimals = 0,
+                MaxAllowed = 999999,
+                MinAllowed = 0,
+                IsPassword = true,
+            };
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                if (form.Value != challenge+1)
+                {
+                    ErrorMessageBox("Incorrect licensing passcode");
+                    return;
+                }
+
+                if (DialogResult.OK == ConfirmMessageBox("Create 30-day trial license?"))
+                {
+                    protection.CreateTrialLicense();
+                    protection.SaveLicense(licenseFilename);
+                    GetLicenseStatusBtn_Click(null, null);
+                }
+            }
+        }
+
+        private void GetLicenseStatusBtn_Click(object sender, EventArgs e)
+        {
+            LicenseStatusLbl.Text = protection.GetStatus();
+        }
+        // ===================================================================
+        // END LICENSING
+        // ===================================================================
+
 
     }
 
