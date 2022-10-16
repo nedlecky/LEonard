@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
             this.RecipeRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
@@ -171,24 +171,24 @@
             this.AutoConnectOnLoadChk = new System.Windows.Forms.CheckBox();
             this.devicesPage = new System.Windows.Forms.TabPage();
             this.SetupDevicesLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.DeviceReconnectBtn = new System.Windows.Forms.Button();
+            this.DeviceConnectBtn = new System.Windows.Forms.Button();
+            this.DeviceDisconnectBtn = new System.Windows.Forms.Button();
             this.DevicesGrd = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.DevicesFilenameLbl = new System.Windows.Forms.Label();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.ConnectAllDevicesBtn = new System.Windows.Forms.Button();
-            this.DisconnectAllDevicesBtn = new System.Windows.Forms.Button();
+            this.DeviceRuntimeStartBtn = new System.Windows.Forms.Button();
+            this.DeviceSetupStartBtn = new System.Windows.Forms.Button();
+            this.DeviceConnectAllBtn = new System.Windows.Forms.Button();
+            this.DeviceDisconnectAllBtn = new System.Windows.Forms.Button();
             this.RuntimeAppHelperLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+            this.DeviceRuntimeExitBtn = new System.Windows.Forms.Button();
+            this.DeviceRuntimeMinimizeBtn = new System.Windows.Forms.Button();
+            this.DeviceRuntimeRestoreBtn = new System.Windows.Forms.Button();
             this.SetupAppHelperLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.button18 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
+            this.DeviceSetupExitBtn = new System.Windows.Forms.Button();
+            this.DeviceSetupRestoreBtn = new System.Windows.Forms.Button();
+            this.DeviceSetupMinimizeBtn = new System.Windows.Forms.Button();
             this.SetStartupDevicesFileBtn = new System.Windows.Forms.Button();
             this.RobotIpTxt = new System.Windows.Forms.TextBox();
             this.ServerIpTxt = new System.Windows.Forms.TextBox();
@@ -198,6 +198,8 @@
             this.SaveDevicesBtn = new System.Windows.Forms.Button();
             this.LoadDevicesBtn = new System.Windows.Forms.Button();
             this.ReloadDevicesBtn = new System.Windows.Forms.Button();
+            this.speedBtnsGrp = new System.Windows.Forms.GroupBox();
+            this.SpeedSendBtn1 = new System.Windows.Forms.Button();
             this.toolsPage = new System.Windows.Forms.TabPage();
             this.SetupToolsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SetDoorClosedInputBtn = new System.Windows.Forms.Button();
@@ -255,11 +257,14 @@
             this.LicenseStatusLbl = new System.Windows.Forms.Label();
             this.LicenseAdjustGrp = new System.Windows.Forms.GroupBox();
             this.AdjustmentButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.GocatorLicenseBtn = new System.Windows.Forms.Button();
-            this.GrindingLicenseBtn = new System.Windows.Forms.Button();
-            this.UrLicenseBtn = new System.Windows.Forms.Button();
-            this.PythonLicenseBtn = new System.Windows.Forms.Button();
+            this.SaveLicenseBtn = new System.Windows.Forms.Button();
+            this.ReloadLicenseBtn = new System.Windows.Forms.Button();
             this.JavaLicenseBtn = new System.Windows.Forms.Button();
+            this.PythonLicenseBtn = new System.Windows.Forms.Button();
+            this.UrLicenseBtn = new System.Windows.Forms.Button();
+            this.GrindingLicenseBtn = new System.Windows.Forms.Button();
+            this.GocatorLicenseBtn = new System.Windows.Forms.Button();
+            this.NewLicenseBtn = new System.Windows.Forms.Button();
             this.TrialLicenseBtn = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.RobotPolyscopeVersionLbl = new System.Windows.Forms.Label();
@@ -297,9 +302,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.SaveLicenseBtn = new System.Windows.Forms.Button();
-            this.NewLicenseBtn = new System.Windows.Forms.Button();
-            this.ReloadLicenseBtn = new System.Windows.Forms.Button();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -334,6 +336,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrd)).BeginInit();
             this.RuntimeAppHelperLayoutPanel.SuspendLayout();
             this.SetupAppHelperLayoutPanel.SuspendLayout();
+            this.speedBtnsGrp.SuspendLayout();
             this.toolsPage.SuspendLayout();
             this.SetupToolsLayoutPanel.SuspendLayout();
             this.FootswitchIoLayoutPanel.SuspendLayout();
@@ -679,14 +682,14 @@
             // 
             this.PositionsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.PositionsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.PositionsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PositionLayoutPanel.SetColumnSpan(this.PositionsGrd, 4);
             this.PositionsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -834,14 +837,14 @@
             // 
             this.VariablesGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.VariablesGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VariablesLayoutPanel.SetColumnSpan(this.VariablesGrd, 4);
             this.VariablesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2252,28 +2255,28 @@
             // SetupDevicesLayoutPanel
             // 
             this.SetupDevicesLayoutPanel.ColumnCount = 12;
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.SetupDevicesLayoutPanel.Controls.Add(this.button8, 2, 0);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.button1, 0, 0);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.button2, 1, 0);
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DeviceReconnectBtn, 2, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DeviceConnectBtn, 0, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DeviceDisconnectBtn, 1, 0);
             this.SetupDevicesLayoutPanel.Controls.Add(this.DevicesGrd, 0, 1);
             this.SetupDevicesLayoutPanel.Controls.Add(this.label4, 0, 4);
             this.SetupDevicesLayoutPanel.Controls.Add(this.DevicesFilenameLbl, 0, 2);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.button11, 4, 0);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.button12, 7, 0);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.ConnectAllDevicesBtn, 10, 0);
-            this.SetupDevicesLayoutPanel.Controls.Add(this.DisconnectAllDevicesBtn, 11, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DeviceRuntimeStartBtn, 4, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DeviceSetupStartBtn, 7, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DeviceConnectAllBtn, 10, 0);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.DeviceDisconnectAllBtn, 11, 0);
             this.SetupDevicesLayoutPanel.Controls.Add(this.RuntimeAppHelperLayoutPanel, 5, 0);
             this.SetupDevicesLayoutPanel.Controls.Add(this.SetupAppHelperLayoutPanel, 8, 0);
             this.SetupDevicesLayoutPanel.Controls.Add(this.SetStartupDevicesFileBtn, 7, 2);
@@ -2285,59 +2288,63 @@
             this.SetupDevicesLayoutPanel.Controls.Add(this.SaveDevicesBtn, 9, 3);
             this.SetupDevicesLayoutPanel.Controls.Add(this.LoadDevicesBtn, 8, 3);
             this.SetupDevicesLayoutPanel.Controls.Add(this.ReloadDevicesBtn, 7, 3);
+            this.SetupDevicesLayoutPanel.Controls.Add(this.speedBtnsGrp, 6, 4);
             this.SetupDevicesLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupDevicesLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.SetupDevicesLayoutPanel.Name = "SetupDevicesLayoutPanel";
             this.SetupDevicesLayoutPanel.RowCount = 5;
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.82357F));
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.33326F));
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.941189F));
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.941189F));
-            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.960793F));
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.94307F));
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 59.33468F));
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.314355F));
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.314355F));
+            this.SetupDevicesLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.09354F));
             this.SetupDevicesLayoutPanel.Size = new System.Drawing.Size(1874, 694);
             this.SetupDevicesLayoutPanel.TabIndex = 0;
             // 
-            // button8
+            // DeviceReconnectBtn
             // 
-            this.button8.BackColor = System.Drawing.Color.Green;
-            this.button8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(314, 2);
-            this.button8.Margin = new System.Windows.Forms.Padding(2);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(152, 119);
-            this.button8.TabIndex = 106;
-            this.button8.Text = "Reconnect";
-            this.button8.UseVisualStyleBackColor = false;
+            this.DeviceReconnectBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceReconnectBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceReconnectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceReconnectBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceReconnectBtn.Location = new System.Drawing.Point(314, 2);
+            this.DeviceReconnectBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceReconnectBtn.Name = "DeviceReconnectBtn";
+            this.DeviceReconnectBtn.Size = new System.Drawing.Size(152, 106);
+            this.DeviceReconnectBtn.TabIndex = 106;
+            this.DeviceReconnectBtn.Text = "Reconnect";
+            this.DeviceReconnectBtn.UseVisualStyleBackColor = false;
+            this.DeviceReconnectBtn.Click += new System.EventHandler(this.DeviceReconnectBtn_Click);
             // 
-            // button1
+            // DeviceConnectBtn
             // 
-            this.button1.BackColor = System.Drawing.Color.Green;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(2, 2);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(152, 119);
-            this.button1.TabIndex = 99;
-            this.button1.Text = "Connect";
-            this.button1.UseVisualStyleBackColor = false;
+            this.DeviceConnectBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceConnectBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceConnectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceConnectBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceConnectBtn.Location = new System.Drawing.Point(2, 2);
+            this.DeviceConnectBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceConnectBtn.Name = "DeviceConnectBtn";
+            this.DeviceConnectBtn.Size = new System.Drawing.Size(152, 106);
+            this.DeviceConnectBtn.TabIndex = 99;
+            this.DeviceConnectBtn.Text = "Connect";
+            this.DeviceConnectBtn.UseVisualStyleBackColor = false;
+            this.DeviceConnectBtn.Click += new System.EventHandler(this.DeviceConnectBtn_Click);
             // 
-            // button2
+            // DeviceDisconnectBtn
             // 
-            this.button2.BackColor = System.Drawing.Color.Green;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(158, 2);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(152, 119);
-            this.button2.TabIndex = 98;
-            this.button2.Text = "Disconnect";
-            this.button2.UseVisualStyleBackColor = false;
+            this.DeviceDisconnectBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceDisconnectBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceDisconnectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceDisconnectBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceDisconnectBtn.Location = new System.Drawing.Point(158, 2);
+            this.DeviceDisconnectBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceDisconnectBtn.Name = "DeviceDisconnectBtn";
+            this.DeviceDisconnectBtn.Size = new System.Drawing.Size(152, 106);
+            this.DeviceDisconnectBtn.TabIndex = 98;
+            this.DeviceDisconnectBtn.Text = "Disconnect";
+            this.DeviceDisconnectBtn.UseVisualStyleBackColor = false;
+            this.DeviceDisconnectBtn.Click += new System.EventHandler(this.DeviceDisconnectBtn_Click);
             // 
             // DevicesGrd
             // 
@@ -2346,10 +2353,11 @@
             this.DevicesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.DevicesGrd, 12);
             this.DevicesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DevicesGrd.Location = new System.Drawing.Point(3, 126);
+            this.DevicesGrd.Location = new System.Drawing.Point(3, 113);
             this.DevicesGrd.Name = "DevicesGrd";
-            this.DevicesGrd.Size = new System.Drawing.Size(1868, 454);
+            this.DevicesGrd.Size = new System.Drawing.Size(1868, 405);
             this.DevicesGrd.TabIndex = 89;
+            this.DevicesGrd.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DevicesGrd_RowEnter);
             // 
             // label4
             // 
@@ -2357,9 +2365,9 @@
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.label4, 2);
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 665);
+            this.label4.Location = new System.Drawing.Point(3, 593);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(306, 29);
+            this.label4.Size = new System.Drawing.Size(306, 101);
             this.label4.TabIndex = 88;
             this.label4.Text = "Program, ServerIP, Robot IP";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2370,78 +2378,80 @@
             this.DevicesFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.DevicesFilenameLbl, 7);
             this.DevicesFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DevicesFilenameLbl.Location = new System.Drawing.Point(3, 583);
+            this.DevicesFilenameLbl.Location = new System.Drawing.Point(3, 521);
             this.DevicesFilenameLbl.Name = "DevicesFilenameLbl";
-            this.DevicesFilenameLbl.Size = new System.Drawing.Size(1086, 41);
+            this.DevicesFilenameLbl.Size = new System.Drawing.Size(1086, 36);
             this.DevicesFilenameLbl.TabIndex = 102;
             this.DevicesFilenameLbl.Text = "Untitled";
             this.DevicesFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button11
+            // DeviceRuntimeStartBtn
             // 
-            this.button11.BackColor = System.Drawing.Color.Green;
-            this.button11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button11.ForeColor = System.Drawing.Color.White;
-            this.button11.Location = new System.Drawing.Point(626, 2);
-            this.button11.Margin = new System.Windows.Forms.Padding(2);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(152, 119);
-            this.button11.TabIndex = 109;
-            this.button11.Text = "Runtime App";
-            this.button11.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeStartBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceRuntimeStartBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceRuntimeStartBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceRuntimeStartBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceRuntimeStartBtn.Location = new System.Drawing.Point(626, 2);
+            this.DeviceRuntimeStartBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceRuntimeStartBtn.Name = "DeviceRuntimeStartBtn";
+            this.DeviceRuntimeStartBtn.Size = new System.Drawing.Size(152, 106);
+            this.DeviceRuntimeStartBtn.TabIndex = 109;
+            this.DeviceRuntimeStartBtn.Text = "Runtime App";
+            this.DeviceRuntimeStartBtn.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeStartBtn.Click += new System.EventHandler(this.DeviceRuntimeStartBtn_Click);
             // 
-            // button12
+            // DeviceSetupStartBtn
             // 
-            this.button12.BackColor = System.Drawing.Color.Green;
-            this.button12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button12.ForeColor = System.Drawing.Color.White;
-            this.button12.Location = new System.Drawing.Point(1094, 2);
-            this.button12.Margin = new System.Windows.Forms.Padding(2);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(152, 119);
-            this.button12.TabIndex = 110;
-            this.button12.Text = "Setup App";
-            this.button12.UseVisualStyleBackColor = false;
+            this.DeviceSetupStartBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceSetupStartBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceSetupStartBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceSetupStartBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceSetupStartBtn.Location = new System.Drawing.Point(1094, 2);
+            this.DeviceSetupStartBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceSetupStartBtn.Name = "DeviceSetupStartBtn";
+            this.DeviceSetupStartBtn.Size = new System.Drawing.Size(152, 106);
+            this.DeviceSetupStartBtn.TabIndex = 110;
+            this.DeviceSetupStartBtn.Text = "Setup App";
+            this.DeviceSetupStartBtn.UseVisualStyleBackColor = false;
+            this.DeviceSetupStartBtn.Click += new System.EventHandler(this.DeviceSetupStartBtn_Click);
             // 
-            // ConnectAllDevicesBtn
+            // DeviceConnectAllBtn
             // 
-            this.ConnectAllDevicesBtn.BackColor = System.Drawing.Color.Green;
-            this.ConnectAllDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ConnectAllDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConnectAllDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.ConnectAllDevicesBtn.Location = new System.Drawing.Point(1562, 2);
-            this.ConnectAllDevicesBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.ConnectAllDevicesBtn.Name = "ConnectAllDevicesBtn";
-            this.ConnectAllDevicesBtn.Size = new System.Drawing.Size(152, 119);
-            this.ConnectAllDevicesBtn.TabIndex = 107;
-            this.ConnectAllDevicesBtn.Text = "Connect All";
-            this.ConnectAllDevicesBtn.UseVisualStyleBackColor = false;
-            this.ConnectAllDevicesBtn.Click += new System.EventHandler(this.ConnectAllDevicesBtn_Click);
+            this.DeviceConnectAllBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceConnectAllBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceConnectAllBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceConnectAllBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceConnectAllBtn.Location = new System.Drawing.Point(1562, 2);
+            this.DeviceConnectAllBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceConnectAllBtn.Name = "DeviceConnectAllBtn";
+            this.DeviceConnectAllBtn.Size = new System.Drawing.Size(152, 106);
+            this.DeviceConnectAllBtn.TabIndex = 107;
+            this.DeviceConnectAllBtn.Text = "Connect All";
+            this.DeviceConnectAllBtn.UseVisualStyleBackColor = false;
+            this.DeviceConnectAllBtn.Click += new System.EventHandler(this.DeviceConnectAllBtn_Click);
             // 
-            // DisconnectAllDevicesBtn
+            // DeviceDisconnectAllBtn
             // 
-            this.DisconnectAllDevicesBtn.BackColor = System.Drawing.Color.Green;
-            this.DisconnectAllDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DisconnectAllDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisconnectAllDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.DisconnectAllDevicesBtn.Location = new System.Drawing.Point(1718, 2);
-            this.DisconnectAllDevicesBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.DisconnectAllDevicesBtn.Name = "DisconnectAllDevicesBtn";
-            this.DisconnectAllDevicesBtn.Size = new System.Drawing.Size(154, 119);
-            this.DisconnectAllDevicesBtn.TabIndex = 108;
-            this.DisconnectAllDevicesBtn.Text = "Disconnect All";
-            this.DisconnectAllDevicesBtn.UseVisualStyleBackColor = false;
-            this.DisconnectAllDevicesBtn.Click += new System.EventHandler(this.DisconnectAllDevicesBtn_Click);
+            this.DeviceDisconnectAllBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceDisconnectAllBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceDisconnectAllBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceDisconnectAllBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceDisconnectAllBtn.Location = new System.Drawing.Point(1718, 2);
+            this.DeviceDisconnectAllBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceDisconnectAllBtn.Name = "DeviceDisconnectAllBtn";
+            this.DeviceDisconnectAllBtn.Size = new System.Drawing.Size(154, 106);
+            this.DeviceDisconnectAllBtn.TabIndex = 108;
+            this.DeviceDisconnectAllBtn.Text = "Disconnect All";
+            this.DeviceDisconnectAllBtn.UseVisualStyleBackColor = false;
+            this.DeviceDisconnectAllBtn.Click += new System.EventHandler(this.DeviceDisconnectAllBtn_Click);
             // 
             // RuntimeAppHelperLayoutPanel
             // 
             this.RuntimeAppHelperLayoutPanel.ColumnCount = 1;
             this.RuntimeAppHelperLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.RuntimeAppHelperLayoutPanel.Controls.Add(this.button15, 0, 2);
-            this.RuntimeAppHelperLayoutPanel.Controls.Add(this.button14, 0, 1);
-            this.RuntimeAppHelperLayoutPanel.Controls.Add(this.button13, 0, 0);
+            this.RuntimeAppHelperLayoutPanel.Controls.Add(this.DeviceRuntimeExitBtn, 0, 2);
+            this.RuntimeAppHelperLayoutPanel.Controls.Add(this.DeviceRuntimeMinimizeBtn, 0, 1);
+            this.RuntimeAppHelperLayoutPanel.Controls.Add(this.DeviceRuntimeRestoreBtn, 0, 0);
             this.RuntimeAppHelperLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RuntimeAppHelperLayoutPanel.Location = new System.Drawing.Point(783, 3);
             this.RuntimeAppHelperLayoutPanel.Name = "RuntimeAppHelperLayoutPanel";
@@ -2449,58 +2459,61 @@
             this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.RuntimeAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.RuntimeAppHelperLayoutPanel.Size = new System.Drawing.Size(150, 117);
+            this.RuntimeAppHelperLayoutPanel.Size = new System.Drawing.Size(150, 104);
             this.RuntimeAppHelperLayoutPanel.TabIndex = 111;
             // 
-            // button15
+            // DeviceRuntimeExitBtn
             // 
-            this.button15.BackColor = System.Drawing.Color.Green;
-            this.button15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button15.ForeColor = System.Drawing.Color.White;
-            this.button15.Location = new System.Drawing.Point(2, 80);
-            this.button15.Margin = new System.Windows.Forms.Padding(2);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(146, 35);
-            this.button15.TabIndex = 115;
-            this.button15.Text = "Exit";
-            this.button15.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeExitBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceRuntimeExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceRuntimeExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceRuntimeExitBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceRuntimeExitBtn.Location = new System.Drawing.Point(2, 70);
+            this.DeviceRuntimeExitBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceRuntimeExitBtn.Name = "DeviceRuntimeExitBtn";
+            this.DeviceRuntimeExitBtn.Size = new System.Drawing.Size(146, 32);
+            this.DeviceRuntimeExitBtn.TabIndex = 115;
+            this.DeviceRuntimeExitBtn.Text = "Exit";
+            this.DeviceRuntimeExitBtn.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeExitBtn.Click += new System.EventHandler(this.DeviceRuntimeExitBtn_Click);
             // 
-            // button14
+            // DeviceRuntimeMinimizeBtn
             // 
-            this.button14.BackColor = System.Drawing.Color.Green;
-            this.button14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.ForeColor = System.Drawing.Color.White;
-            this.button14.Location = new System.Drawing.Point(2, 41);
-            this.button14.Margin = new System.Windows.Forms.Padding(2);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(146, 35);
-            this.button14.TabIndex = 114;
-            this.button14.Text = "Min";
-            this.button14.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeMinimizeBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceRuntimeMinimizeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceRuntimeMinimizeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceRuntimeMinimizeBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceRuntimeMinimizeBtn.Location = new System.Drawing.Point(2, 36);
+            this.DeviceRuntimeMinimizeBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceRuntimeMinimizeBtn.Name = "DeviceRuntimeMinimizeBtn";
+            this.DeviceRuntimeMinimizeBtn.Size = new System.Drawing.Size(146, 30);
+            this.DeviceRuntimeMinimizeBtn.TabIndex = 114;
+            this.DeviceRuntimeMinimizeBtn.Text = "Minimize";
+            this.DeviceRuntimeMinimizeBtn.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeMinimizeBtn.Click += new System.EventHandler(this.DeviceRuntimeMinimizeBtn_Click);
             // 
-            // button13
+            // DeviceRuntimeRestoreBtn
             // 
-            this.button13.BackColor = System.Drawing.Color.Green;
-            this.button13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button13.ForeColor = System.Drawing.Color.White;
-            this.button13.Location = new System.Drawing.Point(2, 2);
-            this.button13.Margin = new System.Windows.Forms.Padding(2);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(146, 35);
-            this.button13.TabIndex = 113;
-            this.button13.Text = "Max";
-            this.button13.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeRestoreBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceRuntimeRestoreBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceRuntimeRestoreBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceRuntimeRestoreBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceRuntimeRestoreBtn.Location = new System.Drawing.Point(2, 2);
+            this.DeviceRuntimeRestoreBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceRuntimeRestoreBtn.Name = "DeviceRuntimeRestoreBtn";
+            this.DeviceRuntimeRestoreBtn.Size = new System.Drawing.Size(146, 30);
+            this.DeviceRuntimeRestoreBtn.TabIndex = 113;
+            this.DeviceRuntimeRestoreBtn.Text = "Restore";
+            this.DeviceRuntimeRestoreBtn.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeRestoreBtn.Click += new System.EventHandler(this.DeviceRuntimeRestoreBtn_Click);
             // 
             // SetupAppHelperLayoutPanel
             // 
             this.SetupAppHelperLayoutPanel.ColumnCount = 1;
             this.SetupAppHelperLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.SetupAppHelperLayoutPanel.Controls.Add(this.button18, 0, 2);
-            this.SetupAppHelperLayoutPanel.Controls.Add(this.button16, 0, 0);
-            this.SetupAppHelperLayoutPanel.Controls.Add(this.button17, 0, 1);
+            this.SetupAppHelperLayoutPanel.Controls.Add(this.DeviceSetupExitBtn, 0, 2);
+            this.SetupAppHelperLayoutPanel.Controls.Add(this.DeviceSetupRestoreBtn, 0, 0);
+            this.SetupAppHelperLayoutPanel.Controls.Add(this.DeviceSetupMinimizeBtn, 0, 1);
             this.SetupAppHelperLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupAppHelperLayoutPanel.Location = new System.Drawing.Point(1251, 3);
             this.SetupAppHelperLayoutPanel.Name = "SetupAppHelperLayoutPanel";
@@ -2508,50 +2521,53 @@
             this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.SetupAppHelperLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.SetupAppHelperLayoutPanel.Size = new System.Drawing.Size(150, 117);
+            this.SetupAppHelperLayoutPanel.Size = new System.Drawing.Size(150, 104);
             this.SetupAppHelperLayoutPanel.TabIndex = 112;
             // 
-            // button18
+            // DeviceSetupExitBtn
             // 
-            this.button18.BackColor = System.Drawing.Color.Green;
-            this.button18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button18.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button18.ForeColor = System.Drawing.Color.White;
-            this.button18.Location = new System.Drawing.Point(2, 80);
-            this.button18.Margin = new System.Windows.Forms.Padding(2);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(146, 35);
-            this.button18.TabIndex = 116;
-            this.button18.Text = "Exit";
-            this.button18.UseVisualStyleBackColor = false;
+            this.DeviceSetupExitBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceSetupExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceSetupExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceSetupExitBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceSetupExitBtn.Location = new System.Drawing.Point(2, 70);
+            this.DeviceSetupExitBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceSetupExitBtn.Name = "DeviceSetupExitBtn";
+            this.DeviceSetupExitBtn.Size = new System.Drawing.Size(146, 32);
+            this.DeviceSetupExitBtn.TabIndex = 116;
+            this.DeviceSetupExitBtn.Text = "Exit";
+            this.DeviceSetupExitBtn.UseVisualStyleBackColor = false;
+            this.DeviceSetupExitBtn.Click += new System.EventHandler(this.DeviceSetupExitBtn_Click);
             // 
-            // button16
+            // DeviceSetupRestoreBtn
             // 
-            this.button16.BackColor = System.Drawing.Color.Green;
-            this.button16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button16.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button16.ForeColor = System.Drawing.Color.White;
-            this.button16.Location = new System.Drawing.Point(2, 2);
-            this.button16.Margin = new System.Windows.Forms.Padding(2);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(146, 35);
-            this.button16.TabIndex = 114;
-            this.button16.Text = "Max";
-            this.button16.UseVisualStyleBackColor = false;
+            this.DeviceSetupRestoreBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceSetupRestoreBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceSetupRestoreBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceSetupRestoreBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceSetupRestoreBtn.Location = new System.Drawing.Point(2, 2);
+            this.DeviceSetupRestoreBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceSetupRestoreBtn.Name = "DeviceSetupRestoreBtn";
+            this.DeviceSetupRestoreBtn.Size = new System.Drawing.Size(146, 30);
+            this.DeviceSetupRestoreBtn.TabIndex = 114;
+            this.DeviceSetupRestoreBtn.Text = "Restore";
+            this.DeviceSetupRestoreBtn.UseVisualStyleBackColor = false;
+            this.DeviceSetupRestoreBtn.Click += new System.EventHandler(this.DeviceSetupRestoreBtn_Click);
             // 
-            // button17
+            // DeviceSetupMinimizeBtn
             // 
-            this.button17.BackColor = System.Drawing.Color.Green;
-            this.button17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button17.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button17.ForeColor = System.Drawing.Color.White;
-            this.button17.Location = new System.Drawing.Point(2, 41);
-            this.button17.Margin = new System.Windows.Forms.Padding(2);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(146, 35);
-            this.button17.TabIndex = 115;
-            this.button17.Text = "Min";
-            this.button17.UseVisualStyleBackColor = false;
+            this.DeviceSetupMinimizeBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceSetupMinimizeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceSetupMinimizeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceSetupMinimizeBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceSetupMinimizeBtn.Location = new System.Drawing.Point(2, 36);
+            this.DeviceSetupMinimizeBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceSetupMinimizeBtn.Name = "DeviceSetupMinimizeBtn";
+            this.DeviceSetupMinimizeBtn.Size = new System.Drawing.Size(146, 30);
+            this.DeviceSetupMinimizeBtn.TabIndex = 115;
+            this.DeviceSetupMinimizeBtn.Text = "Minimize";
+            this.DeviceSetupMinimizeBtn.UseVisualStyleBackColor = false;
+            this.DeviceSetupMinimizeBtn.Click += new System.EventHandler(this.DeviceSetupMinimizeBtn_Click);
             // 
             // SetStartupDevicesFileBtn
             // 
@@ -2560,9 +2576,9 @@
             this.SetStartupDevicesFileBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetStartupDevicesFileBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetStartupDevicesFileBtn.ForeColor = System.Drawing.Color.White;
-            this.SetStartupDevicesFileBtn.Location = new System.Drawing.Point(1095, 586);
+            this.SetStartupDevicesFileBtn.Location = new System.Drawing.Point(1095, 524);
             this.SetStartupDevicesFileBtn.Name = "SetStartupDevicesFileBtn";
-            this.SetStartupDevicesFileBtn.Size = new System.Drawing.Size(306, 35);
+            this.SetStartupDevicesFileBtn.Size = new System.Drawing.Size(306, 30);
             this.SetStartupDevicesFileBtn.TabIndex = 103;
             this.SetStartupDevicesFileBtn.Text = "Use This File At Startup";
             this.SetStartupDevicesFileBtn.UseVisualStyleBackColor = false;
@@ -2572,7 +2588,7 @@
             // 
             this.RobotIpTxt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RobotIpTxt.Location = new System.Drawing.Point(627, 668);
+            this.RobotIpTxt.Location = new System.Drawing.Point(627, 596);
             this.RobotIpTxt.Name = "RobotIpTxt";
             this.RobotIpTxt.Size = new System.Drawing.Size(150, 31);
             this.RobotIpTxt.TabIndex = 72;
@@ -2582,7 +2598,7 @@
             // 
             this.ServerIpTxt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ServerIpTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ServerIpTxt.Location = new System.Drawing.Point(471, 668);
+            this.ServerIpTxt.Location = new System.Drawing.Point(471, 596);
             this.ServerIpTxt.Name = "ServerIpTxt";
             this.ServerIpTxt.Size = new System.Drawing.Size(150, 31);
             this.ServerIpTxt.TabIndex = 79;
@@ -2592,7 +2608,7 @@
             // 
             this.RobotProgramTxt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotProgramTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RobotProgramTxt.Location = new System.Drawing.Point(315, 668);
+            this.RobotProgramTxt.Location = new System.Drawing.Point(315, 596);
             this.RobotProgramTxt.Name = "RobotProgramTxt";
             this.RobotProgramTxt.Size = new System.Drawing.Size(150, 31);
             this.RobotProgramTxt.TabIndex = 87;
@@ -2603,9 +2619,9 @@
             this.ClearDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClearDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.ClearDevicesBtn.Location = new System.Drawing.Point(1719, 627);
+            this.ClearDevicesBtn.Location = new System.Drawing.Point(1719, 560);
             this.ClearDevicesBtn.Name = "ClearDevicesBtn";
-            this.ClearDevicesBtn.Size = new System.Drawing.Size(152, 35);
+            this.ClearDevicesBtn.Size = new System.Drawing.Size(152, 30);
             this.ClearDevicesBtn.TabIndex = 105;
             this.ClearDevicesBtn.Text = "Clear";
             this.ClearDevicesBtn.UseVisualStyleBackColor = false;
@@ -2617,9 +2633,9 @@
             this.SaveAsDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveAsDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveAsDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(1563, 627);
+            this.SaveAsDevicesBtn.Location = new System.Drawing.Point(1563, 560);
             this.SaveAsDevicesBtn.Name = "SaveAsDevicesBtn";
-            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(150, 35);
+            this.SaveAsDevicesBtn.Size = new System.Drawing.Size(150, 30);
             this.SaveAsDevicesBtn.TabIndex = 104;
             this.SaveAsDevicesBtn.Text = "Save As...";
             this.SaveAsDevicesBtn.UseVisualStyleBackColor = false;
@@ -2631,9 +2647,9 @@
             this.SaveDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveDevicesBtn.Location = new System.Drawing.Point(1407, 627);
+            this.SaveDevicesBtn.Location = new System.Drawing.Point(1407, 560);
             this.SaveDevicesBtn.Name = "SaveDevicesBtn";
-            this.SaveDevicesBtn.Size = new System.Drawing.Size(150, 35);
+            this.SaveDevicesBtn.Size = new System.Drawing.Size(150, 30);
             this.SaveDevicesBtn.TabIndex = 101;
             this.SaveDevicesBtn.Text = "Save";
             this.SaveDevicesBtn.UseVisualStyleBackColor = false;
@@ -2645,9 +2661,9 @@
             this.LoadDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LoadDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoadDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadDevicesBtn.Location = new System.Drawing.Point(1251, 627);
+            this.LoadDevicesBtn.Location = new System.Drawing.Point(1251, 560);
             this.LoadDevicesBtn.Name = "LoadDevicesBtn";
-            this.LoadDevicesBtn.Size = new System.Drawing.Size(150, 35);
+            this.LoadDevicesBtn.Size = new System.Drawing.Size(150, 30);
             this.LoadDevicesBtn.TabIndex = 113;
             this.LoadDevicesBtn.Text = "Load";
             this.LoadDevicesBtn.UseVisualStyleBackColor = false;
@@ -2659,13 +2675,35 @@
             this.ReloadDevicesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ReloadDevicesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReloadDevicesBtn.ForeColor = System.Drawing.Color.White;
-            this.ReloadDevicesBtn.Location = new System.Drawing.Point(1095, 627);
+            this.ReloadDevicesBtn.Location = new System.Drawing.Point(1095, 560);
             this.ReloadDevicesBtn.Name = "ReloadDevicesBtn";
-            this.ReloadDevicesBtn.Size = new System.Drawing.Size(150, 35);
+            this.ReloadDevicesBtn.Size = new System.Drawing.Size(150, 30);
             this.ReloadDevicesBtn.TabIndex = 100;
             this.ReloadDevicesBtn.Text = "Reload";
             this.ReloadDevicesBtn.UseVisualStyleBackColor = false;
             this.ReloadDevicesBtn.Click += new System.EventHandler(this.ReloadDevicesBtn_Click);
+            // 
+            // speedBtnsGrp
+            // 
+            this.SetupDevicesLayoutPanel.SetColumnSpan(this.speedBtnsGrp, 6);
+            this.speedBtnsGrp.Controls.Add(this.SpeedSendBtn1);
+            this.speedBtnsGrp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.speedBtnsGrp.Location = new System.Drawing.Point(939, 596);
+            this.speedBtnsGrp.Name = "speedBtnsGrp";
+            this.speedBtnsGrp.Size = new System.Drawing.Size(932, 95);
+            this.speedBtnsGrp.TabIndex = 114;
+            this.speedBtnsGrp.TabStop = false;
+            this.speedBtnsGrp.Text = "Speed Send Buttons";
+            // 
+            // SpeedSendBtn1
+            // 
+            this.SpeedSendBtn1.Location = new System.Drawing.Point(31, 43);
+            this.SpeedSendBtn1.Name = "SpeedSendBtn1";
+            this.SpeedSendBtn1.Size = new System.Drawing.Size(145, 46);
+            this.SpeedSendBtn1.TabIndex = 71;
+            this.SpeedSendBtn1.Text = "Speed 1";
+            this.SpeedSendBtn1.UseVisualStyleBackColor = true;
+            this.SpeedSendBtn1.Click += new System.EventHandler(this.SpeedSendBtn1_Click);
             // 
             // toolsPage
             // 
@@ -2823,24 +2861,24 @@
             // 
             this.ToolsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.ToolsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.ToolsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupToolsLayoutPanel.SetColumnSpan(this.ToolsGrd, 11);
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ToolsGrd.DefaultCellStyle = dataGridViewCellStyle10;
             this.ToolsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolsGrd.Location = new System.Drawing.Point(3, 84);
             this.ToolsGrd.Name = "ToolsGrd";
@@ -3034,24 +3072,24 @@
             // 
             this.DisplaysGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DisplaysGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DisplaysGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DisplaysGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.DisplaysGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupDisplayLayoutPanel.SetColumnSpan(this.DisplaysGrd, 11);
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DisplaysGrd.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DisplaysGrd.DefaultCellStyle = dataGridViewCellStyle12;
             this.DisplaysGrd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DisplaysGrd.Location = new System.Drawing.Point(3, 85);
             this.DisplaysGrd.Name = "DisplaysGrd";
@@ -3563,47 +3601,48 @@
             this.AdjustmentButtonLayoutPanel.Size = new System.Drawing.Size(928, 564);
             this.AdjustmentButtonLayoutPanel.TabIndex = 0;
             // 
-            // GocatorLicenseBtn
+            // SaveLicenseBtn
             // 
-            this.GocatorLicenseBtn.BackColor = System.Drawing.Color.Green;
-            this.GocatorLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GocatorLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GocatorLicenseBtn.ForeColor = System.Drawing.Color.White;
-            this.GocatorLicenseBtn.Location = new System.Drawing.Point(235, 379);
-            this.GocatorLicenseBtn.Name = "GocatorLicenseBtn";
-            this.GocatorLicenseBtn.Size = new System.Drawing.Size(226, 88);
-            this.GocatorLicenseBtn.TabIndex = 107;
-            this.GocatorLicenseBtn.Text = "Gocator?";
-            this.GocatorLicenseBtn.UseVisualStyleBackColor = false;
-            this.GocatorLicenseBtn.Click += new System.EventHandler(this.GocatorLicenseBtn_Click);
+            this.SaveLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveLicenseBtn.Enabled = false;
+            this.SaveLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveLicenseBtn.Location = new System.Drawing.Point(699, 473);
+            this.SaveLicenseBtn.Name = "SaveLicenseBtn";
+            this.SaveLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.SaveLicenseBtn.TabIndex = 108;
+            this.SaveLicenseBtn.Text = "Save";
+            this.SaveLicenseBtn.UseVisualStyleBackColor = false;
+            this.SaveLicenseBtn.Click += new System.EventHandler(this.SaveLicenseBtn_Click);
             // 
-            // GrindingLicenseBtn
+            // ReloadLicenseBtn
             // 
-            this.GrindingLicenseBtn.BackColor = System.Drawing.Color.Green;
-            this.GrindingLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GrindingLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GrindingLicenseBtn.ForeColor = System.Drawing.Color.White;
-            this.GrindingLicenseBtn.Location = new System.Drawing.Point(235, 285);
-            this.GrindingLicenseBtn.Name = "GrindingLicenseBtn";
-            this.GrindingLicenseBtn.Size = new System.Drawing.Size(226, 88);
-            this.GrindingLicenseBtn.TabIndex = 106;
-            this.GrindingLicenseBtn.Text = "Grinding?";
-            this.GrindingLicenseBtn.UseVisualStyleBackColor = false;
-            this.GrindingLicenseBtn.Click += new System.EventHandler(this.GrindingLicenseBtn_Click);
+            this.ReloadLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.ReloadLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReloadLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReloadLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.ReloadLicenseBtn.Location = new System.Drawing.Point(467, 473);
+            this.ReloadLicenseBtn.Name = "ReloadLicenseBtn";
+            this.ReloadLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.ReloadLicenseBtn.TabIndex = 110;
+            this.ReloadLicenseBtn.Text = "Reload";
+            this.ReloadLicenseBtn.UseVisualStyleBackColor = false;
+            this.ReloadLicenseBtn.Click += new System.EventHandler(this.ReloadLicenseBtn_Click);
             // 
-            // UrLicenseBtn
+            // JavaLicenseBtn
             // 
-            this.UrLicenseBtn.BackColor = System.Drawing.Color.Green;
-            this.UrLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UrLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UrLicenseBtn.ForeColor = System.Drawing.Color.White;
-            this.UrLicenseBtn.Location = new System.Drawing.Point(235, 191);
-            this.UrLicenseBtn.Name = "UrLicenseBtn";
-            this.UrLicenseBtn.Size = new System.Drawing.Size(226, 88);
-            this.UrLicenseBtn.TabIndex = 105;
-            this.UrLicenseBtn.Text = "UR?";
-            this.UrLicenseBtn.UseVisualStyleBackColor = false;
-            this.UrLicenseBtn.Click += new System.EventHandler(this.UrLicenseBtn_Click);
+            this.JavaLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.JavaLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JavaLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.JavaLicenseBtn.Location = new System.Drawing.Point(235, 3);
+            this.JavaLicenseBtn.Name = "JavaLicenseBtn";
+            this.JavaLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.JavaLicenseBtn.TabIndex = 103;
+            this.JavaLicenseBtn.Text = "Java?";
+            this.JavaLicenseBtn.UseVisualStyleBackColor = false;
+            this.JavaLicenseBtn.Click += new System.EventHandler(this.JavaLicenseBtn_Click);
             // 
             // PythonLicenseBtn
             // 
@@ -3619,19 +3658,61 @@
             this.PythonLicenseBtn.UseVisualStyleBackColor = false;
             this.PythonLicenseBtn.Click += new System.EventHandler(this.PythonLicenseBtn_Click);
             // 
-            // JavaLicenseBtn
+            // UrLicenseBtn
             // 
-            this.JavaLicenseBtn.BackColor = System.Drawing.Color.Green;
-            this.JavaLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JavaLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.JavaLicenseBtn.ForeColor = System.Drawing.Color.White;
-            this.JavaLicenseBtn.Location = new System.Drawing.Point(235, 3);
-            this.JavaLicenseBtn.Name = "JavaLicenseBtn";
-            this.JavaLicenseBtn.Size = new System.Drawing.Size(226, 88);
-            this.JavaLicenseBtn.TabIndex = 103;
-            this.JavaLicenseBtn.Text = "Java?";
-            this.JavaLicenseBtn.UseVisualStyleBackColor = false;
-            this.JavaLicenseBtn.Click += new System.EventHandler(this.JavaLicenseBtn_Click);
+            this.UrLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.UrLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UrLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UrLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.UrLicenseBtn.Location = new System.Drawing.Point(235, 191);
+            this.UrLicenseBtn.Name = "UrLicenseBtn";
+            this.UrLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.UrLicenseBtn.TabIndex = 105;
+            this.UrLicenseBtn.Text = "UR?";
+            this.UrLicenseBtn.UseVisualStyleBackColor = false;
+            this.UrLicenseBtn.Click += new System.EventHandler(this.UrLicenseBtn_Click);
+            // 
+            // GrindingLicenseBtn
+            // 
+            this.GrindingLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.GrindingLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GrindingLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GrindingLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.GrindingLicenseBtn.Location = new System.Drawing.Point(235, 285);
+            this.GrindingLicenseBtn.Name = "GrindingLicenseBtn";
+            this.GrindingLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.GrindingLicenseBtn.TabIndex = 106;
+            this.GrindingLicenseBtn.Text = "Grinding?";
+            this.GrindingLicenseBtn.UseVisualStyleBackColor = false;
+            this.GrindingLicenseBtn.Click += new System.EventHandler(this.GrindingLicenseBtn_Click);
+            // 
+            // GocatorLicenseBtn
+            // 
+            this.GocatorLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.GocatorLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GocatorLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GocatorLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.GocatorLicenseBtn.Location = new System.Drawing.Point(235, 379);
+            this.GocatorLicenseBtn.Name = "GocatorLicenseBtn";
+            this.GocatorLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.GocatorLicenseBtn.TabIndex = 107;
+            this.GocatorLicenseBtn.Text = "Gocator?";
+            this.GocatorLicenseBtn.UseVisualStyleBackColor = false;
+            this.GocatorLicenseBtn.Click += new System.EventHandler(this.GocatorLicenseBtn_Click);
+            // 
+            // NewLicenseBtn
+            // 
+            this.NewLicenseBtn.BackColor = System.Drawing.Color.Green;
+            this.NewLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NewLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewLicenseBtn.ForeColor = System.Drawing.Color.White;
+            this.NewLicenseBtn.Location = new System.Drawing.Point(3, 3);
+            this.NewLicenseBtn.Name = "NewLicenseBtn";
+            this.NewLicenseBtn.Size = new System.Drawing.Size(226, 88);
+            this.NewLicenseBtn.TabIndex = 109;
+            this.NewLicenseBtn.Text = "New Full License";
+            this.NewLicenseBtn.UseVisualStyleBackColor = false;
+            this.NewLicenseBtn.Click += new System.EventHandler(this.NewLicenseBtn_Click);
             // 
             // TrialLicenseBtn
             // 
@@ -4177,49 +4258,6 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // SaveLicenseBtn
-            // 
-            this.SaveLicenseBtn.BackColor = System.Drawing.Color.Green;
-            this.SaveLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveLicenseBtn.Enabled = false;
-            this.SaveLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveLicenseBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveLicenseBtn.Location = new System.Drawing.Point(699, 473);
-            this.SaveLicenseBtn.Name = "SaveLicenseBtn";
-            this.SaveLicenseBtn.Size = new System.Drawing.Size(226, 88);
-            this.SaveLicenseBtn.TabIndex = 108;
-            this.SaveLicenseBtn.Text = "Save";
-            this.SaveLicenseBtn.UseVisualStyleBackColor = false;
-            this.SaveLicenseBtn.Click += new System.EventHandler(this.SaveLicenseBtn_Click);
-            // 
-            // NewLicenseBtn
-            // 
-            this.NewLicenseBtn.BackColor = System.Drawing.Color.Green;
-            this.NewLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NewLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewLicenseBtn.ForeColor = System.Drawing.Color.White;
-            this.NewLicenseBtn.Location = new System.Drawing.Point(3, 3);
-            this.NewLicenseBtn.Name = "NewLicenseBtn";
-            this.NewLicenseBtn.Size = new System.Drawing.Size(226, 88);
-            this.NewLicenseBtn.TabIndex = 109;
-            this.NewLicenseBtn.Text = "New Full License";
-            this.NewLicenseBtn.UseVisualStyleBackColor = false;
-            this.NewLicenseBtn.Click += new System.EventHandler(this.NewLicenseBtn_Click);
-            // 
-            // ReloadLicenseBtn
-            // 
-            this.ReloadLicenseBtn.BackColor = System.Drawing.Color.Green;
-            this.ReloadLicenseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ReloadLicenseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReloadLicenseBtn.ForeColor = System.Drawing.Color.White;
-            this.ReloadLicenseBtn.Location = new System.Drawing.Point(467, 473);
-            this.ReloadLicenseBtn.Name = "ReloadLicenseBtn";
-            this.ReloadLicenseBtn.Size = new System.Drawing.Size(226, 88);
-            this.ReloadLicenseBtn.TabIndex = 110;
-            this.ReloadLicenseBtn.Text = "Reload";
-            this.ReloadLicenseBtn.UseVisualStyleBackColor = false;
-            this.ReloadLicenseBtn.Click += new System.EventHandler(this.ReloadLicenseBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4282,6 +4320,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrd)).EndInit();
             this.RuntimeAppHelperLayoutPanel.ResumeLayout(false);
             this.SetupAppHelperLayoutPanel.ResumeLayout(false);
+            this.speedBtnsGrp.ResumeLayout(false);
             this.toolsPage.ResumeLayout(false);
             this.SetupToolsLayoutPanel.ResumeLayout(false);
             this.FootswitchIoLayoutPanel.ResumeLayout(false);
@@ -4491,25 +4530,25 @@
         private System.Windows.Forms.TableLayoutPanel LogPageControlsLayoutPanel;
         private System.Windows.Forms.Button SaveDevicesBtn;
         private System.Windows.Forms.Button ReloadDevicesBtn;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button DeviceConnectBtn;
+        private System.Windows.Forms.Button DeviceDisconnectBtn;
         private System.Windows.Forms.Label DevicesFilenameLbl;
         private System.Windows.Forms.Button SetStartupDevicesFileBtn;
         private System.Windows.Forms.Button SaveAsDevicesBtn;
         private System.Windows.Forms.Button ClearDevicesBtn;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button ConnectAllDevicesBtn;
-        private System.Windows.Forms.Button DisconnectAllDevicesBtn;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button DeviceReconnectBtn;
+        private System.Windows.Forms.Button DeviceConnectAllBtn;
+        private System.Windows.Forms.Button DeviceDisconnectAllBtn;
+        private System.Windows.Forms.Button DeviceRuntimeStartBtn;
+        private System.Windows.Forms.Button DeviceSetupStartBtn;
         private System.Windows.Forms.TableLayoutPanel RuntimeAppHelperLayoutPanel;
-        private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button DeviceRuntimeExitBtn;
+        private System.Windows.Forms.Button DeviceRuntimeMinimizeBtn;
+        private System.Windows.Forms.Button DeviceRuntimeRestoreBtn;
         private System.Windows.Forms.TableLayoutPanel SetupAppHelperLayoutPanel;
-        private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.Button button16;
-        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button DeviceSetupExitBtn;
+        private System.Windows.Forms.Button DeviceSetupRestoreBtn;
+        private System.Windows.Forms.Button DeviceSetupMinimizeBtn;
         private System.Windows.Forms.Button LoadDevicesBtn;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label StartupDevicesLbl;
@@ -4585,6 +4624,8 @@
         private System.Windows.Forms.Button SaveLicenseBtn;
         private System.Windows.Forms.Button NewLicenseBtn;
         private System.Windows.Forms.Button ReloadLicenseBtn;
+        private System.Windows.Forms.GroupBox speedBtnsGrp;
+        private System.Windows.Forms.Button SpeedSendBtn1;
     }
 }
 

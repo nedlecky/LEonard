@@ -47,11 +47,19 @@ namespace LEonard
         Microsoft.Scripting.Hosting.ScriptScope pythonScope;
         Protection protection;
 
-        // TODO should be replaced with generic devices interface
+        // TODO should be replaced with generic devices interface (in progress below)
         LeTcpServer robotCommandServer = null;
         LeTcpClient robotDashboardClient = null;
         LeGocator gocator = null;
         FileManager fileManager = null;
+
+        // TODO: This needs to dynamically resize and the code that does it doesn't!!
+        // These map 1:1 with the rows in devices.... I hope
+        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null };
+        int currentDeviceRowIndex = -1;
+        List<Button> speedSendBtns = new List<Button>();
+
+
         MessageDialog waitingForOperatorMessageForm = null;
         bool closeOperatorFormOnIndex = false;
         SplashForm splashForm = null;
@@ -695,7 +703,7 @@ namespace LEonard
                         // Setup a server for the UR to connect to
                         robotCommandServer = new LeTcpServer(this, "UR")
                         {
-                            receiveCallback = CommandCallback
+                            receiveCallback = GeneralCallback
                         };
                         if (robotCommandServer.Connect(ServerIpTxt.Text, "30000") > 0)
                         {
@@ -1483,23 +1491,12 @@ namespace LEonard
 
             if (DialogResult.OK == ConfirmMessageBox("This will clear all existing devices. Proceed?"))
             {
-                DisconnectAllDevicesBtn_Click(null, null);
+                DeviceDisconnectAllBtn_Click(null, null);
 
                 ClearAndInitializeDevices();
                 if (DialogResult.OK == ConfirmMessageBox("Would you like to create the default devices?"))
                     CreateDefaultDevices();
             }
-        }
-        private void ConnectAllDevicesBtn_Click(object sender, EventArgs e)
-        {
-            log.Info("ConnectAllDevicesBtn_Click");
-
-        }
-
-        private void DisconnectAllDevicesBtn_Click(object sender, EventArgs e)
-        {
-            log.Info("DisconnectAllDevicesBtn_Click");
-
         }
         private void ReloadDevicesBtn_Click(object sender, EventArgs e)
         {
@@ -1510,7 +1507,7 @@ namespace LEonard
         }
         int LoadDevicesFile(string name)
         {
-            DisconnectAllDevicesBtn_Click(null, null);
+            DeviceDisconnectAllBtn_Click(null, null);
             log.Info($"LoadDevices from {name}");
             devices = new DataTable("Devices");
             try
@@ -1531,7 +1528,7 @@ namespace LEonard
                 if (AutoConnectOnLoadChk.Checked)
                 {
                     log.Info("Autoconnecting all devices");
-                    ConnectAllDevicesBtn_Click(null, null);
+                    DeviceConnectAllBtn_Click(null, null);
                 }
             }
             catch (Exception ex)
@@ -1620,6 +1617,339 @@ namespace LEonard
             StartupDevicesLbl.Text = DevicesFilenameLbl.Text;
             log.Info("Startup Devices file set to {0}", DevicesFilenameLbl.Text);
         }
+
+        private void DeviceConnectAllBtn_Click(object sender, EventArgs e)
+        {
+            log.Info("DeviceConnectAllBtn_Click");
+
+        }
+
+        private void DeviceDisconnectAllBtn_Click(object sender, EventArgs e)
+        {
+            log.Info("DeviceDisconnectAllBtn_Click");
+
+        }
+        private void DeviceConnectBtn_Click(object sender, EventArgs e)
+        {
+            if (currentDeviceRowIndex<0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+
+            string name = (string)row["Name"];
+            string deviceType = (string)row["DeviceType"];
+            string address = (string)row["Address"];
+            string messageTag = (string)row["MessageTag"];
+            string callBack = (string)row["CallBack"];
+            string onConnectSend = (string)row["OnConnectSend"];
+            bool connected = (bool)row["Connected"];
+
+            if (connected)
+            {
+                ErrorMessageBox($"Device {name} already connected");
+                return;
+            }
+
+            // Make sure array is large enough
+            // TODO: This doesn't work- array must already be large enough
+            while (currentDeviceRowIndex > interfaces.Length - 1)
+            {
+                log.Debug("Appending {0} {1}", currentDeviceRowIndex, interfaces.Length);
+                interfaces.Append(new LeTcpServer(this, messageTag));
+            }
+
+            log.Info($"Connect {currentDeviceRowIndex}:{name} as {deviceType} at {address} with {messageTag}, {callBack}");
+
+            // Instantiate device interface object
+            switch (deviceType)
+            {
+                case @"TcpServer":
+                    interfaces[currentDeviceRowIndex] = new LeTcpServer(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex].Connect(address);
+
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        DeviceRuntimeStartBtn_Click(null, null);
+                    }
+
+                    break;
+                case @"TcpClient":
+                    interfaces[currentDeviceRowIndex] = new LeTcpClient(this, messageTag, onConnectSend);
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        DeviceRuntimeStartBtn_Click(null, null);
+                    }
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
+                case @"TcpClientAsync":
+                    interfaces[currentDeviceRowIndex] = new LeTcpClientAsync(this, messageTag, onConnectSend);
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        DeviceRuntimeStartBtn_Click(null, null);
+                    }
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
+                case @"Serial":
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        DeviceRuntimeStartBtn_Click(null, null);
+                    }
+                    interfaces[currentDeviceRowIndex] = new LeSerial(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
+                case @"Null":
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        DeviceRuntimeStartBtn_Click(null, null);
+                    }
+                    interfaces[currentDeviceRowIndex] = new LeDevNull(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
+                default:
+                    log.Error($"Illegal interface type: {deviceType}");
+                    break;
+            }
+
+            // Install desired callback
+            switch (callBack)
+            {
+                case "":
+                    break;
+                case "general":
+                    interfaces[currentDeviceRowIndex].receiveCallback = GeneralCallback;
+                    break;
+                case "alternate":
+                    interfaces[currentDeviceRowIndex].receiveCallback = AlternateCallback;
+                    break;
+                case "dataman":
+                    interfaces[currentDeviceRowIndex].receiveCallback = DatamanCallback;
+
+                    break;
+                default:
+                    log.Error("Illegal callback type: {0}", callBack);
+                    break;
+            }
+
+            row["Connected"] = true;
+        }
+
+        private void DeviceDisconnectBtn_Click(object sender, EventArgs e)
+        {
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+
+            if (!(bool)row["Connected"])
+            {
+                MessageBox.Show("Device already disconnected", "LEonard Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            log.Info("Disconnecting {0}", (string)row["Name"]); ;
+            row["Connected"] = false;
+            if (interfaces[currentDeviceRowIndex] != null)
+            {
+                string onDisconnectSend = (string)row["OnDisconnectSend"];
+                if (onDisconnectSend.Length > 0)
+                    try
+                    {
+                        interfaces[currentDeviceRowIndex].Send(onDisconnectSend);
+                    }
+                    catch
+                    {
+
+                    }
+
+                interfaces[currentDeviceRowIndex].Disconnect();
+                interfaces[currentDeviceRowIndex] = null;
+                GC.Collect();
+            }
+
+        }
+
+        private void DeviceReconnectBtn_Click(object sender, EventArgs e)
+        {
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+
+
+            string name = (string)row["Name"];
+            bool connected = (bool)row["Connected"];
+            string address = (string)row["Address"];
+
+            if (!connected)
+            {
+                ErrorMessageBox($"Device {name} already disconnected");
+                return;
+            }
+
+            log.Info($"Reconnecting {name}"); ;
+            if (interfaces[currentDeviceRowIndex] != null)
+            {
+                interfaces[currentDeviceRowIndex].Connect(address);
+            }
+        }
+
+        private void DeviceRuntimeStartBtn_Click(object sender, EventArgs e)
+        {
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+
+            ProcessStartInfo start = new ProcessStartInfo();
+
+            start.WorkingDirectory = (string)row["RuntimeWorkingDirectory"];
+            start.FileName = (string)row["RuntimeFileName"];
+            start.Arguments = (string)row["RuntimeArguments"];
+
+            if (interfaces[currentDeviceRowIndex] == null)
+                log.Error("Device not connected");
+            else
+            {
+                interfaces[currentDeviceRowIndex].StartRuntimeProcess(start);
+
+                // TODO: This wait for start is a little kludgey
+                PromptOperator("Waiting for app to start...", false, false);
+
+                for (int i = 0; i < 50; i++)
+                {
+                    Thread.Sleep(100);
+                    try
+                    {
+                        // TODO
+                        log.Error($"ERROR UNKNOWN HERE");
+                        /*
+                        IntPtr hWnd = interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle;
+                        Application.DoEvents();
+                        if (hWnd != (IntPtr)0)
+                        {
+                            SetWindowOnTop(hWnd);
+                            form.Close();
+                            break;
+                        }
+                        */
+                    }
+                    catch
+                    {
+                        log.Error($"Cannot find hWnd");
+                    }
+                }
+                waitingForOperatorMessageForm.Close();
+                waitingForOperatorMessageForm = null;
+            }
+        }
+
+        private void DeviceRuntimeRestoreBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeviceRuntimeMinimizeBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeviceRuntimeExitBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeviceSetupStartBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeviceSetupRestoreBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeviceSetupMinimizeBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeviceSetupExitBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void SpeedSendBtn1_Click(object sender, EventArgs e)
+        {
+            log.Info($"Clicked {((Button)sender).Text}");
+            if (interfaces[currentDeviceRowIndex] == null) return;
+
+            interfaces[currentDeviceRowIndex].Send(((Button)sender).Text);
+        }
+
+        private void DevicesGrd_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            // Minimize old apps
+            //MinimizeRuntimeBtn_Click(null, null);
+            //MinimizeSetupBtn_Click(null, null);
+
+            currentDeviceRowIndex = e.RowIndex;
+
+            // Clear existing SendSpeed buttons except first
+            for (int i = 1; i < speedSendBtns.Count; i++)
+                speedSendBtns[i].Dispose();
+
+            speedSendBtns.Clear();
+
+            // Nothing specified: leave the anchor button on the screen blank and disabled
+            string speedButtons = (string)(devices.Rows[currentDeviceRowIndex])["SpeedSendButtons"];
+            if (speedButtons.Length < 1)
+            {
+                SpeedSendBtn1.Text = "";
+                SpeedSendBtn1.Enabled = false;
+
+                return;
+            }
+
+            // Multiple buttons text specified as str1|str2|str3...
+            string[] buttonTextArray = speedButtons.Split('|');
+
+            int x = SpeedSendBtn1.Left;
+            int y = SpeedSendBtn1.Top;
+            int width = SpeedSendBtn1.Width;
+            int height = SpeedSendBtn1.Height;
+            int tabStart = SpeedSendBtn1.TabIndex;
+            speedSendBtns.Add(SpeedSendBtn1);
+            SpeedSendBtn1.Text = buttonTextArray[0];
+            SpeedSendBtn1.Enabled = true;
+            for (int i = 1; i < buttonTextArray.Length; i++)
+            {
+                Button b = new Button();
+                b.Location = new System.Drawing.Point(x + (width + 5) * i, y);
+                b.Name = "SpeedSendBtn" + i + 1;
+                b.Size = new System.Drawing.Size(width, height);
+                b.TabIndex = tabStart + i;
+                b.Text = buttonTextArray[i];
+                b.UseVisualStyleBackColor = true;
+                b.Click += new System.EventHandler(SpeedSendBtn1_Click);
+
+                speedSendBtns.Add(b);
+                speedBtnsGrp.Controls.Add(b);
+            }
+
+            // Bring apps to fore
+            DeviceRuntimeRestoreBtn_Click(null, null);
+            DeviceSetupRestoreBtn_Click(null, null);
+
+        }
+
+
 
 
         // ===================================================================
@@ -4243,7 +4573,7 @@ namespace LEonard
             ExecuteLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
         }
 
-        public void CommandCallback(string prefix, string message)
+        public void GeneralCallback(string prefix, string message)
         {
 
             string[] requests = message.Split('#');
@@ -4271,6 +4601,54 @@ namespace LEonard
         {
             log.Debug($"{prefix}<== {message}");
         }
+
+        void AlternateCallback(string message, string prefix)
+        {
+            //log.Info("CCB<==({0},{1})", message, prefix);
+
+            if (message.Length > 3 && message.StartsWith("JS:"))
+                ExecuteJavaScript(message.Substring(3));
+            else
+            {
+
+                string[] s = message.Split(',');
+                string response = "INVALID COMMAND";
+                if (s.Length == 3)
+                {
+                    string name = s[0];
+                    string sequence = s[1];
+                    string parameters = s[2];
+
+                    WriteVariable(prefix + "_name", name);
+                    WriteVariable(prefix + "_sequence", sequence);
+                    WriteVariable(prefix + "_params", parameters);
+
+                    // TODO: Execute
+
+                    response = string.Format("{0},{1},{2}", name, sequence, "RESPONSE");
+                }
+
+                interfaces[0].Send(response);
+            }
+        }
+
+        void DatamanCallback(string message, string prefix)
+        {
+            //log.Info("DCB<==({0},{1})", message, prefix);
+            string[] s = message.Split(',');
+            if (s.Length == 3)
+            {
+                string name = s[0];
+                string sequence = s[1];
+                string value = s[2];
+                WriteVariable(prefix + "_name", name);
+                WriteVariable(prefix + "_sequence", sequence);
+                WriteVariable(prefix + "_value", value);
+            }
+            else
+                log.Error("{0} ERROR unexpected string received: {1}", prefix, message);
+        }
+
 
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
@@ -4906,6 +5284,15 @@ namespace LEonard
             if (cell.Value == null) return null;
             return cell.Value.ToString();
         }
+        private int SelectedRowIndex(DataGridView dg)
+        {
+            if (dg.SelectedCells.Count < 1) return -1;
+            var cell = dg.SelectedCells[0];
+            if (cell.ColumnIndex != 0) return -1;
+            if (cell.Value == null) return -1;
+            return cell.RowIndex;
+        }
+
         private void SelectToolBtn_Click(object sender, EventArgs e)
         {
             string name = SelectedName(ToolsGrd);
@@ -6055,6 +6442,18 @@ namespace LEonard
             JavaSaveBtn.Enabled = true;
             JavaSaveAsBtn.Enabled = true;
             JavaRunBtn.Enabled = true;
+        }
+        void ExecuteJavaScript(string code)
+        {
+            log.Info($"Java Execute: {code}");
+            try
+            {
+                javaEngine.Execute(code);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, $"ExecuteJavaScript Error {code}");
+            }
         }
 
         // ===================================================================
