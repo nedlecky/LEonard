@@ -81,12 +81,12 @@
     <Name>Gocator</Name>
     <Enabled>true</Enabled>
     <Connected>false</Connected>
-    <DeviceType>TcpServer</DeviceType>
-    <Address>192.168.0.252:30000</Address>
-    <MessageTag>AUX1a</MessageTag>
+    <DeviceType>Gocator</DeviceType>
+    <Address>192.168.0.252:8190</Address>
+    <MessageTag>GO</MessageTag>
     <CallBack>general</CallBack>
     <OnConnectSend />
-    <OnDisconnectSend>(98,0,0,0,0)</OnDisconnectSend>
+    <OnDisconnectSend />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
@@ -94,7 +94,7 @@
     <SetupWorkingDirectory>C:\Program Files\RealVNC\VNC Viewer</SetupWorkingDirectory>
     <SetupFileName>vncviewer.exe</SetupFileName>
     <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
-    <SpeedSendButtons>(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)</SpeedSendButtons>
+    <SpeedSendButtons>trigger</SpeedSendButtons>
   </Devices>
   <Devices>
     <ID>3</ID>
@@ -119,7 +119,7 @@
   <Devices>
     <ID>4</ID>
     <Name>HALCON</Name>
-    <Enabled>true</Enabled>
+    <Enabled>false</Enabled>
     <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>127.0.0.1:21000</Address>
@@ -139,7 +139,7 @@
   <Devices>
     <ID>5</ID>
     <Name>Keyence</Name>
-    <Enabled>true</Enabled>
+    <Enabled>false</Enabled>
     <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.10:8500</Address>

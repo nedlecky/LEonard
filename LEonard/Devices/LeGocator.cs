@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -44,13 +45,17 @@ namespace LEonard
         {
             log.Debug($"{logPrefix} Connect({IP},{port})");
             int ret = tcpClient.Connect(IP, port);
-            if (ret == 0)
+            if (ret != 0)
+                myForm.GocatorAnnounce("ERROR");
+            else
             {
                 InquiryResponse("stop");
                 InquiryResponse("clearalignment");
                 InquiryResponse("loadjob,LM01");
                 InquiryResponse("start");
                 myForm.WriteVariable("gocator_ready", true, true);
+                log.Info("Gocator connection ready");
+                myForm.GocatorAnnounce("OK");
             }
             return ret;
         }
@@ -63,6 +68,7 @@ namespace LEonard
         {
             InquiryResponse("stop");
             myForm.WriteVariable("gocator_ready", false, true);
+            myForm.GocatorAnnounce("OFF");
             return tcpClient.Disconnect();
         }
 

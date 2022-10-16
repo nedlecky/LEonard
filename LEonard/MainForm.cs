@@ -40,8 +40,16 @@ namespace LEonard
 {
     public partial class MainForm : Form
     {
-        static string LEonardRoot = null;
         private static NLog.Logger log;
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+        static string LEonardRoot = null;
         Jint.Engine javaEngine;
         Microsoft.Scripting.Hosting.ScriptEngine pythonEngine;
         Microsoft.Scripting.Hosting.ScriptScope pythonScope;
@@ -255,8 +263,14 @@ namespace LEonard
         {
             if (!uiUpdatesAreLive) return;
 
-            suggestedSystemScale = 100.0 * (double)Width / (double)screenDesignWidth;
-            if (suggestedSystemScale > maxFontScaleUpPct) suggestedSystemScale = maxFontScaleUpPct;
+            // Scale to the lesser of the implied Width and Height scales
+            double widthScale = 100.0 * (double)Width / (double)screenDesignWidth;
+            double heightScale = 100.0 * (double)Height / (double)screenDesignHeight;
+            suggestedSystemScale = Math.Min(widthScale, heightScale);
+
+            // Scale up by maximum maxFontScaleUpPct
+            suggestedSystemScale = Math.Min(suggestedSystemScale, maxFontScaleUpPct);
+
             log?.Info($"MainForm Resize to {Width} x {Height}");
             log?.Info($"Resizing font to {suggestedSystemScale}%");
 
@@ -353,14 +367,14 @@ namespace LEonard
                         SaveRecipeBtn_Click(null, null);
                 }
 
-                if (JavaCodeRTB.Modified)
+                if (javaCopy != JavaCodeRTB.Text) //JavaCodeRTB.Modified)
                 {
                     var result = ConfirmMessageBox($"Closing Application!\nJava code [{JavaFilenameLbl.Text}] has changed.\nSave changes before exit?");
                     if (result == DialogResult.OK)
                         JavaSaveBtn_Click(null, null);
                 }
 
-                if (PythonCodeRTB.Modified)
+                if (pythonCopy != PythonCodeRTB.Text) //PythonCodeRTB.Modified)
                 {
                     var result = ConfirmMessageBox($"Closing Application!\nPython code [{PythonFilenameLbl.Text}] has changed.\nSave changes before exit?");
                     if (result == DialogResult.OK)
@@ -1357,36 +1371,36 @@ namespace LEonard
         }
         private void CreateDefaultDevices()
         {
-        // HALCON Direct WORKS
-        // start.FileName = "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64\\hdevelop.exe";
-        // start.Arguments = "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run";
+            // HALCON Direct WORKS
+            // start.FileName = "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64\\hdevelop.exe";
+            // start.Arguments = "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run";
 
-        // DATAMAN Direct WORKS
-        //start.WorkingDirectory = "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3";
-        //start.FileName = "SetupTool.exe";
-        //start.Arguments = "";
+            // DATAMAN Direct WORKS
+            //start.WorkingDirectory = "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3";
+            //start.FileName = "SetupTool.exe";
+            //start.Arguments = "";
 
-        // HALCON Through Link WORKS
-        //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "MVTec HDevelop XL 21.11 Progress (user).lnk");
+            // HALCON Through Link WORKS
+            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "MVTec HDevelop XL 21.11 Progress (user).lnk");
 
-        // DATAMAN Through Link WORKS
-        //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "v6.1.10_SR3 Setup Tool.lnk");
+            // DATAMAN Through Link WORKS
+            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "v6.1.10_SR3 Setup Tool.lnk");
 
-        // Sherlock Through Link MIN/REST/Exit don't work
-        //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "Sherlockx64.lnk");
+            // Sherlock Through Link MIN/REST/Exit don't work
+            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "Sherlockx64.lnk");
 
-        // Sherlock Direct MIN/REST/Exit don't work
-        //start.WorkingDirectory = "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin";
-        //start.FileName = "IpeStudio.exe";
+            // Sherlock Direct MIN/REST/Exit don't work
+            //start.WorkingDirectory = "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin";
+            //start.FileName = "IpeStudio.exe";
 
-        // KEYENCE Simulator Direct WORKS
-        //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Simulation-Software\\bin_X400";
-        //start.FileName = "CV-X Series Workspace-Software.exe";
+            // KEYENCE Simulator Direct WORKS
+            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Simulation-Software\\bin_X400";
+            //start.FileName = "CV-X Series Workspace-Software.exe";
 
-        // KEYENCE Terminal Direct WORKS
-        //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin";
-        //start.FileName = "CV-X Series Terminal-Software.exe";
-        //start.Arguments = "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn";
+            // KEYENCE Terminal Direct WORKS
+            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin";
+            //start.FileName = "CV-X Series Terminal-Software.exe";
+            //start.Arguments = "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn";
 
 
 
@@ -1416,8 +1430,8 @@ namespace LEonard
                 "(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)"
             });
             devices.Rows.Add(new object[] {
-                2, "Gocator", true, false, "TcpServer", "192.168.0.252:30000",
-                "AUX1a", "general", "", "(98,0,0,0,0)",
+                2, "Gocator", true, false, "Gocator", "192.168.0.252:8190",
+                "GO", "general", "", "",
                 false,
                 "",
                 "",
@@ -1425,7 +1439,7 @@ namespace LEonard
                 "C:\\Program Files\\RealVNC\\VNC Viewer",
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
-                "(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)"
+                "trigger"
             });
             devices.Rows.Add(new object[] {
                 3, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
@@ -1440,7 +1454,7 @@ namespace LEonard
                 "GO"
             });
             devices.Rows.Add(new object[] {
-                4, "HALCON", true, false, "TcpClient", "127.0.0.1:21000",
+                4, "HALCON", false, false, "TcpClient", "127.0.0.1:21000",
                 "AUX2H", "general", "init()", "",
                 true,
                 "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
@@ -1452,7 +1466,7 @@ namespace LEonard
                 "GO"
             });
             devices.Rows.Add(new object[] {
-                5, "Keyence", true, false, "TcpClient", "192.168.0.10:8500",
+                5, "Keyence", false, false, "TcpClient", "192.168.0.10:8500",
                 "AUX2K", "general", "TE", "",
                 false,
                 "",
@@ -1728,6 +1742,14 @@ namespace LEonard
                     }
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
+                case @"Gocator":
+                    interfaces[currentDeviceRowIndex] = new LeGocator(this, messageTag, onConnectSend);
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        DeviceRuntimeStartBtn_Click(null, null);
+                    }
+                    interfaces[currentDeviceRowIndex].Connect(address);
+                    break;
                 case @"Serial":
                     if ((bool)row["RuntimeAutostart"])
                     {
@@ -1835,6 +1857,12 @@ namespace LEonard
                 interfaces[currentDeviceRowIndex].Connect(address);
             }
         }
+        void SetWindowOnTop(IntPtr hWnd)
+        {
+            log.Info("SetWindowOnTop({0})", hWnd);
+            // TODO: The SetWindowPos constants below should be defined!
+            SetWindowPos(hWnd, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
+        }
 
         private void DeviceRuntimeStartBtn_Click(object sender, EventArgs e)
         {
@@ -1866,17 +1894,16 @@ namespace LEonard
                     try
                     {
                         // TODO
-                        log.Error($"ERROR UNKNOWN HERE");
-                        /*
+                        //log.Error($"ERROR UNKNOWN HERE");
+                        
                         IntPtr hWnd = interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle;
                         Application.DoEvents();
                         if (hWnd != (IntPtr)0)
                         {
                             SetWindowOnTop(hWnd);
-                            form.Close();
                             break;
                         }
-                        */
+                        
                     }
                     catch
                     {
@@ -1890,37 +1917,127 @@ namespace LEonard
 
         private void DeviceRuntimeRestoreBtn_Click(object sender, EventArgs e)
         {
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
 
+            if (interfaces[currentDeviceRowIndex] != null)
+                if (interfaces[currentDeviceRowIndex].runtimeProcess != null)
+                {
+                    ShowWindowAsync(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, SW_RESTORE);
+                    SetWindowOnTop(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle);
+                }
         }
 
         private void DeviceRuntimeMinimizeBtn_Click(object sender, EventArgs e)
         {
-
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+            if (interfaces[currentDeviceRowIndex] != null)
+                if (interfaces[currentDeviceRowIndex].runtimeProcess != null)
+                    ShowWindowAsync(interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle, SW_SHOWMINIMIZED);
         }
 
         private void DeviceRuntimeExitBtn_Click(object sender, EventArgs e)
         {
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
 
+            if (interfaces[currentDeviceRowIndex] != null)
+                interfaces[currentDeviceRowIndex].EndRuntimeProcess();
         }
 
         private void DeviceSetupStartBtn_Click(object sender, EventArgs e)
         {
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+
+            ProcessStartInfo start = new ProcessStartInfo();
+
+            start.WorkingDirectory = (string)row["SetupWorkingDirectory"];
+            start.FileName = (string)row["SetupFileName"];
+            start.Arguments = (string)row["SetupArguments"];
+
+            if (interfaces[currentDeviceRowIndex] == null)
+                log.Error("Device not running");
+            else
+            {
+                interfaces[currentDeviceRowIndex].StartSetupProcess(start);
+
+                // TODO: This wait for start is a little kludgey
+                PromptOperator("Waiting for app to start...", false, false);
+                for (int i = 0; i < 50; i++)
+                {
+                    Thread.Sleep(100);
+                    IntPtr hWnd = interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle;
+                    Application.DoEvents();
+                    if (hWnd != (IntPtr)0)
+                    {
+                        SetWindowOnTop(hWnd);
+                        break;
+                    }
+                }
+                waitingForOperatorMessageForm.Close();
+                waitingForOperatorMessageForm = null;
+            }
+
 
         }
 
         private void DeviceSetupRestoreBtn_Click(object sender, EventArgs e)
         {
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
 
+            if (interfaces[currentDeviceRowIndex] != null)
+                if (interfaces[currentDeviceRowIndex].setupProcess != null)
+                {
+                    ShowWindowAsync(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, SW_RESTORE);
+                    SetWindowOnTop(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle);
+                }
         }
 
         private void DeviceSetupMinimizeBtn_Click(object sender, EventArgs e)
         {
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
 
+            if (interfaces[currentDeviceRowIndex] != null)
+                if (interfaces[currentDeviceRowIndex].setupProcess != null)
+                    ShowWindowAsync(interfaces[currentDeviceRowIndex].setupProcess.MainWindowHandle, SW_SHOWMINIMIZED);
         }
 
         private void DeviceSetupExitBtn_Click(object sender, EventArgs e)
         {
-
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            if (interfaces[currentDeviceRowIndex] != null)
+                interfaces[currentDeviceRowIndex].EndSetupProcess();
         }
         private void SpeedSendBtn1_Click(object sender, EventArgs e)
         {
@@ -1990,6 +2107,29 @@ namespace LEonard
             DeviceSetupRestoreBtn_Click(null, null);
 
         }
+
+        /*
+        #define SW_HIDE             0
+        #define SW_SHOWNORMAL       1
+        #define SW_NORMAL           1
+        #define SW_SHOWMINIMIZED    2
+        #define SW_SHOWMAXIMIZED    3
+        #define SW_MAXIMIZE         3
+        #define SW_SHOWNOACTIVATE   4
+        #define SW_SHOW             5
+        #define SW_MINIMIZE         6
+        #define SW_SHOWMINNOACTIVE  7
+        #define SW_SHOWNA           8
+        #define SW_RESTORE          9
+        #define SW_SHOWDEFAULT      10
+        #define SW_FORCEMINIMIZE    11
+        #define SW_MAX              11
+        */
+        private const int SW_SHOWMINIMIZED = 2;
+        private const int SW_SHOWMAXIMIZED = 3;
+        private const int SW_SHOWNORMAL = 5;
+        private const int SW_RESTORE = 9;
+
 
 
 
@@ -4733,31 +4873,51 @@ namespace LEonard
                 GocatorDisconnect();
         }
 
+        public void GocatorAnnounce(string status)
+        {
+            switch (status)
+            {
+                case "OK":
+                    GocatorConnectBtn.Text = "Gocator OK";
+                    GocatorConnectBtn.BackColor = Color.Green;
+                    GocatorReadyLbl.BackColor = Color.Green;
+                    log.Info("Gocator connection READY");
+                    break;
+                case "ERROR":
+                    log.Error("Gocator client initialization failure");
+                    GocatorConnectBtn.Text = "Gocator ERROR";
+                    GocatorConnectBtn.BackColor = Color.Red;
+                    GocatorReadyLbl.BackColor = Color.Red;
+                    break;
+                case "OFF":
+                    GocatorConnectBtn.Text = "Gocator OFF";
+                    GocatorConnectBtn.BackColor = Color.Red;
+                    GocatorReadyLbl.BackColor = Color.Red;
+                    log.Info("Gocator connection OFF");
+                    break;
+                default:
+                    GocatorConnectBtn.Text = "Gocator ???";
+                    GocatorConnectBtn.BackColor = Color.Yellow;
+                    GocatorReadyLbl.BackColor = Color.Yellow;
+                    break;
+            }
+        }
+
         private void GocatorConnect()
         {
             GocatorDisconnect();
 
             gocator = new LeGocator(this, "GO");
             if (gocator.Connect("192.168.0.252", "8190") > 0)
-            {
-                log.Error("Gocator client initialization failure");
-                GocatorConnectBtn.BackColor = Color.Red;
-                GocatorConnectBtn.Text = "Gocator ERROR";
-                GocatorReadyLbl.BackColor = Color.Red;
-                return;
-            }
-            GocatorConnectBtn.BackColor = Color.Green;
-            GocatorConnectBtn.Text = "Gocator OK";
-            GocatorReadyLbl.BackColor = Color.Green;
-            log.Info("Gocator connection ready");
+                GocatorAnnounce("ERROR");
+            else
+                GocatorAnnounce("OK");
         }
         private void GocatorDisconnect()
         {
             gocator?.Disconnect();
             gocator = null;
-            GocatorConnectBtn.BackColor = Color.Red;
-            GocatorConnectBtn.Text = "Gocator OFF";
-            GocatorReadyLbl.BackColor = Color.Red;
+            GocatorAnnounce("OFF");
         }
 
         // ===================================================================
