@@ -1631,7 +1631,7 @@ namespace LEonard
         }
         private void DeviceConnectBtn_Click(object sender, EventArgs e)
         {
-            if (currentDeviceRowIndex<0)
+            if (currentDeviceRowIndex < 0)
             {
                 ErrorMessageBox("Please select a device in the device table.");
                 return;
@@ -1938,6 +1938,11 @@ namespace LEonard
                 b.Text = buttonTextArray[i];
                 b.UseVisualStyleBackColor = true;
                 b.Click += new System.EventHandler(SpeedSendBtn1_Click);
+
+                // TODO does this set the correct size??
+                ControlInfo controlInfo = new ControlInfo();
+                controlInfo.originalFont = SpeedSendBtn1.Font;
+                b.Tag = controlInfo;
 
                 speedSendBtns.Add(b);
                 speedBtnsGrp.Controls.Add(b);
@@ -6437,11 +6442,22 @@ namespace LEonard
                 }
             }
         }
+        private string javaCopy = null;
         private void JavaCodeRTB_TextChanged(object sender, EventArgs e)
         {
-            JavaSaveBtn.Enabled = true;
-            JavaSaveAsBtn.Enabled = true;
-            JavaRunBtn.Enabled = true;
+            // Font resizing triggers this, too, so we doublecheck to see if the text has actually changed!
+            if (javaCopy == null)
+                javaCopy = JavaCodeRTB.Text;
+
+            if (javaCopy == JavaCodeRTB.Text)
+                JavaCodeRTB.Modified = false;
+            else
+            {
+                JavaSaveBtn.Enabled = true;
+                JavaSaveAsBtn.Enabled = true;
+                JavaRunBtn.Enabled = true;
+                javaCopy = JavaCodeRTB.Text;
+            }
         }
         void ExecuteJavaScript(string code)
         {
@@ -6629,11 +6645,22 @@ namespace LEonard
             }
         }
 
+        private string pythonCopy = null;
         private void PythonCodeRTB_TextChanged(object sender, EventArgs e)
         {
-            PythonSaveBtn.Enabled = true;
-            PythonSaveAsBtn.Enabled = true;
-            PythonRunBtn.Enabled = true;
+            // Font resizing triggers this, too, so we doublecheck to see if the text has actually changed!
+            if (pythonCopy == null)
+                pythonCopy = PythonCodeRTB.Text;
+
+            if (pythonCopy == PythonCodeRTB.Text)
+                PythonCodeRTB.Modified = false;
+            else
+            {
+                PythonSaveBtn.Enabled = true;
+                PythonSaveAsBtn.Enabled = true;
+                PythonRunBtn.Enabled = true;
+                pythonCopy = PythonCodeRTB.Text;
+            }
         }
 
         private void SetupTab_SelectedIndexChanged(object sender, EventArgs e)
