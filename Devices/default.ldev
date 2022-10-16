@@ -48,7 +48,7 @@
     <OnConnectSend>Hello!</OnConnectSend>
     <OnDisconnectSend>exit()</OnDisconnectSend>
     <RuntimeAutostart>true</RuntimeAutostart>
-    <RuntimeWorkingDirectory>C:\Users\nedlecky\Documents\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
+    <RuntimeWorkingDirectory>C:\Users\nedlecky\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
     <RuntimeFileName>LEonardClient.exe</RuntimeFileName>
     <RuntimeArguments />
     <SetupWorkingDirectory />
@@ -78,6 +78,26 @@
   </Devices>
   <Devices>
     <ID>2</ID>
+    <Name>Gocator</Name>
+    <Enabled>true</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>TcpServer</DeviceType>
+    <Address>192.168.0.252:30000</Address>
+    <MessageTag>AUX1a</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend />
+    <OnDisconnectSend>(98,0,0,0,0)</OnDisconnectSend>
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files\RealVNC\VNC Viewer</SetupWorkingDirectory>
+    <SetupFileName>vncviewer.exe</SetupFileName>
+    <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
+    <SpeedSendButtons>(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)</SpeedSendButtons>
+  </Devices>
+  <Devices>
+    <ID>3</ID>
     <Name>Sherlock</Name>
     <Enabled>false</Enabled>
     <Connected>false</Connected>
@@ -97,7 +117,7 @@
     <SpeedSendButtons>GO</SpeedSendButtons>
   </Devices>
   <Devices>
-    <ID>3</ID>
+    <ID>4</ID>
     <Name>HALCON</Name>
     <Enabled>true</Enabled>
     <Connected>false</Connected>
@@ -117,7 +137,7 @@
     <SpeedSendButtons>GO</SpeedSendButtons>
   </Devices>
   <Devices>
-    <ID>4</ID>
+    <ID>5</ID>
     <Name>Keyence</Name>
     <Enabled>true</Enabled>
     <Connected>false</Connected>
@@ -137,7 +157,7 @@
     <SpeedSendButtons>T1|T2</SpeedSendButtons>
   </Devices>
   <Devices>
-    <ID>5</ID>
+    <ID>6</ID>
     <Name>Dataman 1</Name>
     <Enabled>true</Enabled>
     <Connected>false</Connected>
@@ -157,7 +177,7 @@
     <SpeedSendButtons>+</SpeedSendButtons>
   </Devices>
   <Devices>
-    <ID>6</ID>
+    <ID>7</ID>
     <Name>Dataman 2</Name>
     <Enabled>true</Enabled>
     <Connected>false</Connected>
@@ -177,7 +197,7 @@
     <SpeedSendButtons>+</SpeedSendButtons>
   </Devices>
   <Devices>
-    <ID>7</ID>
+    <ID>8</ID>
     <Name>Chrome</Name>
     <Enabled>false</Enabled>
     <Connected>false</Connected>

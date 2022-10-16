@@ -55,7 +55,7 @@ namespace LEonard
 
         // TODO: This needs to dynamically resize and the code that does it doesn't!!
         // These map 1:1 with the rows in devices.... I hope
-        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null };
+        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null, null };
         int currentDeviceRowIndex = -1;
         List<Button> speedSendBtns = new List<Button>();
 
@@ -283,8 +283,8 @@ namespace LEonard
             {
                 LoadDevicesFile(StartupDevicesLbl.Text);
             }
-            RobotConnectBtn_Click(null, null);
-            GocatorConnectBtn_Click(null, null);
+            //RobotConnectBtn_Click(null, null);
+            //GocatorConnectBtn_Click(null, null);
 
             // Load the last recipe if there was one loaded in LoadPersistent()
             if (recipeFileToAutoload != "")
@@ -1357,42 +1357,45 @@ namespace LEonard
         }
         private void CreateDefaultDevices()
         {
-            // HALCON Direct WORKS
-            // start.FileName = "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64\\hdevelop.exe";
-            // start.Arguments = "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run";
+        // HALCON Direct WORKS
+        // start.FileName = "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64\\hdevelop.exe";
+        // start.Arguments = "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run";
 
-            // DATAMAN Direct WORKS
-            //start.WorkingDirectory = "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3";
-            //start.FileName = "SetupTool.exe";
-            //start.Arguments = "";
+        // DATAMAN Direct WORKS
+        //start.WorkingDirectory = "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3";
+        //start.FileName = "SetupTool.exe";
+        //start.Arguments = "";
 
-            // HALCON Through Link WORKS
-            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "MVTec HDevelop XL 21.11 Progress (user).lnk");
+        // HALCON Through Link WORKS
+        //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "MVTec HDevelop XL 21.11 Progress (user).lnk");
 
-            // DATAMAN Through Link WORKS
-            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "v6.1.10_SR3 Setup Tool.lnk");
+        // DATAMAN Through Link WORKS
+        //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "v6.1.10_SR3 Setup Tool.lnk");
 
-            // Sherlock Through Link MIN/REST/Exit don't work
-            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "Sherlockx64.lnk");
+        // Sherlock Through Link MIN/REST/Exit don't work
+        //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "Sherlockx64.lnk");
 
-            // Sherlock Direct MIN/REST/Exit don't work
-            //start.WorkingDirectory = "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin";
-            //start.FileName = "IpeStudio.exe";
+        // Sherlock Direct MIN/REST/Exit don't work
+        //start.WorkingDirectory = "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin";
+        //start.FileName = "IpeStudio.exe";
 
-            // KEYENCE Simulator Direct WORKS
-            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Simulation-Software\\bin_X400";
-            //start.FileName = "CV-X Series Workspace-Software.exe";
+        // KEYENCE Simulator Direct WORKS
+        //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Simulation-Software\\bin_X400";
+        //start.FileName = "CV-X Series Workspace-Software.exe";
 
-            // KEYENCE Terminal Direct WORKS
-            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin";
-            //start.FileName = "CV-X Series Terminal-Software.exe";
-            //start.Arguments = "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn";
+        // KEYENCE Terminal Direct WORKS
+        //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin";
+        //start.FileName = "CV-X Series Terminal-Software.exe";
+        //start.Arguments = "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn";
+
+
+
 
             devices.Rows.Add(new object[] {
                 0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
                 "CTL", "general", "Hello!", "exit()",
                 true,
-                "C:\\Users\\nedlecky\\Documents\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
+                "C:\\Users\\nedlecky\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
                 "LEonardClient.exe",
                 "",
                 "",
@@ -1413,7 +1416,19 @@ namespace LEonard
                 "(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)"
             });
             devices.Rows.Add(new object[] {
-                2, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
+                2, "Gocator", true, false, "TcpServer", "192.168.0.252:30000",
+                "AUX1a", "general", "", "(98,0,0,0,0)",
+                false,
+                "",
+                "",
+                "",
+                "C:\\Program Files\\RealVNC\\VNC Viewer",
+                "vncviewer.exe",
+                "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
+                "(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)"
+            });
+            devices.Rows.Add(new object[] {
+                3, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
                 "AUX2S", "general", "init()", "",
                 false,
                 "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
@@ -1425,7 +1440,7 @@ namespace LEonard
                 "GO"
             });
             devices.Rows.Add(new object[] {
-                3, "HALCON", true, false, "TcpClient", "127.0.0.1:21000",
+                4, "HALCON", true, false, "TcpClient", "127.0.0.1:21000",
                 "AUX2H", "general", "init()", "",
                 true,
                 "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
@@ -1437,7 +1452,7 @@ namespace LEonard
                 "GO"
             });
             devices.Rows.Add(new object[] {
-                4, "Keyence", true, false, "TcpClient", "192.168.0.10:8500",
+                5, "Keyence", true, false, "TcpClient", "192.168.0.10:8500",
                 "AUX2K", "general", "TE", "",
                 false,
                 "",
@@ -1449,7 +1464,7 @@ namespace LEonard
                 "T1|T2"
             });
             devices.Rows.Add(new object[] {
-                5, "Dataman 1", true, false, "Serial", "COM3",
+                6, "Dataman 1", true, false, "Serial", "COM3",
                 "AUX31", "general", "+", "",
                 false,
                 "",
@@ -1461,7 +1476,7 @@ namespace LEonard
                 "+"
             });
             devices.Rows.Add(new object[] {
-                6, "Dataman 2", true, false, "Serial", "COM4",
+                7, "Dataman 2", true, false, "Serial", "COM4",
                 "AUX32", "general", "+", "",
                 false,
                 "",
@@ -1473,7 +1488,7 @@ namespace LEonard
                 "+"
             });
             devices.Rows.Add(new object[] {
-                7, "Chrome", false, false, "Null", "",
+                8, "Chrome", false, false, "Null", "",
                 "CTL", "general", "", "",
                 true,
                 "",
@@ -1622,12 +1637,34 @@ namespace LEonard
         {
             log.Info("DeviceConnectAllBtn_Click");
 
+            currentDeviceRowIndex = 0;
+            foreach (DataRow row in devices.Rows)
+            {
+                if (!(bool)row["Connected"] && (bool)row["Enabled"])
+                {
+                    log.Info("AUX3 Connecting {0} {1}", currentDeviceRowIndex, row["Name"]);
+                    DeviceConnectBtn_Click(null, null);
+                }
+                currentDeviceRowIndex++;
+            }
         }
 
         private void DeviceDisconnectAllBtn_Click(object sender, EventArgs e)
         {
             log.Info("DeviceDisconnectAllBtn_Click");
 
+            if (devices == null) return;
+            currentDeviceRowIndex = 0;
+            foreach (DataRow row in devices.Rows)
+            {
+                if ((bool)row["Connected"])
+                {
+                    log.Info("Disconnecting {0} {1}", currentDeviceRowIndex, row["Name"]);
+
+                    DeviceDisconnectBtn_Click(null, null);
+                }
+                currentDeviceRowIndex++;
+            }
         }
         private void DeviceConnectBtn_Click(object sender, EventArgs e)
         {
