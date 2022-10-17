@@ -56,8 +56,8 @@ namespace LEonard
         Protection protection;
 
         // TODO should be replaced with generic devices interface (in progress below)
-        LeTcpServer robotCommandServer = null;
-        LeTcpClient robotDashboardClient = null;
+        //LeTcpServer robotCommandServer = null;
+        //LeTcpClient robotDashboardClient = null;
         LeUniversalRobot focusLeUniversalRobot = null;
         LeGocator focusLeGocator = null;
         FileManager fileManager = null;
@@ -316,7 +316,7 @@ namespace LEonard
         private void CloseTmr_Tick(object sender, EventArgs e)
         {
             CloseTmr.Enabled = false;
-            RobotDisconnect();
+            DeviceDisconnectAllBtn_Click(null, null);
             MessageTmr_Tick(null, null);
             forceClose = true;
             SavePersistent();
@@ -453,8 +453,8 @@ namespace LEonard
                 RecomputeTimes();
 
             // DASHBOARD Handler: Round-robin sending the Dashboard monitoring commands
-            if (robotDashboardClient != null)
-                if (!robotDashboardClient.IsConnected())
+            if (focusLeUniversalRobot != null)
+                if (!focusLeUniversalRobot.IsConnected())
                 {
                     RobotConnectBtn.Text = "Dashboard ERROR";
                     RobotConnectBtn.BackColor = Color.Red;
@@ -462,7 +462,7 @@ namespace LEonard
                 else
                 {
                     // Any responses received?
-                    string dashResponse = robotDashboardClient.Receive();
+                    string dashResponse = focusLeUniversalRobot.Receive();
                     if (dashResponse != null)
                     {
                         log.Trace("DASH received {0}", dashResponse.Replace('\n', ' '));
@@ -521,13 +521,13 @@ namespace LEonard
                     switch (dashboardCycle++)
                     {
                         case 0:
-                            robotDashboardClient.Send("robotmode");
-                            robotDashboardClient.Send("safetystatus");
+                            focusLeUniversalRobot.Send("robotmode");
+                            focusLeUniversalRobot.Send("safetystatus");
                             nUnansweredRobotmodeRequests++;
                             nUnansweredSafetystatusRequests++;
                             break;
                         case 1:
-                            robotDashboardClient.Send("programstate");
+                            focusLeUniversalRobot.Send("programstate");
                             nUnansweredProgramstateRequests++;
                             dashboardCycle = 0;
                             break;
@@ -540,11 +540,11 @@ namespace LEonard
 
             // When the robot connects, get us ready to go!  Or, if it disconnects, put us in WAIT
             bool newRobotReady = false;
-            if (robotCommandServer == null)
+            if (focusLeUniversalRobot==null || focusLeUniversalRobot?.commandServer == null)
                 robotReady = false;
             else
             {
-                if (robotCommandServer.IsClientConnected)
+                if (focusLeUniversalRobot.commandServer.IsClientConnected)
                     newRobotReady = true;
 
                 if (newRobotReady != robotReady)
@@ -714,6 +714,8 @@ namespace LEonard
                     break;
                 case ProgramState.PLAYING:
                     color = Color.Green;
+                    /*
+                    // Old code to reset the server... this is setup in Device Connect
                     if (robotCommandServer == null)
                     {
                         // Setup a server for the UR to connect to
@@ -735,6 +737,7 @@ namespace LEonard
                             RobotCommandStatusLbl.Text = "Command Waiting";
                         }
                     }
+                    */
                     break;
                 default:
                     log.Error("Unknown response to programstate: {0}", programstateResponse);
@@ -1027,13 +1030,13 @@ namespace LEonard
             if (mountedToolBoxActionDisabled) return;
 
             ToolsGrd.ClearSelection();
-            if (robotCommandServer != null)
+            if (focusLeUniversalRobot?.commandServer != null)
                 ExecuteLine(-1, String.Format("select_tool({0})", MountedToolBox.Text));
         }
 
         private void UpdateGeometryToRobot()
         {
-            if (robotCommandServer != null)
+            if (focusLeUniversalRobot?.commandServer != null)
             {
                 ExecuteLine(-1, String.Format("set_part_geometry_N({0},{1})", PartGeometryBox.SelectedIndex + 1, DiameterLbl.Text));
                 WriteVariable("robot_geometry", String.Format("{0},{1}", PartGeometryBox.SelectedItem, DiameterLbl.Text));
@@ -1220,13 +1223,13 @@ namespace LEonard
             switch (RobotModeBtn.Text)
             {
                 case "Robotmode: RUNNING":
-                    robotDashboardClient?.Send("power off");
+                    focusLeUniversalRobot?.Send("power off");
                     break;
                 case "Robotmode: IDLE":
-                    robotDashboardClient?.Send("brake release");
+                    focusLeUniversalRobot?.Send("brake release");
                     break;
                 case "Robotmode: POWER_OFF":
-                    robotDashboardClient?.Send("power on");
+                    focusLeUniversalRobot?.Send("power on");
                     break;
                 default:
                     log.Error($"Unknown robot mode button state! {RobotModeBtn.Text}");
@@ -1242,41 +1245,21 @@ namespace LEonard
             switch (SafetyStatusBtn.Text)
             {
                 case "Safetystatus: NORMAL":
-                    robotDashboardClient?.Send("power off");
+                    focusLeUniversalRobot?.Send("power off");
                     break;
                 case "Safetystatus: PROTECTIVE STOP":
-                    robotDashboardClient?.InquiryResponse("unlock protective stop", 200);
-                    robotDashboardClient?.InquiryResponse("close safety popup", 200);
+                    focusLeUniversalRobot?.InquiryResponse("unlock protective stop", 200);
+                    focusLeUniversalRobot?.InquiryResponse("close safety popup", 200);
 
                     break;
                 case "Safetystatus: ROBOT EMERGENCY STOP":
                     ErrorMessageBox("Release Robot E-Stop");
-                    robotDashboardClient?.InquiryResponse("close safety popup", 200);
+                    focusLeUniversalRobot?.InquiryResponse("close safety popup", 200);
                     break;
                 default:
                     log.Error("Unknown safety status button state! {0}", SafetyStatusBtn.Text);
                     ErrorMessageBox(String.Format("Unsure how to recover from {0}", SafetyStatusBtn.Text));
                     break;
-            }
-        }
-
-        private void ProgramStateBtn_Click(object sender, EventArgs e)
-        {
-            CloseSafetyPopup();
-            if (ProgramStateBtn.Text.StartsWith("PLAYING"))
-            {
-                ExecuteLine(-1, "robot_program_exit()");
-                robotDashboardClient?.Send("stop");
-                RobotCommandStatusLbl.BackColor = Color.Red;
-                RobotCommandStatusLbl.Text = "OFF";
-                RobotReadyLbl.BackColor = Color.Red;
-                GrindReadyLbl.BackColor = Color.Red;
-                GrindProcessStateLbl.BackColor = Color.Red;
-                CloseCommandServer();
-            }
-            else
-            {
-                robotDashboardClient?.Send("play");
             }
         }
 
@@ -1353,6 +1336,7 @@ namespace LEonard
             devices.Columns.Add("SetupFileName", typeof(System.String));
             devices.Columns.Add("SetupArguments", typeof(System.String));
             devices.Columns.Add("SpeedSendButtons", typeof(System.String));
+            devices.Columns.Add("Special", typeof(System.String));
 
             //devices.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //devices.Columns[0].
@@ -1406,11 +1390,12 @@ namespace LEonard
                 "",
                 "",
                 "",
-                "test()|exit()"
+                "test()|exit()",
+                ""
             });
             devices.Rows.Add(new object[] {
-                1, "UR-5e", true, false, "UR", "192.168.0.252:30000",
-                "UR", "general", "", "(98,0,0,0,0)",
+                1, "UR-5e", true, false, "UR", "192.168.0.2:29999#192.168.0.252:30000",
+                "UR", "", "", "(98,0,0,0,0)",
                 false,
                 "",
                 "",
@@ -1418,7 +1403,8 @@ namespace LEonard
                 "C:\\Program Files\\RealVNC\\VNC Viewer",
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
-                "(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)"
+                "(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)",
+                "LEonard/LEonard01.urp"
             });
             devices.Rows.Add(new object[] {
                 2, "Gocator", true, false, "Gocator", "192.168.0.252:8190",
@@ -1430,7 +1416,8 @@ namespace LEonard
                 "C:\\Program Files\\RealVNC\\VNC Viewer",
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
-                "trigger"
+                "trigger|stop|start|loadjob,LM01|clearalignment",
+                ""
             });
             devices.Rows.Add(new object[] {
                 3, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
@@ -1442,7 +1429,8 @@ namespace LEonard
                 "",
                 "",
                 "",
-                "GO"
+                "GO",
+                ""
             });
             devices.Rows.Add(new object[] {
                 4, "HALCON", false, false, "TcpClient", "127.0.0.1:21000",
@@ -1454,7 +1442,8 @@ namespace LEonard
                 "",
                 "",
                 "",
-                "GO"
+                "GO",
+                ""
             });
             devices.Rows.Add(new object[] {
                 5, "Keyence", false, false, "TcpClient", "192.168.0.10:8500",
@@ -1466,7 +1455,8 @@ namespace LEonard
                 "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin",
                 "CV-X Series Terminal-Software.exe",
                 "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn",
-                "T1|T2"
+                "T1|T2",
+                ""
             });
             devices.Rows.Add(new object[] {
                 6, "Dataman 1", true, false, "Serial", "COM3",
@@ -1478,7 +1468,8 @@ namespace LEonard
                 "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
                 "SetupTool.exe",
                 "",
-                "+"
+                "+",
+                ""
             });
             devices.Rows.Add(new object[] {
                 7, "Dataman 2", true, false, "Serial", "COM4",
@@ -1499,6 +1490,7 @@ namespace LEonard
                 "",
                 "Chrome.exe",
                 "/incognito 192.168.0.171",
+                "",
                 "",
                 "",
                 "",
@@ -1545,7 +1537,8 @@ namespace LEonard
                 }
                 //currentDeviceRowIndex = 0;
 
-                if (AutoConnectOnLoadChk.Checked)
+                // TODO this needs to be re-enabled AND needs a fail safe
+                if (false)//AutoConnectOnLoadChk.Checked)
                 {
                     log.Info("Autoconnecting all devices");
                     DeviceConnectAllBtn_Click(null, null);
@@ -1687,6 +1680,7 @@ namespace LEonard
             string callBack = (string)row["CallBack"];
             string onConnectSend = (string)row["OnConnectSend"];
             bool connected = (bool)row["Connected"];
+            string special = (string)row["Special"];
 
             if (connected)
             {
@@ -1735,6 +1729,7 @@ namespace LEonard
                     break;
                 case "UR":
                     LeUniversalRobot robot = new LeUniversalRobot(this, messageTag, onConnectSend);
+                    robot.UrProgramFilename = special;
                     interfaces[currentDeviceRowIndex] = robot;
                     if (focusLeUniversalRobot == null)
                     {
@@ -4272,6 +4267,13 @@ namespace LEonard
                 case LeUniversalRobot.DashboardStatus.OK:
                     RobotConnectBtn.BackColor = Color.Green;
                     RobotConnectBtn.Text = "Dashboard OK";
+
+                    RobotModelLbl.Text = focusLeUniversalRobot.InquiryResponse("get robot model", 200);
+                    RobotSerialNumberLbl.Text = focusLeUniversalRobot.InquiryResponse("get serial number", 200);
+                    RobotPolyscopeVersionLbl.Text = focusLeUniversalRobot.InquiryResponse("PolyscopeVersion", 200);
+                    focusLeUniversalRobot.InquiryResponse("stop", 200);
+                    CloseSafetyPopup();
+
                     break;
                 case LeUniversalRobot.DashboardStatus.ERROR:
                     RobotConnectBtn.BackColor = Color.Red;
@@ -4327,180 +4329,39 @@ namespace LEonard
             }
         }
 
-
-        private void CloseDashboardClient()
-        {
-            // Disconnect client from dashboard
-            if (robotDashboardClient != null)
-            {
-                if (robotDashboardClient.IsConnected())
-                {
-                    robotDashboardClient.InquiryResponse("stop");
-                    robotDashboardClient.InquiryResponse("quit");
-                    robotDashboardClient.Disconnect();
-                }
-                robotDashboardClient = null;
-            }
-            RobotConnectBtn.BackColor = Color.Red;
-            RobotConnectBtn.Text = "OFF";
-            RobotModeBtn.BackColor = Color.Red;
-            SafetyStatusBtn.BackColor = Color.Red;
-            ProgramStateBtn.BackColor = Color.Red;
-            RobotModeBtn.Text = "";
-            SafetyStatusBtn.Text = "";
-            ProgramStateBtn.Text = "";
-        }
-
-        private void CloseCommandServer()
-        {
-            // Stop us if we're running!
-            if (runState == RunState.RUNNING || runState == RunState.PAUSED)
-            {
-                SetState(RunState.READY);
-            }
-
-            if (robotCommandServer != null)
-            {
-                if (robotCommandServer.IsConnected())
-                {
-                    if (ProgramStateBtn.Text.StartsWith("PLAYING")) ExecuteLine(-1, "robot_socket_reset()");
-                    robotCommandServer.Disconnect();
-                }
-                robotCommandServer = null;
-            }
-            RobotCommandStatusLbl.BackColor = Color.Red;
-            RobotCommandStatusLbl.Text = "OFF";
-        }
-        private void RobotDisconnect()
-        {
-            CloseCommandServer();
-            CloseDashboardClient();
-        }
-
         private void CloseSafetyPopup()
         {
-            log.Info("close popup = {0}", robotDashboardClient?.InquiryResponse("close popup"), 200);
-            log.Info("close safety popup = {0}", robotDashboardClient?.InquiryResponse("close safety popup"), 200);
-        }
-        private void RobotConnectBtn_Click(object sender, EventArgs e)
-        {
-            bool fReconnect = robotCommandServer == null;
-            RobotDisconnect();
-
-            fileManager?.AllClose();
-            fileManager = null;
-
-            if (!fReconnect) return;
-
-            // Connect client to the UR dashboard
-            //robotDashboardClient = new TcpClientSupport("DASH");
-            //{
-            //    ReceiveCallback = DashboardCallback
-            //};
-            // TODO implement modern settigns like the one above
-            robotDashboardClient = new LeTcpClient(this, "DASH");
-            robotDashboardClient.receiveCallback = DashboardCallback;
-
-            if (robotDashboardClient.Connect(RobotIpTxt.Text, "29999") > 0)
-            {
-                log.Error("Dashboard client initialization failure");
-                RobotConnectBtn.BackColor = Color.Red;
-                RobotConnectBtn.Text = "Dashboard ERROR";
-                return;
-            }
-            log.Info("Dashboard connection ready");
-            Thread.Sleep(50);
-            string response = robotDashboardClient.Receive();
-            if (response != "Connected: Universal Robots Dashboard Server")
-            {
-                log.Error("Dashboard connection returned {0}", response);
-
-                // This would be unexpected but you might still be OK!
-            }
-            RobotConnectBtn.BackColor = Color.Green;
-            RobotConnectBtn.Text = "Dashboard OK";
-
-            // Start querying the bot
-            RobotModelLbl.Text = robotDashboardClient.InquiryResponse("get robot model", 200);
-            RobotSerialNumberLbl.Text = robotDashboardClient.InquiryResponse("get serial number", 200);
-            RobotPolyscopeVersionLbl.Text = robotDashboardClient.InquiryResponse("PolyscopeVersion", 200);
-            robotDashboardClient.InquiryResponse("stop", 200);
-            CloseSafetyPopup();
-
-            string closeSafetyPopupResponse = robotDashboardClient.InquiryResponse("close safety popup", 1000);
-            string isInRemoteControlResponse = robotDashboardClient.InquiryResponse("is in remote control", 1000);
-            if (isInRemoteControlResponse == null)
-            {
-                log.Error("Failed to be able to check remote control");
-                ErrorMessageBox(String.Format("Failed to check reomte control mode. No response."));
-                return;
-            }
-            if (isInRemoteControlResponse != "true")
-            {
-                log.Error("Robot not in remote control mode");
-                ErrorMessageBox(String.Format("Robot not in remote control mode!"));
-                return;
-            }
-            string loadedProgramResponse = robotDashboardClient.InquiryResponse("load " + RobotProgramTxt.Text, 1000);
-            if (loadedProgramResponse == null)
-            {
-                log.Error("Failed to load {0}. No response.", RobotProgramTxt.Text);
-                ErrorMessageBox(String.Format("Failed to load {0}. No response.", RobotProgramTxt.Text));
-                return;
-            }
-            if (loadedProgramResponse.StartsWith("File not found"))
-            {
-                log.Error("Failed to load {0}. Response was \"{1}\"", RobotProgramTxt.Text, loadedProgramResponse);
-                ErrorMessageBox(String.Format("Failed to load {0}. Response was \"{1}\"", RobotProgramTxt.Text, loadedProgramResponse));
-                return;
-            }
-
-            string getLoadedProgramResponse = robotDashboardClient.InquiryResponse("get loaded program", 1000);
-            if (getLoadedProgramResponse == null)
-            {
-                log.Error("Failed to verify loading {0}. No response.", RobotProgramTxt.Text);
-                ErrorMessageBox(String.Format("Failed to verify loading {0}. No response", RobotProgramTxt.Text));
-                return;
-            }
-
-            if (!getLoadedProgramResponse.Contains(RobotProgramTxt.Text))
-            {
-                log.Error("Failed to verify loading {0}. Response was \"{1}\"", RobotProgramTxt.Text, getLoadedProgramResponse);
-                ErrorMessageBox(String.Format("Failed to verify loading {0}. Response was \"{1}\"", RobotProgramTxt.Text, getLoadedProgramResponse));
-                return;
-            }
-
-            string playResponse = robotDashboardClient.InquiryResponse("play", 1000);
-            if (!playResponse.StartsWith("Starting program"))
-            {
-                log.Error("Failed to start program playing. Response was \"{0}\"", playResponse);
-                ErrorMessageBox(String.Format("Failed to start program playing. Response was \"{0}\"", playResponse));
-                return;
-            }
+            log.Info("close popup = {0}", focusLeUniversalRobot?.InquiryResponse("close popup"), 200);
+            log.Info("close safety popup = {0}", focusLeUniversalRobot?.InquiryResponse("close safety popup"), 200);
         }
 
         public void RobotSendHalt()
         {
-            robotCommandServer?.Send("(999)");
+            focusLeUniversalRobot?.commandServer?.Send("(999)");
         }
         int robotSendIndex = 100;
         // Command is a 0-n element comma-separated list "x,y,z" of doubles
         // We send (index,x,y,z)
         public bool RobotSend(string command)
         {
-            if (robotCommandServer == null)
+            if(focusLeUniversalRobot==null)
             {
-                ErrorMessageBox(String.Format("RobotSend({0}) failed. robotCommandServer is null.", command));
+                ErrorMessageBox($"RobotSend({command}) failed. focusLeUniversalRobot is null.");
                 return false;
             }
-            if (!robotCommandServer.IsClientConnected)
+            if (focusLeUniversalRobot.commandServer == null)
             {
-                ErrorMessageBox(String.Format("RobotSend({0}) failed. robotCommandServer is not connected.", command));
+                ErrorMessageBox($"RobotSend({command}) failed. focusLeUniversalRobot.commandServer is null.");
+                return false;
+            }
+            if (!focusLeUniversalRobot.commandServer.IsClientConnected)
+            {
+                ErrorMessageBox($"RobotSend({command}) failed. robotCommandServer is not connected.");
                 return false;
             }
             if (!ProgramStateBtn.Text.StartsWith("PLAYING"))
             {
-                ErrorMessageBox(String.Format("RobotSend({0}) failed. Program not running.", command));
+                ErrorMessageBox($"RobotSend({command}) failed. Program not running.");
                 return false;
             }
 
@@ -4518,7 +4379,7 @@ namespace LEonard
             int checkValue = 1000 - robotSendIndex;
             string sendMessage = string.Format("({0},{1},{2})", robotSendIndex, checkValue, command);
             log.Info($"UR==> EXEC RobotSend{sendMessage}");
-            robotCommandServer.Send(sendMessage);
+            focusLeUniversalRobot.commandServer.Send(sendMessage);
             return true;
         }
         private void SetLinearSpeedBtn_Click(object sender, EventArgs e)
@@ -6101,12 +5962,12 @@ namespace LEonard
 
         private void AskSafetyStatusBtn_Click(object sender, EventArgs e)
         {
-            robotDashboardClient?.InquiryResponse("safetystatus");
+            focusLeUniversalRobot?.InquiryResponse("safetystatus");
         }
 
         private void UnlockProtectiveStopBtn_Click(object sender, EventArgs e)
         {
-            robotDashboardClient?.InquiryResponse("unlock protective stop");
+            focusLeUniversalRobot?.InquiryResponse("unlock protective stop");
         }
 
         // ===================================================================
@@ -7079,6 +6940,16 @@ namespace LEonard
         {
             protection.SaveLicense(licenseFilename);
             SaveLicenseBtn.Enabled = false;
+        }
+
+        private void RobotConnectBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ProgramStateBtn_Click(object sender, EventArgs e)
+        {
+
         }
 
         // ===================================================================
