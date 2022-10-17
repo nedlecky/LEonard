@@ -58,7 +58,7 @@ namespace LEonard
         // TODO should be replaced with generic devices interface (in progress below)
         LeTcpServer robotCommandServer = null;
         LeTcpClient robotDashboardClient = null;
-        LeGocator gocator = null;
+        LeGocator focusGocator = null;
         FileManager fileManager = null;
 
         // TODO: This needs to dynamically resize and the code that does it doesn't!!
@@ -316,7 +316,6 @@ namespace LEonard
         {
             CloseTmr.Enabled = false;
             RobotDisconnect();
-            GocatorDisconnect();
             MessageTmr_Tick(null, null);
             forceClose = true;
             SavePersistent();
@@ -828,8 +827,6 @@ namespace LEonard
                     SafetyStatusBtn.Enabled = true;
                     ProgramStateBtn.Enabled = true;
 
-                    // Gocator Control
-                    GocatorConnectBtn.Enabled = true;
 
                     UserModeBox.Enabled = true;
 
@@ -869,9 +866,6 @@ namespace LEonard
                     RobotModeBtn.Enabled = true;
                     SafetyStatusBtn.Enabled = true;
                     ProgramStateBtn.Enabled = true;
-
-                    // Gocator Control
-                    GocatorConnectBtn.Enabled = true;
 
                     UserModeBox.Enabled = true;
 
@@ -913,9 +907,6 @@ namespace LEonard
                     RobotModeBtn.Enabled = false;
                     SafetyStatusBtn.Enabled = false;
                     ProgramStateBtn.Enabled = false;
-
-                    // Gocator Control
-                    GocatorConnectBtn.Enabled = false;
 
                     UserModeBox.Enabled = false;
 
@@ -959,9 +950,6 @@ namespace LEonard
                     RobotModeBtn.Enabled = true;
                     SafetyStatusBtn.Enabled = true;
                     ProgramStateBtn.Enabled = true;
-
-                    // Gocator Control
-                    GocatorConnectBtn.Enabled = true;
 
                     UserModeBox.Enabled = false;
 
@@ -1745,7 +1733,13 @@ namespace LEonard
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
                 case "Gocator":
-                    interfaces[currentDeviceRowIndex] = new LeGocator(this, messageTag, onConnectSend);
+                    LeGocator gocator = new LeGocator(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex] = gocator;
+                    if (focusGocator == null)
+                    {
+                        log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
+                        focusGocator = gocator;
+                    }
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
@@ -1785,7 +1779,7 @@ namespace LEonard
                     interfaces[currentDeviceRowIndex].receiveCallback = GeneralCallback;
                     break;
                 case "gocator":
-                    if(deviceType != "Gocator")
+                    if (deviceType != "Gocator")
                         ErrorMessageBox($"Device {deviceType} can't use callback {callBack}");
                     else
                         interfaces[currentDeviceRowIndex].receiveCallback = ((LeGocator)interfaces[currentDeviceRowIndex]).Callback;
@@ -2184,7 +2178,7 @@ namespace LEonard
             }
 
             // Gocator
-            gocator?.PrepareToRun();
+            focusGocator?.PrepareToRun();
 
             SetCurrentLine(0);
             bool goodLabels = BuildLabelTable();
@@ -2199,6 +2193,7 @@ namespace LEonard
                 return false;
             }
 
+            /*
             if (!ProgramStateBtn.Text.StartsWith("PLAYING"))
             {
                 ErrorMessageBox("Cannot run. Program not running!");
@@ -2228,6 +2223,7 @@ namespace LEonard
                 ErrorMessageBox("The board is not green! Cannot run.");
                 return false;
             }
+            */
 
 
             return true;
@@ -3741,8 +3737,14 @@ namespace LEonard
             // gocator_send
             if (command.StartsWith("gocator_send("))
             {
+                if (focusGocator == null)
+                {
+                    ExecError("No Gocator selected");
+                    return true;
+                }
+
                 LogInterpret("gocator_send", lineNumber, origLine);
-                gocator.Send(ExtractParameters(command, -1, false));
+                focusGocator?.Send(ExtractParameters(command, -1, false));
                 return true;
             }
 
@@ -3750,12 +3752,16 @@ namespace LEonard
             if (command.StartsWith("gocator_trigger("))
             {
                 LogInterpret("gocator_trigger", lineNumber, origLine);
-
+                if (focusGocator == null)
+                {
+                    ExecError("No Gocator selected");
+                    return true;
+                }
 
                 int preDelay_ms;
                 if (ExtractIntParameter(command, out preDelay_ms))
                 {
-                    gocator.Trigger(preDelay_ms);
+                    focusGocator?.Trigger(preDelay_ms);
                     GocatorReadyLbl.BackColor = ColorFromBooleanName("False");
                     GocatorReadyLbl.Refresh();
                 }
@@ -3767,6 +3773,12 @@ namespace LEonard
             if (command.StartsWith("gocator_adjust("))
             {
                 LogInterpret("gocator_adjust", lineNumber, origLine);
+                if (focusGocator == null)
+                {
+                    ExecError("No Gocator selected");
+                    return true;
+                }
+
                 int version;
                 if (!ExtractIntParameter(command, out version))
                     return true;
@@ -4761,7 +4773,7 @@ namespace LEonard
             ExecuteLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
         }
 
-        public void GeneralCallbackStatementExecute(string prefix,string statement)
+        public void GeneralCallbackStatementExecute(string prefix, string statement)
         {
             log.Trace($"{prefix}: {statement}");
             // {script.....}
@@ -4814,7 +4826,7 @@ namespace LEonard
         {
             log.Info($"CCB<==({prefix}, {message})");
             // Nothing special for now
-            GeneralCallback(prefix,message);
+            GeneralCallback(prefix, message);
         }
 
         void AlternateCallback1(string message, string prefix)
@@ -4881,59 +4893,35 @@ namespace LEonard
         // ===================================================================
         // START GOCATOR INTERFACE
         // ===================================================================
-        private void GocatorConnectBtn_Click(object sender, EventArgs e)
-        {
-            if (gocator == null)
-                GocatorConnect();
-            else
-                GocatorDisconnect();
-        }
 
         public void GocatorAnnounce(string status)
         {
             switch (status)
             {
                 case "OK":
-                    GocatorConnectBtn.Text = "Gocator OK";
-                    GocatorConnectBtn.BackColor = Color.Green;
+                    GocatorConnectedLbl.Text = "Gocator OK";
+                    GocatorConnectedLbl.BackColor = Color.Green;
                     GocatorReadyLbl.BackColor = Color.Green;
                     log.Info("Gocator connection READY");
                     break;
                 case "ERROR":
                     log.Error("Gocator client initialization failure");
-                    GocatorConnectBtn.Text = "Gocator ERROR";
-                    GocatorConnectBtn.BackColor = Color.Red;
+                    GocatorConnectedLbl.Text = "Gocator ERROR";
+                    GocatorConnectedLbl.BackColor = Color.Red;
                     GocatorReadyLbl.BackColor = Color.Red;
                     break;
                 case "OFF":
-                    GocatorConnectBtn.Text = "Gocator OFF";
-                    GocatorConnectBtn.BackColor = Color.Red;
+                    GocatorConnectedLbl.Text = "Gocator OFF";
+                    GocatorConnectedLbl.BackColor = Color.Red;
                     GocatorReadyLbl.BackColor = Color.Red;
                     log.Info("Gocator connection OFF");
                     break;
                 default:
-                    GocatorConnectBtn.Text = "Gocator ???";
-                    GocatorConnectBtn.BackColor = Color.Yellow;
+                    GocatorConnectedLbl.Text = "Gocator ???";
+                    GocatorConnectedLbl.BackColor = Color.Yellow;
                     GocatorReadyLbl.BackColor = Color.Yellow;
                     break;
             }
-        }
-
-        private void GocatorConnect()
-        {
-            GocatorDisconnect();
-
-            gocator = new LeGocator(this, "GO");
-            if (gocator.Connect("192.168.0.252", "8190") > 0)
-                GocatorAnnounce("ERROR");
-            else
-                GocatorAnnounce("OK");
-        }
-        private void GocatorDisconnect()
-        {
-            gocator?.Disconnect();
-            gocator = null;
-            GocatorAnnounce("OFF");
         }
 
         // ===================================================================

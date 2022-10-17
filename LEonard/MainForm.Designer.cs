@@ -116,7 +116,6 @@
             this.StatusLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.RobotConnectBtn = new System.Windows.Forms.Button();
-            this.GocatorConnectBtn = new System.Windows.Forms.Button();
             this.GocatorReadyLbl = new System.Windows.Forms.Label();
             this.CommandCounterLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.RobotSentLbl = new System.Windows.Forms.Label();
@@ -302,6 +301,7 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
+            this.GocatorConnectedLbl = new System.Windows.Forms.Label();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -1453,12 +1453,12 @@
             this.StatusLayoutPanel.Controls.Add(this.RobotModeBtn, 0, 3);
             this.StatusLayoutPanel.Controls.Add(this.RobotConnectBtn, 0, 2);
             this.StatusLayoutPanel.Controls.Add(this.RobotCommandStatusLbl, 1, 2);
-            this.StatusLayoutPanel.Controls.Add(this.GocatorConnectBtn, 0, 8);
-            this.StatusLayoutPanel.Controls.Add(this.GocatorReadyLbl, 1, 8);
-            this.StatusLayoutPanel.Controls.Add(this.CommandCounterLayoutPanel, 1, 9);
             this.StatusLayoutPanel.Controls.Add(this.RobotReadyLbl, 1, 3);
             this.StatusLayoutPanel.Controls.Add(this.GrindReadyLbl, 1, 4);
             this.StatusLayoutPanel.Controls.Add(this.GrindProcessStateLbl, 1, 5);
+            this.StatusLayoutPanel.Controls.Add(this.CommandCounterLayoutPanel, 1, 6);
+            this.StatusLayoutPanel.Controls.Add(this.GocatorConnectedLbl, 0, 7);
+            this.StatusLayoutPanel.Controls.Add(this.GocatorReadyLbl, 1, 7);
             this.StatusLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StatusLayoutPanel.Location = new System.Drawing.Point(1413, 3);
             this.StatusLayoutPanel.Name = "StatusLayoutPanel";
@@ -1501,20 +1501,6 @@
             this.RobotConnectBtn.UseVisualStyleBackColor = false;
             this.RobotConnectBtn.Click += new System.EventHandler(this.RobotConnectBtn_Click);
             // 
-            // GocatorConnectBtn
-            // 
-            this.GocatorConnectBtn.BackColor = System.Drawing.Color.Gray;
-            this.GocatorConnectBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GocatorConnectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GocatorConnectBtn.ForeColor = System.Drawing.Color.White;
-            this.GocatorConnectBtn.Location = new System.Drawing.Point(3, 613);
-            this.GocatorConnectBtn.Name = "GocatorConnectBtn";
-            this.GocatorConnectBtn.Size = new System.Drawing.Size(279, 84);
-            this.GocatorConnectBtn.TabIndex = 159;
-            this.GocatorConnectBtn.Text = "Gocator Connect";
-            this.GocatorConnectBtn.UseVisualStyleBackColor = false;
-            this.GocatorConnectBtn.Click += new System.EventHandler(this.GocatorConnectBtn_Click);
-            // 
             // GocatorReadyLbl
             // 
             this.GocatorReadyLbl.BackColor = System.Drawing.Color.Gray;
@@ -1522,7 +1508,7 @@
             this.GocatorReadyLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GocatorReadyLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GocatorReadyLbl.ForeColor = System.Drawing.Color.White;
-            this.GocatorReadyLbl.Location = new System.Drawing.Point(288, 610);
+            this.GocatorReadyLbl.Location = new System.Drawing.Point(288, 520);
             this.GocatorReadyLbl.Name = "GocatorReadyLbl";
             this.GocatorReadyLbl.Size = new System.Drawing.Size(175, 90);
             this.GocatorReadyLbl.TabIndex = 160;
@@ -1536,12 +1522,12 @@
             this.CommandCounterLayoutPanel.Controls.Add(this.RobotSentLbl, 0, 0);
             this.CommandCounterLayoutPanel.Controls.Add(this.RobotCompletedLbl, 0, 1);
             this.CommandCounterLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CommandCounterLayoutPanel.Location = new System.Drawing.Point(288, 703);
+            this.CommandCounterLayoutPanel.Location = new System.Drawing.Point(288, 433);
             this.CommandCounterLayoutPanel.Name = "CommandCounterLayoutPanel";
             this.CommandCounterLayoutPanel.RowCount = 2;
             this.CommandCounterLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.CommandCounterLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.CommandCounterLayoutPanel.Size = new System.Drawing.Size(175, 86);
+            this.CommandCounterLayoutPanel.Size = new System.Drawing.Size(175, 84);
             this.CommandCounterLayoutPanel.TabIndex = 160;
             // 
             // RobotSentLbl
@@ -1553,7 +1539,7 @@
             this.RobotSentLbl.ForeColor = System.Drawing.Color.White;
             this.RobotSentLbl.Location = new System.Drawing.Point(3, 0);
             this.RobotSentLbl.Name = "RobotSentLbl";
-            this.RobotSentLbl.Size = new System.Drawing.Size(169, 43);
+            this.RobotSentLbl.Size = new System.Drawing.Size(169, 42);
             this.RobotSentLbl.TabIndex = 149;
             this.RobotSentLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1564,9 +1550,9 @@
             this.RobotCompletedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotCompletedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RobotCompletedLbl.ForeColor = System.Drawing.Color.White;
-            this.RobotCompletedLbl.Location = new System.Drawing.Point(3, 43);
+            this.RobotCompletedLbl.Location = new System.Drawing.Point(3, 42);
             this.RobotCompletedLbl.Name = "RobotCompletedLbl";
-            this.RobotCompletedLbl.Size = new System.Drawing.Size(169, 43);
+            this.RobotCompletedLbl.Size = new System.Drawing.Size(169, 42);
             this.RobotCompletedLbl.TabIndex = 135;
             this.RobotCompletedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -4262,6 +4248,20 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
+            // GocatorConnectedLbl
+            // 
+            this.GocatorConnectedLbl.BackColor = System.Drawing.Color.Gray;
+            this.GocatorConnectedLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GocatorConnectedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GocatorConnectedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GocatorConnectedLbl.ForeColor = System.Drawing.Color.White;
+            this.GocatorConnectedLbl.Location = new System.Drawing.Point(3, 520);
+            this.GocatorConnectedLbl.Name = "GocatorConnectedLbl";
+            this.GocatorConnectedLbl.Size = new System.Drawing.Size(279, 90);
+            this.GocatorConnectedLbl.TabIndex = 161;
+            this.GocatorConnectedLbl.Text = "Gocator Connected";
+            this.GocatorConnectedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4483,7 +4483,6 @@
         private System.Windows.Forms.Button SetGrindJogAccelBtn;
         private System.Windows.Forms.Button SetForceModeDampingBtn;
         private System.Windows.Forms.Button SetForceModeGainScalingBtn;
-        private System.Windows.Forms.Button GocatorConnectBtn;
         private System.Windows.Forms.Label GocatorReadyLbl;
         private System.Windows.Forms.TabPage LogsPage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -4630,6 +4629,7 @@
         private System.Windows.Forms.Button ReloadLicenseBtn;
         private System.Windows.Forms.GroupBox speedBtnsGrp;
         private System.Windows.Forms.Button SpeedSendBtn1;
+        private System.Windows.Forms.Label GocatorConnectedLbl;
     }
 }
 
