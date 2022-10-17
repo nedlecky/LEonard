@@ -32,14 +32,14 @@ namespace LEonard
         {
             log.Debug("{0} ~LeTcpClient()", logPrefix);
         }
-        public int Connect(string IPport)
+        public virtual int Connect(string IPport)
         {
             string[] s = IPport.Split(':');
             int ret = Connect(s[0], s[1]);
             fConnected = (ret == 0);
             return ret;
         }
-        public int Connect(string IP, string port)
+        public virtual int Connect(string IP, string port)
         {
             fConnected = false;
             myIp = IP;
@@ -85,12 +85,12 @@ namespace LEonard
             fConnected = true;
             return 0;
         }
-        public bool IsConnected()
+        public virtual bool IsConnected()
         {
             return fConnected;
         }
 
-        public int Disconnect()
+        public virtual int Disconnect()
         {
             log.Info("{0} Disconnect()", logPrefix);
 

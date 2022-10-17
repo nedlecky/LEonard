@@ -1,7 +1,7 @@
 ﻿// File: LeGocator.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
-// Purpose: Custom Directory Select dialog with large buttons for use with touch screen
+// Purpose: Custom interface to Gocator
 
 using System;
 using System.Collections.Generic;
@@ -37,20 +37,27 @@ namespace LEonard
             }
 
             myForm.GeneralCallback(prefix, message);
-       }
+        }
 
-        public new int Connect(string IPport)
+        public enum Status
         {
-            log.Debug($"{logPrefix} Connect({IPport})");
+            OFF,
+            ERROR,
+            OK
+        }
+
+        public override int Connect(string IPport)
+        {
+            log.Debug($"{logPrefix} LeGocator::Connect({IPport})");
             string[] s = IPport.Split(':');
             return Connect(s[0], s[1]);
         }
-        public new int Connect(string IP, string port)
+        public override int Connect(string IP, string port)
         {
-            log.Debug($"{logPrefix} Connect({IP},{port})");
+            log.Debug($"{logPrefix} LeGocator::Connect({IP},{port})");
             int ret = base.Connect(IP, port);
             if (ret != 0)
-                myForm.GocatorAnnounce("ERROR");
+                myForm.GocatorAnnounce(LeGocator.Status.ERROR);
             else
             {
                 InquiryResponse("stop");
@@ -59,16 +66,17 @@ namespace LEonard
                 InquiryResponse("start");
                 myForm.WriteVariable("gocator_ready", true, true);
                 log.Info("Gocator connection ready");
-                myForm.GocatorAnnounce("OK");
+                myForm.GocatorAnnounce(LeGocator.Status.OK);
             }
             return ret;
         }
 
-        public new int Disconnect()
+        public override int Disconnect()
         {
+            log.Debug("{logPrefix} LeGocator::Disconnect()");
             InquiryResponse("stop");
             myForm.WriteVariable("gocator_ready", false, true);
-            myForm.GocatorAnnounce("OFF");
+            myForm.GocatorAnnounce(LeGocator.Status.OFF);
             return base.Disconnect();
         }
 

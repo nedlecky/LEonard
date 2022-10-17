@@ -58,7 +58,8 @@ namespace LEonard
         // TODO should be replaced with generic devices interface (in progress below)
         LeTcpServer robotCommandServer = null;
         LeTcpClient robotDashboardClient = null;
-        LeGocator focusGocator = null;
+        LeUniversalRobot focusLeUniversalRobot = null;
+        LeGocator focusLeGocator = null;
         FileManager fileManager = null;
 
         // TODO: This needs to dynamically resize and the code that does it doesn't!!
@@ -1408,8 +1409,8 @@ namespace LEonard
                 "test()|exit()"
             });
             devices.Rows.Add(new object[] {
-                1, "UR-5e", true, false, "TcpServer", "192.168.0.252:30000",
-                "AUX1", "general", "", "(98,0,0,0,0)",
+                1, "UR-5e", true, false, "UR", "192.168.0.252:30000",
+                "UR", "general", "", "(98,0,0,0,0)",
                 false,
                 "",
                 "",
@@ -1732,19 +1733,33 @@ namespace LEonard
                     }
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
-                case "Gocator":
-                    LeGocator gocator = new LeGocator(this, messageTag, onConnectSend);
-                    interfaces[currentDeviceRowIndex] = gocator;
-                    if (focusGocator == null)
+                case "UR":
+                    LeUniversalRobot robot = new LeUniversalRobot(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex] = robot;
+                    if (focusLeUniversalRobot == null)
                     {
-                        log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
-                        focusGocator = gocator;
+                        log.Info($"Setting focusLeUniversalRobot to {name} in row {currentDeviceRowIndex}");
+                        focusLeUniversalRobot = robot;
                     }
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
                     }
-                    interfaces[currentDeviceRowIndex].Connect(address);
+                    robot.Connect(address);
+                    break;
+                case "Gocator":
+                    LeGocator gocator = new LeGocator(this, messageTag, onConnectSend);
+                    interfaces[currentDeviceRowIndex] = gocator;
+                    if (focusLeGocator == null)
+                    {
+                        log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
+                        focusLeGocator = gocator;
+                    }
+                    if ((bool)row["RuntimeAutostart"])
+                    {
+                        DeviceRuntimeStartBtn_Click(null, null);
+                    }
+                    gocator.Connect(address);
                     break;
                 case "Serial":
                     if ((bool)row["RuntimeAutostart"])
@@ -2178,7 +2193,7 @@ namespace LEonard
             }
 
             // Gocator
-            focusGocator?.PrepareToRun();
+            focusLeGocator?.PrepareToRun();
 
             SetCurrentLine(0);
             bool goodLabels = BuildLabelTable();
@@ -3737,14 +3752,14 @@ namespace LEonard
             // gocator_send
             if (command.StartsWith("gocator_send("))
             {
-                if (focusGocator == null)
+                if (focusLeGocator == null)
                 {
                     ExecError("No Gocator selected");
                     return true;
                 }
 
                 LogInterpret("gocator_send", lineNumber, origLine);
-                focusGocator?.Send(ExtractParameters(command, -1, false));
+                focusLeGocator?.Send(ExtractParameters(command, -1, false));
                 return true;
             }
 
@@ -3752,7 +3767,7 @@ namespace LEonard
             if (command.StartsWith("gocator_trigger("))
             {
                 LogInterpret("gocator_trigger", lineNumber, origLine);
-                if (focusGocator == null)
+                if (focusLeGocator == null)
                 {
                     ExecError("No Gocator selected");
                     return true;
@@ -3761,7 +3776,7 @@ namespace LEonard
                 int preDelay_ms;
                 if (ExtractIntParameter(command, out preDelay_ms))
                 {
-                    focusGocator?.Trigger(preDelay_ms);
+                    focusLeGocator?.Trigger(preDelay_ms);
                     GocatorReadyLbl.BackColor = ColorFromBooleanName("False");
                     GocatorReadyLbl.Refresh();
                 }
@@ -3773,7 +3788,7 @@ namespace LEonard
             if (command.StartsWith("gocator_adjust("))
             {
                 LogInterpret("gocator_adjust", lineNumber, origLine);
-                if (focusGocator == null)
+                if (focusLeGocator == null)
                 {
                     ExecError("No Gocator selected");
                     return true;
@@ -4250,6 +4265,69 @@ namespace LEonard
         // ===================================================================
         // START ROBOT INTERFACE
         // ===================================================================
+        public void UrDashboardAnnounce(LeUniversalRobot.DashboardStatus status)
+        {
+            switch (status)
+            {
+                case LeUniversalRobot.DashboardStatus.OK:
+                    RobotConnectBtn.BackColor = Color.Green;
+                    RobotConnectBtn.Text = "Dashboard OK";
+                    break;
+                case LeUniversalRobot.DashboardStatus.ERROR:
+                    RobotConnectBtn.BackColor = Color.Red;
+                    RobotConnectBtn.Text = "Dashboard ERROR";
+                    break;
+                case LeUniversalRobot.DashboardStatus.OFF:
+                    RobotConnectBtn.BackColor = Color.Red;
+                    RobotConnectBtn.Text = "OFF";
+                    RobotModeBtn.BackColor = Color.Red;
+                    SafetyStatusBtn.BackColor = Color.Red;
+                    ProgramStateBtn.BackColor = Color.Red;
+                    RobotModeBtn.Text = "";
+                    SafetyStatusBtn.Text = "";
+                    ProgramStateBtn.Text = "";
+                    break;
+                default:
+                    RobotConnectBtn.BackColor = Color.Yellow;
+                    RobotConnectBtn.Text = "Dashboard ???";
+                    break;
+            }
+        }
+        public void UrCommandAnnounce(LeUniversalRobot.CommandStatus status)
+        {
+            switch (status)
+            {
+                case LeUniversalRobot.CommandStatus.OK:
+                    GocatorConnectedLbl.Text = "Gocator OK";
+                    GocatorConnectedLbl.BackColor = Color.Green;
+                    GocatorReadyLbl.BackColor = Color.Green;
+                    log.Info("Gocator connection READY");
+                    break;
+                case LeUniversalRobot.CommandStatus.ERROR:
+                    log.Error("Gocator client initialization failure");
+                    GocatorConnectedLbl.Text = "Gocator ERROR";
+                    GocatorConnectedLbl.BackColor = Color.Red;
+                    GocatorReadyLbl.BackColor = Color.Red;
+                    break;
+                case LeUniversalRobot.CommandStatus.OFF:
+                    RobotConnectBtn.BackColor = Color.Red;
+                    RobotConnectBtn.Text = "OFF";
+                    RobotModeBtn.BackColor = Color.Red;
+                    SafetyStatusBtn.BackColor = Color.Red;
+                    ProgramStateBtn.BackColor = Color.Red;
+                    RobotModeBtn.Text = "";
+                    SafetyStatusBtn.Text = "";
+                    ProgramStateBtn.Text = "";
+                    break;
+                default:
+                    GocatorConnectedLbl.Text = "Gocator ???";
+                    GocatorConnectedLbl.BackColor = Color.Yellow;
+                    GocatorReadyLbl.BackColor = Color.Yellow;
+                    break;
+            }
+        }
+
+
         private void CloseDashboardClient()
         {
             // Disconnect client from dashboard
@@ -4894,23 +4972,23 @@ namespace LEonard
         // START GOCATOR INTERFACE
         // ===================================================================
 
-        public void GocatorAnnounce(string status)
+        public void GocatorAnnounce(LeGocator.Status status)
         {
             switch (status)
             {
-                case "OK":
+                case LeGocator.Status.OK:
                     GocatorConnectedLbl.Text = "Gocator OK";
                     GocatorConnectedLbl.BackColor = Color.Green;
                     GocatorReadyLbl.BackColor = Color.Green;
                     log.Info("Gocator connection READY");
                     break;
-                case "ERROR":
+                case LeGocator.Status.ERROR:
                     log.Error("Gocator client initialization failure");
                     GocatorConnectedLbl.Text = "Gocator ERROR";
                     GocatorConnectedLbl.BackColor = Color.Red;
                     GocatorReadyLbl.BackColor = Color.Red;
                     break;
-                case "OFF":
+                case LeGocator.Status.OFF:
                     GocatorConnectedLbl.Text = "Gocator OFF";
                     GocatorConnectedLbl.BackColor = Color.Red;
                     GocatorReadyLbl.BackColor = Color.Red;

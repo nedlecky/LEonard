@@ -38,12 +38,12 @@ namespace LEonard
             log.Debug("{0} ~LeTcpServer()", logPrefix);
         }
 
-        public int Connect(string IPport)
+        public virtual int Connect(string IPport)
         {
             string[] s = IPport.Split(':');
             return Connect(s[0], s[1]);
         }
-        public int Connect(string IP, string port)
+        public virtual int Connect(string IP, string port)
         {
             myIp = IP;
             myPort = port;
@@ -68,7 +68,7 @@ namespace LEonard
             log.Info($"{logPrefix} Server: Waiting for client...");
             return 0;
         }
-        public bool IsConnected()
+        public virtual bool IsConnected()
         {
             if (server == null) return false;
             try
@@ -78,7 +78,7 @@ namespace LEonard
             catch (SocketException) { return false; }
         }
 
-        public int Disconnect()
+        public virtual int Disconnect()
         {
             log.Info("{0} Disconnect()", logPrefix);
             CloseConnection();
