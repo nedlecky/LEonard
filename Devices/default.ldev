@@ -40,7 +40,7 @@
     <ID>0</ID>
     <Name>Command</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>TcpServer</DeviceType>
     <Address>127.0.0.1:1000</Address>
     <MessageTag>CTL</MessageTag>
@@ -59,7 +59,7 @@
   <Devices>
     <ID>1</ID>
     <Name>UR-5e</Name>
-    <Enabled>true</Enabled>
+    <Enabled>false</Enabled>
     <Connected>false</Connected>
     <DeviceType>TcpServer</DeviceType>
     <Address>192.168.0.252:30000</Address>
@@ -80,11 +80,11 @@
     <ID>2</ID>
     <Name>Gocator</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.252:8190</Address>
     <MessageTag>GO</MessageTag>
-    <CallBack>general</CallBack>
+    <CallBack>gocator</CallBack>
     <OnConnectSend />
     <OnDisconnectSend />
     <RuntimeAutostart>false</RuntimeAutostart>
@@ -160,7 +160,7 @@
     <ID>6</ID>
     <Name>Dataman 1</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
     <MessageTag>AUX31</MessageTag>
@@ -180,7 +180,7 @@
     <ID>7</ID>
     <Name>Dataman 2</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM4</Address>
     <MessageTag>AUX32</MessageTag>

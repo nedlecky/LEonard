@@ -53,6 +53,10 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.CommLogRTB = new System.Windows.Forms.RichTextBox();
             this.StressLogBtn = new System.Windows.Forms.Button();
+            this.PythonScriptTxt = new System.Windows.Forms.TextBox();
+            this.SendPsBtn = new System.Windows.Forms.Button();
+            this.LEonardScriptTxt = new System.Windows.Forms.TextBox();
+            this.SendLsBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -110,7 +114,7 @@
             // 
             // AbortBtn
             // 
-            this.AbortBtn.Location = new System.Drawing.Point(433, 119);
+            this.AbortBtn.Location = new System.Drawing.Point(433, 147);
             this.AbortBtn.Name = "AbortBtn";
             this.AbortBtn.Size = new System.Drawing.Size(78, 23);
             this.AbortBtn.TabIndex = 10;
@@ -182,7 +186,7 @@
             // 
             // Java1Btn
             // 
-            this.Java1Btn.Location = new System.Drawing.Point(168, 120);
+            this.Java1Btn.Location = new System.Drawing.Point(55, 119);
             this.Java1Btn.Name = "Java1Btn";
             this.Java1Btn.Size = new System.Drawing.Size(107, 22);
             this.Java1Btn.TabIndex = 58;
@@ -204,7 +208,7 @@
             this.SendJsBtn.Name = "SendJsBtn";
             this.SendJsBtn.Size = new System.Drawing.Size(107, 22);
             this.SendJsBtn.TabIndex = 59;
-            this.SendJsBtn.Text = "Send {script}";
+            this.SendJsBtn.Text = "Send JE:script";
             this.SendJsBtn.UseVisualStyleBackColor = true;
             this.SendJsBtn.Click += new System.EventHandler(this.SendJsBtn_Click);
             // 
@@ -272,12 +276,52 @@
             this.StressLogBtn.UseVisualStyleBackColor = true;
             this.StressLogBtn.Click += new System.EventHandler(this.StressLogBtn_Click);
             // 
+            // PythonScriptTxt
+            // 
+            this.PythonScriptTxt.Location = new System.Drawing.Point(281, 121);
+            this.PythonScriptTxt.Name = "PythonScriptTxt";
+            this.PythonScriptTxt.Size = new System.Drawing.Size(121, 20);
+            this.PythonScriptTxt.TabIndex = 65;
+            this.PythonScriptTxt.Text = "lePrint(\'Hello LEonard from LEonardClient\')";
+            // 
+            // SendPsBtn
+            // 
+            this.SendPsBtn.Location = new System.Drawing.Point(168, 119);
+            this.SendPsBtn.Name = "SendPsBtn";
+            this.SendPsBtn.Size = new System.Drawing.Size(107, 22);
+            this.SendPsBtn.TabIndex = 64;
+            this.SendPsBtn.Text = "Send PE:script";
+            this.SendPsBtn.UseVisualStyleBackColor = true;
+            this.SendPsBtn.Click += new System.EventHandler(this.SendPsBtn_Click);
+            // 
+            // LEonardScriptTxt
+            // 
+            this.LEonardScriptTxt.Location = new System.Drawing.Point(281, 149);
+            this.LEonardScriptTxt.Name = "LEonardScriptTxt";
+            this.LEonardScriptTxt.Size = new System.Drawing.Size(121, 20);
+            this.LEonardScriptTxt.TabIndex = 67;
+            this.LEonardScriptTxt.Text = "prompt(Hello LEonard from LEonardClient)";
+            // 
+            // SendLsBtn
+            // 
+            this.SendLsBtn.Location = new System.Drawing.Point(168, 147);
+            this.SendLsBtn.Name = "SendLsBtn";
+            this.SendLsBtn.Size = new System.Drawing.Size(107, 22);
+            this.SendLsBtn.TabIndex = 66;
+            this.SendLsBtn.Text = "Send LE:script";
+            this.SendLsBtn.UseVisualStyleBackColor = true;
+            this.SendLsBtn.Click += new System.EventHandler(this.SendLsBtn_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(515, 882);
             this.ControlBox = false;
+            this.Controls.Add(this.LEonardScriptTxt);
+            this.Controls.Add(this.SendLsBtn);
+            this.Controls.Add(this.PythonScriptTxt);
+            this.Controls.Add(this.SendPsBtn);
             this.Controls.Add(this.StressLogBtn);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -336,6 +380,10 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RichTextBox CommLogRTB;
         private System.Windows.Forms.Button StressLogBtn;
+        private System.Windows.Forms.TextBox PythonScriptTxt;
+        private System.Windows.Forms.Button SendPsBtn;
+        private System.Windows.Forms.TextBox LEonardScriptTxt;
+        private System.Windows.Forms.Button SendLsBtn;
     }
 }
 

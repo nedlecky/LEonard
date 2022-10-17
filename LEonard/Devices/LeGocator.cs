@@ -13,38 +13,42 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public class LeGocator : LeDeviceBase, LeDeviceInterface
+    public class LeGocator : LeTcpClient
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
-
-        public Action<string, string> receiveCallback { get; set; } = null;
-
-        LeTcpClient tcpClient = null;
-
 
         public LeGocator(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
             log.Debug("{0} LeGocator(form, {0}, {1})", logPrefix, onConnectMessage);
-            tcpClient = new LeTcpClient(form, prefix, connectMsg);
-            tcpClient.receiveCallback = TcpCallback;
 
         }
         ~LeGocator()
         {
             log.Debug("{0} ~LeGocator()", logPrefix);
-            tcpClient = null;
         }
 
-        public int Connect(string IPport)
+        public void Callback(string prefix, string message)
+        {
+            // Gocator sends back OK which we just ignore
+            if (message == "OK")
+            {
+                log.Info($"LeGocator::Callback({prefix},{message})");
+                return;
+            }
+
+            myForm.GeneralCallback(prefix, message);
+       }
+
+        public new int Connect(string IPport)
         {
             log.Debug($"{logPrefix} Connect({IPport})");
             string[] s = IPport.Split(':');
             return Connect(s[0], s[1]);
         }
-        public int Connect(string IP, string port)
+        public new int Connect(string IP, string port)
         {
             log.Debug($"{logPrefix} Connect({IP},{port})");
-            int ret = tcpClient.Connect(IP, port);
+            int ret = base.Connect(IP, port);
             if (ret != 0)
                 myForm.GocatorAnnounce("ERROR");
             else
@@ -59,67 +63,28 @@ namespace LEonard
             }
             return ret;
         }
-        public bool IsConnected()
-        {
-            return tcpClient.IsConnected();
-        }
 
-        public int Disconnect()
+        public new int Disconnect()
         {
             InquiryResponse("stop");
             myForm.WriteVariable("gocator_ready", false, true);
             myForm.GocatorAnnounce("OFF");
-            return tcpClient.Disconnect();
-        }
-
-        public int Send(string message)
-        {
-            return tcpClient.Send(message);
-        }
-        public string Receive()
-        {
-            return tcpClient.Receive();
-        }
-        public void TcpCallback(string prefix, string message)
-        {
-
-            string[] requests = message.Split('#');
-            int n = 1;
-            foreach (string request in requests)
-            {
-                log.Trace($"{logPrefix} {n}: {request}");
-                if (request.Contains("="))           // name=value
-                    myForm.UpdateVariable(request);
-                else if (request.StartsWith("SET ")) // SET name value
-                {
-                    string[] s = request.Split(' ');
-                    if (s.Length == 3)
-                        myForm.WriteVariable(s[1], s[2]);
-                    else
-                        log.Error($"{prefix} Illegal SET statement: {request}");
-                }
-                else if (request.StartsWith("OK"))
-                    log.Debug($"{logPrefix} OK");
-                else
-                    log.Error($"{prefix} Unrecognized callback message: {request}");
-            }
-            n++;
+            return base.Disconnect();
         }
 
         public void PrepareToRun()
         {
-            if (tcpClient != null)
-                if (tcpClient.IsConnected())
-                {
-                    tcpClient.InquiryResponse("start");
-                    myForm.WriteVariable("gocator_ready", true, true);
-                }
+            if (IsConnected())
+            {
+                InquiryResponse("start");
+                myForm.WriteVariable("gocator_ready", true, true);
+            }
         }
 
         private string InquiryResponse(string inquiry)
         {
             string response = "ERROR";
-            response = tcpClient?.InquiryResponse(inquiry, 500);
+            response = InquiryResponse(inquiry, 500);
             log.Info($"{logPrefix}: {inquiry} GETS {response}");
             return response;
         }

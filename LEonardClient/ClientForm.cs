@@ -353,8 +353,17 @@ namespace LEonardClient
 
         private void SendJsBtn_Click(object sender, EventArgs e)
         {
-            Send("{" + JavaScriptTxt.Text + "}");
+            Send("JE:" + JavaScriptTxt.Text);
         }
 
+        private void SendPsBtn_Click(object sender, EventArgs e)
+        {
+            Send("PE:" + PythonScriptTxt.Text);
+        }
+
+        private void SendLsBtn_Click(object sender, EventArgs e)
+        {
+            Send("LE:" + LEonardScriptTxt.Text);
+        }
     }
 }

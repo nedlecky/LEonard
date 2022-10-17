@@ -1,4 +1,6 @@
 lePrint('Hello, world!')
+lePrint('Hello LEonard from LEonardClient')
+
 a = 5
 b = 7.12
 c = a * b

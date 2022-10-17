@@ -326,6 +326,7 @@ namespace LEonard
 
         private DialogResult ConfirmMessageBox(string question)
         {
+            log.Info($"ConfirmMessageBox({question}");
             MessageDialog messageForm = new MessageDialog(this)
             {
                 Title = "System Confirmation",
@@ -338,6 +339,7 @@ namespace LEonard
         }
         public DialogResult ErrorMessageBox(string message)
         {
+            log.Error($"ErrorMessageBox({message}");
             MessageDialog messageForm = new MessageDialog(this)
             {
                 Title = "System ERROR",
@@ -1431,7 +1433,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 2, "Gocator", true, false, "Gocator", "192.168.0.252:8190",
-                "GO", "general", "", "",
+                "GO", "gocator", "", "",
                 false,
                 "",
                 "",
@@ -1716,7 +1718,7 @@ namespace LEonard
             // Instantiate device interface object
             switch (deviceType)
             {
-                case @"TcpServer":
+                case "TcpServer":
                     interfaces[currentDeviceRowIndex] = new LeTcpServer(this, messageTag, onConnectSend);
                     interfaces[currentDeviceRowIndex].Connect(address);
 
@@ -1726,7 +1728,7 @@ namespace LEonard
                     }
 
                     break;
-                case @"TcpClient":
+                case "TcpClient":
                     interfaces[currentDeviceRowIndex] = new LeTcpClient(this, messageTag, onConnectSend);
                     if ((bool)row["RuntimeAutostart"])
                     {
@@ -1734,7 +1736,7 @@ namespace LEonard
                     }
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
-                case @"TcpClientAsync":
+                case "TcpClientAsync":
                     interfaces[currentDeviceRowIndex] = new LeTcpClientAsync(this, messageTag, onConnectSend);
                     if ((bool)row["RuntimeAutostart"])
                     {
@@ -1742,7 +1744,7 @@ namespace LEonard
                     }
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
-                case @"Gocator":
+                case "Gocator":
                     interfaces[currentDeviceRowIndex] = new LeGocator(this, messageTag, onConnectSend);
                     if ((bool)row["RuntimeAutostart"])
                     {
@@ -1750,7 +1752,7 @@ namespace LEonard
                     }
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
-                case @"Serial":
+                case "Serial":
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
@@ -1758,7 +1760,7 @@ namespace LEonard
                     interfaces[currentDeviceRowIndex] = new LeSerial(this, messageTag, onConnectSend);
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
-                case @"Null":
+                case "Null":
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
@@ -1767,7 +1769,7 @@ namespace LEonard
                     interfaces[currentDeviceRowIndex].Connect(address);
                     break;
                 default:
-                    log.Error($"Illegal interface type: {deviceType}");
+                    ErrorMessageBox($"Device {deviceType} does not exist");
                     break;
             }
 
@@ -1782,11 +1784,17 @@ namespace LEonard
                 case "general":
                     interfaces[currentDeviceRowIndex].receiveCallback = GeneralCallback;
                     break;
+                case "gocator":
+                    if(deviceType != "Gocator")
+                        ErrorMessageBox($"Device {deviceType} can't use callback {callBack}");
+                    else
+                        interfaces[currentDeviceRowIndex].receiveCallback = ((LeGocator)interfaces[currentDeviceRowIndex]).Callback;
+                    break;
                 case "alt1":
                     interfaces[currentDeviceRowIndex].receiveCallback = AlternateCallback1;
                     break;
                 default:
-                    log.Error("Illegal callback type: {0}", callBack);
+                    ErrorMessageBox($"Device {deviceType} callback {callBack} does not exist.");
                     break;
             }
 
@@ -1804,7 +1812,7 @@ namespace LEonard
 
             if (!(bool)row["Connected"])
             {
-                MessageBox.Show("Device already disconnected", "LEonard Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorMessageBox($"Device {row["Name"]} already disconnected.");
                 return;
             }
 
@@ -1827,7 +1835,6 @@ namespace LEonard
                 interfaces[currentDeviceRowIndex] = null;
                 GC.Collect();
             }
-
         }
 
         private void DeviceReconnectBtn_Click(object sender, EventArgs e)
@@ -4754,33 +4761,47 @@ namespace LEonard
             ExecuteLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
         }
 
-        // Standard callback supporting JavaScript, variable set, and the SET command
+        public void GeneralCallbackStatementExecute(string prefix,string statement)
+        {
+            log.Trace($"{prefix}: {statement}");
+            // {script.....}
+            if (statement.StartsWith("LE:") && statement.Length > 5)
+                ExecuteLine(-1, statement.Substring(3));
+            else if (statement.StartsWith("JE:") && statement.Length > 5)
+                ExecuteJavaScript(statement.Substring(3));
+            else if (statement.StartsWith("PE:") && statement.Length > 5)
+                ExecutePythonScript(statement.Substring(3));
+            else if (statement.Contains("="))           // name=value
+                UpdateVariable(statement);
+            else if (statement.StartsWith("SET ")) // SET name value
+            {
+                string[] s = statement.Split(' ');
+                if (s.Length == 3)
+                    WriteVariable(s[1], s[2]);
+                else
+                    log.Error($"{prefix} Illegal SET statement: {statement}");
+            }
+            else
+                log.Error($"{prefix} Illegal GeneralCallbackStatementExecute({prefix}, {statement})");
+        }
+
+        // Standard callback supporting executing all languages
+        // Multiple Statements:
+        //          statement1#statement2#statement3
+        // Statements
+        //      LE:command      Sent to LEscript ExecuteLine
+        //      JE:command      Sent to ExecuteJavaScript
+        //      PE:command      Sent to ExecutePythonScript
+        //      name = value    Sent to WriteVariable
+        //      SET name value  Sent to WriteVariable
         public void GeneralCallback(string prefix, string message)
         {
             log.Info($"GeneralCallback({prefix},{message})");
 
-            string[] requests = message.Split('#');
-            int n = 1;
-            foreach (string request in requests)
-            {
-                log.Trace($"{prefix} {n}: {request}");
-                // {script.....}
-                if (request.StartsWith("{") && request.EndsWith("}"))
-                    ExecuteJavaScript(request.Substring(1, request.Length - 2));
-                else if (request.Contains("="))           // name=value
-                    UpdateVariable(request);
-                else if (request.StartsWith("SET ")) // SET name value
-                {
-                    string[] s = request.Split(' ');
-                    if (s.Length == 3)
-                        WriteVariable(s[1], s[2]);
-                    else
-                        log.Error($"{prefix} Illegal SET statement: {request}");
-                }
-                else
-                    log.Error($"{prefix} Illegal callback command: {request}");
-            }
-            n++;
+            // TODO This gets broken if the user tries to do anything else with '#'
+            string[] statements = message.Split('#');
+            foreach (string statement in statements)
+                GeneralCallbackStatementExecute(prefix, statement);
         }
 
         void DashboardCallback(string prefix, string message)
@@ -6874,6 +6895,19 @@ namespace LEonard
                 LicenseAdjustGrp.Visible = false;
                 // Update current license status
                 GetLicenseStatus();
+            }
+        }
+        void ExecutePythonScript(string code)
+        {
+            log.Info($"Python Execute: {code}");
+            try
+            {
+                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(code);
+                pythonScript.Execute(pythonScope);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, $"ExecutePythonScript Error {code}");
             }
         }
 
