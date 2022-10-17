@@ -44,7 +44,7 @@
     <DeviceType>TcpServer</DeviceType>
     <Address>127.0.0.1:1000</Address>
     <MessageTag>CTL</MessageTag>
-    <CallBack>general</CallBack>
+    <CallBack>command</CallBack>
     <OnConnectSend>Hello!</OnConnectSend>
     <OnDisconnectSend>exit()</OnDisconnectSend>
     <RuntimeAutostart>true</RuntimeAutostart>

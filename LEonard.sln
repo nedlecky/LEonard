@@ -16,6 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonard", "LEonard\LEonard.csproj", "{F7D044A8-5B81-4D11-BE3F-211B2AE919EE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0AABD7BC-7F11-4754-8111-8BD23D9517D0} = {0AABD7BC-7F11-4754-8111-8BD23D9517D0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonardOriginal", "LEonardOriginal\LEonardOriginal.csproj", "{8C976E92-197B-445C-AB0A-0B9CC89FEAAD}"
 EndProject

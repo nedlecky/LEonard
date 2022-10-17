@@ -1,4 +1,9 @@
-﻿using Microsoft.Win32;
+﻿// File: MainForm.cs
+// Project: LEonard
+// Author: Ned Lecky, Lecky Engineering LLC
+// Purpose: The master form and the bulk of the UI
+
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

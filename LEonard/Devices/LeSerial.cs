@@ -120,7 +120,7 @@ namespace LEonard
                     // TODO: if the port.NewLine isn't in the buffer this blocks... needs to timeout almost instantly?
                     data = port.ReadLine();
                     log.Info("{0} <== {1} Line {2}", logPrefix, data, lineNo);
-                    receiveCallback(data, logPrefix);
+                    receiveCallback(logPrefix, data);
                     lineNo++;
                 }
             }

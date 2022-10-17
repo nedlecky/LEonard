@@ -66,6 +66,14 @@ namespace LEonardClient
             InitTmr.Enabled = true;
         }
 
+
+        public RegistryKey GetLEonardAppNameKey()
+        {
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+            RegistryKey LeckyEngineeringKey = SoftwareKey.CreateSubKey("Lecky Engineering");
+            return LeckyEngineeringKey.CreateSubKey("LEonard");
+        }
+
         public RegistryKey GetAppNameKey()
         {
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
@@ -74,7 +82,17 @@ namespace LEonardClient
         }
         void LoadPersistent()
         {
+            RegistryKey LEonardAppNameKey = GetLEonardAppNameKey();
+            string LEonardRoot = (string)LEonardAppNameKey.GetValue("LEonardRoot", "C:\\LEonard");
+
+            // Set logfile variable in NLog
+            LogManager.Configuration.Variables["LogfileName"] = LEonardRoot + "/Logs/LEonardClient.log";
+            LogManager.ReconfigExistingLoggers();
+
+            log.Info($"LEonardRoot = {LEonardRoot}");
+
             log.Trace("LoadPersistent()");
+
             RegistryKey AppNameKey = GetAppNameKey();
 
             Left = (Int32)AppNameKey.GetValue("Left", 0);
@@ -85,7 +103,7 @@ namespace LEonardClient
         }
         void SavePersistent()
         {
-            log.Trace("LoadPersistent()");
+            log.Trace("SavePersistent()");
 
             RegistryKey AppNameKey = GetAppNameKey();
 
@@ -193,7 +211,7 @@ namespace LEonardClient
             log.Info("==> {0}", request);
             try
             {
-                stream.Write(Encoding.ASCII.GetBytes(request + "\r"), 0, request.Length + 1);
+                stream.Write(Encoding.ASCII.GetBytes(request + "\n"), 0, request.Length + 1);
             }
             catch
             {
@@ -264,14 +282,13 @@ namespace LEonardClient
         int messageIndex = 1;
         private void SendBtn_Click(object sender, EventArgs e)
         {
-            string request = MessageTxt.Text + messageIndex++.ToString("00000") + ",params";
-            Send(request);
+            Send(MessageTxt.Text);
         }
 
         private void GetStatus()
         {
-            //string request = string.Format("command=status#command_index={0}#{print('do status operation');}", ++messageIndex);
-            string request = string.Format("command=status#command_index={0}#{{print('do status operation {0}\\n');send(0,'Status OK');}}", ++messageIndex);
+            string request = string.Format("command=status#command_index={0}#", ++messageIndex) + "{lePrint('do status operation');}";
+            //string request = String.Format("command=status#command_index={0}#\{lePrint('do status operation {0}\\n');//send(0,'Status OK');}}",++messageIndex);
             Send(request);
         }
 
@@ -317,20 +334,20 @@ namespace LEonardClient
 
         private void AbortBtn_Click(object sender, EventArgs e)
         {
-            string request = "abort," + messageIndex++.ToString("00000") + ",params";
+            string request = "abort";
             Send(request);
         }
 
         private void Java1Btn_Click(object sender, EventArgs e)
         {
             Send("{" +
-                "crawl('COMM what does it do?');" +
-                "if (typeof a == 'undefined') a = 5;" +
-                "else a = a + 1;" +
-                "b=8; c=a*b;" +
-                "crawl('COMM ' + c);" +
+                "leLogInfo('CLIENT what does it do?');" +
+                "if (typeof client_a == 'undefined') client_a = 5;" +
+                "else client_a = client_a + 1;" +
+                "b = 8; c = client_a * b;" +
+                "lePrint('CLIENT ' + c);" +
                 "for(name in this)" +
-                    "crawl('COMM ' + name + ' ' + typeof name + ' ' + this[name]);}"
+                    "lePrint('CLIENT ' + name + ' ' + typeof name + ' ' + this[name]);}"
                 );
         }
 

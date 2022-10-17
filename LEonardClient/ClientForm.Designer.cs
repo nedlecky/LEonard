@@ -41,8 +41,6 @@
             this.InitTmr = new System.Windows.Forms.Timer(this.components);
             this.ExitBtn = new System.Windows.Forms.Button();
             this.Stress1Btn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.LogfileTxt = new System.Windows.Forms.TextBox();
             this.AutoGetStatusChk = new System.Windows.Forms.CheckBox();
             this.MessageTxt = new System.Windows.Forms.TextBox();
             this.Java1Btn = new System.Windows.Forms.Button();
@@ -164,23 +162,6 @@
             this.Stress1Btn.UseVisualStyleBackColor = true;
             this.Stress1Btn.Click += new System.EventHandler(this.Stress1Btn_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 151);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 54;
-            this.label3.Text = "Logfile";
-            // 
-            // LogfileTxt
-            // 
-            this.LogfileTxt.Location = new System.Drawing.Point(57, 148);
-            this.LogfileTxt.Name = "LogfileTxt";
-            this.LogfileTxt.Size = new System.Drawing.Size(368, 20);
-            this.LogfileTxt.TabIndex = 55;
-            this.LogfileTxt.Text = "C:/Users/nedlecky/Desktop/LEonardFiles/LEonardClient.log";
-            // 
             // AutoGetStatusChk
             // 
             this.AutoGetStatusChk.AutoSize = true;
@@ -215,7 +196,7 @@
             this.JavaScriptTxt.Name = "JavaScriptTxt";
             this.JavaScriptTxt.Size = new System.Drawing.Size(121, 20);
             this.JavaScriptTxt.TabIndex = 60;
-            this.JavaScriptTxt.Text = "print(\"hello\");";
+            this.JavaScriptTxt.Text = "lePrint(\'Hello LEonard from LEonardClient\');";
             // 
             // SendJsBtn
             // 
@@ -306,8 +287,6 @@
             this.Controls.Add(this.Java1Btn);
             this.Controls.Add(this.MessageTxt);
             this.Controls.Add(this.AutoGetStatusChk);
-            this.Controls.Add(this.LogfileTxt);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.Stress1Btn);
             this.Controls.Add(this.ExitBtn);
             this.Controls.Add(this.SaveBtn);
@@ -345,8 +324,6 @@
         private System.Windows.Forms.Timer InitTmr;
         private System.Windows.Forms.Button ExitBtn;
         private System.Windows.Forms.Button Stress1Btn;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox LogfileTxt;
         private System.Windows.Forms.CheckBox AutoGetStatusChk;
         private System.Windows.Forms.TextBox MessageTxt;
         private System.Windows.Forms.Button Java1Btn;

@@ -1407,7 +1407,7 @@ namespace LEonard
 
             devices.Rows.Add(new object[] {
                 0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
-                "CTL", "general", "Hello!", "exit()",
+                "CTL", "command", "Hello!", "exit()",
                 true,
                 "C:\\Users\\nedlecky\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
                 "LEonardClient.exe",
@@ -1776,15 +1776,14 @@ namespace LEonard
             {
                 case "":
                     break;
+                case "command":
+                    interfaces[currentDeviceRowIndex].receiveCallback = CommandCallback;
+                    break;
                 case "general":
                     interfaces[currentDeviceRowIndex].receiveCallback = GeneralCallback;
                     break;
-                case "alternate":
-                    interfaces[currentDeviceRowIndex].receiveCallback = AlternateCallback;
-                    break;
-                case "dataman":
-                    interfaces[currentDeviceRowIndex].receiveCallback = DatamanCallback;
-
+                case "alt1":
+                    interfaces[currentDeviceRowIndex].receiveCallback = AlternateCallback1;
                     break;
                 default:
                     log.Error("Illegal callback type: {0}", callBack);
@@ -1895,7 +1894,7 @@ namespace LEonard
                     {
                         // TODO
                         //log.Error($"ERROR UNKNOWN HERE");
-                        
+
                         IntPtr hWnd = interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle;
                         Application.DoEvents();
                         if (hWnd != (IntPtr)0)
@@ -1903,7 +1902,7 @@ namespace LEonard
                             SetWindowOnTop(hWnd);
                             break;
                         }
-                        
+
                     }
                     catch
                     {
@@ -4755,15 +4754,20 @@ namespace LEonard
             ExecuteLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
         }
 
+        // Standard callback supporting JavaScript, variable set, and the SET command
         public void GeneralCallback(string prefix, string message)
         {
+            log.Info($"GeneralCallback({prefix},{message})");
 
             string[] requests = message.Split('#');
             int n = 1;
             foreach (string request in requests)
             {
                 log.Trace($"{prefix} {n}: {request}");
-                if (request.Contains("="))           // name=value
+                // {script.....}
+                if (request.StartsWith("{") && request.EndsWith("}"))
+                    ExecuteJavaScript(request.Substring(1, request.Length - 2));
+                else if (request.Contains("="))           // name=value
                     UpdateVariable(request);
                 else if (request.StartsWith("SET ")) // SET name value
                 {
@@ -4784,39 +4788,17 @@ namespace LEonard
             log.Debug($"{prefix}<== {message}");
         }
 
-        void AlternateCallback(string message, string prefix)
+        // Callback used for LEonardClient and remote control
+        void CommandCallback(string prefix, string message)
         {
-            //log.Info("CCB<==({0},{1})", message, prefix);
-
-            if (message.Length > 3 && message.StartsWith("JS:"))
-                ExecuteJavaScript(message.Substring(3));
-            else
-            {
-
-                string[] s = message.Split(',');
-                string response = "INVALID COMMAND";
-                if (s.Length == 3)
-                {
-                    string name = s[0];
-                    string sequence = s[1];
-                    string parameters = s[2];
-
-                    WriteVariable(prefix + "_name", name);
-                    WriteVariable(prefix + "_sequence", sequence);
-                    WriteVariable(prefix + "_params", parameters);
-
-                    // TODO: Execute
-
-                    response = string.Format("{0},{1},{2}", name, sequence, "RESPONSE");
-                }
-
-                interfaces[0].Send(response);
-            }
+            log.Info($"CCB<==({prefix}, {message})");
+            // Nothing special for now
+            GeneralCallback(prefix,message);
         }
 
-        void DatamanCallback(string message, string prefix)
+        void AlternateCallback1(string message, string prefix)
         {
-            //log.Info("DCB<==({0},{1})", message, prefix);
+            log.Info($"DCB<==({prefix},{message})");
             string[] s = message.Split(',');
             if (s.Length == 3)
             {
@@ -4831,9 +4813,21 @@ namespace LEonard
                 log.Error("{0} ERROR unexpected string received: {1}", prefix, message);
         }
 
-
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
+            // TODO: do we really need to keep polling for message receipt?
+            if (interfaces.Length == 0) return;
+
+            int i = 0;
+            //TODO: This is WIP since shouldn't need to call receive once callbacks work
+            foreach (LeDeviceInterface device in interfaces)
+            {
+                //if (device != null && i < 3) device.Receive();
+                if (device != null) device.Receive();
+                i++;
+            }
+            // The original method
+            /*
             bool fRobotError = true;
             if (robotCommandServer != null)
                 if (robotCommandServer.IsConnected())
@@ -4856,6 +4850,7 @@ namespace LEonard
                     GocatorConnectBtn.BackColor = Color.Red;
                     GocatorConnectBtn.Text = "Gocator OFF";
                 }
+            */
         }
 
         // ===================================================================

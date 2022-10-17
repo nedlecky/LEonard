@@ -28,7 +28,7 @@ namespace LEonard
         public bool IsClientConnected { get; set; } = false;
 
 
-        public LeTcpServer(MainForm form, string prefix="", string connectMsg = "") : base(form, prefix, connectMsg)
+        public LeTcpServer(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
             log.Debug("{0} LeTcpServer(form, {0}, {1})", logPrefix, onConnectMessage);
         }
@@ -202,7 +202,7 @@ namespace LEonard
                     if (receiveCallback == null)
                         return line;
                     else
-                        receiveCallback?.Invoke(logPrefix,line);
+                        receiveCallback?.Invoke(logPrefix, line);
                 }
                 lineNo++;
             }
