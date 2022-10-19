@@ -64,7 +64,7 @@ namespace LEonard
 
         // TODO: This needs to dynamically resize and the code that does it doesn't!!
         // These map 1:1 with the rows in devices.... I hope
-        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null, null };
+        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null, null, null };
         int currentDeviceRowIndex = -1;
         List<Button> speedSendBtns = new List<Button>();
 
@@ -1407,7 +1407,7 @@ namespace LEonard
                 "LEonard/LEonard01.urp"
             });
             devices.Rows.Add(new object[] {
-                2, "Gocator", true, false, "Gocator", "192.168.0.252:8190",
+                2, "Gocator", true, false, "Gocator", "192.168.0.3:8190",
                 "GO", "gocator", "", "",
                 false,
                 "",
@@ -1420,7 +1420,20 @@ namespace LEonard
                 ""
             });
             devices.Rows.Add(new object[] {
-                3, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
+                3, "GocatorAcc", false, false, "Gocator", "192.168.0.252:8190",
+                "GO", "gocator", "", "",
+                false,
+                "",
+                "",
+                "",
+                "C:\\Program Files\\RealVNC\\VNC Viewer",
+                "vncviewer.exe",
+                "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
+                "trigger|stop|start|loadjob,LM01|clearalignment",
+                ""
+            });
+            devices.Rows.Add(new object[] {
+                4, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
                 "AUX2S", "general", "init()", "",
                 false,
                 "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
@@ -1433,7 +1446,7 @@ namespace LEonard
                 ""
             });
             devices.Rows.Add(new object[] {
-                4, "HALCON", false, false, "TcpClient", "127.0.0.1:21000",
+                5, "HALCON", false, false, "TcpClient", "127.0.0.1:21000",
                 "AUX2H", "general", "init()", "",
                 true,
                 "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
@@ -1446,7 +1459,7 @@ namespace LEonard
                 ""
             });
             devices.Rows.Add(new object[] {
-                5, "Keyence", false, false, "TcpClient", "192.168.0.10:8500",
+                6, "Keyence", false, false, "TcpClient", "192.168.0.10:8500",
                 "AUX2K", "general", "TE", "",
                 false,
                 "",
@@ -1459,7 +1472,7 @@ namespace LEonard
                 ""
             });
             devices.Rows.Add(new object[] {
-                6, "Dataman 1", true, false, "Serial", "COM3",
+                7, "Dataman 1", true, false, "Serial", "COM3",
                 "AUX31", "general", "+", "",
                 false,
                 "",
@@ -1472,7 +1485,7 @@ namespace LEonard
                 ""
             });
             devices.Rows.Add(new object[] {
-                7, "Dataman 2", true, false, "Serial", "COM4",
+                8, "Dataman 2", true, false, "Serial", "COM4",
                 "AUX32", "general", "+", "",
                 false,
                 "",
@@ -1481,10 +1494,11 @@ namespace LEonard
                 "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3",
                 "SetupTool.exe",
                 "",
-                "+"
+                "+",
+                ""
             });
             devices.Rows.Add(new object[] {
-                8, "Chrome", false, false, "Null", "",
+                9, "Chrome", false, false, "Null", "",
                 "CTL", "general", "", "",
                 true,
                 "",
@@ -1673,6 +1687,7 @@ namespace LEonard
             }
             DataRow row = devices.Rows[currentDeviceRowIndex];
 
+            bool enabled = (bool)row["Enabled"];
             string name = (string)row["Name"];
             string deviceType = (string)row["DeviceType"];
             string address = (string)row["Address"];
@@ -1686,6 +1701,14 @@ namespace LEonard
             {
                 ErrorMessageBox($"Device {name} already connected");
                 return;
+            }
+
+            if (!enabled)
+            {
+                DialogResult result = ConfirmMessageBox($"Device {name} is not enabled. Enable?");
+                if (result != DialogResult.OK)
+                    return;
+                row["Enabled"] = true;
             }
 
             // Make sure array is large enough
