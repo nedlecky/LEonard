@@ -135,7 +135,8 @@
     <Compile Include="Devices\LeTcpClient.cs" />
     <Compile Include="Devices\LeTcpClientAsync.cs" />
     <Compile Include="Devices\LeTcpServer.cs" />
-    <Compile Include="Devices\LeUniversalRobot.cs" />
+    <Compile Include="Devices\LeUrDashboard.cs" />
+    <Compile Include="Devices\LeUrCommand.cs" />
     <Compile Include="DirectorySelectDialog.cs">
       <SubType>Form</SubType>
     </Compile>

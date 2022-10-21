@@ -1,7 +1,7 @@
-﻿// File: LeUniversalRobot.cs
+﻿// File: LeUrDashboard.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
-// Purpose: Custom interface to Universal Robot
+// Purpose: Custom interface to Universal Robot Dashboard
 
 using System;
 using System.Collections.Generic;
@@ -11,89 +11,33 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static IronPython.Modules._ast;
-using static IronPython.Modules.PythonWeakRef;
 
 namespace LEonard
 {
-    public class LeUniversalRobot : LeTcpClient
+    public class LeUrDashboard : LeTcpClient
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
-        public LeTcpServer commandServer = null;
         public string UrProgramFilename { get; set; } = "";
-
-        public LeUniversalRobot(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
-        {
-            log.Debug("{0} LeUniversalRobot(form, {0}, {1})", logPrefix, onConnectMessage);
-
-        }
-        ~LeUniversalRobot()
-        {
-            log.Debug("{0} ~LeUniversalRobot()", logPrefix);
-        }
-
         public enum DashboardStatus
         {
             OFF,
             ERROR,
             OK
         }
-        public enum CommandStatus
+
+        public LeUrDashboard(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            OFF,
-            ERROR,
-            OK
+            log.Debug("{0} LeUrDashboard(form, {0}, {1})", logPrefix, onConnectMessage);
+
+        }
+        ~LeUrDashboard()
+        {
+            log.Debug("{0} ~LeUrDashboard()", logPrefix);
         }
 
-        public override int Connect(string IPport)
-        {
-            log.Debug($"{logPrefix} LeUniversalRobot::Connect({IPport})");
-            string[] addresses = IPport.Split('#');
-            if (addresses.Length != 2)
-            {
-                myForm.ErrorMessageBox($"UR needs IP:port#IP:port not {IPport}");
-                return 1;
-            }
-
-            // Dashboard
-            string[] ip_port = addresses[0].Split(':');
-            if (ip_port.Length != 2)
-            {
-                myForm.ErrorMessageBox($"UR needs IP:port#IP:port not {IPport}");
-                return 2;
-            }
-
-            // Robot Command Server
-            if (0 == Connect(ip_port[0], ip_port[1]))
-            {
-                // Setup Command Server
-                ip_port = addresses[1].Split(':');
-                if (ip_port.Length != 2)
-                {
-                    myForm.ErrorMessageBox($"UR needs IP:port#IP:port not {IPport}");
-                    return 3;
-                }
-                commandServer = new LeTcpServer(myForm, logPrefix, "");
-                int ret = commandServer.Connect(ip_port[0], ip_port[1]);
-                if (ret != 0)
-                {
-                    myForm.UrCommandAnnounce(LeUniversalRobot.CommandStatus.ERROR);
-                    return 4;
-                }
-                else
-                {
-                    // Commands will return general LEonard responses
-                    commandServer.receiveCallback = myForm.GeneralCallback;
-                    log.Info("Universal Robot connection ready");
-                    myForm.WriteVariable("robot_ready", true, true);
-                    myForm.UrCommandAnnounce(LeUniversalRobot.CommandStatus.OK);
-                }
-            }
-            return 0;
-        }
         public override int Connect(string dashIP, string dashPort)
         {
-            log.Debug($"{logPrefix} LeUniversalRobot::Connect({dashIP}, {dashPort})");
+            log.Debug($"{logPrefix} LeUrDashboard::Connect({dashIP}, {dashPort})");
 
             log.Debug($"{logPrefix} Connect Dashboard({dashIP}, {dashPort})");
             log.Debug($"{logPrefix} Connect Dashboard");
@@ -165,13 +109,6 @@ namespace LEonard
         {
             myForm.WriteVariable("robot_ready", false, true);
 
-            if (commandServer != null)
-            {
-                commandServer.Disconnect();
-                commandServer = null;
-            }
-            myForm.UrCommandAnnounce(LeUniversalRobot.CommandStatus.OFF);
-
             int ret = 0;
             if (IsConnected())
             {
@@ -179,7 +116,7 @@ namespace LEonard
                 InquiryResponse("quit");
                 ret = base.Disconnect();
             }
-            myForm.UrDashboardAnnounce(LeUniversalRobot.DashboardStatus.OFF);
+            myForm.UrDashboardAnnounce(DashboardStatus.OFF);
 
             return ret;
         }
