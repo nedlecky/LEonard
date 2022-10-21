@@ -49,7 +49,7 @@ namespace LEonard
             log.Info("{0} ==> {1}", logPrefix, message);
             return 0;
         }
-        public string Receive()
+        public string Receive(bool fProcessCallbackOnly = false)
         {
             return "";
         }

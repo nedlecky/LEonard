@@ -152,8 +152,11 @@ namespace LEonard
             return 0;
         }
 
-        public string Receive()
+        public string Receive(bool fProcessCallbackOnly = false)
         {
+            // If only supposed to process callbacks and there is no callback, ignore
+            if (fProcessCallbackOnly && receiveCallback == null) return "";
+
             if (stream == null) return null;
             int length = 0;
             while (stream.DataAvailable && length < inputBufferLen) inputBuffer[length++] = (byte)stream.ReadByte();

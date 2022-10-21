@@ -61,7 +61,7 @@
   <Devices>
     <ID>1</ID>
     <Name>UR-5e</Name>
-    <Enabled>false</Enabled>
+    <Enabled>true</Enabled>
     <Connected>false</Connected>
     <DeviceType>UR</DeviceType>
     <Address>192.168.0.2:29999#192.168.0.252:30000</Address>
@@ -188,7 +188,7 @@
     <ID>7</ID>
     <Name>Dataman 1</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
     <MessageTag>AUX31</MessageTag>
@@ -209,7 +209,7 @@
     <ID>8</ID>
     <Name>Dataman 2</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM4</Address>
     <MessageTag>AUX32</MessageTag>
@@ -224,6 +224,7 @@
     <SetupFileName>SetupTool.exe</SetupFileName>
     <SetupArguments />
     <SpeedSendButtons>+</SpeedSendButtons>
+    <Special />
   </Devices>
   <Devices>
     <ID>9</ID>

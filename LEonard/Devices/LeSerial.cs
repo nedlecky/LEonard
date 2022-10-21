@@ -36,7 +36,7 @@ namespace LEonard
             fConnected = false;
             if (port != null)
                 Disconnect();
-            
+
             myPortname = portname;
             log.Debug("{0} Connect({1})", logPrefix, myPortname);
 
@@ -81,7 +81,7 @@ namespace LEonard
         {
             log.Info("{0} Disconnect(): {1}", logPrefix, myPortname);
 
-            if(port != null)
+            if (port != null)
                 port.Close();
             port = null;
 
@@ -95,7 +95,7 @@ namespace LEonard
             port.Write(message);
             return 0;
         }
-        public string Receive()
+        public string Receive(bool fProcessCallbackOnly = false)
         {
             //log.Error("NOT IMPLEMENTED Receive(): " + myPortname);
             // TODO: Currently this is only done through callback and it gets called constantly for serial devices

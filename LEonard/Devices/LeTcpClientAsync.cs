@@ -150,8 +150,11 @@ namespace LEonard
             }
         }
 
-        public string Receive()
+        public string Receive(bool fProcessCallbackOnly=false)
         {
+            // If only supposed to process callbacks and there is no callback, ignore
+            if (fProcessCallbackOnly && receiveCallback == null) return "";
+
             if (client == null) return "";
 
             log.Info("{0} Receive()", logPrefix);

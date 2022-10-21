@@ -157,8 +157,11 @@ namespace LEonard
 
         int addingAt = 0;
         private Queue<string> inputQueue = new Queue<string>();
-        public string Receive()
+        public string Receive(bool fProcessCallbackOnly = false)
         {
+            // If only supposed to process callbacks and there is no callback, ignore
+            if (fProcessCallbackOnly && receiveCallback == null) return "";
+
             if (stream == null) return "";
             if (!IsConnected())
             {

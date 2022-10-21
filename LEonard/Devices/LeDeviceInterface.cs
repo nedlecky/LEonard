@@ -16,7 +16,7 @@ namespace LEonard
         bool IsConnected();
         int Disconnect();
         int Send(string message);
-        string Receive();
+        string Receive(bool fProcessCallbackOnly = false);
 
         int StartRuntimeProcess(ProcessStartInfo start);
         int EndRuntimeProcess();

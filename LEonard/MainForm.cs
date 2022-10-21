@@ -540,7 +540,7 @@ namespace LEonard
 
             // When the robot connects, get us ready to go!  Or, if it disconnects, put us in WAIT
             bool newRobotReady = false;
-            if (focusLeUniversalRobot==null || focusLeUniversalRobot?.commandServer == null)
+            if (focusLeUniversalRobot == null || focusLeUniversalRobot?.commandServer == null)
                 robotReady = false;
             else
             {
@@ -4367,7 +4367,7 @@ namespace LEonard
         // We send (index,x,y,z)
         public bool RobotSend(string command)
         {
-            if(focusLeUniversalRobot==null)
+            if (focusLeUniversalRobot == null)
             {
                 ErrorMessageBox($"RobotSend({command}) failed. focusLeUniversalRobot is null.");
                 return false;
@@ -4810,17 +4810,13 @@ namespace LEonard
 
         private void MessageTmr_Tick(object sender, EventArgs e)
         {
-            // TODO: do we really need to keep polling for message receipt?
             if (interfaces.Length == 0) return;
 
-            int i = 0;
-            //TODO: This is WIP since shouldn't need to call receive once callbacks work
+            // TODO: This is WIP since shouldn't need to call receive once callbacks work
+            // TODO: do we really need to keep polling for message receipt?
             foreach (LeDeviceInterface device in interfaces)
-            {
-                //if (device != null && i < 3) device.Receive();
-                if (device != null) device.Receive();
-                i++;
-            }
+                device?.Receive(true);  // Only calls receive for interfaces with a callback!
+
             // The original method
             /*
             bool fRobotError = true;
@@ -4846,6 +4842,48 @@ namespace LEonard
                     GocatorConnectBtn.Text = "Gocator OFF";
                 }
             */
+        }
+        private void RobotConnectBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CloseCommandServer()
+        {
+            // Stop us if we're running!
+            if (runState == RunState.RUNNING || runState == RunState.PAUSED)
+            {
+                SetState(RunState.READY);
+            }
+
+            if (focusLeUniversalRobot?.commandServer?.IsConnected() == true)
+            {
+                if (ProgramStateBtn.Text.StartsWith("PLAYING")) RobotSend("98");
+                focusLeUniversalRobot.commandServer.Disconnect();
+                focusLeUniversalRobot.commandServer = null;
+            }
+            RobotCommandStatusLbl.BackColor = Color.Red;
+            RobotCommandStatusLbl.Text = "OFF";
+        }
+
+        private void ProgramStateBtn_Click(object sender, EventArgs e)
+        {
+            CloseSafetyPopup();
+            if (ProgramStateBtn.Text.StartsWith("PLAYING"))
+            {
+                RobotSend("99");
+                focusLeUniversalRobot?.Send("stop");
+                RobotCommandStatusLbl.BackColor = Color.Red;
+                RobotCommandStatusLbl.Text = "OFF";
+                RobotReadyLbl.BackColor = Color.Red;
+                GrindReadyLbl.BackColor = Color.Red;
+                GrindProcessStateLbl.BackColor = Color.Red;
+                CloseCommandServer();
+            }
+            else
+            {
+                focusLeUniversalRobot?.Send("play");
+            }
         }
 
         // ===================================================================
@@ -6965,15 +7003,6 @@ namespace LEonard
             SaveLicenseBtn.Enabled = false;
         }
 
-        private void RobotConnectBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ProgramStateBtn_Click(object sender, EventArgs e)
-        {
-
-        }
 
         // ===================================================================
         // END LICENSING
