@@ -3629,6 +3629,21 @@ namespace LEonard
                 return true;
             }
 
+            // ur_dashboard
+            if (command.StartsWith("ur_dashboard("))
+            {
+                LogInterpret("ur_dashboard", lineNumber, origLine);
+                string message = ExtractParameters(command);
+                if (message.Length < 1)
+                {
+                    ExecError("No message specified");
+                    return true;
+                }
+                string response = focusLeUrDashboard?.InquiryResponse(message,200);
+                WriteVariable("lastUrDashboardResponse",response); ;
+                return true;
+            }
+
             // save_position
             if (command.StartsWith("save_position("))
             {
