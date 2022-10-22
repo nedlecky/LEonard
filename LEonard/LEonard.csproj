@@ -238,6 +238,9 @@
     </None>
     <None Include="Lib\ensurepip\_bundled\pip-19.2.3-py2.py3-none-any.whl" />
     <None Include="Lib\ensurepip\_bundled\setuptools-41.2.0-py2.py3-none-any.whl" />
+    <Compile Include="MainForm.LEscript.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <None Include="Properties\app.manifest" />
     <None Include="RecipeCommands.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

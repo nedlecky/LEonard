@@ -8,12 +8,13 @@ count=5
 loop:
 sleep(2)
 device_connect(Gocator)
+sleep(1)
 
-gocator_trigger(100)
-sleep(2)
+#gocator_trigger(100)
+#sleep(4)
 
-gocator_trigger(100)
-sleep(2)
+#gocator_trigger(100)
+#sleep(2)
 
 device_disconnect(Gocator)
 
