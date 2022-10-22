@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F7D044A8-5B81-4D11-BE3F-211B2AE919EE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Leonard</RootNamespace>
+    <RootNamespace>LEonard</RootNamespace>
     <AssemblyName>LEonard</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -174,7 +174,16 @@
     <Compile Include="MainForm.Java.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MainForm.Positions.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.Python.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Tools.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Variables.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MessageDialog.cs">

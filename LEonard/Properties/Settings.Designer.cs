@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Leonard.Properties {
+namespace LEonard.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

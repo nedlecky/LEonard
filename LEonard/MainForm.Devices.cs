@@ -18,6 +18,11 @@ namespace LEonard
 {
     public partial class MainForm : Form
     {
+        private const int SW_SHOWMINIMIZED = 2;
+        private const int SW_SHOWMAXIMIZED = 3;
+        private const int SW_SHOWNORMAL = 5;
+        private const int SW_RESTORE = 9;
+
         private void ClearAndInitializeDevices()
         {
             devices = new DataTable("Devices");
@@ -873,26 +878,54 @@ namespace LEonard
 
         }
 
-        /*
-        #define SW_HIDE             0
-        #define SW_SHOWNORMAL       1
-        #define SW_NORMAL           1
-        #define SW_SHOWMINIMIZED    2
-        #define SW_SHOWMAXIMIZED    3
-        #define SW_MAXIMIZE         3
-        #define SW_SHOWNOACTIVATE   4
-        #define SW_SHOW             5
-        #define SW_MINIMIZE         6
-        #define SW_SHOWMINNOACTIVE  7
-        #define SW_SHOWNA           8
-        #define SW_RESTORE          9
-        #define SW_SHOWDEFAULT      10
-        #define SW_FORCEMINIMIZE    11
-        #define SW_MAX              11
-        */
-        private const int SW_SHOWMINIMIZED = 2;
-        private const int SW_SHOWMAXIMIZED = 3;
-        private const int SW_SHOWNORMAL = 5;
-        private const int SW_RESTORE = 9;
+        // Standard callback supporting executing all languages
+        // Multiple Statements:
+        //          statement1#statement2#statement3
+        // Statements
+        //      LE:command      Sent to LEscript ExecuteLine
+        //      JE:command      Sent to ExecuteJavaScript
+        //      PE:command      Sent to ExecutePythonScript
+        //      name = value    Sent to WriteVariable
+        //      SET name value  Sent to WriteVariable
+        public void GeneralCallback(string prefix, string message)
+        {
+            log.Info($"GeneralCallback({prefix},{message})");
+
+            // TODO This gets broken if the user tries to do anything else with '#'
+            string[] statements = message.Split('#');
+            foreach (string statement in statements)
+                GeneralCallbackStatementExecute(prefix, statement);
+        }
+
+        void DashboardCallback(string prefix, string message)
+        {
+            log.Debug($"{prefix}<== {message}");
+        }
+
+        // Callback used for LEonardClient and remote control
+        void CommandCallback(string prefix, string message)
+        {
+            log.Info($"CCB<==({prefix}, {message})");
+            // Nothing special for now
+            GeneralCallback(prefix, message);
+        }
+
+        void AlternateCallback1(string message, string prefix)
+        {
+            log.Info($"DCB<==({prefix},{message})");
+            string[] s = message.Split(',');
+            if (s.Length == 3)
+            {
+                string name = s[0];
+                string sequence = s[1];
+                string value = s[2];
+                WriteVariable(prefix + "_name", name);
+                WriteVariable(prefix + "_sequence", sequence);
+                WriteVariable(prefix + "_value", value);
+            }
+            else
+                log.Error("{0} ERROR unexpected string received: {1}", prefix, message);
+        }
+
     }
 }
