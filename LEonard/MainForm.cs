@@ -33,6 +33,9 @@ using Microsoft.Scripting.Hosting;
 using System.ServiceModel.Channels;
 using Microsoft.Scripting.Runtime;
 using Leonard;
+using NLog.Fluent;
+using System.Drawing.Text;
+using System.ServiceModel.Configuration;
 //using static Community.CsharpSqlite.Sqlite3;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -216,6 +219,8 @@ namespace LEonard
 
             SetRecipeState(RecipeState.NEW);
             SetState(RunState.IDLE);
+            // TODO Is this OK... how do we get to READY!
+            SetState(RunState.READY);
 
             ResumeLayout();
 
@@ -901,6 +906,9 @@ namespace LEonard
                     fileManager?.AllClose();
                     break;
                 case RunState.RUNNING:
+                    log.Info($"Clearing callStack (had {callStack.Count} items");
+                    callStack.Clear();
+
                     RunStateLbl.Text = "RUNNING";
                     RunStateLbl.BackColor = Color.Green;
                     sleepTimer = null; // Cancels any pending sleep(...)
@@ -1661,15 +1669,14 @@ namespace LEonard
         {
             log.Info("DeviceConnectAllBtn_Click");
 
-            currentDeviceRowIndex = 0;
-            foreach (DataRow row in devices.Rows)
+            for (int i = 0; i < devices.Rows.Count; i++)
             {
+                DataRow row = devices.Rows[i];
                 if (!(bool)row["Connected"] && (bool)row["Enabled"])
                 {
-                    log.Info("AUX3 Connecting {0} {1}", currentDeviceRowIndex, row["Name"]);
-                    DeviceConnectBtn_Click(null, null);
+                    log.Info("AUX3 Connecting {0} {1}", i, row["Name"]);
+                    DeviceConnect(i);
                 }
-                currentDeviceRowIndex++;
             }
         }
 
@@ -1678,26 +1685,25 @@ namespace LEonard
             log.Info("DeviceDisconnectAllBtn_Click");
 
             if (devices == null) return;
-            currentDeviceRowIndex = 0;
-            foreach (DataRow row in devices.Rows)
+            for (int i = devices.Rows.Count - 1; i >= 0; i--)
             {
+                DataRow row = devices.Rows[i];
                 if ((bool)row["Connected"])
                 {
                     log.Info("Disconnecting {0} {1}", currentDeviceRowIndex, row["Name"]);
 
-                    DeviceDisconnectBtn_Click(null, null);
+                    DeviceDisconnect(i);
                 }
-                currentDeviceRowIndex++;
             }
         }
-        private void DeviceConnectBtn_Click(object sender, EventArgs e)
+        private void DeviceConnect(int n)
         {
-            if (currentDeviceRowIndex < 0)
+            if (n < 0)
             {
                 ErrorMessageBox("Please select a device in the device table.");
                 return;
             }
-            DataRow row = devices.Rows[currentDeviceRowIndex];
+            DataRow row = devices.Rows[n];
 
             bool enabled = (bool)row["Enabled"];
             string name = (string)row["Name"];
@@ -1725,20 +1731,20 @@ namespace LEonard
 
             // Make sure array is large enough
             // TODO: This doesn't work- array must already be large enough
-            while (currentDeviceRowIndex > interfaces.Length - 1)
+            while (n > interfaces.Length - 1)
             {
-                log.Debug("Appending {0} {1}", currentDeviceRowIndex, interfaces.Length);
+                log.Debug("Appending {0} {1}", n, interfaces.Length);
                 interfaces.Append(new LeTcpServer(this, messageTag));
             }
 
-            log.Info($"Connect {currentDeviceRowIndex}:{name} as {deviceType} at {address} with {messageTag}, {callBack}");
+            log.Info($"Connect {n}:{name} as {deviceType} at {address} with {messageTag}, {callBack}");
 
             // Instantiate device interface object
             switch (deviceType)
             {
                 case "TcpServer":
-                    interfaces[currentDeviceRowIndex] = new LeTcpServer(this, messageTag, onConnectSend);
-                    interfaces[currentDeviceRowIndex].Connect(address);
+                    interfaces[n] = new LeTcpServer(this, messageTag, onConnectSend);
+                    interfaces[n].Connect(address);
 
                     if ((bool)row["RuntimeAutostart"])
                     {
@@ -1747,25 +1753,25 @@ namespace LEonard
 
                     break;
                 case "TcpClient":
-                    interfaces[currentDeviceRowIndex] = new LeTcpClient(this, messageTag, onConnectSend);
+                    interfaces[n] = new LeTcpClient(this, messageTag, onConnectSend);
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
                     }
-                    interfaces[currentDeviceRowIndex].Connect(address);
+                    interfaces[n].Connect(address);
                     break;
                 case "TcpClientAsync":
-                    interfaces[currentDeviceRowIndex] = new LeTcpClientAsync(this, messageTag, onConnectSend);
+                    interfaces[n] = new LeTcpClientAsync(this, messageTag, onConnectSend);
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
                     }
-                    interfaces[currentDeviceRowIndex].Connect(address);
+                    interfaces[n].Connect(address);
                     break;
                 case "UrDashboard":
                     LeUrDashboard robot = new LeUrDashboard(this, messageTag, onConnectSend);
                     robot.UrProgramFilename = special;
-                    interfaces[currentDeviceRowIndex] = robot;
+                    interfaces[n] = robot;
                     if (focusLeUrDashboard == null)
                     {
                         log.Info($"Setting focusLeUrDashboard to {name} in row {currentDeviceRowIndex}");
@@ -1779,7 +1785,7 @@ namespace LEonard
                     break;
                 case "UrCommand":
                     LeUrCommand command = new LeUrCommand(this, messageTag, onConnectSend);
-                    interfaces[currentDeviceRowIndex] = command;
+                    interfaces[n] = command;
                     if (focusLeUrCommand == null)
                     {
                         log.Info($"Setting focusLeUrCommand to {name} in row {currentDeviceRowIndex}");
@@ -1793,7 +1799,7 @@ namespace LEonard
                     break;
                 case "Gocator":
                     LeGocator gocator = new LeGocator(this, messageTag, onConnectSend);
-                    interfaces[currentDeviceRowIndex] = gocator;
+                    interfaces[n] = gocator;
                     if (focusLeGocator == null)
                     {
                         log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
@@ -1810,16 +1816,16 @@ namespace LEonard
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
                     }
-                    interfaces[currentDeviceRowIndex] = new LeSerial(this, messageTag, onConnectSend);
-                    interfaces[currentDeviceRowIndex].Connect(address);
+                    interfaces[n] = new LeSerial(this, messageTag, onConnectSend);
+                    interfaces[n].Connect(address);
                     break;
                 case "Null":
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
                     }
-                    interfaces[currentDeviceRowIndex] = new LeDevNull(this, messageTag, onConnectSend);
-                    interfaces[currentDeviceRowIndex].Connect(address);
+                    interfaces[n] = new LeDevNull(this, messageTag, onConnectSend);
+                    interfaces[n].Connect(address);
                     break;
                 default:
                     ErrorMessageBox($"Device {deviceType} does not exist");
@@ -1832,19 +1838,19 @@ namespace LEonard
                 case "":
                     break;
                 case "command":
-                    interfaces[currentDeviceRowIndex].receiveCallback = CommandCallback;
+                    interfaces[n].receiveCallback = CommandCallback;
                     break;
                 case "general":
-                    interfaces[currentDeviceRowIndex].receiveCallback = GeneralCallback;
+                    interfaces[n].receiveCallback = GeneralCallback;
                     break;
                 case "gocator":
                     if (deviceType != "Gocator")
                         ErrorMessageBox($"Device {deviceType} can't use callback {callBack}");
                     else
-                        interfaces[currentDeviceRowIndex].receiveCallback = ((LeGocator)interfaces[currentDeviceRowIndex]).Callback;
+                        interfaces[n].receiveCallback = ((LeGocator)(interfaces[n])).Callback;
                     break;
                 case "alt1":
-                    interfaces[currentDeviceRowIndex].receiveCallback = AlternateCallback1;
+                    interfaces[n].receiveCallback = AlternateCallback1;
                     break;
                 default:
                     ErrorMessageBox($"Device {deviceType} callback {callBack} does not exist.");
@@ -1853,15 +1859,19 @@ namespace LEonard
 
             row["Connected"] = true;
         }
-
-        private void DeviceDisconnectBtn_Click(object sender, EventArgs e)
+        private void DeviceConnectBtn_Click(object sender, EventArgs e)
         {
-            if (currentDeviceRowIndex < 0)
+            DeviceConnect(currentDeviceRowIndex);
+        }
+
+        private void DeviceDisconnect(int n)
+        {
+            if (n < 0)
             {
                 ErrorMessageBox("Please select a device in the device table.");
                 return;
             }
-            DataRow row = devices.Rows[currentDeviceRowIndex];
+            DataRow row = devices.Rows[n];
 
             if (!(bool)row["Connected"])
             {
@@ -1871,23 +1881,27 @@ namespace LEonard
 
             log.Info("Disconnecting {0}", (string)row["Name"]); ;
             row["Connected"] = false;
-            if (interfaces[currentDeviceRowIndex] != null)
+            if (interfaces[n] != null)
             {
                 string onDisconnectSend = (string)row["OnDisconnectSend"];
                 if (onDisconnectSend.Length > 0)
                     try
                     {
-                        interfaces[currentDeviceRowIndex].Send(onDisconnectSend);
+                        interfaces[n].Send(onDisconnectSend);
                     }
                     catch
                     {
 
                     }
 
-                interfaces[currentDeviceRowIndex].Disconnect();
-                interfaces[currentDeviceRowIndex] = null;
+                interfaces[n].Disconnect();
+                interfaces[n] = null;
                 GC.Collect();
             }
+        }
+        private void DeviceDisconnectBtn_Click(object sender, EventArgs e)
+        {
+            DeviceDisconnect(currentDeviceRowIndex);
         }
 
         private void DeviceReconnectBtn_Click(object sender, EventArgs e)
@@ -2222,6 +2236,7 @@ namespace LEonard
             StepTimeEstimateLbl.Text = "";
 
             // This allows offline dry runs but makes sure you know!
+            /*
             if (!robotReady)
             {
                 if (AllowRunningOfflineChk.Checked)
@@ -2235,8 +2250,10 @@ namespace LEonard
                     return false;
                 }
             }
+            */
 
             // Gocator
+            // TODO this needs to be generalized
             focusLeGocator?.PrepareToRun();
 
             SetCurrentLine(0);
@@ -2980,6 +2997,22 @@ namespace LEonard
             return null;
         }
 
+        Stack<int> callStack = new Stack<int>();
+        // Call Stack!!
+        void PushCurrentLine()
+        {
+            log.Debug($"About to push {lineCurrentlyExecuting} onto callStack");
+            callStack.Push(lineCurrentlyExecuting);
+        }
+        void PopCurrentLine()
+        {
+            if (callStack.Count > 0)
+            {
+                log.Debug($"About to pop {callStack.Peek()} from callStack");
+                SetCurrentLine(callStack.Pop());
+            }
+        }
+
         /// <summary>
         /// Read file looking for lines of the form "name=value" and pass then to the variable write function
         /// </summary>
@@ -3525,6 +3558,82 @@ namespace LEonard
                 }
             }
 
+            // call
+            if (command.StartsWith("call("))
+            {
+                string labelName = ExtractParameters(command);
+
+                if (labels.TryGetValue(labelName, out int jumpLine))
+                {
+                    log.Info("EXEC {0:0000}: [CALL] {1} --> {2:0000}", lineNumber, origLine, jumpLine);
+                    PushCurrentLine();
+                    SetCurrentLine(jumpLine);
+                    return true;
+                }
+                else
+                {
+                    ExecError("Unknown label specified in call");
+                    return true;
+                }
+            }
+
+            // execjava
+            if (command.StartsWith("execjava("))
+            {
+                string filename = ExtractParameters(command);
+
+                void exec(string f)
+                {
+                    log.Info("EXEC {0:0000}: [EXECJAVA] {1}", lineNumber, origLine);
+                    string contents = File.ReadAllText(f);
+                    javaEngine.Execute(contents);
+                }
+
+                if (File.Exists(filename))
+                    exec(filename);
+                else
+                {
+                    filename = Path.Combine(LEonardRoot, filename);
+                    if (File.Exists(filename))
+                        exec(filename);
+                    else
+                        ExecError($"File {filename} does not exist");
+                }
+                return true;
+            }
+
+            // execpython
+            if (command.StartsWith("execpython("))
+            {
+                string filename = ExtractParameters(command);
+
+                void exec(string f)
+                {
+                    log.Info("EXEC {0:0000}: [EXECPYTHON] {1}", lineNumber, origLine);
+                    string contents = File.ReadAllText(f);
+                    Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(contents);
+                    pythonScript.Execute(pythonScope);
+                }
+
+                if (File.Exists(filename))
+                    exec(filename);
+                else
+                {
+                    filename = Path.Combine(LEonardRoot, filename);
+                    if (File.Exists(filename))
+                        exec(filename);
+                    else ExecError($"File {filename} does not exist");
+                }
+                return true;
+            }
+
+            // return
+            if (command == "return")
+            {
+                PopCurrentLine();
+                return true;
+            }
+
             // jump_gt_zero
             if (command.StartsWith("jump_gt_zero("))
             {
@@ -3639,8 +3748,8 @@ namespace LEonard
                     ExecError("No message specified");
                     return true;
                 }
-                string response = focusLeUrDashboard?.InquiryResponse(message,200);
-                WriteVariable("lastUrDashboardResponse",response); ;
+                string response = focusLeUrDashboard?.InquiryResponse(message, 200);
+                WriteVariable("lastUrDashboardResponse", response); ;
                 return true;
             }
 
@@ -4250,61 +4359,33 @@ namespace LEonard
                     return;
             }
 
-            // Gocator wait
-            if (ReadVariable("gocator_ready", "True") != "True")
-                return;
-
-            // Waiting on robotReady or will cook along if AllowRunningOffline
-            if (!(robotReady || AllowRunningOfflineChk.Checked))
+            // Resets such that the above log messages will happen
+            logFilter = 3;
+            if (lineCurrentlyExecuting >= RecipeRTB.Lines.Count())
             {
-                // Only log this one time!
-                if (logFilter != 1)
-                    log.Info("EXEC Waiting for robotReady");
-                logFilter = 1;
+                log.Info("EXEC Reached end of file");
+                ReportStepTimeStats();
+
+                UnboldRecipe();
+                SetRecipeState(recipeStateAtRun);
+                SetState(RunState.READY);
             }
             else
             {
-                if (!RobotCompletedCaughtUp())
+                ReportStepTimeStats();
+                string line = SetCurrentLine(lineCurrentlyExecuting + 1);
+                bool fContinue = ExecuteLine(lineCurrentlyExecuting, line);
+                if (isSingleStep)
                 {
-                    // Only log this one time!
-                    if (logFilter != 2)
-                        log.Info("Waiting for robot operation complete");
-                    logFilter = 2;
+                    isSingleStep = false;
+                    SetState(RunState.PAUSED);
                 }
-                else
+                if (!fContinue)
                 {
-                    // Resets such that the above log messages will happen
-                    logFilter = 3;
-                    if (lineCurrentlyExecuting >= RecipeRTB.Lines.Count())
-                    {
-                        log.Info("EXEC Reached end of file");
-                        ReportStepTimeStats();
-
-                        // Make sure we're retracted
-                        ExecuteLine(-1, "grind_retract()");
-
-                        UnboldRecipe();
-                        SetRecipeState(recipeStateAtRun);
-                        SetState(RunState.READY);
-                    }
-                    else
-                    {
-                        ReportStepTimeStats();
-                        string line = SetCurrentLine(lineCurrentlyExecuting + 1);
-                        bool fContinue = ExecuteLine(lineCurrentlyExecuting, line);
-                        if (isSingleStep)
-                        {
-                            isSingleStep = false;
-                            SetState(RunState.PAUSED);
-                        }
-                        if (!fContinue)
-                        {
-                            log.Info("EXEC Execution ending");
-                            UnboldRecipe();
-                            SetRecipeState(recipeStateAtRun);
-                            SetState(RunState.READY);
-                        }
-                    }
+                    log.Info("EXEC Execution ending");
+                    UnboldRecipe();
+                    SetRecipeState(recipeStateAtRun);
+                    SetState(RunState.READY);
                 }
             }
         }

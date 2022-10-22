@@ -61,8 +61,8 @@
   <Devices>
     <ID>1</ID>
     <Name>UR-5e Dash</Name>
-    <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Enabled>false</Enabled>
+    <Connected>false</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
     <MessageTag>UR</MessageTag>
@@ -82,7 +82,7 @@
   <Devices>
     <ID>2</ID>
     <Name>UR-5e Command</Name>
-    <Enabled>true</Enabled>
+    <Enabled>false</Enabled>
     <Connected>false</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>
@@ -103,8 +103,8 @@
   <Devices>
     <ID>3</ID>
     <Name>Gocator</Name>
-    <Enabled>false</Enabled>
-    <Connected>false</Connected>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
     <MessageTag>GO</MessageTag>
@@ -208,8 +208,8 @@
   <Devices>
     <ID>8</ID>
     <Name>Dataman 1</Name>
-    <Enabled>false</Enabled>
-    <Connected>false</Connected>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
     <MessageTag>AUX31</MessageTag>
@@ -229,8 +229,8 @@
   <Devices>
     <ID>9</ID>
     <Name>Dataman 2</Name>
-    <Enabled>false</Enabled>
-    <Connected>false</Connected>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM4</Address>
     <MessageTag>AUX32</MessageTag>

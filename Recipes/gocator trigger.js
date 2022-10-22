@@ -1,11 +1,11 @@
-if(typeof nGocatotTriggers== 'undefined')
-  nGocatotTriggers= 1;
+if(typeof nGocatorTriggers== 'undefined')
+  nGocatorTriggers= 1;
 else
-  nGocatotTriggers= nGocatotTriggers+ 1;
+  nGocatorTriggers= nGocatorTriggers+ 1;
 
-lePrint('nGocatotTriggers = ' + nGocatorTriggers);
+lePrint('nGocatorTriggers = ' + nGocatorTriggers);
 
-leWriteVariable('nGocatotTriggers',nGocatotTriggers)
+leWriteVariable('nGocatorTriggers',nGocatorTriggers)
 
 leExec('gocator_trigger(1000)')
 
