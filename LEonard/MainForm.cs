@@ -1401,7 +1401,7 @@ namespace LEonard
                 ""
             });
             devices.Rows.Add(new object[] {
-                1, "UR-5e Dash", true, false, "UrDashboard", "192.168.0.2:29999",
+                1, "UR-5eDash", true, false, "UrDashboard", "192.168.0.2:29999",
                 "UR", "", "", "",
                 false,
                 "",
@@ -1414,7 +1414,7 @@ namespace LEonard
                 "LEonard/LEonard01.urp"
             });
             devices.Rows.Add(new object[] {
-                2, "UR-5e Command", true, false, "UrCommand", "192.168.0.252:30000",
+                2, "UR-5eCommand", true, false, "UrCommand", "192.168.0.252:30000",
                 "UR", "general", "", "WHAT IS THIS (98,0,0,0,0)",
                 false,
                 "",
@@ -1492,7 +1492,7 @@ namespace LEonard
                 ""
             });
             devices.Rows.Add(new object[] {
-                8, "Dataman 1", true, false, "Serial", "COM3",
+                8, "Dataman1", true, false, "Serial", "COM3",
                 "AUX31", "general", "+", "",
                 false,
                 "",
@@ -1505,7 +1505,7 @@ namespace LEonard
                 ""
             });
             devices.Rows.Add(new object[] {
-                9, "Dataman 2", true, false, "Serial", "COM4",
+                9, "Dataman2", true, false, "Serial", "COM4",
                 "AUX32", "general", "+", "",
                 false,
                 "",
@@ -1675,7 +1675,7 @@ namespace LEonard
                 if (!(bool)row["Connected"] && (bool)row["Enabled"])
                 {
                     log.Info("AUX3 Connecting {0} {1}", i, row["Name"]);
-                    DeviceConnect(i);
+                    DeviceConnect(row);
                 }
             }
         }
@@ -1692,19 +1692,13 @@ namespace LEonard
                 {
                     log.Info("Disconnecting {0} {1}", currentDeviceRowIndex, row["Name"]);
 
-                    DeviceDisconnect(i);
+                    DeviceDisconnect(row);
                 }
             }
         }
-        private void DeviceConnect(int n)
+        private void DeviceConnect(DataRow row)
         {
-            if (n < 0)
-            {
-                ErrorMessageBox("Please select a device in the device table.");
-                return;
-            }
-            DataRow row = devices.Rows[n];
-
+            int ID = (int)row["ID"];
             bool enabled = (bool)row["Enabled"];
             string name = (string)row["Name"];
             string deviceType = (string)row["DeviceType"];
@@ -1729,22 +1723,14 @@ namespace LEonard
                 row["Enabled"] = true;
             }
 
-            // Make sure array is large enough
-            // TODO: This doesn't work- array must already be large enough
-            while (n > interfaces.Length - 1)
-            {
-                log.Debug("Appending {0} {1}", n, interfaces.Length);
-                interfaces.Append(new LeTcpServer(this, messageTag));
-            }
-
-            log.Info($"Connect {n}:{name} as {deviceType} at {address} with {messageTag}, {callBack}");
+            log.Info($"Connect {ID}:{name} as {deviceType} at {address} with {messageTag}, {callBack}");
 
             // Instantiate device interface object
             switch (deviceType)
             {
                 case "TcpServer":
-                    interfaces[n] = new LeTcpServer(this, messageTag, onConnectSend);
-                    interfaces[n].Connect(address);
+                    interfaces[ID] = new LeTcpServer(this, messageTag, onConnectSend);
+                    interfaces[ID].Connect(address);
 
                     if ((bool)row["RuntimeAutostart"])
                     {
@@ -1753,25 +1739,25 @@ namespace LEonard
 
                     break;
                 case "TcpClient":
-                    interfaces[n] = new LeTcpClient(this, messageTag, onConnectSend);
+                    interfaces[ID] = new LeTcpClient(this, messageTag, onConnectSend);
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
                     }
-                    interfaces[n].Connect(address);
+                    interfaces[ID].Connect(address);
                     break;
                 case "TcpClientAsync":
-                    interfaces[n] = new LeTcpClientAsync(this, messageTag, onConnectSend);
+                    interfaces[ID] = new LeTcpClientAsync(this, messageTag, onConnectSend);
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
                     }
-                    interfaces[n].Connect(address);
+                    interfaces[ID].Connect(address);
                     break;
                 case "UrDashboard":
                     LeUrDashboard robot = new LeUrDashboard(this, messageTag, onConnectSend);
                     robot.UrProgramFilename = special;
-                    interfaces[n] = robot;
+                    interfaces[ID] = robot;
                     if (focusLeUrDashboard == null)
                     {
                         log.Info($"Setting focusLeUrDashboard to {name} in row {currentDeviceRowIndex}");
@@ -1785,7 +1771,7 @@ namespace LEonard
                     break;
                 case "UrCommand":
                     LeUrCommand command = new LeUrCommand(this, messageTag, onConnectSend);
-                    interfaces[n] = command;
+                    interfaces[ID] = command;
                     if (focusLeUrCommand == null)
                     {
                         log.Info($"Setting focusLeUrCommand to {name} in row {currentDeviceRowIndex}");
@@ -1799,7 +1785,7 @@ namespace LEonard
                     break;
                 case "Gocator":
                     LeGocator gocator = new LeGocator(this, messageTag, onConnectSend);
-                    interfaces[n] = gocator;
+                    interfaces[ID] = gocator;
                     if (focusLeGocator == null)
                     {
                         log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
@@ -1816,16 +1802,16 @@ namespace LEonard
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
                     }
-                    interfaces[n] = new LeSerial(this, messageTag, onConnectSend);
-                    interfaces[n].Connect(address);
+                    interfaces[ID] = new LeSerial(this, messageTag, onConnectSend);
+                    interfaces[ID].Connect(address);
                     break;
                 case "Null":
                     if ((bool)row["RuntimeAutostart"])
                     {
                         DeviceRuntimeStartBtn_Click(null, null);
                     }
-                    interfaces[n] = new LeDevNull(this, messageTag, onConnectSend);
-                    interfaces[n].Connect(address);
+                    interfaces[ID] = new LeDevNull(this, messageTag, onConnectSend);
+                    interfaces[ID].Connect(address);
                     break;
                 default:
                     ErrorMessageBox($"Device {deviceType} does not exist");
@@ -1838,19 +1824,19 @@ namespace LEonard
                 case "":
                     break;
                 case "command":
-                    interfaces[n].receiveCallback = CommandCallback;
+                    interfaces[ID].receiveCallback = CommandCallback;
                     break;
                 case "general":
-                    interfaces[n].receiveCallback = GeneralCallback;
+                    interfaces[ID].receiveCallback = GeneralCallback;
                     break;
                 case "gocator":
                     if (deviceType != "Gocator")
                         ErrorMessageBox($"Device {deviceType} can't use callback {callBack}");
                     else
-                        interfaces[n].receiveCallback = ((LeGocator)(interfaces[n])).Callback;
+                        interfaces[ID].receiveCallback = ((LeGocator)(interfaces[ID])).Callback;
                     break;
                 case "alt1":
-                    interfaces[n].receiveCallback = AlternateCallback1;
+                    interfaces[ID].receiveCallback = AlternateCallback1;
                     break;
                 default:
                     ErrorMessageBox($"Device {deviceType} callback {callBack} does not exist.");
@@ -1861,47 +1847,56 @@ namespace LEonard
         }
         private void DeviceConnectBtn_Click(object sender, EventArgs e)
         {
-            DeviceConnect(currentDeviceRowIndex);
-        }
-
-        private void DeviceDisconnect(int n)
-        {
-            if (n < 0)
+            if (currentDeviceRowIndex < 0)
             {
                 ErrorMessageBox("Please select a device in the device table.");
                 return;
             }
-            DataRow row = devices.Rows[n];
+            DataRow row = devices.Rows[currentDeviceRowIndex];
 
+            DeviceConnect(row);
+        }
+
+        private void DeviceDisconnect(DataRow row)
+        {
             if (!(bool)row["Connected"])
             {
                 ErrorMessageBox($"Device {row["Name"]} already disconnected.");
                 return;
             }
 
+            int ID = (int)row["ID"];
+
             log.Info("Disconnecting {0}", (string)row["Name"]); ;
             row["Connected"] = false;
-            if (interfaces[n] != null)
+            if (interfaces[ID] != null)
             {
                 string onDisconnectSend = (string)row["OnDisconnectSend"];
                 if (onDisconnectSend.Length > 0)
                     try
                     {
-                        interfaces[n].Send(onDisconnectSend);
+                        interfaces[ID].Send(onDisconnectSend);
                     }
                     catch
                     {
 
                     }
 
-                interfaces[n].Disconnect();
-                interfaces[n] = null;
+                interfaces[ID].Disconnect();
+                interfaces[ID] = null;
                 GC.Collect();
             }
         }
         private void DeviceDisconnectBtn_Click(object sender, EventArgs e)
         {
-            DeviceDisconnect(currentDeviceRowIndex);
+            if (currentDeviceRowIndex < 0)
+            {
+                ErrorMessageBox("Please select a device in the device table.");
+                return;
+            }
+            DataRow row = devices.Rows[currentDeviceRowIndex];
+
+            DeviceDisconnect(row);
         }
 
         private void DeviceReconnectBtn_Click(object sender, EventArgs e)
@@ -4254,6 +4249,67 @@ namespace LEonard
 
                 return true;
             }
+
+            if (command.StartsWith("device_connect("))
+            {
+                LogInterpret("device_connect", lineNumber, origLine);
+
+                string deviceName = ExtractParameters(command);
+                if (deviceName.Length < 1)
+                {
+                    ExecError("No device name specified");
+                    return true;
+                }
+
+                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
+                if(row==null)
+                {
+                    ExecError($"No device named {deviceName} was found.");
+                    return true;
+                }
+
+                DeviceConnect(row);
+                return true;
+            }
+
+            if (command.StartsWith("device_disconnect("))
+            {
+                LogInterpret("device_disconnect", lineNumber, origLine);
+
+                string deviceName = ExtractParameters(command);
+                if (deviceName.Length < 1)
+                {
+                    ExecError("No device name specified");
+                    return true;
+                }
+
+                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
+                if (row == null)
+                {
+                    ExecError($"No device named {deviceName} was found.");
+                    return true;
+                }
+
+                DeviceDisconnect(row);
+                return true;
+            }
+
+            if (command == "device_connect_all()")
+            {
+                LogInterpret("device_connect_all", lineNumber, origLine);
+
+                DeviceConnectAllBtn_Click(null, null);
+                return true;
+            }
+
+            if (command == "device_disconnect_all()")
+            {
+                LogInterpret("device_disconnect_all", lineNumber, origLine);
+
+                DeviceDisconnectAllBtn_Click(null, null);
+                return true;
+            }
+
 
             // Handle all of the other robot commands (which just use send_robot, some prefix params, and any other specified params)
             // Example:

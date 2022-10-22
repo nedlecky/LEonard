@@ -60,7 +60,7 @@
   </Devices>
   <Devices>
     <ID>1</ID>
-    <Name>UR-5e Dash</Name>
+    <Name>UR-5eDash</Name>
     <Enabled>false</Enabled>
     <Connected>false</Connected>
     <DeviceType>UrDashboard</DeviceType>
@@ -81,7 +81,7 @@
   </Devices>
   <Devices>
     <ID>2</ID>
-    <Name>UR-5e Command</Name>
+    <Name>UR-5eCommand</Name>
     <Enabled>false</Enabled>
     <Connected>false</Connected>
     <DeviceType>UrCommand</DeviceType>
@@ -207,7 +207,7 @@
   </Devices>
   <Devices>
     <ID>8</ID>
-    <Name>Dataman 1</Name>
+    <Name>Dataman1</Name>
     <Enabled>true</Enabled>
     <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
@@ -228,7 +228,7 @@
   </Devices>
   <Devices>
     <ID>9</ID>
-    <Name>Dataman 2</Name>
+    <Name>Dataman2</Name>
     <Enabled>true</Enabled>
     <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>

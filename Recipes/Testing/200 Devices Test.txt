@@ -1,0 +1,8 @@
+#200 Devices
+
+device_disconnect_all()
+
+device_connect(Dataman1)
+device_connect(Gocator)
+
+device_connect(UR-5eDash)
