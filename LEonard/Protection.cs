@@ -20,9 +20,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static LEonard.MainForm;
 
-namespace Leonard
+namespace LEonard
 {
     [Serializable()]
     public class License : ISerializable
@@ -236,9 +235,7 @@ namespace Leonard
         }
         private bool HasGoodVersion()
         {
-
             return true;
-
         }
 
         private string BoolOkFail(bool b)

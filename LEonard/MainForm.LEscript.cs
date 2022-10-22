@@ -1,4 +1,9 @@
-﻿using System;
+﻿// File: MainForm.LEscript.cs
+// Project: LEonard
+// Author: Ned Lecky, Lecky Engineering LLC
+// Purpose: MainForm functions supporting execution of LEscript
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -12,7 +17,7 @@ using System.Windows.Forms;
 
 namespace LEonard
 {
-	public partial class MainForm : Form
+	public partial class MainForm: Form
 	{
 		/// <summary>
 		/// Return the characters enclosed in the first set of matching ( ) in a string

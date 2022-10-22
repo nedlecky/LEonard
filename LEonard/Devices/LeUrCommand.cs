@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using LEonard;
 using NLog.Fluent;
 
-namespace Leonard
+namespace LEonard
 {
     public class LeUrCommand : LeTcpServer
     {
