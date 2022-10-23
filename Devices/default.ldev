@@ -61,7 +61,7 @@
   <Devices>
     <ID>1</ID>
     <Name>UR-5eDash</Name>
-    <Enabled>false</Enabled>
+    <Enabled>true</Enabled>
     <Connected>false</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
@@ -82,7 +82,7 @@
   <Devices>
     <ID>2</ID>
     <Name>UR-5eCommand</Name>
-    <Enabled>false</Enabled>
+    <Enabled>true</Enabled>
     <Connected>false</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>

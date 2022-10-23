@@ -1,0 +1,8 @@
+# 300 UR Dashboard Test
+
+ur_dashboard(robotmode)
+ur_dashboard(safetystatus)
+
+ur_dashboard(get robot model)
+ur_dashboard(get serial number)
+ur_dashboard(PolyscopeVersion)

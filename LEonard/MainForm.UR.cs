@@ -23,10 +23,10 @@ namespace LEonard
                     RobotConnectBtn.BackColor = Color.Green;
                     RobotConnectBtn.Text = "Dashboard OK";
 
-                    RobotModelLbl.Text = focusLeUrDashboard.InquiryResponse("get robot model", 200);
-                    RobotSerialNumberLbl.Text = focusLeUrDashboard.InquiryResponse("get serial number", 200);
-                    RobotPolyscopeVersionLbl.Text = focusLeUrDashboard.InquiryResponse("PolyscopeVersion", 200);
-                    focusLeUrDashboard.InquiryResponse("stop", 200);
+                    RobotModelLbl.Text = UrDashboardInquiryResponse("get robot model", 200);
+                    RobotSerialNumberLbl.Text = UrDashboardInquiryResponse("get serial number", 200);
+                    RobotPolyscopeVersionLbl.Text = UrDashboardInquiryResponse("PolyscopeVersion", 200);
+                    //focusLeUrDashboard.InquiryResponse("stop", 200);
                     CloseSafetyPopup();
 
                     break;
@@ -84,10 +84,16 @@ namespace LEonard
             }
         }
 
+        private string UrDashboardInquiryResponse(string inquiry, int timeoutMs = 200)
+        {
+            string response=focusLeUrDashboard?.InquiryResponse(inquiry, timeoutMs);
+            log.Info($"UrDashboardInquiryResponse({inquiry}) = {response}");
+            return response;
+        }
         private void CloseSafetyPopup()
         {
-            log.Info("close popup = {0}", focusLeUrDashboard?.InquiryResponse("close popup"), 200);
-            log.Info("close safety popup = {0}", focusLeUrDashboard?.InquiryResponse("close safety popup"), 200);
+            UrDashboardInquiryResponse("close popup", 200);
+            UrDashboardInquiryResponse("close safety popup", 200);
         }
 
         public void RobotSendHalt()

@@ -300,15 +300,5 @@ namespace LEonard
                 PromptOperator(String.Format("Wait for robot joint move to {0} complete", name), true, true);
             }
         }
-
-        private void AskSafetyStatusBtn_Click(object sender, EventArgs e)
-        {
-            focusLeUrDashboard?.InquiryResponse("safetystatus");
-        }
-
-        private void UnlockProtectiveStopBtn_Click(object sender, EventArgs e)
-        {
-            focusLeUrDashboard?.InquiryResponse("unlock protective stop");
-        }
     }
 }

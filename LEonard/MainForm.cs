@@ -5,35 +5,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using NLog;
-using LEonard;
-using Jint;
-using System.Net.NetworkInformation;
-using static IronPython.Modules._ast;
-using static IronPython.Modules.PythonIterTools;
-using System.Configuration;
-using System.Net.Http.Headers;
-using Microsoft.Scripting.Hosting;
-using System.ServiceModel.Channels;
-using Microsoft.Scripting.Runtime;
-using NLog.Fluent;
-using System.Drawing.Text;
-using System.ServiceModel.Configuration;
 
 namespace LEonard
 {
@@ -1251,13 +1234,13 @@ namespace LEonard
                     focusLeUrDashboard?.Send("power off");
                     break;
                 case "Safetystatus: PROTECTIVE STOP":
-                    focusLeUrDashboard?.InquiryResponse("unlock protective stop", 200);
-                    focusLeUrDashboard?.InquiryResponse("close safety popup", 200);
+                    UrDashboardInquiryResponse("unlock protective stop", 200);
+                    UrDashboardInquiryResponse("close safety popup", 200);
 
                     break;
                 case "Safetystatus: ROBOT EMERGENCY STOP":
                     ErrorMessageBox("Release Robot E-Stop");
-                    focusLeUrDashboard?.InquiryResponse("close safety popup", 200);
+                    UrDashboardInquiryResponse("close safety popup", 200);
                     break;
                 default:
                     log.Error("Unknown safety status button state! {0}", SafetyStatusBtn.Text);
