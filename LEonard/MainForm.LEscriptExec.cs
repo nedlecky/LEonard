@@ -1,4 +1,4 @@
-﻿// File: MainForm.LEscript.cs
+﻿// File: MainForm.LEscriptExec.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Purpose: MainForm functions supporting execution of LEscript
