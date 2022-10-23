@@ -259,7 +259,7 @@ namespace LEonard
             string ret = "LEonard License File\nLecky Engineering LLC c. 2021-2023\n";
             ret += $"Created: {license.createdDateTime}\n\n";
 
-            ret += $"VERSION {BoolOkFail(goodVersion)}\n  EXPECTED: {license.version}\n  USING: {version}\n\n";
+            ret += $"LEONARD VERSION {BoolOkFail(goodVersion)}\n  LICENSED: {license.version}\n  CURRENT: {version}\n\n";
 
             ret += $"CPU SERIAL NUMBER {BoolOkFail(goodCpuInfo)}\n  {license.cpuInfo}\n\n";
 
