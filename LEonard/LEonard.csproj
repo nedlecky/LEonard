@@ -272,7 +272,7 @@
       <SubType>Form</SubType>
     </Compile>
     <None Include="Properties\app.manifest" />
-    <None Include="RecipeCommands.rtf">
+    <None Include="ProgramStatements.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

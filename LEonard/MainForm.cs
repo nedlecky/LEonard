@@ -352,14 +352,14 @@ namespace LEonard
                         SaveRecipeBtn_Click(null, null);
                 }
 
-                if (javaCopy != JavaCodeRTB.Text) //JavaCodeRTB.Modified)
+                if (JavaCodeRTB.Modified)
                 {
                     var result = ConfirmMessageBox($"Closing Application!\nJava code [{JavaFilenameLbl.Text}] has changed.\nSave changes before exit?");
                     if (result == DialogResult.OK)
                         JavaSaveBtn_Click(null, null);
                 }
 
-                if (pythonCopy != PythonCodeRTB.Text) //PythonCodeRTB.Modified)
+                if (PythonCodeRTB.Modified)
                 {
                     var result = ConfirmMessageBox($"Closing Application!\nPython code [{PythonFilenameLbl.Text}] has changed.\nSave changes before exit?");
                     if (result == DialogResult.OK)
@@ -1619,14 +1619,14 @@ namespace LEonard
             // Load the Recipe Commands for User Inspection
             try
             {
-                RecipeCommandsRTB.LoadFile("RecipeCommands.rtf");
+                RecipeCommandsRTB.LoadFile("ProgramStatements.rtf");
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Could not load RecipeCommands.rtf!");
+                log.Error(ex, "Could not load ProgramStatements.rtf!");
             }
 
-            // Load Revision Hstory for User Inspection
+            // Load Revision History for User Inspection
             try
             {
                 RevHistRTB.LoadFile("RevisionHistory.rtf");

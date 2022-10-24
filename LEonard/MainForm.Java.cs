@@ -242,6 +242,7 @@ namespace LEonard
                 JavaSaveAsBtn.Enabled = true;
                 JavaRunBtn.Enabled = true;
                 javaCopy = JavaCodeRTB.Text;
+                JavaCodeRTB.Modified = true;
             }
         }
         void ExecuteJavaScript(string code)

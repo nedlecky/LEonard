@@ -196,6 +196,7 @@ namespace LEonard
                 PythonSaveAsBtn.Enabled = true;
                 PythonRunBtn.Enabled = true;
                 pythonCopy = PythonCodeRTB.Text;
+                PythonCodeRTB.Modified = true;
             }
         }
 
