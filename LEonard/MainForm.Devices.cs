@@ -88,7 +88,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 2, "UR-5eCommand", true, false, "UrCommand", "192.168.0.252:30000",
-                "UR", "general", "", "WHAT IS THIS (98,0,0,0,0)",
+                "UR", "general", "", "(999)",
                 false,
                 "",
                 "",
@@ -393,7 +393,7 @@ namespace LEonard
 
             if (connected)
             {
-                ErrorMessageBox($"Device {name} already connected");
+                //ErrorMessageBox($"Device {name} already connected");
                 return 1;
             }
 
@@ -535,7 +535,7 @@ namespace LEonard
         {
             if (!(bool)row["Connected"])
             {
-                ErrorMessageBox($"Device {row["Name"]} already disconnected.");
+                //ErrorMessageBox($"Device {row["Name"]} already disconnected.");
                 return;
             }
 

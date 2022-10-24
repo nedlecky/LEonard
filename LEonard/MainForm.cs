@@ -690,7 +690,7 @@ namespace LEonard
             switch (programState)
             {
                 case ProgramState.STOPPED:
-                    EnsureStopped();
+                    //EnsureStopped();
                     break;
                 case ProgramState.PAUSED:
                     EnsureNotRunning();

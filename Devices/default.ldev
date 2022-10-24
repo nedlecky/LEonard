@@ -49,7 +49,7 @@
     <Address>127.0.0.1:1000</Address>
     <MessageTag>CTL</MessageTag>
     <CallBack>command</CallBack>
-    <OnConnectSend>Recipes/CommandInit.js</OnConnectSend>
+    <OnConnectSend>Hello!</OnConnectSend>
     <OnDisconnectSend>exit()</OnDisconnectSend>
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory>C:\Users\nedlecky\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
@@ -98,7 +98,7 @@
     <MessageTag>UR</MessageTag>
     <CallBack>general</CallBack>
     <OnConnectSend />
-    <OnDisconnectSend>WHAT IS THIS (98,0,0,0,0)</OnDisconnectSend>
+    <OnDisconnectSend>(999)</OnDisconnectSend>
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
