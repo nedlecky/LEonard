@@ -1,0 +1,16 @@
+# TQ sequence
+
+ur_dashboard(stop)
+device_disconnect(UR-5eCommand)
+
+ur_dashboard(load tqdemo1.urp)
+ur_dashboard(play)
+
+# Wait program complete in progress
+# ur_wait_program_complete()
+sleep(5)
+
+ur_dashboard(load tqdemo2.urp)
+ur_dashboard(play)
+
+

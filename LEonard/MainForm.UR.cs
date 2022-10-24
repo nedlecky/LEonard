@@ -52,31 +52,32 @@ namespace LEonard
             switch (status)
             {
                 case LeUrCommand.CommandStatus.OK:
-                    GocatorConnectedLbl.Text = "Gocator OK";
-                    GocatorConnectedLbl.BackColor = Color.Green;
-                    GocatorReadyLbl.BackColor = Color.Green;
-                    log.Info("Gocator connection READY");
+                    RobotCommandStatusLbl.Text = "READY";
+                    RobotCommandStatusLbl.BackColor = Color.Green;
+                    RobotReadyLbl.BackColor = Color.Green;
+                    GrindReadyLbl.BackColor = Color.Green;
+                    GrindProcessStateLbl.BackColor = Color.Green;
                     break;
                 case LeUrCommand.CommandStatus.ERROR:
-                    log.Error("Gocator client initialization failure");
-                    GocatorConnectedLbl.Text = "Gocator ERROR";
-                    GocatorConnectedLbl.BackColor = Color.Red;
-                    GocatorReadyLbl.BackColor = Color.Red;
+                    RobotCommandStatusLbl.Text = "ERROR";
+                    RobotCommandStatusLbl.BackColor = Color.Red;
+                    RobotReadyLbl.BackColor = Color.Red;
+                    GrindReadyLbl.BackColor = Color.Red;
+                    GrindProcessStateLbl.BackColor = Color.Red;
                     break;
                 case LeUrCommand.CommandStatus.OFF:
-                    RobotConnectBtn.BackColor = Color.Red;
-                    RobotConnectBtn.Text = "OFF";
-                    RobotModeBtn.BackColor = Color.Red;
-                    SafetyStatusBtn.BackColor = Color.Red;
-                    ProgramStateBtn.BackColor = Color.Red;
-                    RobotModeBtn.Text = "";
-                    SafetyStatusBtn.Text = "";
-                    ProgramStateBtn.Text = "";
+                    RobotCommandStatusLbl.Text = "OFF";
+                    RobotCommandStatusLbl.BackColor = Color.Red;
+                    RobotReadyLbl.BackColor = Color.Red;
+                    GrindReadyLbl.BackColor = Color.Red;
+                    GrindProcessStateLbl.BackColor = Color.Red;
                     break;
                 default:
-                    GocatorConnectedLbl.Text = "Gocator ???";
-                    GocatorConnectedLbl.BackColor = Color.Yellow;
-                    GocatorReadyLbl.BackColor = Color.Yellow;
+                    RobotCommandStatusLbl.Text = "???";
+                    RobotCommandStatusLbl.BackColor = Color.Yellow;
+                    RobotReadyLbl.BackColor = Color.Yellow;
+                    GrindReadyLbl.BackColor = Color.Yellow;
+                    GrindProcessStateLbl.BackColor = Color.Yellow;
                     break;
             }
         }
