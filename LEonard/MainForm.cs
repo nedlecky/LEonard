@@ -1951,7 +1951,6 @@ namespace LEonard
         }
 
         bool isSingleStep = false;
-        int logFilter = 0;
         Stopwatch sleepTimer = null;
         double sleepMs = 0;
         private void ReportStepTimeStats()
@@ -1997,8 +1996,6 @@ namespace LEonard
                     return;
             }
 
-            // Resets such that the above log messages will happen
-            logFilter = 3;
             if (lineCurrentlyExecuting >= RecipeRTB.Lines.Count())
             {
                 log.Info("EXEC Reached end of file");

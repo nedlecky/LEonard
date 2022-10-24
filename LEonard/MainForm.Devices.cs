@@ -45,7 +45,10 @@ namespace LEonard
             devices.Columns.Add("SetupFileName", typeof(System.String));
             devices.Columns.Add("SetupArguments", typeof(System.String));
             devices.Columns.Add("SpeedSendButtons", typeof(System.String));
-            devices.Columns.Add("Special", typeof(System.String));
+            devices.Columns.Add("Jobfile", typeof(System.String));
+            devices.Columns.Add("Model", typeof(System.String));
+            devices.Columns.Add("Serial", typeof(System.String));
+            devices.Columns.Add("Version", typeof(System.String));
 
             //devices.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //devices.Columns[0].
@@ -55,40 +58,6 @@ namespace LEonard
         }
         private void CreateDefaultDevices()
         {
-            // HALCON Direct WORKS
-            // start.FileName = "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64\\hdevelop.exe";
-            // start.Arguments = "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run";
-
-            // DATAMAN Direct WORKS
-            //start.WorkingDirectory = "C:\\Program Files (x86)\\Cognex\\DataMan\\DataMan Software v6.1.10_SR3";
-            //start.FileName = "SetupTool.exe";
-            //start.Arguments = "";
-
-            // HALCON Through Link WORKS
-            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "MVTec HDevelop XL 21.11 Progress (user).lnk");
-
-            // DATAMAN Through Link WORKS
-            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "v6.1.10_SR3 Setup Tool.lnk");
-
-            // Sherlock Through Link MIN/REST/Exit don't work
-            //start.FileName = Path.Combine(LEonardRoot, "Shortcuts", "Sherlockx64.lnk");
-
-            // Sherlock Direct MIN/REST/Exit don't work
-            //start.WorkingDirectory = "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin";
-            //start.FileName = "IpeStudio.exe";
-
-            // KEYENCE Simulator Direct WORKS
-            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Simulation-Software\\bin_X400";
-            //start.FileName = "CV-X Series Workspace-Software.exe";
-
-            // KEYENCE Terminal Direct WORKS
-            //start.WorkingDirectory = "C:\\Program Files (x86)\\KEYENCE\\CV-X Series Terminal-Software\\bin";
-            //start.FileName = "CV-X Series Terminal-Software.exe";
-            //start.Arguments = "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn";
-
-
-
-
             devices.Rows.Add(new object[] {
                 0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
                 "CTL", "command", "Hello!", "exit()",
@@ -100,7 +69,8 @@ namespace LEonard
                 "",
                 "",
                 "test()|exit()",
-                ""
+                "",
+                "","","",
             });
             devices.Rows.Add(new object[] {
                 1, "UR-5eDash", true, false, "UrDashboard", "192.168.0.2:29999",
@@ -113,7 +83,8 @@ namespace LEonard
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
                 "stop",
-                "LEonard/LEonard01.urp"
+                "LEonard/LEonard01.urp",
+                "","","",
             });
             devices.Rows.Add(new object[] {
                 2, "UR-5eCommand", true, false, "UrCommand", "192.168.0.252:30000",
@@ -126,7 +97,8 @@ namespace LEonard
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
                 "(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)",
-                ""
+                "",
+                "","","",
             });
             devices.Rows.Add(new object[] {
                 3, "Gocator", true, false, "Gocator", "192.168.0.3:8190",
@@ -139,6 +111,7 @@ namespace LEonard
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
                 "trigger|stop|start|loadjob,LM01|clearalignment",
+                "","","",
                 ""
             });
             devices.Rows.Add(new object[] {
@@ -152,7 +125,8 @@ namespace LEonard
                 "vncviewer.exe",
                 "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
                 "trigger|stop|start|loadjob,LM01|clearalignment",
-                ""
+                "",
+                "","","",
             });
             devices.Rows.Add(new object[] {
                 5, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
@@ -165,7 +139,8 @@ namespace LEonard
                 "",
                 "",
                 "GO",
-                ""
+                "",
+                "","","",
             });
             devices.Rows.Add(new object[] {
                 6, "HALCON", false, false, "TcpClient", "127.0.0.1:21000",
@@ -178,7 +153,8 @@ namespace LEonard
                 "",
                 "",
                 "GO",
-                ""
+                "",
+                "","","",
             });
             devices.Rows.Add(new object[] {
                 7, "Keyence", false, false, "TcpClient", "192.168.0.10:8500",
@@ -191,7 +167,8 @@ namespace LEonard
                 "CV-X Series Terminal-Software.exe",
                 "C:\\Users\\nedlecky\\Desktop\\Keyence\\ned1.cxn",
                 "T1|T2",
-                ""
+                "",
+                "","","",
             });
             devices.Rows.Add(new object[] {
                 8, "Dataman1", true, false, "Serial", "COM3",
@@ -204,7 +181,8 @@ namespace LEonard
                 "SetupTool.exe",
                 "",
                 "+",
-                ""
+                "",
+                "","","",
             });
             devices.Rows.Add(new object[] {
                 9, "Dataman2", true, false, "Serial", "COM4",
@@ -217,7 +195,8 @@ namespace LEonard
                 "SetupTool.exe",
                 "",
                 "+",
-                ""
+                "",
+                "","","",
             });
             devices.Rows.Add(new object[] {
                 10, "Chrome", false, false, "Null", "",
@@ -230,7 +209,8 @@ namespace LEonard
                 "",
                 "",
                 "",
-                ""
+                "",
+                "","","",
             });
         }
 
@@ -398,7 +378,7 @@ namespace LEonard
                 }
             }
         }
-        private void DeviceConnect(DataRow row)
+        private int DeviceConnect(DataRow row)
         {
             int ID = (int)row["ID"];
             bool enabled = (bool)row["Enabled"];
@@ -409,23 +389,27 @@ namespace LEonard
             string callBack = (string)row["CallBack"];
             string onConnectSend = (string)row["OnConnectSend"];
             bool connected = (bool)row["Connected"];
-            string special = (string)row["Special"];
+            string jobFile = (string)row["Jobfile"];
 
             if (connected)
             {
                 ErrorMessageBox($"Device {name} already connected");
-                return;
+                return 1;
             }
 
             if (!enabled)
             {
                 DialogResult result = ConfirmMessageBox($"Device {name} is not enabled. Enable?");
                 if (result != DialogResult.OK)
-                    return;
+                    return 2;
                 row["Enabled"] = true;
             }
 
             log.Info($"Connect {ID}:{name} as {deviceType} at {address} with {messageTag}, {callBack}");
+
+            // Runtime needed to start up first?
+            if ((bool)row["RuntimeAutostart"])
+                DeviceRuntimeStartBtn_Click(null, null);
 
             // Instantiate device interface object
             switch (deviceType)
@@ -433,43 +417,31 @@ namespace LEonard
                 case "TcpServer":
                     interfaces[ID] = new LeTcpServer(this, messageTag, onConnectSend);
                     interfaces[ID].Connect(address);
-
-                    if ((bool)row["RuntimeAutostart"])
-                    {
-                        DeviceRuntimeStartBtn_Click(null, null);
-                    }
-
                     break;
                 case "TcpClient":
                     interfaces[ID] = new LeTcpClient(this, messageTag, onConnectSend);
-                    if ((bool)row["RuntimeAutostart"])
-                    {
-                        DeviceRuntimeStartBtn_Click(null, null);
-                    }
                     interfaces[ID].Connect(address);
                     break;
                 case "TcpClientAsync":
                     interfaces[ID] = new LeTcpClientAsync(this, messageTag, onConnectSend);
-                    if ((bool)row["RuntimeAutostart"])
-                    {
-                        DeviceRuntimeStartBtn_Click(null, null);
-                    }
                     interfaces[ID].Connect(address);
                     break;
                 case "UrDashboard":
                     LeUrDashboard robot = new LeUrDashboard(this, messageTag, onConnectSend);
-                    robot.UrProgramFilename = special;
+                    robot.UrProgramFilename = jobFile;
                     interfaces[ID] = robot;
                     if (focusLeUrDashboard == null)
                     {
                         log.Info($"Setting focusLeUrDashboard to {name} in row {currentDeviceRowIndex}");
                         focusLeUrDashboard = robot;
                     }
-                    if ((bool)row["RuntimeAutostart"])
+                    if (0 == robot.Connect(address))
                     {
-                        DeviceRuntimeStartBtn_Click(null, null);
+                        row["Model"] = UrDashboardInquiryResponse("get robot model", 200);
+                        row["Serial"] = UrDashboardInquiryResponse("get serial number", 200);
+                        row["Version"] = UrDashboardInquiryResponse("PolyscopeVersion", 200);
+                        //focusLeUrDashboard.InquiryResponse("stop", 200);
                     }
-                    robot.Connect(address);
                     break;
                 case "UrCommand":
                     LeUrCommand command = new LeUrCommand(this, messageTag, onConnectSend);
@@ -478,10 +450,6 @@ namespace LEonard
                     {
                         log.Info($"Setting focusLeUrCommand to {name} in row {currentDeviceRowIndex}");
                         focusLeUrCommand = command;
-                    }
-                    if ((bool)row["RuntimeAutostart"])
-                    {
-                        DeviceRuntimeStartBtn_Click(null, null);
                     }
                     command.Connect(address);
                     break;
@@ -493,32 +461,23 @@ namespace LEonard
                         log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
                         focusLeGocator = gocator;
                     }
-                    if ((bool)row["RuntimeAutostart"])
-                    {
-                        DeviceRuntimeStartBtn_Click(null, null);
-                    }
                     gocator.Connect(address);
                     break;
                 case "Serial":
-                    if ((bool)row["RuntimeAutostart"])
-                    {
-                        DeviceRuntimeStartBtn_Click(null, null);
-                    }
                     interfaces[ID] = new LeSerial(this, messageTag, onConnectSend);
                     interfaces[ID].Connect(address);
                     break;
                 case "Null":
-                    if ((bool)row["RuntimeAutostart"])
-                    {
-                        DeviceRuntimeStartBtn_Click(null, null);
-                    }
                     interfaces[ID] = new LeDevNull(this, messageTag, onConnectSend);
                     interfaces[ID].Connect(address);
                     break;
                 default:
                     ErrorMessageBox($"Device {deviceType} does not exist");
-                    break;
+                    return 3;
             }
+
+            if (!interfaces[ID].IsConnected())
+                return 4;
 
             // Install desired callback
             switch (callBack)
@@ -546,6 +505,8 @@ namespace LEonard
             }
 
             row["Connected"] = true;
+
+            return 0;
         }
         private void DeviceConnectBtn_Click(object sender, EventArgs e)
         {
@@ -585,6 +546,12 @@ namespace LEonard
                     }
 
                 interfaces[ID].Disconnect();
+
+                // Clear out any focus devices
+                if (focusLeUrDashboard == interfaces[ID]) focusLeUrDashboard = null;
+                if (focusLeUrCommand == interfaces[ID]) focusLeUrCommand = null;
+                if (focusLeGocator == interfaces[ID]) focusLeGocator = null;
+
                 interfaces[ID] = null;
                 GC.Collect();
             }

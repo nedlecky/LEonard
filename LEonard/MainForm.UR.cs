@@ -23,10 +23,6 @@ namespace LEonard
                     RobotConnectBtn.BackColor = Color.Green;
                     RobotConnectBtn.Text = "Dashboard OK";
 
-                    RobotModelLbl.Text = UrDashboardInquiryResponse("get robot model", 200);
-                    RobotSerialNumberLbl.Text = UrDashboardInquiryResponse("get serial number", 200);
-                    RobotPolyscopeVersionLbl.Text = UrDashboardInquiryResponse("PolyscopeVersion", 200);
-                    //focusLeUrDashboard.InquiryResponse("stop", 200);
                     CloseSafetyPopup();
 
                     break;
