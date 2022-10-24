@@ -274,7 +274,7 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.ErrorLogRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.UrDashboardLogRTB = new System.Windows.Forms.RichTextBox();
+            this.ConsoleRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.AllLogRTB = new System.Windows.Forms.RichTextBox();
             this.LogPageControlsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -3822,7 +3822,7 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.UrDashboardLogRTB);
+            this.groupBox7.Controls.Add(this.ConsoleRTB);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox7.Location = new System.Drawing.Point(1230, 3);
@@ -3830,22 +3830,22 @@
             this.groupBox7.Size = new System.Drawing.Size(655, 315);
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Robot Dashboard Server";
+            this.groupBox7.Text = "Console Printout";
             // 
-            // UrDashboardLogRTB
+            // ConsoleRTB
             // 
-            this.UrDashboardLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UrDashboardLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UrDashboardLogRTB.Location = new System.Drawing.Point(3, 25);
-            this.UrDashboardLogRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.UrDashboardLogRTB.MaxLength = 1000000;
-            this.UrDashboardLogRTB.Name = "UrDashboardLogRTB";
-            this.UrDashboardLogRTB.ReadOnly = true;
-            this.UrDashboardLogRTB.Size = new System.Drawing.Size(649, 287);
-            this.UrDashboardLogRTB.TabIndex = 0;
-            this.UrDashboardLogRTB.Text = "";
-            this.UrDashboardLogRTB.WordWrap = false;
-            this.UrDashboardLogRTB.DoubleClick += new System.EventHandler(this.UrDashboardLogRTB_DoubleClick);
+            this.ConsoleRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ConsoleRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConsoleRTB.Location = new System.Drawing.Point(3, 25);
+            this.ConsoleRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.ConsoleRTB.MaxLength = 1000000;
+            this.ConsoleRTB.Name = "ConsoleRTB";
+            this.ConsoleRTB.ReadOnly = true;
+            this.ConsoleRTB.Size = new System.Drawing.Size(649, 287);
+            this.ConsoleRTB.TabIndex = 0;
+            this.ConsoleRTB.Text = "";
+            this.ConsoleRTB.WordWrap = false;
+            this.ConsoleRTB.DoubleClick += new System.EventHandler(this.ConsoleRTB_DoubleClick);
             // 
             // groupBox4
             // 
@@ -4400,7 +4400,7 @@
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.RichTextBox ExecLogRTB;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.RichTextBox UrDashboardLogRTB;
+        private System.Windows.Forms.RichTextBox ConsoleRTB;
         private System.Windows.Forms.TableLayoutPanel BottomButtonLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;

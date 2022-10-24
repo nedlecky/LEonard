@@ -66,11 +66,16 @@ namespace LEonard
             JavaVariablesRTB.Text = finalUpdate;
         }
 
+        private void lePrintJ(string msg)
+        {
+            CrawlRTB(JavaConsoleRTB, msg);
+            log.Info("J** " + msg);
+        }
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
                     .SetValue("lePrompt", new Action<string>((string prompt) => PromptOperator("Java Prompt:\n" + prompt)))
-                    .SetValue("lePrint", new Action<string>((string msg) => CrawlRTB(JavaConsoleRTB, msg)))
+                    .SetValue("lePrint", new Action<string>((string msg) => lePrintJ(msg)))
                     .SetValue("leLogInfo", new Action<string>((string msg) => log.Info(msg)))
                     .SetValue("leLogError", new Action<string>(s => log.Error(s)))
                     .SetValue("leExec", new Action<string>((string line) => ExecuteLine(-1, line)))

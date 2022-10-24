@@ -1,16 +1,23 @@
 # TQ sequence
 
+lePrint(TQ sequence)
+
 ur_dashboard(stop)
 device_disconnect(UR-5eCommand)
 
+lePrint(Run 1)
 ur_dashboard(load tqdemo1.urp)
 ur_dashboard(play)
 
-# Wait program complete in progress
-# ur_wait_program_complete()
-sleep(5)
+ur_wait_stopped()
 
+lePrint(Run 2)
 ur_dashboard(load tqdemo2.urp)
 ur_dashboard(play)
+
+ur_wait_stopped()
+
+lePrint(Complete)
+
 
 

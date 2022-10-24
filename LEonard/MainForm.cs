@@ -750,7 +750,7 @@ namespace LEonard
                     AllLogRTB.Refresh();
                     ExecLogRTB.Refresh();
                     UrLogRTB.Refresh();
-                    UrDashboardLogRTB.Refresh();
+                    ConsoleRTB.Refresh();
                     ErrorLogRTB.Refresh();
                 }
             }
@@ -1259,9 +1259,9 @@ namespace LEonard
             UrLogRTB.Clear();
         }
 
-        private void UrDashboardLogRTB_DoubleClick(object sender, EventArgs e)
+        private void ConsoleRTB_DoubleClick(object sender, EventArgs e)
         {
-            UrDashboardLogRTB.Clear();
+            ConsoleRTB.Clear();
         }
 
         private void ErrorLogRTB_DoubleClick(object sender, EventArgs e)
@@ -1966,6 +1966,10 @@ namespace LEonard
         {
             return ReadVariable("robot_completed") == robotSendIndex.ToString();
         }
+
+        // TODO this needs to be generalized!
+        bool waitUrStopped = false;
+
         private void ExecTmr_Tick(object sender, EventArgs e)
         {
             // Wait for any operator prompt to be cleared
@@ -1994,6 +1998,24 @@ namespace LEonard
                     sleepTimer = null;
                 else
                     return;
+            }
+
+            // Wait UR stopped
+            if (waitUrStopped)
+            {
+                if (focusLeUrDashboard == null)
+                {
+                    waitUrStopped = false;
+                }
+                else
+                {
+                    if (focusLeUrDashboard.InquiryResponse("programstate",200).StartsWith("STOP"))
+                    {
+                        waitUrStopped = false;
+                    }
+                    else
+                        return;
+                }
             }
 
             if (lineCurrentlyExecuting >= RecipeRTB.Lines.Count())
@@ -2104,7 +2126,7 @@ namespace LEonard
         // ===================================================================
 
 
-        
+
         private void CurrentLineLbl_TextChanged(object sender, EventArgs e)
         {
             CurrentLineLblCopy.Text = CurrentLineLbl.Text;
@@ -2130,7 +2152,7 @@ namespace LEonard
             AllLogRTB.Clear();
             ExecLogRTB.Clear();
             UrLogRTB.Clear();
-            UrDashboardLogRTB.Clear();
+            ConsoleRTB.Clear();
             ErrorLogRTB.Clear();
         }
 

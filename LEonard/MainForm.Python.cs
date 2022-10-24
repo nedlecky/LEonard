@@ -15,6 +15,11 @@ namespace LEonard
 {
     public partial class MainForm : Form
     {
+        private void lePrintP(string msg)
+        {
+            CrawlRTB(PythonConsoleRTB, msg);
+            log.Info("P** " + msg);
+        }
         private void InitializePythonEngine()
         {
             pythonEngine = IronPython.Hosting.Python.CreateEngine();
@@ -23,7 +28,7 @@ namespace LEonard
             pythonScope.RemoveVariable("print");
 
             pythonScope.SetVariable("lePrompt", new Action<string>((string prompt) => PromptOperator("Python Prompt:\n" + prompt)));
-            pythonScope.SetVariable("lePrint", new Action<string>((string msg) => CrawlRTB(PythonConsoleRTB, msg)));
+            pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
             pythonScope.SetVariable("leLogInfo", new Action<string>((string msg) => log.Info(msg)));
             pythonScope.SetVariable("leLogError", new Action<string>(s => log.Error(s)));
             pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLine(-1, line)));

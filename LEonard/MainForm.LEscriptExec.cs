@@ -688,6 +688,13 @@ namespace LEonard
                 return true;
             }
 
+            // ur_wait_stopped
+            if (command == "ur_wait_stopped()")
+            {
+                waitUrStopped = true;
+                return true;
+            }
+
             // save_position
             if (command.StartsWith("save_position("))
             {
@@ -840,6 +847,14 @@ namespace LEonard
                 LogInterpret("prompt", lineNumber, origLine);
                 // This just displays the dialog. ExecTmr will wait for it to close
                 PromptOperator(ExtractParameters(command, -1, false));
+                return true;
+            }
+
+            // lePrint
+            if (command.StartsWith("lePrint("))
+            {
+                LogInterpret("lePrint", lineNumber, origLine);
+                log.Info("L** " + ExtractParameters(command, -1, false));
                 return true;
             }
 
