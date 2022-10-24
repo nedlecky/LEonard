@@ -257,5 +257,32 @@ namespace LEonard
                 log.Error(ex, $"ExecuteJavaScript Error {code}");
             }
         }
+
+        bool ExecuteJavaFile(string filename)
+        {
+            void exec(string f)
+            {
+                string contents = File.ReadAllText(f);
+                javaEngine.Execute(contents);
+            }
+
+            if (File.Exists(filename))
+            {
+                exec(filename);
+                return true;
+            }
+
+            filename = Path.Combine(LEonardRoot, filename);
+            if (File.Exists(filename))
+            {
+                exec(filename);
+                return true;
+            }
+
+            ExecError($"File {filename} does not exist");
+            return false;
+        }
+
+
     }
 }

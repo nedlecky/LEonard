@@ -235,5 +235,31 @@ namespace LEonard
             }
         }
 
+        bool ExecutePythonFile(string filename)
+        {
+
+            void exec(string f)
+            {
+                string contents = File.ReadAllText(f);
+                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(contents);
+                pythonScript.Execute(pythonScope);
+            }
+
+            if (File.Exists(filename))
+            {
+                exec(filename);
+                return true;
+            }
+
+            filename = Path.Combine(LEonardRoot, filename);
+            if (File.Exists(filename))
+            {
+                exec(filename);
+                return true;
+            }
+
+            ExecError($"File {filename} does not exist");
+            return false;
+        }
     }
 }

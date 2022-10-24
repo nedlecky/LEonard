@@ -103,7 +103,9 @@ namespace LEonard
                         stream = client.GetStream();
                         log.Info("{0} Client connected", logPrefix);
                         IsClientConnected = true;
-                        if (onConnectMessage.Length > 0) Send(onConnectMessage);
+                        if (onConnectMessage.Length > 0)
+                            if(!myForm.LEonardStatementExec(logPrefix, onConnectMessage))
+                                Send(onConnectMessage);
                     }
                     catch
                     {

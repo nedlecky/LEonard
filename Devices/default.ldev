@@ -44,12 +44,12 @@
     <ID>0</ID>
     <Name>Command</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>TcpServer</DeviceType>
     <Address>127.0.0.1:1000</Address>
     <MessageTag>CTL</MessageTag>
     <CallBack>command</CallBack>
-    <OnConnectSend>Hello!</OnConnectSend>
+    <OnConnectSend>Recipes/CommandInit.js</OnConnectSend>
     <OnDisconnectSend>exit()</OnDisconnectSend>
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory>C:\Users\nedlecky\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
@@ -68,7 +68,7 @@
     <ID>1</ID>
     <Name>UR-5eDash</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
     <MessageTag>UR</MessageTag>
@@ -84,15 +84,15 @@
     <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
     <SpeedSendButtons>stop</SpeedSendButtons>
     <Jobfile>LEonard/LEonard01.urp</Jobfile>
-    <Model />
-    <Serial />
-    <Version />
+    <Model>UR5</Model>
+    <Serial>20195501059</Serial>
+    <Version>URSoftware 5.11.11.1010533 (Apr 12 2022)</Version>
   </Devices>
   <Devices>
     <ID>2</ID>
     <Name>UR-5eCommand</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>
     <MessageTag>UR</MessageTag>
@@ -116,7 +116,7 @@
     <ID>3</ID>
     <Name>Gocator</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
     <MessageTag>GO</MessageTag>
@@ -236,7 +236,7 @@
     <ID>8</ID>
     <Name>Dataman1</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
     <MessageTag>AUX31</MessageTag>
@@ -260,7 +260,7 @@
     <ID>9</ID>
     <Name>Dataman2</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM4</Address>
     <MessageTag>AUX32</MessageTag>

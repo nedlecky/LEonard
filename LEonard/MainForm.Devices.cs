@@ -408,28 +408,35 @@ namespace LEonard
             log.Info($"Connect {ID}:{name} as {deviceType} at {address} with {messageTag}, {callBack}");
 
             // Runtime needed to start up first?
-            if ((bool)row["RuntimeAutostart"])
-                DeviceRuntimeStartBtn_Click(null, null);
+            void StartOptionalRuntime()
+            {
+                if ((bool)row["RuntimeAutostart"])
+                    DeviceRuntimeStartBtn_Click(null, null);
+            }
 
             // Instantiate device interface object
             switch (deviceType)
             {
                 case "TcpServer":
                     interfaces[ID] = new LeTcpServer(this, messageTag, onConnectSend);
+                    StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
                 case "TcpClient":
                     interfaces[ID] = new LeTcpClient(this, messageTag, onConnectSend);
+                    StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
                 case "TcpClientAsync":
                     interfaces[ID] = new LeTcpClientAsync(this, messageTag, onConnectSend);
+                    StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
                 case "UrDashboard":
                     LeUrDashboard robot = new LeUrDashboard(this, messageTag, onConnectSend);
                     robot.UrProgramFilename = jobFile;
                     interfaces[ID] = robot;
+                    StartOptionalRuntime();
                     if (focusLeUrDashboard == null)
                     {
                         log.Info($"Setting focusLeUrDashboard to {name} in row {currentDeviceRowIndex}");
@@ -446,6 +453,7 @@ namespace LEonard
                 case "UrCommand":
                     LeUrCommand command = new LeUrCommand(this, messageTag, onConnectSend);
                     interfaces[ID] = command;
+                    StartOptionalRuntime();
                     if (focusLeUrCommand == null)
                     {
                         log.Info($"Setting focusLeUrCommand to {name} in row {currentDeviceRowIndex}");
@@ -456,6 +464,7 @@ namespace LEonard
                 case "Gocator":
                     LeGocator gocator = new LeGocator(this, messageTag, onConnectSend);
                     interfaces[ID] = gocator;
+                    StartOptionalRuntime();
                     if (focusLeGocator == null)
                     {
                         log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
@@ -465,10 +474,12 @@ namespace LEonard
                     break;
                 case "Serial":
                     interfaces[ID] = new LeSerial(this, messageTag, onConnectSend);
+                    StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
                 case "Null":
                     interfaces[ID] = new LeDevNull(this, messageTag, onConnectSend);
+                    StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
                 default:
@@ -623,9 +634,10 @@ namespace LEonard
                 interfaces[currentDeviceRowIndex].StartRuntimeProcess(start);
 
                 // TODO: This wait for start is a little kludgey
-                PromptOperator("Waiting for app to start...", false, false);
+                //PromptOperator("Waiting for app to start...", false, false);
 
-                for (int i = 0; i < 50; i++)
+                
+                for (int i = 0; i < 10; i++)
                 {
                     Thread.Sleep(100);
                     try
@@ -647,8 +659,9 @@ namespace LEonard
                         log.Error($"Cannot find hWnd");
                     }
                 }
-                waitingForOperatorMessageForm.Close();
-                waitingForOperatorMessageForm = null;
+                
+                //waitingForOperatorMessageForm.Close();
+                //waitingForOperatorMessageForm = null;
             }
         }
 

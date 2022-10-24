@@ -68,6 +68,10 @@ namespace LEonard
                 return 1;
             }
 
+            if (onConnectMessage.Length > 0)
+                if (!myForm.LEonardStatementExec(logPrefix, onConnectMessage))
+                    Send(onConnectMessage);
+
             fConnected = true;
             return 0;
         }

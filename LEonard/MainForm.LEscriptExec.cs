@@ -539,53 +539,26 @@ namespace LEonard
                 }
             }
 
-            // execjava
-            if (command.StartsWith("execjava("))
+            // exec_java
+            if (command.StartsWith("exec_java("))
             {
+                LogInterpret("exec_java", lineNumber, command);
                 string filename = ExtractParameters(command);
 
-                void exec(string f)
-                {
-                    log.Info("EXEC {0:0000}: [EXECJAVA] {1}", lineNumber, origLine);
-                    string contents = File.ReadAllText(f);
-                    javaEngine.Execute(contents);
-                }
+                if (!ExecuteJavaFile(filename))
+                    ExecError($"Cannot execute java file {filename}");
 
-                if (File.Exists(filename))
-                    exec(filename);
-                else
-                {
-                    filename = Path.Combine(LEonardRoot, filename);
-                    if (File.Exists(filename))
-                        exec(filename);
-                    else
-                        ExecError($"File {filename} does not exist");
-                }
                 return true;
             }
 
-            // execpython
-            if (command.StartsWith("execpython("))
+            // exec_python
+            if (command.StartsWith("exec_python("))
             {
+                LogInterpret("exec_python", lineNumber, command);
                 string filename = ExtractParameters(command);
+                if(!ExecutePythonFile(filename))
+                    ExecError($"Cannot execute python file {filename}");
 
-                void exec(string f)
-                {
-                    log.Info("EXEC {0:0000}: [EXECPYTHON] {1}", lineNumber, origLine);
-                    string contents = File.ReadAllText(f);
-                    Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(contents);
-                    pythonScript.Execute(pythonScope);
-                }
-
-                if (File.Exists(filename))
-                    exec(filename);
-                else
-                {
-                    filename = Path.Combine(LEonardRoot, filename);
-                    if (File.Exists(filename))
-                        exec(filename);
-                    else ExecError($"File {filename} does not exist");
-                }
                 return true;
             }
 

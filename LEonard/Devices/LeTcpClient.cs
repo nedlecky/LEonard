@@ -81,7 +81,11 @@ namespace LEonard
             }
 
             log.Debug("Connected");
-            if (onConnectMessage.Length > 0) Send(onConnectMessage);
+
+            if (onConnectMessage.Length > 0)
+                if (!myForm.LEonardStatementExec(logPrefix, onConnectMessage))
+                    Send(onConnectMessage);
+
             fConnected = true;
             return 0;
         }

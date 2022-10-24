@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -82,7 +83,7 @@ namespace LEonard
 
         private string UrDashboardInquiryResponse(string inquiry, int timeoutMs = 200)
         {
-            string response=focusLeUrDashboard?.InquiryResponse(inquiry, timeoutMs);
+            string response = focusLeUrDashboard?.InquiryResponse(inquiry, timeoutMs);
             log.Info($"UrDashboardInquiryResponse({inquiry}) = {response}");
             return response;
         }
@@ -464,27 +465,57 @@ namespace LEonard
             ExecuteLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
         }
 
-        public void GeneralCallbackStatementExecute(string prefix, string statement)
+        public bool LEonardStatementExec(string prefix, string statement)
         {
-            log.Trace($"{prefix}: {statement}");
             // {script.....}
+            if (statement.EndsWith(".js") && statement.Length > 3)
+            {
+                ExecuteJavaFile(statement);
+                return true;
+            }
+            if (statement.EndsWith(".py") && statement.Length > 3)
+            {
+                ExecutePythonFile(statement);
+                return true;
+            }
             if (statement.StartsWith("LE:") && statement.Length > 5)
+            {
                 ExecuteLine(-1, statement.Substring(3));
-            else if (statement.StartsWith("JE:") && statement.Length > 5)
+                return true;
+            }
+            if (statement.StartsWith("JE:") && statement.Length > 5)
+            {
                 ExecuteJavaScript(statement.Substring(3));
-            else if (statement.StartsWith("PE:") && statement.Length > 5)
+                return true;
+            }
+            if (statement.StartsWith("PE:") && statement.Length > 5)
+            {
                 ExecutePythonScript(statement.Substring(3));
-            else if (statement.Contains("="))           // name=value
+                return true;
+            }
+            // TODO this is quite naive and restrictive
+            if (statement.Contains("="))           // name=value
+            {
                 UpdateVariable(statement);
-            else if (statement.StartsWith("SET ")) // SET name value
+                return true;
+            }
+            if (statement.StartsWith("SET ")) // SET name value
             {
                 string[] s = statement.Split(' ');
                 if (s.Length == 3)
                     WriteVariable(s[1], s[2]);
                 else
                     log.Error($"{prefix} Illegal SET statement: {statement}");
+                return true;
             }
-            else
+
+            return false;
+        }
+
+        public void GeneralCallbackStatementExecute(string prefix, string statement)
+        {
+            log.Trace($"{prefix}: {statement}");
+            if (!LEonardStatementExec(prefix, statement))
                 log.Error($"{prefix} Illegal GeneralCallbackStatementExecute({prefix}, {statement})");
         }
 
