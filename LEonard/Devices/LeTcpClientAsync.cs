@@ -37,7 +37,7 @@ namespace LEonard
         private static ManualResetEvent receiveDone =
             new ManualResetEvent(false);
 
-        public Action<string, string> receiveCallback { get; set; }
+        public Action<string, string, LeDeviceInterface> receiveCallback { get; set; }
         private bool fConnected = false;
 
 
@@ -106,7 +106,7 @@ namespace LEonard
             }
 
             if (onConnectMessage.Length > 0)
-                if (!myForm.LEonardStatementExec(logPrefix, onConnectMessage))
+                if (!myForm.ExecuteLEonardStatement(logPrefix, onConnectMessage))
                     Send(onConnectMessage);
 
 
@@ -203,7 +203,7 @@ namespace LEonard
                     log.Info("{0} <== {1} Line", logPrefix, state.sb);
 
                     if (receiveCallback != null)
-                        receiveCallback(state.sb.ToString(), logPrefix);
+                        receiveCallback(state.sb.ToString(), logPrefix, this);
 
                     // Get the rest of the data.  
                     client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
@@ -217,7 +217,7 @@ namespace LEonard
                         log.Info("{0} <== {1} Line", logPrefix, state.sb);
 
                         if (receiveCallback != null)
-                            receiveCallback(state.sb.ToString(), logPrefix);
+                            receiveCallback(state.sb.ToString(), logPrefix, this);
                     }
                     // Signal that all bytes have been received.  
                     receiveDone.Set();

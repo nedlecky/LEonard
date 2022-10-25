@@ -295,7 +295,7 @@ namespace LEonard
 
         Random random = new Random();
 
-        private bool ExecuteLine(int lineNumber, string line)
+        private bool ExecuteLEonardScriptLine(int lineNumber, string line, LeDeviceInterface dev = null)
         {
             // Step is starting now
             stepStartedTime = DateTime.Now;
@@ -556,7 +556,7 @@ namespace LEonard
             {
                 LogInterpret("exec_python", lineNumber, command);
                 string filename = ExtractParameters(command);
-                if(!ExecutePythonFile(filename))
+                if (!ExecutePythonFile(filename))
                     ExecError($"Cannot execute python file {filename}");
 
                 return true;
@@ -744,17 +744,17 @@ namespace LEonard
                     // Kind of like a subroutine that calls all the pieces needed to effect a tool change
                     // Just in case... make sure we disable current tool
 
-                    ExecuteLine(-1, String.Format("set_tcp({0},{1},{2},{3},{4},{5})", row["x_m"], row["y_m"], row["z_m"], row["rx_rad"], row["ry_rad"], row["rz_rad"]));
-                    ExecuteLine(-1, String.Format("set_payload({0},{1},{2},{3})", row["mass_kg"], row["cogx_m"], row["cogy_m"], row["cogz_m"]));
+                    ExecuteLEonardScriptLine(-1, String.Format("set_tcp({0},{1},{2},{3},{4},{5})", row["x_m"], row["y_m"], row["z_m"], row["rx_rad"], row["ry_rad"], row["rz_rad"]));
+                    ExecuteLEonardScriptLine(-1, String.Format("set_payload({0},{1},{2},{3})", row["mass_kg"], row["cogx_m"], row["cogy_m"], row["cogz_m"]));
 
-                    ExecuteLine(-1, String.Format("tool_off()"));
-                    ExecuteLine(-1, String.Format("coolant_off()"));
-                    ExecuteLine(-1, String.Format("set_tool_on_outputs({0})", row["ToolOnOuts"]));
-                    ExecuteLine(-1, String.Format("set_tool_off_outputs({0})", row["ToolOffOuts"]));
-                    ExecuteLine(-1, String.Format("set_coolant_on_outputs({0})", row["CoolantOnOuts"]));
-                    ExecuteLine(-1, String.Format("set_coolant_off_outputs({0})", row["CoolantOffOuts"]));
-                    ExecuteLine(-1, String.Format("tool_off()"));
-                    ExecuteLine(-1, String.Format("coolant_off()"));
+                    ExecuteLEonardScriptLine(-1, String.Format("tool_off()"));
+                    ExecuteLEonardScriptLine(-1, String.Format("coolant_off()"));
+                    ExecuteLEonardScriptLine(-1, String.Format("set_tool_on_outputs({0})", row["ToolOnOuts"]));
+                    ExecuteLEonardScriptLine(-1, String.Format("set_tool_off_outputs({0})", row["ToolOffOuts"]));
+                    ExecuteLEonardScriptLine(-1, String.Format("set_coolant_on_outputs({0})", row["CoolantOnOuts"]));
+                    ExecuteLEonardScriptLine(-1, String.Format("set_coolant_off_outputs({0})", row["CoolantOffOuts"]));
+                    ExecuteLEonardScriptLine(-1, String.Format("tool_off()"));
+                    ExecuteLEonardScriptLine(-1, String.Format("coolant_off()"));
                     WriteVariable("robot_tool", row["Name"].ToString());
 
                     // Set Move buttons to go to tool change and home locations
@@ -851,10 +851,27 @@ namespace LEonard
             }
 
             // lePrint
+            void print(string s)
+            {
+                log.Info("L** " + s);
+            }
             if (command.StartsWith("lePrint("))
             {
                 LogInterpret("lePrint", lineNumber, origLine);
-                log.Info("L** " + ExtractParameters(command, -1, false));
+                print(ExtractParameters(command, -1, false));
+                return true;
+            }
+
+            // send
+            if (command.StartsWith("send("))
+            {
+                LogInterpret("send", lineNumber, origLine);
+                string str = ExtractParameters(command, -1, false);
+                if (dev == null)
+                    print("dev=null " + str);
+                else
+                    dev.Send(str);
+
                 return true;
             }
 
@@ -949,13 +966,13 @@ namespace LEonard
                         if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020)
                             ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, 0, 0, 0]");
                         else
-                            ExecuteLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
+                            ExecuteLEonardScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
                         break;
                     case 2:
                         if (abs_drx > 15 || abs_dry > 15)
                             ExecError($"Excessive gocator_adjust [0, 0, 0, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                         else
-                            ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
+                            ExecuteLEonardScriptLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         break;
                     case 3:
                         if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
@@ -963,10 +980,10 @@ namespace LEonard
                             ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                         else
                         {
-                            ExecuteLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
+                            ExecuteLEonardScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
                             // TODO this should be a wait complete
                             Thread.Sleep(1000);
-                            ExecuteLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
+                            ExecuteLEonardScriptLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         }
                         break;
                     case 4:
@@ -974,7 +991,7 @@ namespace LEonard
                             abs_drx > 15 || abs_dry > 15)
                             ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                         else
-                            ExecuteLine(-1, $"movel_incr_tool({dx}:0.000000,{dy}:0.000000,{dz}:0.000000,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
+                            ExecuteLEonardScriptLine(-1, $"movel_incr_tool({dx}:0.000000,{dy}:0.000000,{dz}:0.000000,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         break;
                     default:
                         break;
@@ -1314,6 +1331,82 @@ namespace LEonard
             ExecError("Cannot interpret line");
             return true;
         }
+        public bool ExecuteLEonardStatement(string prefix, string statement, LeDeviceInterface dev = null)
+        {
+            // {script.....}
+            if (statement.EndsWith(".js") && statement.Length > 3)
+            {
+                ExecuteJavaFile(statement);
+                return true;
+            }
+            if (statement.EndsWith(".py") && statement.Length > 3)
+            {
+                ExecutePythonFile(statement);
+                return true;
+            }
+            if (statement.StartsWith("LE:") && statement.Length > 5)
+            {
+                ExecuteLEonardScriptLine(-1, statement.Substring(3), dev);
+                return true;
+            }
+            if (statement.StartsWith("JE:") && statement.Length > 5)
+            {
+                ExecuteJavaScript(statement.Substring(3), dev);
+                return true;
+            }
+            if (statement.StartsWith("PE:") && statement.Length > 5)
+            {
+                ExecutePythonScript(statement.Substring(3), dev);
+                return true;
+            }
+
+            // SET varName value
+            if (statement.StartsWith("SET "))
+            {
+                string[] s = statement.Split(' ');
+                if (s.Length == 3)
+                    WriteVariable(s[1], s[2]);
+                else
+                    log.Error($"{prefix} Illegal SET statement: {statement}");
+                return true;
+            }
+
+            // GET varName
+            if (statement.StartsWith("GET "))
+            {
+                if (statement.Length > 4)
+                {
+                    string varName = statement.Substring(4).Trim();
+                    string value = ReadVariable(varName);
+                    string response = $"{varName}={value}";
+                    if (dev != null)
+                        if (dev.IsConnected())
+                            dev.Send(response);
+                }
+                else
+                    log.Error($"{prefix} Illegal GET statement: {statement}");
+                return true;
+            }
+
+            // TODO this is quite naive and restrictive
+            // varName=value
+            if (statement.Contains("="))
+            {
+                UpdateVariable(statement);
+                return true;
+            }
+
+            log.Error($"{prefix} Illegal LEonardStatement statement: {statement}");
+            return false;
+        }
+
+        public void GeneralCallbackStatementExecute(string prefix, string statement, LeDeviceInterface dev)
+        {
+            log.Trace($"{prefix}: {statement}");
+            if (!ExecuteLEonardStatement(prefix, statement, dev))
+                log.Error($"{prefix} Illegal GeneralCallbackStatementExecute({prefix}, {statement})");
+        }
+
 
     }
 }

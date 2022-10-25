@@ -23,6 +23,6 @@ namespace LEonard
         int StartSetupProcess(ProcessStartInfo start);
         int EndSetupProcess();
 
-        Action<string, string> receiveCallback { get; set; }
+        Action<string, string, LeDeviceInterface> receiveCallback { get; set; }
     }
 }

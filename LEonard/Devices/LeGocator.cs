@@ -27,7 +27,7 @@ namespace LEonard
             log.Debug("{0} ~LeGocator()", logPrefix);
         }
 
-        public void Callback(string prefix, string message)
+        public void Callback(string prefix, string message, LeDeviceInterface dev)
         {
             // Gocator sends back OK which we just ignore
             if (message == "OK")
@@ -36,7 +36,7 @@ namespace LEonard
                 return;
             }
 
-            myForm.GeneralCallback(prefix, message);
+            myForm.GeneralCallback(prefix, message, this);
         }
 
         public enum Status

@@ -49,7 +49,7 @@ namespace LEonard
             else
             {
                 log.Info("Selecting tool {0}", name);
-                ExecuteLine(-1, string.Format("select_tool({0})", name));
+                ExecuteLEonardScriptLine(-1, string.Format("select_tool({0})", name));
             }
         }
 
@@ -84,22 +84,22 @@ namespace LEonard
 
         private void ToolTestBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLine(-1, "tool_on()");
+            ExecuteLEonardScriptLine(-1, "tool_on()");
         }
 
         private void ToolOffBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLine(-1, "tool_off()");
+            ExecuteLEonardScriptLine(-1, "tool_off()");
         }
 
         private void CoolantTestBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLine(-1, "coolant_on()");
+            ExecuteLEonardScriptLine(-1, "coolant_on()");
         }
 
         private void CoolantOffBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLine(-1, "coolant_off()");
+            ExecuteLEonardScriptLine(-1, "coolant_off()");
         }
 
         readonly string toolsFilename = "Tools.xml";
@@ -250,12 +250,12 @@ namespace LEonard
 
         private void SetDoorClosedInputBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLine(-1, string.Format("set_door_closed_input({0})", DoorClosedInputTxt.Text));
+            ExecuteLEonardScriptLine(-1, string.Format("set_door_closed_input({0})", DoorClosedInputTxt.Text));
         }
 
         private void SetFootswitchInputBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLine(-1, string.Format("set_footswitch_pressed_input({0})", FootswitchPressedInputTxt.Text));
+            ExecuteLEonardScriptLine(-1, string.Format("set_footswitch_pressed_input({0})", FootswitchPressedInputTxt.Text));
         }
 
         private DataRow FindTool(string name)

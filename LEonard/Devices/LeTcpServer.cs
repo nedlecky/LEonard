@@ -24,7 +24,7 @@ namespace LEonard
         public int nGetStatusRequests = 0;
         public int nGetStatusResponses = 0;
         public int nBadCommLenErrors = 0;
-        public Action<string, string> receiveCallback { get; set; }
+        public Action<string, string, LeDeviceInterface> receiveCallback { get; set; }
         public bool IsClientConnected { get; set; } = false;
 
 
@@ -104,7 +104,7 @@ namespace LEonard
                         log.Info("{0} Client connected", logPrefix);
                         IsClientConnected = true;
                         if (onConnectMessage.Length > 0)
-                            if(!myForm.LEonardStatementExec(logPrefix, onConnectMessage))
+                            if(!myForm.ExecuteLEonardStatement(logPrefix, onConnectMessage))
                                 Send(onConnectMessage);
                     }
                     catch
@@ -207,7 +207,7 @@ namespace LEonard
                     if (receiveCallback == null)
                         return line;
                     else
-                        receiveCallback?.Invoke(logPrefix, line);
+                        receiveCallback?.Invoke(logPrefix, line, this);
                 }
                 lineNo++;
             }

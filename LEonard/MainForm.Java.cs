@@ -78,7 +78,7 @@ namespace LEonard
                     .SetValue("lePrint", new Action<string>((string msg) => lePrintJ(msg)))
                     .SetValue("leLogInfo", new Action<string>((string msg) => log.Info(msg)))
                     .SetValue("leLogError", new Action<string>(s => log.Error(s)))
-                    .SetValue("leExec", new Action<string>((string line) => ExecuteLine(-1, line)))
+                    .SetValue("leExec", new Action<string>((string line) => ExecuteLEonardScriptLine(-1, line)))
                     .SetValue("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)))
                     .SetValue("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)))
                 ;
@@ -250,7 +250,8 @@ namespace LEonard
                 JavaCodeRTB.Modified = true;
             }
         }
-        void ExecuteJavaScript(string code)
+        // TODO needs to direct output to dev...
+        void ExecuteJavaScript(string code, LeDeviceInterface dev)
         {
             log.Info($"Java Execute: {code}");
             try

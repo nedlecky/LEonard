@@ -31,7 +31,7 @@ namespace LEonard
             pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
             pythonScope.SetVariable("leLogInfo", new Action<string>((string msg) => log.Info(msg)));
             pythonScope.SetVariable("leLogError", new Action<string>(s => log.Error(s)));
-            pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLine(-1, line)));
+            pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLEonardScriptLine(-1, line)));
             pythonScope.SetVariable("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)));
             pythonScope.SetVariable("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)));
             pythonScope.SetVariable("foo", "fighter");
@@ -226,7 +226,8 @@ namespace LEonard
                 GetLicenseStatus();
             }
         }
-        void ExecutePythonScript(string code)
+        // TODO needs to direct output to dev...
+        void ExecutePythonScript(string code, LeDeviceInterface dev)
         {
             log.Info($"Python Execute: {code}");
             try

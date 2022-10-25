@@ -21,7 +21,7 @@ namespace LEonard
         byte[] inputBuffer = new byte[inputBufferLen];
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
-        public Action<string, string> receiveCallback { get; set; }
+        public Action<string, string, LeDeviceInterface> receiveCallback { get; set; }
         private bool fConnected = false;
 
         public LeTcpClient(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
@@ -83,7 +83,7 @@ namespace LEonard
             log.Debug("Connected");
 
             if (onConnectMessage.Length > 0)
-                if (!myForm.LEonardStatementExec(logPrefix, onConnectMessage))
+                if (!myForm.ExecuteLEonardStatement(logPrefix, onConnectMessage))
                     Send(onConnectMessage);
 
             fConnected = true;
@@ -178,7 +178,7 @@ namespace LEonard
                     log.Debug("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);
 
                     if (receiveCallback != null)
-                        receiveCallback(logPrefix, cleanLine);
+                        receiveCallback(logPrefix, cleanLine, this);
                 }
                 lineNo++;
             }

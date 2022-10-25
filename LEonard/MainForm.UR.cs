@@ -150,7 +150,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("set_linear_speed({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("set_linear_speed({0})", form.Value));
             }
         }
 
@@ -168,7 +168,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("set_linear_accel({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("set_linear_accel({0})", form.Value));
             }
         }
 
@@ -186,7 +186,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("set_blend_radius({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("set_blend_radius({0})", form.Value));
             }
         }
         private void SetJointSpeedBtn_Click(object sender, EventArgs e)
@@ -203,7 +203,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("set_joint_speed({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("set_joint_speed({0})", form.Value));
             }
         }
 
@@ -221,7 +221,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("set_joint_accel({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("set_joint_accel({0})", form.Value));
             }
         }
         private void SetMoveDefaultsBtn_Click(object sender, EventArgs e)
@@ -230,11 +230,11 @@ namespace LEonard
             if (DialogResult.OK != ConfirmMessageBox("This will reset the Default Motion Parameters. Proceed?"))
                 return;
 
-            ExecuteLine(-1, String.Format("set_linear_speed({0})", DEFAULT_linear_speed));
-            ExecuteLine(-1, String.Format("set_linear_accel({0})", DEFAULT_linear_accel));
-            ExecuteLine(-1, String.Format("set_blend_radius({0})", DEFAULT_blend_radius));
-            ExecuteLine(-1, String.Format("set_joint_speed({0})", DEFAULT_joint_speed));
-            ExecuteLine(-1, String.Format("set_joint_accel({0})", DEFAULT_joint_accel));
+            ExecuteLEonardScriptLine(-1, String.Format("set_linear_speed({0})", DEFAULT_linear_speed));
+            ExecuteLEonardScriptLine(-1, String.Format("set_linear_accel({0})", DEFAULT_linear_accel));
+            ExecuteLEonardScriptLine(-1, String.Format("set_blend_radius({0})", DEFAULT_blend_radius));
+            ExecuteLEonardScriptLine(-1, String.Format("set_joint_speed({0})", DEFAULT_joint_speed));
+            ExecuteLEonardScriptLine(-1, String.Format("set_joint_accel({0})", DEFAULT_joint_accel));
         }
 
         private void SetTouchSpeedBtn_Click(object sender, EventArgs e)
@@ -251,7 +251,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_touch_speed({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_touch_speed({0})", form.Value));
             }
         }
 
@@ -269,7 +269,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_touch_retract({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_touch_retract({0})", form.Value));
             }
         }
         private void SetForceDwellBtn_Click(object sender, EventArgs e)
@@ -286,7 +286,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_force_dwell({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_force_dwell({0})", form.Value));
             }
         }
 
@@ -304,7 +304,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_max_wait({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_max_wait({0})", form.Value));
             }
         }
         private void SetMaxGrindBlendRadiusBtn_Click(object sender, EventArgs e)
@@ -321,7 +321,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_max_blend_radius({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_max_blend_radius({0})", form.Value));
             }
         }
         private void SetTrialSpeedBtn_Click(object sender, EventArgs e)
@@ -338,7 +338,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_trial_speed({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_trial_speed({0})", form.Value));
             }
         }
         private void SetGrindAccelBtn_Click(object sender, EventArgs e)
@@ -355,7 +355,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_linear_accel({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_linear_accel({0})", form.Value));
             }
         }
         private void SetPointFrequencyBtn_Click(object sender, EventArgs e)
@@ -372,7 +372,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_point_frequency({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_point_frequency({0})", form.Value));
             }
         }
         private void SetGrindJogSpeedBtn_Click(object sender, EventArgs e)
@@ -389,7 +389,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_jog_speed({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_jog_speed({0})", form.Value));
             }
         }
         private void SetGrindJogAccel_Click(object sender, EventArgs e)
@@ -406,7 +406,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_jog_accel({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_jog_accel({0})", form.Value));
             }
         }
 
@@ -424,7 +424,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_force_mode_damping({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_force_mode_damping({0})", form.Value));
             }
         }
 
@@ -442,7 +442,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLine(-1, String.Format("grind_force_mode_gain_scaling({0})", form.Value));
+                ExecuteLEonardScriptLine(-1, String.Format("grind_force_mode_gain_scaling({0})", form.Value));
             }
         }
 
@@ -452,73 +452,20 @@ namespace LEonard
             if (DialogResult.OK != ConfirmMessageBox("This will reset the Grinding Motion Parameters. Proceed?"))
                 return;
 
-            ExecuteLine(-1, String.Format("grind_trial_speed({0})", DEFAULT_grind_trial_speed));
-            ExecuteLine(-1, String.Format("grind_linear_accel({0})", DEFAULT_grind_linear_accel));
-            ExecuteLine(-1, String.Format("grind_jog_speed({0})", DEFAULT_grind_jog_speed));
-            ExecuteLine(-1, String.Format("grind_jog_accel({0})", DEFAULT_grind_jog_accel));
-            ExecuteLine(-1, String.Format("grind_max_blend_radius({0})", DEFAULT_grind_max_blend_radius));
-            ExecuteLine(-1, String.Format("grind_touch_speed({0})", DEFAULT_grind_touch_speed));
-            ExecuteLine(-1, String.Format("grind_touch_retract({0})", DEFAULT_grind_touch_retract));
-            ExecuteLine(-1, String.Format("grind_force_dwell({0})", DEFAULT_grind_force_dwell));
-            ExecuteLine(-1, String.Format("grind_max_wait({0})", DEFAULT_grind_max_wait));
-            ExecuteLine(-1, String.Format("grind_point_frequency({0})", DEFAULT_grind_point_frequency));
-            ExecuteLine(-1, String.Format("grind_force_mode_damping({0})", DEFAULT_grind_force_mode_damping));
-            ExecuteLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_trial_speed({0})", DEFAULT_grind_trial_speed));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_linear_accel({0})", DEFAULT_grind_linear_accel));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_jog_speed({0})", DEFAULT_grind_jog_speed));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_jog_accel({0})", DEFAULT_grind_jog_accel));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_max_blend_radius({0})", DEFAULT_grind_max_blend_radius));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_touch_speed({0})", DEFAULT_grind_touch_speed));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_touch_retract({0})", DEFAULT_grind_touch_retract));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_force_dwell({0})", DEFAULT_grind_force_dwell));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_max_wait({0})", DEFAULT_grind_max_wait));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_point_frequency({0})", DEFAULT_grind_point_frequency));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_force_mode_damping({0})", DEFAULT_grind_force_mode_damping));
+            ExecuteLEonardScriptLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
         }
 
-        public bool LEonardStatementExec(string prefix, string statement)
-        {
-            // {script.....}
-            if (statement.EndsWith(".js") && statement.Length > 3)
-            {
-                ExecuteJavaFile(statement);
-                return true;
-            }
-            if (statement.EndsWith(".py") && statement.Length > 3)
-            {
-                ExecutePythonFile(statement);
-                return true;
-            }
-            if (statement.StartsWith("LE:") && statement.Length > 5)
-            {
-                ExecuteLine(-1, statement.Substring(3));
-                return true;
-            }
-            if (statement.StartsWith("JE:") && statement.Length > 5)
-            {
-                ExecuteJavaScript(statement.Substring(3));
-                return true;
-            }
-            if (statement.StartsWith("PE:") && statement.Length > 5)
-            {
-                ExecutePythonScript(statement.Substring(3));
-                return true;
-            }
-            // TODO this is quite naive and restrictive
-            if (statement.Contains("="))           // name=value
-            {
-                UpdateVariable(statement);
-                return true;
-            }
-            if (statement.StartsWith("SET ")) // SET name value
-            {
-                string[] s = statement.Split(' ');
-                if (s.Length == 3)
-                    WriteVariable(s[1], s[2]);
-                else
-                    log.Error($"{prefix} Illegal SET statement: {statement}");
-                return true;
-            }
-
-            return false;
-        }
-
-        public void GeneralCallbackStatementExecute(string prefix, string statement)
-        {
-            log.Trace($"{prefix}: {statement}");
-            if (!LEonardStatementExec(prefix, statement))
-                log.Error($"{prefix} Illegal GeneralCallbackStatementExecute({prefix}, {statement})");
-        }
 
         private void RobotConnectBtn_Click(object sender, EventArgs e)
         {

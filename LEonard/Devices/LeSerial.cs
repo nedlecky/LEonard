@@ -19,7 +19,7 @@ namespace LEonard
         string myPortname;
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
-        public Action<string, string> receiveCallback { get; set; } = null;
+        public Action<string, string, LeDeviceInterface> receiveCallback { get; set; } = null;
         bool fConnected = false;
 
         public LeSerial(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
@@ -69,8 +69,7 @@ namespace LEonard
             }
 
             if (onConnectMessage.Length > 0)
-                if (!myForm.LEonardStatementExec(logPrefix, onConnectMessage))
-                    Send(onConnectMessage);
+                myForm.ExecuteLEonardStatement(logPrefix, onConnectMessage, this);
 
             fConnected = true;
             return 0;
@@ -124,7 +123,7 @@ namespace LEonard
                     // TODO: if the port.NewLine isn't in the buffer this blocks... needs to timeout almost instantly?
                     data = port.ReadLine();
                     log.Info("{0} <== {1} Line {2}", logPrefix, data, lineNo);
-                    receiveCallback(logPrefix, data);
+                    receiveCallback(logPrefix, data, this);
                     lineNo++;
                 }
             }

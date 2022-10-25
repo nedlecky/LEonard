@@ -16,7 +16,7 @@ namespace LEonard
 
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
-        public Action<string, string> receiveCallback { get; set; } = null;
+        public Action<string, string, LeDeviceInterface> receiveCallback { get; set; } = null;
 
         public LeDevNull(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {

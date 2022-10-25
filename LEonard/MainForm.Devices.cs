@@ -636,7 +636,7 @@ namespace LEonard
                 // TODO: This wait for start is a little kludgey
                 //PromptOperator("Waiting for app to start...", false, false);
 
-                
+
                 for (int i = 0; i < 10; i++)
                 {
                     Thread.Sleep(100);
@@ -659,7 +659,7 @@ namespace LEonard
                         log.Error($"Cannot find hWnd");
                     }
                 }
-                
+
                 //waitingForOperatorMessageForm.Close();
                 //waitingForOperatorMessageForm = null;
             }
@@ -867,14 +867,14 @@ namespace LEonard
         //      PE:command      Sent to ExecutePythonScript
         //      name = value    Sent to WriteVariable
         //      SET name value  Sent to WriteVariable
-        public void GeneralCallback(string prefix, string message)
+        public void GeneralCallback(string prefix, string message, LeDeviceInterface dev)
         {
-            log.Info($"GeneralCallback({prefix},{message})");
+            log.Info($"GeneralCallback({prefix},{message},{dev})");
 
             // TODO This gets broken if the user tries to do anything else with '#'
             string[] statements = message.Split('#');
             foreach (string statement in statements)
-                GeneralCallbackStatementExecute(prefix, statement);
+                GeneralCallbackStatementExecute(prefix, statement, dev);
         }
 
         void DashboardCallback(string prefix, string message)
@@ -883,14 +883,14 @@ namespace LEonard
         }
 
         // Callback used for LEonardClient and remote control
-        void CommandCallback(string prefix, string message)
+        void CommandCallback(string prefix, string message, LeDeviceInterface dev)
         {
             log.Info($"CCB<==({prefix}, {message})");
             // Nothing special for now
-            GeneralCallback(prefix, message);
+            GeneralCallback(prefix, message, dev);
         }
 
-        void AlternateCallback1(string message, string prefix)
+        void AlternateCallback1(string message, string prefix, LeDeviceInterface dev)
         {
             log.Info($"DCB<==({prefix},{message})");
             string[] s = message.Split(',');

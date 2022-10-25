@@ -49,7 +49,7 @@
     <Address>127.0.0.1:1000</Address>
     <MessageTag>CTL</MessageTag>
     <CallBack>command</CallBack>
-    <OnConnectSend>Hello!</OnConnectSend>
+    <OnConnectSend>LE:send(Hello!)</OnConnectSend>
     <OnDisconnectSend>exit()</OnDisconnectSend>
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory>C:\Users\nedlecky\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
@@ -68,7 +68,7 @@
     <ID>1</ID>
     <Name>UR-5eDash</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
     <MessageTag>UR</MessageTag>
@@ -241,7 +241,7 @@
     <Address>COM3</Address>
     <MessageTag>AUX31</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>+</OnConnectSend>
+    <OnConnectSend>LE:send(+)</OnConnectSend>
     <OnDisconnectSend />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
@@ -265,7 +265,7 @@
     <Address>COM4</Address>
     <MessageTag>AUX32</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>+</OnConnectSend>
+    <OnConnectSend>LE:send(+)</OnConnectSend>
     <OnDisconnectSend />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
