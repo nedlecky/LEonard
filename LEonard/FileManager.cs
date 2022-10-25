@@ -1,10 +1,12 @@
-﻿using LEonard;
+﻿// File: FileManager.cs
+// Project: LEonard
+// Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
+// Purpose: LEonard file open/clase/scaling system
+
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LEonard
 {

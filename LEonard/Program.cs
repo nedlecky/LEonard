@@ -1,6 +1,7 @@
 ﻿// File: Program.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
 // Purpose: The main routine (unmodified from default) for LEonard
 
 using System;

@@ -1,6 +1,7 @@
 ﻿// File: MainForm.Variables.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
 // Purpose: Variable system for LEonard (independent of Java and Python variables)
 
 using System;

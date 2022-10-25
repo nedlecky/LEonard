@@ -1,6 +1,7 @@
 ﻿// File: MainForm.LEscriptEdit.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
 // Purpose: MainForm functions supporting editing of LEscript programs
 
 using System;

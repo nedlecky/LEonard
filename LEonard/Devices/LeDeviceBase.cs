@@ -1,4 +1,10 @@
-﻿using System;
+﻿// File: LeDeviceBase.cs
+// Project: LEonard
+// Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
+// Purpose: Base class for all devices- children must inherit this and follow LeDeviceInterface
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,18 +18,18 @@ namespace LEonard
     {
         protected MainForm myForm;
         protected string logPrefix;
-        protected string onConnectMessage;
+        protected string execLEonardMessageOnConnect;
         public Process runtimeProcess { get; set; } = null;
         public Process setupProcess { get; set; } = null;
 
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
-        public LeDeviceBase(MainForm form, string prefix = "", string connectMessage = "")
+        public LeDeviceBase(MainForm form, string prefix = "", string connectExec = "")
         {
             myForm = form;
             logPrefix = prefix;
-            onConnectMessage = connectMessage;
-            log.Info($"LeDeviceBase(form, \"{logPrefix}\", \"{onConnectMessage}\")");
+            execLEonardMessageOnConnect = connectExec;
+            log.Info($"LeDeviceBase(form, \"{logPrefix}\", \"{execLEonardMessageOnConnect}\")");
         }
 
         ~LeDeviceBase()

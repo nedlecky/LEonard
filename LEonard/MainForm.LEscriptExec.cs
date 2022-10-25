@@ -1,6 +1,7 @@
 ﻿// File: MainForm.LEscriptExec.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
 // Purpose: MainForm functions supporting execution of LEscript
 
 using System;
@@ -9,6 +10,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.ServiceModel.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -1331,6 +1333,20 @@ namespace LEonard
             ExecError("Cannot interpret line");
             return true;
         }
+        public bool ExecuteLEonardMessage(string prefix, string message, LeDeviceInterface dev)
+        {
+            log.Trace($"{prefix}: {message} {dev}");
+
+            // TODO This gets broken if the user tries to do anything else with '#'
+            string[] statements = message.Split('#');
+            foreach (string statement in statements)
+                if (!ExecuteLEonardStatement(prefix, statement, dev))
+                {
+                    log.Error($"{prefix} Illegal LEonardStatement({prefix}, {statement})");
+                    return false;
+                }
+            return true;
+        }
         public bool ExecuteLEonardStatement(string prefix, string statement, LeDeviceInterface dev = null)
         {
             // {script.....}
@@ -1399,14 +1415,5 @@ namespace LEonard
             log.Error($"{prefix} Illegal LEonardStatement statement: {statement}");
             return false;
         }
-
-        public void GeneralCallbackStatementExecute(string prefix, string statement, LeDeviceInterface dev)
-        {
-            log.Trace($"{prefix}: {statement}");
-            if (!ExecuteLEonardStatement(prefix, statement, dev))
-                log.Error($"{prefix} Illegal GeneralCallbackStatementExecute({prefix}, {statement})");
-        }
-
-
     }
 }

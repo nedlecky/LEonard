@@ -1,6 +1,7 @@
 ﻿// File: FileOpenDialog.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
 // Purpose: Custom File Open dialog with large buttons for use with touch screen
 
 using System;

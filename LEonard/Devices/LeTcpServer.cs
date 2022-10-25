@@ -1,4 +1,10 @@
-﻿using System;
+﻿// File: LeTcpServer.cs
+// Project: LEonard
+// Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
+// Purpose: TCP Server Device
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -30,7 +36,7 @@ namespace LEonard
 
         public LeTcpServer(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            log.Debug("{0} LeTcpServer(form, {0}, {1})", logPrefix, onConnectMessage);
+            log.Debug("{0} LeTcpServer(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
         }
 
         ~LeTcpServer()
@@ -103,9 +109,9 @@ namespace LEonard
                         stream = client.GetStream();
                         log.Info("{0} Client connected", logPrefix);
                         IsClientConnected = true;
-                        if (onConnectMessage.Length > 0)
-                            if(!myForm.ExecuteLEonardStatement(logPrefix, onConnectMessage))
-                                Send(onConnectMessage);
+                        if (execLEonardMessageOnConnect.Length > 0)
+                            if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+                                Send(execLEonardMessageOnConnect);
                     }
                     catch
                     {

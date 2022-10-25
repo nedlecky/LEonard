@@ -1,7 +1,8 @@
 ﻿// File: LeSerial.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
-// Purpose: RS-232 Interface
+// Copyright 2021, 2022, 2023
+// Purpose: RS-232 Device
 
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace LEonard
 
         public LeSerial(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            log.Debug("{0} LeSerial(form, {0}, {1})", logPrefix, onConnectMessage);
+            log.Debug("{0} LeSerial(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
         }
 
         ~LeSerial()
@@ -52,11 +53,7 @@ namespace LEonard
             {
                 port.Open();
 
-                if (port.IsOpen)
-                {
-                    if (onConnectMessage.Length > 0) Send(onConnectMessage);
-                }
-                else
+                if (!port.IsOpen)
                 {
                     log.Error("{0} Port {1} did not open", logPrefix, portname);
                     return 2;
@@ -68,10 +65,13 @@ namespace LEonard
                 return 1;
             }
 
-            if (onConnectMessage.Length > 0)
-                myForm.ExecuteLEonardStatement(logPrefix, onConnectMessage, this);
 
             fConnected = true;
+
+            if (execLEonardMessageOnConnect.Length > 0)
+                if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+                    Send(execLEonardMessageOnConnect);
+
             return 0;
         }
 

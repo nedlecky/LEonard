@@ -1,6 +1,7 @@
 ﻿// File: Protection.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
 // Purpose: Software copy protection scheme
 
 using LEonard;

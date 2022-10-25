@@ -1,7 +1,8 @@
 ﻿// File: LeUrCommand.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
-// Purpose: Custom server for Universal Robot Commands
+// Copyright 2021, 2022, 2023
+// Purpose: Custom LeTcpServer child to handle Universal Robot command interface from PolyScope/URScript
 
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace LEonard
 
         public LeUrCommand(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            log.Debug("{0} LeUrCommand(form, {0}, {1})", logPrefix, onConnectMessage);
+            log.Debug("{0} LeUrCommand(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
 
         }
         ~LeUrCommand()

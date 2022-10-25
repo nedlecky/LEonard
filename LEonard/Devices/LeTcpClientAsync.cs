@@ -1,4 +1,10 @@
-﻿using System;
+﻿// File: LeTcpClientAsync.cs
+// Project: LEonard
+// Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
+// Purpose: Async TCP Client Device (WIP)
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -43,7 +49,7 @@ namespace LEonard
 
         public LeTcpClientAsync(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            log.Debug("{0} LeTcpClient(form, {0}, {1})", logPrefix, onConnectMessage);
+            log.Debug("{0} LeTcpClient(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
         }
         ~LeTcpClientAsync()
         {
@@ -105,12 +111,12 @@ namespace LEonard
                 return 3;
             }
 
-            if (onConnectMessage.Length > 0)
-                if (!myForm.ExecuteLEonardStatement(logPrefix, onConnectMessage))
-                    Send(onConnectMessage);
-
-
             fConnected = true;
+
+            if (execLEonardMessageOnConnect.Length > 0)
+                if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+                    Send(execLEonardMessageOnConnect);
+
             return 0;
         }
         public bool IsConnected()

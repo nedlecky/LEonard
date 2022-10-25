@@ -1,6 +1,7 @@
 ﻿// File: MainForm.Devices.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
 // Purpose: MainForm functions supporting Devices
 
 using System;
@@ -9,6 +10,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -60,7 +62,7 @@ namespace LEonard
         {
             devices.Rows.Add(new object[] {
                 0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
-                "CTL", "command", "Hello!", "exit()",
+                "CTL", "command", "LE:send(Hello!)", "exit()",
                 true,
                 "C:\\Users\\nedlecky\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
                 "LEonardClient.exe",
@@ -172,7 +174,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 8, "Dataman1", true, false, "Serial", "COM3",
-                "AUX31", "general", "+", "",
+                "AUX31", "general", "LE:send(+)", "",
                 false,
                 "",
                 "",
@@ -204,7 +206,7 @@ namespace LEonard
                 true,
                 "",
                 "Chrome.exe",
-                "/incognito 192.168.0.171",
+                "/incognito 192.168.0.3",
                 "",
                 "",
                 "",
@@ -869,12 +871,8 @@ namespace LEonard
         //      SET name value  Sent to WriteVariable
         public void GeneralCallback(string prefix, string message, LeDeviceInterface dev)
         {
-            log.Info($"GeneralCallback({prefix},{message},{dev})");
-
-            // TODO This gets broken if the user tries to do anything else with '#'
-            string[] statements = message.Split('#');
-            foreach (string statement in statements)
-                GeneralCallbackStatementExecute(prefix, statement, dev);
+            log.Info($"GeneralCallback({prefix}, {message}, {dev})");
+            ExecuteLEonardMessage(prefix, message, dev);
         }
 
         void DashboardCallback(string prefix, string message)

@@ -1,6 +1,7 @@
 ﻿// File: BigEditDialog.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
 // Purpose: Fullscreen (touch tablet) editor
 
 using System;

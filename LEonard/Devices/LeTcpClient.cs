@@ -1,4 +1,10 @@
-﻿using System;
+﻿// File: LeTcpClient.cs
+// Project: LEonard
+// Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
+// Purpose: TCP Client Device
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -24,9 +30,9 @@ namespace LEonard
         public Action<string, string, LeDeviceInterface> receiveCallback { get; set; }
         private bool fConnected = false;
 
-        public LeTcpClient(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
+        public LeTcpClient(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug("{0} LeTcpClient(form, {0}, {1})", logPrefix, onConnectMessage);
+            log.Debug("{0} LeTcpClient(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
         }
         ~LeTcpClient()
         {
@@ -82,11 +88,13 @@ namespace LEonard
 
             log.Debug("Connected");
 
-            if (onConnectMessage.Length > 0)
-                if (!myForm.ExecuteLEonardStatement(logPrefix, onConnectMessage))
-                    Send(onConnectMessage);
 
             fConnected = true;
+
+            if (execLEonardMessageOnConnect.Length > 0)
+                if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+                    Send(execLEonardMessageOnConnect);
+
             return 0;
         }
         public virtual bool IsConnected()

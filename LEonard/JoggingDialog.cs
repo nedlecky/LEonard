@@ -1,6 +1,7 @@
 ﻿// File: JoggingDialog.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
+// Copyright 2021, 2022, 2023
 // Purpose: Jogging and Freedrive manual robot movement
 
 using Microsoft.Win32;

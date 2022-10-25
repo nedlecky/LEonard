@@ -1,7 +1,8 @@
 ﻿// File: LeGocator.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
-// Purpose: Custom interface to Gocator
+// Copyright 2021, 2022, 2023
+// Purpose: Specialized child of LeTcpClient for Gocator interface
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace LEonard
 
         public LeGocator(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            log.Debug("{0} LeGocator(form, {0}, {1})", logPrefix, onConnectMessage);
+            log.Debug("{0} LeGocator(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
 
         }
         ~LeGocator()
@@ -60,6 +61,11 @@ namespace LEonard
                 myForm.GocatorAnnounce(LeGocator.Status.ERROR);
             else
             {
+                // TODO all the below init should be in onConnectExec
+                if (execLEonardMessageOnConnect.Length > 0)
+                    if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+                        Send(execLEonardMessageOnConnect);
+
                 InquiryResponse("stop");
                 InquiryResponse("clearalignment");
                 InquiryResponse("loadjob,LM01");

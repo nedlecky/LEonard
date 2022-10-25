@@ -84,15 +84,15 @@
     <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
     <SpeedSendButtons>stop</SpeedSendButtons>
     <Jobfile>LEonard/LEonard01.urp</Jobfile>
-    <Model>UR5</Model>
-    <Serial>20195501059</Serial>
-    <Version>URSoftware 5.11.11.1010533 (Apr 12 2022)</Version>
+    <Model />
+    <Serial />
+    <Version />
   </Devices>
   <Devices>
     <ID>2</ID>
     <Name>UR-5eCommand</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>
     <MessageTag>UR</MessageTag>
@@ -116,7 +116,7 @@
     <ID>3</ID>
     <Name>Gocator</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
     <MessageTag>GO</MessageTag>
@@ -265,7 +265,7 @@
     <Address>COM4</Address>
     <MessageTag>AUX32</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>LE:send(+)</OnConnectSend>
+    <OnConnectSend>+</OnConnectSend>
     <OnDisconnectSend />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
@@ -283,18 +283,18 @@
   <Devices>
     <ID>10</ID>
     <Name>Chrome</Name>
-    <Enabled>false</Enabled>
+    <Enabled>true</Enabled>
     <Connected>false</Connected>
     <DeviceType>Null</DeviceType>
     <Address />
     <MessageTag>CTL</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend />
+    <OnConnectSend>LE:prompt(Hey)</OnConnectSend>
     <OnDisconnectSend />
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName>Chrome.exe</RuntimeFileName>
-    <RuntimeArguments>/incognito 192.168.0.171</RuntimeArguments>
+    <RuntimeArguments>/incognito 192.168.0.3</RuntimeArguments>
     <SetupWorkingDirectory />
     <SetupFileName />
     <SetupArguments />

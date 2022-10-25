@@ -1,7 +1,9 @@
 ﻿// File: LeUrDashboard.cs
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
-// Purpose: Custom interface to Universal Robot Dashboard
+// Copyright 2021, 2022, 2023
+// Purpose: Custom LeTcpClient interface to Universal Robot Dashboard
+
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +29,7 @@ namespace LEonard
 
         public LeUrDashboard(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
-            log.Debug("{0} LeUrDashboard(form, {0}, {1})", logPrefix, onConnectMessage);
+            log.Debug("{0} LeUrDashboard(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
 
         }
         ~LeUrDashboard()
@@ -57,6 +59,11 @@ namespace LEonard
                 myForm.ErrorMessageBox($"Dashboard connection returned {response}");
             }
             myForm.UrDashboardAnnounce(DashboardStatus.OK);
+
+            // TODO all the below could be in this onConnectExec
+            if (execLEonardMessageOnConnect.Length > 0)
+                if (!myForm.ExecuteLEonardStatement(logPrefix, execLEonardMessageOnConnect, this))
+                    Send(execLEonardMessageOnConnect);
 
             string closeSafetyPopupResponse = InquiryResponse("close safety popup", 1000);
             string isInRemoteControlResponse = InquiryResponse("is in remote control", 1000);
