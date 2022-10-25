@@ -485,7 +485,7 @@ namespace LEonard
             return wasSuccessful;
         }
 
-        private void LoadVariablesBtn_Click(object sender, EventArgs e)
+        private void LoadVariables()
         {
             string filename = Path.Combine(LEonardRoot, "Recipes", variablesFilename);
             log.Info("LoadVariables from {0}", filename);
@@ -504,7 +504,7 @@ namespace LEonard
                 row["IsNew"] = false;
         }
 
-        private void SaveVariablesBtn_Click(object sender, EventArgs e)
+        private void SaveVariables()
         {
             string filename = Path.Combine(LEonardRoot, "Recipes", variablesFilename);
             log.Info("SaveVariables to {0}", filename);

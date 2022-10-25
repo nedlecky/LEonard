@@ -791,12 +791,8 @@ namespace LEonard
         private void SetVariableEditing(bool f)
         {
             BigEditBtn.Enabled = f;
-            LoadPositionsBtn.Enabled = f;
-            SavePositionsBtn.Enabled = f;
             ClearAllPositionsBtn.Enabled = f;
             ClearPositionsBtn.Enabled = f;
-            LoadVariablesBtn.Enabled = f;
-            SaveVariablesBtn.Enabled = f;
             ClearVariablesBtn.Enabled = f;
             ClearAllVariablesBtn.Enabled = f;
         }
@@ -993,12 +989,8 @@ namespace LEonard
             ColorEnableButton(StopBtn, Color.Red);
 
             ColorEnableButtonGreen(BigEditBtn);
-            ColorEnableButtonGreen(LoadPositionsBtn);
-            ColorEnableButtonGreen(SavePositionsBtn);
             ColorEnableButtonGreen(ClearAllPositionsBtn);
             ColorEnableButtonGreen(ClearPositionsBtn);
-            ColorEnableButtonGreen(LoadVariablesBtn);
-            ColorEnableButtonGreen(SaveVariablesBtn);
             ColorEnableButtonGreen(ClearVariablesBtn);
             ColorEnableButtonGreen(ClearAllVariablesBtn);
         }
@@ -1078,15 +1070,11 @@ namespace LEonard
             {
                 // Position Test Buttons
                 //new ControlSpec(PositionTestButtonGrp, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
-                new ControlSpec(LoadPositionsBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
-                new ControlSpec(SavePositionsBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(ClearPositionsBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(ClearAllPositionsBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
 
                 // Variable Test Buttons
                 //new ControlSpec(VariableTestButtonGrp, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
-                new ControlSpec(LoadVariablesBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
-                new ControlSpec(SaveVariablesBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(ClearVariablesBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
                 new ControlSpec(ClearAllVariablesBtn, ControlSetting.HIDDEN, ControlSetting.DISABLED, ControlSetting.NORMAL),
 
@@ -1612,10 +1600,10 @@ namespace LEonard
             LoadToolsBtn_Click(null, null);
 
             // Load the positions table
-            LoadPositionsBtn_Click(null, null);
+            LoadPositions();
 
             // Load the variables table
-            LoadVariablesBtn_Click(null, null);
+            LoadVariables();
 
             // Load the Recipe Commands for User Inspection
             try
@@ -1692,10 +1680,10 @@ namespace LEonard
             SaveToolsBtn_Click(null, null);
 
             // Save the positions table
-            SavePositionsBtn_Click(null, null);
+            SavePositions();
 
             // Save the variables table
-            SaveVariablesBtn_Click(null, null);
+            SaveVariables();
 
             // Save currently loaded recipe
             AppNameKey.SetValue("RecipeFilenameLbl.Text", RecipeFilenameLbl.Text);

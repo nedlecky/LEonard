@@ -62,8 +62,6 @@
             this.PositionsGrd = new System.Windows.Forms.DataGridView();
             this.ClearAllPositionsBtn = new System.Windows.Forms.Button();
             this.ClearPositionsBtn = new System.Windows.Forms.Button();
-            this.SavePositionsBtn = new System.Windows.Forms.Button();
-            this.LoadPositionsBtn = new System.Windows.Forms.Button();
             this.PositionMoveArmBtn = new System.Windows.Forms.Button();
             this.JogBtn = new System.Windows.Forms.Button();
             this.PositionSetBtn = new System.Windows.Forms.Button();
@@ -72,8 +70,6 @@
             this.VariablesGrd = new System.Windows.Forms.DataGridView();
             this.ClearAllVariablesBtn = new System.Windows.Forms.Button();
             this.ClearVariablesBtn = new System.Windows.Forms.Button();
-            this.SaveVariablesBtn = new System.Windows.Forms.Button();
-            this.LoadVariablesBtn = new System.Windows.Forms.Button();
             this.javaEnginePage = new System.Windows.Forms.TabPage();
             this.JavaScreenLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.JavaFilenameLbl = new System.Windows.Forms.Label();
@@ -641,8 +637,6 @@
             this.PositionLayoutPanel.Controls.Add(this.PositionsGrd, 0, 1);
             this.PositionLayoutPanel.Controls.Add(this.ClearAllPositionsBtn, 3, 2);
             this.PositionLayoutPanel.Controls.Add(this.ClearPositionsBtn, 2, 2);
-            this.PositionLayoutPanel.Controls.Add(this.SavePositionsBtn, 1, 2);
-            this.PositionLayoutPanel.Controls.Add(this.LoadPositionsBtn, 0, 2);
             this.PositionLayoutPanel.Controls.Add(this.PositionMoveArmBtn, 1, 0);
             this.PositionLayoutPanel.Controls.Add(this.JogBtn, 3, 0);
             this.PositionLayoutPanel.Controls.Add(this.PositionSetBtn, 2, 0);
@@ -721,34 +715,6 @@
             this.ClearPositionsBtn.UseVisualStyleBackColor = false;
             this.ClearPositionsBtn.Click += new System.EventHandler(this.ClearPositionsBtn_Click);
             // 
-            // SavePositionsBtn
-            // 
-            this.SavePositionsBtn.BackColor = System.Drawing.Color.Gray;
-            this.SavePositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SavePositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SavePositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.SavePositionsBtn.Location = new System.Drawing.Point(288, 611);
-            this.SavePositionsBtn.Name = "SavePositionsBtn";
-            this.SavePositionsBtn.Size = new System.Drawing.Size(279, 74);
-            this.SavePositionsBtn.TabIndex = 93;
-            this.SavePositionsBtn.Text = "Save";
-            this.SavePositionsBtn.UseVisualStyleBackColor = false;
-            this.SavePositionsBtn.Click += new System.EventHandler(this.SavePositionsBtn_Click);
-            // 
-            // LoadPositionsBtn
-            // 
-            this.LoadPositionsBtn.BackColor = System.Drawing.Color.Gray;
-            this.LoadPositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LoadPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadPositionsBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadPositionsBtn.Location = new System.Drawing.Point(3, 611);
-            this.LoadPositionsBtn.Name = "LoadPositionsBtn";
-            this.LoadPositionsBtn.Size = new System.Drawing.Size(279, 74);
-            this.LoadPositionsBtn.TabIndex = 94;
-            this.LoadPositionsBtn.Text = "Reload";
-            this.LoadPositionsBtn.UseVisualStyleBackColor = false;
-            this.LoadPositionsBtn.Click += new System.EventHandler(this.LoadPositionsBtn_Click);
-            // 
             // PositionMoveArmBtn
             // 
             this.PositionMoveArmBtn.BackColor = System.Drawing.Color.Green;
@@ -815,8 +781,6 @@
             this.VariablesLayoutPanel.Controls.Add(this.VariablesGrd, 0, 0);
             this.VariablesLayoutPanel.Controls.Add(this.ClearAllVariablesBtn, 3, 1);
             this.VariablesLayoutPanel.Controls.Add(this.ClearVariablesBtn, 2, 1);
-            this.VariablesLayoutPanel.Controls.Add(this.SaveVariablesBtn, 1, 1);
-            this.VariablesLayoutPanel.Controls.Add(this.LoadVariablesBtn, 0, 1);
             this.VariablesLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.VariablesLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.VariablesLayoutPanel.Name = "VariablesLayoutPanel";
@@ -875,34 +839,6 @@
             this.ClearVariablesBtn.Text = "Clear";
             this.ClearVariablesBtn.UseVisualStyleBackColor = false;
             this.ClearVariablesBtn.Click += new System.EventHandler(this.ClearVariablesBtn_Click);
-            // 
-            // SaveVariablesBtn
-            // 
-            this.SaveVariablesBtn.BackColor = System.Drawing.Color.Gray;
-            this.SaveVariablesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveVariablesBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveVariablesBtn.Location = new System.Drawing.Point(286, 605);
-            this.SaveVariablesBtn.Name = "SaveVariablesBtn";
-            this.SaveVariablesBtn.Size = new System.Drawing.Size(277, 74);
-            this.SaveVariablesBtn.TabIndex = 89;
-            this.SaveVariablesBtn.Text = "Save";
-            this.SaveVariablesBtn.UseVisualStyleBackColor = false;
-            this.SaveVariablesBtn.Click += new System.EventHandler(this.SaveVariablesBtn_Click);
-            // 
-            // LoadVariablesBtn
-            // 
-            this.LoadVariablesBtn.BackColor = System.Drawing.Color.Gray;
-            this.LoadVariablesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LoadVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadVariablesBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadVariablesBtn.Location = new System.Drawing.Point(3, 605);
-            this.LoadVariablesBtn.Name = "LoadVariablesBtn";
-            this.LoadVariablesBtn.Size = new System.Drawing.Size(277, 74);
-            this.LoadVariablesBtn.TabIndex = 90;
-            this.LoadVariablesBtn.Text = "Reload";
-            this.LoadVariablesBtn.UseVisualStyleBackColor = false;
-            this.LoadVariablesBtn.Click += new System.EventHandler(this.LoadVariablesBtn_Click);
             // 
             // javaEnginePage
             // 
@@ -4293,8 +4229,6 @@
         private System.Windows.Forms.TabControl MonitorTab;
         private System.Windows.Forms.TabPage variablesPage;
         private System.Windows.Forms.Button ClearAllVariablesBtn;
-        private System.Windows.Forms.Button LoadVariablesBtn;
-        private System.Windows.Forms.Button SaveVariablesBtn;
         private System.Windows.Forms.Button ClearVariablesBtn;
         private System.Windows.Forms.DataGridView VariablesGrd;
         private System.Windows.Forms.Label label6;
@@ -4304,8 +4238,6 @@
         private System.Windows.Forms.Button PositionMovePoseBtn;
         private System.Windows.Forms.Button PositionSetBtn;
         private System.Windows.Forms.Button ClearAllPositionsBtn;
-        private System.Windows.Forms.Button LoadPositionsBtn;
-        private System.Windows.Forms.Button SavePositionsBtn;
         private System.Windows.Forms.Button ClearPositionsBtn;
         private System.Windows.Forms.DataGridView PositionsGrd;
         private System.Windows.Forms.ComboBox UserModeBox;

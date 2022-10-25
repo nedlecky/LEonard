@@ -94,7 +94,7 @@ namespace LEonard
         }
 
 
-        private void LoadPositionsBtn_Click(object sender, EventArgs e)
+        private void LoadPositions()
         {
             string filename = Path.Combine(LEonardRoot, "Recipes", positionsFilename);
             log.Info("LoadPositions from {0}", filename);
@@ -109,7 +109,7 @@ namespace LEonard
             PositionsGrd.DataSource = positions;
         }
 
-        private void SavePositionsBtn_Click(object sender, EventArgs e)
+        private void SavePositions()
         {
             string filename = Path.Combine(LEonardRoot, "Recipes", positionsFilename);
             log.Info("SavePositions to {0}", filename);
