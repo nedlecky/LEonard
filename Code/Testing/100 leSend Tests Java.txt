@@ -1,4 +1,4 @@
-leLanguage(Java)
+leLanguage(1)
 
 if(typeof js_counter== 'undefined')
   js_counter= 1;

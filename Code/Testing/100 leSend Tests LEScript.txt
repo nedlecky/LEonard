@@ -1,4 +1,4 @@
-leLanguage(LEScript)
+leLanguage(0)
 
 a = 10
 ls_counter = 7

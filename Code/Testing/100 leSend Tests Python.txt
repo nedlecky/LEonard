@@ -1,3 +1,4 @@
+leLanguage(2)
 try:
   py_counter += 1
 except NameError:
