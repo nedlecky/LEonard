@@ -654,7 +654,7 @@
             // 
             this.PositionMovePoseBtn.BackColor = System.Drawing.Color.Green;
             this.PositionMovePoseBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PositionMovePoseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PositionMovePoseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PositionMovePoseBtn.ForeColor = System.Drawing.Color.White;
             this.PositionMovePoseBtn.Location = new System.Drawing.Point(2, 2);
             this.PositionMovePoseBtn.Margin = new System.Windows.Forms.Padding(2);
@@ -719,7 +719,7 @@
             // 
             this.PositionMoveArmBtn.BackColor = System.Drawing.Color.Green;
             this.PositionMoveArmBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PositionMoveArmBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PositionMoveArmBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PositionMoveArmBtn.ForeColor = System.Drawing.Color.White;
             this.PositionMoveArmBtn.Location = new System.Drawing.Point(287, 2);
             this.PositionMoveArmBtn.Margin = new System.Windows.Forms.Padding(2);
@@ -734,7 +734,7 @@
             // 
             this.JogBtn.BackColor = System.Drawing.Color.Green;
             this.JogBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JogBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JogBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JogBtn.ForeColor = System.Drawing.Color.White;
             this.JogBtn.Location = new System.Drawing.Point(857, 2);
             this.JogBtn.Margin = new System.Windows.Forms.Padding(2);
@@ -749,7 +749,7 @@
             // 
             this.PositionSetBtn.BackColor = System.Drawing.Color.Green;
             this.PositionSetBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PositionSetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PositionSetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PositionSetBtn.ForeColor = System.Drawing.Color.White;
             this.PositionSetBtn.Location = new System.Drawing.Point(572, 2);
             this.PositionSetBtn.Margin = new System.Windows.Forms.Padding(2);
