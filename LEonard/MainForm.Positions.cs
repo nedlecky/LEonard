@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace LEonard
 {
-    public partial class MainForm: Form
+    public partial class MainForm
     {
         readonly string positionsFilename = "Positions.xml";
 

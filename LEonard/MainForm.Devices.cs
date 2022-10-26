@@ -18,7 +18,7 @@ using System.Windows.Forms;
 
 namespace LEonard
 {
-    public partial class MainForm : Form
+    public partial class MainForm
     {
         private const int SW_SHOWMINIMIZED = 2;
         private const int SW_SHOWMAXIMIZED = 3;

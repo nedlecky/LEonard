@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace LEonard
 {
-    public partial class MainForm : Form
+    public partial class MainForm
     {
         // Drop any highlighted lines!
         private enum RecipeState
