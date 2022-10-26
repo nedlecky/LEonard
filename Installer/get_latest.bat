@@ -1,7 +1,7 @@
 @echo off
 set filename=get_latest.bat
 set title=LEonard Get Latest
-set version=2022-10-08
+set version=2022-10-26
 set description=Pulls latest development binaries, recipes, UR, and Gocator code into this directory
 
 echo.
@@ -23,11 +23,15 @@ set /p choice=Get latest from %LEonardRoot%? y/[n]
 
 if %choice%==y (
     rmdir /s /q LEonard
-    rmdir /s /q Recipes
+    rmdir /s /q DB
+    rmdir /s /q Config
+    rmdir /s /q Code
     rmdir /s /q UR
     rmdir /s /q Gocator
     robocopy %LEonardRoot%\LEonard\bin LEonard\bin /MIR
-    robocopy %LEonardRoot%\Recipes Recipes /MIR
+    robocopy %LEonardRoot%\DB /MIR
+    robocopy %LEonardRoot%\Config /MIR
+    robocopy %LEonardRoot%\Code /MIR
     robocopy %LEonardRoot%\UR UR /MIR
     robocopy %LEonardRoot%\Gocator Gocator /MIR
     echo.

@@ -2169,8 +2169,8 @@ namespace LEonard
             BigEditDialog bigeditForm = new BigEditDialog()
             {
                 Title = LEonardScriptFilenameLbl.Text,
-                ScreenWidth = screenDesignWidth,
-                ScreenHeight = screenDesignHeight,
+                ScreenWidth = Width,
+                ScreenHeight = Height,
                 Program = LEonardScriptRTB.Text
             };
             bigeditForm.ShowDialog();

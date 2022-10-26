@@ -1,8 +1,8 @@
 @echo off
 set filename=install.bat
 set title=LEonard Installer
-set version=2022-10-08
-set description=Put latest development binaries, test recipes, UR, and Gocator code into C:\LEonard
+set version=2022-10-26
+set description=Put latest development binaries, data, test code, UR, and Gocator code into C:\LEonard
 
 echo.
 echo *** %title% ***   File: %filename%  Rev: %version%
@@ -22,8 +22,9 @@ if %choice%==y (
     rem bin and UR directories are mirrored to this source directory
     rem Recipes\Testing are only copied from here to root\Recipes\Testing if new files or newer dates than what is there
     robocopy LEonard\bin %LEonardRoot%\LEonard\bin /MIR
-    rem robocopy Recipes\Testing %LEonardRoot%\Recipes\Testing /XO
-    robocopy Recipes %LEonardRoot%\Recipes /XO
+    robocopy DB %LEonardRoot%\DB /XO
+    robocopy Config %LEonardRoot%\Config /XO
+    robocopy Code %LEonardRoot%\Code /XO
     robocopy UR %LEonardRoot%\UR /MIR
     robocopy Gocator %LEonardRoot%\Gocator /MIR
     echo.

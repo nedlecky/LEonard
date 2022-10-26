@@ -17,6 +17,9 @@
 		},
 		{
 			"path": "Config"
+		},
+		{
+			"path": "Installer"
 		}
 	],
 	"settings": {}
