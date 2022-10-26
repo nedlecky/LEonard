@@ -11,11 +11,15 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Configuration;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.ServiceModel.Channels;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using IronPython.Hosting;
 using Jint;
 using Microsoft.Win32;
 using NLog;
@@ -1020,7 +1024,7 @@ namespace LEonard
 
             ToolsGrd.ClearSelection();
             if (focusLeUrCommand != null)
-                ExecuteLEonardScriptLine(-1, String.Format("select_tool({0})", MountedToolBox.Text));
+                ExecuteLEonardScriptLine(-1, $"select_tool({MountedToolBox.Text})");
         }
 
         private void UpdateGeometryToRobot()
@@ -3650,13 +3654,13 @@ namespace LEonard
             ExecuteLEonardScriptLine(-1, string.Format("set_footswitch_pressed_input({0})", FootswitchPressedInputTxt.Text));
         }
 
-        private DataRow FindTool(string name)
+        private DataRow FindName(string name, DataTable table)
         {
-            foreach (DataRow row in tools.Rows)
+            foreach (DataRow row in table.Rows)
             {
                 if ((string)row["Name"] == name)
                 {
-                    log.Trace("FindTool({0}) = {1}", row["Name"], row.ToString());
+                    log.Trace($"FindName({row["Name"]},{table.TableName}) = {row.ToString()}");
                     return row;
                 }
             }
@@ -5120,7 +5124,7 @@ namespace LEonard
             {
                 LogInterpret("select_tool", lineNumber, origLine);
                 string name = ExtractParameters(command, 1);
-                DataRow row = FindTool(name);
+                DataRow row = FindName(name, tools);
                 if (row == null)
                 {
                     log.Error("Unknown tool specified in EXEC: {0.000} {1}", lineNumber, command);
@@ -5238,27 +5242,62 @@ namespace LEonard
                 return true;
             }
 
-            // lePrint
-            void print(string s)
+            // lePrintFunc
+            void lePrintFunc(string s)
             {
                 log.Info("L** " + s);
             }
             if (command.StartsWith("lePrint("))
             {
                 LogInterpret("lePrint", lineNumber, origLine);
-                print(ExtractParameters(command, -1, false));
+                lePrintFunc(ExtractParameters(command, -1, false));
                 return true;
             }
 
-            // send
-            if (command.StartsWith("send("))
+            // leSend
+            if (command.StartsWith("leSend("))
             {
-                LogInterpret("send", lineNumber, origLine);
-                string str = ExtractParameters(command, -1, false);
-                if (dev == null)
-                    print("dev=null " + str);
+                LogInterpret("leSend", lineNumber, origLine);
+                string str = ExtractParameters(command, 2, false);
+
+                if (str == "")
+                    ExecError($"leSend({command}) Bad syntax");
                 else
-                    dev.Send(str);
+                {
+                    string[] values = str.Split(',');
+                    string devName = values[0];
+                    string message = values[1];
+                    if (devName == "me" && dev != null)
+                        dev.Send(message);
+                    else if (!leSend(devName, message))
+                        ExecError($"leSend({devName}, {message}) Failed");
+                }
+
+                return true;
+            }
+
+            // leInquiryResponse
+            if (command.StartsWith("leInquiryResponse("))
+            {
+                LogInterpret("leInquiryResponse", lineNumber, origLine);
+                string response = "???";
+                string str = ExtractParameters(command, 3, false);
+                if (str == "")
+                    ExecError($"leInquiryResponse({command}) Bad syntax");
+                else
+                {
+                    string[] values = str.Split(',');
+
+                    string devName = values[0];
+                    string message = values[1];
+                    int timeoutMs = Convert.ToInt32(values[2]);
+                    if (devName == "me" && dev != null)
+                        response = dev.InquiryResponse(str);
+                    else
+                        response = leInquiryResponse(devName, message);
+                }
+
+                WriteVariable("IRresponse", response);
 
                 return true;
             }
@@ -5807,39 +5846,51 @@ namespace LEonard
         // ======================================================================================
 
         // ======================================================================================
+        // SHARED SUPPORT FUNCTIONS FOR JAVA, PYTHON, AND LESCRIPT BEGINS
+        // ======================================================================================
+        public bool leSend(string devName, string msg)
+        {
+            DataRow row = FindName(devName, devices);
+            if (row == null)
+            {
+                log.Error($"leSend: Could not find device {devName}");
+                return false;
+            }
+
+            if (!interfaces[(int)row["ID"]].IsConnected())
+            {
+                log.Error($"leSend: {devName} exists but is not connected");
+                return false;
+            }
+
+            interfaces[(int)row["ID"]].Send(msg);
+            return true;
+        }
+        public string leInquiryResponse(string devName, string msg, int timeoutMs = 100)
+        {
+            DataRow row = FindName(devName, devices);
+            if (row == null)
+            {
+                log.Error($"leInquiryResponse: Could not find device {devName}");
+                return null;
+            }
+
+            if (!interfaces[(int)row["ID"]].IsConnected())
+            {
+                log.Error($"leInquiryResponse: {devName} exists but is not connected");
+                return null;
+            }
+
+            return interfaces[(int)row["ID"]].InquiryResponse(msg, timeoutMs);
+        }
+        // ======================================================================================
+        // SHARED SUPPORT FUNCTIONS FOR JAVA, PYTHON, AND LESCRIPT ENDS
+        // ======================================================================================
+
+
+        // ======================================================================================
         // JAVA CODE BEGINS
         // ======================================================================================
-        /*
-private void JavaAlert(string message)
-{
-    PromptOperator("Java:\n" + message);
-}
-private void JavaPrint(string message)
-{
-    log.Info("JVP " + message);
-    CrawlRTB(JavaConsoleRTB, message);
-}
-private void JavaLogInfo(string message)
-{
-    log.Info(message);
-}
-private void JavaLogError(string message)
-{
-    log.Error(message);
-}
-private void JavaExecuteLine(string message)
-{
-    ExecuteLine(-1, message);
-}
-private void JavaWriteVariable(string name, string value)
-{
-    WriteVariable(name, value);
-}
-private string JavaReadVariable(string name)
-{
-    return ReadVariable(name);
-}
-*/
         private void JavaUpdateVariablesRTB()
         {
             string finalUpdate = "";
@@ -5874,7 +5925,9 @@ private string JavaReadVariable(string name)
                     .SetValue("leExec", new Action<string>((string line) => ExecuteLEonardScriptLine(-1, line)))
                     .SetValue("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)))
                     .SetValue("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)))
-                ;
+                    .SetValue("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)))
+                    .SetValue("leInquiryResponse", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)))
+            ;
         }
         private void JavaRunBtn_Click(object sender, EventArgs e)
         {
@@ -6094,12 +6147,11 @@ private string JavaReadVariable(string name)
             CrawlRTB(PythonConsoleRTB, msg);
             log.Info("P** " + msg);
         }
+
         private void InitializePythonEngine()
         {
             pythonEngine = IronPython.Hosting.Python.CreateEngine();
             pythonScope = pythonEngine.CreateScope();
-
-            pythonScope.RemoveVariable("print");
 
             pythonScope.SetVariable("lePrompt", new Action<string>((string prompt) => PromptOperator("Python Prompt:\n" + prompt)));
             pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
@@ -6108,7 +6160,8 @@ private string JavaReadVariable(string name)
             pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLEonardScriptLine(-1, line)));
             pythonScope.SetVariable("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)));
             pythonScope.SetVariable("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)));
-            pythonScope.SetVariable("foo", "fighter");
+            pythonScope.SetVariable("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)));
+            pythonScope.SetVariable("leInquiryResponse", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)));
         }
 
         private void PythonRunBtn_Click(object sender, EventArgs e)

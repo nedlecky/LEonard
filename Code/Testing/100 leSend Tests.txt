@@ -1,0 +1,11 @@
+a=3
+a+=1
+lePrint(a={a})
+
+leSend(Command,Hey! How are you?)
+
+leSend(Dataman1,+)
+leSend(Dataman2,+)
+
+leInquiryResponse(UR-5eDash,programstate,100)
+lePrint({IRresponse})

@@ -219,5 +219,13 @@ namespace LEonard
             }
             return "";
         }
+
+        public string InquiryResponse(string message, int timeoutMs = 50)
+        {
+            log.Error($"{logPrefix} LeTcpServer::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
+
+            return null;
+        }
+
     }
 }

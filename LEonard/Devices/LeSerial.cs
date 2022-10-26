@@ -110,6 +110,13 @@ namespace LEonard
                 return "";
             */
         }
+        public string InquiryResponse(string message, int timeoutMs = 50)
+        {
+            log.Error($"{logPrefix} LeSerial::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
+
+            return null;
+        }
+
         public void DataReceivedEvent(object sender, SerialDataReceivedEventArgs e)
         {
             if (receiveCallback != null)

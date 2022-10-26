@@ -23,6 +23,7 @@ namespace LEonard
         int Disconnect();
         int Send(string message);
         string Receive(bool fProcessCallbackOnly = false);
+        string InquiryResponse(string inquiry, int timeoutMs = 50);
 
         int StartRuntimeProcess(ProcessStartInfo start);
         int EndRuntimeProcess();

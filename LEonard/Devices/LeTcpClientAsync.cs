@@ -189,6 +189,14 @@ namespace LEonard
             }
         }
 
+        public string InquiryResponse(string message, int timeoutMs = 50)
+        {
+            log.Error($"{logPrefix} LeTcpClientAsync::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
+
+            return null;
+        }
+
+
         private void ReceiveCallback(IAsyncResult ar)
         {
             try

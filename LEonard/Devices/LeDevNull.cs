@@ -58,13 +58,20 @@ namespace LEonard
 
         public int Send(string message)
         {
-            log.Info("{0} ==> {1}", logPrefix, message);
+            log.Debug($"{logPrefix} DevNull::Send({message})");
 
             return 0;
         }
         public string Receive(bool fProcessCallbackOnly = false)
         {
+            log.Debug($"{logPrefix} DevNull::Receive()");
             return "";
+        }
+        public string InquiryResponse(string message, int timeoutMs = 50)
+        {
+            log.Debug($"{logPrefix} DevNull::InquiryResponse({message}, {timeoutMs})");
+
+            return null;
         }
     }
 }
