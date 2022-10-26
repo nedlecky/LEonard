@@ -22,11 +22,11 @@ if %choice%==y (
     rem bin and UR directories are mirrored to this source directory
     rem Recipes\Testing are only copied from here to root\Recipes\Testing if new files or newer dates than what is there
     robocopy LEonard\bin %LEonardRoot%\LEonard\bin /MIR
-    robocopy DB %LEonardRoot%\DB /XO
-    robocopy Config %LEonardRoot%\Config /XO
-    robocopy Code %LEonardRoot%\Code /XO
-    robocopy UR %LEonardRoot%\UR /MIR
-    robocopy Gocator %LEonardRoot%\Gocator /MIR
+    robocopy DB %LEonardRoot%\DB /XO /S
+    robocopy Config %LEonardRoot%\Config /XO /S
+    robocopy Code %LEonardRoot%\Code /XO /S
+    robocopy UR %LEonardRoot%\UR /XO /S
+    robocopy Gocator %LEonardRoot%\Gocator /XO /S
     echo.
     echo Operation complete.
 ) else (
