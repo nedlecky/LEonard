@@ -116,7 +116,7 @@ namespace LEonard
             if (PythonFilenameLbl.Text != "Untitled" && PythonFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(PythonFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+                initialDirectory = Path.Combine(LEonardRoot, "Code");
 
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
@@ -152,7 +152,7 @@ namespace LEonard
             if (PythonFilenameLbl.Text != "Untitled" && PythonFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(PythonFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+                initialDirectory = Path.Combine(LEonardRoot, "Code");
 
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {

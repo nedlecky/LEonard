@@ -1,7 +1,7 @@
 # 10 Static Repeatability
 
 clear()
-filename = {RecipeFilename}
+filename = {LEonardScriptFilename}
 
 movel_rel_part(0.025,0.100,0,0,0,0)
 

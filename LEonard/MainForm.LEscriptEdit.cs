@@ -40,35 +40,35 @@ namespace LEonard
                 switch (recipeState)
                 {
                     case RecipeState.NEW:
-                        NewRecipeBtn.Enabled = false;
-                        LoadRecipeBtn.Enabled = true;
-                        SaveRecipeBtn.Enabled = false;
-                        SaveAsRecipeBtn.Enabled = true;
+                        NewLEonardScriptBtn.Enabled = false;
+                        LoadLEonardScriptBtn.Enabled = true;
+                        SaveLEonardScriptBtn.Enabled = false;
+                        SaveAsLEonardScriptBtn.Enabled = true;
                         break;
                     case RecipeState.LOADED:
-                        NewRecipeBtn.Enabled = true;
-                        LoadRecipeBtn.Enabled = true;
-                        SaveRecipeBtn.Enabled = false;
-                        SaveAsRecipeBtn.Enabled = true;
+                        NewLEonardScriptBtn.Enabled = true;
+                        LoadLEonardScriptBtn.Enabled = true;
+                        SaveLEonardScriptBtn.Enabled = false;
+                        SaveAsLEonardScriptBtn.Enabled = true;
                         break;
                     case RecipeState.MODIFIED:
-                        NewRecipeBtn.Enabled = true;
-                        LoadRecipeBtn.Enabled = true;
-                        SaveRecipeBtn.Enabled = true;
-                        SaveAsRecipeBtn.Enabled = true;
+                        NewLEonardScriptBtn.Enabled = true;
+                        LoadLEonardScriptBtn.Enabled = true;
+                        SaveLEonardScriptBtn.Enabled = true;
+                        SaveAsLEonardScriptBtn.Enabled = true;
                         break;
                     case RecipeState.RUNNING:
                         recipeStateAtRun = oldRecipeState;
-                        NewRecipeBtn.Enabled = false;
-                        LoadRecipeBtn.Enabled = false;
-                        SaveRecipeBtn.Enabled = false;
-                        SaveAsRecipeBtn.Enabled = false;
+                        NewLEonardScriptBtn.Enabled = false;
+                        LoadLEonardScriptBtn.Enabled = false;
+                        SaveLEonardScriptBtn.Enabled = false;
+                        SaveAsLEonardScriptBtn.Enabled = false;
                         break;
                 }
-                NewRecipeBtn.BackColor = NewRecipeBtn.Enabled ? Color.Green : Color.Gray;
-                LoadRecipeBtn.BackColor = LoadRecipeBtn.Enabled ? Color.Green : Color.Gray;
-                SaveRecipeBtn.BackColor = SaveRecipeBtn.Enabled ? Color.Green : Color.Gray;
-                SaveAsRecipeBtn.BackColor = SaveAsRecipeBtn.Enabled ? Color.Green : Color.Gray;
+                NewLEonardScriptBtn.BackColor = NewLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+                LoadLEonardScriptBtn.BackColor = LoadLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+                SaveLEonardScriptBtn.BackColor = SaveLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+                SaveAsLEonardScriptBtn.BackColor = SaveAsLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
             }
         }
 
@@ -76,18 +76,18 @@ namespace LEonard
         private string recipeAsLoaded = "";  // As it was when loaded so we can test for actual mods
         private bool RecipeWasModified()
         {
-            return recipeAsLoaded != RecipeRTB.Text;
+            return recipeAsLoaded != LEonardScriptRTB.Text;
         }
-        bool LoadRecipeFile(string file)
+        bool LoadLEonardScriptFile(string file)
         {
             log.Info("LoadRecipeFile({0})", file);
-            RecipeFilenameLbl.Text = "";
-            RecipeRTB.Text = "";
+            LEonardScriptFilenameLbl.Text = "";
+            LEonardScriptRTB.Text = "";
             try
             {
-                RecipeRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-                RecipeFilenameLbl.Text = file;
-                recipeAsLoaded = RecipeRTB.Text;
+                LEonardScriptRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                LEonardScriptFilenameLbl.Text = file;
+                recipeAsLoaded = LEonardScriptRTB.Text;
                 return true;
             }
             catch (Exception ex)
@@ -97,39 +97,39 @@ namespace LEonard
             }
         }
 
-        private void NewRecipeBtn_Click(object sender, EventArgs e)
+        private void NewLEonardScriptBtn_Click(object sender, EventArgs e)
         {
             log.Info("NewRecipeBtn_Click(...)");
             if (RecipeWasModified())
             {
-                var result = ConfirmMessageBox(String.Format("Recipe [{0}] has changed.\nSave changes?", LoadRecipeBtn.Text));
+                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEonardScriptBtn.Text));
                 if (result == DialogResult.OK)
-                    SaveRecipeBtn_Click(null, null);
+                    SaveLEonardScriptBtn_Click(null, null);
             }
 
             SetRecipeState(RecipeState.NEW);
             SetState(RunState.IDLE);
-            RecipeFilenameLbl.Text = "Untitled";
-            RecipeRTB.Clear();
+            LEonardScriptFilenameLbl.Text = "Untitled";
+            LEonardScriptRTB.Clear();
             recipeAsLoaded = "";
             MainTab.SelectedIndex = 1; // = "Program";
         }
 
-        private void LoadRecipeBtn_Click(object sender, EventArgs e)
+        private void LoadLEonardScriptBtn_Click(object sender, EventArgs e)
         {
             log.Info("LoadRecipeBtn_Click(...)");
             if (RecipeWasModified())
             {
-                var result = ConfirmMessageBox(String.Format("Recipe [{0}] has changed.\nSave changes?", LoadRecipeBtn.Text));
+                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEonardScriptBtn.Text));
                 if (result == DialogResult.OK)
-                    SaveRecipeBtn_Click(null, null);
+                    SaveLEonardScriptBtn_Click(null, null);
             }
 
             string initialDirectory;
-            if (RecipeFilenameLbl.Text != "Untitled" && RecipeFilenameLbl.Text.Length > 0)
-                initialDirectory = Path.GetDirectoryName(RecipeFilenameLbl.Text);
+            if (LEonardScriptFilenameLbl.Text != "Untitled" && LEonardScriptFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(LEonardScriptFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+                initialDirectory = Path.Combine(LEonardRoot, "Code");
 
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
@@ -140,7 +140,7 @@ namespace LEonard
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                if (LoadRecipeFile(dialog.FileName))
+                if (LoadLEonardScriptFile(dialog.FileName))
                 {
                     SetRecipeState(RecipeState.LOADED);
                     SetState(RunState.READY);
@@ -148,37 +148,37 @@ namespace LEonard
             }
         }
 
-        private void SaveRecipeBtn_Click(object sender, EventArgs e)
+        private void SaveLEonardScriptBtn_Click(object sender, EventArgs e)
         {
             log.Info("SaveRecipeBtn_Click(...)");
-            if (RecipeFilenameLbl.Text == "Untitled" || RecipeFilenameLbl.Text == "")
-                SaveAsRecipeBtn_Click(null, null);
+            if (LEonardScriptFilenameLbl.Text == "Untitled" || LEonardScriptFilenameLbl.Text == "")
+                SaveAsLEonardScriptBtn_Click(null, null);
             else
             {
-                log.Info("Save Recipe program to {0}", RecipeFilenameLbl.Text);
-                RecipeRTB.SaveFile(RecipeFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-                recipeAsLoaded = RecipeRTB.Text;
+                log.Info("Save Recipe program to {0}", LEonardScriptFilenameLbl.Text);
+                LEonardScriptRTB.SaveFile(LEonardScriptFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                recipeAsLoaded = LEonardScriptRTB.Text;
                 SetRecipeState(RecipeState.LOADED);
                 SetState(RunState.READY);
             }
         }
 
-        private void SaveAsRecipeBtn_Click(object sender, EventArgs e)
+        private void SaveAsLEonardScriptBtn_Click(object sender, EventArgs e)
         {
             log.Info("SaveAsRecipeBtn_Click(...)");
 
             string initialDirectory;
-            if (RecipeFilenameLbl.Text != "Untitled" && RecipeFilenameLbl.Text.Length > 0)
-                initialDirectory = Path.GetDirectoryName(RecipeFilenameLbl.Text);
+            if (LEonardScriptFilenameLbl.Text != "Untitled" && LEonardScriptFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(LEonardScriptFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+                initialDirectory = Path.Combine(LEonardRoot, "Code");
 
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {
-                Title = "Save a LEonard Recipe As...",
+                Title = "Save a LEonardScript program As...",
                 Filter = "*.txt",
                 InitialDirectory = initialDirectory,
-                FileName = RecipeFilenameLbl.Text,
+                FileName = LEonardScriptFilenameLbl.Text,
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -194,13 +194,13 @@ namespace LEonard
                     }
                     if (okToSave)
                     {
-                        RecipeFilenameLbl.Text = filename;
-                        SaveRecipeBtn_Click(null, null);
+                        LEonardScriptFilenameLbl.Text = filename;
+                        SaveLEonardScriptBtn_Click(null, null);
                     }
                 }
             }
         }
-        private void RecipeRTB_ModifiedChanged(object sender, EventArgs e)
+        private void LEonardScriptRTB_ModifiedChanged(object sender, EventArgs e)
         {
             SetRecipeState(RecipeState.MODIFIED);
         }

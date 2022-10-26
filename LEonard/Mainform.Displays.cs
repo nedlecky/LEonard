@@ -275,7 +275,7 @@ namespace LEonard
 
         private void LoadDisplaysBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardRoot, "Recipes", displaysFilename);
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, displaysFilename);
             log.Info("LoadDisplays from {0}", filename);
             ClearAndInitializeDisplays();
             try
@@ -296,7 +296,7 @@ namespace LEonard
 
         private void SaveDisplaysBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardRoot, "Recipes", displaysFilename);
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, displaysFilename);
             log.Info("SaveDisplaysBtn_Click to {0}", filename);
             displays.AcceptChanges();
             displays.WriteXml(filename, XmlWriteMode.WriteSchema, true);

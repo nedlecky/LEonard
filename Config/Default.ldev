@@ -67,7 +67,7 @@
   <Devices>
     <ID>1</ID>
     <Name>UR-5eDash</Name>
-    <Enabled>false</Enabled>
+    <Enabled>true</Enabled>
     <Connected>false</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
@@ -84,14 +84,14 @@
     <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
     <SpeedSendButtons>stop</SpeedSendButtons>
     <Jobfile>LEonard/LEonard01.urp</Jobfile>
-    <Model>UR5</Model>
-    <Serial>20195501059</Serial>
-    <Version>URSoftware 5.11.11.1010533 (Apr 12 2022)</Version>
+    <Model />
+    <Serial />
+    <Version />
   </Devices>
   <Devices>
     <ID>2</ID>
     <Name>UR-5eCommand</Name>
-    <Enabled>false</Enabled>
+    <Enabled>true</Enabled>
     <Connected>false</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>
@@ -115,7 +115,7 @@
   <Devices>
     <ID>3</ID>
     <Name>Gocator</Name>
-    <Enabled>false</Enabled>
+    <Enabled>true</Enabled>
     <Connected>false</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
@@ -235,7 +235,7 @@
   <Devices>
     <ID>8</ID>
     <Name>Dataman1</Name>
-    <Enabled>false</Enabled>
+    <Enabled>true</Enabled>
     <Connected>false</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
@@ -289,7 +289,7 @@
     <Address />
     <MessageTag>CTL</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>LE:prompt(Hey)</OnConnectSend>
+    <OnConnectSend />
     <OnDisconnectSend />
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory />

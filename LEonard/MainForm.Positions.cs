@@ -96,7 +96,7 @@ namespace LEonard
 
         private void LoadPositions()
         {
-            string filename = Path.Combine(LEonardRoot, "Recipes", positionsFilename);
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, positionsFilename);
             log.Info("LoadPositions from {0}", filename);
             ClearAndInitializePositions();
             try
@@ -111,7 +111,7 @@ namespace LEonard
 
         private void SavePositions()
         {
-            string filename = Path.Combine(LEonardRoot, "Recipes", positionsFilename);
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, positionsFilename);
             log.Info("SavePositions to {0}", filename);
             positions.AcceptChanges();
             positions.WriteXml(filename, XmlWriteMode.WriteSchema, true);

@@ -1,7 +1,7 @@
 # 16 Both Alignment Sunk
 
 clear()
-filename = {RecipeFilename}
+filename = {LEonardScriptFilename}
 
 count=5
 

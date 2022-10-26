@@ -38,7 +38,7 @@
     <Height>1200</Height>
     <Resizable>false</Resizable>
     <Fullscreen>false</Fullscreen>
-    <FontScale>80</FontScale>
+    <FontScale>100</FontScale>
   </Displays>
   <Displays>
     <Name>My Laptop</Name>
@@ -71,13 +71,5 @@
     <Resizable>true</Resizable>
     <Fullscreen>true</Fullscreen>
     <FontScale>100</FontScale>
-  </Displays>
-  <Displays>
-    <Name>nnn</Name>
-    <Width>1000</Width>
-    <Height>1000</Height>
-    <Resizable>false</Resizable>
-    <Fullscreen>false</Fullscreen>
-    <FontScale>80</FontScale>
   </Displays>
 </NewDataSet>

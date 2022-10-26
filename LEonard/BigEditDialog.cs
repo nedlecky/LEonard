@@ -24,7 +24,7 @@ namespace LEonard
         public string Title { get; set; } = "??";
         public int ScreenWidth { get; set; } = 1000;
         public int ScreenHeight { get; set; } = 1000;
-        public string Recipe { get; set; } = "";
+        public string Program { get; set; } = "";
 
         public BigEditDialog()
         {
@@ -43,23 +43,23 @@ namespace LEonard
             DialogResult = DialogResult.None;
             CancelBtn.Select();
 
-            RecipeRTB.Text = Recipe;
+            ProgramRTB.Text = Program;
 
-            // Load the Recipe Commands for User Inspection
+            // Load the Program Statements for User Inspection
             try
             {
-                RecipeCommandsRTB.LoadFile("RecipeCommands.rtf");
+                ProgramStatementsRTB.LoadFile("ProgramStatements.rtf");
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Could not load RecipeCommands.rtf!");
+                log.Error(ex, "Could not load ProgramStatements.rtf");
             }
         }
 
         private void KeepBtn_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
-            Recipe=RecipeRTB.Text;
+            Program = ProgramRTB.Text;
             Close();
         }
 
@@ -71,7 +71,7 @@ namespace LEonard
 
         private void ReloadBtn_Click(object sender, EventArgs e)
         {
-            RecipeRTB.Text = Recipe;
+            ProgramRTB.Text = Program;
         }
     }
 }

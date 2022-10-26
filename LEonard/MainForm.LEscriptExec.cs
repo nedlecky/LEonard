@@ -69,7 +69,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Recipe line parameter error: {0} {1}", s, ex);
+                log.Error(ex, "LEonardScript line parameter error: {0} {1}", s, ex);
                 return "";
             }
         }
@@ -1013,7 +1013,7 @@ namespace LEonard
                     return true;
                 }
 
-                string full_filename = Path.Combine(LEonardRoot, "Data", filename);
+                string full_filename = Path.Combine(LEonardRoot, DataFolder, filename);
                 full_filename = Path.ChangeExtension(full_filename, ".csv");
 
                 try
@@ -1096,7 +1096,7 @@ namespace LEonard
                     return true;
                 }
 
-                string full_filename = Path.Combine(LEonardRoot, "Data", filename);
+                string full_filename = Path.Combine(LEonardRoot, DataFolder, filename);
                 if (fileManager == null)
                     fileManager = new FileManager(this);
 
@@ -1182,7 +1182,7 @@ namespace LEonard
                     return true;
                 }
 
-                string full_filename = Path.Combine(LEonardRoot, "Data", filename);
+                string full_filename = Path.Combine(LEonardRoot, DataFolder, filename);
                 full_filename = Path.ChangeExtension(full_filename, ".csv");
 
                 try

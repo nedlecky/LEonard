@@ -1,7 +1,7 @@
 # 15 Normal Alignment Thru
 
 clear()
-filename = {RecipeFilename}
+filename = {LEonardScriptFilename}
 
 count=5
 loop:

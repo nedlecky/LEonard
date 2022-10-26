@@ -146,7 +146,7 @@ namespace LEonard
 
         private void LoadToolsBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardRoot, "Recipes", toolsFilename);
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, toolsFilename);
             log.Info("LoadTools from {0}", filename);
             ClearAndInitializeTools();
             try
@@ -169,7 +169,7 @@ namespace LEonard
 
         private void SaveToolsBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardRoot, "Recipes", toolsFilename);
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, toolsFilename);
             log.Info("SaveTools to {0}", filename);
             tools.AcceptChanges();
             tools.WriteXml(filename, XmlWriteMode.WriteSchema, true);

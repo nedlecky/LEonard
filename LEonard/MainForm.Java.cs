@@ -163,7 +163,7 @@ namespace LEonard
             if (JavaFilenameLbl.Text != "Untitled" && JavaFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(JavaFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+                initialDirectory = Path.Combine(LEonardRoot, "Code");
 
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
@@ -199,7 +199,7 @@ namespace LEonard
             if (JavaFilenameLbl.Text != "Untitled" && JavaFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(JavaFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Recipes");
+                initialDirectory = Path.Combine(LEonardRoot, "Code");
 
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {

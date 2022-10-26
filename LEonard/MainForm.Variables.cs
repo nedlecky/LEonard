@@ -58,10 +58,11 @@ namespace LEonard
         }
         public string ReadVariable(string name, string defaultValue = null)
         {
+            // TODO Document these virtual variables!
             if (name == "DateTime")
                 return DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss");
-            if (name == "RecipeFilename")
-                return Path.GetFileNameWithoutExtension(RecipeFilenameLbl.Text).Replace(' ', '_').ToLower();
+            if (name == "LEonardScriptFilename")
+                return Path.GetFileNameWithoutExtension(LEonardScriptFilenameLbl.Text).Replace(' ', '_').ToLower();
 
             foreach (DataRow row in variables.Rows)
             {
@@ -487,7 +488,7 @@ namespace LEonard
 
         private void LoadVariables()
         {
-            string filename = Path.Combine(LEonardRoot, "Recipes", variablesFilename);
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, variablesFilename);
             log.Info("LoadVariables from {0}", filename);
             ClearAndInitializeVariables();
             try
@@ -506,7 +507,7 @@ namespace LEonard
 
         private void SaveVariables()
         {
-            string filename = Path.Combine(LEonardRoot, "Recipes", variablesFilename);
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, variablesFilename);
             log.Info("SaveVariables to {0}", filename);
             variables.AcceptChanges();
             variables.WriteXml(filename, XmlWriteMode.WriteSchema, true);

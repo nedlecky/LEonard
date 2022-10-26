@@ -4,13 +4,19 @@
 			"path": "UR\\USB Image- Program Installer"
 		},
 		{
-			"path": "Recipes"
-		},
-		{
 			"path": "Logs"
 		},
 		{
 			"path": "Data"
+		},
+		{
+			"path": "Code"
+		},
+		{
+			"path": "DB"
+		},
+		{
+			"path": "Config"
 		}
 	],
 	"settings": {}

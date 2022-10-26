@@ -253,7 +253,7 @@ namespace LEonard
                 {
                     row["Connected"] = false;
                 }
-                //currentDeviceRowIndex = 0;
+                currentDeviceRowIndex = 0;
 
                 // TODO this needs to be re-enabled AND needs a fail safe
                 if (AutoConnectOnLoadChk.Checked)
@@ -278,7 +278,7 @@ namespace LEonard
             if (DevicesFilenameLbl.Text != "Untitled" && DevicesFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(DevicesFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Devices");
+                initialDirectory = Path.Combine(LEonardRoot, ConfigFolder);
 
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
@@ -312,7 +312,7 @@ namespace LEonard
             if (DevicesFilenameLbl.Text != "Untitled" && DevicesFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(DevicesFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Devices");
+                initialDirectory = Path.Combine(LEonardRoot, ConfigFolder);
 
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {

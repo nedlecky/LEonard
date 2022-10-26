@@ -36,16 +36,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
-            this.RecipeRTB = new System.Windows.Forms.RichTextBox();
+            this.LEonardScriptRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
             this.StopBtn = new System.Windows.Forms.Button();
             this.PauseBtn = new System.Windows.Forms.Button();
             this.StartBtn = new System.Windows.Forms.Button();
-            this.RecipeFilenameLbl = new System.Windows.Forms.Label();
-            this.SaveAsRecipeBtn = new System.Windows.Forms.Button();
-            this.NewRecipeBtn = new System.Windows.Forms.Button();
-            this.LoadRecipeBtn = new System.Windows.Forms.Button();
-            this.SaveRecipeBtn = new System.Windows.Forms.Button();
+            this.LEonardScriptFilenameLbl = new System.Windows.Forms.Label();
+            this.SaveAsLEonardScriptBtn = new System.Windows.Forms.Button();
+            this.NewLEonardScriptBtn = new System.Windows.Forms.Button();
+            this.LoadLEonardScriptBtn = new System.Windows.Forms.Button();
+            this.SaveLEonardScriptBtn = new System.Windows.Forms.Button();
             this.HeartbeatTmr = new System.Windows.Forms.Timer(this.components);
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
             this.CloseTmr = new System.Windows.Forms.Timer(this.components);
@@ -94,7 +94,7 @@
             this.PythonCodeRTB = new System.Windows.Forms.RichTextBox();
             this.manualPage = new System.Windows.Forms.TabPage();
             this.ManualLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.RecipeCommandsRTB = new System.Windows.Forms.RichTextBox();
+            this.LEonardScriptCommandsRTB = new System.Windows.Forms.RichTextBox();
             this.FullManualBtn = new System.Windows.Forms.Button();
             this.revhistPage = new System.Windows.Forms.TabPage();
             this.RevHistRTB = new System.Windows.Forms.RichTextBox();
@@ -118,7 +118,7 @@
             this.RobotCompletedLbl = new System.Windows.Forms.Label();
             this.GocatorConnectedLbl = new System.Windows.Forms.Label();
             this.GocatorReadyLbl = new System.Windows.Forms.Label();
-            this.RecipeRTBCopy = new System.Windows.Forms.RichTextBox();
+            this.LEonardScriptRTBCopy = new System.Windows.Forms.RichTextBox();
             this.RunCenterColumnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label18 = new System.Windows.Forms.Label();
             this.MoveToolHomeBtn = new System.Windows.Forms.Button();
@@ -367,19 +367,19 @@
             this.CurrentLineLbl.TabIndex = 79;
             this.CurrentLineLbl.TextChanged += new System.EventHandler(this.CurrentLineLbl_TextChanged);
             // 
-            // RecipeRTB
+            // LEonardScriptRTB
             // 
-            this.RecipeRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RecipeRTB.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecipeRTB.Location = new System.Drawing.Point(2, 2);
-            this.RecipeRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.RecipeRTB.Name = "RecipeRTB";
-            this.RecipeRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RecipeRTB.Size = new System.Drawing.Size(723, 664);
-            this.RecipeRTB.TabIndex = 72;
-            this.RecipeRTB.Text = "";
-            this.RecipeRTB.VScroll += new System.EventHandler(this.RecipeRTB_VScroll);
-            this.RecipeRTB.TextChanged += new System.EventHandler(this.RecipeRTB_TextChanged);
+            this.LEonardScriptRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LEonardScriptRTB.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LEonardScriptRTB.Location = new System.Drawing.Point(2, 2);
+            this.LEonardScriptRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.LEonardScriptRTB.Name = "LEonardScriptRTB";
+            this.LEonardScriptRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.LEonardScriptRTB.Size = new System.Drawing.Size(723, 664);
+            this.LEonardScriptRTB.TabIndex = 72;
+            this.LEonardScriptRTB.Text = "";
+            this.LEonardScriptRTB.VScroll += new System.EventHandler(this.LEonardScriptRTB_VScroll);
+            this.LEonardScriptRTB.TextChanged += new System.EventHandler(this.RecipeRTB_TextChanged);
             // 
             // StepBtn
             // 
@@ -445,80 +445,80 @@
             this.StartBtn.UseVisualStyleBackColor = false;
             this.StartBtn.Click += new System.EventHandler(this.StartBtn_Click);
             // 
-            // RecipeFilenameLbl
+            // LEonardScriptFilenameLbl
             // 
-            this.RecipeFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.RecipeFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RecipeFilenameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecipeFilenameLbl.Location = new System.Drawing.Point(2, 0);
-            this.RecipeFilenameLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.RecipeFilenameLbl.Name = "RecipeFilenameLbl";
-            this.RecipeFilenameLbl.Size = new System.Drawing.Size(517, 84);
-            this.RecipeFilenameLbl.TabIndex = 77;
-            this.RecipeFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RecipeFilenameLbl.TextChanged += new System.EventHandler(this.RecipeFilenameLbl_TextChanged);
+            this.LEonardScriptFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LEonardScriptFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LEonardScriptFilenameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LEonardScriptFilenameLbl.Location = new System.Drawing.Point(2, 0);
+            this.LEonardScriptFilenameLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.LEonardScriptFilenameLbl.Name = "LEonardScriptFilenameLbl";
+            this.LEonardScriptFilenameLbl.Size = new System.Drawing.Size(517, 84);
+            this.LEonardScriptFilenameLbl.TabIndex = 77;
+            this.LEonardScriptFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LEonardScriptFilenameLbl.TextChanged += new System.EventHandler(this.RecipeFilenameLbl_TextChanged);
             // 
-            // SaveAsRecipeBtn
+            // SaveAsLEonardScriptBtn
             // 
-            this.SaveAsRecipeBtn.BackColor = System.Drawing.Color.Gray;
-            this.SaveAsRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveAsRecipeBtn.Enabled = false;
-            this.SaveAsRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveAsRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveAsRecipeBtn.Location = new System.Drawing.Point(745, 2);
-            this.SaveAsRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.SaveAsRecipeBtn.Name = "SaveAsRecipeBtn";
-            this.SaveAsRecipeBtn.Size = new System.Drawing.Size(150, 94);
-            this.SaveAsRecipeBtn.TabIndex = 4;
-            this.SaveAsRecipeBtn.Text = "Save As...";
-            this.SaveAsRecipeBtn.UseVisualStyleBackColor = false;
-            this.SaveAsRecipeBtn.Click += new System.EventHandler(this.SaveAsRecipeBtn_Click);
+            this.SaveAsLEonardScriptBtn.BackColor = System.Drawing.Color.Gray;
+            this.SaveAsLEonardScriptBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveAsLEonardScriptBtn.Enabled = false;
+            this.SaveAsLEonardScriptBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveAsLEonardScriptBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveAsLEonardScriptBtn.Location = new System.Drawing.Point(745, 2);
+            this.SaveAsLEonardScriptBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.SaveAsLEonardScriptBtn.Name = "SaveAsLEonardScriptBtn";
+            this.SaveAsLEonardScriptBtn.Size = new System.Drawing.Size(150, 94);
+            this.SaveAsLEonardScriptBtn.TabIndex = 4;
+            this.SaveAsLEonardScriptBtn.Text = "Save As...";
+            this.SaveAsLEonardScriptBtn.UseVisualStyleBackColor = false;
+            this.SaveAsLEonardScriptBtn.Click += new System.EventHandler(this.SaveAsLEonardScriptBtn_Click);
             // 
-            // NewRecipeBtn
+            // NewLEonardScriptBtn
             // 
-            this.NewRecipeBtn.BackColor = System.Drawing.Color.Gray;
-            this.NewRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NewRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.NewRecipeBtn.Location = new System.Drawing.Point(437, 2);
-            this.NewRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.NewRecipeBtn.Name = "NewRecipeBtn";
-            this.NewRecipeBtn.Size = new System.Drawing.Size(150, 94);
-            this.NewRecipeBtn.TabIndex = 2;
-            this.NewRecipeBtn.Text = "New";
-            this.NewRecipeBtn.UseVisualStyleBackColor = false;
-            this.NewRecipeBtn.Click += new System.EventHandler(this.NewRecipeBtn_Click);
+            this.NewLEonardScriptBtn.BackColor = System.Drawing.Color.Gray;
+            this.NewLEonardScriptBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NewLEonardScriptBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewLEonardScriptBtn.ForeColor = System.Drawing.Color.White;
+            this.NewLEonardScriptBtn.Location = new System.Drawing.Point(437, 2);
+            this.NewLEonardScriptBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.NewLEonardScriptBtn.Name = "NewLEonardScriptBtn";
+            this.NewLEonardScriptBtn.Size = new System.Drawing.Size(150, 94);
+            this.NewLEonardScriptBtn.TabIndex = 2;
+            this.NewLEonardScriptBtn.Text = "New";
+            this.NewLEonardScriptBtn.UseVisualStyleBackColor = false;
+            this.NewLEonardScriptBtn.Click += new System.EventHandler(this.NewLEonardScriptBtn_Click);
             // 
-            // LoadRecipeBtn
+            // LoadLEonardScriptBtn
             // 
-            this.LoadRecipeBtn.BackColor = System.Drawing.Color.Gray;
-            this.LoadRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LoadRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadRecipeBtn.Location = new System.Drawing.Point(22, 2);
-            this.LoadRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.LoadRecipeBtn.Name = "LoadRecipeBtn";
-            this.LoadRecipeBtn.Size = new System.Drawing.Size(411, 94);
-            this.LoadRecipeBtn.TabIndex = 1;
-            this.LoadRecipeBtn.Text = "Untitled";
-            this.LoadRecipeBtn.UseVisualStyleBackColor = false;
-            this.LoadRecipeBtn.Click += new System.EventHandler(this.LoadRecipeBtn_Click);
+            this.LoadLEonardScriptBtn.BackColor = System.Drawing.Color.Gray;
+            this.LoadLEonardScriptBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoadLEonardScriptBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadLEonardScriptBtn.ForeColor = System.Drawing.Color.White;
+            this.LoadLEonardScriptBtn.Location = new System.Drawing.Point(22, 2);
+            this.LoadLEonardScriptBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.LoadLEonardScriptBtn.Name = "LoadLEonardScriptBtn";
+            this.LoadLEonardScriptBtn.Size = new System.Drawing.Size(411, 94);
+            this.LoadLEonardScriptBtn.TabIndex = 1;
+            this.LoadLEonardScriptBtn.Text = "Untitled";
+            this.LoadLEonardScriptBtn.UseVisualStyleBackColor = false;
+            this.LoadLEonardScriptBtn.Click += new System.EventHandler(this.LoadLEonardScriptBtn_Click);
             // 
-            // SaveRecipeBtn
+            // SaveLEonardScriptBtn
             // 
-            this.SaveRecipeBtn.BackColor = System.Drawing.Color.Gray;
-            this.SaveRecipeBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveRecipeBtn.Enabled = false;
-            this.SaveRecipeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveRecipeBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveRecipeBtn.Location = new System.Drawing.Point(591, 2);
-            this.SaveRecipeBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.SaveRecipeBtn.Name = "SaveRecipeBtn";
-            this.SaveRecipeBtn.Size = new System.Drawing.Size(150, 94);
-            this.SaveRecipeBtn.TabIndex = 3;
-            this.SaveRecipeBtn.Text = "Save";
-            this.SaveRecipeBtn.UseVisualStyleBackColor = false;
-            this.SaveRecipeBtn.Click += new System.EventHandler(this.SaveRecipeBtn_Click);
+            this.SaveLEonardScriptBtn.BackColor = System.Drawing.Color.Gray;
+            this.SaveLEonardScriptBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveLEonardScriptBtn.Enabled = false;
+            this.SaveLEonardScriptBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveLEonardScriptBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveLEonardScriptBtn.Location = new System.Drawing.Point(591, 2);
+            this.SaveLEonardScriptBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.SaveLEonardScriptBtn.Name = "SaveLEonardScriptBtn";
+            this.SaveLEonardScriptBtn.Size = new System.Drawing.Size(150, 94);
+            this.SaveLEonardScriptBtn.TabIndex = 3;
+            this.SaveLEonardScriptBtn.Text = "Save";
+            this.SaveLEonardScriptBtn.UseVisualStyleBackColor = false;
+            this.SaveLEonardScriptBtn.Click += new System.EventHandler(this.SaveLEonardScriptBtn_Click);
             // 
             // HeartbeatTmr
             // 
@@ -1147,7 +1147,7 @@
             this.ManualLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.ManualLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.ManualLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.ManualLayoutPanel.Controls.Add(this.RecipeCommandsRTB, 0, 0);
+            this.ManualLayoutPanel.Controls.Add(this.LEonardScriptCommandsRTB, 0, 0);
             this.ManualLayoutPanel.Controls.Add(this.FullManualBtn, 2, 1);
             this.ManualLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ManualLayoutPanel.Location = new System.Drawing.Point(0, 0);
@@ -1158,19 +1158,19 @@
             this.ManualLayoutPanel.Size = new System.Drawing.Size(1141, 688);
             this.ManualLayoutPanel.TabIndex = 106;
             // 
-            // RecipeCommandsRTB
+            // LEonardScriptCommandsRTB
             // 
-            this.ManualLayoutPanel.SetColumnSpan(this.RecipeCommandsRTB, 4);
-            this.RecipeCommandsRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RecipeCommandsRTB.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecipeCommandsRTB.Location = new System.Drawing.Point(2, 2);
-            this.RecipeCommandsRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.RecipeCommandsRTB.Name = "RecipeCommandsRTB";
-            this.RecipeCommandsRTB.ReadOnly = true;
-            this.RecipeCommandsRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RecipeCommandsRTB.Size = new System.Drawing.Size(1137, 624);
-            this.RecipeCommandsRTB.TabIndex = 104;
-            this.RecipeCommandsRTB.Text = "";
+            this.ManualLayoutPanel.SetColumnSpan(this.LEonardScriptCommandsRTB, 4);
+            this.LEonardScriptCommandsRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LEonardScriptCommandsRTB.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LEonardScriptCommandsRTB.Location = new System.Drawing.Point(2, 2);
+            this.LEonardScriptCommandsRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.LEonardScriptCommandsRTB.Name = "LEonardScriptCommandsRTB";
+            this.LEonardScriptCommandsRTB.ReadOnly = true;
+            this.LEonardScriptCommandsRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.LEonardScriptCommandsRTB.Size = new System.Drawing.Size(1137, 624);
+            this.LEonardScriptCommandsRTB.TabIndex = 104;
+            this.LEonardScriptCommandsRTB.Text = "";
             // 
             // FullManualBtn
             // 
@@ -1360,7 +1360,7 @@
             this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.RunTabLayoutPanel.Controls.Add(this.StatusLayoutPanel, 2, 0);
-            this.RunTabLayoutPanel.Controls.Add(this.RecipeRTBCopy, 0, 0);
+            this.RunTabLayoutPanel.Controls.Add(this.LEonardScriptRTBCopy, 0, 0);
             this.RunTabLayoutPanel.Controls.Add(this.RunCenterColumnLayoutPanel, 1, 0);
             this.RunTabLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RunTabLayoutPanel.Location = new System.Drawing.Point(3, 3);
@@ -1513,19 +1513,19 @@
             this.GocatorReadyLbl.Text = "Gocator Ready";
             this.GocatorReadyLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // RecipeRTBCopy
+            // LEonardScriptRTBCopy
             // 
-            this.RecipeRTBCopy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RecipeRTBCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecipeRTBCopy.Location = new System.Drawing.Point(2, 2);
-            this.RecipeRTBCopy.Margin = new System.Windows.Forms.Padding(2);
-            this.RecipeRTBCopy.Name = "RecipeRTBCopy";
-            this.RecipeRTBCopy.ReadOnly = true;
-            this.RecipeRTBCopy.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RecipeRTBCopy.Size = new System.Drawing.Size(654, 794);
-            this.RecipeRTBCopy.TabIndex = 129;
-            this.RecipeRTBCopy.Text = "";
-            this.RecipeRTBCopy.VScroll += new System.EventHandler(this.RecipeRTBCopy_VScroll);
+            this.LEonardScriptRTBCopy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LEonardScriptRTBCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LEonardScriptRTBCopy.Location = new System.Drawing.Point(2, 2);
+            this.LEonardScriptRTBCopy.Margin = new System.Windows.Forms.Padding(2);
+            this.LEonardScriptRTBCopy.Name = "LEonardScriptRTBCopy";
+            this.LEonardScriptRTBCopy.ReadOnly = true;
+            this.LEonardScriptRTBCopy.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.LEonardScriptRTBCopy.Size = new System.Drawing.Size(654, 794);
+            this.LEonardScriptRTBCopy.TabIndex = 129;
+            this.LEonardScriptRTBCopy.Text = "";
+            this.LEonardScriptRTBCopy.VScroll += new System.EventHandler(this.LEonardScriptRTBCopy_VScroll);
             // 
             // RunCenterColumnLayoutPanel
             // 
@@ -1924,7 +1924,7 @@
             this.ProgramTableLayoutPanel.ColumnCount = 2;
             this.ProgramTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.65031F));
             this.ProgramTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.34969F));
-            this.ProgramTableLayoutPanel.Controls.Add(this.RecipeRTB, 0, 0);
+            this.ProgramTableLayoutPanel.Controls.Add(this.LEonardScriptRTB, 0, 0);
             this.ProgramTableLayoutPanel.Controls.Add(this.CurrentLineLbl, 0, 1);
             this.ProgramTableLayoutPanel.Controls.Add(this.MonitorTab, 1, 0);
             this.ProgramTableLayoutPanel.Controls.Add(this.FileBigEditPanel, 0, 2);
@@ -1944,7 +1944,7 @@
             this.FileBigEditPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.FileBigEditPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.FileBigEditPanel.Controls.Add(this.BigEditBtn, 1, 0);
-            this.FileBigEditPanel.Controls.Add(this.RecipeFilenameLbl, 0, 0);
+            this.FileBigEditPanel.Controls.Add(this.LEonardScriptFilenameLbl, 0, 0);
             this.FileBigEditPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FileBigEditPanel.Location = new System.Drawing.Point(3, 711);
             this.FileBigEditPanel.Name = "FileBigEditPanel";
@@ -3713,7 +3713,7 @@
             this.groupBox10.Size = new System.Drawing.Size(1221, 315);
             this.groupBox10.TabIndex = 2;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Recipe Execution Messages";
+            this.groupBox10.Text = "LEonardScript Execution Messages";
             // 
             // ExecLogRTB
             // 
@@ -4080,10 +4080,10 @@
             this.TopButtonLayoutPanel.Controls.Add(this.FootswitchPressedLbl, 7, 0);
             this.TopButtonLayoutPanel.Controls.Add(this.DoorClosedLbl, 6, 0);
             this.TopButtonLayoutPanel.Controls.Add(this.JogRunBtn, 5, 0);
-            this.TopButtonLayoutPanel.Controls.Add(this.SaveAsRecipeBtn, 4, 0);
-            this.TopButtonLayoutPanel.Controls.Add(this.SaveRecipeBtn, 3, 0);
-            this.TopButtonLayoutPanel.Controls.Add(this.NewRecipeBtn, 2, 0);
-            this.TopButtonLayoutPanel.Controls.Add(this.LoadRecipeBtn, 1, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.SaveAsLEonardScriptBtn, 4, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.SaveLEonardScriptBtn, 3, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.NewLEonardScriptBtn, 2, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.LoadLEonardScriptBtn, 1, 0);
             this.TopButtonLayoutPanel.Location = new System.Drawing.Point(421, 7);
             this.TopButtonLayoutPanel.Name = "TopButtonLayoutPanel";
             this.TopButtonLayoutPanel.RowCount = 1;
@@ -4210,15 +4210,15 @@
         private System.Windows.Forms.Timer HeartbeatTmr;
         private System.Windows.Forms.Timer StartupTmr;
         private System.Windows.Forms.Timer CloseTmr;
-        private System.Windows.Forms.Button SaveAsRecipeBtn;
-        private System.Windows.Forms.Button NewRecipeBtn;
-        private System.Windows.Forms.Button LoadRecipeBtn;
-        private System.Windows.Forms.Button SaveRecipeBtn;
+        private System.Windows.Forms.Button SaveAsLEonardScriptBtn;
+        private System.Windows.Forms.Button NewLEonardScriptBtn;
+        private System.Windows.Forms.Button LoadLEonardScriptBtn;
+        private System.Windows.Forms.Button SaveLEonardScriptBtn;
         private System.Windows.Forms.Button StepBtn;
         private System.Windows.Forms.Button StopBtn;
         private System.Windows.Forms.Button PauseBtn;
         private System.Windows.Forms.Button StartBtn;
-        private System.Windows.Forms.RichTextBox RecipeRTB;
+        private System.Windows.Forms.RichTextBox LEonardScriptRTB;
         private System.Windows.Forms.Timer ExecTmr;
         private System.Windows.Forms.Timer MessageTmr;
         private System.Windows.Forms.Label RobotCommandStatusLbl;
@@ -4241,8 +4241,8 @@
         private System.Windows.Forms.Button ClearPositionsBtn;
         private System.Windows.Forms.DataGridView PositionsGrd;
         private System.Windows.Forms.ComboBox UserModeBox;
-        private System.Windows.Forms.Label RecipeFilenameLbl;
-        private System.Windows.Forms.RichTextBox RecipeCommandsRTB;
+        private System.Windows.Forms.Label LEonardScriptFilenameLbl;
+        private System.Windows.Forms.RichTextBox LEonardScriptCommandsRTB;
         private System.Windows.Forms.TabPage manualPage;
         private System.Windows.Forms.Button RobotModeBtn;
         private System.Windows.Forms.Button SafetyStatusBtn;
@@ -4266,7 +4266,7 @@
         private System.Windows.Forms.Button RobotConnectBtn;
         private System.Windows.Forms.ComboBox PartGeometryBox;
         private System.Windows.Forms.Label DiameterLbl;
-        private System.Windows.Forms.RichTextBox RecipeRTBCopy;
+        private System.Windows.Forms.RichTextBox LEonardScriptRTBCopy;
         private System.Windows.Forms.Button JogRunBtn;
         private System.Windows.Forms.TextBox DoorClosedInputTxt;
         private System.Windows.Forms.Button SetDoorClosedInputBtn;

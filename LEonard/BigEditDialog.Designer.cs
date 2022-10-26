@@ -30,8 +30,8 @@
         {
             this.KeepBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
-            this.RecipeRTB = new System.Windows.Forms.RichTextBox();
-            this.RecipeCommandsRTB = new System.Windows.Forms.RichTextBox();
+            this.ProgramRTB = new System.Windows.Forms.RichTextBox();
+            this.ProgramStatementsRTB = new System.Windows.Forms.RichTextBox();
             this.ReloadBtn = new System.Windows.Forms.Button();
             this.FilenameLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -66,24 +66,24 @@
             this.CancelBtn.UseVisualStyleBackColor = false;
             this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
-            // RecipeRTB
+            // LEonardScriptRTB
             // 
-            this.RecipeRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecipeRTB.Location = new System.Drawing.Point(12, 48);
-            this.RecipeRTB.Name = "RecipeRTB";
-            this.RecipeRTB.Size = new System.Drawing.Size(1319, 1381);
-            this.RecipeRTB.TabIndex = 9;
-            this.RecipeRTB.Text = "";
+            this.ProgramRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProgramRTB.Location = new System.Drawing.Point(12, 48);
+            this.ProgramRTB.Name = "LEonardScriptRTB";
+            this.ProgramRTB.Size = new System.Drawing.Size(1319, 1381);
+            this.ProgramRTB.TabIndex = 9;
+            this.ProgramRTB.Text = "";
             // 
-            // RecipeCommandsRTB
+            // ProgramStatementsRTB
             // 
-            this.RecipeCommandsRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecipeCommandsRTB.Location = new System.Drawing.Point(1337, 12);
-            this.RecipeCommandsRTB.Name = "RecipeCommandsRTB";
-            this.RecipeCommandsRTB.ReadOnly = true;
-            this.RecipeCommandsRTB.Size = new System.Drawing.Size(796, 1248);
-            this.RecipeCommandsRTB.TabIndex = 10;
-            this.RecipeCommandsRTB.Text = "";
+            this.ProgramStatementsRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProgramStatementsRTB.Location = new System.Drawing.Point(1337, 12);
+            this.ProgramStatementsRTB.Name = "ProgramStatementsRTB";
+            this.ProgramStatementsRTB.ReadOnly = true;
+            this.ProgramStatementsRTB.Size = new System.Drawing.Size(796, 1248);
+            this.ProgramStatementsRTB.TabIndex = 10;
+            this.ProgramStatementsRTB.Text = "";
             // 
             // ReloadBtn
             // 
@@ -118,8 +118,8 @@
             this.ControlBox = false;
             this.Controls.Add(this.FilenameLbl);
             this.Controls.Add(this.ReloadBtn);
-            this.Controls.Add(this.RecipeCommandsRTB);
-            this.Controls.Add(this.RecipeRTB);
+            this.Controls.Add(this.ProgramStatementsRTB);
+            this.Controls.Add(this.ProgramRTB);
             this.Controls.Add(this.KeepBtn);
             this.Controls.Add(this.CancelBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -134,8 +134,8 @@
 
         private System.Windows.Forms.Button KeepBtn;
         private System.Windows.Forms.Button CancelBtn;
-        private System.Windows.Forms.RichTextBox RecipeRTB;
-        private System.Windows.Forms.RichTextBox RecipeCommandsRTB;
+        private System.Windows.Forms.RichTextBox ProgramRTB;
+        private System.Windows.Forms.RichTextBox ProgramStatementsRTB;
         private System.Windows.Forms.Button ReloadBtn;
         private System.Windows.Forms.Label FilenameLbl;
     }

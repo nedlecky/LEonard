@@ -32,7 +32,14 @@ namespace LEonard
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
+        // Root and Folder Constants
         static string LEonardRoot = null;
+        const string DatabaseFolder = "DB";
+        const string ConfigFolder = "Config";
+        const string CodeFolder = "Code";
+        const string DataFolder = "Data";
+        const string LogsFolder = "Logs";
+
         Jint.Engine javaEngine;
         Microsoft.Scripting.Hosting.ScriptEngine pythonEngine;
         Microsoft.Scripting.Hosting.ScriptScope pythonScope;
@@ -169,7 +176,7 @@ namespace LEonard
             LoadRootDirectory();
 
             // Set logfile variable in NLog
-            LogManager.Configuration.Variables["LogfileName"] = LEonardRoot + "/Logs/LEonard.log";
+            LogManager.Configuration.Variables["LogfileName"] = Path.Combine(LEonardRoot, LogsFolder, "LEonard.log");
             LogManager.ReconfigExistingLoggers();
 
             allFontResizableList = TakeControlInventory(this);
@@ -287,7 +294,7 @@ namespace LEonard
 
             // Load the last recipe if there was one loaded in LoadPersistent()
             if (recipeFileToAutoload != "")
-                if (LoadRecipeFile(recipeFileToAutoload))
+                if (LoadLEonardScriptFile(recipeFileToAutoload))
                 {
                     SetRecipeState(RecipeState.LOADED);
                     SetState(RunState.READY);
@@ -348,9 +355,9 @@ namespace LEonard
             {
                 if (RecipeWasModified())
                 {
-                    var result = ConfirmMessageBox($"Closing Application!\nRecipe [{LoadRecipeBtn.Text}] has changed.\nSave changes before exit?");
+                    var result = ConfirmMessageBox($"Closing Application!\nRecipe [{LoadLEonardScriptBtn.Text}] has changed.\nSave changes before exit?");
                     if (result == DialogResult.OK)
-                        SaveRecipeBtn_Click(null, null);
+                        SaveLEonardScriptBtn_Click(null, null);
                 }
 
                 if (JavaCodeRTB.Modified)
@@ -819,10 +826,10 @@ namespace LEonard
                     SetManualMoveButtons(true);
                     SetVariableEditing(true);
 
-                    LoadRecipeBtn.Enabled = true;
-                    NewRecipeBtn.Enabled = true;
-                    SaveRecipeBtn.Enabled = RecipeWasModified();
-                    SaveAsRecipeBtn.Enabled = true;
+                    LoadLEonardScriptBtn.Enabled = true;
+                    NewLEonardScriptBtn.Enabled = true;
+                    SaveLEonardScriptBtn.Enabled = RecipeWasModified();
+                    SaveAsLEonardScriptBtn.Enabled = true;
 
                     SetupTab.Enabled = true;
 
@@ -838,7 +845,7 @@ namespace LEonard
 
                     ExecTmr.Enabled = false;
                     CurrentLineLbl.Text = "";
-                    RecipeRTB.Enabled = true;
+                    LEonardScriptRTB.Enabled = true;
                     break;
                 case RunState.READY:
                     RunStateLbl.Text = "STOPPED";
@@ -858,10 +865,10 @@ namespace LEonard
                     SetManualMoveButtons(true);
                     SetVariableEditing(true);
 
-                    LoadRecipeBtn.Enabled = true;
-                    NewRecipeBtn.Enabled = true;
-                    SaveRecipeBtn.Enabled = RecipeWasModified();
-                    SaveAsRecipeBtn.Enabled = true;
+                    LoadLEonardScriptBtn.Enabled = true;
+                    NewLEonardScriptBtn.Enabled = true;
+                    SaveLEonardScriptBtn.Enabled = RecipeWasModified();
+                    SaveAsLEonardScriptBtn.Enabled = true;
 
                     SetupTab.Enabled = true;
 
@@ -877,7 +884,7 @@ namespace LEonard
 
                     ExecTmr.Enabled = false;
                     //CurrentLineLbl.Text = "";
-                    RecipeRTB.Enabled = true;
+                    LEonardScriptRTB.Enabled = true;
 
                     fileManager?.AllClose();
                     break;
@@ -902,10 +909,10 @@ namespace LEonard
                     SetManualMoveButtons(false);
                     SetVariableEditing(false);
 
-                    LoadRecipeBtn.Enabled = false;
-                    NewRecipeBtn.Enabled = false;
-                    SaveRecipeBtn.Enabled = false;
-                    SaveAsRecipeBtn.Enabled = false;
+                    LoadLEonardScriptBtn.Enabled = false;
+                    NewLEonardScriptBtn.Enabled = false;
+                    SaveLEonardScriptBtn.Enabled = false;
+                    SaveAsLEonardScriptBtn.Enabled = false;
 
                     SetupTab.Enabled = false;
 
@@ -921,7 +928,7 @@ namespace LEonard
                     DiameterLbl.Enabled = false;
 
                     CurrentLineLbl.Text = "";
-                    RecipeRTB.Enabled = false;
+                    LEonardScriptRTB.Enabled = false;
 
                     ExecTmr.Interval = 100;
                     ExecTmr.Enabled = true;
@@ -945,10 +952,10 @@ namespace LEonard
                     SetManualMoveButtons(false);
                     SetVariableEditing(false);
 
-                    LoadRecipeBtn.Enabled = false;
-                    NewRecipeBtn.Enabled = false;
-                    SaveRecipeBtn.Enabled = false;
-                    SaveAsRecipeBtn.Enabled = false;
+                    LoadLEonardScriptBtn.Enabled = false;
+                    NewLEonardScriptBtn.Enabled = false;
+                    SaveLEonardScriptBtn.Enabled = false;
+                    SaveAsLEonardScriptBtn.Enabled = false;
 
                     SetupTab.Enabled = true;
 
@@ -963,7 +970,7 @@ namespace LEonard
                     PartGeometryBox.Enabled = false;
                     DiameterLbl.Enabled = false;
 
-                    RecipeRTB.Enabled = false;
+                    LEonardScriptRTB.Enabled = false;
 
                     ExecTmr.Enabled = false;
                     break;
@@ -978,10 +985,10 @@ namespace LEonard
             ColorEnableButtonGreen(MoveToolMountBtn);
             ColorEnableButtonGreen(MoveToolHomeBtn);
 
-            ColorEnableButtonGreen(LoadRecipeBtn);
-            ColorEnableButtonGreen(NewRecipeBtn);
-            ColorEnableButtonGreen(SaveRecipeBtn);
-            ColorEnableButtonGreen(SaveAsRecipeBtn);
+            ColorEnableButtonGreen(LoadLEonardScriptBtn);
+            ColorEnableButtonGreen(NewLEonardScriptBtn);
+            ColorEnableButtonGreen(SaveLEonardScriptBtn);
+            ColorEnableButtonGreen(SaveAsLEonardScriptBtn);
 
             ColorEnableButtonGreen(StartBtn);
             ColorEnableButton(PauseBtn, Color.DarkOrange);
@@ -1497,10 +1504,11 @@ namespace LEonard
         public void MakeStandardSubdirectories()
         {
             // Make standard subdirectories (if they don't exist)
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Devices"));
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Recipes"));
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Data"));
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, "Logs"));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, DatabaseFolder));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, ConfigFolder));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, CodeFolder));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, DataFolder));
+            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, LogsFolder));
         }
 
         public RegistryKey GetAppNameKey()
@@ -1608,7 +1616,7 @@ namespace LEonard
             // Load the Recipe Commands for User Inspection
             try
             {
-                RecipeCommandsRTB.LoadFile("ProgramStatements.rtf");
+                LEonardScriptCommandsRTB.LoadFile("ProgramStatements.rtf");
             }
             catch (Exception ex)
             {
@@ -1626,7 +1634,7 @@ namespace LEonard
             }
 
             // Autoload file is the last loaded recipe
-            recipeFileToAutoload = (string)AppNameKey.GetValue("RecipeFilenameLbl.Text", "");
+            recipeFileToAutoload = (string)AppNameKey.GetValue("LEonardScriptFilenameLbl.Text", "");
 
             // Retrieve currently mounted tool
             MountedToolBox.Text = (string)AppNameKey.GetValue("MountedToolBox.Text", "");
@@ -1686,7 +1694,7 @@ namespace LEonard
             SaveVariables();
 
             // Save currently loaded recipe
-            AppNameKey.SetValue("RecipeFilenameLbl.Text", RecipeFilenameLbl.Text);
+            AppNameKey.SetValue("LEonardScriptFilenameLbl.Text", LEonardScriptFilenameLbl.Text);
 
             // Save current part geometry tool
             AppNameKey.SetValue("PartGeometryBox.Text", PartGeometryBox.Text);
@@ -1801,7 +1809,7 @@ namespace LEonard
             labels = new Dictionary<string, int>();
 
             int lineNo = 1;
-            foreach (string line in RecipeRTB.Lines)
+            foreach (string line in LEonardScriptRTB.Lines)
             {
                 string cleanLine = line;
 
@@ -1843,23 +1851,23 @@ namespace LEonard
         {
             lineCurrentlyExecuting = n;
 
-            if (n >= 1 && n <= RecipeRTB.Lines.Count())
+            if (n >= 1 && n <= LEonardScriptRTB.Lines.Count())
             {
-                (int start, int length) = RecipeRTB.GetLineExtents(lineCurrentlyExecuting - 1);
+                (int start, int length) = LEonardScriptRTB.GetLineExtents(lineCurrentlyExecuting - 1);
 
-                RecipeRTB.SelectAll();
-                RecipeRTB.SelectionFont = new Font(RecipeRTB.Font, FontStyle.Regular);
+                LEonardScriptRTB.SelectAll();
+                LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
 
-                RecipeRTB.Select(start, length);
-                RecipeRTB.SelectionFont = new Font(RecipeRTB.Font, FontStyle.Bold);
-                RecipeRTB.ScrollToCaret();
-                RecipeRTB.ScrollToCaret();
+                LEonardScriptRTB.Select(start, length);
+                LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Bold);
+                LEonardScriptRTB.ScrollToCaret();
+                LEonardScriptRTB.ScrollToCaret();
 
-                RecipeRTBCopy.Select(start, length);
-                RecipeRTBCopy.SelectionFont = new Font(RecipeRTBCopy.Font, FontStyle.Bold);
-                RecipeRTBCopy.ScrollToCaret();
-                RecipeRTBCopy.ScrollToCaret();
-                return RecipeRTB.Lines[lineCurrentlyExecuting - 1];
+                LEonardScriptRTBCopy.Select(start, length);
+                LEonardScriptRTBCopy.SelectionFont = new Font(LEonardScriptRTBCopy.Font, FontStyle.Bold);
+                LEonardScriptRTBCopy.ScrollToCaret();
+                LEonardScriptRTBCopy.ScrollToCaret();
+                return LEonardScriptRTB.Lines[lineCurrentlyExecuting - 1];
             }
             return null;
         }
@@ -1883,13 +1891,13 @@ namespace LEonard
         /// <summary>
         /// Read file looking for lines of the form "name=value" and pass then to the variable write function
         /// </summary>
-        /// <param name="filename">File to import- assumed to reside in LEonardRoot/Recipes</param>
+        /// <param name="filename">File to import- assumed to reside in LEonardRoot/Code</param>
         /// <returns>true if file import completed successfully</returns>
         private bool ImportFile(string filename)
         {
             try
             {
-                string[] lines = System.IO.File.ReadAllLines(Path.Combine(LEonardRoot, "Recipes", filename));
+                string[] lines = System.IO.File.ReadAllLines(Path.Combine(LEonardRoot, "Code", filename));
 
                 foreach (string line in lines)
                 {
@@ -1930,13 +1938,13 @@ namespace LEonard
 
         private void UnboldRecipe()
         {
-            RecipeRTB.SelectAll();
-            RecipeRTB.SelectionFont = new Font(RecipeRTB.Font, FontStyle.Regular);
-            RecipeRTB.DeselectAll();
+            LEonardScriptRTB.SelectAll();
+            LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
+            LEonardScriptRTB.DeselectAll();
 
-            RecipeRTBCopy.SelectAll();
-            RecipeRTBCopy.SelectionFont = new Font(RecipeRTB.Font, FontStyle.Regular);
-            RecipeRTBCopy.DeselectAll();
+            LEonardScriptRTBCopy.SelectAll();
+            LEonardScriptRTBCopy.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
+            LEonardScriptRTBCopy.DeselectAll();
         }
 
         bool isSingleStep = false;
@@ -1998,7 +2006,7 @@ namespace LEonard
                 }
                 else
                 {
-                    if (focusLeUrDashboard.InquiryResponse("programstate",200).StartsWith("STOP"))
+                    if (focusLeUrDashboard.InquiryResponse("programstate", 200).StartsWith("STOP"))
                     {
                         waitUrStopped = false;
                     }
@@ -2007,7 +2015,7 @@ namespace LEonard
                 }
             }
 
-            if (lineCurrentlyExecuting >= RecipeRTB.Lines.Count())
+            if (lineCurrentlyExecuting >= LEonardScriptRTB.Lines.Count())
             {
                 log.Info("EXEC Reached end of file");
                 ReportStepTimeStats();
@@ -2114,8 +2122,6 @@ namespace LEonard
         // END GOCATOR INTERFACE
         // ===================================================================
 
-
-
         private void CurrentLineLbl_TextChanged(object sender, EventArgs e)
         {
             CurrentLineLblCopy.Text = CurrentLineLbl.Text;
@@ -2123,7 +2129,7 @@ namespace LEonard
 
         private void RecipeFilenameLbl_TextChanged(object sender, EventArgs e)
         {
-            LoadRecipeBtn.Text = Path.GetFileNameWithoutExtension(RecipeFilenameLbl.Text);
+            LoadLEonardScriptBtn.Text = Path.GetFileNameWithoutExtension(LEonardScriptFilenameLbl.Text);
         }
 
         private void RecipeRTB_TextChanged(object sender, EventArgs e)
@@ -2133,7 +2139,7 @@ namespace LEonard
                 SetRecipeState(RecipeState.MODIFIED);
                 //UnboldRecipe();
             }
-            RecipeRTBCopy.Text = RecipeRTB.Text;
+            LEonardScriptRTBCopy.Text = LEonardScriptRTB.Text;
         }
 
         private void ClearAllLogRtbBtn_Click(object sender, EventArgs e)
@@ -2162,10 +2168,10 @@ namespace LEonard
             log.Info("BigEditBtn_Click(...)");
             BigEditDialog bigeditForm = new BigEditDialog()
             {
-                Title = RecipeFilenameLbl.Text,
+                Title = LEonardScriptFilenameLbl.Text,
                 ScreenWidth = screenDesignWidth,
                 ScreenHeight = screenDesignHeight,
-                Recipe = RecipeRTB.Text
+                Program = LEonardScriptRTB.Text
             };
             bigeditForm.ShowDialog();
 
@@ -2173,25 +2179,25 @@ namespace LEonard
 
             if (bigeditForm.DialogResult == DialogResult.OK)
             {
-                RecipeRTB.Text = bigeditForm.Recipe;
+                LEonardScriptRTB.Text = bigeditForm.Program;
                 log.Info("Installing from BigEdit");
             }
         }
 
         // Below 2 functions could be used to try to keep the scrolls of the two recipe windows in sync someday
         // Some complexity here.......
-        private void RecipeRTBCopy_VScroll(object sender, EventArgs e)
+        private void LEonardScriptRTBCopy_VScroll(object sender, EventArgs e)
         {
-            //log.Info("RecipeRTBCopy VScroll");
+            //log.Info("LEonardScriptRTBCopy_VScroll");
 
             //RichTextBox r = (RichTextBox)sender;
             //log.Info("ss",r.)
 
         }
 
-        private void RecipeRTB_VScroll(object sender, EventArgs e)
+        private void LEonardScriptRTB_VScroll(object sender, EventArgs e)
         {
-            //log.Info("RecipeRTB VScroll");
+            //log.Info("LEonardScriptRTB_VScroll");
 
         }
     }
