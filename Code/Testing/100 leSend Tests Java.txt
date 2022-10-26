@@ -1,4 +1,4 @@
-//reset();
+leLanguage(Java)
 
 if(typeof js_counter== 'undefined')
   js_counter= 1;
@@ -18,7 +18,4 @@ mp('js_counter is ' + js_counter)
 leSend('Dataman1','+')
 leSend('Dataman2','+')
 state = leInquiryResponse('UR-5eDash','programstate',100)
-lePrint('state = ' + state)
-
-
-
+lePrint('state = ' + state

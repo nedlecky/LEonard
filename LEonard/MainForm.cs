@@ -21,6 +21,7 @@ using System.Threading;
 using System.Windows.Forms;
 using IronPython.Hosting;
 using Jint;
+using Microsoft.Scripting.Hosting;
 using Microsoft.Win32;
 using NLog;
 using NLog.Fluent;
@@ -41,6 +42,7 @@ namespace LEonard
 
         // Root and Folder Constants
         static string LEonardRoot = null;
+        static string LEonardLanguage = "LEScript";
         const string DatabaseFolder = "DB";
         const string ConfigFolder = "Config";
         const string CodeFolder = "Code";
@@ -2035,8 +2037,25 @@ namespace LEonard
             else
             {
                 ReportStepTimeStats();
+
                 string line = SetCurrentLine(lineCurrentlyExecuting + 1);
-                bool fContinue = ExecuteLEonardScriptLine(lineCurrentlyExecuting, line);
+
+                // TODO LEonardLanguage should be an enum for performance
+                bool fContinue = false;
+                switch (LEonardLanguage)
+                {
+                    case "LEScript":
+                        fContinue = ExecuteLEonardScriptLine(lineCurrentlyExecuting, line);
+                        break;
+                    case "Java":
+                        fContinue = ExecuteJavaLine(lineCurrentlyExecuting, line);
+                        break;
+                    case "Python":
+                        fContinue = ExecutePythonLine(lineCurrentlyExecuting, line);
+                        break;
+                }
+
+
                 if (isSingleStep)
                 {
                     isSingleStep = false;
@@ -4687,6 +4706,70 @@ namespace LEonard
 
         Random random = new Random();
 
+        private bool ExecuteJavaLine(int lineNumber, string line, LeDeviceInterface dev = null)
+        {
+            // Step is starting now
+            stepStartedTime = DateTime.Now;
+
+            // Default time estimate to complete step is 0
+            stepEndTimeEstimate = stepStartedTime;
+
+            log.Info($"EXEC {lineNumber:00000}: {line}");
+
+            // Line gets shown on screen with variables substituted and time estimate (unless we're making system calls)
+            if (lineNumber > 0)
+            {
+                CurrentLineLbl.Text = String.Format("{0:000}: {1}", lineNumber, line);
+                StepTimeEstimateLbl.Text = TimeSpanFormat(new TimeSpan());
+            }
+
+            // Setup for ExecError
+            errorLineNumber = lineNumber;
+
+            try
+            {
+                javaEngine.Execute(line);
+            }
+            catch
+            {
+
+            }
+            JavaUpdateVariablesRTB();
+
+            return true;
+        }
+        private bool ExecutePythonLine(int lineNumber, string line, LeDeviceInterface dev = null)
+        {
+            // Step is starting now
+            stepStartedTime = DateTime.Now;
+
+            // Default time estimate to complete step is 0
+            stepEndTimeEstimate = stepStartedTime;
+
+            log.Info($"EXEC {lineNumber:00000}: {line}");
+
+            // Line gets shown on screen with variables substituted and time estimate (unless we're making system calls)
+            if (lineNumber > 0)
+            {
+                CurrentLineLbl.Text = String.Format("{0:000}: {1}", lineNumber, line);
+                StepTimeEstimateLbl.Text = TimeSpanFormat(new TimeSpan());
+            }
+
+            // Setup for ExecError
+            errorLineNumber = lineNumber;
+
+            try
+            {
+                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(line);
+                pythonScript.Execute(pythonScope);
+            }
+            catch
+            {
+
+            }
+
+            return true;
+        }
         private bool ExecuteLEonardScriptLine(int lineNumber, string line, LeDeviceInterface dev = null)
         {
             // Step is starting now
@@ -5239,6 +5322,14 @@ namespace LEonard
                 LogInterpret("prompt", lineNumber, origLine);
                 // This just displays the dialog. ExecTmr will wait for it to close
                 PromptOperator(ExtractParameters(command, -1, false));
+                return true;
+            }
+
+            // leLanguage
+            if (command.StartsWith("leLanguage("))
+            {
+                LogInterpret("leLanguage", lineNumber, origLine);
+                LEonardLanguage = (ExtractParameters(command, -1, false));
                 return true;
             }
 
@@ -5848,6 +5939,12 @@ namespace LEonard
         // ======================================================================================
         // SHARED SUPPORT FUNCTIONS FOR JAVA, PYTHON, AND LESCRIPT BEGINS
         // ======================================================================================
+        public bool leLanguage(string language)
+        {
+            // TODO should sanity check language and return true iff OK
+            LEonardLanguage = language;
+            return true;
+        }
         public bool leSend(string devName, string msg)
         {
             DataRow row = FindName(devName, devices);
@@ -5920,6 +6017,7 @@ namespace LEonard
             javaEngine = new Engine()
                     .SetValue("lePrompt", new Action<string>((string prompt) => PromptOperator("Java Prompt:\n" + prompt)))
                     .SetValue("lePrint", new Action<string>((string msg) => lePrintJ(msg)))
+                    .SetValue("leLanguage", new Func<string, bool>((string language) => leLanguage(language)))
                     .SetValue("leLogInfo", new Action<string>((string msg) => log.Info(msg)))
                     .SetValue("leLogError", new Action<string>(s => log.Error(s)))
                     .SetValue("leExec", new Action<string>((string line) => ExecuteLEonardScriptLine(-1, line)))
@@ -6155,6 +6253,7 @@ namespace LEonard
 
             pythonScope.SetVariable("lePrompt", new Action<string>((string prompt) => PromptOperator("Python Prompt:\n" + prompt)));
             pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
+            pythonScope.SetVariable("leLanguage", new Func<string, bool>((string language) => leLanguage(language)));
             pythonScope.SetVariable("leLogInfo", new Action<string>((string msg) => log.Info(msg)));
             pythonScope.SetVariable("leLogError", new Action<string>(s => log.Error(s)));
             pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLEonardScriptLine(-1, line)));
