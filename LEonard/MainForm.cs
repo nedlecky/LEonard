@@ -69,7 +69,7 @@ namespace LEonard
 
         // TODO: This needs to dynamically resize and the code that does it doesn't!!
         // These map 1:1 with the rows in devices.... I hope (Using ID field in row but this is a bit fragile)
-        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null, null, null, null };
+        LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null, null, null, null, null, null };
         int currentDeviceRowIndex = -1;
         List<Button> speedSendBtns = new List<Button>();
 
@@ -2425,6 +2425,34 @@ namespace LEonard
                 "",
                 "Chrome.exe",
                 "/incognito 192.168.0.3",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "","","",
+            });
+            devices.Rows.Add(new object[] {
+                11, "FS40 Control", true, false, "TcpClient", "192.168.0.41:107",
+                "ZB", "general", "", "",
+                false,
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "TRIGGER",
+                "",
+                "","","",
+            });
+            devices.Rows.Add(new object[] {
+                12, "FS40 Results", true, false, "TcpClient", "192.168.0.41:25250",
+                "ZB", "general", "", "",
+                false,
+                "",
+                "",
+                "",
                 "",
                 "",
                 "",

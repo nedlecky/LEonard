@@ -49,7 +49,7 @@
     <Address>127.0.0.1:1000</Address>
     <MessageTag>CTL</MessageTag>
     <CallBack>command</CallBack>
-    <OnConnectSend>LE:leSend(me,Hello!)</OnConnectSend>
+    <OnConnectSend>LE:leSend(Hello!)</OnConnectSend>
     <OnDisconnectSend>exit()</OnDisconnectSend>
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory>C:\Users\nedlecky\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
@@ -116,7 +116,7 @@
     <ID>3</ID>
     <Name>Gocator</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
     <MessageTag>GO</MessageTag>
@@ -241,7 +241,7 @@
     <Address>COM3</Address>
     <MessageTag>AUX31</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>LE:leSend(me,+)</OnConnectSend>
+    <OnConnectSend>LE:leSend(+)</OnConnectSend>
     <OnDisconnectSend />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
@@ -295,6 +295,54 @@
     <RuntimeWorkingDirectory />
     <RuntimeFileName>Chrome.exe</RuntimeFileName>
     <RuntimeArguments>/incognito 192.168.0.3</RuntimeArguments>
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons />
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>11</ID>
+    <Name>FS40 Control</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>TcpClient</DeviceType>
+    <Address>192.168.0.41:107</Address>
+    <MessageTag>ZE</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend />
+    <OnDisconnectSend />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>TRIGGER</SpeedSendButtons>
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>12</ID>
+    <Name>FS40 Results</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>TcpClient</DeviceType>
+    <Address>192.168.0.41:25250</Address>
+    <MessageTag>ZE</MessageTag>
+    <CallBack>general</CallBack>
+    <OnConnectSend />
+    <OnDisconnectSend />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
     <SetupWorkingDirectory />
     <SetupFileName />
     <SetupArguments />
