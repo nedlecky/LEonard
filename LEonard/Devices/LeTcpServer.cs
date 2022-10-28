@@ -109,6 +109,7 @@ namespace LEonard
                         stream = client.GetStream();
                         log.Info("{0} Client connected", logPrefix);
                         IsClientConnected = true;
+
                         if (execLEonardMessageOnConnect.Length > 0)
                             if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
                                 Send(execLEonardMessageOnConnect);
@@ -186,7 +187,7 @@ namespace LEonard
             {
                 int c = stream.ReadByte();
                 totalChars++;
-                if (c == 10)
+                if (c == '\n')
                 {
                     inputQueue.Enqueue(Encoding.UTF8.GetString(inputBuffer, 0, addingAt));
                     addingAt = 0;

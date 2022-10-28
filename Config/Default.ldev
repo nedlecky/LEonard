@@ -15,8 +15,8 @@
                 <xs:element name="Address" type="xs:string" minOccurs="0" />
                 <xs:element name="MessageTag" type="xs:string" minOccurs="0" />
                 <xs:element name="CallBack" type="xs:string" minOccurs="0" />
-                <xs:element name="OnConnectSend" type="xs:string" minOccurs="0" />
-                <xs:element name="OnDisconnectSend" type="xs:string" minOccurs="0" />
+                <xs:element name="OnConnectExec" type="xs:string" minOccurs="0" />
+                <xs:element name="OnDisconnectExec" type="xs:string" minOccurs="0" />
                 <xs:element name="RuntimeAutostart" type="xs:boolean" minOccurs="0" />
                 <xs:element name="RuntimeWorkingDirectory" type="xs:string" minOccurs="0" />
                 <xs:element name="RuntimeFileName" type="xs:string" minOccurs="0" />
@@ -44,13 +44,13 @@
     <ID>0</ID>
     <Name>Command</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>TcpServer</DeviceType>
     <Address>127.0.0.1:1000</Address>
     <MessageTag>CTL</MessageTag>
     <CallBack>command</CallBack>
-    <OnConnectSend>LE:leSend(Hello!)</OnConnectSend>
-    <OnDisconnectSend>exit()</OnDisconnectSend>
+    <OnConnectExec>JE:leSend('me','Hello!')</OnConnectExec>
+    <OnDisconnectExec>JE:leSend('me','exit()')</OnDisconnectExec>
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory>C:\Users\nedlecky\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
     <RuntimeFileName>LEonardClient.exe</RuntimeFileName>
@@ -58,7 +58,7 @@
     <SetupWorkingDirectory />
     <SetupFileName />
     <SetupArguments />
-    <SpeedSendButtons>test()|exit()</SpeedSendButtons>
+    <SpeedSendButtons>test|exit</SpeedSendButtons>
     <Jobfile />
     <Model />
     <Serial />
@@ -68,13 +68,13 @@
     <ID>1</ID>
     <Name>UR-5eDash</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
     <MessageTag>UR</MessageTag>
     <CallBack />
-    <OnConnectSend />
-    <OnDisconnectSend />
+    <OnConnectExec />
+    <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
@@ -84,21 +84,21 @@
     <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
     <SpeedSendButtons>stop</SpeedSendButtons>
     <Jobfile>LEonard/LEonard01.urp</Jobfile>
-    <Model>UR5</Model>
-    <Serial>20195501059</Serial>
-    <Version>URSoftware 5.11.11.1010533 (Apr 12 2022)</Version>
+    <Model />
+    <Serial />
+    <Version />
   </Devices>
   <Devices>
     <ID>2</ID>
     <Name>UR-5eCommand</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>
     <MessageTag>UR</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend />
-    <OnDisconnectSend>(999)</OnDisconnectSend>
+    <OnConnectExec />
+    <OnDisconnectExec>JE:leSend('me','999')</OnDisconnectExec>
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
@@ -121,15 +121,15 @@
     <Address>192.168.0.3:8190</Address>
     <MessageTag>GO</MessageTag>
     <CallBack>gocator</CallBack>
-    <OnConnectSend />
-    <OnDisconnectSend />
+    <OnConnectExec />
+    <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
     <RuntimeArguments />
-    <SetupWorkingDirectory>C:\Program Files\RealVNC\VNC Viewer</SetupWorkingDirectory>
-    <SetupFileName>vncviewer.exe</SetupFileName>
-    <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
     <SpeedSendButtons>trigger|stop|start|loadjob,LM01|clearalignment</SpeedSendButtons>
     <Jobfile />
     <Model />
@@ -145,15 +145,15 @@
     <Address>192.168.0.252:8190</Address>
     <MessageTag>GO</MessageTag>
     <CallBack>gocator</CallBack>
-    <OnConnectSend />
-    <OnDisconnectSend />
+    <OnConnectExec />
+    <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
     <RuntimeArguments />
-    <SetupWorkingDirectory>C:\Program Files\RealVNC\VNC Viewer</SetupWorkingDirectory>
-    <SetupFileName>vncviewer.exe</SetupFileName>
-    <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
     <SpeedSendButtons>trigger|stop|start|loadjob,LM01|clearalignment</SpeedSendButtons>
     <Jobfile />
     <Model />
@@ -169,8 +169,8 @@
     <Address>127.0.0.1:20000</Address>
     <MessageTag>AUX2S</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>init()</OnConnectSend>
-    <OnDisconnectSend />
+    <OnConnectExec>init()</OnConnectExec>
+    <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory>C:\Program Files\Teledyne DALSA\Sherlockx64\Bin</RuntimeWorkingDirectory>
     <RuntimeFileName>IpeStudio.exe</RuntimeFileName>
@@ -193,8 +193,8 @@
     <Address>127.0.0.1:21000</Address>
     <MessageTag>AUX2H</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>init()</OnConnectSend>
-    <OnDisconnectSend />
+    <OnConnectExec>init()</OnConnectExec>
+    <OnDisconnectExec />
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory>C:\Users\nedlecky\AppData\Local\Programs\MVTec\HALCON-21.11-Progress\bin\x64-win64</RuntimeWorkingDirectory>
     <RuntimeFileName>hdevelop.exe</RuntimeFileName>
@@ -217,8 +217,8 @@
     <Address>192.168.0.10:8500</Address>
     <MessageTag>AUX2K</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>TE</OnConnectSend>
-    <OnDisconnectSend />
+    <OnConnectExec>TE</OnConnectExec>
+    <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
@@ -236,13 +236,13 @@
     <ID>8</ID>
     <Name>Dataman1</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
     <MessageTag>AUX31</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>LE:leSend(+)</OnConnectSend>
-    <OnDisconnectSend />
+    <OnConnectExec>LE:leSend(me,+)</OnConnectExec>
+    <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
@@ -260,13 +260,13 @@
     <ID>9</ID>
     <Name>Dataman2</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM4</Address>
     <MessageTag>AUX32</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend>+</OnConnectSend>
-    <OnDisconnectSend />
+    <OnConnectExec>+</OnConnectExec>
+    <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
@@ -289,8 +289,8 @@
     <Address />
     <MessageTag>CTL</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend />
-    <OnDisconnectSend />
+    <OnConnectExec />
+    <OnDisconnectExec />
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName>Chrome.exe</RuntimeFileName>
@@ -308,13 +308,13 @@
     <ID>11</ID>
     <Name>FS40 Control</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:107</Address>
-    <MessageTag>ZE</MessageTag>
+    <MessageTag>ZB</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend />
-    <OnDisconnectSend />
+    <OnConnectExec />
+    <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />
@@ -332,13 +332,13 @@
     <ID>12</ID>
     <Name>FS40 Results</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:25250</Address>
-    <MessageTag>ZE</MessageTag>
+    <MessageTag>ZB</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectSend />
-    <OnDisconnectSend />
+    <OnConnectExec />
+    <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
     <RuntimeFileName />

@@ -19,6 +19,9 @@ namespace LEonard
         protected MainForm myForm;
         protected string logPrefix;
         protected string execLEonardMessageOnConnect;
+
+        public string sendTerminator { get; set; } = "\n";
+        public char receiveTerminator { get; set; } = '\n';
         public Process runtimeProcess { get; set; } = null;
         public Process setupProcess { get; set; } = null;
 

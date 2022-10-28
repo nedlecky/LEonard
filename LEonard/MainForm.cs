@@ -561,7 +561,12 @@ namespace LEonard
                     {
                         log.Info("Changing robot connection to READY");
 
+                        log.Error("Hacky time delay.....");
+                        Thread.Sleep(1000);
+
                         // Send persistent values (or defaults) for speeds, accelerations, I/O, etc.
+                        ExecuteLEonardScriptLine(-1, "grind_contact_enable(0)");  // Set contact enabled = No Touch No Grind
+                        log.Error("Hacky repeat.....");
                         ExecuteLEonardScriptLine(-1, "grind_contact_enable(0)");  // Set contact enabled = No Touch No Grind
                         ExecuteLEonardScriptLine(-1, "grind_retract()");  // Ensure we're not on the part
                         ExecuteLEonardScriptLine(-1, string.Format("set_linear_speed({0})", ReadVariable("robot_linear_speed_mmps", DEFAULT_linear_speed)));
@@ -1304,6 +1309,7 @@ namespace LEonard
 
         private void GrindContactEnabledBtn_Click(object sender, EventArgs e)
         {
+            log.Info("GrindContactEnabledBtn_Click(...)");
             string var = ReadVariable("grind_contact_enable", "0");
             // Increment current setting to cycle through 0, 1, 2
             int val = Convert.ToInt32(var);
@@ -2255,8 +2261,8 @@ namespace LEonard
             devices.Columns.Add("Address", typeof(System.String));
             devices.Columns.Add("MessageTag", typeof(System.String));
             devices.Columns.Add("CallBack", typeof(System.String));
-            devices.Columns.Add("OnConnectSend", typeof(System.String));
-            devices.Columns.Add("OnDisconnectSend", typeof(System.String));
+            devices.Columns.Add("OnConnectExec", typeof(System.String));
+            devices.Columns.Add("OnDisconnectExec", typeof(System.String));
             devices.Columns.Add("RuntimeAutostart", typeof(System.Boolean));
             devices.Columns.Add("RuntimeWorkingDirectory", typeof(System.String));
             devices.Columns.Add("RuntimeFileName", typeof(System.String));
@@ -2280,7 +2286,7 @@ namespace LEonard
         {
             devices.Rows.Add(new object[] {
                 0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
-                "CTL", "command", "LE:send(Hello!)", "exit()",
+                "CTL", "command", "JE:leSend('me','Hello!')", "JE:leSend('me','exit()')",
                 true,
                 "C:\\Users\\nedlecky\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
                 "LEonardClient.exe",
@@ -2288,7 +2294,7 @@ namespace LEonard
                 "",
                 "",
                 "",
-                "test()|exit()",
+                "test|exit",
                 "",
                 "","","",
             });
@@ -2308,7 +2314,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 2, "UR-5eCommand", true, false, "UrCommand", "192.168.0.252:30000",
-                "UR", "general", "", "(999)",
+                "UR", "general", "", "JE:leSend('me','999')",
                 false,
                 "",
                 "",
@@ -2327,9 +2333,9 @@ namespace LEonard
                 "",
                 "",
                 "",
-                "C:\\Program Files\\RealVNC\\VNC Viewer",
-                "vncviewer.exe",
-                "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
+                "",
+                "",
+                "",
                 "trigger|stop|start|loadjob,LM01|clearalignment",
                 "","","",
                 ""
@@ -2341,9 +2347,9 @@ namespace LEonard
                 "",
                 "",
                 "",
-                "C:\\Program Files\\RealVNC\\VNC Viewer",
-                "vncviewer.exe",
-                "C:\\Users\\nedlecky\\Desktop\\LEonardFiles\\VNC\\UR-5E.vnc",
+                "",
+                "",
+                "",
                 "trigger|stop|start|loadjob,LM01|clearalignment",
                 "",
                 "","","",
@@ -2392,7 +2398,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 8, "Dataman1", true, false, "Serial", "COM3",
-                "AUX31", "general", "LE:send(+)", "",
+                "AUX31", "general", "LE:leSend(me,+)", "",
                 false,
                 "",
                 "",
@@ -2635,7 +2641,7 @@ namespace LEonard
             string address = (string)row["Address"];
             string messageTag = (string)row["MessageTag"];
             string callBack = (string)row["CallBack"];
-            string onConnectSend = (string)row["OnConnectSend"];
+            string onConnectExec = (string)row["OnConnectExec"];
             bool connected = (bool)row["Connected"];
             string jobFile = (string)row["Jobfile"];
 
@@ -2666,22 +2672,22 @@ namespace LEonard
             switch (deviceType)
             {
                 case "TcpServer":
-                    interfaces[ID] = new LeTcpServer(this, messageTag, onConnectSend);
+                    interfaces[ID] = new LeTcpServer(this, messageTag, onConnectExec);
                     StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
                 case "TcpClient":
-                    interfaces[ID] = new LeTcpClient(this, messageTag, onConnectSend);
+                    interfaces[ID] = new LeTcpClient(this, messageTag, onConnectExec);
                     StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
                 case "TcpClientAsync":
-                    interfaces[ID] = new LeTcpClientAsync(this, messageTag, onConnectSend);
+                    interfaces[ID] = new LeTcpClientAsync(this, messageTag, onConnectExec);
                     StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
                 case "UrDashboard":
-                    LeUrDashboard robot = new LeUrDashboard(this, messageTag, onConnectSend);
+                    LeUrDashboard robot = new LeUrDashboard(this, messageTag, onConnectExec);
                     robot.UrProgramFilename = jobFile;
                     interfaces[ID] = robot;
                     StartOptionalRuntime();
@@ -2699,7 +2705,7 @@ namespace LEonard
                     }
                     break;
                 case "UrCommand":
-                    LeUrCommand command = new LeUrCommand(this, messageTag, onConnectSend);
+                    LeUrCommand command = new LeUrCommand(this, messageTag, onConnectExec);
                     interfaces[ID] = command;
                     StartOptionalRuntime();
                     if (focusLeUrCommand == null)
@@ -2710,7 +2716,7 @@ namespace LEonard
                     command.Connect(address);
                     break;
                 case "Gocator":
-                    LeGocator gocator = new LeGocator(this, messageTag, onConnectSend);
+                    LeGocator gocator = new LeGocator(this, messageTag, onConnectExec);
                     interfaces[ID] = gocator;
                     StartOptionalRuntime();
                     if (focusLeGocator == null)
@@ -2721,12 +2727,12 @@ namespace LEonard
                     gocator.Connect(address);
                     break;
                 case "Serial":
-                    interfaces[ID] = new LeSerial(this, messageTag, onConnectSend);
+                    interfaces[ID] = new LeSerial(this, messageTag, onConnectExec);
                     StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
                 case "Null":
-                    interfaces[ID] = new LeDevNull(this, messageTag, onConnectSend);
+                    interfaces[ID] = new LeDevNull(this, messageTag, onConnectExec);
                     StartOptionalRuntime();
                     interfaces[ID].Connect(address);
                     break;
@@ -2792,16 +2798,17 @@ namespace LEonard
             row["Connected"] = false;
             if (interfaces[ID] != null)
             {
-                string onDisconnectSend = (string)row["OnDisconnectSend"];
-                if (onDisconnectSend.Length > 0)
-                    try
-                    {
-                        interfaces[ID].Send(onDisconnectSend);
-                    }
-                    catch
-                    {
+                string execLEonardMessageOnDisconnect = (string)row["OnDisconnectExec"];
+                if (execLEonardMessageOnDisconnect.Length > 0)
+                    if (!ExecuteLEonardStatement((string)row["MessageTag"], execLEonardMessageOnDisconnect, (interfaces[ID])))
+                        try
+                        {
+                            interfaces[ID].Send(execLEonardMessageOnDisconnect);
+                        }
+                        catch
+                        {
 
-                    }
+                        }
 
                 interfaces[ID].Disconnect();
 
@@ -5962,7 +5969,7 @@ namespace LEonard
                 return true;
             }
 
-            log.Error($"{prefix} Illegal LEonardStatement statement: {statement}");
+            //log.Error($"{prefix} Illegal LEonardStatement statement: {statement}");
             return false;
         }
 
@@ -5979,22 +5986,30 @@ namespace LEonard
             LEonardLanguage = (LEonardLanguages)language;
             return true;
         }
+        LeDeviceInterface currentDevice = null;
         public bool leSend(string devName, string msg)
         {
-            DataRow row = FindName(devName, devices);
-            if (row == null)
+            if (devName == "me")
             {
-                log.Error($"leSend: Could not find device {devName}");
-                return false;
+                currentDevice?.Send(msg);
             }
-
-            if (!interfaces[(int)row["ID"]].IsConnected())
+            else
             {
-                log.Error($"leSend: {devName} exists but is not connected");
-                return false;
-            }
+                DataRow row = FindName(devName, devices);
+                if (row == null)
+                {
+                    log.Error($"leSend: Could not find device {devName}");
+                    return false;
+                }
 
-            interfaces[(int)row["ID"]].Send(msg);
+                if (!interfaces[(int)row["ID"]].IsConnected())
+                {
+                    log.Error($"leSend: {devName} exists but is not connected");
+                    return false;
+                }
+
+                interfaces[(int)row["ID"]].Send(msg);
+            }
             return true;
         }
         public string leInquiryResponse(string devName, string msg, int timeoutMs = 100)
@@ -6228,12 +6243,12 @@ namespace LEonard
                 JavaCodeRTB.Modified = true;
             }
         }
-        // TODO needs to direct output to dev...
         void ExecuteJavaScript(string code, LeDeviceInterface dev)
         {
             log.Info($"Java Execute: {code}");
             try
             {
+                currentDevice = dev;
                 javaEngine.Execute(code);
             }
             catch (Exception ex)
@@ -6486,12 +6501,12 @@ namespace LEonard
                 GetLicenseStatus();
             }
         }
-        // TODO needs to direct output to dev...
         void ExecutePythonScript(string code, LeDeviceInterface dev)
         {
             log.Info($"Python Execute: {code}");
             try
             {
+                currentDevice = dev;
                 Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(code);
                 pythonScript.Execute(pythonScope);
             }

@@ -61,11 +61,11 @@ namespace LEonard
                 myForm.GocatorAnnounce(LeGocator.Status.ERROR);
             else
             {
-                // TODO all the below init should be in onConnectExec
                 if (execLEonardMessageOnConnect.Length > 0)
                     if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
                         Send(execLEonardMessageOnConnect);
 
+                // TODO all the below init should be in onConnectExec
                 InquiryResponse("stop");
                 InquiryResponse("clearalignment");
                 InquiryResponse("loadjob,LM01");

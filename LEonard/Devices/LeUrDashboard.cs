@@ -60,11 +60,11 @@ namespace LEonard
             }
             myForm.UrDashboardAnnounce(DashboardStatus.OK);
 
-            // TODO all the below could be in this onConnectExec
             if (execLEonardMessageOnConnect.Length > 0)
                 if (!myForm.ExecuteLEonardStatement(logPrefix, execLEonardMessageOnConnect, this))
                     Send(execLEonardMessageOnConnect);
 
+            // TODO all the below could be in this onConnectExec
             string closeSafetyPopupResponse = InquiryResponse("close safety popup", 1000);
             string isInRemoteControlResponse = InquiryResponse("is in remote control", 1000);
             if (isInRemoteControlResponse == null)
