@@ -31,7 +31,7 @@ namespace LEonard
         public void Callback(string prefix, string message, LeDeviceInterface dev)
         {
             // Gocator sends back OK which we just ignore
-            if (message == "OK")
+            if (message.StartsWith("OK"))
             {
                 log.Info($"LeGocator::Callback({prefix},{message})");
                 return;
@@ -98,7 +98,7 @@ namespace LEonard
         private string InquiryResponse(string inquiry)
         {
             string response = "ERROR";
-            response = InquiryResponse(inquiry, 500);
+            response = InquiryResponse(inquiry, 1000);
             log.Info($"{logPrefix}: {inquiry} GETS {response}");
             return response;
         }

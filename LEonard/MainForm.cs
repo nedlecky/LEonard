@@ -371,7 +371,7 @@ namespace LEonard
             {
                 if (RecipeWasModified())
                 {
-                    var result = ConfirmMessageBox($"Closing Application!\nRecipe [{LoadLEonardScriptBtn.Text}] has changed.\nSave changes before exit?");
+                    var result = ConfirmMessageBox($"Closing Application!\nRecipe [{LoadLEScriptBtn.Text}] has changed.\nSave changes before exit?");
                     if (result == DialogResult.OK)
                         SaveLEonardScriptBtn_Click(null, null);
                 }
@@ -547,36 +547,36 @@ namespace LEonard
                     {
                         log.Info("Changing robot connection to READY");
 
-                        log.Error("Hacky time delay.....");
-                        Thread.Sleep(1000);
+                        //log.Error("Hacky time delay.....");
+                        //Thread.Sleep(1000);
 
                         // Send persistent values (or defaults) for speeds, accelerations, I/O, etc.
-                        ExecuteLEonardScriptLine(-1, "grind_contact_enable(0)");  // Set contact enabled = No Touch No Grind
-                        log.Error("Hacky repeat.....");
-                        ExecuteLEonardScriptLine(-1, "grind_contact_enable(0)");  // Set contact enabled = No Touch No Grind
-                        ExecuteLEonardScriptLine(-1, "grind_retract()");  // Ensure we're not on the part
-                        ExecuteLEonardScriptLine(-1, string.Format("set_linear_speed({0})", ReadVariable("robot_linear_speed_mmps", DEFAULT_linear_speed)));
-                        ExecuteLEonardScriptLine(-1, string.Format("set_linear_accel({0})", ReadVariable("robot_linear_accel_mmpss", DEFAULT_linear_accel)));
-                        ExecuteLEonardScriptLine(-1, string.Format("set_blend_radius({0})", ReadVariable("robot_blend_radius_mm", DEFAULT_blend_radius)));
-                        ExecuteLEonardScriptLine(-1, string.Format("set_joint_speed({0})", ReadVariable("robot_joint_speed_dps", DEFAULT_joint_speed)));
-                        ExecuteLEonardScriptLine(-1, string.Format("set_joint_accel({0})", ReadVariable("robot_joint_accel_dpss", DEFAULT_joint_accel)));
-                        ExecuteLEonardScriptLine(-1, string.Format("set_door_closed_input({0})", ReadVariable("robot_door_closed_input", DEFAULT_door_closed_input).Trim(new char[] { '[', ']' })));
-                        ExecuteLEonardScriptLine(-1, string.Format("set_footswitch_pressed_input({0})", ReadVariable("robot_footswitch_pressed_input", DEFAULT_footswitch_pressed_input).Trim(new char[] { '[', ']' })));
+                        //ExecuteLEScriptLine(-1, "grind_contact_enable(0)");  // Set contact enabled = No Touch No Grind
+                        //log.Error("Hacky repeat.....");
+                        ExecuteLEScriptLine(-1, "grind_contact_enable(0)");  // Set contact enabled = No Touch No Grind
+                        ExecuteLEScriptLine(-1, "grind_retract()");  // Ensure we're not on the part
+                        ExecuteLEScriptLine(-1, string.Format("set_linear_speed({0})", ReadVariable("robot_linear_speed_mmps", DEFAULT_linear_speed)));
+                        ExecuteLEScriptLine(-1, string.Format("set_linear_accel({0})", ReadVariable("robot_linear_accel_mmpss", DEFAULT_linear_accel)));
+                        ExecuteLEScriptLine(-1, string.Format("set_blend_radius({0})", ReadVariable("robot_blend_radius_mm", DEFAULT_blend_radius)));
+                        ExecuteLEScriptLine(-1, string.Format("set_joint_speed({0})", ReadVariable("robot_joint_speed_dps", DEFAULT_joint_speed)));
+                        ExecuteLEScriptLine(-1, string.Format("set_joint_accel({0})", ReadVariable("robot_joint_accel_dpss", DEFAULT_joint_accel)));
+                        ExecuteLEScriptLine(-1, string.Format("set_door_closed_input({0})", ReadVariable("robot_door_closed_input", DEFAULT_door_closed_input).Trim(new char[] { '[', ']' })));
+                        ExecuteLEScriptLine(-1, string.Format("set_footswitch_pressed_input({0})", ReadVariable("robot_footswitch_pressed_input", DEFAULT_footswitch_pressed_input).Trim(new char[] { '[', ']' })));
 
 
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_trial_speed({0})", ReadVariable("grind_trial_speed_mmps", DEFAULT_grind_trial_speed)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_linear_accel({0})", ReadVariable("grind_linear_accel_mmpss", DEFAULT_grind_linear_accel)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_jog_speed({0})", ReadVariable("grind_jog_speed_mmps", DEFAULT_grind_jog_speed)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_jog_accel({0})", ReadVariable("grind_jog_accel_mmpss", DEFAULT_grind_jog_accel)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_max_blend_radius({0})", ReadVariable("grind_max_blend_radius_mm", DEFAULT_grind_max_blend_radius)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_touch_speed({0})", ReadVariable("grind_touch_speed_mmps", DEFAULT_grind_touch_speed)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_touch_retract({0})", ReadVariable("grind_touch_retract_mm", DEFAULT_grind_touch_retract)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_force_dwell({0})", ReadVariable("grind_force_dwell_ms", DEFAULT_grind_force_dwell)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_max_wait({0})", ReadVariable("grind_max_wait_ms", DEFAULT_grind_max_wait)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_point_frequency({0})", ReadVariable("grind_point_frequency_hz", DEFAULT_grind_point_frequency)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_force_mode_damping({0})", ReadVariable("grind_force_mode_damping", DEFAULT_grind_force_mode_damping)));
-                        ExecuteLEonardScriptLine(-1, string.Format("grind_force_mode_gain_scaling({0})", ReadVariable("grind_force_mode_gain_scaling", DEFAULT_grind_force_mode_gain_scaling)));
-                        ExecuteLEonardScriptLine(-1, "enable_cyline_cal(0)");
+                        ExecuteLEScriptLine(-1, string.Format("grind_trial_speed({0})", ReadVariable("grind_trial_speed_mmps", DEFAULT_grind_trial_speed)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_linear_accel({0})", ReadVariable("grind_linear_accel_mmpss", DEFAULT_grind_linear_accel)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_jog_speed({0})", ReadVariable("grind_jog_speed_mmps", DEFAULT_grind_jog_speed)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_jog_accel({0})", ReadVariable("grind_jog_accel_mmpss", DEFAULT_grind_jog_accel)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_max_blend_radius({0})", ReadVariable("grind_max_blend_radius_mm", DEFAULT_grind_max_blend_radius)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_touch_speed({0})", ReadVariable("grind_touch_speed_mmps", DEFAULT_grind_touch_speed)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_touch_retract({0})", ReadVariable("grind_touch_retract_mm", DEFAULT_grind_touch_retract)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_force_dwell({0})", ReadVariable("grind_force_dwell_ms", DEFAULT_grind_force_dwell)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_max_wait({0})", ReadVariable("grind_max_wait_ms", DEFAULT_grind_max_wait)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_point_frequency({0})", ReadVariable("grind_point_frequency_hz", DEFAULT_grind_point_frequency)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_force_mode_damping({0})", ReadVariable("grind_force_mode_damping", DEFAULT_grind_force_mode_damping)));
+                        ExecuteLEScriptLine(-1, string.Format("grind_force_mode_gain_scaling({0})", ReadVariable("grind_force_mode_gain_scaling", DEFAULT_grind_force_mode_gain_scaling)));
+                        ExecuteLEScriptLine(-1, "enable_cyline_cal(0)");
 
                         // Download selected tool and part geometry by acting like a reselect of both
                         MountedToolBox_SelectedIndexChanged(null, null);
@@ -692,7 +692,7 @@ namespace LEonard
                     SetManualMoveButtons(true);
                     SetVariableEditing(true);
 
-                    LoadLEonardScriptBtn.Enabled = true;
+                    LoadLEScriptBtn.Enabled = true;
                     NewLEonardScriptBtn.Enabled = true;
                     SaveLEonardScriptBtn.Enabled = RecipeWasModified();
                     SaveAsLEonardScriptBtn.Enabled = true;
@@ -711,7 +711,7 @@ namespace LEonard
 
                     ExecTmr.Enabled = false;
                     CurrentLineLbl.Text = "";
-                    LEonardScriptRTB.Enabled = true;
+                    LEScriptRTB.Enabled = true;
                     break;
                 case RunState.READY:
                     RunStateLbl.Text = "STOPPED";
@@ -731,7 +731,7 @@ namespace LEonard
                     SetManualMoveButtons(true);
                     SetVariableEditing(true);
 
-                    LoadLEonardScriptBtn.Enabled = true;
+                    LoadLEScriptBtn.Enabled = true;
                     NewLEonardScriptBtn.Enabled = true;
                     SaveLEonardScriptBtn.Enabled = RecipeWasModified();
                     SaveAsLEonardScriptBtn.Enabled = true;
@@ -750,7 +750,7 @@ namespace LEonard
 
                     ExecTmr.Enabled = false;
                     //CurrentLineLbl.Text = "";
-                    LEonardScriptRTB.Enabled = true;
+                    LEScriptRTB.Enabled = true;
 
                     fileManager?.AllClose();
                     break;
@@ -775,7 +775,7 @@ namespace LEonard
                     SetManualMoveButtons(false);
                     SetVariableEditing(false);
 
-                    LoadLEonardScriptBtn.Enabled = false;
+                    LoadLEScriptBtn.Enabled = false;
                     NewLEonardScriptBtn.Enabled = false;
                     SaveLEonardScriptBtn.Enabled = false;
                     SaveAsLEonardScriptBtn.Enabled = false;
@@ -794,7 +794,7 @@ namespace LEonard
                     DiameterLbl.Enabled = false;
 
                     CurrentLineLbl.Text = "";
-                    LEonardScriptRTB.Enabled = false;
+                    LEScriptRTB.Enabled = false;
 
                     ExecTmr.Interval = 100;
                     ExecTmr.Enabled = true;
@@ -818,7 +818,7 @@ namespace LEonard
                     SetManualMoveButtons(false);
                     SetVariableEditing(false);
 
-                    LoadLEonardScriptBtn.Enabled = false;
+                    LoadLEScriptBtn.Enabled = false;
                     NewLEonardScriptBtn.Enabled = false;
                     SaveLEonardScriptBtn.Enabled = false;
                     SaveAsLEonardScriptBtn.Enabled = false;
@@ -836,7 +836,7 @@ namespace LEonard
                     PartGeometryBox.Enabled = false;
                     DiameterLbl.Enabled = false;
 
-                    LEonardScriptRTB.Enabled = false;
+                    LEScriptRTB.Enabled = false;
 
                     ExecTmr.Enabled = false;
                     break;
@@ -851,7 +851,7 @@ namespace LEonard
             ColorEnableButtonGreen(MoveToolMountBtn);
             ColorEnableButtonGreen(MoveToolHomeBtn);
 
-            ColorEnableButtonGreen(LoadLEonardScriptBtn);
+            ColorEnableButtonGreen(LoadLEScriptBtn);
             ColorEnableButtonGreen(NewLEonardScriptBtn);
             ColorEnableButtonGreen(SaveLEonardScriptBtn);
             ColorEnableButtonGreen(SaveAsLEonardScriptBtn);
@@ -883,14 +883,14 @@ namespace LEonard
 
             ToolsGrd.ClearSelection();
             if (focusLeUrCommand != null)
-                ExecuteLEonardScriptLine(-1, $"select_tool({MountedToolBox.Text})");
+                ExecuteLEScriptLine(-1, $"select_tool({MountedToolBox.Text})");
         }
 
         private void UpdateGeometryToRobot()
         {
             if (focusLeUrCommand != null)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("set_part_geometry_N({0},{1})", PartGeometryBox.SelectedIndex + 1, DiameterLbl.Text));
+                ExecuteLEScriptLine(-1, String.Format("set_part_geometry_N({0},{1})", PartGeometryBox.SelectedIndex + 1, DiameterLbl.Text));
                 WriteVariable("robot_geometry", String.Format("{0},{1}", PartGeometryBox.SelectedItem, DiameterLbl.Text));
             }
         }
@@ -1349,32 +1349,32 @@ namespace LEonard
                 {
                     case RecipeState.NEW:
                         NewLEonardScriptBtn.Enabled = false;
-                        LoadLEonardScriptBtn.Enabled = true;
+                        LoadLEScriptBtn.Enabled = true;
                         SaveLEonardScriptBtn.Enabled = false;
                         SaveAsLEonardScriptBtn.Enabled = true;
                         break;
                     case RecipeState.LOADED:
                         NewLEonardScriptBtn.Enabled = true;
-                        LoadLEonardScriptBtn.Enabled = true;
+                        LoadLEScriptBtn.Enabled = true;
                         SaveLEonardScriptBtn.Enabled = false;
                         SaveAsLEonardScriptBtn.Enabled = true;
                         break;
                     case RecipeState.MODIFIED:
                         NewLEonardScriptBtn.Enabled = true;
-                        LoadLEonardScriptBtn.Enabled = true;
+                        LoadLEScriptBtn.Enabled = true;
                         SaveLEonardScriptBtn.Enabled = true;
                         SaveAsLEonardScriptBtn.Enabled = true;
                         break;
                     case RecipeState.RUNNING:
                         recipeStateAtRun = oldRecipeState;
                         NewLEonardScriptBtn.Enabled = false;
-                        LoadLEonardScriptBtn.Enabled = false;
+                        LoadLEScriptBtn.Enabled = false;
                         SaveLEonardScriptBtn.Enabled = false;
                         SaveAsLEonardScriptBtn.Enabled = false;
                         break;
                 }
                 NewLEonardScriptBtn.BackColor = NewLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
-                LoadLEonardScriptBtn.BackColor = LoadLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+                LoadLEScriptBtn.BackColor = LoadLEScriptBtn.Enabled ? Color.Green : Color.Gray;
                 SaveLEonardScriptBtn.BackColor = SaveLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
                 SaveAsLEonardScriptBtn.BackColor = SaveAsLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
             }
@@ -1384,18 +1384,18 @@ namespace LEonard
         private string recipeAsLoaded = "";  // As it was when loaded so we can test for actual mods
         private bool RecipeWasModified()
         {
-            return recipeAsLoaded != LEonardScriptRTB.Text;
+            return recipeAsLoaded != LEScriptRTB.Text;
         }
         bool LoadLEonardScriptFile(string file)
         {
             log.Info("LoadRecipeFile({0})", file);
-            LEonardScriptFilenameLbl.Text = "";
-            LEonardScriptRTB.Text = "";
+            LEScriptFilenameLbl.Text = "";
+            LEScriptRTB.Text = "";
             try
             {
-                LEonardScriptRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-                LEonardScriptFilenameLbl.Text = file;
-                recipeAsLoaded = LEonardScriptRTB.Text;
+                LEScriptRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                LEScriptFilenameLbl.Text = file;
+                recipeAsLoaded = LEScriptRTB.Text;
                 return true;
             }
             catch (Exception ex)
@@ -1410,15 +1410,15 @@ namespace LEonard
             log.Info("NewRecipeBtn_Click(...)");
             if (RecipeWasModified())
             {
-                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEonardScriptBtn.Text));
+                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEScriptBtn.Text));
                 if (result == DialogResult.OK)
                     SaveLEonardScriptBtn_Click(null, null);
             }
 
             SetRecipeState(RecipeState.NEW);
             SetState(RunState.IDLE);
-            LEonardScriptFilenameLbl.Text = "Untitled";
-            LEonardScriptRTB.Clear();
+            LEScriptFilenameLbl.Text = "Untitled";
+            LEScriptRTB.Clear();
             recipeAsLoaded = "";
             MainTab.SelectedIndex = 1; // = "Program";
         }
@@ -1428,14 +1428,14 @@ namespace LEonard
             log.Info("LoadRecipeBtn_Click(...)");
             if (RecipeWasModified())
             {
-                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEonardScriptBtn.Text));
+                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEScriptBtn.Text));
                 if (result == DialogResult.OK)
                     SaveLEonardScriptBtn_Click(null, null);
             }
 
             string initialDirectory;
-            if (LEonardScriptFilenameLbl.Text != "Untitled" && LEonardScriptFilenameLbl.Text.Length > 0)
-                initialDirectory = Path.GetDirectoryName(LEonardScriptFilenameLbl.Text);
+            if (LEScriptFilenameLbl.Text != "Untitled" && LEScriptFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(LEScriptFilenameLbl.Text);
             else
                 initialDirectory = Path.Combine(LEonardRoot, "Code");
 
@@ -1459,13 +1459,13 @@ namespace LEonard
         private void SaveLEonardScriptBtn_Click(object sender, EventArgs e)
         {
             log.Info("SaveRecipeBtn_Click(...)");
-            if (LEonardScriptFilenameLbl.Text == "Untitled" || LEonardScriptFilenameLbl.Text == "")
+            if (LEScriptFilenameLbl.Text == "Untitled" || LEScriptFilenameLbl.Text == "")
                 SaveAsLEonardScriptBtn_Click(null, null);
             else
             {
-                log.Info("Save Recipe program to {0}", LEonardScriptFilenameLbl.Text);
-                LEonardScriptRTB.SaveFile(LEonardScriptFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-                recipeAsLoaded = LEonardScriptRTB.Text;
+                log.Info("Save Recipe program to {0}", LEScriptFilenameLbl.Text);
+                LEScriptRTB.SaveFile(LEScriptFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                recipeAsLoaded = LEScriptRTB.Text;
                 SetRecipeState(RecipeState.LOADED);
                 SetState(RunState.READY);
             }
@@ -1476,8 +1476,8 @@ namespace LEonard
             log.Info("SaveAsRecipeBtn_Click(...)");
 
             string initialDirectory;
-            if (LEonardScriptFilenameLbl.Text != "Untitled" && LEonardScriptFilenameLbl.Text.Length > 0)
-                initialDirectory = Path.GetDirectoryName(LEonardScriptFilenameLbl.Text);
+            if (LEScriptFilenameLbl.Text != "Untitled" && LEScriptFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(LEScriptFilenameLbl.Text);
             else
                 initialDirectory = Path.Combine(LEonardRoot, "Code");
 
@@ -1486,7 +1486,7 @@ namespace LEonard
                 Title = "Save a LEonardScript program As...",
                 Filter = "*.txt",
                 InitialDirectory = initialDirectory,
-                FileName = LEonardScriptFilenameLbl.Text,
+                FileName = LEScriptFilenameLbl.Text,
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -1502,7 +1502,7 @@ namespace LEonard
                     }
                     if (okToSave)
                     {
-                        LEonardScriptFilenameLbl.Text = filename;
+                        LEScriptFilenameLbl.Text = filename;
                         SaveLEonardScriptBtn_Click(null, null);
                     }
                 }
@@ -1536,7 +1536,7 @@ namespace LEonard
 
         private void RecipeFilenameLbl_TextChanged(object sender, EventArgs e)
         {
-            LoadLEonardScriptBtn.Text = Path.GetFileNameWithoutExtension(LEonardScriptFilenameLbl.Text);
+            LoadLEScriptBtn.Text = Path.GetFileNameWithoutExtension(LEScriptFilenameLbl.Text);
         }
 
         private void RecipeRTB_TextChanged(object sender, EventArgs e)
@@ -1546,7 +1546,7 @@ namespace LEonard
                 SetRecipeState(RecipeState.MODIFIED);
                 //UnboldRecipe();
             }
-            LEonardScriptRTBCopy.Text = LEonardScriptRTB.Text;
+            LEScriptRTBCopy.Text = LEScriptRTB.Text;
         }
         private void FullManualBtn_Click(object sender, EventArgs e)
         {
@@ -1564,10 +1564,10 @@ namespace LEonard
             log.Info("BigEditBtn_Click(...)");
             BigEditDialog bigeditForm = new BigEditDialog()
             {
-                Title = LEonardScriptFilenameLbl.Text,
+                Title = LEScriptFilenameLbl.Text,
                 ScreenWidth = Width,
                 ScreenHeight = Height,
-                Program = LEonardScriptRTB.Text
+                Program = LEScriptRTB.Text
             };
             bigeditForm.ShowDialog();
 
@@ -1575,7 +1575,7 @@ namespace LEonard
 
             if (bigeditForm.DialogResult == DialogResult.OK)
             {
-                LEonardScriptRTB.Text = bigeditForm.Program;
+                LEScriptRTB.Text = bigeditForm.Program;
                 log.Info("Installing from BigEdit");
             }
         }
@@ -1806,7 +1806,7 @@ namespace LEonard
             SaveVariables();
 
             // Save currently loaded recipe
-            AppNameKey.SetValue("LEonardScriptFilenameLbl.Text", LEonardScriptFilenameLbl.Text);
+            AppNameKey.SetValue("LEonardScriptFilenameLbl.Text", LEScriptFilenameLbl.Text);
 
             // Save current part geometry tool
             AppNameKey.SetValue("PartGeometryBox.Text", PartGeometryBox.Text);
@@ -1913,6 +1913,10 @@ namespace LEonard
             devices.Columns.Add("Address", typeof(System.String));
             devices.Columns.Add("MessageTag", typeof(System.String));
             devices.Columns.Add("CallBack", typeof(System.String));
+            devices.Columns.Add("TxPrefix", typeof(System.String));
+            devices.Columns.Add("TxSuffix", typeof(System.String));
+            devices.Columns.Add("RxTerminator", typeof(System.String));
+            devices.Columns.Add("RxSeparator", typeof(System.String));
             devices.Columns.Add("OnConnectExec", typeof(System.String));
             devices.Columns.Add("OnDisconnectExec", typeof(System.String));
             devices.Columns.Add("RuntimeAutostart", typeof(System.Boolean));
@@ -1938,7 +1942,9 @@ namespace LEonard
         {
             devices.Rows.Add(new object[] {
                 0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
-                "CTL", "command", "JE:leSend('me','Hello!')", "JE:leSend('me','exit()')",
+                "CTL", "command",
+                "", "<CR>", "<LF>", "#",
+                "JE:leSend('me','Hello!')", "JE:leSend('me','exit()')",
                 true,
                 "C:\\Users\\nedlecky\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
                 "LEonardClient.exe",
@@ -1952,7 +1958,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 1, "UR-5eDash", true, false, "UrDashboard", "192.168.0.2:29999",
-                "UR", "", "", "",
+                "UR", "",
+                "", "<CR>", "<LF>", "",
+                "", "",
                 false,
                 "",
                 "",
@@ -1966,7 +1974,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 2, "UR-5eCommand", true, false, "UrCommand", "192.168.0.252:30000",
-                "UR", "general", "", "JE:leSend('me','999')",
+                "UR", "general",
+                "", "<CR>", "<LF>", "#",
+                "", "JE:leSend('me','999')",
                 false,
                 "",
                 "",
@@ -1980,7 +1990,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 3, "Gocator", true, false, "Gocator", "192.168.0.3:8190",
-                "GO", "gocator", "", "",
+                "GO", "gocator",
+                "", "<CR>", "<LF>", "#",
+                "", "",
                 false,
                 "",
                 "",
@@ -1994,7 +2006,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 4, "GocatorAcc", false, false, "Gocator", "192.168.0.252:8190",
-                "GO", "gocator", "", "",
+                "GO", "gocator",
+                "", "<CR>", "<LF>", "#",
+                "", "",
                 false,
                 "",
                 "",
@@ -2008,7 +2022,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 5, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
-                "AUX2S", "general", "init()", "",
+                "AUX2S", "general",
+                "", "<CR>", "<LF>", "#",
+                "init()", "",
                 false,
                 "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
                 "IpeStudio.exe",
@@ -2022,7 +2038,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 6, "HALCON", false, false, "TcpClient", "127.0.0.1:21000",
-                "AUX2H", "general", "init()", "",
+                "AUX2H", "general",
+                "", "<CR>", "<LF>", "#",
+                "init()", "",
                 true,
                 "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
                 "hdevelop.exe",
@@ -2036,7 +2054,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 7, "Keyence", false, false, "TcpClient", "192.168.0.10:8500",
-                "AUX2K", "general", "TE", "",
+                "AUX2K", "general",
+                "", "<CR>", "<LF>", "#",
+                "TE", "",
                 false,
                 "",
                 "",
@@ -2050,7 +2070,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 8, "Dataman1", true, false, "Serial", "COM3",
-                "AUX31", "general", "LE:leSend(me,+)", "",
+                "AUX31", "general",
+                "", "", "<CR>", "#",
+                "LE:leSend(me,+)", "",
                 false,
                 "",
                 "",
@@ -2064,7 +2086,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 9, "Dataman2", true, false, "Serial", "COM4",
-                "AUX32", "general", "+", "",
+                "AUX32", "general",
+                "", "", "<CR>", "#",
+                "+", "",
                 false,
                 "",
                 "",
@@ -2078,7 +2102,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 10, "Chrome", false, false, "Null", "",
-                "CTL", "general", "", "",
+                "CTL", "general",
+                "", "", "", "",
+                "", "",
                 true,
                 "",
                 "Chrome.exe",
@@ -2092,7 +2118,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 11, "FS40 Control", true, false, "TcpClient", "192.168.0.41:107",
-                "ZB", "general", "", "",
+                "ZB", "general",
+                "", "<CR><LF>", "<LF>", "",
+                "", "",
                 false,
                 "",
                 "",
@@ -2106,7 +2134,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 12, "FS40 Results", true, false, "TcpClient", "192.168.0.41:25250",
-                "ZB", "general", "", "",
+                "ZB", "general",
+                "", "<CR><LF>", "<LF>", "#",
+                "", "",
                 false,
                 "",
                 "",
@@ -2119,7 +2149,6 @@ namespace LEonard
                 "","","",
             });
         }
-
         private void ClearDevicesBtn_Click(object sender, EventArgs e)
         {
 
@@ -2284,6 +2313,17 @@ namespace LEonard
                 }
             }
         }
+        private string CharacterParser(string str)
+        {
+            String retString = str;
+            retString = Regex.Replace(retString, "<LF>", "\u000A");
+            retString = Regex.Replace(retString, "<CR>", "\u000D");
+            retString = Regex.Replace(retString, "<CRLF>", "\u000D\u000A");
+
+            log.Info($"CharacterParser {str} ==> {retString}");
+
+            return retString;
+        }
         private int DeviceConnect(DataRow row)
         {
             int ID = (int)row["ID"];
@@ -2296,6 +2336,10 @@ namespace LEonard
             string onConnectExec = (string)row["OnConnectExec"];
             bool connected = (bool)row["Connected"];
             string jobFile = (string)row["Jobfile"];
+            string txPrefix = (string)row["TxPrefix"];
+            string txSuffix = (string)row["TxSuffix"];
+            string rxTerminator = (string)row["RxTerminator"];
+            string rxSeparator = (string)row["RxSeparator"];
 
             if (connected)
             {
@@ -2313,90 +2357,47 @@ namespace LEonard
 
             log.Info($"Connect {ID}:{name} as {deviceType} at {address} with {messageTag}, {callBack}");
 
-            // Runtime needed to start up first?
-            void StartOptionalRuntime()
-            {
-                if ((bool)row["RuntimeAutostart"])
-                    DeviceRuntimeStartBtn_Click(null, null);
-            }
-
-            // Instantiate device interface object
+            // STEP 1: Instantiate device interface object
             switch (deviceType)
             {
                 case "TcpServer":
                     interfaces[ID] = new LeTcpServer(this, messageTag, onConnectExec);
-                    StartOptionalRuntime();
-                    interfaces[ID].Connect(address);
                     break;
                 case "TcpClient":
                     interfaces[ID] = new LeTcpClient(this, messageTag, onConnectExec);
-                    StartOptionalRuntime();
-                    interfaces[ID].Connect(address);
                     break;
                 case "TcpClientAsync":
                     interfaces[ID] = new LeTcpClientAsync(this, messageTag, onConnectExec);
-                    StartOptionalRuntime();
-                    interfaces[ID].Connect(address);
                     break;
                 case "UrDashboard":
                     LeUrDashboard robot = new LeUrDashboard(this, messageTag, onConnectExec);
                     robot.UrProgramFilename = jobFile;
                     interfaces[ID] = robot;
-                    StartOptionalRuntime();
-                    if (focusLeUrDashboard == null)
-                    {
-                        log.Info($"Setting focusLeUrDashboard to {name} in row {currentDeviceRowIndex}");
-                        focusLeUrDashboard = robot;
-                    }
-                    if (0 == robot.Connect(address))
-                    {
-                        row["Model"] = UrDashboardInquiryResponse("get robot model", 200);
-                        row["Serial"] = UrDashboardInquiryResponse("get serial number", 200);
-                        row["Version"] = UrDashboardInquiryResponse("PolyscopeVersion", 200);
-                        //focusLeUrDashboard.InquiryResponse("stop", 200);
-                    }
                     break;
                 case "UrCommand":
                     LeUrCommand command = new LeUrCommand(this, messageTag, onConnectExec);
                     interfaces[ID] = command;
-                    StartOptionalRuntime();
-                    if (focusLeUrCommand == null)
-                    {
-                        log.Info($"Setting focusLeUrCommand to {name} in row {currentDeviceRowIndex}");
-                        focusLeUrCommand = command;
-                    }
-                    command.Connect(address);
                     break;
                 case "Gocator":
                     LeGocator gocator = new LeGocator(this, messageTag, onConnectExec);
                     interfaces[ID] = gocator;
-                    StartOptionalRuntime();
-                    if (focusLeGocator == null)
-                    {
-                        log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
-                        focusLeGocator = gocator;
-                    }
-                    gocator.Connect(address);
                     break;
                 case "Serial":
                     interfaces[ID] = new LeSerial(this, messageTag, onConnectExec);
-                    StartOptionalRuntime();
-                    interfaces[ID].Connect(address);
                     break;
                 case "Null":
                     interfaces[ID] = new LeDevNull(this, messageTag, onConnectExec);
-                    StartOptionalRuntime();
-                    interfaces[ID].Connect(address);
                     break;
                 default:
-                    ErrorMessageBox($"Device {deviceType} does not exist");
+                    ErrorMessageBox($"Instantiating: deviceType {deviceType} does not exist");
                     return 3;
             }
 
-            if (!interfaces[ID].IsConnected())
-                return 4;
+            // STEP 2: Start any requested runtime
+            if ((bool)row["RuntimeAutostart"])
+                DeviceRuntimeStartBtn_Click(null, null);
 
-            // Install desired callback
+            // STEP 3: Install desired callback
             switch (callBack)
             {
                 case "":
@@ -2421,7 +2422,50 @@ namespace LEonard
                     break;
             }
 
+            // STEP 4: Put in all the terminators and separators
+            interfaces[ID].TxPrefix = CharacterParser(txPrefix);
+            interfaces[ID].TxSuffix = CharacterParser(txSuffix);
+            interfaces[ID].RxTerminator = CharacterParser(rxTerminator);
+            interfaces[ID].RxSeparator = CharacterParser(rxSeparator);
+
+            // STEP 5: Connect
+            int connectSuccess = interfaces[ID].Connect(address);
+            if (!interfaces[ID].IsConnected())
+                return 4;
             row["Connected"] = true;
+
+            // STEP 6: Do anything special as required
+            switch (deviceType)
+            {
+                case "UrDashboard":
+                    LeUrDashboard robot = (LeUrDashboard)interfaces[ID];
+
+                    if (focusLeUrDashboard == null)
+                    {
+                        log.Info($"Setting focusLeUrDashboard to {name} in row {currentDeviceRowIndex}");
+                        focusLeUrDashboard = robot;
+                    }
+                    row["Model"] = UrDashboardInquiryResponse("get robot model", 200);
+                    row["Serial"] = UrDashboardInquiryResponse("get serial number", 200);
+                    row["Version"] = UrDashboardInquiryResponse("PolyscopeVersion", 200);
+                    break;
+                case "UrCommand":
+                    LeUrCommand command = (LeUrCommand)interfaces[ID];
+                    if (focusLeUrCommand == null)
+                    {
+                        log.Info($"Setting focusLeUrCommand to {name} in row {currentDeviceRowIndex}");
+                        focusLeUrCommand = command;
+                    }
+                    break;
+                case "Gocator":
+                    LeGocator gocator = (LeGocator)interfaces[ID];
+                    if (focusLeGocator == null)
+                    {
+                        log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
+                        focusLeGocator = gocator;
+                    }
+                    break;
+            }
 
             return 0;
         }
@@ -2768,7 +2812,7 @@ namespace LEonard
         // Multiple Statements:
         //          statement1#statement2#statement3
         // Statements
-        //      LE:command      Sent to LEscript ExecuteLine
+        //      LE:command      Sent to LEscript ExecuteLEScriptLine
         //      JE:command      Sent to ExecuteJavaScript
         //      PE:command      Sent to ExecutePythonScript
         //      name = value    Sent to WriteVariable
@@ -3149,7 +3193,7 @@ namespace LEonard
             else
             {
                 log.Info("Selecting tool {0}", name);
-                ExecuteLEonardScriptLine(-1, string.Format("select_tool({0})", name));
+                ExecuteLEScriptLine(-1, string.Format("select_tool({0})", name));
             }
         }
 
@@ -3184,22 +3228,22 @@ namespace LEonard
 
         private void ToolTestBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLEonardScriptLine(-1, "tool_on()");
+            ExecuteLEScriptLine(-1, "tool_on()");
         }
 
         private void ToolOffBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLEonardScriptLine(-1, "tool_off()");
+            ExecuteLEScriptLine(-1, "tool_off()");
         }
 
         private void CoolantTestBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLEonardScriptLine(-1, "coolant_on()");
+            ExecuteLEScriptLine(-1, "coolant_on()");
         }
 
         private void CoolantOffBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLEonardScriptLine(-1, "coolant_off()");
+            ExecuteLEScriptLine(-1, "coolant_off()");
         }
 
         readonly string toolsFilename = "Tools.xml";
@@ -3350,12 +3394,12 @@ namespace LEonard
 
         private void SetDoorClosedInputBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLEonardScriptLine(-1, string.Format("set_door_closed_input({0})", DoorClosedInputTxt.Text));
+            ExecuteLEScriptLine(-1, string.Format("set_door_closed_input({0})", DoorClosedInputTxt.Text));
         }
 
         private void SetFootswitchInputBtn_Click(object sender, EventArgs e)
         {
-            ExecuteLEonardScriptLine(-1, string.Format("set_footswitch_pressed_input({0})", FootswitchPressedInputTxt.Text));
+            ExecuteLEScriptLine(-1, string.Format("set_footswitch_pressed_input({0})", FootswitchPressedInputTxt.Text));
         }
 
         private DataRow FindName(string name, DataTable table)
@@ -3701,8 +3745,8 @@ namespace LEonard
             // TODO Document these virtual variables!
             if (name == "DateTime")
                 return DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss");
-            if (name == "LEonardScriptFilename")
-                return Path.GetFileNameWithoutExtension(LEonardScriptFilenameLbl.Text).Replace(' ', '_').ToLower();
+            if (name == "LEScriptFilename")
+                return Path.GetFileNameWithoutExtension(LEScriptFilenameLbl.Text).Replace(' ', '_').ToLower();
 
             foreach (DataRow row in variables.Rows)
             {
@@ -4221,7 +4265,7 @@ namespace LEonard
             labels = new Dictionary<string, int>();
 
             int lineNo = 1;
-            foreach (string line in LEonardScriptRTB.Lines)
+            foreach (string line in LEScriptRTB.Lines)
             {
                 string cleanLine = line;
 
@@ -4263,23 +4307,23 @@ namespace LEonard
         {
             lineCurrentlyExecuting = n;
 
-            if (n >= 1 && n <= LEonardScriptRTB.Lines.Count())
+            if (n >= 1 && n <= LEScriptRTB.Lines.Count())
             {
-                (int start, int length) = LEonardScriptRTB.GetLineExtents(lineCurrentlyExecuting - 1);
+                (int start, int length) = LEScriptRTB.GetLineExtents(lineCurrentlyExecuting - 1);
 
-                LEonardScriptRTB.SelectAll();
-                LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
+                LEScriptRTB.SelectAll();
+                LEScriptRTB.SelectionFont = new Font(LEScriptRTB.Font, FontStyle.Regular);
 
-                LEonardScriptRTB.Select(start, length);
-                LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Bold);
-                LEonardScriptRTB.ScrollToCaret();
-                LEonardScriptRTB.ScrollToCaret();
+                LEScriptRTB.Select(start, length);
+                LEScriptRTB.SelectionFont = new Font(LEScriptRTB.Font, FontStyle.Bold);
+                LEScriptRTB.ScrollToCaret();
+                LEScriptRTB.ScrollToCaret();
 
-                LEonardScriptRTBCopy.Select(start, length);
-                LEonardScriptRTBCopy.SelectionFont = new Font(LEonardScriptRTBCopy.Font, FontStyle.Bold);
-                LEonardScriptRTBCopy.ScrollToCaret();
-                LEonardScriptRTBCopy.ScrollToCaret();
-                return LEonardScriptRTB.Lines[lineCurrentlyExecuting - 1];
+                LEScriptRTBCopy.Select(start, length);
+                LEScriptRTBCopy.SelectionFont = new Font(LEScriptRTBCopy.Font, FontStyle.Bold);
+                LEScriptRTBCopy.ScrollToCaret();
+                LEScriptRTBCopy.ScrollToCaret();
+                return LEScriptRTB.Lines[lineCurrentlyExecuting - 1];
             }
             return null;
         }
@@ -4347,13 +4391,13 @@ namespace LEonard
 
         private void UnboldRecipe()
         {
-            LEonardScriptRTB.SelectAll();
-            LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
-            LEonardScriptRTB.DeselectAll();
+            LEScriptRTB.SelectAll();
+            LEScriptRTB.SelectionFont = new Font(LEScriptRTB.Font, FontStyle.Regular);
+            LEScriptRTB.DeselectAll();
 
-            LEonardScriptRTBCopy.SelectAll();
-            LEonardScriptRTBCopy.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
-            LEonardScriptRTBCopy.DeselectAll();
+            LEScriptRTBCopy.SelectAll();
+            LEScriptRTBCopy.SelectionFont = new Font(LEScriptRTB.Font, FontStyle.Regular);
+            LEScriptRTBCopy.DeselectAll();
         }
 
         bool isSingleStep = false;
@@ -4424,7 +4468,7 @@ namespace LEonard
                 }
             }
 
-            if (lineCurrentlyExecuting >= LEonardScriptRTB.Lines.Count())
+            if (lineCurrentlyExecuting >= LEScriptRTB.Lines.Count())
             {
                 log.Info("EXEC Reached end of file");
                 ReportStepTimeStats();
@@ -4443,7 +4487,7 @@ namespace LEonard
                 switch (LEonardLanguage)
                 {
                     case LEonardLanguages.LEScript:
-                        fContinue = ExecuteLEonardScriptLine(lineCurrentlyExecuting, line);
+                        fContinue = ExecuteLEScriptLine(lineCurrentlyExecuting, line);
                         break;
                     case LEonardLanguages.Java:
                         fContinue = ExecuteJavaLine(lineCurrentlyExecuting, line);
@@ -4555,7 +4599,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                log.Error(ex, "LEonardScript line parameter error: {0} {1}", s, ex);
+                log.Error(ex, "LEScript line parameter error: {0} {1}", s, ex);
                 return "";
             }
         }
@@ -4847,7 +4891,7 @@ namespace LEonard
 
             return true;
         }
-        private bool ExecuteLEonardScriptLine(int lineNumber, string line, LeDeviceInterface dev = null)
+        private bool ExecuteLEScriptLine(int lineNumber, string line, LeDeviceInterface dev = null)
         {
             // Step is starting now
             stepStartedTime = DateTime.Now;
@@ -5296,17 +5340,17 @@ namespace LEonard
                     // Kind of like a subroutine that calls all the pieces needed to effect a tool change
                     // Just in case... make sure we disable current tool
 
-                    ExecuteLEonardScriptLine(-1, String.Format("set_tcp({0},{1},{2},{3},{4},{5})", row["x_m"], row["y_m"], row["z_m"], row["rx_rad"], row["ry_rad"], row["rz_rad"]));
-                    ExecuteLEonardScriptLine(-1, String.Format("set_payload({0},{1},{2},{3})", row["mass_kg"], row["cogx_m"], row["cogy_m"], row["cogz_m"]));
+                    ExecuteLEScriptLine(-1, String.Format("set_tcp({0},{1},{2},{3},{4},{5})", row["x_m"], row["y_m"], row["z_m"], row["rx_rad"], row["ry_rad"], row["rz_rad"]));
+                    ExecuteLEScriptLine(-1, String.Format("set_payload({0},{1},{2},{3})", row["mass_kg"], row["cogx_m"], row["cogy_m"], row["cogz_m"]));
 
-                    ExecuteLEonardScriptLine(-1, String.Format("tool_off()"));
-                    ExecuteLEonardScriptLine(-1, String.Format("coolant_off()"));
-                    ExecuteLEonardScriptLine(-1, String.Format("set_tool_on_outputs({0})", row["ToolOnOuts"]));
-                    ExecuteLEonardScriptLine(-1, String.Format("set_tool_off_outputs({0})", row["ToolOffOuts"]));
-                    ExecuteLEonardScriptLine(-1, String.Format("set_coolant_on_outputs({0})", row["CoolantOnOuts"]));
-                    ExecuteLEonardScriptLine(-1, String.Format("set_coolant_off_outputs({0})", row["CoolantOffOuts"]));
-                    ExecuteLEonardScriptLine(-1, String.Format("tool_off()"));
-                    ExecuteLEonardScriptLine(-1, String.Format("coolant_off()"));
+                    ExecuteLEScriptLine(-1, String.Format("tool_off()"));
+                    ExecuteLEScriptLine(-1, String.Format("coolant_off()"));
+                    ExecuteLEScriptLine(-1, String.Format("set_tool_on_outputs({0})", row["ToolOnOuts"]));
+                    ExecuteLEScriptLine(-1, String.Format("set_tool_off_outputs({0})", row["ToolOffOuts"]));
+                    ExecuteLEScriptLine(-1, String.Format("set_coolant_on_outputs({0})", row["CoolantOnOuts"]));
+                    ExecuteLEScriptLine(-1, String.Format("set_coolant_off_outputs({0})", row["CoolantOffOuts"]));
+                    ExecuteLEScriptLine(-1, String.Format("tool_off()"));
+                    ExecuteLEScriptLine(-1, String.Format("coolant_off()"));
                     WriteVariable("robot_tool", row["Name"].ToString());
 
                     // Set Move buttons to go to tool change and home locations
@@ -5561,13 +5605,13 @@ namespace LEonard
                         if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020)
                             ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, 0, 0, 0]");
                         else
-                            ExecuteLEonardScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
+                            ExecuteLEScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
                         break;
                     case 2:
                         if (abs_drx > 15 || abs_dry > 15)
                             ExecError($"Excessive gocator_adjust [0, 0, 0, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                         else
-                            ExecuteLEonardScriptLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
+                            ExecuteLEScriptLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         break;
                     case 3:
                         if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
@@ -5575,10 +5619,10 @@ namespace LEonard
                             ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                         else
                         {
-                            ExecuteLEonardScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
+                            ExecuteLEScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
                             // TODO this should be a wait complete
                             Thread.Sleep(1000);
-                            ExecuteLEonardScriptLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
+                            ExecuteLEScriptLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         }
                         break;
                     case 4:
@@ -5586,7 +5630,7 @@ namespace LEonard
                             abs_drx > 15 || abs_dry > 15)
                             ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
                         else
-                            ExecuteLEonardScriptLine(-1, $"movel_incr_tool({dx}:0.000000,{dy}:0.000000,{dz}:0.000000,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
+                            ExecuteLEScriptLine(-1, $"movel_incr_tool({dx}:0.000000,{dy}:0.000000,{dz}:0.000000,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         break;
                     default:
                         break;
@@ -5955,7 +5999,7 @@ namespace LEonard
             }
             if (statement.StartsWith("LE:") && statement.Length > 5)
             {
-                ExecuteLEonardScriptLine(-1, statement.Substring(3), dev);
+                ExecuteLEScriptLine(-1, statement.Substring(3), dev);
                 return true;
             }
             if (statement.StartsWith("JE:") && statement.Length > 5)
@@ -6095,7 +6139,7 @@ namespace LEonard
                     .SetValue("leLanguage", new Func<int, bool>((int language) => leLanguage(language)))
                     .SetValue("leLogInfo", new Action<string>((string msg) => log.Info(msg)))
                     .SetValue("leLogError", new Action<string>(s => log.Error(s)))
-                    .SetValue("leExec", new Action<string>((string line) => ExecuteLEonardScriptLine(-1, line)))
+                    .SetValue("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
                     .SetValue("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)))
                     .SetValue("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)))
                     .SetValue("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)))
@@ -6326,7 +6370,7 @@ namespace LEonard
             pythonScope.SetVariable("leLanguage", new Func<int, bool>((int language) => leLanguage(language)));
             pythonScope.SetVariable("leLogInfo", new Action<string>((string msg) => log.Info(msg)));
             pythonScope.SetVariable("leLogError", new Action<string>(s => log.Error(s)));
-            pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLEonardScriptLine(-1, line)));
+            pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
             pythonScope.SetVariable("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)));
             pythonScope.SetVariable("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)));
             pythonScope.SetVariable("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)));
@@ -6677,7 +6721,7 @@ namespace LEonard
         int nUnansweredRobotmodeRequests = 0;
         int nUnansweredSafetystatusRequests = 0;
         int nUnansweredProgramstateRequests = 0;
-        
+
         public void UrDashboardAnnounce(LeUrDashboard.DashboardStatus status)
         {
             switch (status)
@@ -6957,7 +7001,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("set_linear_speed({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("set_linear_speed({0})", form.Value));
             }
         }
 
@@ -6975,7 +7019,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("set_linear_accel({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("set_linear_accel({0})", form.Value));
             }
         }
 
@@ -6993,7 +7037,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("set_blend_radius({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("set_blend_radius({0})", form.Value));
             }
         }
         private void SetJointSpeedBtn_Click(object sender, EventArgs e)
@@ -7010,7 +7054,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("set_joint_speed({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("set_joint_speed({0})", form.Value));
             }
         }
 
@@ -7028,7 +7072,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("set_joint_accel({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("set_joint_accel({0})", form.Value));
             }
         }
         private void SetMoveDefaultsBtn_Click(object sender, EventArgs e)
@@ -7037,11 +7081,11 @@ namespace LEonard
             if (DialogResult.OK != ConfirmMessageBox("This will reset the Default Motion Parameters. Proceed?"))
                 return;
 
-            ExecuteLEonardScriptLine(-1, String.Format("set_linear_speed({0})", DEFAULT_linear_speed));
-            ExecuteLEonardScriptLine(-1, String.Format("set_linear_accel({0})", DEFAULT_linear_accel));
-            ExecuteLEonardScriptLine(-1, String.Format("set_blend_radius({0})", DEFAULT_blend_radius));
-            ExecuteLEonardScriptLine(-1, String.Format("set_joint_speed({0})", DEFAULT_joint_speed));
-            ExecuteLEonardScriptLine(-1, String.Format("set_joint_accel({0})", DEFAULT_joint_accel));
+            ExecuteLEScriptLine(-1, String.Format("set_linear_speed({0})", DEFAULT_linear_speed));
+            ExecuteLEScriptLine(-1, String.Format("set_linear_accel({0})", DEFAULT_linear_accel));
+            ExecuteLEScriptLine(-1, String.Format("set_blend_radius({0})", DEFAULT_blend_radius));
+            ExecuteLEScriptLine(-1, String.Format("set_joint_speed({0})", DEFAULT_joint_speed));
+            ExecuteLEScriptLine(-1, String.Format("set_joint_accel({0})", DEFAULT_joint_accel));
         }
 
         private void SetTouchSpeedBtn_Click(object sender, EventArgs e)
@@ -7058,7 +7102,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_touch_speed({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_touch_speed({0})", form.Value));
             }
         }
 
@@ -7076,7 +7120,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_touch_retract({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_touch_retract({0})", form.Value));
             }
         }
         private void SetForceDwellBtn_Click(object sender, EventArgs e)
@@ -7093,7 +7137,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_force_dwell({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_force_dwell({0})", form.Value));
             }
         }
 
@@ -7111,7 +7155,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_max_wait({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_max_wait({0})", form.Value));
             }
         }
         private void SetMaxGrindBlendRadiusBtn_Click(object sender, EventArgs e)
@@ -7128,7 +7172,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_max_blend_radius({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_max_blend_radius({0})", form.Value));
             }
         }
         private void SetTrialSpeedBtn_Click(object sender, EventArgs e)
@@ -7145,7 +7189,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_trial_speed({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_trial_speed({0})", form.Value));
             }
         }
         private void SetGrindAccelBtn_Click(object sender, EventArgs e)
@@ -7162,7 +7206,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_linear_accel({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_linear_accel({0})", form.Value));
             }
         }
         private void SetPointFrequencyBtn_Click(object sender, EventArgs e)
@@ -7179,7 +7223,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_point_frequency({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_point_frequency({0})", form.Value));
             }
         }
         private void SetGrindJogSpeedBtn_Click(object sender, EventArgs e)
@@ -7196,7 +7240,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_jog_speed({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_jog_speed({0})", form.Value));
             }
         }
         private void SetGrindJogAccel_Click(object sender, EventArgs e)
@@ -7213,7 +7257,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_jog_accel({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_jog_accel({0})", form.Value));
             }
         }
 
@@ -7231,7 +7275,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_force_mode_damping({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_force_mode_damping({0})", form.Value));
             }
         }
 
@@ -7249,7 +7293,7 @@ namespace LEonard
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                ExecuteLEonardScriptLine(-1, String.Format("grind_force_mode_gain_scaling({0})", form.Value));
+                ExecuteLEScriptLine(-1, String.Format("grind_force_mode_gain_scaling({0})", form.Value));
             }
         }
 
@@ -7259,18 +7303,18 @@ namespace LEonard
             if (DialogResult.OK != ConfirmMessageBox("This will reset the Grinding Motion Parameters. Proceed?"))
                 return;
 
-            ExecuteLEonardScriptLine(-1, String.Format("grind_trial_speed({0})", DEFAULT_grind_trial_speed));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_linear_accel({0})", DEFAULT_grind_linear_accel));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_jog_speed({0})", DEFAULT_grind_jog_speed));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_jog_accel({0})", DEFAULT_grind_jog_accel));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_max_blend_radius({0})", DEFAULT_grind_max_blend_radius));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_touch_speed({0})", DEFAULT_grind_touch_speed));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_touch_retract({0})", DEFAULT_grind_touch_retract));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_force_dwell({0})", DEFAULT_grind_force_dwell));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_max_wait({0})", DEFAULT_grind_max_wait));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_point_frequency({0})", DEFAULT_grind_point_frequency));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_force_mode_damping({0})", DEFAULT_grind_force_mode_damping));
-            ExecuteLEonardScriptLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
+            ExecuteLEScriptLine(-1, String.Format("grind_trial_speed({0})", DEFAULT_grind_trial_speed));
+            ExecuteLEScriptLine(-1, String.Format("grind_linear_accel({0})", DEFAULT_grind_linear_accel));
+            ExecuteLEScriptLine(-1, String.Format("grind_jog_speed({0})", DEFAULT_grind_jog_speed));
+            ExecuteLEScriptLine(-1, String.Format("grind_jog_accel({0})", DEFAULT_grind_jog_accel));
+            ExecuteLEScriptLine(-1, String.Format("grind_max_blend_radius({0})", DEFAULT_grind_max_blend_radius));
+            ExecuteLEScriptLine(-1, String.Format("grind_touch_speed({0})", DEFAULT_grind_touch_speed));
+            ExecuteLEScriptLine(-1, String.Format("grind_touch_retract({0})", DEFAULT_grind_touch_retract));
+            ExecuteLEScriptLine(-1, String.Format("grind_force_dwell({0})", DEFAULT_grind_force_dwell));
+            ExecuteLEScriptLine(-1, String.Format("grind_max_wait({0})", DEFAULT_grind_max_wait));
+            ExecuteLEScriptLine(-1, String.Format("grind_point_frequency({0})", DEFAULT_grind_point_frequency));
+            ExecuteLEScriptLine(-1, String.Format("grind_force_mode_damping({0})", DEFAULT_grind_force_mode_damping));
+            ExecuteLEScriptLine(-1, String.Format("grind_force_mode_gain_scaling({0})", DEFAULT_grind_force_mode_gain_scaling));
         }
 
 

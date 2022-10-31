@@ -248,7 +248,7 @@ namespace LEonard
         public int Send(String data)
         {
             // Convert the string data to byte data using ASCII encoding.  
-            byte[] byteData = Encoding.ASCII.GetBytes(data + "\r");
+            byte[] byteData = Encoding.ASCII.GetBytes(TxPrefix + data + TxSuffix);
 
             // Begin sending the data to the remote device.  
             client.BeginSend(byteData, 0, byteData.Length, 0,

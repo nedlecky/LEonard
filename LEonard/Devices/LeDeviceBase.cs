@@ -20,8 +20,10 @@ namespace LEonard
         protected string logPrefix;
         protected string execLEonardMessageOnConnect;
 
-        public string sendTerminator { get; set; } = "\n";
-        public char receiveTerminator { get; set; } = '\n';
+        public string TxPrefix { get; set; } = "";
+        public string TxSuffix { get; set; } = "";
+        public string RxTerminator { get; set; } = "";
+        public string RxSeparator { get; set; } = "";
         public Process runtimeProcess { get; set; } = null;
         public Process setupProcess { get; set; } = null;
 

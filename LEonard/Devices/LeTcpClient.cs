@@ -146,7 +146,8 @@ namespace LEonard
             log.Debug("{0} ==> {1}", logPrefix, request);
             try
             {
-                stream.Write(Encoding.ASCII.GetBytes(request + "\n"), 0, request.Length + 1);
+                string sendMessage = TxPrefix + request + TxSuffix;
+                stream.Write(Encoding.ASCII.GetBytes(sendMessage), 0, sendMessage.Length);
             }
             catch
             {
@@ -175,8 +176,7 @@ namespace LEonard
 
             if (length == 0) return null;
             string input = Encoding.UTF8.GetString(inputBuffer, 0, length);
-            // TODO This delim should be programmable in the class
-            string[] inputLines = input.Split('\n');
+            string[] inputLines = input.Split(RxTerminator[0]);
             int lineNo = 1;
             foreach (string line in inputLines)
             {
@@ -199,7 +199,7 @@ namespace LEonard
             string response = Receive();
             if (response != null)
             {
-                log.Warn("{0} Already had a response waiting: {1}", logPrefix, response.Replace('\n', ' '));
+                log.Warn("{0} Already had a response waiting: {1}", logPrefix, response.Replace(RxTerminator[0], ' '));
             }
 
             Stopwatch timer = new Stopwatch();

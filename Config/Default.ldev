@@ -15,6 +15,10 @@
                 <xs:element name="Address" type="xs:string" minOccurs="0" />
                 <xs:element name="MessageTag" type="xs:string" minOccurs="0" />
                 <xs:element name="CallBack" type="xs:string" minOccurs="0" />
+                <xs:element name="TxPrefix" type="xs:string" minOccurs="0" />
+                <xs:element name="TxSuffix" type="xs:string" minOccurs="0" />
+                <xs:element name="RxTerminator" type="xs:string" minOccurs="0" />
+                <xs:element name="RxSeparator" type="xs:string" minOccurs="0" />
                 <xs:element name="OnConnectExec" type="xs:string" minOccurs="0" />
                 <xs:element name="OnDisconnectExec" type="xs:string" minOccurs="0" />
                 <xs:element name="RuntimeAutostart" type="xs:boolean" minOccurs="0" />
@@ -44,11 +48,15 @@
     <ID>0</ID>
     <Name>Command</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>TcpServer</DeviceType>
     <Address>127.0.0.1:1000</Address>
     <MessageTag>CTL</MessageTag>
     <CallBack>command</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
     <OnConnectExec>JE:leSend('me','Hello!')</OnConnectExec>
     <OnDisconnectExec>JE:leSend('me','exit()')</OnDisconnectExec>
     <RuntimeAutostart>true</RuntimeAutostart>
@@ -68,11 +76,15 @@
     <ID>1</ID>
     <Name>UR-5eDash</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
     <MessageTag>UR</MessageTag>
     <CallBack />
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator />
     <OnConnectExec />
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
@@ -84,19 +96,23 @@
     <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
     <SpeedSendButtons>stop</SpeedSendButtons>
     <Jobfile>LEonard/LEonard01.urp</Jobfile>
-    <Model>UR5</Model>
-    <Serial>20195501059</Serial>
-    <Version>URSoftware 5.11.11.1010533 (Apr 12 2022)</Version>
+    <Model />
+    <Serial />
+    <Version />
   </Devices>
   <Devices>
     <ID>2</ID>
     <Name>UR-5eCommand</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>
     <MessageTag>UR</MessageTag>
     <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
     <OnConnectExec />
     <OnDisconnectExec>JE:leSend('me','999')</OnDisconnectExec>
     <RuntimeAutostart>false</RuntimeAutostart>
@@ -116,11 +132,15 @@
     <ID>3</ID>
     <Name>Gocator</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
     <MessageTag>GO</MessageTag>
     <CallBack>gocator</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
     <OnConnectExec />
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
@@ -145,6 +165,10 @@
     <Address>192.168.0.252:8190</Address>
     <MessageTag>GO</MessageTag>
     <CallBack>gocator</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
     <OnConnectExec />
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
@@ -169,6 +193,10 @@
     <Address>127.0.0.1:20000</Address>
     <MessageTag>AUX2S</MessageTag>
     <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
     <OnConnectExec>init()</OnConnectExec>
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
@@ -193,6 +221,10 @@
     <Address>127.0.0.1:21000</Address>
     <MessageTag>AUX2H</MessageTag>
     <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
     <OnConnectExec>init()</OnConnectExec>
     <OnDisconnectExec />
     <RuntimeAutostart>true</RuntimeAutostart>
@@ -217,6 +249,10 @@
     <Address>192.168.0.10:8500</Address>
     <MessageTag>AUX2K</MessageTag>
     <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
     <OnConnectExec>TE</OnConnectExec>
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
@@ -236,11 +272,15 @@
     <ID>8</ID>
     <Name>Dataman1</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
     <MessageTag>AUX31</MessageTag>
     <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix />
+    <RxTerminator>&lt;CR&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
     <OnConnectExec>LE:leSend(me,+)</OnConnectExec>
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
@@ -260,12 +300,16 @@
     <ID>9</ID>
     <Name>Dataman2</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM4</Address>
     <MessageTag>AUX32</MessageTag>
     <CallBack>general</CallBack>
-    <OnConnectExec>Code\datamantrigger.js</OnConnectExec>
+    <TxPrefix />
+    <TxSuffix />
+    <RxTerminator>&lt;CR&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec>+</OnConnectExec>
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
@@ -289,6 +333,10 @@
     <Address />
     <MessageTag>CTL</MessageTag>
     <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix />
+    <RxTerminator />
+    <RxSeparator />
     <OnConnectExec />
     <OnDisconnectExec />
     <RuntimeAutostart>true</RuntimeAutostart>
@@ -308,11 +356,15 @@
     <ID>11</ID>
     <Name>FS40 Control</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:107</Address>
     <MessageTag>ZB</MessageTag>
     <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;&lt;LF&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator />
     <OnConnectExec />
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
@@ -332,11 +384,15 @@
     <ID>12</ID>
     <Name>FS40 Results</Name>
     <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:25250</Address>
     <MessageTag>ZB</MessageTag>
     <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;&lt;LF&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
     <OnConnectExec />
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>

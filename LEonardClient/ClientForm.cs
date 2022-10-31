@@ -240,8 +240,8 @@ namespace LEonardClient
                     string message = Encoding.UTF8.GetString(inputBuffer, 0, length).Trim('\r', '\n');
                     log.Info("<== {0}", message);
 
-                    // Server can close this client with "exit()"
-                    if (message == "exit()")
+                    // Server can close this client with "exit"
+                    if (message == "exit")
                         ExitBtn_Click(null, null);
                 }
             }

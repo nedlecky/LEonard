@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,8 +47,9 @@ namespace LEonard
             port.WriteTimeout = 100;
             port.DtrEnable = true;
             port.RtsEnable = true;
-            port.NewLine = "\r";
+            port.NewLine = RxTerminator;
             port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedEvent);
+            port.ReadTimeout = 1000;
 
             try
             {
@@ -95,7 +97,7 @@ namespace LEonard
         public int Send(string message)
         {
             log.Info("{0} ==> {1}", logPrefix, message);
-            port.Write(message);
+            port.Write(TxPrefix + message + TxSuffix);
             return 0;
         }
         public string Receive(bool fProcessCallbackOnly = false)
@@ -125,13 +127,19 @@ namespace LEonard
                 // Read all lines in the buffer
                 // TODO: Doesn't this block and timeout if there are bytes but no newline?
                 int lineNo = 1;
-                while (port.BytesToRead > 0)
+                while (port.IsOpen && port.BytesToRead > 0)
                 {
                     // TODO: if the port.NewLine isn't in the buffer this blocks... needs to timeout almost instantly?
-                    data = port.ReadLine();
-                    log.Info("{0} <== {1} Line {2}", logPrefix, data, lineNo);
-                    receiveCallback(logPrefix, data, this);
-                    lineNo++;
+                    try
+                    {
+                        data = port.ReadLine();
+                        log.Info("{0} <== {1} Line {2}", logPrefix, data, lineNo);
+                        receiveCallback(logPrefix, data, this);
+                        lineNo++;
+                    }
+                    catch
+                    {
+                    }
                 }
             }
         }

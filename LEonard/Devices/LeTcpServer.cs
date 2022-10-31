@@ -124,8 +124,7 @@ namespace LEonard
             {
             }
         }
-
-        void CloseConnection()
+                void CloseConnection()
         {
             log.Debug("{0} CloseConnection()", logPrefix);
 
@@ -153,8 +152,8 @@ namespace LEonard
             log.Debug($"{logPrefix}==> ({message})");
             try
             {
-                // TODO delimiter should be a param
-                stream.Write(Encoding.ASCII.GetBytes(message + "\r"), 0, message.Length + 1);
+                string msg = TxPrefix + message + TxSuffix;
+                stream.Write(Encoding.ASCII.GetBytes(msg), 0, msg.Length);
             }
             catch
             {
@@ -180,14 +179,14 @@ namespace LEonard
                 return "";
             }
 
-            // Read any available characters and \n delimit them as strings into the queue
-            // If a string is started but has no \n, it will be completed and queued in a later call!
+            // Read any available characters and RxTerminator[0] delimit them as strings into the queue
+            // If a string is started but has no RxTerminator[0], it will be completed and queued in a later call!
             int totalChars = 0;
             while (stream.DataAvailable)
             {
                 int c = stream.ReadByte();
                 totalChars++;
-                if (c == '\n')
+                if (c == RxTerminator[0])
                 {
                     inputQueue.Enqueue(Encoding.UTF8.GetString(inputBuffer, 0, addingAt));
                     addingAt = 0;
@@ -199,7 +198,7 @@ namespace LEonard
             if (addingAt > 0)
                 log.Debug("UR<== incomplete line received (will get rest later) totalChars={0} addingAt={1} [{2}]", totalChars, addingAt, Encoding.UTF8.GetString(inputBuffer, 0, addingAt - 1));
 
-            // No execute any completed lines that have been received
+            // Now execute any completed lines that have been received
             int lineNo = 1;
             int nLines = inputQueue.Count;
             while (inputQueue.Count > 0)
