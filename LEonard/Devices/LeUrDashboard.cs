@@ -70,43 +70,43 @@ namespace LEonard
             if (isInRemoteControlResponse == null)
             {
                 myForm.ErrorMessageBox("Failed to check remote control mode. No response.");
-                return 2;
+                return 0;
             }
             if (isInRemoteControlResponse != "true")
             {
                 myForm.ErrorMessageBox("Robot not in remote control mode!");
-                return 3;
+                return 0;
             }
             string loadedProgramResponse = InquiryResponse("load " + UrProgramFilename, 1000);
             if (loadedProgramResponse == null)
             {
                 myForm.ErrorMessageBox($"Failed to load {UrProgramFilename}. No response.");
-                return 4;
+                return 0;
             }
             if (loadedProgramResponse.StartsWith("File not found"))
             {
                 myForm.ErrorMessageBox($"Failed to load {UrProgramFilename}. Response was \"{loadedProgramResponse}\"");
-                return 5;
+                return 0;
             }
 
             string getLoadedProgramResponse = InquiryResponse("get loaded program", 1000);
             if (getLoadedProgramResponse == null)
             {
                 myForm.ErrorMessageBox($"Failed to verify loading {UrProgramFilename}. No response");
-                return 6;
+                return 0;
             }
 
             if (!getLoadedProgramResponse.Contains(UrProgramFilename))
             {
                 myForm.ErrorMessageBox($"Failed to verify loading {UrProgramFilename}. Response was \"{getLoadedProgramResponse}\"");
-                return 7;
+                return 0;
             }
 
             string playResponse = InquiryResponse("play", 1000);
             if (!playResponse.StartsWith("Starting program"))
             {
                 myForm.ErrorMessageBox($"Failed to start program playing. Response was \"{playResponse}\"");
-                return 8;
+                return 0;
             }
 
             return 0;

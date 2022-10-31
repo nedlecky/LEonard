@@ -230,6 +230,32 @@ namespace LEonard
             licenseFilename = Path.Combine(LEonardRoot, "license.txt");
             protection = new Protection(this, licenseFilename);
         }
+        private DialogResult ConfirmMessageBox(string question)
+        {
+            log.Info($"ConfirmMessageBox({question})");
+            MessageDialog messageForm = new MessageDialog(this)
+            {
+                Title = "System Confirmation",
+                Label = question,
+                OkText = "&Yes",
+                CancelText = "&No"
+            };
+            DialogResult result = messageForm.ShowDialog();
+            return result;
+        }
+        public DialogResult ErrorMessageBox(string message)
+        {
+            log.Error($"ErrorMessageBox({message})");
+            MessageDialog messageForm = new MessageDialog(this)
+            {
+                Title = "System ERROR",
+                Label = message,
+                OkText = "&OK",
+                CancelText = "&Cancel"
+            };
+            DialogResult result = messageForm.ShowDialog();
+            return result;
+        }
 
         // Function key shortcut handling (primarily for development testing assistance)
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -331,32 +357,6 @@ namespace LEonard
             this.Close();
         }
 
-        private DialogResult ConfirmMessageBox(string question)
-        {
-            log.Info($"ConfirmMessageBox({question})");
-            MessageDialog messageForm = new MessageDialog(this)
-            {
-                Title = "System Confirmation",
-                Label = question,
-                OkText = "&Yes",
-                CancelText = "&No"
-            };
-            DialogResult result = messageForm.ShowDialog();
-            return result;
-        }
-        public DialogResult ErrorMessageBox(string message)
-        {
-            log.Error($"ErrorMessageBox({message})");
-            MessageDialog messageForm = new MessageDialog(this)
-            {
-                Title = "System ERROR",
-                Label = message,
-                OkText = "&OK",
-                CancelText = "&Cancel"
-            };
-            DialogResult result = messageForm.ShowDialog();
-            return result;
-        }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if (forceClose) return;
@@ -389,7 +389,6 @@ namespace LEonard
                     if (result == DialogResult.OK)
                         PythonSaveBtn_Click(null, null);
                 }
-
 
                 CloseTmr.Interval = 500;
                 CloseTmr.Enabled = true;
@@ -436,19 +435,6 @@ namespace LEonard
             TimeSpan timeRemaining = stepEndTimeEstimate - now;
             StepTimeRemainingLbl.Text = TimeSpanFormat(timeRemaining);
         }
-
-        enum ProgramState
-        {
-            UNKNOWN,
-            STOPPED,
-            PAUSED,
-            PLAYING
-        };
-
-        int dashboardCycle = 0;
-        int nUnansweredRobotmodeRequests = 0;
-        int nUnansweredSafetystatusRequests = 0;
-        int nUnansweredProgramstateRequests = 0;
 
         private void HeartbeatTmr_Tick(object sender, EventArgs e)
         {
@@ -615,157 +601,16 @@ namespace LEonard
             }
         }
 
-        private void HandleRobotmodeResponse(string robotmodeResponse)
+        private void ClearAllLogRtbBtn_Click(object sender, EventArgs e)
         {
-            Color color = Color.Red;
-            string buttonText = robotmodeResponse;
-            switch (robotmodeResponse)
-            {
-                case "Robotmode: RUNNING":
-                    color = Color.Green;
-                    break;
-                case "Robotmode: CONFIRM_SAFETY":
-                    EnsureStopped();
-                    color = Color.Blue;
-                    break;
-                case "Robotmode: IDLE":
-                    EnsureNotRunning();
-                    color = Color.Blue;
-                    break;
-                case "Robotmode: NO_CONTROLLER":
-                case "Robotmode: DISCONNECTED":
-                case "Robotmode: BACKDRIVE":
-                case "Robotmode: POWER_OFF":
-                    EnsureStopped();
-                    color = Color.Red;
-                    break;
-                case "Robotmode: POWER_ON":
-                    EnsureStopped();
-                    color = Color.Blue;
-                    break;
-                case "Robotmode: BOOTING":
-                    EnsureStopped();
-                    color = Color.Coral;
-                    break;
-                default:
-                    log.Error("Unknown response to robotmode: {0}", robotmodeResponse);
-                    EnsureStopped();
-                    buttonText = "Robotmode: ?? " + robotmodeResponse;
-                    color = Color.Red;
-                    break;
-            }
-            RobotModeBtn.Text = buttonText;
-            RobotModeBtn.BackColor = color;
+            AllLogRTB.Clear();
+            ExecLogRTB.Clear();
+            UrLogRTB.Clear();
+            ConsoleRTB.Clear();
+            ErrorLogRTB.Clear();
         }
 
-
-        private void HandleSafetystatusResponse(string safetystatusResponse)
-        {
-            Color color = Color.Red;
-            string buttonText = safetystatusResponse;
-            switch (safetystatusResponse)
-            {
-                case "Safetystatus: NORMAL":
-                    color = Color.Green;
-                    break;
-                case "Safetystatus: REDUCED":
-                    color = Color.Yellow;
-                    break;
-                case "Safetystatus: PROTECTIVE_STOP":
-                case "Safetystatus: RECOVERY":
-                case "Safetystatus: SAFEGUARD_STOP":
-                case "Safetystatus: SYSTEM_EMERGENCY_STOP":
-                case "Safetystatus: ROBOT_EMERGENCY_STOP":
-                case "Safetystatus: VIOLATION":
-                case "Safetystatus: FAULT":
-                case "Safetystatus: AUTOMATIC_MODE_SAFEGUARD_STOP":
-                case "Safetystatus: SYSTEM_THREE_POSITION_ENABLING_STOP":
-                    EnsureNotRunning();
-                    color = Color.Red;
-                    break;
-                default:
-                    log.Error("Unknown response to safetystatus: {0}", safetystatusResponse);
-                    EnsureStopped();
-                    buttonText = "Safetystatus: ?? " + safetystatusResponse;
-                    color = Color.Red;
-                    break;
-            }
-            SafetyStatusBtn.Text = buttonText.Replace('_', ' ');
-            SafetyStatusBtn.BackColor = color;
-        }
-
-        // Is the supplied string a valid response to Dashboard programstate command?
-        ProgramState IsProgramstateResponse(string message)
-        {
-            ProgramState programState = ProgramState.UNKNOWN;
-
-            if (message != null)
-            {
-                if (message.StartsWith("STOPPED"))
-                    programState = ProgramState.STOPPED;
-                else if (message.StartsWith("PAUSED"))
-                    programState = ProgramState.PAUSED;
-                else if (message.StartsWith("PLAYING"))
-                    programState = ProgramState.PLAYING;
-            }
-
-            return programState;
-        }
-
-        private void HandleProgramstateResponse(ProgramState programState, string programstateResponse)
-        {
-            Color color = Color.Red;
-            string buttonText = programstateResponse;
-            switch (programState)
-            {
-                case ProgramState.STOPPED:
-                    //EnsureStopped();
-                    break;
-                case ProgramState.PAUSED:
-                    EnsureNotRunning();
-                    break;
-                case ProgramState.PLAYING:
-                    color = Color.Green;
-                    /*
-                    // Old code to reset the server... this is setup in Device Connect
-                    if (robotCommandServer == null)
-                    {
-                        // Setup a server for the UR to connect to
-                        robotCommandServer = new LeTcpServer(this, "UR")
-                        {
-                            receiveCallback = GeneralCallback
-                        };
-                        if (robotCommandServer.Connect(ServerIpTxt.Text, "30000") > 0)
-                        {
-                            log.Error("Robot command server initialization failure");
-                            RobotCommandStatusLbl.BackColor = Color.Red;
-                            RobotCommandStatusLbl.Text = "Command Error";
-                        }
-                        else
-                        {
-                            log.Info("Robot command connection ready");
-
-                            RobotCommandStatusLbl.BackColor = Color.Red;
-                            RobotCommandStatusLbl.Text = "Command Waiting";
-                        }
-                    }
-                    */
-                    break;
-                default:
-                    log.Error("Unknown response to programstate: {0}", programstateResponse);
-                    EnsureStopped();
-                    buttonText = "Programstate: ?? " + programstateResponse;
-                    color = Color.Red;
-                    break;
-            }
-            ProgramStateBtn.Text = buttonText;
-            ProgramStateBtn.BackColor = color;
-        }
-
-
-        // ===================================================================
-        // START MAIN UI BUTTONS
-        // ===================================================================
+        #region ===== MAIN UI BUTTONS                   ==============================================================================================================================
 
         private void MainTab_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1295,17 +1140,9 @@ namespace LEonard
             };
             splashForm.ShowDialog();
         }
+        #endregion =================================================== MAIN UI BUTTONS ===================================================================
 
-
-        // ===================================================================
-        // END MAIN UI BUTTONS
-        // ===================================================================
-
-
-
-        // ===================================================================
-        // START RUN
-        // ===================================================================
+        #region ===== RUN FUNCTIONS                     ==============================================================================================================================
 
         private void GrindContactEnabledBtn_Click(object sender, EventArgs e)
         {
@@ -1486,15 +1323,267 @@ namespace LEonard
             SetState(RunState.READY);
             SetRecipeState(recipeStateAtRun);
         }
+        #endregion ===== RUN FUNCTIONS                     ==============================================================================================================================
+
+        #region ===== LESCRIPT / CODE EDIT SUPPORT      ==============================================================================================================================
+        private enum RecipeState
+        {
+            INIT,
+            NEW,
+            LOADED,
+            MODIFIED,
+            RUNNING
+        }
+        RecipeState recipeState = RecipeState.INIT;
+        RecipeState recipeStateAtRun = RecipeState.INIT;
+        private void SetRecipeState(RecipeState s)
+        {
+            if (recipeState != s)
+            {
+                log.Debug("SetRecipeState({0})", s.ToString());
+
+                RecipeState oldRecipeState = recipeState;
+                recipeState = s;
+
+                switch (recipeState)
+                {
+                    case RecipeState.NEW:
+                        NewLEonardScriptBtn.Enabled = false;
+                        LoadLEonardScriptBtn.Enabled = true;
+                        SaveLEonardScriptBtn.Enabled = false;
+                        SaveAsLEonardScriptBtn.Enabled = true;
+                        break;
+                    case RecipeState.LOADED:
+                        NewLEonardScriptBtn.Enabled = true;
+                        LoadLEonardScriptBtn.Enabled = true;
+                        SaveLEonardScriptBtn.Enabled = false;
+                        SaveAsLEonardScriptBtn.Enabled = true;
+                        break;
+                    case RecipeState.MODIFIED:
+                        NewLEonardScriptBtn.Enabled = true;
+                        LoadLEonardScriptBtn.Enabled = true;
+                        SaveLEonardScriptBtn.Enabled = true;
+                        SaveAsLEonardScriptBtn.Enabled = true;
+                        break;
+                    case RecipeState.RUNNING:
+                        recipeStateAtRun = oldRecipeState;
+                        NewLEonardScriptBtn.Enabled = false;
+                        LoadLEonardScriptBtn.Enabled = false;
+                        SaveLEonardScriptBtn.Enabled = false;
+                        SaveAsLEonardScriptBtn.Enabled = false;
+                        break;
+                }
+                NewLEonardScriptBtn.BackColor = NewLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+                LoadLEonardScriptBtn.BackColor = LoadLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+                SaveLEonardScriptBtn.BackColor = SaveLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+                SaveAsLEonardScriptBtn.BackColor = SaveAsLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+            }
+        }
 
 
-        // ===================================================================
-        // END RUN
-        // ===================================================================
+        private string recipeAsLoaded = "";  // As it was when loaded so we can test for actual mods
+        private bool RecipeWasModified()
+        {
+            return recipeAsLoaded != LEonardScriptRTB.Text;
+        }
+        bool LoadLEonardScriptFile(string file)
+        {
+            log.Info("LoadRecipeFile({0})", file);
+            LEonardScriptFilenameLbl.Text = "";
+            LEonardScriptRTB.Text = "";
+            try
+            {
+                LEonardScriptRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                LEonardScriptFilenameLbl.Text = file;
+                recipeAsLoaded = LEonardScriptRTB.Text;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, "Can't open {0}", file);
+                return false;
+            }
+        }
 
-        // ===================================================================
-        // START SETUP
-        // ===================================================================
+        private void NewLEonardScriptBtn_Click(object sender, EventArgs e)
+        {
+            log.Info("NewRecipeBtn_Click(...)");
+            if (RecipeWasModified())
+            {
+                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEonardScriptBtn.Text));
+                if (result == DialogResult.OK)
+                    SaveLEonardScriptBtn_Click(null, null);
+            }
+
+            SetRecipeState(RecipeState.NEW);
+            SetState(RunState.IDLE);
+            LEonardScriptFilenameLbl.Text = "Untitled";
+            LEonardScriptRTB.Clear();
+            recipeAsLoaded = "";
+            MainTab.SelectedIndex = 1; // = "Program";
+        }
+
+        private void LoadLEonardScriptBtn_Click(object sender, EventArgs e)
+        {
+            log.Info("LoadRecipeBtn_Click(...)");
+            if (RecipeWasModified())
+            {
+                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEonardScriptBtn.Text));
+                if (result == DialogResult.OK)
+                    SaveLEonardScriptBtn_Click(null, null);
+            }
+
+            string initialDirectory;
+            if (LEonardScriptFilenameLbl.Text != "Untitled" && LEonardScriptFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(LEonardScriptFilenameLbl.Text);
+            else
+                initialDirectory = Path.Combine(LEonardRoot, "Code");
+
+            FileOpenDialog dialog = new FileOpenDialog(this)
+            {
+                Title = "Open a LEonard Recipe",
+                Filter = "*.txt",
+                InitialDirectory = initialDirectory
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (LoadLEonardScriptFile(dialog.FileName))
+                {
+                    SetRecipeState(RecipeState.LOADED);
+                    SetState(RunState.READY);
+                }
+            }
+        }
+
+        private void SaveLEonardScriptBtn_Click(object sender, EventArgs e)
+        {
+            log.Info("SaveRecipeBtn_Click(...)");
+            if (LEonardScriptFilenameLbl.Text == "Untitled" || LEonardScriptFilenameLbl.Text == "")
+                SaveAsLEonardScriptBtn_Click(null, null);
+            else
+            {
+                log.Info("Save Recipe program to {0}", LEonardScriptFilenameLbl.Text);
+                LEonardScriptRTB.SaveFile(LEonardScriptFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                recipeAsLoaded = LEonardScriptRTB.Text;
+                SetRecipeState(RecipeState.LOADED);
+                SetState(RunState.READY);
+            }
+        }
+
+        private void SaveAsLEonardScriptBtn_Click(object sender, EventArgs e)
+        {
+            log.Info("SaveAsRecipeBtn_Click(...)");
+
+            string initialDirectory;
+            if (LEonardScriptFilenameLbl.Text != "Untitled" && LEonardScriptFilenameLbl.Text.Length > 0)
+                initialDirectory = Path.GetDirectoryName(LEonardScriptFilenameLbl.Text);
+            else
+                initialDirectory = Path.Combine(LEonardRoot, "Code");
+
+            FileSaveAsDialog dialog = new FileSaveAsDialog(this)
+            {
+                Title = "Save a LEonardScript program As...",
+                Filter = "*.txt",
+                InitialDirectory = initialDirectory,
+                FileName = LEonardScriptFilenameLbl.Text,
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (dialog.FileName != "")
+                {
+                    string filename = dialog.FileName;
+                    if (!filename.EndsWith(".txt")) filename += ".txt";
+                    bool okToSave = true;
+                    if (File.Exists(filename))
+                    {
+                        if (DialogResult.OK != ConfirmMessageBox(string.Format("File {0} already exists. Overwrite?", filename)))
+                            okToSave = false;
+                    }
+                    if (okToSave)
+                    {
+                        LEonardScriptFilenameLbl.Text = filename;
+                        SaveLEonardScriptBtn_Click(null, null);
+                    }
+                }
+            }
+        }
+        private void LEonardScriptRTB_ModifiedChanged(object sender, EventArgs e)
+        {
+            SetRecipeState(RecipeState.MODIFIED);
+        }
+
+        // Below 2 functions could be used to try to keep the scrolls of the two recipe windows in sync someday
+        // Some complexity here.......
+        private void LEonardScriptRTBCopy_VScroll(object sender, EventArgs e)
+        {
+            //log.Info("LEonardScriptRTBCopy_VScroll");
+
+            //RichTextBox r = (RichTextBox)sender;
+            //log.Info("ss",r.)
+
+        }
+
+        private void LEonardScriptRTB_VScroll(object sender, EventArgs e)
+        {
+            //log.Info("LEonardScriptRTB_VScroll");
+
+        }
+        private void CurrentLineLbl_TextChanged(object sender, EventArgs e)
+        {
+            CurrentLineLblCopy.Text = CurrentLineLbl.Text;
+        }
+
+        private void RecipeFilenameLbl_TextChanged(object sender, EventArgs e)
+        {
+            LoadLEonardScriptBtn.Text = Path.GetFileNameWithoutExtension(LEonardScriptFilenameLbl.Text);
+        }
+
+        private void RecipeRTB_TextChanged(object sender, EventArgs e)
+        {
+            if (runState != RunState.RUNNING)
+            {
+                SetRecipeState(RecipeState.MODIFIED);
+                //UnboldRecipe();
+            }
+            LEonardScriptRTBCopy.Text = LEonardScriptRTB.Text;
+        }
+        private void FullManualBtn_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+            startInfo.Arguments = String.Format("file:\\{0}\\LEonard%20User%20Manual.pdf", executionRoot);
+            process.StartInfo = startInfo;
+            process.Start();
+        }
+        private void BigEditBtn_Click(object sender, EventArgs e)
+        {
+
+            log.Info("BigEditBtn_Click(...)");
+            BigEditDialog bigeditForm = new BigEditDialog()
+            {
+                Title = LEonardScriptFilenameLbl.Text,
+                ScreenWidth = Width,
+                ScreenHeight = Height,
+                Program = LEonardScriptRTB.Text
+            };
+            bigeditForm.ShowDialog();
+
+            log.Info("BigEditDialog returns {0}", bigeditForm.DialogResult);
+
+            if (bigeditForm.DialogResult == DialogResult.OK)
+            {
+                LEonardScriptRTB.Text = bigeditForm.Program;
+                log.Info("Installing from BigEdit");
+            }
+        }
+
+
+        #endregion ===== LESCRIPT / CODE EDIT SUPPORT      ==============================================================================================================================
+
+        #region ===== SETUP FUNCTIONS                   ==============================================================================================================================
         private void DefaultConfigBtn_Click(object sender, EventArgs e)
         {
             log.Info("DefaultConfigBtn_Click(...)");
@@ -1801,449 +1890,12 @@ namespace LEonard
             ChangeLogLevel(LogLevelCombo.Text);
         }
 
-        // ===================================================================
+        // ============================================================================================================================================
         // END SETUP
-        // ===================================================================
+        // ============================================================================================================================================
+        #endregion
 
-        // ===================================================================
-        // START EXECUTIVE
-        // ===================================================================
-
-        /// <summary>
-        /// Is the line a recipe label? This means starting with alpha, followed by 0 or more alphanum, followed by :
-        /// </summary>
-        /// <param name="line">Input Line</param>
-        /// <returns>(bool Success, string Value if matched else null)</returns>
-        private (bool Success, string Value) IsLineALabel(string line)
-        {
-            Regex regex = new Regex("^[A-Za-z_][A-Za-z0-9_]*:$");
-            Match match = regex.Match(line);
-            if (match.Success)
-                return (true, match.Value.Trim(':'));
-            else
-                return (false, null);
-        }
-
-        Dictionary<string, int> labels;
-        private bool BuildLabelTable()
-        {
-            log.Debug("EXEC BuildLabelTable()");
-
-            labels = new Dictionary<string, int>();
-
-            int lineNo = 1;
-            foreach (string line in LEonardScriptRTB.Lines)
-            {
-                string cleanLine = line;
-
-                // 1) Ignore comments: drop anything from # onward in the line
-                int index = cleanLine.IndexOf("#");
-                if (index >= 0)
-                    cleanLine = cleanLine.Substring(0, index);
-
-                // 2) Cleanup the line: drop all trailing whitespace
-                cleanLine = cleanLine.TrimEnd(' ');
-
-                var label = IsLineALabel(cleanLine);
-                if (label.Success)
-                {
-                    try
-                    {
-                        labels.Add(label.Value, lineNo);
-                    }
-                    catch
-                    {
-                        ErrorMessageBox(String.Format("Label Problem\nRepeated label \"{0}\" on line {1}", label.Value, lineNo));
-                        return false;
-                    }
-                    log.Debug("EXEC Found label {0:000}: {1}", lineNo, label.Value);
-                }
-                lineNo++;
-            }
-
-            return true;
-        }
-
-        // 1-index line curently executing in recipe (1 is first line)
-        static int lineCurrentlyExecuting = 0;
-        /// <summary>
-        /// Set the lineCurrentlyExecuting to n and highlight it in the RecipeRTB
-        /// </summary>
-        /// <param name="n">Line number to start executing</param>
-        private string SetCurrentLine(int n)
-        {
-            lineCurrentlyExecuting = n;
-
-            if (n >= 1 && n <= LEonardScriptRTB.Lines.Count())
-            {
-                (int start, int length) = LEonardScriptRTB.GetLineExtents(lineCurrentlyExecuting - 1);
-
-                LEonardScriptRTB.SelectAll();
-                LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
-
-                LEonardScriptRTB.Select(start, length);
-                LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Bold);
-                LEonardScriptRTB.ScrollToCaret();
-                LEonardScriptRTB.ScrollToCaret();
-
-                LEonardScriptRTBCopy.Select(start, length);
-                LEonardScriptRTBCopy.SelectionFont = new Font(LEonardScriptRTBCopy.Font, FontStyle.Bold);
-                LEonardScriptRTBCopy.ScrollToCaret();
-                LEonardScriptRTBCopy.ScrollToCaret();
-                return LEonardScriptRTB.Lines[lineCurrentlyExecuting - 1];
-            }
-            return null;
-        }
-
-        Stack<int> callStack = new Stack<int>();
-        // Call Stack!!
-        void PushCurrentLine()
-        {
-            log.Debug($"About to push {lineCurrentlyExecuting} onto callStack");
-            callStack.Push(lineCurrentlyExecuting);
-        }
-        void PopCurrentLine()
-        {
-            if (callStack.Count > 0)
-            {
-                log.Debug($"About to pop {callStack.Peek()} from callStack");
-                SetCurrentLine(callStack.Pop());
-            }
-        }
-
-        /// <summary>
-        /// Read file looking for lines of the form "name=value" and pass then to the variable write function
-        /// </summary>
-        /// <param name="filename">File to import- assumed to reside in LEonardRoot/Code</param>
-        /// <returns>true if file import completed successfully</returns>
-        private bool ImportFile(string filename)
-        {
-            try
-            {
-                string[] lines = System.IO.File.ReadAllLines(Path.Combine(LEonardRoot, "Code", filename));
-
-                foreach (string line in lines)
-                {
-                    log.Info("Import Line: {0}", line);
-                    if (line.Contains("="))
-                        UpdateVariable(line);
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex, "ImportFile({0}) failed", filename);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Put up MessageForm dialog. Execution will pause until the operator handles the response.
-        /// </summary>
-        /// <param name="message">This is the message to be displayed</param>
-        private void PromptOperator(string message, bool closeOnReady = false, bool isMotionWait = false)
-        {
-            log.Info("PromptOperator(message={0}, closeOnReady={1}, isMotioWait={2}", message, closeOnReady, isMotionWait);
-            waitingForOperatorMessageForm = new MessageDialog(this)
-            {
-                Title = "LEonard Prompt",
-                Label = message,
-                OkText = isMotionWait ? "STOP MOTION" : "&Continue Execution",
-                CancelText = isMotionWait ? "STOP MOTION" : "&Abort",
-                IsMotionWait = isMotionWait,
-            };
-            closeOperatorFormOnIndex = closeOnReady;
-            waitingForOperatorMessageForm.ShowDialog();
-        }
-
-
-
-
-        private void UnboldRecipe()
-        {
-            LEonardScriptRTB.SelectAll();
-            LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
-            LEonardScriptRTB.DeselectAll();
-
-            LEonardScriptRTBCopy.SelectAll();
-            LEonardScriptRTBCopy.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
-            LEonardScriptRTBCopy.DeselectAll();
-        }
-
-        bool isSingleStep = false;
-        Stopwatch sleepTimer = null;
-        double sleepMs = 0;
-        private void ReportStepTimeStats()
-        {
-            if (stepEndTimeEstimate != stepStartedTime)
-            {
-                // Redo this at the very end- normally is only called at 1Hz by HeartbeatTmr
-                RecomputeTimes();
-                log.Info("EXEC Estimated={0} Actual={1}", StepTimeEstimateLbl.Text, StepElapsedTimeLbl.Text);
-            }
-        }
-        public bool RobotCompletedCaughtUp()
-        {
-            return ReadVariable("robot_completed") == robotSendIndex.ToString();
-        }
-
-        // TODO this needs to be generalized!
-        bool waitUrStopped = false;
-
-        private void ExecTmr_Tick(object sender, EventArgs e)
-        {
-            // Wait for any operator prompt to be cleared
-            if (waitingForOperatorMessageForm != null)
-            {
-                switch (waitingForOperatorMessageForm.result)
-                {
-                    case DialogResult.None:
-                        return;
-                    case DialogResult.Cancel:
-                        log.Error("Operator selected \"Abort\" in MessageForm");
-                        SetState(RunState.READY);
-                        waitingForOperatorMessageForm = null;
-                        return;
-                    case DialogResult.OK:
-                        log.Info("Operator selected \"Continue\" in MessageForm");
-                        waitingForOperatorMessageForm = null;
-                        break;
-                }
-            }
-
-            // Stopwatch
-            if (sleepTimer != null)
-            {
-                if (sleepTimer.ElapsedMilliseconds > sleepMs)
-                    sleepTimer = null;
-                else
-                    return;
-            }
-
-            // Wait UR stopped
-            if (waitUrStopped)
-            {
-                if (focusLeUrDashboard == null)
-                {
-                    waitUrStopped = false;
-                }
-                else
-                {
-                    if (focusLeUrDashboard.InquiryResponse("programstate", 200).StartsWith("STOP"))
-                    {
-                        waitUrStopped = false;
-                    }
-                    else
-                        return;
-                }
-            }
-
-            if (lineCurrentlyExecuting >= LEonardScriptRTB.Lines.Count())
-            {
-                log.Info("EXEC Reached end of file");
-                ReportStepTimeStats();
-
-                UnboldRecipe();
-                SetRecipeState(recipeStateAtRun);
-                SetState(RunState.READY);
-            }
-            else
-            {
-                ReportStepTimeStats();
-
-                string line = SetCurrentLine(lineCurrentlyExecuting + 1);
-
-                bool fContinue = false;
-                switch (LEonardLanguage)
-                {
-                    case LEonardLanguages.LEScript:
-                        fContinue = ExecuteLEonardScriptLine(lineCurrentlyExecuting, line);
-                        break;
-                    case LEonardLanguages.Java:
-                        fContinue = ExecuteJavaLine(lineCurrentlyExecuting, line);
-                        break;
-                    case LEonardLanguages.Python:
-                        fContinue = ExecutePythonLine(lineCurrentlyExecuting, line);
-                        break;
-                }
-
-
-                if (isSingleStep)
-                {
-                    isSingleStep = false;
-                    SetState(RunState.PAUSED);
-                }
-                if (!fContinue)
-                {
-                    log.Info("EXEC Execution ending");
-                    UnboldRecipe();
-                    SetRecipeState(recipeStateAtRun);
-                    SetState(RunState.READY);
-                }
-            }
-        }
-        private void MessageTmr_Tick(object sender, EventArgs e)
-        {
-            if (interfaces.Length == 0) return;
-
-            // TODO: This is WIP since shouldn't need to call receive once callbacks work
-            // TODO: do we really need to keep polling for message receipt?
-            foreach (LeDeviceInterface device in interfaces)
-                device?.Receive(true);  // Only calls receive for interfaces with a callback!
-
-            // The original method
-            /*
-            bool fRobotError = true;
-            if (robotCommandServer != null)
-                if (robotCommandServer.IsConnected())
-                {
-                    robotCommandServer.Receive();
-                    fRobotError = false;
-                }
-            if (fRobotError)
-            {
-                RobotReadyLbl.BackColor = Color.Red;
-                GrindReadyLbl.BackColor = Color.Red;
-                GrindProcessStateLbl.BackColor = Color.Red;
-            }
-
-            if (gocator != null)
-                if (gocator.IsConnected())
-                    gocator.Receive();
-                else
-                {
-                    GocatorConnectBtn.BackColor = Color.Red;
-                    GocatorConnectBtn.Text = "Gocator OFF";
-                }
-            */
-        }
-
-        // ===================================================================
-        // END EXECUTIVE
-        // ===================================================================
-
-
-        // ===================================================================
-        // START GOCATOR INTERFACE
-        // ===================================================================
-
-        public void GocatorAnnounce(LeGocator.Status status)
-        {
-            switch (status)
-            {
-                case LeGocator.Status.OK:
-                    GocatorConnectedLbl.Text = "Gocator OK";
-                    GocatorConnectedLbl.BackColor = Color.Green;
-                    GocatorReadyLbl.BackColor = Color.Green;
-                    log.Info("Gocator connection READY");
-                    break;
-                case LeGocator.Status.ERROR:
-                    log.Error("Gocator client initialization failure");
-                    GocatorConnectedLbl.Text = "Gocator ERROR";
-                    GocatorConnectedLbl.BackColor = Color.Red;
-                    GocatorReadyLbl.BackColor = Color.Red;
-                    break;
-                case LeGocator.Status.OFF:
-                    GocatorConnectedLbl.Text = "Gocator OFF";
-                    GocatorConnectedLbl.BackColor = Color.Red;
-                    GocatorReadyLbl.BackColor = Color.Red;
-                    log.Info("Gocator connection OFF");
-                    break;
-                default:
-                    GocatorConnectedLbl.Text = "Gocator ???";
-                    GocatorConnectedLbl.BackColor = Color.Yellow;
-                    GocatorReadyLbl.BackColor = Color.Yellow;
-                    break;
-            }
-        }
-
-        // ===================================================================
-        // END GOCATOR INTERFACE
-        // ===================================================================
-
-        private void CurrentLineLbl_TextChanged(object sender, EventArgs e)
-        {
-            CurrentLineLblCopy.Text = CurrentLineLbl.Text;
-        }
-
-        private void RecipeFilenameLbl_TextChanged(object sender, EventArgs e)
-        {
-            LoadLEonardScriptBtn.Text = Path.GetFileNameWithoutExtension(LEonardScriptFilenameLbl.Text);
-        }
-
-        private void RecipeRTB_TextChanged(object sender, EventArgs e)
-        {
-            if (runState != RunState.RUNNING)
-            {
-                SetRecipeState(RecipeState.MODIFIED);
-                //UnboldRecipe();
-            }
-            LEonardScriptRTBCopy.Text = LEonardScriptRTB.Text;
-        }
-
-        private void ClearAllLogRtbBtn_Click(object sender, EventArgs e)
-        {
-            AllLogRTB.Clear();
-            ExecLogRTB.Clear();
-            UrLogRTB.Clear();
-            ConsoleRTB.Clear();
-            ErrorLogRTB.Clear();
-        }
-
-        private void FullManualBtn_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
-            startInfo.Arguments = String.Format("file:\\{0}\\LEonard%20User%20Manual.pdf", executionRoot);
-            process.StartInfo = startInfo;
-            process.Start();
-        }
-
-        private void BigEditBtn_Click(object sender, EventArgs e)
-        {
-
-            log.Info("BigEditBtn_Click(...)");
-            BigEditDialog bigeditForm = new BigEditDialog()
-            {
-                Title = LEonardScriptFilenameLbl.Text,
-                ScreenWidth = Width,
-                ScreenHeight = Height,
-                Program = LEonardScriptRTB.Text
-            };
-            bigeditForm.ShowDialog();
-
-            log.Info("BigEditDialog returns {0}", bigeditForm.DialogResult);
-
-            if (bigeditForm.DialogResult == DialogResult.OK)
-            {
-                LEonardScriptRTB.Text = bigeditForm.Program;
-                log.Info("Installing from BigEdit");
-            }
-        }
-
-        // Below 2 functions could be used to try to keep the scrolls of the two recipe windows in sync someday
-        // Some complexity here.......
-        private void LEonardScriptRTBCopy_VScroll(object sender, EventArgs e)
-        {
-            //log.Info("LEonardScriptRTBCopy_VScroll");
-
-            //RichTextBox r = (RichTextBox)sender;
-            //log.Info("ss",r.)
-
-        }
-
-        private void LEonardScriptRTB_VScroll(object sender, EventArgs e)
-        {
-            //log.Info("LEonardScriptRTB_VScroll");
-
-        }
-
-
-        // ======================================================================================
-        // DEVICES CODE BEGINS
-        // ======================================================================================
+        #region ===== DEVICES DATABASE SUPPORT CODE     ==============================================================================================================================
         private const int SW_SHOWMINIMIZED = 2;
         private const int SW_SHOWMAXIMIZED = 3;
         private const int SW_SHOWNORMAL = 5;
@@ -3158,13 +2810,9 @@ namespace LEonard
         }
 
 
-        // ======================================================================================
-        // DEVICES CODE ENDS
-        // ======================================================================================
+        #endregion ===== DEVICES DATABASE SUPPORT CODE     ==============================================================================================================================
 
-        // ======================================================================================
-        // DISPLAYS CODE BEGINS
-        // ======================================================================================
+        #region ===== DISPLAY MANAGEMENT CODE           ==============================================================================================================================
         double suggestedSystemScale = 100.0;
         bool uiUpdatesAreLive = false;
         public class ControlInfo
@@ -3465,13 +3113,9 @@ namespace LEonard
             rtb.ScrollToCaret();
         }
 
-        // ======================================================================================
-        // DISPLAYS CODE ENDS
-        // ======================================================================================
+        #endregion ===== DISPLAY MANAGEMENT CODE           ==============================================================================================================================
 
-        // ======================================================================================
-        // TOOLS CODE BEGINS
-        // ======================================================================================
+        #region ===== TOOL DATABASE CODE                ==============================================================================================================================
         private DataRow SelectedRow(DataGridView dg)
         {
             if (dg.SelectedCells.Count < 1) return null;
@@ -3727,13 +3371,295 @@ namespace LEonard
             return null;
         }
 
-        // ======================================================================================
-        // TOOLS CODE ENDS
-        // ======================================================================================
+        #endregion ===== TOOL DATABASE CODE                ==============================================================================================================================
 
-        // ======================================================================================
-        // VARIABLES CODE BEGINS
-        // ======================================================================================
+        #region ===== POSITIONS DATABASE CODE           ==============================================================================================================================
+        readonly string positionsFilename = "Positions.xml";
+
+        private string ReadPositionJoint(string name)
+        {
+            foreach (DataRow row in positions.Rows)
+            {
+                if ((string)row["Name"] == name)
+                {
+                    log.Trace("ReadPositionJoint({0}) = {1}", row["Name"], row["Joints"]);
+                    return row["Joints"].ToString();
+                }
+            }
+            log.Error("ReadPositionJoint({0}) Not Found", name);
+            return null;
+        }
+        private string ReadPositionPose(string name)
+        {
+            foreach (DataRow row in positions.Rows)
+            {
+                if ((string)row["Name"] == name)
+                {
+                    log.Trace("ReadPositionPose({0}) = {1}", row["Name"], row["Pose"]);
+                    return row["Pose"].ToString();
+                }
+            }
+            log.Error("ReadPositionPose({0}) Not Found", name);
+            return null;
+        }
+
+
+        public bool SetSystemPosition(string name, bool isSystem)
+        {
+            foreach (DataRow row in positions.Rows)
+            {
+                if ((string)row["Name"] == name)
+                {
+                    row["IsSystem"] = isSystem;
+                    return true;
+                }
+            }
+            log.Error($"SetSystemPosition({name}) Not Found");
+            return false;
+        }
+        public bool WritePosition(string name, string joints = "", string pose = "", bool isSystem = false)
+        {
+            System.Threading.Monitor.Enter(lockObject);
+
+            log.Trace("WritePosition({0}, {1}, {2}, {3})", name, joints, pose, isSystem);
+            if (positions == null)
+            {
+                log.Error("positions == null!!??");
+                return false;
+            }
+
+            bool foundVariable = false;
+            foreach (DataRow row in positions.Rows)
+            {
+                if ((string)row["Name"] == name)
+                {
+                    if (joints != "") row["Joints"] = joints;
+                    if (pose != "") row["Pose"] = pose;
+                    row["IsSystem"] = isSystem;
+                    foundVariable = true;
+                    break;
+                }
+            }
+
+            if (!foundVariable)
+                positions.Rows.Add(new object[] { name, joints, pose, isSystem });
+
+            positions.AcceptChanges();
+            Monitor.Exit(lockObject);
+            return true;
+        }
+
+
+        private void LoadPositions()
+        {
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, positionsFilename);
+            log.Info("LoadPositions from {0}", filename);
+            ClearAndInitializePositions();
+            try
+            {
+                positions.ReadXml(filename);
+            }
+            catch
+            { }
+
+            PositionsGrd.DataSource = positions;
+        }
+
+        private void SavePositions()
+        {
+            string filename = Path.Combine(LEonardRoot, DatabaseFolder, positionsFilename);
+            log.Info("SavePositions to {0}", filename);
+            positions.AcceptChanges();
+            positions.WriteXml(filename, XmlWriteMode.WriteSchema, true);
+        }
+
+        private void ClearPositionsBtn_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == ConfirmMessageBox("This will clear all non-system positions. Proceed?"))
+                while (DeleteFirstNonSystemEntry(positions)) ;
+        }
+
+        private void CreateDefaultPositions()
+        {
+            positions.Rows.Add(new object[] { "spindle_mount", "[-2.68179,-1.90227,-1.42486,-2.95848,-1.70261,0.000928376]", "p[-0.928515, -0.296863, 0.369036, 1.47493, 2.77222, 0.00280416]" });
+            positions.Rows.Add(new object[] { "spindle_home", "[-2.71839,-0.892528,-2.14111,-3.27621,-1.68817,-0.019554]", "p[-0.410055, -0.0168446, 0.429258, -1.54452, -2.73116, -0.0509774]" });
+            positions.Rows.Add(new object[] { "sander_mount", "[-2.53006,-2.15599,-1.18223,-1.37402,1.57131,0.124]", "p[-0.933321, -0.442727, 0.284064, 1.61808, 2.6928, 0.000150004]" });
+            positions.Rows.Add(new object[] { "sander_home", "[-2.57091,-0.82644,-2.14277,-1.743,1.57367,-0.999559]", "p[-0.319246, 0.00105911, 0.464005, -5.0997e-05, 3.14151, 3.32468e-05]" });
+            positions.Rows.Add(new object[] { "grind1", "[-0.964841,-1.56224,-2.25801,-2.46721,-0.975704,0.0351043]", "p[0.115668, -0.664968, 0.149296, -0.0209003, 3.11011, 0.00405717]" });
+            positions.Rows.Add(new object[] { "grind2", "[-1.19025,-1.54723,-2.28053,-2.45891,-1.20106,0.0341677]", "p[0.00572967, -0.666445, 0.145823, -0.0208504, 3.11009, 0.004073]" });
+            positions.Rows.Add(new object[] { "grind3", "[-1.41341,-1.57357,-2.26161,-2.45085,-1.42422,0.0333479]", "p[-0.0942147, -0.667831, 0.142729, -0.0208677, 3.1101, 0.00394188]" });
+        }
+        private void ClearAndInitializePositions()
+        {
+            positions = new DataTable("Positions");
+            DataColumn name = positions.Columns.Add("Name", typeof(System.String));
+            positions.Columns.Add("Joints", typeof(System.String));
+            positions.Columns.Add("Pose", typeof(System.String));
+            positions.Columns.Add("IsSystem", typeof(System.Boolean));
+            positions.CaseSensitive = true;
+            positions.PrimaryKey = new DataColumn[] { name };
+            PositionsGrd.DataSource = positions;
+        }
+
+        /*
+          TQ Positions 5/18/2022
+          <Positions>
+            <Name>spindle_mount</Name>
+            <Joints>[-2.68179,-1.90227,-1.42486,-2.95848,-1.70261,0.000928376]</Joints>
+            <Pose>p[-0.928515, -0.296863, 0.369036, 1.47493, 2.77222, 0.00280416]</Pose>
+            <IsSystem>false</IsSystem>
+          </Positions>
+          <Positions>
+            <Name>spindle_home</Name>
+            <Joints>[-2.71839,-0.892528,-2.14111,-3.27621,-1.68817,-0.019554]</Joints>
+            <Pose>p[-0.410055, -0.0168446, 0.429258, -1.54452, -2.73116, -0.0509774]</Pose>
+            <IsSystem>false</IsSystem>
+          </Positions>
+          <Positions>
+            <Name>sander_mount</Name>
+            <Joints>[-2.53006,-2.15599,-1.18223,-1.37402,1.57131,0.124]</Joints>
+            <Pose>p[-0.933321, -0.442727, 0.284064, 1.61808, 2.6928, 0.000150004]</Pose>
+            <IsSystem>false</IsSystem>
+          </Positions>
+          <Positions>
+            <Name>sander_home</Name>
+            <Joints>[-2.57091,-0.82644,-2.14277,-1.743,1.57367,-0.999559]</Joints>
+            <Pose>p[-0.319246, 0.00105911, 0.464005, -5.0997e-05, 3.14151, 3.32468e-05]</Pose>
+            <IsSystem>false</IsSystem>
+          </Positions>
+          <Positions>
+            <Name>grind1</Name>
+            <Joints>[-0.964841,-1.56224,-2.25801,-2.46721,-0.975704,0.0351043]</Joints>
+            <Pose>p[0.115668, -0.664968, 0.149296, -0.0209003, 3.11011, 0.00405717]</Pose>
+            <IsSystem>false</IsSystem>
+          </Positions>
+          <Positions>
+            <Name>grind2</Name>
+            <Joints>[-1.19025,-1.54723,-2.28053,-2.45891,-1.20106,0.0341677]</Joints>
+            <Pose>p[0.00572967, -0.666445, 0.145823, -0.0208504, 3.11009, 0.004073]</Pose>
+            <IsSystem>false</IsSystem>
+          </Positions>
+          <Positions>
+            <Name>grind3</Name>
+            <Joints>[-1.41341,-1.57357,-2.26161,-2.45085,-1.42422,0.0333479]</Joints>
+            <Pose>p[-0.0942147, -0.667831, 0.142729, -0.0208677, 3.1101, 0.00394188]</Pose>
+            <IsSystem>false</IsSystem>
+          </Positions>
+        */
+
+        private void ClearAllPositionsBtn_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == ConfirmMessageBox("This will clear all positions INCLUDING system positions. Proceed?"))
+                ClearAndInitializePositions();
+            if (DialogResult.OK == ConfirmMessageBox("Would you like to create the default positions?"))
+                CreateDefaultPositions();
+        }
+
+        private void RecordPosition(string prompt, string varName)
+        {
+            JoggingDialog form = new JoggingDialog(this)
+            {
+                Prompt = prompt,
+                Tool = ReadVariable("robot_tool"),
+                Part = "Teaching Position Only",
+                ShouldSave = true
+            };
+
+            form.ShowDialog(this);
+
+            if (form.ShouldSave)
+            {
+                log.Trace(prompt);
+
+                if (robotReady)
+                {
+                    copyPositionAtWrite = varName;
+                    string robotPrefix = GetRobotPrefix("get_actual_both");
+                    if (robotPrefix != null)
+                        RobotSend(robotPrefix);
+                }
+            }
+        }
+
+        private bool GotoPositionJoint(string varName)
+        {
+            log.Trace("GotoPositionJoint({0})", varName);
+            if (robotReady)
+            {
+                string q = ReadPositionJoint(varName);
+                if (q != null)
+                {
+                    string robotPrefix = GetRobotPrefix("movej");
+                    if (robotPrefix != null)
+                    {
+                        string msg = robotPrefix + "," + ExtractScalars(q);
+                        log.Trace("Sending {0}", msg);
+                        RobotSend(msg);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        private bool GotoPositionPose(string varName)
+        {
+            log.Trace("GotoPositionPose({0})", varName);
+            if (robotReady)
+            {
+                string q = ReadPositionPose(varName);
+                if (q != null)
+                {
+                    string robotPrefix = GetRobotPrefix("movel");
+                    if (robotPrefix != null)
+                    {
+                        string msg = robotPrefix + "," + ExtractScalars(q);
+                        log.Trace("Sending {0}", msg);
+                        RobotSend(msg);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private void PositionSetBtn_Click(object sender, EventArgs e)
+        {
+            string name = SelectedName(PositionsGrd);
+            if (name == null)
+                ErrorMessageBox("Please select a position in the table to teach.");
+            else
+            {
+                log.Info("Setting Position {0}", name);
+                RecordPosition("Please teach position: " + name, name);
+            }
+        }
+
+        private void PositionMovePoseBtn_Click(object sender, EventArgs e)
+        {
+            string name = SelectedName(PositionsGrd);
+            if (name == null)
+                ErrorMessageBox("Please select a target position in the table.");
+            else
+            {
+                GotoPositionPose(name);
+                PromptOperator(String.Format("Wait for robot linear move to {0} complete", name), true, true);
+            }
+        }
+
+        private void PositionMoveArmBtn_Click(object sender, EventArgs e)
+        {
+            string name = SelectedName(PositionsGrd);
+            if (name == null)
+                ErrorMessageBox("Please select a target position in the table.");
+            else
+            {
+                GotoPositionJoint(name);
+                PromptOperator(String.Format("Wait for robot joint move to {0} complete", name), true, true);
+            }
+        }
+        #endregion ===== POSITIONS DATABASE CODE           ==============================================================================================================================
+
+        #region ===== VARIABLE MANAGEMENT CODE          ==============================================================================================================================
         readonly string variablesFilename = "Variables.xml";
 
         public double ReadVariableDouble(string name, double defaultValue = 0)
@@ -4269,208 +4195,318 @@ namespace LEonard
             if (DialogResult.OK == ConfirmMessageBox("This will clear all variables INCLUDING system variables. Proceed?"))
                 ClearAndInitializeVariables();
         }
+        #endregion ===== VARIABLE MANAGEMENT CODE          ==============================================================================================================================
 
-        // ======================================================================================
-        // VARIABLES CODE ENDS
-        // ======================================================================================
-
-        // ======================================================================================
-        // LESCRIPT EDIT CODE BEGINS
-        // ======================================================================================
-        private enum RecipeState
+        #region ===== EXECUTIVE FUNCTIONS               ==============================================================================================================================
+        /// <summary>
+        /// Is the line a recipe label? This means starting with alpha, followed by 0 or more alphanum, followed by :
+        /// </summary>
+        /// <param name="line">Input Line</param>
+        /// <returns>(bool Success, string Value if matched else null)</returns>
+        private (bool Success, string Value) IsLineALabel(string line)
         {
-            INIT,
-            NEW,
-            LOADED,
-            MODIFIED,
-            RUNNING
+            Regex regex = new Regex("^[A-Za-z_][A-Za-z0-9_]*:$");
+            Match match = regex.Match(line);
+            if (match.Success)
+                return (true, match.Value.Trim(':'));
+            else
+                return (false, null);
         }
-        RecipeState recipeState = RecipeState.INIT;
-        RecipeState recipeStateAtRun = RecipeState.INIT;
-        private void SetRecipeState(RecipeState s)
+
+        Dictionary<string, int> labels;
+        private bool BuildLabelTable()
         {
-            if (recipeState != s)
+            log.Debug("EXEC BuildLabelTable()");
+
+            labels = new Dictionary<string, int>();
+
+            int lineNo = 1;
+            foreach (string line in LEonardScriptRTB.Lines)
             {
-                log.Debug("SetRecipeState({0})", s.ToString());
+                string cleanLine = line;
 
-                RecipeState oldRecipeState = recipeState;
-                recipeState = s;
+                // 1) Ignore comments: drop anything from # onward in the line
+                int index = cleanLine.IndexOf("#");
+                if (index >= 0)
+                    cleanLine = cleanLine.Substring(0, index);
 
-                switch (recipeState)
+                // 2) Cleanup the line: drop all trailing whitespace
+                cleanLine = cleanLine.TrimEnd(' ');
+
+                var label = IsLineALabel(cleanLine);
+                if (label.Success)
                 {
-                    case RecipeState.NEW:
-                        NewLEonardScriptBtn.Enabled = false;
-                        LoadLEonardScriptBtn.Enabled = true;
-                        SaveLEonardScriptBtn.Enabled = false;
-                        SaveAsLEonardScriptBtn.Enabled = true;
-                        break;
-                    case RecipeState.LOADED:
-                        NewLEonardScriptBtn.Enabled = true;
-                        LoadLEonardScriptBtn.Enabled = true;
-                        SaveLEonardScriptBtn.Enabled = false;
-                        SaveAsLEonardScriptBtn.Enabled = true;
-                        break;
-                    case RecipeState.MODIFIED:
-                        NewLEonardScriptBtn.Enabled = true;
-                        LoadLEonardScriptBtn.Enabled = true;
-                        SaveLEonardScriptBtn.Enabled = true;
-                        SaveAsLEonardScriptBtn.Enabled = true;
-                        break;
-                    case RecipeState.RUNNING:
-                        recipeStateAtRun = oldRecipeState;
-                        NewLEonardScriptBtn.Enabled = false;
-                        LoadLEonardScriptBtn.Enabled = false;
-                        SaveLEonardScriptBtn.Enabled = false;
-                        SaveAsLEonardScriptBtn.Enabled = false;
-                        break;
+                    try
+                    {
+                        labels.Add(label.Value, lineNo);
+                    }
+                    catch
+                    {
+                        ErrorMessageBox(String.Format("Label Problem\nRepeated label \"{0}\" on line {1}", label.Value, lineNo));
+                        return false;
+                    }
+                    log.Debug("EXEC Found label {0:000}: {1}", lineNo, label.Value);
                 }
-                NewLEonardScriptBtn.BackColor = NewLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
-                LoadLEonardScriptBtn.BackColor = LoadLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
-                SaveLEonardScriptBtn.BackColor = SaveLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
-                SaveAsLEonardScriptBtn.BackColor = SaveAsLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+                lineNo++;
+            }
+
+            return true;
+        }
+
+        // 1-index line curently executing in recipe (1 is first line)
+        static int lineCurrentlyExecuting = 0;
+        /// <summary>
+        /// Set the lineCurrentlyExecuting to n and highlight it in the RecipeRTB
+        /// </summary>
+        /// <param name="n">Line number to start executing</param>
+        private string SetCurrentLine(int n)
+        {
+            lineCurrentlyExecuting = n;
+
+            if (n >= 1 && n <= LEonardScriptRTB.Lines.Count())
+            {
+                (int start, int length) = LEonardScriptRTB.GetLineExtents(lineCurrentlyExecuting - 1);
+
+                LEonardScriptRTB.SelectAll();
+                LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
+
+                LEonardScriptRTB.Select(start, length);
+                LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Bold);
+                LEonardScriptRTB.ScrollToCaret();
+                LEonardScriptRTB.ScrollToCaret();
+
+                LEonardScriptRTBCopy.Select(start, length);
+                LEonardScriptRTBCopy.SelectionFont = new Font(LEonardScriptRTBCopy.Font, FontStyle.Bold);
+                LEonardScriptRTBCopy.ScrollToCaret();
+                LEonardScriptRTBCopy.ScrollToCaret();
+                return LEonardScriptRTB.Lines[lineCurrentlyExecuting - 1];
+            }
+            return null;
+        }
+
+        Stack<int> callStack = new Stack<int>();
+        // Call Stack!!
+        void PushCurrentLine()
+        {
+            log.Debug($"About to push {lineCurrentlyExecuting} onto callStack");
+            callStack.Push(lineCurrentlyExecuting);
+        }
+        void PopCurrentLine()
+        {
+            if (callStack.Count > 0)
+            {
+                log.Debug($"About to pop {callStack.Peek()} from callStack");
+                SetCurrentLine(callStack.Pop());
             }
         }
 
-
-        private string recipeAsLoaded = "";  // As it was when loaded so we can test for actual mods
-        private bool RecipeWasModified()
+        /// <summary>
+        /// Read file looking for lines of the form "name=value" and pass then to the variable write function
+        /// </summary>
+        /// <param name="filename">File to import- assumed to reside in LEonardRoot/Code</param>
+        /// <returns>true if file import completed successfully</returns>
+        private bool ImportFile(string filename)
         {
-            return recipeAsLoaded != LEonardScriptRTB.Text;
-        }
-        bool LoadLEonardScriptFile(string file)
-        {
-            log.Info("LoadRecipeFile({0})", file);
-            LEonardScriptFilenameLbl.Text = "";
-            LEonardScriptRTB.Text = "";
             try
             {
-                LEonardScriptRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-                LEonardScriptFilenameLbl.Text = file;
-                recipeAsLoaded = LEonardScriptRTB.Text;
+                string[] lines = System.IO.File.ReadAllLines(Path.Combine(LEonardRoot, "Code", filename));
+
+                foreach (string line in lines)
+                {
+                    log.Info("Import Line: {0}", line);
+                    if (line.Contains("="))
+                        UpdateVariable(line);
+                }
                 return true;
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Can't open {0}", file);
+                log.Error(ex, "ImportFile({0}) failed", filename);
                 return false;
             }
         }
 
-        private void NewLEonardScriptBtn_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Put up MessageForm dialog. Execution will pause until the operator handles the response.
+        /// </summary>
+        /// <param name="message">This is the message to be displayed</param>
+        private void PromptOperator(string message, bool closeOnReady = false, bool isMotionWait = false)
         {
-            log.Info("NewRecipeBtn_Click(...)");
-            if (RecipeWasModified())
+            log.Info("PromptOperator(message={0}, closeOnReady={1}, isMotioWait={2}", message, closeOnReady, isMotionWait);
+            waitingForOperatorMessageForm = new MessageDialog(this)
             {
-                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEonardScriptBtn.Text));
-                if (result == DialogResult.OK)
-                    SaveLEonardScriptBtn_Click(null, null);
-            }
-
-            SetRecipeState(RecipeState.NEW);
-            SetState(RunState.IDLE);
-            LEonardScriptFilenameLbl.Text = "Untitled";
-            LEonardScriptRTB.Clear();
-            recipeAsLoaded = "";
-            MainTab.SelectedIndex = 1; // = "Program";
+                Title = "LEonard Prompt",
+                Label = message,
+                OkText = isMotionWait ? "STOP MOTION" : "&Continue Execution",
+                CancelText = isMotionWait ? "STOP MOTION" : "&Abort",
+                IsMotionWait = isMotionWait,
+            };
+            closeOperatorFormOnIndex = closeOnReady;
+            waitingForOperatorMessageForm.ShowDialog();
         }
 
-        private void LoadLEonardScriptBtn_Click(object sender, EventArgs e)
+        private void UnboldRecipe()
         {
-            log.Info("LoadRecipeBtn_Click(...)");
-            if (RecipeWasModified())
+            LEonardScriptRTB.SelectAll();
+            LEonardScriptRTB.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
+            LEonardScriptRTB.DeselectAll();
+
+            LEonardScriptRTBCopy.SelectAll();
+            LEonardScriptRTBCopy.SelectionFont = new Font(LEonardScriptRTB.Font, FontStyle.Regular);
+            LEonardScriptRTBCopy.DeselectAll();
+        }
+
+        bool isSingleStep = false;
+        Stopwatch sleepTimer = null;
+        double sleepMs = 0;
+        private void ReportStepTimeStats()
+        {
+            if (stepEndTimeEstimate != stepStartedTime)
             {
-                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEonardScriptBtn.Text));
-                if (result == DialogResult.OK)
-                    SaveLEonardScriptBtn_Click(null, null);
+                // Redo this at the very end- normally is only called at 1Hz by HeartbeatTmr
+                RecomputeTimes();
+                log.Info("EXEC Estimated={0} Actual={1}", StepTimeEstimateLbl.Text, StepElapsedTimeLbl.Text);
+            }
+        }
+        public bool RobotCompletedCaughtUp()
+        {
+            return ReadVariable("robot_completed") == robotSendIndex.ToString();
+        }
+
+        // TODO this needs to be generalized!
+        bool waitUrStopped = false;
+
+        private void ExecTmr_Tick(object sender, EventArgs e)
+        {
+            // Wait for any operator prompt to be cleared
+            if (waitingForOperatorMessageForm != null)
+            {
+                switch (waitingForOperatorMessageForm.result)
+                {
+                    case DialogResult.None:
+                        return;
+                    case DialogResult.Cancel:
+                        log.Error("Operator selected \"Abort\" in MessageForm");
+                        SetState(RunState.READY);
+                        waitingForOperatorMessageForm = null;
+                        return;
+                    case DialogResult.OK:
+                        log.Info("Operator selected \"Continue\" in MessageForm");
+                        waitingForOperatorMessageForm = null;
+                        break;
+                }
             }
 
-            string initialDirectory;
-            if (LEonardScriptFilenameLbl.Text != "Untitled" && LEonardScriptFilenameLbl.Text.Length > 0)
-                initialDirectory = Path.GetDirectoryName(LEonardScriptFilenameLbl.Text);
-            else
-                initialDirectory = Path.Combine(LEonardRoot, "Code");
-
-            FileOpenDialog dialog = new FileOpenDialog(this)
+            // Stopwatch
+            if (sleepTimer != null)
             {
-                Title = "Open a LEonard Recipe",
-                Filter = "*.txt",
-                InitialDirectory = initialDirectory
-            };
+                if (sleepTimer.ElapsedMilliseconds > sleepMs)
+                    sleepTimer = null;
+                else
+                    return;
+            }
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+            // Wait UR stopped
+            if (waitUrStopped)
             {
-                if (LoadLEonardScriptFile(dialog.FileName))
+                if (focusLeUrDashboard == null)
                 {
-                    SetRecipeState(RecipeState.LOADED);
+                    waitUrStopped = false;
+                }
+                else
+                {
+                    if (focusLeUrDashboard.InquiryResponse("programstate", 200).StartsWith("STOP"))
+                    {
+                        waitUrStopped = false;
+                    }
+                    else
+                        return;
+                }
+            }
+
+            if (lineCurrentlyExecuting >= LEonardScriptRTB.Lines.Count())
+            {
+                log.Info("EXEC Reached end of file");
+                ReportStepTimeStats();
+
+                UnboldRecipe();
+                SetRecipeState(recipeStateAtRun);
+                SetState(RunState.READY);
+            }
+            else
+            {
+                ReportStepTimeStats();
+
+                string line = SetCurrentLine(lineCurrentlyExecuting + 1);
+
+                bool fContinue = false;
+                switch (LEonardLanguage)
+                {
+                    case LEonardLanguages.LEScript:
+                        fContinue = ExecuteLEonardScriptLine(lineCurrentlyExecuting, line);
+                        break;
+                    case LEonardLanguages.Java:
+                        fContinue = ExecuteJavaLine(lineCurrentlyExecuting, line);
+                        break;
+                    case LEonardLanguages.Python:
+                        fContinue = ExecutePythonLine(lineCurrentlyExecuting, line);
+                        break;
+                }
+
+
+                if (isSingleStep)
+                {
+                    isSingleStep = false;
+                    SetState(RunState.PAUSED);
+                }
+                if (!fContinue)
+                {
+                    log.Info("EXEC Execution ending");
+                    UnboldRecipe();
+                    SetRecipeState(recipeStateAtRun);
                     SetState(RunState.READY);
                 }
             }
         }
-
-        private void SaveLEonardScriptBtn_Click(object sender, EventArgs e)
+        private void MessageTmr_Tick(object sender, EventArgs e)
         {
-            log.Info("SaveRecipeBtn_Click(...)");
-            if (LEonardScriptFilenameLbl.Text == "Untitled" || LEonardScriptFilenameLbl.Text == "")
-                SaveAsLEonardScriptBtn_Click(null, null);
-            else
-            {
-                log.Info("Save Recipe program to {0}", LEonardScriptFilenameLbl.Text);
-                LEonardScriptRTB.SaveFile(LEonardScriptFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-                recipeAsLoaded = LEonardScriptRTB.Text;
-                SetRecipeState(RecipeState.LOADED);
-                SetState(RunState.READY);
-            }
-        }
+            if (interfaces.Length == 0) return;
 
-        private void SaveAsLEonardScriptBtn_Click(object sender, EventArgs e)
-        {
-            log.Info("SaveAsRecipeBtn_Click(...)");
+            // TODO: This is WIP since shouldn't need to call receive once callbacks work
+            // TODO: do we really need to keep polling for message receipt?
+            foreach (LeDeviceInterface device in interfaces)
+                device?.Receive(true);  // Only calls receive for interfaces with a callback!
 
-            string initialDirectory;
-            if (LEonardScriptFilenameLbl.Text != "Untitled" && LEonardScriptFilenameLbl.Text.Length > 0)
-                initialDirectory = Path.GetDirectoryName(LEonardScriptFilenameLbl.Text);
-            else
-                initialDirectory = Path.Combine(LEonardRoot, "Code");
-
-            FileSaveAsDialog dialog = new FileSaveAsDialog(this)
-            {
-                Title = "Save a LEonardScript program As...",
-                Filter = "*.txt",
-                InitialDirectory = initialDirectory,
-                FileName = LEonardScriptFilenameLbl.Text,
-            };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                if (dialog.FileName != "")
+            // The original method
+            /*
+            bool fRobotError = true;
+            if (robotCommandServer != null)
+                if (robotCommandServer.IsConnected())
                 {
-                    string filename = dialog.FileName;
-                    if (!filename.EndsWith(".txt")) filename += ".txt";
-                    bool okToSave = true;
-                    if (File.Exists(filename))
-                    {
-                        if (DialogResult.OK != ConfirmMessageBox(string.Format("File {0} already exists. Overwrite?", filename)))
-                            okToSave = false;
-                    }
-                    if (okToSave)
-                    {
-                        LEonardScriptFilenameLbl.Text = filename;
-                        SaveLEonardScriptBtn_Click(null, null);
-                    }
+                    robotCommandServer.Receive();
+                    fRobotError = false;
                 }
+            if (fRobotError)
+            {
+                RobotReadyLbl.BackColor = Color.Red;
+                GrindReadyLbl.BackColor = Color.Red;
+                GrindProcessStateLbl.BackColor = Color.Red;
             }
-        }
-        private void LEonardScriptRTB_ModifiedChanged(object sender, EventArgs e)
-        {
-            SetRecipeState(RecipeState.MODIFIED);
+
+            if (gocator != null)
+                if (gocator.IsConnected())
+                    gocator.Receive();
+                else
+                {
+                    GocatorConnectBtn.BackColor = Color.Red;
+                    GocatorConnectBtn.Text = "Gocator OFF";
+                }
+            */
         }
 
-        // ======================================================================================
-        // LESCRIPT EDIT CODE ENDS
-        // ======================================================================================
+        #endregion ===== EXECUTIVE FUNCTIONS               ==============================================================================================================================
 
-        // ======================================================================================
-        // LESCRIPT EXEC CODE BEGINS
-        // ======================================================================================
+        #region ===== LESCRIPT DECODE AND EXECUTE       ==============================================================================================================================
         /// <summary>
         /// Return the characters enclosed in the first set of matching ( ) in a string
         /// Example: "speed (13.0)" returns 13.0 
@@ -5972,14 +6008,9 @@ namespace LEonard
             //log.Error($"{prefix} Illegal LEonardStatement statement: {statement}");
             return false;
         }
+        #endregion ===== LESCRIPT DECODE AND EXECUTE       ==============================================================================================================================
 
-        // ======================================================================================
-        // LESCRIPT EXEC CODE ENDS
-        // ======================================================================================
-
-        // ======================================================================================
-        // SHARED SUPPORT FUNCTIONS FOR JAVA, PYTHON, AND LESCRIPT BEGINS
-        // ======================================================================================
+        #region ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
         public bool leLanguage(int language)
         {
             // TODO should sanity check language and return true iff OK
@@ -6029,14 +6060,9 @@ namespace LEonard
 
             return interfaces[(int)row["ID"]].InquiryResponse(msg, timeoutMs);
         }
-        // ======================================================================================
-        // SHARED SUPPORT FUNCTIONS FOR JAVA, PYTHON, AND LESCRIPT ENDS
-        // ======================================================================================
+        #endregion ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
 
-
-        // ======================================================================================
-        // JAVA CODE BEGINS
-        // ======================================================================================
+        #region ===== JAVA SUPPORT BEGINS               ==============================================================================================================================
         private void JavaUpdateVariablesRTB()
         {
             string finalUpdate = "";
@@ -6281,14 +6307,9 @@ namespace LEonard
             ExecError($"File {filename} does not exist");
             return false;
         }
+        #endregion ===== JAVA SUPPORT BEGINS               ==============================================================================================================================
 
-        // ======================================================================================
-        // JAVA CODE ENDS
-        // ======================================================================================
-
-        // ======================================================================================
-        // PYTHON CODE BEGINS
-        // ======================================================================================
+        #region ===== PYTHON SUPPORT BEGINS             ==============================================================================================================================
         private void lePrintP(string msg)
         {
             CrawlRTB(PythonConsoleRTB, msg);
@@ -6542,305 +6563,9 @@ namespace LEonard
             ExecError($"File {filename} does not exist");
             return false;
         }
+        #endregion ===== PYTHON SUPPORT BEGINS             ==============================================================================================================================
 
-        // ======================================================================================
-        // PYTHON CODE ENDS
-        // ======================================================================================
-
-        // ======================================================================================
-        // POSITIONS CODE BEGINS
-        // ======================================================================================
-        readonly string positionsFilename = "Positions.xml";
-
-        private string ReadPositionJoint(string name)
-        {
-            foreach (DataRow row in positions.Rows)
-            {
-                if ((string)row["Name"] == name)
-                {
-                    log.Trace("ReadPositionJoint({0}) = {1}", row["Name"], row["Joints"]);
-                    return row["Joints"].ToString();
-                }
-            }
-            log.Error("ReadPositionJoint({0}) Not Found", name);
-            return null;
-        }
-        private string ReadPositionPose(string name)
-        {
-            foreach (DataRow row in positions.Rows)
-            {
-                if ((string)row["Name"] == name)
-                {
-                    log.Trace("ReadPositionPose({0}) = {1}", row["Name"], row["Pose"]);
-                    return row["Pose"].ToString();
-                }
-            }
-            log.Error("ReadPositionPose({0}) Not Found", name);
-            return null;
-        }
-
-
-        public bool SetSystemPosition(string name, bool isSystem)
-        {
-            foreach (DataRow row in positions.Rows)
-            {
-                if ((string)row["Name"] == name)
-                {
-                    row["IsSystem"] = isSystem;
-                    return true;
-                }
-            }
-            log.Error($"SetSystemPosition({name}) Not Found");
-            return false;
-        }
-        public bool WritePosition(string name, string joints = "", string pose = "", bool isSystem = false)
-        {
-            System.Threading.Monitor.Enter(lockObject);
-
-            log.Trace("WritePosition({0}, {1}, {2}, {3})", name, joints, pose, isSystem);
-            if (positions == null)
-            {
-                log.Error("positions == null!!??");
-                return false;
-            }
-
-            bool foundVariable = false;
-            foreach (DataRow row in positions.Rows)
-            {
-                if ((string)row["Name"] == name)
-                {
-                    if (joints != "") row["Joints"] = joints;
-                    if (pose != "") row["Pose"] = pose;
-                    row["IsSystem"] = isSystem;
-                    foundVariable = true;
-                    break;
-                }
-            }
-
-            if (!foundVariable)
-                positions.Rows.Add(new object[] { name, joints, pose, isSystem });
-
-            positions.AcceptChanges();
-            Monitor.Exit(lockObject);
-            return true;
-        }
-
-
-        private void LoadPositions()
-        {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, positionsFilename);
-            log.Info("LoadPositions from {0}", filename);
-            ClearAndInitializePositions();
-            try
-            {
-                positions.ReadXml(filename);
-            }
-            catch
-            { }
-
-            PositionsGrd.DataSource = positions;
-        }
-
-        private void SavePositions()
-        {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, positionsFilename);
-            log.Info("SavePositions to {0}", filename);
-            positions.AcceptChanges();
-            positions.WriteXml(filename, XmlWriteMode.WriteSchema, true);
-        }
-
-        private void ClearPositionsBtn_Click(object sender, EventArgs e)
-        {
-            if (DialogResult.OK == ConfirmMessageBox("This will clear all non-system positions. Proceed?"))
-                while (DeleteFirstNonSystemEntry(positions)) ;
-        }
-
-        private void CreateDefaultPositions()
-        {
-            positions.Rows.Add(new object[] { "spindle_mount", "[-2.68179,-1.90227,-1.42486,-2.95848,-1.70261,0.000928376]", "p[-0.928515, -0.296863, 0.369036, 1.47493, 2.77222, 0.00280416]" });
-            positions.Rows.Add(new object[] { "spindle_home", "[-2.71839,-0.892528,-2.14111,-3.27621,-1.68817,-0.019554]", "p[-0.410055, -0.0168446, 0.429258, -1.54452, -2.73116, -0.0509774]" });
-            positions.Rows.Add(new object[] { "sander_mount", "[-2.53006,-2.15599,-1.18223,-1.37402,1.57131,0.124]", "p[-0.933321, -0.442727, 0.284064, 1.61808, 2.6928, 0.000150004]" });
-            positions.Rows.Add(new object[] { "sander_home", "[-2.57091,-0.82644,-2.14277,-1.743,1.57367,-0.999559]", "p[-0.319246, 0.00105911, 0.464005, -5.0997e-05, 3.14151, 3.32468e-05]" });
-            positions.Rows.Add(new object[] { "grind1", "[-0.964841,-1.56224,-2.25801,-2.46721,-0.975704,0.0351043]", "p[0.115668, -0.664968, 0.149296, -0.0209003, 3.11011, 0.00405717]" });
-            positions.Rows.Add(new object[] { "grind2", "[-1.19025,-1.54723,-2.28053,-2.45891,-1.20106,0.0341677]", "p[0.00572967, -0.666445, 0.145823, -0.0208504, 3.11009, 0.004073]" });
-            positions.Rows.Add(new object[] { "grind3", "[-1.41341,-1.57357,-2.26161,-2.45085,-1.42422,0.0333479]", "p[-0.0942147, -0.667831, 0.142729, -0.0208677, 3.1101, 0.00394188]" });
-        }
-        private void ClearAndInitializePositions()
-        {
-            positions = new DataTable("Positions");
-            DataColumn name = positions.Columns.Add("Name", typeof(System.String));
-            positions.Columns.Add("Joints", typeof(System.String));
-            positions.Columns.Add("Pose", typeof(System.String));
-            positions.Columns.Add("IsSystem", typeof(System.Boolean));
-            positions.CaseSensitive = true;
-            positions.PrimaryKey = new DataColumn[] { name };
-            PositionsGrd.DataSource = positions;
-        }
-
-        /*
-          TQ Positions 5/18/2022
-          <Positions>
-            <Name>spindle_mount</Name>
-            <Joints>[-2.68179,-1.90227,-1.42486,-2.95848,-1.70261,0.000928376]</Joints>
-            <Pose>p[-0.928515, -0.296863, 0.369036, 1.47493, 2.77222, 0.00280416]</Pose>
-            <IsSystem>false</IsSystem>
-          </Positions>
-          <Positions>
-            <Name>spindle_home</Name>
-            <Joints>[-2.71839,-0.892528,-2.14111,-3.27621,-1.68817,-0.019554]</Joints>
-            <Pose>p[-0.410055, -0.0168446, 0.429258, -1.54452, -2.73116, -0.0509774]</Pose>
-            <IsSystem>false</IsSystem>
-          </Positions>
-          <Positions>
-            <Name>sander_mount</Name>
-            <Joints>[-2.53006,-2.15599,-1.18223,-1.37402,1.57131,0.124]</Joints>
-            <Pose>p[-0.933321, -0.442727, 0.284064, 1.61808, 2.6928, 0.000150004]</Pose>
-            <IsSystem>false</IsSystem>
-          </Positions>
-          <Positions>
-            <Name>sander_home</Name>
-            <Joints>[-2.57091,-0.82644,-2.14277,-1.743,1.57367,-0.999559]</Joints>
-            <Pose>p[-0.319246, 0.00105911, 0.464005, -5.0997e-05, 3.14151, 3.32468e-05]</Pose>
-            <IsSystem>false</IsSystem>
-          </Positions>
-          <Positions>
-            <Name>grind1</Name>
-            <Joints>[-0.964841,-1.56224,-2.25801,-2.46721,-0.975704,0.0351043]</Joints>
-            <Pose>p[0.115668, -0.664968, 0.149296, -0.0209003, 3.11011, 0.00405717]</Pose>
-            <IsSystem>false</IsSystem>
-          </Positions>
-          <Positions>
-            <Name>grind2</Name>
-            <Joints>[-1.19025,-1.54723,-2.28053,-2.45891,-1.20106,0.0341677]</Joints>
-            <Pose>p[0.00572967, -0.666445, 0.145823, -0.0208504, 3.11009, 0.004073]</Pose>
-            <IsSystem>false</IsSystem>
-          </Positions>
-          <Positions>
-            <Name>grind3</Name>
-            <Joints>[-1.41341,-1.57357,-2.26161,-2.45085,-1.42422,0.0333479]</Joints>
-            <Pose>p[-0.0942147, -0.667831, 0.142729, -0.0208677, 3.1101, 0.00394188]</Pose>
-            <IsSystem>false</IsSystem>
-          </Positions>
-        */
-
-        private void ClearAllPositionsBtn_Click(object sender, EventArgs e)
-        {
-            if (DialogResult.OK == ConfirmMessageBox("This will clear all positions INCLUDING system positions. Proceed?"))
-                ClearAndInitializePositions();
-            if (DialogResult.OK == ConfirmMessageBox("Would you like to create the default positions?"))
-                CreateDefaultPositions();
-        }
-
-        private void RecordPosition(string prompt, string varName)
-        {
-            JoggingDialog form = new JoggingDialog(this)
-            {
-                Prompt = prompt,
-                Tool = ReadVariable("robot_tool"),
-                Part = "Teaching Position Only",
-                ShouldSave = true
-            };
-
-            form.ShowDialog(this);
-
-            if (form.ShouldSave)
-            {
-                log.Trace(prompt);
-
-                if (robotReady)
-                {
-                    copyPositionAtWrite = varName;
-                    string robotPrefix = GetRobotPrefix("get_actual_both");
-                    if (robotPrefix != null)
-                        RobotSend(robotPrefix);
-                }
-            }
-        }
-
-        private bool GotoPositionJoint(string varName)
-        {
-            log.Trace("GotoPositionJoint({0})", varName);
-            if (robotReady)
-            {
-                string q = ReadPositionJoint(varName);
-                if (q != null)
-                {
-                    string robotPrefix = GetRobotPrefix("movej");
-                    if (robotPrefix != null)
-                    {
-                        string msg = robotPrefix + "," + ExtractScalars(q);
-                        log.Trace("Sending {0}", msg);
-                        RobotSend(msg);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        private bool GotoPositionPose(string varName)
-        {
-            log.Trace("GotoPositionPose({0})", varName);
-            if (robotReady)
-            {
-                string q = ReadPositionPose(varName);
-                if (q != null)
-                {
-                    string robotPrefix = GetRobotPrefix("movel");
-                    if (robotPrefix != null)
-                    {
-                        string msg = robotPrefix + "," + ExtractScalars(q);
-                        log.Trace("Sending {0}", msg);
-                        RobotSend(msg);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        private void PositionSetBtn_Click(object sender, EventArgs e)
-        {
-            string name = SelectedName(PositionsGrd);
-            if (name == null)
-                ErrorMessageBox("Please select a position in the table to teach.");
-            else
-            {
-                log.Info("Setting Position {0}", name);
-                RecordPosition("Please teach position: " + name, name);
-            }
-        }
-
-        private void PositionMovePoseBtn_Click(object sender, EventArgs e)
-        {
-            string name = SelectedName(PositionsGrd);
-            if (name == null)
-                ErrorMessageBox("Please select a target position in the table.");
-            else
-            {
-                GotoPositionPose(name);
-                PromptOperator(String.Format("Wait for robot linear move to {0} complete", name), true, true);
-            }
-        }
-
-        private void PositionMoveArmBtn_Click(object sender, EventArgs e)
-        {
-            string name = SelectedName(PositionsGrd);
-            if (name == null)
-                ErrorMessageBox("Please select a target position in the table.");
-            else
-            {
-                GotoPositionJoint(name);
-                PromptOperator(String.Format("Wait for robot joint move to {0} complete", name), true, true);
-            }
-        }
-
-        // ======================================================================================
-        // POSITIONS CODE ENDS
-        // ======================================================================================
-
-        // ======================================================================================
-        // LICENSING CODE BEGINS
-        // ======================================================================================
+        #region ===== LICENSING CODE                    ==============================================================================================================================
         private void GetLicenseStatus()
         {
             LicenseStatusLbl.Text = protection.GetStatus();
@@ -6937,13 +6662,22 @@ namespace LEonard
             SaveLicenseBtn.Enabled = false;
         }
 
-        // ======================================================================================
-        // LICENSING CODE ENDS
-        // ======================================================================================
+        #endregion ===== LICENSING CODE                    ==============================================================================================================================
 
-        // ======================================================================================
-        // UR CODE BEGINS
-        // ======================================================================================
+        #region ===== UR INTERFACE CODE                 ==============================================================================================================================
+        enum ProgramState
+        {
+            UNKNOWN,
+            STOPPED,
+            PAUSED,
+            PLAYING
+        };
+
+        int dashboardCycle = 0;
+        int nUnansweredRobotmodeRequests = 0;
+        int nUnansweredSafetystatusRequests = 0;
+        int nUnansweredProgramstateRequests = 0;
+        
         public void UrDashboardAnnounce(LeUrDashboard.DashboardStatus status)
         {
             switch (status)
@@ -7009,13 +6743,158 @@ namespace LEonard
                     break;
             }
         }
-
         private string UrDashboardInquiryResponse(string inquiry, int timeoutMs = 200)
         {
             string response = focusLeUrDashboard?.InquiryResponse(inquiry, timeoutMs);
             log.Info($"UrDashboardInquiryResponse({inquiry}) = {response}");
             return response;
         }
+        private void HandleRobotmodeResponse(string robotmodeResponse)
+        {
+            Color color = Color.Red;
+            string buttonText = robotmodeResponse;
+            switch (robotmodeResponse)
+            {
+                case "Robotmode: RUNNING":
+                    color = Color.Green;
+                    break;
+                case "Robotmode: CONFIRM_SAFETY":
+                    EnsureStopped();
+                    color = Color.Blue;
+                    break;
+                case "Robotmode: IDLE":
+                    EnsureNotRunning();
+                    color = Color.Blue;
+                    break;
+                case "Robotmode: NO_CONTROLLER":
+                case "Robotmode: DISCONNECTED":
+                case "Robotmode: BACKDRIVE":
+                case "Robotmode: POWER_OFF":
+                    EnsureStopped();
+                    color = Color.Red;
+                    break;
+                case "Robotmode: POWER_ON":
+                    EnsureStopped();
+                    color = Color.Blue;
+                    break;
+                case "Robotmode: BOOTING":
+                    EnsureStopped();
+                    color = Color.Coral;
+                    break;
+                default:
+                    log.Error("Unknown response to robotmode: {0}", robotmodeResponse);
+                    EnsureStopped();
+                    buttonText = "Robotmode: ?? " + robotmodeResponse;
+                    color = Color.Red;
+                    break;
+            }
+            RobotModeBtn.Text = buttonText;
+            RobotModeBtn.BackColor = color;
+        }
+
+        private void HandleSafetystatusResponse(string safetystatusResponse)
+        {
+            Color color = Color.Red;
+            string buttonText = safetystatusResponse;
+            switch (safetystatusResponse)
+            {
+                case "Safetystatus: NORMAL":
+                    color = Color.Green;
+                    break;
+                case "Safetystatus: REDUCED":
+                    color = Color.Yellow;
+                    break;
+                case "Safetystatus: PROTECTIVE_STOP":
+                case "Safetystatus: RECOVERY":
+                case "Safetystatus: SAFEGUARD_STOP":
+                case "Safetystatus: SYSTEM_EMERGENCY_STOP":
+                case "Safetystatus: ROBOT_EMERGENCY_STOP":
+                case "Safetystatus: VIOLATION":
+                case "Safetystatus: FAULT":
+                case "Safetystatus: AUTOMATIC_MODE_SAFEGUARD_STOP":
+                case "Safetystatus: SYSTEM_THREE_POSITION_ENABLING_STOP":
+                    EnsureNotRunning();
+                    color = Color.Red;
+                    break;
+                default:
+                    log.Error("Unknown response to safetystatus: {0}", safetystatusResponse);
+                    EnsureStopped();
+                    buttonText = "Safetystatus: ?? " + safetystatusResponse;
+                    color = Color.Red;
+                    break;
+            }
+            SafetyStatusBtn.Text = buttonText.Replace('_', ' ');
+            SafetyStatusBtn.BackColor = color;
+        }
+
+        // Is the supplied string a valid response to Dashboard programstate command?
+        ProgramState IsProgramstateResponse(string message)
+        {
+            ProgramState programState = ProgramState.UNKNOWN;
+
+            if (message != null)
+            {
+                if (message.StartsWith("STOPPED"))
+                    programState = ProgramState.STOPPED;
+                else if (message.StartsWith("PAUSED"))
+                    programState = ProgramState.PAUSED;
+                else if (message.StartsWith("PLAYING"))
+                    programState = ProgramState.PLAYING;
+            }
+
+            return programState;
+        }
+
+        private void HandleProgramstateResponse(ProgramState programState, string programstateResponse)
+        {
+            Color color = Color.Red;
+            string buttonText = programstateResponse;
+            switch (programState)
+            {
+                case ProgramState.STOPPED:
+                    //EnsureStopped();
+                    break;
+                case ProgramState.PAUSED:
+                    EnsureNotRunning();
+                    break;
+                case ProgramState.PLAYING:
+                    color = Color.Green;
+                    /*
+                    // Old code to reset the server... this is setup in Device Connect
+                    if (robotCommandServer == null)
+                    {
+                        // Setup a server for the UR to connect to
+                        robotCommandServer = new LeTcpServer(this, "UR")
+                        {
+                            receiveCallback = GeneralCallback
+                        };
+                        if (robotCommandServer.Connect(ServerIpTxt.Text, "30000") > 0)
+                        {
+                            log.Error("Robot command server initialization failure");
+                            RobotCommandStatusLbl.BackColor = Color.Red;
+                            RobotCommandStatusLbl.Text = "Command Error";
+                        }
+                        else
+                        {
+                            log.Info("Robot command connection ready");
+
+                            RobotCommandStatusLbl.BackColor = Color.Red;
+                            RobotCommandStatusLbl.Text = "Command Waiting";
+                        }
+                    }
+                    */
+                    break;
+                default:
+                    log.Error("Unknown response to programstate: {0}", programstateResponse);
+                    EnsureStopped();
+                    buttonText = "Programstate: ?? " + programstateResponse;
+                    color = Color.Red;
+                    break;
+            }
+            ProgramStateBtn.Text = buttonText;
+            ProgramStateBtn.BackColor = color;
+        }
+
         private void CloseSafetyPopup()
         {
             UrDashboardInquiryResponse("close popup", 200);
@@ -7437,10 +7316,39 @@ namespace LEonard
                 focusLeUrDashboard?.Send("play");
             }
         }
+        #endregion ===== UR INTERFACE CODE                 ==============================================================================================================================
 
-        // ======================================================================================
-        // UR CODE ENDS
-        // ======================================================================================
+        #region ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
+        public void GocatorAnnounce(LeGocator.Status status)
+        {
+            switch (status)
+            {
+                case LeGocator.Status.OK:
+                    GocatorConnectedLbl.Text = "Gocator OK";
+                    GocatorConnectedLbl.BackColor = Color.Green;
+                    GocatorReadyLbl.BackColor = Color.Green;
+                    log.Info("Gocator connection READY");
+                    break;
+                case LeGocator.Status.ERROR:
+                    log.Error("Gocator client initialization failure");
+                    GocatorConnectedLbl.Text = "Gocator ERROR";
+                    GocatorConnectedLbl.BackColor = Color.Red;
+                    GocatorReadyLbl.BackColor = Color.Red;
+                    break;
+                case LeGocator.Status.OFF:
+                    GocatorConnectedLbl.Text = "Gocator OFF";
+                    GocatorConnectedLbl.BackColor = Color.Red;
+                    GocatorReadyLbl.BackColor = Color.Red;
+                    log.Info("Gocator connection OFF");
+                    break;
+                default:
+                    GocatorConnectedLbl.Text = "Gocator ???";
+                    GocatorConnectedLbl.BackColor = Color.Yellow;
+                    GocatorReadyLbl.BackColor = Color.Yellow;
+                    break;
+            }
+        }
+        #endregion ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
     }
     public static class RichTextBoxExtensions
     {
