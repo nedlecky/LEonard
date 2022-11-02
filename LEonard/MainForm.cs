@@ -3742,6 +3742,8 @@ namespace LEonard
                 return DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss");
             if (name == "LEScriptFilename")
                 return Path.GetFileNameWithoutExtension(LEScriptFilenameLbl.Text).Replace(' ', '_').ToLower();
+            if (name == "LEonardLanguage")
+                return LEonardLanguage.ToString();
 
             foreach (DataRow row in variables.Rows)
             {
@@ -3810,6 +3812,10 @@ namespace LEonard
 
             // Automatically consider and variables with name starting in robot_ or grind_to be system variables
             if (nameTrimmed.StartsWith("robot_") || nameTrimmed.StartsWith("grind_")) isSystem = true;
+
+            // Automatically add to javaEngine
+            javaEngine.SetValue(name, value);
+            pythonScope.SetVariable(name, value);
 
             log.Trace("WriteVariable({0}, {1})", nameTrimmed, valueTrimmed);
             if (variables == null)
@@ -6345,10 +6351,10 @@ namespace LEonard
 
         bool ExecuteJavaFile(string filename)
         {
-            bool exec(string code)
+            bool exec(string file)
             {
-                string contents = File.ReadAllText(code);
-                return JavaExec(code);
+                string contents = File.ReadAllText(file);
+                return JavaExec(contents);
             }
 
             if (File.Exists(filename))

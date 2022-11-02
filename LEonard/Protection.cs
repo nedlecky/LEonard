@@ -291,11 +291,11 @@ namespace LEonard
             bool goodDateTime = HasGoodDateTime();
             bool goodVersion = HasGoodVersion();
 
-            log.Info($"cpuInfo = {cpuInfo}   expectedCpuInfo = {license.cpuInfo}");
-            log.Info($"machineGUID = {machineGuid}   expectedMachineGUID = {license.machineGuid}");
-            log.Info($"now = {dateTime}   expiration = {license.version}");
-            log.Info($"version = {version}   expectedVersion = {license.version}");
-            log.Info($"Good? {goodGuid} {goodCpuInfo} {goodDateTime} {goodVersion}");
+            log.Trace($"cpuInfo = {cpuInfo}   expectedCpuInfo = {license.cpuInfo}");
+            log.Trace($"machineGUID = {machineGuid}   expectedMachineGUID = {license.machineGuid}");
+            log.Trace($"now = {dateTime}   expiration = {license.version}");
+            log.Trace($"version = {version}   expectedVersion = {license.version}");
+            log.Trace($"Good? {goodGuid} {goodCpuInfo} {goodDateTime} {goodVersion}");
 
             return goodGuid && goodCpuInfo && goodDateTime && goodVersion;
         }

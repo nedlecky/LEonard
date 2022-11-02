@@ -1,2 +1,18 @@
 leLanguage(0)
-lePrint({leLanguage})
+test1 = 3
+lePrint({LEonardLanguage} test1={test1})
+exec_java(Code/JavaPrint1.js)
+exec_java(Code/JavaPrint2.js)
+exec_python(Code/PythonPrint1.py)
+exec_python(Code/PythonPrint2.py)
+
+leLanguage(1)
+test1++
+lePrint('java lePrint start')
+lePrint(DM1_result)
+lePrint('java lePrint end')
+
+leLanguage(2)
+lePrint('python lePrint start')
+lePrint(DM2_result)
+lePrint('python lePrint end')
