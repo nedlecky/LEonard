@@ -182,6 +182,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Protection.cs" />
+    <Compile Include="RichTextBoxExtensions.cs" />
     <Compile Include="SetValueForm.cs">
       <SubType>Form</SubType>
     </Compile>

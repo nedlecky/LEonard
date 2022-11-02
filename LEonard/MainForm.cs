@@ -11,26 +11,27 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Configuration;
+//using System.Net.Configuration;
 using System.Reflection;
-using System.Runtime.CompilerServices;
+//using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.ServiceModel.Channels;
+//using System.ServiceModel.Channels;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using IronPython.Hosting;
+//using IronPython.Hosting;
 using Jint;
-using Microsoft.Scripting.Hosting;
+//using Microsoft.Scripting.Hosting;
 using Microsoft.Win32;
 using NLog;
-using NLog.Fluent;
-using static LEonard.MainForm;
+//using NLog.Fluent;
+//using static LEonard.MainForm;
 
 namespace LEonard
 {
     public partial class MainForm : Form
     {
+        #region ===== MAINFORM VARIABLES                ==============================================================================================================================
         private static NLog.Logger log;
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
@@ -144,6 +145,11 @@ namespace LEonard
 
         const double DEFAULT_max_allowable_relative_move_mm = 150;
 
+        // Lists of all controls that get tweaked in UI management
+        IEnumerable<Control> allFontResizableList;
+        #endregion ===== MAINFORM VARIABLES                =============================================================================================================================
+
+        #region ===== MAINFORM EVENTS                   ==============================================================================================================================
         public MainForm()
         {
             InitializeComponent();
@@ -151,10 +157,6 @@ namespace LEonard
             InitializeJavaEngine();
             InitializePythonEngine();
         }
-
-        // Lists of all controls that get tweaked in UI management
-        IEnumerable<Control> allFontResizableList;
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Startup logging system (which also displays messages)
@@ -230,33 +232,6 @@ namespace LEonard
             licenseFilename = Path.Combine(LEonardRoot, "license.txt");
             protection = new Protection(this, licenseFilename);
         }
-        private DialogResult ConfirmMessageBox(string question)
-        {
-            log.Info($"ConfirmMessageBox({question})");
-            MessageDialog messageForm = new MessageDialog(this)
-            {
-                Title = "System Confirmation",
-                Label = question,
-                OkText = "&Yes",
-                CancelText = "&No"
-            };
-            DialogResult result = messageForm.ShowDialog();
-            return result;
-        }
-        public DialogResult ErrorMessageBox(string message)
-        {
-            log.Error($"ErrorMessageBox({message})");
-            MessageDialog messageForm = new MessageDialog(this)
-            {
-                Title = "System ERROR",
-                Label = message,
-                OkText = "&OK",
-                CancelText = "&Cancel"
-            };
-            DialogResult result = messageForm.ShowDialog();
-            return result;
-        }
-
         // Function key shortcut handling (primarily for development testing assistance)
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -311,7 +286,48 @@ namespace LEonard
             ScaleUiText(suggestedSystemScale);
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (forceClose) return;
 
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                var result = ConfirmMessageBox("Do you want to close the application?");
+                e.Cancel = (result != DialogResult.OK);
+            }
+
+            if (!e.Cancel)
+            {
+                if (RecipeWasModified())
+                {
+                    var result = ConfirmMessageBox($"Closing Application!\nRecipe [{LoadLEScriptBtn.Text}] has changed.\nSave changes before exit?");
+                    if (result == DialogResult.OK)
+                        SaveLEonardScriptBtn_Click(null, null);
+                }
+
+                if (JavaCodeRTB.Modified)
+                {
+                    var result = ConfirmMessageBox($"Closing Application!\nJava code [{JavaFilenameLbl.Text}] has changed.\nSave changes before exit?");
+                    if (result == DialogResult.OK)
+                        JavaSaveBtn_Click(null, null);
+                }
+
+                if (PythonCodeRTB.Modified)
+                {
+                    var result = ConfirmMessageBox($"Closing Application!\nPython code [{PythonFilenameLbl.Text}] has changed.\nSave changes before exit?");
+                    if (result == DialogResult.OK)
+                        PythonSaveBtn_Click(null, null);
+                }
+
+                CloseTmr.Interval = 500;
+                CloseTmr.Enabled = true;
+                e.Cancel = true; // Cancel this shutdown- we'll let the close out timer shut us down
+                log.Info("Shutting down in 500mS...");
+            }
+        }
+        #endregion ===== MAINFORM EVENTS                   ==============================================================================================================================
+
+        #region ===== TIMERS                            ==============================================================================================================================
         private void StartupTmr_Tick(object sender, EventArgs e)
         {
             Thread.Sleep(250);
@@ -356,64 +372,6 @@ namespace LEonard
             NLog.LogManager.Shutdown(); // Flush and close down internal threads and timers
             this.Close();
         }
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            if (forceClose) return;
-
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                var result = ConfirmMessageBox("Do you want to close the application?");
-                e.Cancel = (result != DialogResult.OK);
-            }
-
-            if (!e.Cancel)
-            {
-                if (RecipeWasModified())
-                {
-                    var result = ConfirmMessageBox($"Closing Application!\nRecipe [{LoadLEScriptBtn.Text}] has changed.\nSave changes before exit?");
-                    if (result == DialogResult.OK)
-                        SaveLEonardScriptBtn_Click(null, null);
-                }
-
-                if (JavaCodeRTB.Modified)
-                {
-                    var result = ConfirmMessageBox($"Closing Application!\nJava code [{JavaFilenameLbl.Text}] has changed.\nSave changes before exit?");
-                    if (result == DialogResult.OK)
-                        JavaSaveBtn_Click(null, null);
-                }
-
-                if (PythonCodeRTB.Modified)
-                {
-                    var result = ConfirmMessageBox($"Closing Application!\nPython code [{PythonFilenameLbl.Text}] has changed.\nSave changes before exit?");
-                    if (result == DialogResult.OK)
-                        PythonSaveBtn_Click(null, null);
-                }
-
-                CloseTmr.Interval = 500;
-                CloseTmr.Enabled = true;
-                e.Cancel = true; // Cancel this shutdown- we'll let the close out timer shut us down
-                log.Info("Shutting down in 500mS...");
-            }
-        }
-
-        // Something isn't right. If we're running, select PAUSE
-        private void EnsureNotRunning()
-        {
-            if (runState == RunState.RUNNING)
-                PauseBtn_Click(null, null);
-        }
-        // Something isn't right. If we're not stopped, select STOP
-        private void EnsureStopped()
-        {
-            if (runState == RunState.RUNNING || runState == RunState.PAUSED)
-                StopBtn_Click(null, null);
-        }
-
-        static bool robotReady = false;
-        static DateTime runStartedTime;   // When did the user hit run?
-        static DateTime stepStartedTime;  // When did the current recipe line start executing?
-        static DateTime stepEndTimeEstimate;  // When do we think it will end?
         private string TimeSpanFormat(TimeSpan elapsed)
         {
             int hrs = Math.Abs(elapsed.Days * 24 + elapsed.Hours);
@@ -422,7 +380,6 @@ namespace LEonard
             int msecs = Math.Abs(elapsed.Milliseconds);
             return String.Format("{0:00}h {1:00}m {2:00.0}s", hrs, mins, secs + msecs / 1000.0) + ((elapsed < TimeSpan.Zero && secs > 0.1) ? " OVER" : "");
         }
-
         private void RecomputeTimes()
         {
             DateTime now = DateTime.Now;
@@ -436,6 +393,10 @@ namespace LEonard
             StepTimeRemainingLbl.Text = TimeSpanFormat(timeRemaining);
         }
 
+        static bool robotReady = false;
+        static DateTime runStartedTime;   // When did the user hit run?
+        static DateTime stepStartedTime;  // When did the current recipe line start executing?
+        static DateTime stepEndTimeEstimate;  // When do we think it will end?
         private void HeartbeatTmr_Tick(object sender, EventArgs e)
         {
             // Update current time
@@ -601,6 +562,33 @@ namespace LEonard
             }
         }
 
+        #endregion
+
+        #region ===== LOG TAB CONTROLS                  ==============================================================================================================================
+        private void UrLogRTB_DoubleClick(object sender, EventArgs e)
+        {
+            UrLogRTB.Clear();
+        }
+
+        private void ConsoleRTB_DoubleClick(object sender, EventArgs e)
+        {
+            ConsoleRTB.Clear();
+        }
+
+        private void ErrorLogRTB_DoubleClick(object sender, EventArgs e)
+        {
+            ErrorLogRTB.Clear();
+        }
+        private void ExecLogRTB_DoubleClick(object sender, EventArgs e)
+        {
+            ExecLogRTB.Clear();
+        }
+
+        private void AllLogRTB_DoubleClick(object sender, EventArgs e)
+        {
+            AllLogRTB.Clear();
+        }
+
         private void ClearAllLogRtbBtn_Click(object sender, EventArgs e)
         {
             AllLogRTB.Clear();
@@ -609,9 +597,52 @@ namespace LEonard
             ConsoleRTB.Clear();
             ErrorLogRTB.Clear();
         }
+        private void ChangeLogLevel(string s)
+        {
+            LogManager.Configuration.Variables["myLevel"] = s;
+            LogManager.ReconfigExistingLoggers();
+        }
+        private void DebugLevelCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChangeLogLevel(LogLevelCombo.Text);
+        }
+        private void AboutBtn_Click(object sender, EventArgs e)
+        {
+            SplashForm splashForm = new SplashForm(this)
+            {
+                AutoClose = false
+            };
+            splashForm.ShowDialog();
+        }
+        #endregion ===== LOG TAB CONTROLS                   ==============================================================================================================================
 
-        #region ===== MAIN UI BUTTONS                   ==============================================================================================================================
-
+        #region ===== MAIN UI CONTROLS                  ==============================================================================================================================
+        private DialogResult ConfirmMessageBox(string question)
+        {
+            log.Info($"ConfirmMessageBox({question})");
+            MessageDialog messageForm = new MessageDialog(this)
+            {
+                Title = "System Confirmation",
+                Label = question,
+                OkText = "&Yes",
+                CancelText = "&No"
+            };
+            DialogResult result = messageForm.ShowDialog();
+            return result;
+        }
+        public DialogResult ErrorMessageBox(string message)
+        {
+            log.Error($"ErrorMessageBox({message})");
+            MessageDialog messageForm = new MessageDialog(this)
+            {
+                Title = "System ERROR",
+                Label = message,
+                OkText = "&OK",
+                CancelText = "&Cancel"
+            };
+            DialogResult result = messageForm.ShowDialog();
+            return result;
+        }
         private void MainTab_SelectedIndexChanged(object sender, EventArgs e)
         {
             string tabName = MainTab.TabPages[MainTab.SelectedIndex].Text;
@@ -1116,30 +1147,6 @@ namespace LEonard
         {
             Close();
         }
-
-        private void UrLogRTB_DoubleClick(object sender, EventArgs e)
-        {
-            UrLogRTB.Clear();
-        }
-
-        private void ConsoleRTB_DoubleClick(object sender, EventArgs e)
-        {
-            ConsoleRTB.Clear();
-        }
-
-        private void ErrorLogRTB_DoubleClick(object sender, EventArgs e)
-        {
-            ErrorLogRTB.Clear();
-        }
-
-        private void AboutBtn_Click(object sender, EventArgs e)
-        {
-            SplashForm splashForm = new SplashForm(this)
-            {
-                AutoClose = false
-            };
-            splashForm.ShowDialog();
-        }
         #endregion =================================================== MAIN UI BUTTONS ===================================================================
 
         #region ===== RUN FUNCTIONS                     ==============================================================================================================================
@@ -1592,7 +1599,6 @@ namespace LEonard
 
             LEonardRoot = DEFAULT_LEonardRoot;
             LEonardRootLbl.Text = LEonardRoot;
-            AllowRunningOfflineChk.Checked = false;
         }
         private void LoadConfigBtn_Click(object sender, EventArgs e)
         {
@@ -1604,15 +1610,6 @@ namespace LEonard
             log.Info("SaveConfigBtn_Click(...)");
             SavePersistent();
         }
-
-        private void AllowRunningOfflineChk_CheckedChanged(object sender, EventArgs e)
-        {
-            if (AllowRunningOfflineChk.Checked)
-                AllowRunningOfflineChk.BackColor = Color.Green;
-            else
-                AllowRunningOfflineChk.BackColor = Color.Gray;
-        }
-
         public void MakeStandardSubdirectories()
         {
             // Make standard subdirectories (if they don't exist)
@@ -1622,7 +1619,6 @@ namespace LEonard
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, DataFolder));
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, LogsFolder));
         }
-
         public RegistryKey GetAppNameKey()
         {
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
@@ -1693,7 +1689,6 @@ namespace LEonard
             WindowState = (FormWindowState)UIKey.GetValue("WindowState", FormWindowState.Normal);
 
             LEonardRootLbl.Text = LEonardRoot;
-            AllowRunningOfflineChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AllowRunningOfflineChk.Checked", "False"));
 
             StartupDevicesLbl.Text = (string)AppNameKey.GetValue("StartupDevicesLbl.Text", "");
             AutoConnectOnLoadChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoConnectOnLoadChk.Checked", "False"));
@@ -1781,7 +1776,6 @@ namespace LEonard
 
             // From Setup Tab
             AppNameKey.SetValue("LEonardRoot", LEonardRoot);
-            AppNameKey.SetValue("AllowRunningOfflineChk.Checked", AllowRunningOfflineChk.Checked);
             AppNameKey.SetValue("StartupDevicesLbl.Text", StartupDevicesLbl.Text);
             AppNameKey.SetValue("AutoConnectOnLoadChk.Checked", AutoConnectOnLoadChk.Checked);
 
@@ -1879,20 +1873,6 @@ namespace LEonard
 
             UpdateGeometryToRobot();
         }
-
-        private void ChangeLogLevel(string s)
-        {
-            LogManager.Configuration.Variables["myLevel"] = s;
-            LogManager.ReconfigExistingLoggers();
-        }
-        private void DebugLevelCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ChangeLogLevel(LogLevelCombo.Text);
-        }
-
-        // ============================================================================================================================================
-        // END SETUP
-        // ============================================================================================================================================
         #endregion
 
         #region ===== DEVICES DATABASE SUPPORT CODE     ==============================================================================================================================
@@ -4242,6 +4222,18 @@ namespace LEonard
         #endregion ===== VARIABLE MANAGEMENT CODE          ==============================================================================================================================
 
         #region ===== EXECUTIVE FUNCTIONS               ==============================================================================================================================
+        // Something isn't right. If we're running, select PAUSE
+        private void EnsureNotRunning()
+        {
+            if (runState == RunState.RUNNING)
+                PauseBtn_Click(null, null);
+        }
+        // Something isn't right. If we're not stopped, select STOP
+        private void EnsureStopped()
+        {
+            if (runState == RunState.RUNNING || runState == RunState.PAUSED)
+                StopBtn_Click(null, null);
+        }
         /// <summary>
         /// Is the line a recipe label? This means starting with alpha, followed by 0 or more alphanum, followed by :
         /// </summary>
@@ -7393,23 +7385,7 @@ namespace LEonard
             }
         }
         #endregion ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
-    }
-    public static class RichTextBoxExtensions
-    {
-        /// <summary>
-        /// Dependable replacement for RTB.GetFirstCharIndexFromLine. Actually adds up the previous lines plus terminator.
-        /// When you don't do this, you get odd behavior with line wrapping and if you toggle it off, you get flashing of the control.
-        /// </summary>
-        /// <param name="n">0-indexed line number to examine</param>
-        /// <returns></returns>
-        public static (int start, int length) GetLineExtents(this System.Windows.Forms.RichTextBox richTextBox, int n)
-        {
-            int start = 0;
-            for (int i = 0; i < n; i++)
-                start += richTextBox.Lines[i].Length + 1;
 
-            return (start, richTextBox.Lines[n].Length);
-        }
     }
 }
 
