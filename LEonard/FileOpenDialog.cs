@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using static LEonard.MainForm;
+using Microsoft.Win32;
 
 namespace LEonard
 {
@@ -43,9 +44,18 @@ namespace LEonard
 
         private void FileOpenForm_Load(object sender, EventArgs e)
         {
+            originalWidth = Width;
+            allResizeControlList = TakeControlInventory(this);
+
+            LoadPersistent();
+
             Text = "File Open";
             TitleLbl.Text = Title;
             LoadDirectory(InitialDirectory);
+        }
+        private void FileOpenDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SavePersistent();
         }
 
 
@@ -237,5 +247,37 @@ namespace LEonard
             LoadFiles(path);
         }
 
+        private RegistryKey MyRegistryKey()
+        {
+            RegistryKey AppNameKey = mainForm.GetAppNameKey();
+            RegistryKey FormNameKey = AppNameKey.CreateSubKey("FileOpenDialog");
+
+            return FormNameKey;
+        }
+
+        private void SavePersistent()
+        {
+            RegistryKey FormNameKey = MyRegistryKey();
+
+            FormNameKey.SetValue("Left", Left);
+            FormNameKey.SetValue("Top", Top);
+            FormNameKey.SetValue("Width", Width);
+            FormNameKey.SetValue("Height", Height);
+        }
+        private void LoadPersistent()
+        {
+            RegistryKey FormNameKey = MyRegistryKey();
+
+            Width = (Int32)FormNameKey.GetValue("Width", 1500);
+            Height = (Int32)FormNameKey.GetValue("Height", 1000);
+            Left = (Int32)FormNameKey.GetValue("Left", (mainForm.Width - Width) / 2);
+            Top = (Int32)FormNameKey.GetValue("Top", (mainForm.Height - Height) / 2);
+        }
+
+        private void FileOpenDialog_Resize(object sender, EventArgs e)
+        {
+            double scale = Math.Min(100.0 * Width / originalWidth, 100);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scale);
+        }
     }
 }

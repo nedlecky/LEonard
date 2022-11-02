@@ -16,9 +16,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using IronPython.Compiler.Ast;
 using Jint;
-using Microsoft.Scripting.Hosting;
 using Microsoft.Win32;
 using NLog;
 
@@ -142,6 +140,9 @@ namespace LEonard
 
         // Lists of all controls that get tweaked in UI management
         IEnumerable<Control> allFontResizableList;
+
+        ConsoleForm consoleForm = null;
+
         #endregion ===== MAINFORM VARIABLES                =============================================================================================================================
 
         #region ===== MAINFORM EVENTS                   ==============================================================================================================================
@@ -154,6 +155,8 @@ namespace LEonard
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            consoleForm = new ConsoleForm(this);
+
             // Startup logging system (which also displays messages)
             log = NLog.LogManager.GetCurrentClassLogger();
             log.Info("MainForm_Load(...)");
@@ -228,6 +231,7 @@ namespace LEonard
             protection = new Protection(this, licenseFilename);
         }
         // Function key shortcut handling (primarily for development testing assistance)
+        public bool IsConsoleVisible = false;
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             //log.Trace("MainForm_KeyDown: {0}", e.KeyData);
@@ -260,6 +264,13 @@ namespace LEonard
                         StopBtn_Click(null, null);
                         e.Handled = true;
                     }
+                    break;
+                case Keys.F12:
+                    IsConsoleVisible = !IsConsoleVisible;
+                    if (IsConsoleVisible)
+                        consoleForm.Show();
+                    else
+                        consoleForm.Hide();
                     break;
             }
         }
@@ -365,6 +376,7 @@ namespace LEonard
             forceClose = true;
             SavePersistent();
             NLog.LogManager.Shutdown(); // Flush and close down internal threads and timers
+            consoleForm.Close();
             this.Close();
         }
         private string TimeSpanFormat(TimeSpan elapsed)
@@ -1459,7 +1471,7 @@ namespace LEonard
             if (LEScriptFilenameLbl.Text != "Untitled" && LEScriptFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(LEScriptFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Code");
+                initialDirectory = Path.Combine(LEonardRoot, CodeFolder);
 
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
@@ -1501,7 +1513,7 @@ namespace LEonard
             if (LEScriptFilenameLbl.Text != "Untitled" && LEScriptFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(LEScriptFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Code");
+                initialDirectory = Path.Combine(LEonardRoot, CodeFolder);
 
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {
@@ -2937,6 +2949,14 @@ namespace LEonard
                 RememberInitialFont(t);
             }
 
+            IEnumerable<Control> listboxList = GetAll(ctl, typeof(ListBox));
+            //log.Info("ListBox Count: " + listboxList.Count());
+            foreach (ListBox t in listboxList)
+            {
+                //log.Info($"LISTBOX {t.Text} {t.Font.Size}");
+                RememberInitialFont(t);
+            }
+
             IEnumerable<Control> returnList = buttonList;
             returnList = returnList.Concat(comboboxList);
             returnList = returnList.Concat(datagridviewList);
@@ -2945,6 +2965,7 @@ namespace LEonard
             // TODO Tabs don't resize so we shouldn't resize their text for now!
             // returnList = returnList.Concat(tabcontrolList);
             returnList = returnList.Concat(textboxList);
+            returnList = returnList.Concat(listboxList);
 
             return returnList;
         }
@@ -4370,7 +4391,7 @@ namespace LEonard
         {
             try
             {
-                string[] lines = System.IO.File.ReadAllLines(Path.Combine(LEonardRoot, "Code", filename));
+                string[] lines = System.IO.File.ReadAllLines(Path.Combine(LEonardRoot, CodeFolder, filename));
 
                 foreach (string line in lines)
                 {
@@ -6224,7 +6245,7 @@ namespace LEonard
             if (JavaFilenameLbl.Text != "Untitled" && JavaFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(JavaFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Code");
+                initialDirectory = Path.Combine(LEonardRoot, CodeFolder);
 
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
@@ -6260,7 +6281,7 @@ namespace LEonard
             if (JavaFilenameLbl.Text != "Untitled" && JavaFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(JavaFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Code");
+                initialDirectory = Path.Combine(LEonardRoot, CodeFolder);
 
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {
@@ -6462,7 +6483,7 @@ namespace LEonard
             if (PythonFilenameLbl.Text != "Untitled" && PythonFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(PythonFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Code");
+                initialDirectory = Path.Combine(LEonardRoot, CodeFolder);
 
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
@@ -6498,7 +6519,7 @@ namespace LEonard
             if (PythonFilenameLbl.Text != "Untitled" && PythonFilenameLbl.Text.Length > 0)
                 initialDirectory = Path.GetDirectoryName(PythonFilenameLbl.Text);
             else
-                initialDirectory = Path.Combine(LEonardRoot, "Code");
+                initialDirectory = Path.Combine(LEonardRoot, CodeFolder);
 
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {
@@ -7428,17 +7449,6 @@ namespace LEonard
             }
         }
         #endregion ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
-
-        ConsoleForm consoleForm = new ConsoleForm();
-        private void JavaConsoleRTB_DoubleClick(object sender, EventArgs e)
-        {
-            consoleForm.Show();
-        }
-
-        private void PythonConsoleRTB_DoubleClick(object sender, EventArgs e)
-        {
-            consoleForm.Show();
-        }
     }
 }
 

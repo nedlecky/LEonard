@@ -102,6 +102,7 @@
     <Reference Include="NLog.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.Windows.Forms.4.5.0\lib\net35\NLog.Windows.Forms.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -179,6 +180,9 @@
     </Compile>
     <Compile Include="MessageDialog.Designer.cs">
       <DependentUpon>MessageDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyCheckbox.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

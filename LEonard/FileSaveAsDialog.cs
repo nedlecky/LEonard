@@ -4,6 +4,7 @@
 // Copyright 2021, 2022, 2023
 // Purpose: Custom Save As dialog with large buttons for use with touch screen
 
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,9 +42,18 @@ namespace LEonard
             InitializeComponent();
             mainForm = _mainForm;
         }
+        private void FileSaveAsDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SavePersistent();
+        }
 
         private void FileSaveAsDialog_Load(object sender, EventArgs e)
         {
+            originalWidth = Width;
+            allResizeControlList = TakeControlInventory(this);
+
+            LoadPersistent();
+            
             TitleLbl.Text = Title;
             LoadDirectory(InitialDirectory);
 
@@ -234,6 +244,39 @@ namespace LEonard
             FileNameTxt.Select();
             FileNameTxt.Text = "";
             LoadFiles(path);
+        }
+
+        private RegistryKey MyRegistryKey()
+        {
+            RegistryKey AppNameKey = mainForm.GetAppNameKey();
+            RegistryKey FormNameKey = AppNameKey.CreateSubKey("FileSaveAsDialog");
+
+            return FormNameKey;
+        }
+
+        private void SavePersistent()
+        {
+            RegistryKey FormNameKey = MyRegistryKey();
+
+            FormNameKey.SetValue("Left", Left);
+            FormNameKey.SetValue("Top", Top);
+            FormNameKey.SetValue("Width", Width);
+            FormNameKey.SetValue("Height", Height);
+        }
+        private void LoadPersistent()
+        {
+            RegistryKey FormNameKey = MyRegistryKey();
+
+            Width = (Int32)FormNameKey.GetValue("Width", 1000);
+            Height = (Int32)FormNameKey.GetValue("Height", 1000);
+            Left = (Int32)FormNameKey.GetValue("Left", (mainForm.Width - Width) / 2);
+            Top = (Int32)FormNameKey.GetValue("Top", (mainForm.Height - Height) / 2);
+        }
+
+        private void FileSaveAsDialog_Resize(object sender, EventArgs e)
+        {
+            double scale = Math.Min(100.0 * Width / originalWidth, 100);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scale);
         }
 
     }
