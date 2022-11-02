@@ -18,3 +18,4 @@ leSend('Dataman2', '+')
 
 ret = leInquiryResponse('UR-5eDash', 'programstate', 100)
 lePrint('ret = ' + str(ret))
+lePrint(abc)

@@ -1,0 +1,2 @@
+leLanguage(0)
+lePrint({leLanguage})

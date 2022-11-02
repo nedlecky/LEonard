@@ -14,3 +14,4 @@ leSend('Dataman1','+')
 leSend('Dataman2','+')
 state = leInquiryResponse('UR-5eDash','programstate',100)
 lePrint('state = ' + state)
+

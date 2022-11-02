@@ -2,7 +2,7 @@
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Copyright 2021, 2022, 2023
-// Purpose: The main code window for the LEonard program
+// Purpose: The main code window for the LEonard application
 
 using System;
 using System.Collections.Generic;
@@ -11,21 +11,16 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-//using System.Net.Configuration;
 using System.Reflection;
-//using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-//using System.ServiceModel.Channels;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-//using IronPython.Hosting;
+using IronPython.Compiler.Ast;
 using Jint;
-//using Microsoft.Scripting.Hosting;
+using Microsoft.Scripting.Hosting;
 using Microsoft.Win32;
 using NLog;
-//using NLog.Fluent;
-//using static LEonard.MainForm;
 
 namespace LEonard
 {
@@ -1142,7 +1137,27 @@ namespace LEonard
                     break;
             }
         }
+        private void SetupTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string tabName = SetupTab.TabPages[SetupTab.SelectedIndex].Text;
 
+            // Actions to take on entering particular tabs
+            if (tabName == "Tools")
+                // Highlight the curent tool selected in the grid
+                SelectDataGridViewRow(ToolsGrd, MountedToolBox.Text);
+
+            if (tabName == "Displays")
+                // Highlight the curent display selected in the grid
+                SelectDataGridViewRow(DisplaysGrd, SelectedDisplayLbl.Text);
+
+            if (tabName == "License")
+            {
+                // Hide adjustment controls!
+                LicenseAdjustGrp.Visible = false;
+                // Update current license status
+                GetLicenseStatus();
+            }
+        }
         private void ExitBtn_Click(object sender, EventArgs e)
         {
             Close();
@@ -6138,26 +6153,6 @@ namespace LEonard
                     .SetValue("leInquiryResponse", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)))
             ;
         }
-        private void JavaRunBtn_Click(object sender, EventArgs e)
-        {
-            if (!protection.RunLEonard())
-            {
-                ErrorMessageBox("Cannot run. LEonard license missing!");
-                return;
-            }
-
-            string script = JavaCodeRTB.Text;
-
-            try
-            {
-                javaEngine.Execute(script);
-            }
-            catch
-            {
-
-            }
-            JavaUpdateVariablesRTB();
-        }
         private void JavaNewBtn_Click(object sender, EventArgs e)
         {
             log.Info("JavaNewBtn_Click(...)");
@@ -6305,39 +6300,66 @@ namespace LEonard
                 JavaCodeRTB.Modified = true;
             }
         }
-        void ExecuteJavaScript(string code, LeDeviceInterface dev)
+        private bool IsJavaLicensed()
         {
-            log.Info($"Java Execute: {code}");
+            if (!protection.RunLEonard())
+            {
+                ErrorMessageBox("Cannot run. LEonard license missing");
+                return false;
+            }
+            if (!Protection.license.hasJava)
+            {
+                ErrorMessageBox("Java option not enabled");
+                return false;
+            }
+
+            return true;
+        }
+
+        bool JavaExec(string javaScript)
+        {
+            if (!IsJavaLicensed()) throw new AccessViolationException("Java not enabled in LEonard license");
+
             try
             {
-                currentDevice = dev;
-                javaEngine.Execute(code);
+                javaEngine.Execute(javaScript);
+                return true;
             }
             catch (Exception ex)
             {
-                log.Error(ex, $"ExecuteJavaScript Error {code}");
+                ErrorMessageBox($"JavaExec Error: {ex}");
+                return false;
             }
+        }
+        private void JavaRunBtn_Click(object sender, EventArgs e)
+        {
+            JavaExec(JavaCodeRTB.Text);
+            JavaUpdateVariablesRTB();
+        }
+        bool ExecuteJavaScript(string code, LeDeviceInterface dev)
+        {
+            log.Info($"Java Execute: {code}");
+            currentDevice = dev;
+            return JavaExec(code);
         }
 
         bool ExecuteJavaFile(string filename)
         {
-            void exec(string f)
+            bool exec(string code)
             {
-                string contents = File.ReadAllText(f);
-                javaEngine.Execute(contents);
+                string contents = File.ReadAllText(code);
+                return JavaExec(code);
             }
 
             if (File.Exists(filename))
             {
-                exec(filename);
-                return true;
+                return exec(filename);
             }
 
             filename = Path.Combine(LEonardRoot, filename);
             if (File.Exists(filename))
             {
-                exec(filename);
-                return true;
+                return exec(filename);
             }
 
             ExecError($"File {filename} does not exist");
@@ -6368,26 +6390,6 @@ namespace LEonard
             pythonScope.SetVariable("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)));
             pythonScope.SetVariable("leInquiryResponse", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)));
         }
-
-        private void PythonRunBtn_Click(object sender, EventArgs e)
-        {
-            if (!protection.RunLEonard())
-            {
-                ErrorMessageBox("Cannot run. LEonard license missing!");
-                return;
-            }
-
-            try
-            {
-                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(PythonCodeRTB.Text);
-                pythonScript.Execute(pythonScope);
-            }
-            catch
-            {
-
-            }
-        }
-
         private void PythonNewBtn_Click(object sender, EventArgs e)
         {
             log.Info("PythonNewBtn_Click(...)");
@@ -6536,67 +6538,95 @@ namespace LEonard
                 PythonCodeRTB.Modified = true;
             }
         }
-
-        private void SetupTab_SelectedIndexChanged(object sender, EventArgs e)
+        private bool IsPythonLicensed()
         {
-            string tabName = SetupTab.TabPages[SetupTab.SelectedIndex].Text;
-
-            // Actions to take on entering particular tabs
-            if (tabName == "Tools")
-                // Highlight the curent tool selected in the grid
-                SelectDataGridViewRow(ToolsGrd, MountedToolBox.Text);
-
-            if (tabName == "Displays")
-                // Highlight the curent display selected in the grid
-                SelectDataGridViewRow(DisplaysGrd, SelectedDisplayLbl.Text);
-
-            if (tabName == "License")
+            if (!protection.RunLEonard())
             {
-                // Hide adjustment controls!
-                LicenseAdjustGrp.Visible = false;
-                // Update current license status
-                GetLicenseStatus();
+                ErrorMessageBox("Cannot run. LEonard license missing");
+                return false;
+            }
+            if (!Protection.license.hasPython)
+            {
+                ErrorMessageBox("Python option not enabled");
+                return false;
+            }
+
+            return true;
+        }
+        bool PythonExec(Microsoft.Scripting.Hosting.ScriptSource pythonScript)
+        {
+            if (!IsPythonLicensed()) throw new AccessViolationException("Python not enabled in LEonard license");
+
+            try
+            {
+                pythonScript.Execute(pythonScope);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox($"PythonExec Error: {ex}");
+                return false;
             }
         }
-        void ExecutePythonScript(string code, LeDeviceInterface dev)
+        private void PythonRunBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(PythonCodeRTB.Text);
+                PythonExec(pythonScript);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox($"PythonRunBtn Error: {ex}");
+            }
+        }
+        bool ExecutePythonScript(string code, LeDeviceInterface dev)
         {
             log.Info($"Python Execute: {code}");
             try
             {
                 currentDevice = dev;
                 Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(code);
-                pythonScript.Execute(pythonScope);
+                return PythonExec(pythonScript);
             }
             catch (Exception ex)
             {
-                log.Error(ex, $"ExecutePythonScript Error {code}");
+                ErrorMessageBox($"ExecutePythonScript Error: {ex}");
+                return false;
             }
         }
 
         bool ExecutePythonFile(string filename)
         {
 
-            void exec(string f)
+            bool exec(string f)
             {
                 string contents = File.ReadAllText(f);
-                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(contents);
-                pythonScript.Execute(pythonScope);
+                try
+                {
+                    Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(contents);
+                    PythonExec(pythonScript);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    ErrorMessageBox($"ExecutePythonScript Error: {ex}");
+                    return false;
+                }
             }
 
             if (File.Exists(filename))
             {
-                exec(filename);
-                return true;
+                return exec(filename);
             }
 
             filename = Path.Combine(LEonardRoot, filename);
             if (File.Exists(filename))
             {
-                exec(filename);
-                return true;
+                return exec(filename);
             }
 
-            ExecError($"File {filename} does not exist");
+            ErrorMessageBox($"ExecutePythonFile({filename}) file does not exist");
             return false;
         }
         #endregion ===== PYTHON SUPPORT BEGINS             ==============================================================================================================================
@@ -7385,7 +7415,6 @@ namespace LEonard
             }
         }
         #endregion ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
-
     }
 }
 
