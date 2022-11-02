@@ -5,3 +5,6 @@ except NameError:
 
 lePrint('PythonPrint2 count = ' + str(pythonprint2_count))
 
+lePrint(str(dir()))
+lePrint('hey')
+

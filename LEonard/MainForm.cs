@@ -3145,9 +3145,13 @@ namespace LEonard
             }
         }
 
-        private void CrawlRTB(RichTextBox rtb, string message)
+        public static void CrawlRTB(RichTextBox rtb, string message, int maxLength = 10000, int chopLength = 5000)
         {
             rtb.Text += message + Environment.NewLine;
+            if (rtb.Text.Length > maxLength)
+            {
+                rtb.Text = rtb.Text.Substring(rtb.Text.Length - 1 - chopLength, chopLength);
+            }
             rtb.SelectionStart = rtb.Text.Length;
             rtb.ScrollToCaret();
         }
@@ -5470,7 +5474,8 @@ namespace LEonard
             // lePrintFunc
             void lePrintFunc(string s)
             {
-                log.Info("L** " + s);
+                log.Info("LE** " + s);
+                Console.WriteLine(s);
             }
             if (command.StartsWith("lePrint("))
             {
@@ -6142,7 +6147,8 @@ namespace LEonard
         private void lePrintJ(string msg)
         {
             CrawlRTB(JavaConsoleRTB, msg);
-            log.Info("J** " + msg);
+            log.Info("JV** " + msg);
+            Console.WriteLine(msg);
         }
         private void InitializeJavaEngine()
         {
@@ -6377,7 +6383,8 @@ namespace LEonard
         private void lePrintP(string msg)
         {
             CrawlRTB(PythonConsoleRTB, msg);
-            log.Info("P** " + msg);
+            log.Info("PY** " + msg);
+            Console.WriteLine(msg);
         }
 
         private void InitializePythonEngine()
@@ -7421,6 +7428,17 @@ namespace LEonard
             }
         }
         #endregion ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
+
+        ConsoleForm consoleForm = new ConsoleForm();
+        private void JavaConsoleRTB_DoubleClick(object sender, EventArgs e)
+        {
+            consoleForm.Show();
+        }
+
+        private void PythonConsoleRTB_DoubleClick(object sender, EventArgs e)
+        {
+            consoleForm.Show();
+        }
     }
 }
 

@@ -4,3 +4,4 @@ else
   javaprint2_count = javaprint2_count + 1;
 
 lePrint('Java Print2 count = ' + javaprint2_count)
+
