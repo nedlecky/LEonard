@@ -19,18 +19,28 @@ namespace LEonard
     public class LeUrDashboard : LeTcpClient
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
-        public string UrProgramFilename { get; set; } = "";
-        public enum DashboardStatus
+        public static int nInstances = 0;
+        public static int nConnected = 0;
+        public static LeUrDashboard focusLeUrDashboard = null;
+
+        public enum Status
         {
             OFF,
             ERROR,
             OK
         }
+        public LeUrDashboard.Status status = Status.OFF;
+
+        public string UrProgramFilename { get; set; } = "";
 
         public LeUrDashboard(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
             log.Debug("{0} LeUrDashboard(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
 
+            focusLeUrDashboard = this;
+            nInstances++;
+            status = Status.OFF;
+            myForm.UrDashboardAnnounce();
         }
         ~LeUrDashboard()
         {
@@ -46,7 +56,8 @@ namespace LEonard
             int ret = base.Connect(dashIP, dashPort);
             if (ret != 0)
             {
-                myForm.UrDashboardAnnounce(DashboardStatus.OFF);
+                status = Status.OFF;
+                myForm.UrDashboardAnnounce();
                 myForm.ErrorMessageBox($"Cannot start UR dashboard on {dashIP}:{dashPort}");
                 return ret;
             }
@@ -55,10 +66,12 @@ namespace LEonard
             string response = Receive();
             if (response != "Connected: Universal Robots Dashboard Server")
             {
-                myForm.UrDashboardAnnounce(DashboardStatus.ERROR);
+                status = Status.ERROR;
+                myForm.UrDashboardAnnounce();
                 myForm.ErrorMessageBox($"Dashboard connection returned {response}");
             }
-            myForm.UrDashboardAnnounce(DashboardStatus.OK);
+            status = Status.OK;
+            myForm.UrDashboardAnnounce();
 
             if (execLEonardMessageOnConnect.Length > 0)
                 if (!myForm.ExecuteLEonardStatement(logPrefix, execLEonardMessageOnConnect, this))
@@ -123,7 +136,8 @@ namespace LEonard
                 InquiryResponse("quit");
                 ret = base.Disconnect();
             }
-            myForm.UrDashboardAnnounce(DashboardStatus.OFF);
+            status = Status.OFF;
+            myForm.UrDashboardAnnounce();
 
             return ret;
         }

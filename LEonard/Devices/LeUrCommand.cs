@@ -17,22 +17,35 @@ namespace LEonard
     public class LeUrCommand : LeTcpServer
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        public static int nInstances = 0;
+        public static int nConnected = 0;
+        public static LeUrCommand focusLeUrCommand = null;
 
-        public enum CommandStatus
+        public enum Status
         {
             OFF,
             ERROR,
+            WAITING,
             OK
         }
+        public LeUrCommand.Status status = Status.OFF;
+
 
         public LeUrCommand(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
             log.Debug("{0} LeUrCommand(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
 
+            focusLeUrCommand = this;
+            nInstances++;
+            status = Status.OFF;
+            myForm.UrCommandAnnounce();
         }
         ~LeUrCommand()
         {
             log.Debug("{0} ~LeUrCommand()", logPrefix);
+
+            nInstances--;
+            if (focusLeUrCommand == this) focusLeUrCommand = null;
         }
 
         public override int Connect(string IPport)
@@ -48,15 +61,17 @@ namespace LEonard
             int ret = Connect(ip_port[0], ip_port[1]);
             if (ret != 0)
             {
-                myForm.UrCommandAnnounce(CommandStatus.ERROR);
+                status = Status.ERROR;
+                myForm.UrCommandAnnounce();
                 return 4;
             }
             else
             {
-                // Commands will return general LEonard responses
-                log.Info("Universal Robot connection ready");
+                log.Info("Universal Robot connection waiting for robot to connect");
                 myForm.WriteVariable("robot_ready", true, true);
-                myForm.UrCommandAnnounce(CommandStatus.OK);
+                status = Status.WAITING;
+                myForm.UrCommandAnnounce();
+                nConnected++;
             }
             return 0;
         }
@@ -64,7 +79,9 @@ namespace LEonard
         {
             myForm.WriteVariable("robot_ready", false, true);
 
-            myForm.UrCommandAnnounce(CommandStatus.OFF);
+            status = Status.OFF;
+            myForm.UrCommandAnnounce();
+            nConnected--;
             return 0;
         }
     }

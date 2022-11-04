@@ -102,8 +102,8 @@
             this.MountedToolBox = new System.Windows.Forms.ComboBox();
             this.UserModeBox = new System.Windows.Forms.ComboBox();
             this.RobotModeBtn = new System.Windows.Forms.Button();
-            this.SafetyStatusBtn = new System.Windows.Forms.Button();
-            this.ProgramStateBtn = new System.Windows.Forms.Button();
+            this.RobotSafetyStatusBtn = new System.Windows.Forms.Button();
+            this.RobotProgramStateBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.DiameterDimLbl = new System.Windows.Forms.Label();
             this.MainTab = new System.Windows.Forms.TabControl();
@@ -163,6 +163,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.StartupDevicesLbl = new System.Windows.Forms.Label();
             this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
+            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.devicesPage = new System.Windows.Forms.TabPage();
             this.SetupDevicesLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.DeviceReconnectBtn = new System.Windows.Forms.Button();
@@ -289,7 +290,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -1264,33 +1264,33 @@
             this.RobotModeBtn.UseVisualStyleBackColor = false;
             this.RobotModeBtn.Click += new System.EventHandler(this.RobotModeBtn_Click);
             // 
-            // SafetyStatusBtn
+            // RobotSafetyStatusBtn
             // 
-            this.SafetyStatusBtn.BackColor = System.Drawing.Color.Gray;
-            this.SafetyStatusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SafetyStatusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SafetyStatusBtn.ForeColor = System.Drawing.Color.White;
-            this.SafetyStatusBtn.Location = new System.Drawing.Point(3, 253);
-            this.SafetyStatusBtn.Name = "SafetyStatusBtn";
-            this.SafetyStatusBtn.Size = new System.Drawing.Size(279, 84);
-            this.SafetyStatusBtn.TabIndex = 107;
-            this.SafetyStatusBtn.Text = "Safety Status";
-            this.SafetyStatusBtn.UseVisualStyleBackColor = false;
-            this.SafetyStatusBtn.Click += new System.EventHandler(this.SafetyStatusBtn_Click);
+            this.RobotSafetyStatusBtn.BackColor = System.Drawing.Color.Gray;
+            this.RobotSafetyStatusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RobotSafetyStatusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RobotSafetyStatusBtn.ForeColor = System.Drawing.Color.White;
+            this.RobotSafetyStatusBtn.Location = new System.Drawing.Point(3, 253);
+            this.RobotSafetyStatusBtn.Name = "RobotSafetyStatusBtn";
+            this.RobotSafetyStatusBtn.Size = new System.Drawing.Size(279, 84);
+            this.RobotSafetyStatusBtn.TabIndex = 107;
+            this.RobotSafetyStatusBtn.Text = "Safety Status";
+            this.RobotSafetyStatusBtn.UseVisualStyleBackColor = false;
+            this.RobotSafetyStatusBtn.Click += new System.EventHandler(this.SafetyStatusBtn_Click);
             // 
-            // ProgramStateBtn
+            // RobotProgramStateBtn
             // 
-            this.ProgramStateBtn.BackColor = System.Drawing.Color.Gray;
-            this.ProgramStateBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ProgramStateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProgramStateBtn.ForeColor = System.Drawing.Color.White;
-            this.ProgramStateBtn.Location = new System.Drawing.Point(3, 343);
-            this.ProgramStateBtn.Name = "ProgramStateBtn";
-            this.ProgramStateBtn.Size = new System.Drawing.Size(279, 84);
-            this.ProgramStateBtn.TabIndex = 108;
-            this.ProgramStateBtn.Text = "Program State";
-            this.ProgramStateBtn.UseVisualStyleBackColor = false;
-            this.ProgramStateBtn.Click += new System.EventHandler(this.ProgramStateBtn_Click);
+            this.RobotProgramStateBtn.BackColor = System.Drawing.Color.Gray;
+            this.RobotProgramStateBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RobotProgramStateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RobotProgramStateBtn.ForeColor = System.Drawing.Color.White;
+            this.RobotProgramStateBtn.Location = new System.Drawing.Point(3, 343);
+            this.RobotProgramStateBtn.Name = "RobotProgramStateBtn";
+            this.RobotProgramStateBtn.Size = new System.Drawing.Size(279, 84);
+            this.RobotProgramStateBtn.TabIndex = 108;
+            this.RobotProgramStateBtn.Text = "Program State";
+            this.RobotProgramStateBtn.UseVisualStyleBackColor = false;
+            this.RobotProgramStateBtn.Click += new System.EventHandler(this.ProgramStateBtn_Click);
             // 
             // label5
             // 
@@ -1376,8 +1376,8 @@
             this.StatusLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.78327F));
             this.StatusLayoutPanel.Controls.Add(this.label9, 1, 0);
             this.StatusLayoutPanel.Controls.Add(this.UserModeBox, 0, 0);
-            this.StatusLayoutPanel.Controls.Add(this.ProgramStateBtn, 0, 5);
-            this.StatusLayoutPanel.Controls.Add(this.SafetyStatusBtn, 0, 4);
+            this.StatusLayoutPanel.Controls.Add(this.RobotProgramStateBtn, 0, 5);
+            this.StatusLayoutPanel.Controls.Add(this.RobotSafetyStatusBtn, 0, 4);
             this.StatusLayoutPanel.Controls.Add(this.RobotModeBtn, 0, 3);
             this.StatusLayoutPanel.Controls.Add(this.RobotConnectBtn, 0, 2);
             this.StatusLayoutPanel.Controls.Add(this.RobotCommandStatusLbl, 1, 2);
@@ -2136,6 +2136,17 @@
             this.ChangeRootDirectoryBtn.Text = "...";
             this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
             this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
+            // 
+            // AutoConnectOnLoadChk
+            // 
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
+            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
+            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
+            this.AutoConnectOnLoadChk.TabIndex = 117;
+            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
+            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
             // 
             // devicesPage
             // 
@@ -4075,17 +4086,6 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // AutoConnectOnLoadChk
-            // 
-            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
-            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
-            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
-            this.AutoConnectOnLoadChk.TabIndex = 117;
-            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
-            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4225,8 +4225,8 @@
         private System.Windows.Forms.RichTextBox LEonardScriptCommandsRTB;
         private System.Windows.Forms.TabPage manualPage;
         private System.Windows.Forms.Button RobotModeBtn;
-        private System.Windows.Forms.Button SafetyStatusBtn;
-        private System.Windows.Forms.Button ProgramStateBtn;
+        private System.Windows.Forms.Button RobotSafetyStatusBtn;
+        private System.Windows.Forms.Button RobotProgramStateBtn;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label DiameterDimLbl;
         private System.Windows.Forms.TabControl MainTab;

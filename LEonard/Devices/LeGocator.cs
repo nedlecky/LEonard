@@ -17,15 +17,33 @@ namespace LEonard
     public class LeGocator : LeTcpClient
     {
         private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        public static int nInstances = 0;
+        public static int nConnected = 0;
+        public static LeGocator focusLeGocator = null;
+
+        public enum Status
+        {
+            OFF,
+            ERROR,
+            OK
+        }
+        public LeGocator.Status status = Status.OFF;
 
         public LeGocator(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
         {
             log.Debug("{0} LeGocator(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
 
+            focusLeGocator = this;
+            nInstances++;
+            status = Status.OFF;
+            myForm.GocatorAnnounce();
         }
         ~LeGocator()
         {
             log.Debug("{0} ~LeGocator()", logPrefix);
+
+            nInstances--;
+            if (focusLeGocator == this) focusLeGocator = null;
         }
 
         public void Callback(string prefix, string message, LeDeviceInterface dev)
@@ -40,12 +58,6 @@ namespace LEonard
             myForm.GeneralCallback(prefix, message, this);
         }
 
-        public enum Status
-        {
-            OFF,
-            ERROR,
-            OK
-        }
 
         public override int Connect(string IPport)
         {
@@ -58,7 +70,10 @@ namespace LEonard
             log.Debug($"{logPrefix} LeGocator::Connect({IP},{port})");
             int ret = base.Connect(IP, port);
             if (ret != 0)
-                myForm.GocatorAnnounce(LeGocator.Status.ERROR);
+            {
+                status=Status.ERROR;
+                myForm.GocatorAnnounce();
+            }
             else
             {
                 if (execLEonardMessageOnConnect.Length > 0)
@@ -72,7 +87,11 @@ namespace LEonard
                 InquiryResponse("start");
                 myForm.WriteVariable("gocator_ready", true, true);
                 log.Info("Gocator connection ready");
-                myForm.GocatorAnnounce(LeGocator.Status.OK);
+
+                // Bump up the connected count and set UI focus to this
+                nConnected++;
+                status=Status.OK;
+                myForm.GocatorAnnounce();
             }
             return ret;
         }
@@ -82,7 +101,13 @@ namespace LEonard
             log.Debug("{logPrefix} LeGocator::Disconnect()");
             InquiryResponse("stop");
             myForm.WriteVariable("gocator_ready", false, true);
-            myForm.GocatorAnnounce(LeGocator.Status.OFF);
+            status = Status.OFF;
+            myForm.GocatorAnnounce();
+
+            // Drop the connected count and remove this one from focus if it is not connected
+            nConnected--;
+            if (focusLeGocator == this) focusLeGocator = null;
+
             return base.Disconnect();
         }
 

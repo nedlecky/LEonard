@@ -55,10 +55,6 @@ namespace LEonard
         Microsoft.Scripting.Hosting.ScriptScope pythonScope;
         Protection protection;
 
-        // TODO should be replaced with generic devices interface (in progress below)
-        LeTcpServer focusLeUrCommand = null;
-        LeTcpClient focusLeUrDashboard = null;
-        LeGocator focusLeGocator = null;
         FileManager fileManager = null;
 
         // TODO: This needs to dynamically resize and the code that does it doesn't!!
@@ -106,9 +102,6 @@ namespace LEonard
 
         // System Defaults
         const string DEFAULT_LEonardRoot = "C:\\LEonard";
-        const string DEFAULT_RobotProgramTxt = "LEonard/LEonard01.urp";
-        const string DEFAULT_RobotIpTxt = "192.168.0.2";
-        const string DEFAULT_ServerIpTxt = "192.168.0.252";
         const double maxFontScaleUpPct = 125;
 
         // I/O Defaults
@@ -198,6 +191,11 @@ namespace LEonard
             allFontResizableList = TakeControlInventory(this);
 
             LoadPersistent();
+
+            // Suppress all the optional controls!
+            UrDashboardAnnounce();
+            UrCommandAnnounce();
+            GocatorAnnounce();
 
             splashForm = new SplashForm(this)
             {
@@ -414,8 +412,8 @@ namespace LEonard
                 RecomputeTimes();
 
             // DASHBOARD Handler: Round-robin sending the Dashboard monitoring commands
-            if (focusLeUrDashboard != null)
-                if (!focusLeUrDashboard.IsConnected())
+            if (LeUrDashboard.focusLeUrDashboard != null)
+                if (!LeUrDashboard.focusLeUrDashboard.IsConnected())
                 {
                     RobotConnectBtn.Text = "Dashboard ERROR";
                     RobotConnectBtn.BackColor = Color.Red;
@@ -423,7 +421,7 @@ namespace LEonard
                 else
                 {
                     // Any responses received?
-                    string dashResponse = focusLeUrDashboard.Receive();
+                    string dashResponse = LeUrDashboard.focusLeUrDashboard.Receive();
                     if (dashResponse != null)
                     {
                         log.Trace("DASH received {0}", dashResponse.Replace('\n', ' '));
@@ -482,13 +480,13 @@ namespace LEonard
                     switch (dashboardCycle++)
                     {
                         case 0:
-                            focusLeUrDashboard.Send("robotmode");
-                            focusLeUrDashboard.Send("safetystatus");
+                            LeUrDashboard.focusLeUrDashboard.Send("robotmode");
+                            LeUrDashboard.focusLeUrDashboard.Send("safetystatus");
                             nUnansweredRobotmodeRequests++;
                             nUnansweredSafetystatusRequests++;
                             break;
                         case 1:
-                            focusLeUrDashboard.Send("programstate");
+                            LeUrDashboard.focusLeUrDashboard.Send("programstate");
                             nUnansweredProgramstateRequests++;
                             dashboardCycle = 0;
                             break;
@@ -501,11 +499,11 @@ namespace LEonard
 
             // When the robot connects, get us ready to go!  Or, if it disconnects, put us in WAIT
             bool newRobotReady = false;
-            if (focusLeUrCommand == null)
+            if (LeUrCommand.focusLeUrCommand == null)
                 robotReady = false;
             else
             {
-                if (focusLeUrCommand.IsClientConnected)
+                if (LeUrCommand.focusLeUrCommand.IsClientConnected)
                     newRobotReady = true;
 
                 if (newRobotReady != robotReady)
@@ -514,6 +512,8 @@ namespace LEonard
                     if (robotReady)
                     {
                         log.Info("Changing robot connection to READY");
+                        LeUrCommand.focusLeUrCommand.status = LeUrCommand.Status.OK;
+                        UrCommandAnnounce();
 
                         //log.Error("Hacky time delay.....");
                         //Thread.Sleep(1000);
@@ -558,8 +558,9 @@ namespace LEonard
                     else
                     {
                         log.Info("Change robot connection to WAIT");
-                        RobotCommandStatusLbl.BackColor = Color.Red;
-                        RobotCommandStatusLbl.Text = "WAIT";
+                        LeUrCommand.focusLeUrCommand.status = LeUrCommand.Status.WAITING;
+                        UrCommandAnnounce();
+
                         // Restore all button settings with same current state
                         SetState(runState, true);
                         EnsureNotRunning();
@@ -719,8 +720,8 @@ namespace LEonard
                     // Robot Communication Control
                     RobotConnectBtn.Enabled = true;
                     RobotModeBtn.Enabled = true;
-                    SafetyStatusBtn.Enabled = true;
-                    ProgramStateBtn.Enabled = true;
+                    RobotSafetyStatusBtn.Enabled = true;
+                    RobotProgramStateBtn.Enabled = true;
 
 
                     UserModeBox.Enabled = true;
@@ -759,8 +760,8 @@ namespace LEonard
                     // Robot Communication Control
                     RobotConnectBtn.Enabled = true;
                     RobotModeBtn.Enabled = true;
-                    SafetyStatusBtn.Enabled = true;
-                    ProgramStateBtn.Enabled = true;
+                    RobotSafetyStatusBtn.Enabled = true;
+                    RobotProgramStateBtn.Enabled = true;
 
                     UserModeBox.Enabled = true;
 
@@ -803,8 +804,8 @@ namespace LEonard
                     // Robot Communication Control
                     RobotConnectBtn.Enabled = false;
                     RobotModeBtn.Enabled = false;
-                    SafetyStatusBtn.Enabled = false;
-                    ProgramStateBtn.Enabled = false;
+                    RobotSafetyStatusBtn.Enabled = false;
+                    RobotProgramStateBtn.Enabled = false;
 
                     UserModeBox.Enabled = false;
 
@@ -846,8 +847,8 @@ namespace LEonard
                     // Robot Communication Control
                     RobotConnectBtn.Enabled = true;
                     RobotModeBtn.Enabled = true;
-                    SafetyStatusBtn.Enabled = true;
-                    ProgramStateBtn.Enabled = true;
+                    RobotSafetyStatusBtn.Enabled = true;
+                    RobotProgramStateBtn.Enabled = true;
 
                     UserModeBox.Enabled = false;
 
@@ -920,13 +921,13 @@ namespace LEonard
             if (mountedToolBoxActionDisabled) return;
 
             ToolsGrd.ClearSelection();
-            if (focusLeUrCommand != null)
+            if (LeUrCommand.focusLeUrCommand != null)
                 ExecuteLEScriptLine(-1, $"select_tool({MountedToolBox.Text})");
         }
 
         private void UpdateGeometryToRobot()
         {
-            if (focusLeUrCommand != null)
+            if (LeUrCommand.focusLeUrCommand != null)
             {
                 ExecuteLEScriptLine(-1, String.Format("set_part_geometry_N({0},{1})", PartGeometryBox.SelectedIndex + 1, DiameterLbl.Text));
                 WriteVariable("robot_geometry", String.Format("{0},{1}", PartGeometryBox.SelectedItem, DiameterLbl.Text));
@@ -1110,13 +1111,13 @@ namespace LEonard
             switch (RobotModeBtn.Text)
             {
                 case "Robotmode: RUNNING":
-                    focusLeUrDashboard?.Send("power off");
+                    LeUrDashboard.focusLeUrDashboard?.Send("power off");
                     break;
                 case "Robotmode: IDLE":
-                    focusLeUrDashboard?.Send("brake release");
+                    LeUrDashboard.focusLeUrDashboard?.Send("brake release");
                     break;
                 case "Robotmode: POWER_OFF":
-                    focusLeUrDashboard?.Send("power on");
+                    LeUrDashboard.focusLeUrDashboard?.Send("power on");
                     break;
                 default:
                     log.Error($"Unknown robot mode button state! {RobotModeBtn.Text}");
@@ -1129,10 +1130,10 @@ namespace LEonard
         {
             CloseSafetyPopup();
             // Note the _ in the return values have been removed!
-            switch (SafetyStatusBtn.Text)
+            switch (RobotSafetyStatusBtn.Text)
             {
                 case "Safetystatus: NORMAL":
-                    focusLeUrDashboard?.Send("power off");
+                    LeUrDashboard.focusLeUrDashboard?.Send("power off");
                     break;
                 case "Safetystatus: PROTECTIVE STOP":
                     UrDashboardInquiryResponse("unlock protective stop", 200);
@@ -1144,8 +1145,8 @@ namespace LEonard
                     UrDashboardInquiryResponse("close safety popup", 200);
                     break;
                 default:
-                    log.Error("Unknown safety status button state! {0}", SafetyStatusBtn.Text);
-                    ErrorMessageBox(String.Format("Unsure how to recover from {0}", SafetyStatusBtn.Text));
+                    log.Error("Unknown safety status button state! {0}", RobotSafetyStatusBtn.Text);
+                    ErrorMessageBox(String.Format("Unsure how to recover from {0}", RobotSafetyStatusBtn.Text));
                     break;
             }
         }
@@ -1217,7 +1218,7 @@ namespace LEonard
 
             // Gocator
             // TODO this needs to be generalized
-            focusLeGocator?.PrepareToRun();
+            LeGocator.focusLeGocator?.PrepareToRun();
 
             SetCurrentLine(0);
             bool goodLabels = BuildLabelTable();
@@ -1818,7 +1819,7 @@ namespace LEonard
 
             // Save currently mounted tool and tools table
             AppNameKey.SetValue("MountedToolBox.Text", MountedToolBox.Text);
-            SaveToolsBtn_Click(null, null);
+            SaveTools();
 
             // Save the positions table
             SavePositions();
@@ -2382,12 +2383,10 @@ namespace LEonard
                     interfaces[ID] = robot;
                     break;
                 case "UrCommand":
-                    LeUrCommand command = new LeUrCommand(this, messageTag, onConnectExec);
-                    interfaces[ID] = command;
+                    interfaces[ID]= new LeUrCommand(this, messageTag, onConnectExec);
                     break;
                 case "Gocator":
-                    LeGocator gocator = new LeGocator(this, messageTag, onConnectExec);
-                    interfaces[ID] = gocator;
+                    interfaces[ID]= new LeGocator(this, messageTag, onConnectExec);
                     break;
                 case "Serial":
                     interfaces[ID] = new LeSerial(this, messageTag, onConnectExec);
@@ -2445,32 +2444,9 @@ namespace LEonard
             switch (deviceType)
             {
                 case "UrDashboard":
-                    LeUrDashboard robot = (LeUrDashboard)interfaces[ID];
-
-                    if (focusLeUrDashboard == null)
-                    {
-                        log.Info($"Setting focusLeUrDashboard to {name} in row {currentDeviceRowIndex}");
-                        focusLeUrDashboard = robot;
-                    }
                     row["Model"] = UrDashboardInquiryResponse("get robot model", 200);
                     row["Serial"] = UrDashboardInquiryResponse("get serial number", 200);
                     row["Version"] = UrDashboardInquiryResponse("PolyscopeVersion", 200);
-                    break;
-                case "UrCommand":
-                    LeUrCommand command = (LeUrCommand)interfaces[ID];
-                    if (focusLeUrCommand == null)
-                    {
-                        log.Info($"Setting focusLeUrCommand to {name} in row {currentDeviceRowIndex}");
-                        focusLeUrCommand = command;
-                    }
-                    break;
-                case "Gocator":
-                    LeGocator gocator = (LeGocator)interfaces[ID];
-                    if (focusLeGocator == null)
-                    {
-                        log.Info($"Setting focusGocator to {name} in row {currentDeviceRowIndex}");
-                        focusLeGocator = gocator;
-                    }
                     break;
             }
 
@@ -2514,12 +2490,6 @@ namespace LEonard
                         }
 
                 interfaces[ID].Disconnect();
-
-                // Clear out any focus devices
-                if (focusLeUrDashboard == interfaces[ID]) focusLeUrDashboard = null;
-                if (focusLeUrCommand == interfaces[ID]) focusLeUrCommand = null;
-                if (focusLeGocator == interfaces[ID]) focusLeGocator = null;
-
                 interfaces[ID] = null;
                 GC.Collect();
             }
@@ -3330,12 +3300,17 @@ namespace LEonard
         }
 
 
-        private void SaveToolsBtn_Click(object sender, EventArgs e)
+        private void SaveTools()
         {
             string filename = Path.Combine(LEonardRoot, DatabaseFolder, toolsFilename);
-            log.Info("SaveTools to {0}", filename);
-            tools.AcceptChanges();
+            log.Info($"SaveTools to {filename}");
             tools.WriteXml(filename, XmlWriteMode.WriteSchema, true);
+        }
+
+        private void SaveToolsBtn_Click(object sender, EventArgs e)
+        {
+            tools.AcceptChanges();
+            SaveTools();
             RefreshMountedToolBox(MountedToolBox.SelectedIndex);
         }
 
@@ -4491,13 +4466,13 @@ namespace LEonard
             // Wait UR stopped
             if (waitUrStopped)
             {
-                if (focusLeUrDashboard == null)
+                if (LeUrDashboard.focusLeUrDashboard == null)
                 {
                     waitUrStopped = false;
                 }
                 else
                 {
-                    if (focusLeUrDashboard.InquiryResponse("programstate", 200).StartsWith("STOP"))
+                    if (LeUrDashboard.focusLeUrDashboard.InquiryResponse("programstate", 200).StartsWith("STOP"))
                     {
                         waitUrStopped = false;
                     }
@@ -5556,14 +5531,14 @@ namespace LEonard
             // gocator_send
             if (command.StartsWith("gocator_send("))
             {
-                if (focusLeGocator == null)
+                if (LeGocator.focusLeGocator == null)
                 {
                     ExecError("No Gocator selected");
                     return true;
                 }
 
                 LogInterpret("gocator_send", lineNumber, origLine);
-                focusLeGocator?.Send(ExtractParameters(command, -1, false));
+                LeGocator.focusLeGocator?.Send(ExtractParameters(command, -1, false));
                 return true;
             }
 
@@ -5571,7 +5546,7 @@ namespace LEonard
             if (command.StartsWith("gocator_trigger("))
             {
                 LogInterpret("gocator_trigger", lineNumber, origLine);
-                if (focusLeGocator == null)
+                if (LeGocator.focusLeGocator == null)
                 {
                     ExecError("No Gocator selected");
                     return true;
@@ -5580,7 +5555,7 @@ namespace LEonard
                 int preDelay_ms;
                 if (ExtractIntParameter(command, out preDelay_ms))
                 {
-                    focusLeGocator?.Trigger(preDelay_ms);
+                    LeGocator.focusLeGocator?.Trigger(preDelay_ms);
                     GocatorReadyLbl.BackColor = ColorFromBooleanName("False");
                     GocatorReadyLbl.Refresh();
                 }
@@ -5592,7 +5567,7 @@ namespace LEonard
             if (command.StartsWith("gocator_adjust("))
             {
                 LogInterpret("gocator_adjust", lineNumber, origLine);
-                if (focusLeGocator == null)
+                if (LeGocator.focusLeGocator == null)
                 {
                     ExecError("No Gocator selected");
                     return true;
@@ -6778,30 +6753,49 @@ namespace LEonard
         int nUnansweredSafetystatusRequests = 0;
         int nUnansweredProgramstateRequests = 0;
 
-        public void UrDashboardAnnounce(LeUrDashboard.DashboardStatus status)
+        public void UrDashboardAnnounce()
         {
+            if (LeUrDashboard.nInstances < 1)
+            {
+                RobotConnectBtn.Visible = false;
+                RobotModeBtn.Visible = false;
+                RobotSafetyStatusBtn.Visible = false;
+                RobotProgramStateBtn.Visible = false;
+                return;
+            }
+            else
+            {
+                RobotConnectBtn.Visible = true;
+                RobotModeBtn.Visible = true;
+                RobotSafetyStatusBtn.Visible = true;
+                RobotProgramStateBtn.Visible = true;
+            }
+
+            LeUrDashboard.Status status = LeUrDashboard.Status.ERROR;
+            if (LeUrDashboard.focusLeUrDashboard != null)
+                status = LeUrDashboard.focusLeUrDashboard.status;
             switch (status)
             {
-                case LeUrDashboard.DashboardStatus.OK:
+                case LeUrDashboard.Status.OK:
                     RobotConnectBtn.BackColor = Color.Green;
                     RobotConnectBtn.Text = "Dashboard OK";
 
                     CloseSafetyPopup();
 
                     break;
-                case LeUrDashboard.DashboardStatus.ERROR:
+                case LeUrDashboard.Status.ERROR:
                     RobotConnectBtn.BackColor = Color.Red;
                     RobotConnectBtn.Text = "Dashboard ERROR";
                     break;
-                case LeUrDashboard.DashboardStatus.OFF:
+                case LeUrDashboard.Status.OFF:
                     RobotConnectBtn.BackColor = Color.Red;
                     RobotConnectBtn.Text = "OFF";
                     RobotModeBtn.BackColor = Color.Red;
-                    SafetyStatusBtn.BackColor = Color.Red;
-                    ProgramStateBtn.BackColor = Color.Red;
+                    RobotSafetyStatusBtn.BackColor = Color.Red;
+                    RobotProgramStateBtn.BackColor = Color.Red;
                     RobotModeBtn.Text = "";
-                    SafetyStatusBtn.Text = "";
-                    ProgramStateBtn.Text = "";
+                    RobotSafetyStatusBtn.Text = "";
+                    RobotProgramStateBtn.Text = "";
                     break;
                 default:
                     RobotConnectBtn.BackColor = Color.Yellow;
@@ -6809,30 +6803,68 @@ namespace LEonard
                     break;
             }
         }
-        public void UrCommandAnnounce(LeUrCommand.CommandStatus status)
+        public void UrCommandAnnounce()
         {
+            if (LeUrDashboard.nInstances < 1)
+            {
+                RobotCommandStatusLbl.Visible = false;
+                RobotReadyLbl.Visible = false;
+                GrindReadyLbl.Visible = false;
+                GrindProcessStateLbl.Visible = false;
+                RobotSentLbl.Visible = false;
+                RobotCompletedLbl.Visible = false;
+                return;
+            }
+            else
+            {
+                RobotCommandStatusLbl.Visible = true;
+                RobotReadyLbl.Visible = true;
+                GrindReadyLbl.Visible = true;
+                GrindProcessStateLbl.Visible = true;
+                RobotSentLbl.Visible = true;
+                RobotCompletedLbl.Visible = true;
+            }
+
+            LeUrCommand.Status status = LeUrCommand.Status.ERROR;
+            if(LeUrCommand.focusLeUrCommand!=null)
+                status = LeUrCommand.focusLeUrCommand.status;
             switch (status)
             {
-                case LeUrCommand.CommandStatus.OK:
+                case LeUrCommand.Status.OK:
                     RobotCommandStatusLbl.Text = "READY";
                     RobotCommandStatusLbl.BackColor = Color.Green;
                     RobotReadyLbl.BackColor = Color.Green;
                     GrindReadyLbl.BackColor = Color.Green;
                     GrindProcessStateLbl.BackColor = Color.Green;
+                    RobotSentLbl.BackColor = Color.Green;
+                    RobotCompletedLbl.BackColor = Color.Yellow;
                     break;
-                case LeUrCommand.CommandStatus.ERROR:
-                    RobotCommandStatusLbl.Text = "ERROR";
+                case LeUrCommand.Status.WAITING:
+                    RobotCommandStatusLbl.Text = "WAIT";
                     RobotCommandStatusLbl.BackColor = Color.Red;
                     RobotReadyLbl.BackColor = Color.Red;
                     GrindReadyLbl.BackColor = Color.Red;
                     GrindProcessStateLbl.BackColor = Color.Red;
+                    RobotSentLbl.BackColor = Color.Red;
+                    RobotCompletedLbl.BackColor = Color.Red;
                     break;
-                case LeUrCommand.CommandStatus.OFF:
+                case LeUrCommand.Status.ERROR:
+                    RobotCommandStatusLbl.Text = "ERROR";
+                    RobotCommandStatusLbl.BackColor = Color.Red;
+                    RobotReadyLbl.BackColor = Color.Red;
+                    GrindReadyLbl.BackColor = Color.Red;
+                    RobotSentLbl.BackColor = Color.Red;
+                    RobotCompletedLbl.BackColor = Color.Red;
+                    GrindProcessStateLbl.BackColor = Color.Red;
+                    break;
+                case LeUrCommand.Status.OFF:
                     RobotCommandStatusLbl.Text = "OFF";
                     RobotCommandStatusLbl.BackColor = Color.Red;
                     RobotReadyLbl.BackColor = Color.Red;
                     GrindReadyLbl.BackColor = Color.Red;
                     GrindProcessStateLbl.BackColor = Color.Red;
+                    RobotSentLbl.BackColor = Color.Red;
+                    RobotCompletedLbl.BackColor = Color.Red;
                     break;
                 default:
                     RobotCommandStatusLbl.Text = "???";
@@ -6840,12 +6872,14 @@ namespace LEonard
                     RobotReadyLbl.BackColor = Color.Yellow;
                     GrindReadyLbl.BackColor = Color.Yellow;
                     GrindProcessStateLbl.BackColor = Color.Yellow;
+                    RobotSentLbl.BackColor = Color.Yellow;
+                    RobotCompletedLbl.BackColor = Color.Yellow;
                     break;
             }
         }
         private string UrDashboardInquiryResponse(string inquiry, int timeoutMs = 200)
         {
-            string response = focusLeUrDashboard?.InquiryResponse(inquiry, timeoutMs);
+            string response = LeUrDashboard.focusLeUrDashboard?.InquiryResponse(inquiry, timeoutMs);
             log.Info($"UrDashboardInquiryResponse({inquiry}) = {response}");
             return response;
         }
@@ -6923,8 +6957,8 @@ namespace LEonard
                     color = Color.Red;
                     break;
             }
-            SafetyStatusBtn.Text = buttonText.Replace('_', ' ');
-            SafetyStatusBtn.BackColor = color;
+            RobotSafetyStatusBtn.Text = buttonText.Replace('_', ' ');
+            RobotSafetyStatusBtn.BackColor = color;
         }
 
         // Is the supplied string a valid response to Dashboard programstate command?
@@ -6991,8 +7025,8 @@ namespace LEonard
                     color = Color.Red;
                     break;
             }
-            ProgramStateBtn.Text = buttonText;
-            ProgramStateBtn.BackColor = color;
+            RobotProgramStateBtn.Text = buttonText;
+            RobotProgramStateBtn.BackColor = color;
         }
 
         private void CloseSafetyPopup()
@@ -7003,24 +7037,24 @@ namespace LEonard
 
         public void RobotSendHalt()
         {
-            focusLeUrCommand?.Send("(999)");
+            LeUrCommand.focusLeUrCommand?.Send("(999)");
         }
         int robotSendIndex = 100;
         // Command is a 0-n element comma-separated list "x,y,z" of doubles
         // We send (index,x,y,z)
         public bool RobotSend(string command)
         {
-            if (focusLeUrCommand == null)
+            if (LeUrCommand.focusLeUrCommand == null)
             {
                 ErrorMessageBox($"RobotSend({command}) failed. focusLeUrCommand is null.");
                 return false;
             }
-            if (!focusLeUrCommand.IsClientConnected)
+            if (!LeUrCommand.focusLeUrCommand.IsClientConnected)
             {
                 ErrorMessageBox($"RobotSend({command}) failed. focusLeUrCommand is not connected.");
                 return false;
             }
-            if (!ProgramStateBtn.Text.StartsWith("PLAYING"))
+            if (!RobotProgramStateBtn.Text.StartsWith("PLAYING"))
             {
                 ErrorMessageBox($"RobotSend({command}) failed. Program not running.");
                 return false;
@@ -7040,7 +7074,7 @@ namespace LEonard
             int checkValue = 1000 - robotSendIndex;
             string sendMessage = string.Format("({0},{1},{2})", robotSendIndex, checkValue, command);
             log.Info($"UR==> EXEC RobotSend{sendMessage}");
-            focusLeUrCommand.Send(sendMessage);
+            LeUrCommand.focusLeUrCommand.Send(sendMessage);
             return true;
         }
         private void SetLinearSpeedBtn_Click(object sender, EventArgs e)
@@ -7387,11 +7421,11 @@ namespace LEonard
                 SetState(RunState.READY);
             }
 
-            if (focusLeUrCommand?.IsConnected() == true)
+            if (LeUrCommand.focusLeUrCommand?.IsConnected() == true)
             {
-                if (ProgramStateBtn.Text.StartsWith("PLAYING")) RobotSend("98");
-                focusLeUrCommand.Disconnect();
-                focusLeUrCommand = null;
+                if (RobotProgramStateBtn.Text.StartsWith("PLAYING")) RobotSend("98");
+                LeUrCommand.focusLeUrCommand.Disconnect();
+                LeUrCommand.focusLeUrCommand = null;
             }
             RobotCommandStatusLbl.BackColor = Color.Red;
             RobotCommandStatusLbl.Text = "OFF";
@@ -7400,10 +7434,10 @@ namespace LEonard
         private void ProgramStateBtn_Click(object sender, EventArgs e)
         {
             CloseSafetyPopup();
-            if (ProgramStateBtn.Text.StartsWith("PLAYING"))
+            if (RobotProgramStateBtn.Text.StartsWith("PLAYING"))
             {
                 RobotSend("99");
-                focusLeUrDashboard?.Send("stop");
+                LeUrDashboard.focusLeUrDashboard?.Send("stop");
                 RobotCommandStatusLbl.BackColor = Color.Red;
                 RobotCommandStatusLbl.Text = "OFF";
                 RobotReadyLbl.BackColor = Color.Red;
@@ -7413,14 +7447,29 @@ namespace LEonard
             }
             else
             {
-                focusLeUrDashboard?.Send("play");
+                LeUrDashboard.focusLeUrDashboard?.Send("play");
             }
         }
         #endregion ===== UR INTERFACE CODE                 ==============================================================================================================================
 
         #region ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
-        public void GocatorAnnounce(LeGocator.Status status)
+        public void GocatorAnnounce()
         {
+            if(LeGocator.nInstances<1)
+            {
+                GocatorConnectedLbl.Visible = false;
+                GocatorReadyLbl.Visible = false;
+                return;
+            }
+            else
+            {
+                GocatorConnectedLbl.Visible = true;
+                GocatorReadyLbl.Visible = true;
+            }
+
+            LeGocator.Status status = LeGocator.Status.ERROR;
+            if (LeGocator.focusLeGocator != null)
+                status = LeGocator.focusLeGocator.status;
             switch (status)
             {
                 case LeGocator.Status.OK:
