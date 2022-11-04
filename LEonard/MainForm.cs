@@ -1949,7 +1949,7 @@ namespace LEonard
         {
             devices.Rows.Add(new object[] {
                 0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
-                "AUXC", "command",
+                "A.CTL", "command",
                 "", "<CR>", "<LF>", "#",
                 "JE:leSend('me','Hello!')", "JE:leSend('me','exit')",
                 true,
@@ -1965,7 +1965,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 1, "UR-5eDash", true, false, "UrDashboard", "192.168.0.2:29999",
-                "ROBD", "",
+                "R.Dash", "",
                 "", "<CR>", "<LF>", "",
                 "", "",
                 false,
@@ -1981,7 +1981,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 2, "UR-5eCommand", true, false, "UrCommand", "192.168.0.252:30000",
-                "ROBC", "general",
+                "R.Cmd", "general",
                 "", "<CR>", "<LF>", "#",
                 "", "JE:leSend('me','999')",
                 false,
@@ -1997,7 +1997,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 3, "Gocator", true, false, "Gocator", "192.168.0.3:8190",
-                "AUXG", "gocator",
+                "A.GO", "gocator",
                 "", "<CR>", "<LF>", "#",
                 "", "",
                 false,
@@ -2013,7 +2013,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 4, "GocatorAcc", false, false, "Gocator", "192.168.0.252:8190",
-                "AUXG", "gocator",
+                "A.GO", "gocator",
                 "", "<CR>", "<LF>", "#",
                 "", "",
                 false,
@@ -2029,7 +2029,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 5, "Sherlock", false, false, "TcpServer", "127.0.0.1:20000",
-                "AUX2S", "general",
+                "A.SH", "general",
                 "", "<CR>", "<LF>", "#",
                 "init()", "",
                 false,
@@ -2045,7 +2045,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 6, "HALCON", false, false, "TcpClient", "127.0.0.1:21000",
-                "AUX2H", "general",
+                "A.HA", "general",
                 "", "<CR>", "<LF>", "#",
                 "init()", "",
                 true,
@@ -2077,7 +2077,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 8, "Dataman1", true, false, "Serial", "COM3",
-                "AUXDM1", "general",
+                "A.DM1", "general",
                 "", "", "<CR>", "#",
                 "LE:leSend(me,+)", "",
                 false,
@@ -2093,9 +2093,9 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 9, "Dataman2", true, false, "Serial", "COM4",
-                "AUXDM2", "general",
+                "A.DM2", "general",
                 "", "", "<CR>", "#",
-                "+", "",
+                "LE:leSend(me,+)", "",
                 false,
                 "",
                 "",
@@ -2125,7 +2125,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 11, "FS40 Control", true, false, "TcpClient", "192.168.0.41:107",
-                "AUXZC", "general",
+                "A.FS40.C", "general",
                 "", "<CR><LF>", "<LF>", "",
                 "", "",
                 false,
@@ -2141,7 +2141,7 @@ namespace LEonard
             });
             devices.Rows.Add(new object[] {
                 12, "FS40 Results", true, false, "TcpClient", "192.168.0.41:25250",
-                "AUXZR", "general",
+                "A.FS40.R", "general",
                 "", "<CR><LF>", "<LF>", "#",
                 "", "",
                 false,
@@ -2485,14 +2485,7 @@ namespace LEonard
                 string execLEonardMessageOnDisconnect = (string)row["OnDisconnectExec"];
                 if (execLEonardMessageOnDisconnect.Length > 0)
                     if (!ExecuteLEonardStatement((string)row["MessageTag"], execLEonardMessageOnDisconnect, (interfaces[ID])))
-                        try
-                        {
-                            interfaces[ID].Send(execLEonardMessageOnDisconnect);
-                        }
-                        catch
-                        {
-
-                        }
+                        log.Error($"DeviceDisconnect cannot execute OnDisconnectExec {execLEonardMessageOnDisconnect}");
 
                 interfaces[ID].Disconnect();
                 interfaces[ID] = null;

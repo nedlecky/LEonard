@@ -75,7 +75,7 @@ namespace LEonard
 
             if (execLEonardMessageOnConnect.Length > 0)
                 if (!myForm.ExecuteLEonardStatement(logPrefix, execLEonardMessageOnConnect, this))
-                    Send(execLEonardMessageOnConnect);
+                    return 1;
 
             // TODO all the below could be in this onConnectExec
             string closeSafetyPopupResponse = InquiryResponse("close safety popup", 1000);

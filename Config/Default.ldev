@@ -51,7 +51,7 @@
     <Connected>false</Connected>
     <DeviceType>TcpServer</DeviceType>
     <Address>127.0.0.1:1000</Address>
-    <MessageTag>AUXC</MessageTag>
+    <MessageTag>A.CTL</MessageTag>
     <CallBack>command</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -79,7 +79,7 @@
     <Connected>false</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
-    <MessageTag>ROBD</MessageTag>
+    <MessageTag>R.Dash</MessageTag>
     <CallBack />
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -107,7 +107,7 @@
     <Connected>false</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>
-    <MessageTag>ROBC</MessageTag>
+    <MessageTag>R.Cmd</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -135,7 +135,7 @@
     <Connected>false</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
-    <MessageTag>AUXG</MessageTag>
+    <MessageTag>A.GO</MessageTag>
     <CallBack>gocator</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -163,7 +163,7 @@
     <Connected>false</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.252:8190</Address>
-    <MessageTag>AUXG</MessageTag>
+    <MessageTag>A.GO</MessageTag>
     <CallBack>gocator</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -191,7 +191,7 @@
     <Connected>false</Connected>
     <DeviceType>TcpServer</DeviceType>
     <Address>127.0.0.1:20000</Address>
-    <MessageTag>AUX2S</MessageTag>
+    <MessageTag>A.SH</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -219,7 +219,7 @@
     <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>127.0.0.1:21000</Address>
-    <MessageTag>AUX2H</MessageTag>
+    <MessageTag>A.HA</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -275,7 +275,7 @@
     <Connected>false</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
-    <MessageTag>AUXDM1</MessageTag>
+    <MessageTag>A.DM1</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix />
@@ -303,7 +303,7 @@
     <Connected>false</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM4</Address>
-    <MessageTag>AUXDM2</MessageTag>
+    <MessageTag>A.DM2</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix />
@@ -359,7 +359,7 @@
     <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:107</Address>
-    <MessageTag>AUXZC</MessageTag>
+    <MessageTag>A.FS40.C</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;&lt;LF&gt;</TxSuffix>
@@ -387,7 +387,7 @@
     <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:25250</Address>
-    <MessageTag>AUXZR</MessageTag>
+    <MessageTag>A.FS40.R</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;&lt;LF&gt;</TxSuffix>

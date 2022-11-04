@@ -71,7 +71,7 @@ namespace LEonard
             {
                 if (execLEonardMessageOnConnect.Length > 0)
                     if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
-                        Send(execLEonardMessageOnConnect);
+                        return 1;
 
                 // TODO all the below init should be in onConnectExec
                 InquiryResponse("stop");

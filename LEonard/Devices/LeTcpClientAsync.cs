@@ -115,7 +115,7 @@ namespace LEonard
 
             if (execLEonardMessageOnConnect.Length > 0)
                 if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
-                    Send(execLEonardMessageOnConnect);
+                    return 1;
 
             return 0;
         }

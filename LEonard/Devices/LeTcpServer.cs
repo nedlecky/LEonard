@@ -112,11 +112,11 @@ namespace LEonard
 
                         if (execLEonardMessageOnConnect.Length > 0)
                             if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
-                                Send(execLEonardMessageOnConnect);
+                                log.Error($"{logPrefix} Client connected but bad exec: {execLEonardMessageOnConnect}");
                     }
                     catch
                     {
-                        log.Error("{0} Client connection error", logPrefix);
+                        log.Error($"{logPrefix} Client connection error");
                     }
                 }
             }
