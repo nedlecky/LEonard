@@ -1597,7 +1597,7 @@ namespace LEonard
         {
 
             log.Info("BigEditBtn_Click(...)");
-            BigEditDialog bigeditForm = new BigEditDialog()
+            BigEditDialog bigeditForm = new BigEditDialog(this)
             {
                 Title = LEScriptFilenameLbl.Text,
                 ScreenWidth = Width,

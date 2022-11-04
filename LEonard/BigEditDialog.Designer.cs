@@ -45,12 +45,12 @@
             this.KeepBtn.BackColor = System.Drawing.Color.Green;
             this.KeepBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.KeepBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.KeepBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KeepBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeepBtn.ForeColor = System.Drawing.Color.White;
-            this.KeepBtn.Location = new System.Drawing.Point(220, 2);
+            this.KeepBtn.Location = new System.Drawing.Point(165, 2);
             this.KeepBtn.Margin = new System.Windows.Forms.Padding(2);
             this.KeepBtn.Name = "KeepBtn";
-            this.KeepBtn.Size = new System.Drawing.Size(214, 130);
+            this.KeepBtn.Size = new System.Drawing.Size(159, 123);
             this.KeepBtn.TabIndex = 8;
             this.KeepBtn.Text = "&Keep\r\nEdits";
             this.KeepBtn.UseVisualStyleBackColor = false;
@@ -61,12 +61,12 @@
             this.CancelBtn.BackColor = System.Drawing.Color.Green;
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.ForeColor = System.Drawing.Color.White;
-            this.CancelBtn.Location = new System.Drawing.Point(438, 2);
+            this.CancelBtn.Location = new System.Drawing.Point(328, 2);
             this.CancelBtn.Margin = new System.Windows.Forms.Padding(2);
             this.CancelBtn.Name = "CancelBtn";
-            this.CancelBtn.Size = new System.Drawing.Size(216, 130);
+            this.CancelBtn.Size = new System.Drawing.Size(159, 123);
             this.CancelBtn.TabIndex = 7;
             this.CancelBtn.Text = "&Cancel";
             this.CancelBtn.UseVisualStyleBackColor = false;
@@ -78,7 +78,8 @@
             this.ProgramRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProgramRTB.Location = new System.Drawing.Point(3, 3);
             this.ProgramRTB.Name = "ProgramRTB";
-            this.ProgramRTB.Size = new System.Drawing.Size(1318, 863);
+            this.MainTableLayoutPanel.SetRowSpan(this.ProgramRTB, 2);
+            this.ProgramRTB.Size = new System.Drawing.Size(983, 955);
             this.ProgramRTB.TabIndex = 9;
             this.ProgramRTB.Text = "";
             // 
@@ -86,10 +87,10 @@
             // 
             this.ProgramStatementsRTB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ProgramStatementsRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProgramStatementsRTB.Location = new System.Drawing.Point(1327, 3);
+            this.ProgramStatementsRTB.Location = new System.Drawing.Point(992, 3);
             this.ProgramStatementsRTB.Name = "ProgramStatementsRTB";
             this.ProgramStatementsRTB.ReadOnly = true;
-            this.ProgramStatementsRTB.Size = new System.Drawing.Size(656, 863);
+            this.ProgramStatementsRTB.Size = new System.Drawing.Size(489, 822);
             this.ProgramStatementsRTB.TabIndex = 10;
             this.ProgramStatementsRTB.Text = "";
             // 
@@ -97,12 +98,12 @@
             // 
             this.ReloadBtn.BackColor = System.Drawing.Color.Green;
             this.ReloadBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ReloadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReloadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReloadBtn.ForeColor = System.Drawing.Color.White;
             this.ReloadBtn.Location = new System.Drawing.Point(2, 2);
             this.ReloadBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ReloadBtn.Name = "ReloadBtn";
-            this.ReloadBtn.Size = new System.Drawing.Size(214, 130);
+            this.ReloadBtn.Size = new System.Drawing.Size(159, 123);
             this.ReloadBtn.TabIndex = 11;
             this.ReloadBtn.Text = "&Abandon\r\nEdits";
             this.ReloadBtn.UseVisualStyleBackColor = false;
@@ -133,7 +134,7 @@
             this.MainTableLayoutPanel.RowCount = 2;
             this.MainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.20689F));
             this.MainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.7931F));
-            this.MainTableLayoutPanel.Size = new System.Drawing.Size(1986, 1009);
+            this.MainTableLayoutPanel.Size = new System.Drawing.Size(1484, 961);
             this.MainTableLayoutPanel.TabIndex = 13;
             // 
             // ButtonTableLayoutPanel
@@ -146,24 +147,26 @@
             this.ButtonTableLayoutPanel.Controls.Add(this.KeepBtn, 1, 0);
             this.ButtonTableLayoutPanel.Controls.Add(this.CancelBtn, 2, 0);
             this.ButtonTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ButtonTableLayoutPanel.Location = new System.Drawing.Point(1327, 872);
+            this.ButtonTableLayoutPanel.Location = new System.Drawing.Point(992, 831);
             this.ButtonTableLayoutPanel.Name = "ButtonTableLayoutPanel";
             this.ButtonTableLayoutPanel.RowCount = 1;
             this.ButtonTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ButtonTableLayoutPanel.Size = new System.Drawing.Size(656, 134);
+            this.ButtonTableLayoutPanel.Size = new System.Drawing.Size(489, 127);
             this.ButtonTableLayoutPanel.TabIndex = 11;
             // 
             // BigEditDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1986, 1009);
+            this.ClientSize = new System.Drawing.Size(1484, 961);
             this.ControlBox = false;
             this.Controls.Add(this.MainTableLayoutPanel);
             this.Controls.Add(this.FilenameLbl);
             this.Name = "BigEditDialog";
             this.Text = "BigEditDialog";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BigEditDialog_FormClosing);
             this.Load += new System.EventHandler(this.BigEditDialog_Load);
+            this.Resize += new System.EventHandler(this.BigEditDialog_Resize);
             this.MainTableLayoutPanel.ResumeLayout(false);
             this.ButtonTableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
