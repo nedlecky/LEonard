@@ -14,9 +14,8 @@ using System.Threading.Tasks;
 
 namespace LEonard
 {
-    public class LeGocator : LeTcpClient
+    public class LeGocator : LeTcpClient, LeDeviceInterface
     {
-        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         public static int nInstances = 0;
         public static int nConnected = 0;
         public static LeGocator uiFocusInstance = null;

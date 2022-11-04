@@ -18,7 +18,6 @@ namespace LEonard
 {
     public class LeUrDashboard : LeTcpClient
     {
-        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         public static int nInstances = 0;
         public static int nConnected = 0;
         public static LeUrDashboard uiFocusInstance = null;
@@ -127,6 +126,8 @@ namespace LEonard
 
         public override int Disconnect()
         {
+            log.Debug($"{logPrefix} LeUrDashboard::Disconnect()");
+
             myForm.WriteVariable("robot_ready", false, true);
 
             if (IsConnected())
@@ -136,6 +137,10 @@ namespace LEonard
             }
             status = Status.OFF;
             myForm.UrDashboardAnnounce();
+
+            // Drop the connected count and remove this one from focus if it is not connected
+            nConnected--;
+            if (uiFocusInstance == this) uiFocusInstance = null;
 
             return base.Disconnect();
         }

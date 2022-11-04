@@ -19,13 +19,12 @@ namespace LEonard
 {
     public class LeTcpClient : LeDeviceBase, LeDeviceInterface
     {
-        TcpClient client;
-        NetworkStream stream;
+        TcpClient client = null;
+        NetworkStream stream = null;
         string myIp;
         string myPort;
         const int inputBufferLen = 128000;
         byte[] inputBuffer = new byte[inputBufferLen];
-        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public Action<string, string, LeDeviceInterface> receiveCallback { get; set; }
         private bool fConnected = false;
@@ -39,20 +38,13 @@ namespace LEonard
             log.Debug($"{logPrefix} ~LeTcpClient()");
             inputBuffer = null;
         }
-        public virtual int Connect(string IPport)
-        {
-            string[] s = IPport.Split(':');
-            int ret = Connect(s[0], s[1]);
-            fConnected = (ret == 0);
-            return ret;
-        }
-        public virtual int Connect(string IP, string port)
+        public override int Connect(string IP, string port)
         {
             fConnected = false;
             myIp = IP;
             myPort = port;
 
-            log.Info("{0} Connect({1}, {2})", logPrefix, myIp, myPort);
+            log.Info("{0} LeTcpClient::Connect({1}, {2})", logPrefix, myIp, myPort);
             if (client != null) Disconnect();
 
             try
@@ -96,19 +88,20 @@ namespace LEonard
                 if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
                     return 1;
 
-            return 0;
+            return base.Connect(IP, port);
         }
         public virtual bool IsConnected()
         {
             return fConnected;
         }
 
-        public virtual int Disconnect()
+        public override int Disconnect()
         {
-            log.Info("{0} Disconnect()", logPrefix);
+            log.Info("{0} LeTcpClient::Disconnect()", logPrefix);
 
             if (stream != null)
             {
+                stream.Flush();
                 stream.Close();
                 stream = null;
             }
@@ -118,7 +111,7 @@ namespace LEonard
                 client = null;
             }
             fConnected = false;
-            return 0;
+            return base.Disconnect(); ;
         }
 
         int sendErrorCount = 0;

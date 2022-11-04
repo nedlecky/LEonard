@@ -256,7 +256,7 @@ namespace LEonardClient
         Random rand = new Random();
         private void InitTmr_Tick(object sender, EventArgs e)
         {
-            ConnectBtn_Click(null, null);
+            //ConnectBtn_Click(null, null);
             InitTmr.Enabled = false;
         }
         private void MessageTmr_Tick(object sender, EventArgs e)

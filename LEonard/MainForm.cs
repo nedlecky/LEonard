@@ -2319,6 +2319,15 @@ namespace LEonard
                     DeviceDisconnect(row);
                 }
             }
+
+            // Make sure everything is emptied and Disposed!
+            LeDeviceBase.currentDevice = null;
+            LeGocator.currentDevice = null;
+            LeUrDashboard.currentDevice = null;
+            LeUrCommand.currentDevice = null;
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private string CharacterParser(string str)
         {
@@ -2326,9 +2335,6 @@ namespace LEonard
             retString = Regex.Replace(retString, "<LF>", "\u000A");
             retString = Regex.Replace(retString, "<CR>", "\u000D");
             retString = Regex.Replace(retString, "<CRLF>", "\u000D\u000A");
-
-            log.Info($"CharacterParser {str} ==> {retString}");
-
             return retString;
         }
         private int DeviceConnect(DataRow row)
@@ -2440,7 +2446,7 @@ namespace LEonard
                 interfaces[ID].Disconnect();
                 interfaces[ID] = null;
                 GC.Collect();
-                GC.WaitForFullGCComplete();
+                GC.WaitForPendingFinalizers();
                 return 4;
             }
             row["Connected"] = true;
@@ -2489,6 +2495,8 @@ namespace LEonard
 
                 interfaces[ID].Disconnect();
                 interfaces[ID] = null;
+                if (LeDeviceBase.currentDevice == this)
+                    LeDeviceBase.currentDevice = null;
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
 
@@ -5497,8 +5505,13 @@ namespace LEonard
                     string[] values = str.Split(',');
                     string devName = values[0];
                     string message = values[1];
-                    if (devName == "me" && dev != null)
-                        dev.Send(message);
+                    if (devName == "me")
+                    {
+                        if (dev != null)
+                            dev.Send(message);
+                        else
+                            ExecError($"leSend({devName}, {message}) me is not defined");
+                    }
                     else if (!leSend(devName, message))
                         ExecError($"leSend({devName}, {message}) Failed");
                 }
@@ -6079,12 +6092,15 @@ namespace LEonard
             LEonardLanguage = (LEonardLanguages)language;
             return true;
         }
-        LeDeviceInterface currentDevice = null;
+        //LeDeviceInterface currentDevice = null;
         public bool leSend(string devName, string msg)
         {
             if (devName == "me")
             {
-                currentDevice?.Send(msg);
+                if (LeDeviceBase.currentDevice == null)
+                    log.Error($"leSend(me,...): Could not identify 'me'");
+                else
+                    LeDeviceBase.currentDevice.Send(msg);
             }
             else
             {
@@ -6351,7 +6367,7 @@ namespace LEonard
         bool ExecuteJavaScript(string code, LeDeviceInterface dev)
         {
             log.Info($"Java Execute: {code}");
-            currentDevice = dev;
+            LeDeviceBase.currentDevice = dev;
             return JavaExec(code);
         }
 
@@ -6598,7 +6614,7 @@ namespace LEonard
             log.Info($"Python Execute: {code}");
             try
             {
-                currentDevice = dev;
+                LeDeviceBase.currentDevice = dev;
                 Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(code);
                 return PythonExec(pythonScript);
             }

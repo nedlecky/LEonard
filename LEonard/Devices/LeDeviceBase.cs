@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace LEonard
         protected MainForm myForm;
         protected string logPrefix;
         protected string execLEonardMessageOnConnect;
+        public static LeDeviceInterface currentDevice = null;
 
         public string TxPrefix { get; set; } = "";
         public string TxSuffix { get; set; } = "";
@@ -34,6 +36,7 @@ namespace LEonard
             myForm = form;
             logPrefix = prefix;
             execLEonardMessageOnConnect = connectExec;
+            currentDevice = (LeDeviceInterface)this;
         }
 
         ~LeDeviceBase()
@@ -42,6 +45,39 @@ namespace LEonard
             EndSetupProcess();
             EndRuntimeProcess();
         }
+        public virtual int Connect(string IPport)
+        {
+            log.Debug($"{logPrefix} LeDeviceBase::Connect({IPport})");
+
+            if (IPport.StartsWith("COM"))
+                return Connect(IPport, "0");
+            else
+            {
+                string[] s = IPport.Split(':');
+                if (s.Length != 2)
+                    return 1;
+                else
+                    return Connect(s[0], s[1]);
+            }
+        }
+        public virtual int Connect(string IP, string port)
+        {
+            log.Debug($"{logPrefix} LeDeviceBase::Connect({IP}, {port})");
+
+            currentDevice = (LeDeviceInterface)this;
+
+            return 0;
+        }
+        public virtual int Disconnect()
+        {
+            log.Debug($"{logPrefix} LeDeviceBase::Disconnect()");
+
+            if (currentDevice == (LeDeviceInterface)this)
+                currentDevice = null;
+
+            return 0;
+        }
+
 
         public int StartRuntimeProcess(ProcessStartInfo start)
         {
@@ -130,6 +166,5 @@ namespace LEonard
             ip += (long)byteIP[0];
             return ip;
         }
-
     }
 }

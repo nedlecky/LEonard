@@ -29,7 +29,7 @@ namespace LEonard
         {
             log.Debug($"{logPrefix} ~LeDevNull()");
         }
-        public int Connect(string portname)
+        public override int Connect(string portname)
         {
             log.Debug("{0} Connect({1})", logPrefix, portname);
 
@@ -39,7 +39,7 @@ namespace LEonard
                 if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
                     return 1;
 
-            return 0;
+            return base.Connect(portname);
         }
         public bool IsConnected()
         {
@@ -47,13 +47,13 @@ namespace LEonard
             return fConnected;
         }
 
-        public int Disconnect()
+        public override int Disconnect()
         {
             log.Info("{0} Disconnect()", logPrefix);
 
 
             fConnected = false;
-            return 0;
+            return base.Disconnect() ;
         }
 
         // Simulate loopback

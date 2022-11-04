@@ -33,7 +33,7 @@ namespace LEonard
         {
             log.Debug($"{logPrefix} ~LeSerial() {myPortname}");
         }
-        public int Connect(string portname)
+        public override int Connect(string portname)
         {
             fConnected = false;
             if (port != null)
@@ -74,7 +74,7 @@ namespace LEonard
                 if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
                     return 1;
 
-            return 0;
+            return base.Connect(portname);
         }
 
         public bool IsConnected()
@@ -82,7 +82,7 @@ namespace LEonard
             return fConnected;
         }
 
-        public int Disconnect()
+        public override int Disconnect()
         {
             log.Info("{0} Disconnect(): {1}", logPrefix, myPortname);
 
@@ -91,7 +91,7 @@ namespace LEonard
             port = null;
 
             fConnected = false;
-            return 0;
+            return base.Disconnect();
         }
 
         public int Send(string message)

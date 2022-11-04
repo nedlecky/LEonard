@@ -73,7 +73,11 @@ namespace LEonard
 
             status = Status.OFF;
             myForm.UrCommandAnnounce();
+
+            // Drop the connected count and remove this one from focus if it is not connected
             nConnected--;
+            if (uiFocusInstance == this) uiFocusInstance = null;
+
             return base.Disconnect();
         }
     }

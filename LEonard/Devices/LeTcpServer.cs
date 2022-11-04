@@ -17,12 +17,11 @@ namespace LEonard
 {
     public class LeTcpServer : LeDeviceBase, LeDeviceInterface
     {
-        TcpListener server;
-        TcpClient client;
-        NetworkStream stream;
+        TcpListener server = null;
+        TcpClient client = null;
+        NetworkStream stream = null;
         string myIp;
         string myPort;
-        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public bool DryRun { get; set; } = false;
         const int inputBufferLen = 128000;
@@ -44,17 +43,12 @@ namespace LEonard
             log.Debug($"{logPrefix} ~LeTcpServer()");
         }
 
-        public virtual int Connect(string IPport)
-        {
-            string[] s = IPport.Split(':');
-            return Connect(s[0], s[1]);
-        }
-        public virtual int Connect(string IP, string port)
+        public override int Connect(string IP, string port)
         {
             myIp = IP;
             myPort = port;
 
-            log.Info("{0} Connect({0},{1})", logPrefix, IP, port);
+            log.Info($"{logPrefix} LeTcpServer::Connect({IP}, {port})");
             if (server != null) Disconnect();
             IsClientConnected = false;
 
@@ -72,7 +66,7 @@ namespace LEonard
                 return 1;
             }
             log.Info($"{logPrefix} Server: Waiting for client...");
-            return 0;
+            return base.Connect(IP,port);
         }
         public virtual bool IsConnected()
         {
@@ -84,7 +78,7 @@ namespace LEonard
             catch (SocketException) { return false; }
         }
 
-        public virtual int Disconnect()
+        public override int Disconnect()
         {
             log.Info("{0} Disconnect()", logPrefix);
             CloseConnection();
@@ -93,14 +87,14 @@ namespace LEonard
                 server.Stop();
                 server = null;
             }
-            return 0;
+            return base.Disconnect();
         }
 
         void ClientConnected(IAsyncResult result)
         {
             try
             {
-                TcpListener server = (TcpListener)result.AsyncState;
+                //TcpListener server = (TcpListener)result.AsyncState;
                 if (server != null)
                 {
                     try
@@ -139,6 +133,8 @@ namespace LEonard
                 client.Close();
                 client = null;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         bool fSendBusy = false;

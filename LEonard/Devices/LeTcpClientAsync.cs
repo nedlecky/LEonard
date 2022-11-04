@@ -56,12 +56,7 @@ namespace LEonard
             log.Debug($"{logPrefix} ~LeTcpClientAsync()");
         }
 
-        public int Connect(string IPport)
-        {
-            string[] s = IPport.Split(':');
-            return Connect(s[0], s[1]);
-        }
-        public int Connect(string IP, string port)
+        public override int Connect(string IP, string port)
         {
             fConnected = false;
             myIp = IP;
@@ -117,13 +112,13 @@ namespace LEonard
                 if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
                     return 1;
 
-            return 0;
+            return base.Connect(IP,port);
         }
         public bool IsConnected()
         {
             return fConnected;
         }
-        public int Disconnect()
+        public override int Disconnect()
         {
             log.Info("{0} Disconnect()", logPrefix);
 
@@ -135,7 +130,7 @@ namespace LEonard
                 client = null;
             }
             fConnected = false;
-            return 0;
+            return base.Disconnect();
         }
 
         private void ConnectCallback(IAsyncResult ar)
