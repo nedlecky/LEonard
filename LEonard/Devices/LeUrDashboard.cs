@@ -18,10 +18,10 @@ namespace LEonard
 {
     public class LeUrDashboard : LeTcpClient
     {
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         public static int nInstances = 0;
         public static int nConnected = 0;
-        public static LeUrDashboard focusLeUrDashboard = null;
+        public static LeUrDashboard uiFocusInstance = null;
 
         public enum Status
         {
@@ -29,30 +29,30 @@ namespace LEonard
             ERROR,
             OK
         }
-        public LeUrDashboard.Status status = Status.OFF;
+        public Status status = Status.OFF;
 
         public string UrProgramFilename { get; set; } = "";
 
-        public LeUrDashboard(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
+        public LeUrDashboard(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug("{0} LeUrDashboard(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
+            log.Debug($"{prefix} LeUrDashboard(form, \"{prefix}\", \"{connectExec}\") nInstances will be {nInstances+1}");
 
-            focusLeUrDashboard = this;
+            uiFocusInstance = this;
             nInstances++;
             status = Status.OFF;
             myForm.UrDashboardAnnounce();
         }
         ~LeUrDashboard()
         {
-            log.Debug("{0} ~LeUrDashboard()", logPrefix);
+            log.Debug($"{logPrefix} ~LeUrDashboard() nInstances={nInstances}");
+
+            nInstances--;
+            if (nInstances == 0 || uiFocusInstance == this) uiFocusInstance = null;
         }
 
         public override int Connect(string dashIP, string dashPort)
         {
             log.Debug($"{logPrefix} LeUrDashboard::Connect({dashIP}, {dashPort})");
-
-            log.Debug($"{logPrefix} Connect Dashboard({dashIP}, {dashPort})");
-            log.Debug($"{logPrefix} Connect Dashboard");
             int ret = base.Connect(dashIP, dashPort);
             if (ret != 0)
             {
@@ -61,7 +61,7 @@ namespace LEonard
                 myForm.ErrorMessageBox($"Cannot start UR dashboard on {dashIP}:{dashPort}");
                 return ret;
             }
-            log.Info("Dashboard connection ready");
+            log.Info($"{logPrefix} Dashboard connection ready");
             Thread.Sleep(50);
             string response = Receive();
             if (response != "Connected: Universal Robots Dashboard Server")
@@ -129,17 +129,15 @@ namespace LEonard
         {
             myForm.WriteVariable("robot_ready", false, true);
 
-            int ret = 0;
             if (IsConnected())
             {
                 InquiryResponse("stop");
                 InquiryResponse("quit");
-                ret = base.Disconnect();
             }
             status = Status.OFF;
             myForm.UrDashboardAnnounce();
 
-            return ret;
+            return base.Disconnect();
         }
     }
 }

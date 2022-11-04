@@ -22,7 +22,7 @@ namespace LEonard
         NetworkStream stream;
         string myIp;
         string myPort;
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public bool DryRun { get; set; } = false;
         const int inputBufferLen = 128000;
@@ -34,14 +34,14 @@ namespace LEonard
         public bool IsClientConnected { get; set; } = false;
 
 
-        public LeTcpServer(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
+        public LeTcpServer(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug("{0} LeTcpServer(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
+            log.Debug($"{prefix} LeTcpServer(form, {prefix}, {connectExec})");
         }
 
         ~LeTcpServer()
         {
-            log.Debug("{0} ~LeTcpServer()", logPrefix);
+            log.Debug($"{logPrefix} ~LeTcpServer()");
         }
 
         public virtual int Connect(string IPport)
@@ -124,7 +124,7 @@ namespace LEonard
             {
             }
         }
-                void CloseConnection()
+        void CloseConnection()
         {
             log.Debug("{0} CloseConnection()", logPrefix);
 

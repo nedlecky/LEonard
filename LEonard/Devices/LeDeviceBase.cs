@@ -16,6 +16,7 @@ namespace LEonard
 {
     public class LeDeviceBase
     {
+        protected static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         protected MainForm myForm;
         protected string logPrefix;
         protected string execLEonardMessageOnConnect;
@@ -27,18 +28,17 @@ namespace LEonard
         public Process runtimeProcess { get; set; } = null;
         public Process setupProcess { get; set; } = null;
 
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
-
         public LeDeviceBase(MainForm form, string prefix = "", string connectExec = "")
         {
+            log.Debug($"{prefix} LeDeviceBase(form, \"{prefix}\", \"{connectExec}\")");
             myForm = form;
             logPrefix = prefix;
             execLEonardMessageOnConnect = connectExec;
-            log.Info($"LeDeviceBase(form, \"{logPrefix}\", \"{execLEonardMessageOnConnect}\")");
         }
 
         ~LeDeviceBase()
         {
+            log.Debug($"{logPrefix} ~LeDeviceBase()");
             EndSetupProcess();
             EndRuntimeProcess();
         }

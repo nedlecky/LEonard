@@ -16,10 +16,10 @@ namespace LEonard
 {
     public class LeUrCommand : LeTcpServer
     {
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         public static int nInstances = 0;
         public static int nConnected = 0;
-        public static LeUrCommand focusLeUrCommand = null;
+        public static LeUrCommand uiFocusInstance = null;
 
         public enum Status
         {
@@ -28,37 +28,29 @@ namespace LEonard
             WAITING,
             OK
         }
-        public LeUrCommand.Status status = Status.OFF;
+        public Status status = Status.OFF;
 
 
-        public LeUrCommand(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
+        public LeUrCommand(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug("{0} LeUrCommand(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
+            log.Debug($"{prefix} LeUrCommand(form, \"{prefix}\", \"{connectExec}\")");
 
-            focusLeUrCommand = this;
+            uiFocusInstance = this;
             nInstances++;
             status = Status.OFF;
             myForm.UrCommandAnnounce();
         }
         ~LeUrCommand()
         {
-            log.Debug("{0} ~LeUrCommand()", logPrefix);
+            log.Debug($"{logPrefix} ~LeUrCommand() nInstances={nInstances}");
 
             nInstances--;
-            if (focusLeUrCommand == this) focusLeUrCommand = null;
+            if (nInstances == 0 || uiFocusInstance == this) uiFocusInstance = null;
         }
 
-        public override int Connect(string IPport)
+        public override int Connect(string IP, string port)
         {
-            string[] ip_port = IPport.Split(':');
-            if (ip_port.Length != 2)
-            {
-                myForm.ErrorMessageBox($"UR needs IP:port not {IPport}");
-                return 2;
-            }
-
-            // Robot Command Server
-            int ret = Connect(ip_port[0], ip_port[1]);
+            int ret = base.Connect(IP, port);
             if (ret != 0)
             {
                 status = Status.ERROR;
@@ -82,7 +74,7 @@ namespace LEonard
             status = Status.OFF;
             myForm.UrCommandAnnounce();
             nConnected--;
-            return 0;
+            return base.Disconnect();
         }
     }
 }

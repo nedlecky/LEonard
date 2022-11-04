@@ -19,19 +19,19 @@ namespace LEonard
 
         public SerialPort port;
         string myPortname;
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public Action<string, string, LeDeviceInterface> receiveCallback { get; set; } = null;
         bool fConnected = false;
 
-        public LeSerial(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
+        public LeSerial(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug("{0} LeSerial(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
+            log.Debug($"{prefix} LeSerial(form, {prefix}, {connectExec})");
         }
 
         ~LeSerial()
         {
-            log.Debug("{0} ~LeSerial() {1}", logPrefix, myPortname);
+            log.Debug($"{logPrefix} ~LeSerial() {myPortname}");
         }
         public int Connect(string portname)
         {

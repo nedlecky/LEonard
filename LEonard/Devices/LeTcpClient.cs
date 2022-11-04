@@ -25,18 +25,19 @@ namespace LEonard
         string myPort;
         const int inputBufferLen = 128000;
         byte[] inputBuffer = new byte[inputBufferLen];
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         public Action<string, string, LeDeviceInterface> receiveCallback { get; set; }
         private bool fConnected = false;
 
         public LeTcpClient(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug("{0} LeTcpClient(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
+            log.Debug($"{prefix} LeTcpClient(form, \"{prefix}\", \"{connectExec}\")");
         }
         ~LeTcpClient()
         {
-            log.Debug("{0} ~LeTcpClient()", logPrefix);
+            log.Debug($"{logPrefix} ~LeTcpClient()");
+            inputBuffer = null;
         }
         public virtual int Connect(string IPport)
         {
@@ -164,7 +165,6 @@ namespace LEonard
             fSendBusy = false;
             return 0;
         }
-
         public string Receive(bool fProcessCallbackOnly = false)
         {
             // If only supposed to process callbacks and there is no callback, ignore

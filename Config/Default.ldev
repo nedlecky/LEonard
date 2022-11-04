@@ -51,14 +51,14 @@
     <Connected>false</Connected>
     <DeviceType>TcpServer</DeviceType>
     <Address>127.0.0.1:1000</Address>
-    <MessageTag>CTL</MessageTag>
+    <MessageTag>AUXC</MessageTag>
     <CallBack>command</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
     <RxTerminator>&lt;LF&gt;</RxTerminator>
     <RxSeparator>#</RxSeparator>
     <OnConnectExec>JE:leSend('me','Hello!')</OnConnectExec>
-    <OnDisconnectExec>JE:leSend('me','exit()')</OnDisconnectExec>
+    <OnDisconnectExec>JE:leSend('me','exit')</OnDisconnectExec>
     <RuntimeAutostart>true</RuntimeAutostart>
     <RuntimeWorkingDirectory>C:\Users\nedlecky\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
     <RuntimeFileName>LEonardClient.exe</RuntimeFileName>
@@ -79,7 +79,7 @@
     <Connected>false</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
-    <MessageTag>UR</MessageTag>
+    <MessageTag>ROBD</MessageTag>
     <CallBack />
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -107,7 +107,7 @@
     <Connected>false</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>
-    <MessageTag>UR</MessageTag>
+    <MessageTag>ROBC</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -135,7 +135,7 @@
     <Connected>false</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
-    <MessageTag>GO</MessageTag>
+    <MessageTag>AUXG</MessageTag>
     <CallBack>gocator</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -163,7 +163,7 @@
     <Connected>false</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.252:8190</Address>
-    <MessageTag>GO</MessageTag>
+    <MessageTag>AUXG</MessageTag>
     <CallBack>gocator</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;</TxSuffix>
@@ -275,7 +275,7 @@
     <Connected>false</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
-    <MessageTag>AUX31</MessageTag>
+    <MessageTag>AUXDM1</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix />
@@ -303,7 +303,7 @@
     <Connected>false</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM4</Address>
-    <MessageTag>AUX32</MessageTag>
+    <MessageTag>AUXDM2</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix />
@@ -359,7 +359,7 @@
     <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:107</Address>
-    <MessageTag>ZB</MessageTag>
+    <MessageTag>AUXZC</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;&lt;LF&gt;</TxSuffix>
@@ -387,7 +387,7 @@
     <Connected>false</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:25250</Address>
-    <MessageTag>ZB</MessageTag>
+    <MessageTag>AUXZR</MessageTag>
     <CallBack>general</CallBack>
     <TxPrefix />
     <TxSuffix>&lt;CR&gt;&lt;LF&gt;</TxSuffix>

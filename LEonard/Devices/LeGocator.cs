@@ -16,10 +16,10 @@ namespace LEonard
 {
     public class LeGocator : LeTcpClient
     {
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         public static int nInstances = 0;
         public static int nConnected = 0;
-        public static LeGocator focusLeGocator = null;
+        public static LeGocator uiFocusInstance = null;
 
         public enum Status
         {
@@ -27,23 +27,23 @@ namespace LEonard
             ERROR,
             OK
         }
-        public LeGocator.Status status = Status.OFF;
+        public Status status = Status.OFF;
 
-        public LeGocator(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
+        public LeGocator(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug("{0} LeGocator(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
+            log.Debug($"{prefix} LeGocator(form, \"{prefix}\", \"{connectExec}\") nInstances will be {nInstances + 1}");
 
-            focusLeGocator = this;
+            uiFocusInstance = this;
             nInstances++;
             status = Status.OFF;
             myForm.GocatorAnnounce();
         }
         ~LeGocator()
         {
-            log.Debug("{0} ~LeGocator()", logPrefix);
+            log.Debug($"{logPrefix} ~LeGocator() nInstances={nInstances}");
 
             nInstances--;
-            if (focusLeGocator == this) focusLeGocator = null;
+            if (nInstances == 0 || uiFocusInstance == this) uiFocusInstance = null;
         }
 
         public void Callback(string prefix, string message, LeDeviceInterface dev)
@@ -58,20 +58,13 @@ namespace LEonard
             myForm.GeneralCallback(prefix, message, this);
         }
 
-
-        public override int Connect(string IPport)
-        {
-            log.Debug($"{logPrefix} LeGocator::Connect({IPport})");
-            string[] s = IPport.Split(':');
-            return Connect(s[0], s[1]);
-        }
         public override int Connect(string IP, string port)
         {
-            log.Debug($"{logPrefix} LeGocator::Connect({IP},{port})");
+            log.Debug($"{logPrefix} LeGocator::Connect({IP}, {port})");
             int ret = base.Connect(IP, port);
             if (ret != 0)
             {
-                status=Status.ERROR;
+                status = Status.ERROR;
                 myForm.GocatorAnnounce();
             }
             else
@@ -90,7 +83,7 @@ namespace LEonard
 
                 // Bump up the connected count and set UI focus to this
                 nConnected++;
-                status=Status.OK;
+                status = Status.OK;
                 myForm.GocatorAnnounce();
             }
             return ret;
@@ -106,7 +99,7 @@ namespace LEonard
 
             // Drop the connected count and remove this one from focus if it is not connected
             nConnected--;
-            if (focusLeGocator == this) focusLeGocator = null;
+            if (uiFocusInstance == this) uiFocusInstance = null;
 
             return base.Disconnect();
         }

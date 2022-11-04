@@ -33,7 +33,7 @@ namespace LEonard
         static Socket client;
         string myIp;
         string myPort;
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
 
         // ManualResetEvent instances signal completion.  
         private static ManualResetEvent connectDone =
@@ -47,13 +47,13 @@ namespace LEonard
         private bool fConnected = false;
 
 
-        public LeTcpClientAsync(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
+        public LeTcpClientAsync(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug("{0} LeTcpClient(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
+            log.Debug($"{prefix} LeTcpClientAsync(form, \"{prefix}\", \"{connectExec}\")");
         }
         ~LeTcpClientAsync()
         {
-            log.Debug("{0} ~LeTcpClient()", logPrefix);
+            log.Debug($"{logPrefix} ~LeTcpClientAsync()");
         }
 
         public int Connect(string IPport)

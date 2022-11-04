@@ -163,7 +163,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.StartupDevicesLbl = new System.Windows.Forms.Label();
             this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
-            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.devicesPage = new System.Windows.Forms.TabPage();
             this.SetupDevicesLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.DeviceReconnectBtn = new System.Windows.Forms.Button();
@@ -263,13 +262,13 @@
             this.LogsPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.UrLogRTB = new System.Windows.Forms.RichTextBox();
+            this.RobotLogRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.ExecLogRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.ErrorLogRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.ConsoleRTB = new System.Windows.Forms.RichTextBox();
+            this.AuxLogRTB = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.AllLogRTB = new System.Windows.Forms.RichTextBox();
             this.LogPageControlsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -290,6 +289,7 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
+            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -2137,17 +2137,6 @@
             this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
             this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
             // 
-            // AutoConnectOnLoadChk
-            // 
-            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
-            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
-            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
-            this.AutoConnectOnLoadChk.TabIndex = 117;
-            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
-            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
-            // 
             // devicesPage
             // 
             this.devicesPage.Controls.Add(this.SetupDevicesLayoutPanel);
@@ -3656,7 +3645,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.UrLogRTB);
+            this.groupBox5.Controls.Add(this.RobotLogRTB);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(1230, 324);
@@ -3664,22 +3653,22 @@
             this.groupBox5.Size = new System.Drawing.Size(655, 315);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Robot Commands and Responses";
+            this.groupBox5.Text = "Messages Containing ROB";
             // 
-            // UrLogRTB
+            // RobotLogRTB
             // 
-            this.UrLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UrLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UrLogRTB.Location = new System.Drawing.Point(3, 25);
-            this.UrLogRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.UrLogRTB.MaxLength = 1000000;
-            this.UrLogRTB.Name = "UrLogRTB";
-            this.UrLogRTB.ReadOnly = true;
-            this.UrLogRTB.Size = new System.Drawing.Size(649, 287);
-            this.UrLogRTB.TabIndex = 0;
-            this.UrLogRTB.Text = "";
-            this.UrLogRTB.WordWrap = false;
-            this.UrLogRTB.DoubleClick += new System.EventHandler(this.UrLogRTB_DoubleClick);
+            this.RobotLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RobotLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RobotLogRTB.Location = new System.Drawing.Point(3, 25);
+            this.RobotLogRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.RobotLogRTB.MaxLength = 1000000;
+            this.RobotLogRTB.Name = "RobotLogRTB";
+            this.RobotLogRTB.ReadOnly = true;
+            this.RobotLogRTB.Size = new System.Drawing.Size(649, 287);
+            this.RobotLogRTB.TabIndex = 0;
+            this.RobotLogRTB.Text = "";
+            this.RobotLogRTB.WordWrap = false;
+            this.RobotLogRTB.DoubleClick += new System.EventHandler(this.UrLogRTB_DoubleClick);
             // 
             // groupBox10
             // 
@@ -3691,7 +3680,7 @@
             this.groupBox10.Size = new System.Drawing.Size(1221, 315);
             this.groupBox10.TabIndex = 2;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "LEScript Execution Messages";
+            this.groupBox10.Text = "Messages Containing EXEC";
             // 
             // ExecLogRTB
             // 
@@ -3737,7 +3726,7 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.ConsoleRTB);
+            this.groupBox7.Controls.Add(this.AuxLogRTB);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox7.Location = new System.Drawing.Point(1230, 3);
@@ -3745,22 +3734,22 @@
             this.groupBox7.Size = new System.Drawing.Size(655, 315);
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Console Printout";
+            this.groupBox7.Text = "Messages Containing AUX";
             // 
-            // ConsoleRTB
+            // AuxLogRTB
             // 
-            this.ConsoleRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ConsoleRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConsoleRTB.Location = new System.Drawing.Point(3, 25);
-            this.ConsoleRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.ConsoleRTB.MaxLength = 1000000;
-            this.ConsoleRTB.Name = "ConsoleRTB";
-            this.ConsoleRTB.ReadOnly = true;
-            this.ConsoleRTB.Size = new System.Drawing.Size(649, 287);
-            this.ConsoleRTB.TabIndex = 0;
-            this.ConsoleRTB.Text = "";
-            this.ConsoleRTB.WordWrap = false;
-            this.ConsoleRTB.DoubleClick += new System.EventHandler(this.ConsoleRTB_DoubleClick);
+            this.AuxLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AuxLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AuxLogRTB.Location = new System.Drawing.Point(3, 25);
+            this.AuxLogRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.AuxLogRTB.MaxLength = 1000000;
+            this.AuxLogRTB.Name = "AuxLogRTB";
+            this.AuxLogRTB.ReadOnly = true;
+            this.AuxLogRTB.Size = new System.Drawing.Size(649, 287);
+            this.AuxLogRTB.TabIndex = 0;
+            this.AuxLogRTB.Text = "";
+            this.AuxLogRTB.WordWrap = false;
+            this.AuxLogRTB.DoubleClick += new System.EventHandler(this.ConsoleRTB_DoubleClick);
             // 
             // groupBox4
             // 
@@ -3772,7 +3761,7 @@
             this.groupBox4.Size = new System.Drawing.Size(1221, 315);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "All Log Messages (Double-click to clear any of these)";
+            this.groupBox4.Text = "All Log Messages (Double-click to clear any of these or use Clear All button)";
             // 
             // AllLogRTB
             // 
@@ -4086,6 +4075,17 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
+            // AutoConnectOnLoadChk
+            // 
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
+            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
+            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
+            this.AutoConnectOnLoadChk.TabIndex = 117;
+            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
+            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4307,11 +4307,11 @@
         private System.Windows.Forms.GroupBox LogLevelGroupBox;
         private System.Windows.Forms.ComboBox LogLevelCombo;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RichTextBox UrLogRTB;
+        private System.Windows.Forms.RichTextBox RobotLogRTB;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.RichTextBox ExecLogRTB;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.RichTextBox ConsoleRTB;
+        private System.Windows.Forms.RichTextBox AuxLogRTB;
         private System.Windows.Forms.TableLayoutPanel BottomButtonLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;

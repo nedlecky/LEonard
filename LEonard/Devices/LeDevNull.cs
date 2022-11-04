@@ -15,19 +15,19 @@ namespace LEonard
 {
     public class LeDevNull : LeDeviceBase, LeDeviceInterface
     {
-        private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        //private static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         bool fConnected = false;
 
         public Action<string, string, LeDeviceInterface> receiveCallback { get; set; } = null;
 
-        public LeDevNull(MainForm form, string prefix = "", string connectMsg = "") : base(form, prefix, connectMsg)
+        public LeDevNull(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug("{0} LeDevNull(form, {0}, {1})", logPrefix, execLEonardMessageOnConnect);
+            log.Debug($"{prefix} LeDevNull(form, \"{prefix}\", \"{connectExec}\")");
         }
 
         ~LeDevNull()
         {
-            log.Debug("{0} ~LeDevNull()", logPrefix);
+            log.Debug($"{logPrefix} ~LeDevNull()");
         }
         public int Connect(string portname)
         {
@@ -51,26 +51,33 @@ namespace LEonard
         {
             log.Info("{0} Disconnect()", logPrefix);
 
-            
+
             fConnected = false;
             return 0;
         }
 
+        // Simulate loopback
+        string sentMessage = "";
         public int Send(string message)
         {
             log.Debug($"{logPrefix} DevNull::Send({message})");
+            sentMessage = message;
 
             return 0;
         }
         public string Receive(bool fProcessCallbackOnly = false)
         {
+            // Simulating loopback of whatever was last sent
+            if (sentMessage == "") return "";
+
             log.Debug($"{logPrefix} DevNull::Receive()");
-            return "";
+            string ret = sentMessage;
+            sentMessage = "";
+            return ret;
         }
         public string InquiryResponse(string message, int timeoutMs = 50)
         {
             log.Debug($"{logPrefix} DevNull::InquiryResponse({message}, {timeoutMs})");
-
             return null;
         }
     }
