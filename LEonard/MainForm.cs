@@ -1730,8 +1730,11 @@ namespace LEonard
 #endif
             UserModeBox.SelectedIndex = (int)operatorMode;
 
-            // Debug Level selection (forced to INFO now)
-            LogLevelCombo.Text = (string)AppNameKey.GetValue("LogLevelCombo.Text", "Info");
+            // Debug Level selection (Persistent in Engineering mode, else forced to "Info"
+            if (operatorMode == OperatorMode.ENGINEERING)
+                LogLevelCombo.Text = (string)AppNameKey.GetValue("LogLevelCombo.Text", "Info");
+            else
+                LogLevelCombo.Text = "Info";
 
             // Restore displays table and set display mode
             LoadDisplaysBtn_Click(null, null);

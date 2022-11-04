@@ -309,7 +309,7 @@
     <TxSuffix />
     <RxTerminator>&lt;CR&gt;</RxTerminator>
     <RxSeparator>#</RxSeparator>
-    <OnConnectExec>+</OnConnectExec>
+    <OnConnectExec>LE:leSend(me,+)</OnConnectExec>
     <OnDisconnectExec />
     <RuntimeAutostart>false</RuntimeAutostart>
     <RuntimeWorkingDirectory />
