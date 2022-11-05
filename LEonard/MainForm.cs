@@ -6409,34 +6409,6 @@ namespace LEonard
             Console.WriteLine(msg);
         }
 
-        class InterceptingWriter : TextWriter
-        {
-            TextWriter _existingWriter;
-            Action<string> _writeTask;
-
-            public InterceptingWriter(TextWriter existing, Action<string> task)
-            {
-                _existingWriter = existing;
-                _writeTask = task;
-            }
-
-            public override void WriteLine(string value)
-            {
-                //lePrintP(value);
-                _existingWriter.WriteLine(value);
-                // This calls the delegate you passed in to the constructor, updating 
-                // your textbox or anything else that acts upon the string passed in
-                _writeTask(value);
-            }
-
-            public override Encoding Encoding
-            {
-                get { throw new NotImplementedException(); }
-            }
-
-            // ...other overrides as necessary...
-        }
-        //InterceptingWriter writer = new InterceptingWriter(Console.Out, (str) => Console.WriteLine(str));
         private void InitializePythonEngine()
         {
             pythonEngine = IronPython.Hosting.Python.CreateEngine();
