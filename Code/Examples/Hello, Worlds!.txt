@@ -1,22 +1,28 @@
 # Hello, Worlds!
 # Execution always starts in LEScript
-
-print(Hello, World! from LEScript)
+leShowConsole(True)
+lePrint(Hello, World! from LEScript)
 var1 = 12345
-print(var1 = {var1})
+lePrint(var1 = {var1})
+leShowConsole(False)
+
 
 UseJava()
-print('Hello, World! from Java')
+leShowConsole(true)
+lePrint('Hello, World! from Java')
 var2 = Math.max(25, 50)
-print('var1 = ' + var1)
-print('var2 = ' + var2)
+lePrint('var1 = ' + var1)
+lePrint('var2 = ' + var2)
+leShowConsole(false)
 
 UsePython()
+leShowConsole(True)
 import math
-pprint('Hello, World! from Python')
+lePrint('Hello, World! from Python')
 var3 = {8, 'abc', 3}
-pprint('var1 = ' + var1)
-pprint('var3 = ' + str(var3))
-pprint('The value of PI is approximately {0:.6f}.'.format(math.pi))
+lePrint('var1 = ' + var1)
+lePrint('var3 = ' + str(var3))
+lePrint('The value of PI is approximately {0:.6f}.'.format(math.pi))
+leShowConsole(False)
 
 

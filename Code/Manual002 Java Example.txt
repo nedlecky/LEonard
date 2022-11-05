@@ -1,0 +1,5 @@
+# Hello, World! In Java
+UseJava()
+lePrint('Hello, World!')
+value = 13.25 * 8.1
+lePrint('value = ' + value)

@@ -1252,11 +1252,11 @@
 </value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>
-LEonard is a C# application by Ned Lecky
+    <value>LEonard is a C# application by Ned Lecky
 Copyright: Lecky Engineering, LLC  c. 2021, 2022, 2023
 
-Open Source Libraries Used with Gratitude:
+Open Source Libraries Included.
+See LEonard User Manual for project links and licensing information.
   Jint 2.11.58 by Sebastian Ros
   IronPython 2.7.12 by many contributors and Microsoft
   NLog 4.7.15 by Jarek Kowalski, Kim Christensen, Julian Verdumen

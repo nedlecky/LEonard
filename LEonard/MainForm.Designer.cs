@@ -221,7 +221,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.SelectedDisplayLbl = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.grindPage = new System.Windows.Forms.TabPage();
+            this.robotPage = new System.Windows.Forms.TabPage();
             this.SetupGrindLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SetMoveDefaultsBtn = new System.Windows.Forms.Button();
             this.SetPointFrequencyBtn = new System.Windows.Forms.Button();
@@ -333,7 +333,7 @@
             this.displaysPage.SuspendLayout();
             this.SetupDisplayLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DisplaysGrd)).BeginInit();
-            this.grindPage.SuspendLayout();
+            this.robotPage.SuspendLayout();
             this.SetupGrindLayoutPanel.SuspendLayout();
             this.licensePage.SuspendLayout();
             this.SetupLicenseLayoutPanel.SuspendLayout();
@@ -1610,7 +1610,7 @@
             this.TimeLbl.Name = "TimeLbl";
             this.TimeLbl.Size = new System.Drawing.Size(369, 53);
             this.TimeLbl.TabIndex = 5;
-            this.TimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TimeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MoveToolMountBtn
             // 
@@ -1988,7 +1988,7 @@
             this.SetupTab.Controls.Add(this.devicesPage);
             this.SetupTab.Controls.Add(this.displaysPage);
             this.SetupTab.Controls.Add(this.toolsPage);
-            this.SetupTab.Controls.Add(this.grindPage);
+            this.SetupTab.Controls.Add(this.robotPage);
             this.SetupTab.Controls.Add(this.generalPage);
             this.SetupTab.Controls.Add(this.licensePage);
             this.SetupTab.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -3038,15 +3038,15 @@
             this.label24.TabIndex = 20;
             this.label24.Text = "%";
             // 
-            // grindPage
+            // robotPage
             // 
-            this.grindPage.Controls.Add(this.SetupGrindLayoutPanel);
-            this.grindPage.Location = new System.Drawing.Point(4, 100);
-            this.grindPage.Name = "grindPage";
-            this.grindPage.Size = new System.Drawing.Size(1880, 700);
-            this.grindPage.TabIndex = 2;
-            this.grindPage.Text = "Grind";
-            this.grindPage.UseVisualStyleBackColor = true;
+            this.robotPage.Controls.Add(this.SetupGrindLayoutPanel);
+            this.robotPage.Location = new System.Drawing.Point(4, 100);
+            this.robotPage.Name = "robotPage";
+            this.robotPage.Size = new System.Drawing.Size(1880, 700);
+            this.robotPage.TabIndex = 2;
+            this.robotPage.Text = "Robots";
+            this.robotPage.UseVisualStyleBackColor = true;
             // 
             // SetupGrindLayoutPanel
             // 
@@ -4161,7 +4161,7 @@
             this.SetupDisplayLayoutPanel.ResumeLayout(false);
             this.SetupDisplayLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DisplaysGrd)).EndInit();
-            this.grindPage.ResumeLayout(false);
+            this.robotPage.ResumeLayout(false);
             this.SetupGrindLayoutPanel.ResumeLayout(false);
             this.licensePage.ResumeLayout(false);
             this.SetupLicenseLayoutPanel.ResumeLayout(false);
@@ -4336,7 +4336,7 @@
         private System.Windows.Forms.TableLayoutPanel FootswitchIoLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel DoorIoLayoutPanel;
         private System.Windows.Forms.TabPage devicesPage;
-        private System.Windows.Forms.TabPage grindPage;
+        private System.Windows.Forms.TabPage robotPage;
         private System.Windows.Forms.TabPage generalPage;
         private System.Windows.Forms.TableLayoutPanel SetupGeneralLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel SetupDevicesLayoutPanel;

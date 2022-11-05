@@ -5446,15 +5446,6 @@ namespace LEonard
                 return true;
             }
 
-            // prompt
-            if (command.StartsWith("prompt("))
-            {
-                LogInterpret("prompt", lineNumber, origLine);
-                // This just displays the dialog. ExecTmr will wait for it to close
-                PromptOperator(ExtractParameters(command, -1, false));
-                return true;
-            }
-
             // leLanguage  0=LEScript 1=Java 2=Python
             if (command.StartsWith("leLanguage("))
             {
@@ -5482,16 +5473,38 @@ namespace LEonard
                 return true;
             }
 
-            // print
+            // lePrompt
+            if (command.StartsWith("lePrompt("))
+            {
+                LogInterpret("lePrompt", lineNumber, origLine);
+                // This just displays the dialog. ExecTmr will wait for it to close
+                PromptOperator(ExtractParameters(command, -1, false));
+                return true;
+            }
+
+            // lePrint
             void lePrintFunc(string s)
             {
                 log.Info("LE** " + s);
                 Console.WriteLine(s);
             }
-            if (command.StartsWith("print("))
+            if (command.StartsWith("lePrint("))
             {
-                LogInterpret("print", lineNumber, origLine);
+                LogInterpret("lePrint", lineNumber, origLine);
                 lePrintFunc(ExtractParameters(command, -1, false));
+                return true;
+            }
+
+            // leConsole
+            if (command.StartsWith("leShowConsole("))
+            {
+                LogInterpret("leShowConsole", lineNumber, origLine);
+
+                string param = ExtractParameters(command, -1, false);
+                if (param == "False" || param == "false")
+                    consoleForm.Hide();
+                else
+                    consoleForm.Show();
                 return true;
             }
 
@@ -6089,6 +6102,13 @@ namespace LEonard
         #endregion ===== LESCRIPT DECODE AND EXECUTE       ==============================================================================================================================
 
         #region ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
+        public void leShowConsole(bool f)
+        {
+            if (f)
+                consoleForm.Show();
+            else
+                consoleForm.Hide();
+        }
         public bool leLanguage(int language)
         {
             // TODO should sanity check language and return true iff OK
@@ -6172,8 +6192,9 @@ namespace LEonard
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
-                    .SetValue("print", new Action<string>((string msg) => lePrintJ(msg)))
-                    .SetValue("prompt", new Action<string>((string prompt) => PromptOperator("Java Prompt:\n" + prompt)))
+                    .SetValue("leShowConsole", new Action<bool>((bool f) => leShowConsole(f)))
+                    .SetValue("lePrint", new Action<string>((string msg) => lePrintJ(msg)))
+                    .SetValue("lePrompt", new Action<string>((string prompt) => PromptOperator("Java Prompt:\n" + prompt)))
                     .SetValue("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
                     .SetValue("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)))
                     .SetValue("leAsk", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)))
@@ -6414,11 +6435,9 @@ namespace LEonard
             pythonEngine = IronPython.Hosting.Python.CreateEngine();
             pythonScope = pythonEngine.CreateScope();
 
-            //pythonScope.RemoveVariable("print");
-            //pythonScope.SetVariable("print", new Action<string>((string msg) => lePrintP(msg)));
-            //pythonScope.Engine.Runtime.IO.SetOutput(writer, Encoding.ASCII);
-            pythonScope.SetVariable("pprint", new Action<string>((string msg) => lePrintP(msg)));
-            pythonScope.SetVariable("prompt", new Action<string>((string prompt) => PromptOperator(prompt)));
+            pythonScope.SetVariable("leShowConsole", new Action<bool>((bool f) => leShowConsole(f)));
+            pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
+            pythonScope.SetVariable("lePrompt", new Action<string>((string prompt) => PromptOperator(prompt)));
             pythonScope.SetVariable("leEexec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
             pythonScope.SetVariable("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)));
             pythonScope.SetVariable("leAsk", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)));

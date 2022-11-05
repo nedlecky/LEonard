@@ -1,0 +1,5 @@
+# Hello, World! In LEScript
+UseLEScript()
+lePrint(Hello, World!)
+value = 13.25
+lePrint(value = {value})
