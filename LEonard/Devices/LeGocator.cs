@@ -27,6 +27,7 @@ namespace LEonard
             OK
         }
         public Status status = Status.OFF;
+        public string ProgramFilename { get; set; } = "LM01";
 
         public LeGocator(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
@@ -50,7 +51,7 @@ namespace LEonard
             // Gocator sends back OK which we just ignore
             if (message.StartsWith("OK"))
             {
-                log.Info($"LeGocator::Callback({prefix},{message})");
+                log.Debug($"LeGocator::Callback({prefix},{message})");
                 return;
             }
 
@@ -75,7 +76,7 @@ namespace LEonard
                 // TODO all the below init should be in onConnectExec
                 InquiryResponse("stop");
                 InquiryResponse("clearalignment");
-                InquiryResponse("loadjob,LM01");
+                InquiryResponse($"loadjob,{ProgramFilename}");
                 InquiryResponse("start");
                 myForm.WriteVariable("gocator_ready", true, true);
                 log.Info("Gocator connection ready");

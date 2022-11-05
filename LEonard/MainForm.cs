@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using IronPython.Hosting;
 using Jint;
 using Microsoft.Win32;
 using NLog;
@@ -1199,22 +1200,8 @@ namespace LEonard
             GrindNCyclesLbl.Text = "";
             StepTimeEstimateLbl.Text = "";
 
-            // This allows offline dry runs but makes sure you know!
-            /*
-            if (!robotReady)
-            {
-                if (AllowRunningOfflineChk.Checked)
-                {
-                    var result = ConfirmMessageBox("Robot not connected.\nRun anyway?");
-                    if (result != DialogResult.OK) return false;
-                }
-                else
-                {
-                    ErrorMessageBox("Robot not connected.\nRunning not allowed per Setup checkbox.");
-                    return false;
-                }
-            }
-            */
+            // We start in LEScript mode!
+            LEonardLanguage = LEonardLanguages.LEScript;
 
             // Gocator
             // TODO this needs to be generalized
@@ -2011,8 +1998,8 @@ namespace LEonard
                 "",
                 "",
                 "trigger|stop|start|loadjob,LM01|clearalignment",
+                "LM01",
                 "","","",
-                ""
             });
             devices.Rows.Add(new object[] {
                 4, "GocatorAcc", false, false, "Gocator", "192.168.0.252:8190",
@@ -2027,7 +2014,7 @@ namespace LEonard
                 "",
                 "",
                 "trigger|stop|start|loadjob,LM01|clearalignment",
-                "",
+                "LM01",
                 "","","",
             });
             devices.Rows.Add(new object[] {
@@ -2285,13 +2272,11 @@ namespace LEonard
                 }
             }
         }
-
         private void SetStartupDevicesFileBtn_Click(object sender, EventArgs e)
         {
             StartupDevicesLbl.Text = DevicesFilenameLbl.Text;
             log.Info("Startup Devices file set to {0}", DevicesFilenameLbl.Text);
         }
-
         private void DeviceConnectAllBtn_Click(object sender, EventArgs e)
         {
             log.Info("DeviceConnectAllBtn_Click");
@@ -2306,7 +2291,6 @@ namespace LEonard
                 }
             }
         }
-
         private void DeviceDisconnectAllBtn_Click(object sender, EventArgs e)
         {
             log.Info("DeviceDisconnectAllBtn_Click");
@@ -2387,13 +2371,14 @@ namespace LEonard
                     break;
                 case "UrDashboard":
                     interfaces[ID] = new LeUrDashboard(this, messageTag, onConnectExec);
-                    ((LeUrDashboard)interfaces[ID]).UrProgramFilename = jobFile;
+                    ((LeUrDashboard)interfaces[ID]).ProgramFilename = jobFile;
                     break;
                 case "UrCommand":
                     interfaces[ID] = new LeUrCommand(this, messageTag, onConnectExec);
                     break;
                 case "Gocator":
                     interfaces[ID] = new LeGocator(this, messageTag, onConnectExec);
+                    ((LeGocator)interfaces[ID]).ProgramFilename = jobFile;
                     break;
                 case "Serial":
                     interfaces[ID] = new LeSerial(this, messageTag, onConnectExec);
@@ -2811,7 +2796,7 @@ namespace LEonard
         //      SET name value  Sent to WriteVariable
         public void GeneralCallback(string prefix, string message, LeDeviceInterface dev)
         {
-            log.Info($"GeneralCallback({prefix}, {message}, {dev})");
+            log.Debug($"GeneralCallback({prefix}, {message}, {dev})");
             ExecuteLEonardMessage(prefix, message, dev);
         }
 
@@ -2823,14 +2808,14 @@ namespace LEonard
         // Callback used for LEonardClient and remote control
         void CommandCallback(string prefix, string message, LeDeviceInterface dev)
         {
-            log.Info($"CCB<==({prefix}, {message})");
+            log.Debug($"CCB<==({prefix}, {message})");
             // Nothing special for now
             GeneralCallback(prefix, message, dev);
         }
 
         void AlternateCallback1(string message, string prefix, LeDeviceInterface dev)
         {
-            log.Info($"DCB<==({prefix},{message})");
+            log.Debug($"ACB<==({prefix},{message})");
             string[] s = message.Split(',');
             if (s.Length == 3)
             {
@@ -5481,6 +5466,25 @@ namespace LEonard
                 LEonardLanguage = (LEonardLanguages)Convert.ToInt32(ExtractParameters(command, -1, false));
                 return true;
             }
+            // UseLanguage Commands
+            if (command=="UseLEScript()")
+            {
+                LogInterpret("UseLEScript", lineNumber, origLine);
+                LEonardLanguage = LEonardLanguages.LEScript;
+                return true;
+            }
+            if (command == "UseJava()")
+            {
+                LogInterpret("UseJava", lineNumber, origLine);
+                LEonardLanguage = LEonardLanguages.Java;
+                return true;
+            }
+            if (command == "UsePython()")
+            {
+                LogInterpret("UseLEScript", lineNumber, origLine);
+                LEonardLanguage = LEonardLanguages.Python;
+                return true;
+            }
 
             // lePrintFunc
             void lePrintFunc(string s)
@@ -6175,6 +6179,9 @@ namespace LEonard
                     .SetValue("lePrompt", new Action<string>((string prompt) => PromptOperator("Java Prompt:\n" + prompt)))
                     .SetValue("lePrint", new Action<string>((string msg) => lePrintJ(msg)))
                     .SetValue("leLanguage", new Func<int, bool>((int language) => leLanguage(language)))
+                    .SetValue("UseLEScript", new Func<bool>(() => leLanguage(0)))
+                    .SetValue("UseJava", new Func<bool>(() => leLanguage(1)))
+                    .SetValue("UsePython", new Func<bool>(() => leLanguage(2)))
                     .SetValue("leLogInfo", new Action<string>((string msg) => log.Info(msg)))
                     .SetValue("leLogError", new Action<string>(s => log.Error(s)))
                     .SetValue("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
@@ -6414,6 +6421,9 @@ namespace LEonard
             pythonScope.SetVariable("lePrompt", new Action<string>((string prompt) => PromptOperator("Python Prompt:\n" + prompt)));
             pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
             pythonScope.SetVariable("leLanguage", new Func<int, bool>((int language) => leLanguage(language)));
+            pythonScope.SetVariable("UseLEScript", new Func<bool>(() => leLanguage(0)));
+            pythonScope.SetVariable("UseJava", new Func<bool>(() => leLanguage(1)));
+            pythonScope.SetVariable("UsePython", new Func<bool>(() => leLanguage(2)));
             pythonScope.SetVariable("leLogInfo", new Action<string>((string msg) => log.Info(msg)));
             pythonScope.SetVariable("leLogError", new Action<string>(s => log.Error(s)));
             pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
@@ -6779,6 +6789,8 @@ namespace LEonard
         public void UrDashboardAnnounce()
         {
             log.Debug($"UrDashboardAnnounce nInstances={LeUrDashboard.nInstances}");
+            
+            // If no UrDashboard is attached, hide the controls and return
             if (LeUrDashboard.nInstances < 1)
             {
                 RobotConnectBtn.Visible = false;
@@ -6830,6 +6842,8 @@ namespace LEonard
         public void UrCommandAnnounce()
         {
             log.Debug($"UrCommandAnnounce nInstances={LeUrCommand.nInstances}");
+            
+            // If no UrCommand attached, hide the controls and return
             if (LeUrCommand.nInstances < 1)
             {
                 RobotCommandStatusLbl.Visible = false;
@@ -6838,6 +6852,8 @@ namespace LEonard
                 GrindProcessStateLbl.Visible = false;
                 RobotSentLbl.Visible = false;
                 RobotCompletedLbl.Visible = false;
+                DoorClosedLbl.Visible = false;
+                FootswitchPressedLbl.Visible = false;
                 return;
             }
             else
@@ -6848,6 +6864,8 @@ namespace LEonard
                 GrindProcessStateLbl.Visible = true;
                 RobotSentLbl.Visible = true;
                 RobotCompletedLbl.Visible = true;
+                DoorClosedLbl.Visible = true;
+                FootswitchPressedLbl.Visible = true;
             }
 
             LeUrCommand.Status status = LeUrCommand.Status.ERROR;

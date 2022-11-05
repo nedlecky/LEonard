@@ -30,7 +30,7 @@ namespace LEonard
         }
         public Status status = Status.OFF;
 
-        public string UrProgramFilename { get; set; } = "";
+        public string ProgramFilename { get; set; } = "";
 
         public LeUrDashboard(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
@@ -89,28 +89,28 @@ namespace LEonard
                 myForm.ErrorMessageBox("Robot not in remote control mode!");
                 return 0;
             }
-            string loadedProgramResponse = InquiryResponse("load " + UrProgramFilename, 1000);
+            string loadedProgramResponse = InquiryResponse("load " + ProgramFilename, 1000);
             if (loadedProgramResponse == null)
             {
-                myForm.ErrorMessageBox($"Failed to load {UrProgramFilename}. No response.");
+                myForm.ErrorMessageBox($"Failed to load {ProgramFilename}. No response.");
                 return 0;
             }
             if (loadedProgramResponse.StartsWith("File not found"))
             {
-                myForm.ErrorMessageBox($"Failed to load {UrProgramFilename}. Response was \"{loadedProgramResponse}\"");
+                myForm.ErrorMessageBox($"Failed to load {ProgramFilename}. Response was \"{loadedProgramResponse}\"");
                 return 0;
             }
 
             string getLoadedProgramResponse = InquiryResponse("get loaded program", 1000);
             if (getLoadedProgramResponse == null)
             {
-                myForm.ErrorMessageBox($"Failed to verify loading {UrProgramFilename}. No response");
+                myForm.ErrorMessageBox($"Failed to verify loading {ProgramFilename}. No response");
                 return 0;
             }
 
-            if (!getLoadedProgramResponse.Contains(UrProgramFilename))
+            if (!getLoadedProgramResponse.Contains(ProgramFilename))
             {
-                myForm.ErrorMessageBox($"Failed to verify loading {UrProgramFilename}. Response was \"{getLoadedProgramResponse}\"");
+                myForm.ErrorMessageBox($"Failed to verify loading {ProgramFilename}. Response was \"{getLoadedProgramResponse}\"");
                 return 0;
             }
 
