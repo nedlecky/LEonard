@@ -130,7 +130,7 @@
         JccS7hNuS1i25Aem85xQvKbYSq+YP/dULwwu2lOTSpfZyhjjRIiiYbDCMmlydMlqi+ISk/1wCX+L74+K
         yxDXMqY4Rshgoft+1B/87tZN9vbkk4JhqHzyvLd2qN6Cr03P+zz0vK8jKH+EC7vgzxzA4LvomwWtbR8a
         1uHssqAZ23C+AU0PWd3RfalcZiCZhNcT+aYZaLyG2rl8bz/7HN9BXLqauILdPehISfZ8iXfXFPf25xm/
-        P8LfpwByvKZje6AAAAAJcEhZcwAADr8AAA6/ATgFUyQAAAAHdElNRQfmBhkMEC4xlllwAADcMElEQVR4
+        P8LfpwByvKZje6AAAAAJcEhZcwAADr4AAA6+AepCscAAAAAHdElNRQfmBhkMEC4xlllwAADcMElEQVR4
         Xuy9939VRff+LYTee3rvvfeekARCAukkkAChF0WsWFHBiiAigig27IANGyKCNEGKCEixt9u7fe7v8zes
         Z661s5Odk0k5yakwP7xfJzlnn9mzZ+8z16w1a9bc8MB9jbTx8SZ66gmFQqFQKBTOyg0bhJj/fXUx/fun
         JQqFQqFQKJyUG2Cd/0v88X+/KhQKhUKhcFaUoCsUCoVCcQ2gBF2hUCgUimsAJegKhUKhUFwDKEFXKBQK
@@ -1076,7 +1076,7 @@
   <data name="DeveloperLogoPic.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAdsAAAEUCAYAAABjxJxVAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAKFxJREFUeF7t3fm/FMWh93EWUaIoRBQJICKyCqKAIIsgEmVTQJF9k+0c45Jo1GtM
+        vgAADr4B6kKxwAAAKFxJREFUeF7t3fm/FMWh93EWUaIoRBQJICKyCqKAIIsgEmVTQJF9k+0c45Jo1GtM
         DIlbvCbE+JgYfcXklbg8EaPmqmjUBK/XJRpxX1ARkaiJ2/0n6jnf5mno6amZ7urpOtNzzueH90uZ00t1
         z3R9u6qX6vDCUxsMAADwp8P/fnSeAQAA/hC2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZYQsA
         gGeELQAAnhG2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZ
@@ -1249,6 +1249,17 @@
         nhG2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZYQsAgGeE
         LQAAnhG2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZYQsA
         gGeELQAAnhG2AAB41uGu364xAADAlzXm/wHWB1nIcP4h6AAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>
+LEonard is a C# application by Ned Lecky
+Copyright: Lecky Engineering, LLC  c. 2021, 2022, 2023
+
+Open Source Libraries Used with Gratitude:
+  Jint 2.11.58 by Sebastian Ros
+  IronPython 2.7.12 by many contributors and Microsoft
+  NLog 4.7.15 by Jarek Kowalski, Kim Christensen, Julian Verdumen
 </value>
   </data>
   <metadata name="ShowTmr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

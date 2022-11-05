@@ -194,9 +194,7 @@ namespace LEonard
             LoadPersistent();
 
             // Suppress all the optional controls!
-            UrDashboardAnnounce();
-            UrCommandAnnounce();
-            GocatorAnnounce();
+            UpdateAnnunciators();
 
             splashForm = new SplashForm(this)
             {
@@ -1157,7 +1155,7 @@ namespace LEonard
 
             // Actions to take on entering particular tabs
             if (tabName == "Tools")
-                // Highlight the curent tool selected in the grid
+                // Highlight the current tool selected in the grid
                 SelectDataGridViewRow(ToolsGrd, MountedToolBox.Text);
 
             if (tabName == "Displays")
@@ -2488,10 +2486,7 @@ namespace LEonard
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
 
-                // Update Annunciators!
-                UrDashboardAnnounce();
-                UrCommandAnnounce();
-                GocatorAnnounce();
+                UpdateAnnunciators();
             }
         }
         private void DeviceDisconnectBtn_Click(object sender, EventArgs e)
@@ -5467,7 +5462,7 @@ namespace LEonard
                 return true;
             }
             // UseLanguage Commands
-            if (command=="UseLEScript()")
+            if (command == "UseLEScript()")
             {
                 LogInterpret("UseLEScript", lineNumber, origLine);
                 LEonardLanguage = LEonardLanguages.LEScript;
@@ -6758,16 +6753,25 @@ namespace LEonard
             SaveLicenseBtn.Enabled = true;
         }
 
+        private void UpdateAnnunciators()
+        {
+            GocatorAnnounce();
+            UrDashboardAnnounce();
+            UrCommandAnnounce();
+        }
+
         private void ReloadLicenseBtn_Click(object sender, EventArgs e)
         {
             protection.LoadLicense(licenseFilename);
             GetLicenseStatus();
             SaveLicenseBtn.Enabled = false;
+            UpdateAnnunciators();
         }
         private void SaveLicenseBtn_Click(object sender, EventArgs e)
         {
             protection.SaveLicense(licenseFilename);
             SaveLicenseBtn.Enabled = false;
+            UpdateAnnunciators();
         }
 
         #endregion ===== LICENSING CODE                    ==============================================================================================================================
@@ -6789,22 +6793,22 @@ namespace LEonard
         public void UrDashboardAnnounce()
         {
             log.Debug($"UrDashboardAnnounce nInstances={LeUrDashboard.nInstances}");
-            
-            // If no UrDashboard is attached, hide the controls and return
-            if (LeUrDashboard.nInstances < 1)
+
+            // Buttons only visible if there is a UrDashboard
+            void SetButtonVisibility(bool isVisible)
             {
-                RobotConnectBtn.Visible = false;
-                RobotModeBtn.Visible = false;
-                RobotSafetyStatusBtn.Visible = false;
-                RobotProgramStateBtn.Visible = false;
-                return;
+                RobotConnectBtn.Visible = isVisible;
+                RobotModeBtn.Visible = isVisible;
+                RobotSafetyStatusBtn.Visible = isVisible;
+                RobotProgramStateBtn.Visible = isVisible;
             }
+            // If no UrDashboard is attached, hide the controls and return. Else show them!
+            if (LeUrDashboard.nInstances > 0)
+                SetButtonVisibility(true);
             else
             {
-                RobotConnectBtn.Visible = true;
-                RobotModeBtn.Visible = true;
-                RobotSafetyStatusBtn.Visible = true;
-                RobotProgramStateBtn.Visible = true;
+                SetButtonVisibility(false);
+                return;
             }
 
             LeUrDashboard.Status status = LeUrDashboard.Status.ERROR;
@@ -6842,30 +6846,51 @@ namespace LEonard
         public void UrCommandAnnounce()
         {
             log.Debug($"UrCommandAnnounce nInstances={LeUrCommand.nInstances}");
-            
-            // If no UrCommand attached, hide the controls and return
-            if (LeUrCommand.nInstances < 1)
+
+            // Buttons only visible if there is a UrCommand
+            void SetButtonVisibility(bool isVisible)
             {
-                RobotCommandStatusLbl.Visible = false;
-                RobotReadyLbl.Visible = false;
-                GrindReadyLbl.Visible = false;
-                GrindProcessStateLbl.Visible = false;
-                RobotSentLbl.Visible = false;
-                RobotCompletedLbl.Visible = false;
-                DoorClosedLbl.Visible = false;
-                FootswitchPressedLbl.Visible = false;
-                return;
+                RobotCommandStatusLbl.Visible = isVisible;
+                RobotReadyLbl.Visible = isVisible;
+                RobotSentLbl.Visible = isVisible;
+                RobotCompletedLbl.Visible = isVisible;
+
+                MoveToolHomeBtn.Visible = isVisible;
+                MoveToolMountBtn.Visible = isVisible;
+                MoveToolHomeLbl.Visible = isVisible;
+                MoveToolMountLbl.Visible = isVisible;
+
+                DoorClosedLbl.Visible = isVisible;
+                FootswitchPressedLbl.Visible = isVisible;
+
+                MountedToolBox.Visible = isVisible;
+                MountedToolBoxLbl.Visible = isVisible;
+                PartGeometryBox.Visible = isVisible;
+                PartGeometryBoxLbl.Visible = isVisible;
+                DiameterLbl.Visible = isVisible;
+                DiameterDimLbl.Visible = isVisible;
+
+                // Only available with grinding system
+                bool showGrind = isVisible && Protection.license.hasGrinding;
+                GrindContactEnabledBtn.Visible = showGrind;
+                GrindReadyLbl.Visible = showGrind;
+                GrindProcessStateLbl.Visible = showGrind;
+                GrindLbl1.Visible = showGrind;
+                GrindLbl2.Visible = showGrind;
+                GrindLbl3.Visible = showGrind;
+                GrindLbl4.Visible = showGrind;
+                GrindCycleLbl.Visible = showGrind;
+                GrindNCyclesLbl.Visible = showGrind;
+                GrindForceReportZLbl.Visible = showGrind;
             }
+
+            // If no UrCommand attached, hide the controls and return. Else show them!
+            if (LeUrCommand.nInstances > 0)
+                SetButtonVisibility(true);
             else
             {
-                RobotCommandStatusLbl.Visible = true;
-                RobotReadyLbl.Visible = true;
-                GrindReadyLbl.Visible = true;
-                GrindProcessStateLbl.Visible = true;
-                RobotSentLbl.Visible = true;
-                RobotCompletedLbl.Visible = true;
-                DoorClosedLbl.Visible = true;
-                FootswitchPressedLbl.Visible = true;
+                SetButtonVisibility(false);
+                return;
             }
 
             LeUrCommand.Status status = LeUrCommand.Status.ERROR;

@@ -151,7 +151,7 @@
     <SetupFileName />
     <SetupArguments />
     <SpeedSendButtons>trigger|stop|start|loadjob,LM01|clearalignment</SpeedSendButtons>
-    <Jobfile />
+    <Jobfile>LM01</Jobfile>
     <Model />
     <Serial />
     <Version />
@@ -179,7 +179,7 @@
     <SetupFileName />
     <SetupArguments />
     <SpeedSendButtons>trigger|stop|start|loadjob,LM01|clearalignment</SpeedSendButtons>
-    <Jobfile />
+    <Jobfile>LM01</Jobfile>
     <Model />
     <Serial />
     <Version />

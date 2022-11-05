@@ -143,12 +143,14 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.tableLayoutPanel.SetColumnSpan(this.label1, 2);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(172, 463);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(251, 91);
+            this.label1.Size = new System.Drawing.Size(527, 132);
             this.label1.TabIndex = 89;
-            this.label1.Text = "\r\nCopyright Lecky Engineering LLC 2021, 2022, 2023\r\n\r\nLibraries:\r\n  NLog\r\n  Jint\r" +
-    "\n  IronPython";
+            this.label1.Text = resources.GetString("label1.Text");
             // 
             // SplashForm
             // 
