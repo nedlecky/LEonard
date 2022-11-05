@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -144,12 +145,12 @@ namespace LEonard
         {
             InitializeComponent();
 
-            InitializeJavaEngine();
-            InitializePythonEngine();
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             consoleForm = new ConsoleForm(this);
+            InitializeJavaEngine();
+            InitializePythonEngine();
 
             // Startup logging system (which also displays messages)
             log = NLog.LogManager.GetCurrentClassLogger();
@@ -5481,15 +5482,15 @@ namespace LEonard
                 return true;
             }
 
-            // lePrintFunc
+            // print
             void lePrintFunc(string s)
             {
                 log.Info("LE** " + s);
                 Console.WriteLine(s);
             }
-            if (command.StartsWith("lePrint("))
+            if (command.StartsWith("print("))
             {
-                LogInterpret("lePrint", lineNumber, origLine);
+                LogInterpret("print", lineNumber, origLine);
                 lePrintFunc(ExtractParameters(command, -1, false));
                 return true;
             }
@@ -6171,19 +6172,19 @@ namespace LEonard
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
-                    .SetValue("lePrompt", new Action<string>((string prompt) => PromptOperator("Java Prompt:\n" + prompt)))
-                    .SetValue("lePrint", new Action<string>((string msg) => lePrintJ(msg)))
+                    .SetValue("print", new Action<string>((string msg) => lePrintJ(msg)))
+                    .SetValue("prompt", new Action<string>((string prompt) => PromptOperator("Java Prompt:\n" + prompt)))
+                    .SetValue("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
+                    .SetValue("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)))
+                    .SetValue("leAsk", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)))
+                    .SetValue("leLogInfo", new Action<string>((string msg) => log.Info(msg)))
+                    .SetValue("leLogError", new Action<string>(s => log.Error(s)))
+                    .SetValue("leWriteVar", new Action<string, string>((string name, string value) => WriteVariable(name, value)))
+                    .SetValue("leReadVar", new Func<string, string>((string name) => ReadVariable(name)))
                     .SetValue("leLanguage", new Func<int, bool>((int language) => leLanguage(language)))
                     .SetValue("UseLEScript", new Func<bool>(() => leLanguage(0)))
                     .SetValue("UseJava", new Func<bool>(() => leLanguage(1)))
                     .SetValue("UsePython", new Func<bool>(() => leLanguage(2)))
-                    .SetValue("leLogInfo", new Action<string>((string msg) => log.Info(msg)))
-                    .SetValue("leLogError", new Action<string>(s => log.Error(s)))
-                    .SetValue("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
-                    .SetValue("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)))
-                    .SetValue("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)))
-                    .SetValue("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)))
-                    .SetValue("leInquiryResponse", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)))
             ;
         }
         private void JavaNewBtn_Click(object sender, EventArgs e)
@@ -6408,24 +6409,55 @@ namespace LEonard
             Console.WriteLine(msg);
         }
 
+        class InterceptingWriter : TextWriter
+        {
+            TextWriter _existingWriter;
+            Action<string> _writeTask;
+
+            public InterceptingWriter(TextWriter existing, Action<string> task)
+            {
+                _existingWriter = existing;
+                _writeTask = task;
+            }
+
+            public override void WriteLine(string value)
+            {
+                //lePrintP(value);
+                _existingWriter.WriteLine(value);
+                // This calls the delegate you passed in to the constructor, updating 
+                // your textbox or anything else that acts upon the string passed in
+                _writeTask(value);
+            }
+
+            public override Encoding Encoding
+            {
+                get { throw new NotImplementedException(); }
+            }
+
+            // ...other overrides as necessary...
+        }
+        //InterceptingWriter writer = new InterceptingWriter(Console.Out, (str) => Console.WriteLine(str));
         private void InitializePythonEngine()
         {
             pythonEngine = IronPython.Hosting.Python.CreateEngine();
             pythonScope = pythonEngine.CreateScope();
 
-            pythonScope.SetVariable("lePrompt", new Action<string>((string prompt) => PromptOperator("Python Prompt:\n" + prompt)));
-            pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
+            //pythonScope.RemoveVariable("print");
+            //pythonScope.SetVariable("print", new Action<string>((string msg) => lePrintP(msg)));
+            //pythonScope.Engine.Runtime.IO.SetOutput(writer, Encoding.ASCII);
+            pythonScope.SetVariable("pprint", new Action<string>((string msg) => lePrintP(msg)));
+            pythonScope.SetVariable("prompt", new Action<string>((string prompt) => PromptOperator(prompt)));
+            pythonScope.SetVariable("leEexec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
+            pythonScope.SetVariable("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)));
+            pythonScope.SetVariable("leAsk", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)));
+            pythonScope.SetVariable("leLogInfo", new Action<string>((string msg) => log.Info(msg)));
+            pythonScope.SetVariable("leLogError", new Action<string>(s => log.Error(s)));
+            pythonScope.SetVariable("leWriteVar", new Action<string, string>((string name, string value) => WriteVariable(name, value)));
+            pythonScope.SetVariable("leReadVar", new Func<string, string>((string name) => ReadVariable(name)));
             pythonScope.SetVariable("leLanguage", new Func<int, bool>((int language) => leLanguage(language)));
             pythonScope.SetVariable("UseLEScript", new Func<bool>(() => leLanguage(0)));
             pythonScope.SetVariable("UseJava", new Func<bool>(() => leLanguage(1)));
             pythonScope.SetVariable("UsePython", new Func<bool>(() => leLanguage(2)));
-            pythonScope.SetVariable("leLogInfo", new Action<string>((string msg) => log.Info(msg)));
-            pythonScope.SetVariable("leLogError", new Action<string>(s => log.Error(s)));
-            pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
-            pythonScope.SetVariable("leWriteVariable", new Action<string, string>((string name, string value) => WriteVariable(name, value)));
-            pythonScope.SetVariable("leReadVariable", new Func<string, string>((string name) => ReadVariable(name)));
-            pythonScope.SetVariable("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)));
-            pythonScope.SetVariable("leInquiryResponse", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)));
         }
         private void PythonNewBtn_Click(object sender, EventArgs e)
         {

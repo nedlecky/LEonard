@@ -1,5 +1,0 @@
-a=3
-a+=1
-lePrint(a={a})
-
-leSend(Command,hey)

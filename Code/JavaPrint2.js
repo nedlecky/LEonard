@@ -3,5 +3,5 @@ if(typeof javaprint2_count == 'undefined')
 else
   javaprint2_count = javaprint2_count + 1;
 
-lePrint('Java Print2 count = ' + javaprint2_count)
+print('Java Print2 count = ' + javaprint2_count)
 

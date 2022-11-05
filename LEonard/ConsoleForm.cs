@@ -29,29 +29,29 @@ namespace LEonard
         IEnumerable<Control> allResizeControlList;
         int originalWidth;
 
-        private StringRedir RedirConsole;
+        public StringRedir RedirConsole;
         private TextWriter ConsoleWriter;
         public ConsoleForm(MainForm _mainForm)
         {
             InitializeComponent();
             mainForm = _mainForm;
 
-            Console.WriteLine("ConsoleForm() line to ORIGINAL console.");
+            //Console.WriteLine("ConsoleForm() line to ORIGINAL console.");
 
             // Here we redirect Console.WriteLine to a RichTextBox control. 
             ConsoleWriter = Console.Out;    // Save the current console TextWriter. 
             RedirConsole = new StringRedir(ref ConsoleRTB);
             Console.SetOut(RedirConsole);   // Set console output to the StringRedir class. 
 
-            Console.WriteLine("ConsoleForm() line to NEW console.");
+            //Console.WriteLine("ConsoleForm() line to NEW console.");
         }
 
         ~ConsoleForm()
         {
-            Console.WriteLine(" ~ConsoleForm() line to NEW console.");
+            //Console.WriteLine(" ~ConsoleForm() line to NEW console.");
             Console.SetOut(ConsoleWriter);  // Redirect Console back to original TextWriter. 
             RedirConsole.Close();           // Close our StringRedir TextWriter. 
-            Console.WriteLine(" ~ConsoleForm() line to ORIGINAL console.");
+            //Console.WriteLine(" ~ConsoleForm() line to ORIGINAL console.");
         }
 
         private void ConsoleForm_Load(object sender, EventArgs e)
@@ -143,7 +143,6 @@ namespace LEonard
         public override void WriteLine(string message)
         {
             MainForm.CrawlRTB(outBox, message);
-            //outBox.Refresh();
         }
     }
 }
