@@ -1,0 +1,23 @@
+# 10p Static Repeatability
+
+UsePython()
+
+leClearVariables()
+filename = leReadVar('LEScriptFilename')
+lePrint(filename)
+
+move_linear('cp_origin')
+movel_rel_set_part_origin_here()
+
+movel_rel_part(0.025,0.100,0,0,0,0)
+
+leWriteVar('gocator_ID','static_pose')
+
+count = 5
+loop:
+gocator_trigger(1000)
+gocator_write_data(filename)
+count = count - 1
+jumpif(count>0, 'loop')
+
+movel_rel_part(0,0,0,0,0,0)

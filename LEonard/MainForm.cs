@@ -4272,7 +4272,8 @@ namespace LEonard
         /// <returns>(bool Success, string Value if matched else null)</returns>
         private (bool Success, string Value) IsLineALabel(string line)
         {
-            Regex regex = new Regex("^[A-Za-z_][A-Za-z0-9_]*:$");
+            //Regex regex = new Regex("^[A-Za-z_][A-Za-z0-9_]*:$"); // Original until 11/6/2022
+            Regex regex = new Regex("^[A-Za-z_][A-Za-z0-9_]*:");  // Making universal for all 3 languages
             Match match = regex.Match(line);
             if (match.Success)
                 return (true, match.Value.Trim(':'));
@@ -4830,13 +4831,19 @@ namespace LEonard
 
         Random random = new Random();
 
-        private bool ExecuteJavaLine(int lineNumber, string line, LeDeviceInterface dev = null)
+        private void CommonLineExecStart()
         {
+
             // Step is starting now
             stepStartedTime = DateTime.Now;
 
             // Default time estimate to complete step is 0
             stepEndTimeEstimate = stepStartedTime;
+        }
+
+        private bool ExecuteJavaLine(int lineNumber, string line, LeDeviceInterface dev = null)
+        {
+            CommonLineExecStart();
 
             log.Info($"EXECJ {lineNumber:00000}: {line}");
 
@@ -4849,6 +4856,9 @@ namespace LEonard
 
             // Setup for ExecError
             errorLineNumber = lineNumber;
+
+            // Is line a label? If so, we ignore it!
+            if (IsLineALabel(line).Success) return true;
 
             try
             {
@@ -4864,11 +4874,7 @@ namespace LEonard
         }
         private bool ExecutePythonLine(int lineNumber, string line, LeDeviceInterface dev = null)
         {
-            // Step is starting now
-            stepStartedTime = DateTime.Now;
-
-            // Default time estimate to complete step is 0
-            stepEndTimeEstimate = stepStartedTime;
+            CommonLineExecStart();
 
             log.Info($"EXECP {lineNumber:00000}: {line}");
 
@@ -4881,6 +4887,9 @@ namespace LEonard
 
             // Setup for ExecError
             errorLineNumber = lineNumber;
+
+            // Is line a label? If so, we ignore it!
+            if (IsLineALabel(line).Success) return true;
 
             try
             {
@@ -4904,11 +4913,7 @@ namespace LEonard
                     log.Info("EXECL {0:0000}: [{1}] {2}", lineNumber, myCommand.ToUpper(), line);
             }
 
-            // Step is starting now
-            stepStartedTime = DateTime.Now;
-
-            // Default time estimate to complete step is 0
-            stepEndTimeEstimate = stepStartedTime;
+            CommonLineExecStart();
 
             // Any variables to substitute {varName}
             string origLine = line;
@@ -5114,17 +5119,8 @@ namespace LEonard
             {
                 string labelName = ExtractParameters(command);
 
-                if (labels.TryGetValue(labelName, out int jumpLine))
-                {
-                    log.Info("EXEC {0:0000}: [JUMP] {1} --> {2:0000}", lineNumber, origLine, jumpLine);
-                    SetCurrentLine(jumpLine);
-                    return true;
-                }
-                else
-                {
-                    ExecError("Unknown label specified in jump");
-                    return true;
-                }
+                PerformJump(labelName);
+                return true;
             }
 
             // call
@@ -6216,6 +6212,9 @@ namespace LEonard
                     .SetValue("UseLEScript", new Func<bool>(() => leLanguage(0)))
                     .SetValue("UseJava", new Func<bool>(() => leLanguage(1)))
                     .SetValue("UsePython", new Func<bool>(() => leLanguage(2)))
+                    .SetValue("end", new Action(() => SetState(RunState.READY)))
+                    .SetValue("jump", new Action<string>((string labelName) => PerformJump(labelName)))
+                    .SetValue("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
             ;
         }
         private void JavaNewBtn_Click(object sender, EventArgs e)
@@ -6440,6 +6439,26 @@ namespace LEonard
             Console.WriteLine(msg);
         }
 
+        bool PerformJump(string labelName)
+        {
+            if (labels.TryGetValue(labelName, out int jumpLine))
+            {
+                log.Info($"EXEC {lineCurrentlyExecuting:0000}: [JUMP] --> {jumpLine:0000}");
+                SetCurrentLine(jumpLine);
+            }
+            else
+                ExecError($"Unknown label \"{labelName}\"specified in jump");
+
+            return true;
+        }
+        bool PerformJumpIf(bool condition, string labelName)
+        {
+            if (condition)
+                return PerformJump(labelName);
+            else
+                return true;
+        }
+
         private void InitializePythonEngine()
         {
             pythonEngine = Python.CreateEngine();
@@ -6473,6 +6492,10 @@ namespace LEonard
             pythonScope.SetVariable("UseLEScript", new Func<bool>(() => leLanguage(0)));
             pythonScope.SetVariable("UseJava", new Func<bool>(() => leLanguage(1)));
             pythonScope.SetVariable("UsePython", new Func<bool>(() => leLanguage(2)));
+            pythonScope.SetVariable("end", new Action(() => SetState(RunState.READY)));
+            pythonScope.SetVariable("jump", new Action<string>((string labelName) => PerformJump(labelName)));
+            pythonScope.SetVariable("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)));
+
 
             // UR Set Variables
             pythonScope.SetVariable("set_linear_speed", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_linear_speed({x})")));
@@ -6504,6 +6527,7 @@ namespace LEonard
             // Gocator
             pythonScope.SetVariable("gocator_trigger", new Func<double, bool>((double delay) => ExecuteLEScriptLine(-1, $"gocator_trigger({delay})")));
             pythonScope.SetVariable("gocator_adjust", new Func<int, bool>((int x) => ExecuteLEScriptLine(-1, $"gocator_adjust({x})")));
+            pythonScope.SetVariable("gocator_write_data", new Func<string, bool>((string filename) => ExecuteLEScriptLine(-1, $"gocator_write_data({filename})")));
         }
         private void PythonNewBtn_Click(object sender, EventArgs e)
         {

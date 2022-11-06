@@ -3,6 +3,8 @@ exec_python(Examples/Gocator/support.py)
 
 UsePython()
 leClearVariables()
+move_linear('cp_origin')
+movel_rel_set_part_origin_here()
 
 # Goto alignment hole at approx (9.000", 1.00")
 movel_rel_part(0.229,0.025,0,0,0,0)
