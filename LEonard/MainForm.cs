@@ -21,6 +21,7 @@ using IronPython.Hosting;
 using Jint;
 using Microsoft.Win32;
 using NLog;
+using static IronPython.Modules._ast;
 
 namespace LEonard
 {
@@ -3744,13 +3745,14 @@ namespace LEonard
         }
         public string ReadVariable(string name, string defaultValue = null)
         {
-            // TODO Document these virtual variables!
             if (name == "DateTime")
                 return DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss");
             if (name == "LEScriptFilename")
                 return Path.GetFileNameWithoutExtension(LEScriptFilenameLbl.Text).Replace(' ', '_').ToLower();
             if (name == "LEonardLanguage")
                 return LEonardLanguage.ToString();
+            if (name == "LEonardRoot")
+                return LEonardRoot;
 
             foreach (DataRow row in variables.Rows)
             {
@@ -5684,13 +5686,27 @@ namespace LEonard
                 return true;
             }
 
-            // write_gocator_data
+            // gocator_write_data
             if (command.StartsWith("gocator_write_data("))
             {
                 LogExecuteLEScriptLine("gocator_write_data", origLine);
 
-                string filename = ExtractParameters(command);
-                if (filename.Length < 1)
+                string filename;
+                string tagName = ReadVariable("gocator_ID", "???");
+
+                // Can put in (filename,tagName) or just (fuilename), in which case tagName = ReadVariable("gocator_ID", "???"
+                string[] parameters = ExtractParameters(command).Split(',');
+                if (parameters.Length == 2)
+                {
+                    filename = parameters[0];
+                    tagName = parameters[1];
+                }
+                else if (parameters.Length == 1)
+                {
+                    filename = parameters[0];
+                    tagName = ReadVariable("gocator_ID", "???");
+                }
+                else
                 {
                     ExecError("No file name specified");
                     return true;
@@ -5750,7 +5766,7 @@ namespace LEonard
                     }
 
                     string output = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    output += $",{GetRaw("gocator_ID")},{GetRaw("gc_decision")},{GetDist("gc_offset_x")},{GetDist("gc_offset_y")},{GetDist("gc_offset_z")}";
+                    output += $",{tagName},{GetRaw("gc_decision")},{GetDist("gc_offset_x")},{GetDist("gc_offset_y")},{GetDist("gc_offset_z")}";
                     output += $",{GetDist("gc_outer_radius")},{GetAngle("gc_depth")},{GetAngle("gc_bevel_radius")},{GetAngle("gc_bevel_angle")},{GetAngle("gc_xangle")},{GetAngle("gc_yangle")}";
                     output += $",{GetDist("gc_cb_depth")},{GetAngle("gc_axis_tilt")},{GetAngle("gc_axis_orient")}";
                     output += $",{GetRaw("gh_decision")},{GetDist("gh_offset_x")},{GetDist("gh_offset_y")},{GetDist("gh_offset_z")},{GetDist("gh_radius")}";
@@ -6466,6 +6482,8 @@ namespace LEonard
 
             // Make sure we're looking in the right spots for imports!
             ICollection<string> paths = pythonEngine.GetSearchPaths();
+            log.Error("Need to figure out how to find Python libs (hardcoding)");
+            paths.Add("/Users/nedlecky/GitHub/LEonard/LEonard/Lib");
             paths.Add(Path.Combine(LEonardRoot, "Code"));
             paths.Add(Path.Combine(LEonardRoot, "Code", "Examples"));
             foreach (string path in paths)
@@ -6523,11 +6541,14 @@ namespace LEonard
             pythonScope.SetVariable("movel_incr_part",
                 new Func<double, double, double, double, double, double, bool>(
                     (double dx, double dy, double dz, double drx, double dry, double drz) => ExecuteLEScriptLine(-1, $"movel_incr_part({dx},{dy},{dz},{drx},{dry},{drz})")));
+            pythonScope.SetVariable("movel_incr_tool",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => ExecuteLEScriptLine(-1, $"movel_incr_tool({dx},{dy},{dz},{drx},{dry},{drz})")));
 
             // Gocator
             pythonScope.SetVariable("gocator_trigger", new Func<double, bool>((double delay) => ExecuteLEScriptLine(-1, $"gocator_trigger({delay})")));
             pythonScope.SetVariable("gocator_adjust", new Func<int, bool>((int x) => ExecuteLEScriptLine(-1, $"gocator_adjust({x})")));
-            pythonScope.SetVariable("gocator_write_data", new Func<string, bool>((string filename) => ExecuteLEScriptLine(-1, $"gocator_write_data({filename})")));
+            pythonScope.SetVariable("gocator_write_data", new Func<string, string, bool>((string filename, string tagName) => ExecuteLEScriptLine(-1, $"gocator_write_data({filename},{tagName})")));
         }
         private void PythonNewBtn_Click(object sender, EventArgs e)
         {

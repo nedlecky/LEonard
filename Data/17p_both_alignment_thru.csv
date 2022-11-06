@@ -1,0 +1,6 @@
+timestamp,gocator_ID,gc_decision,gc_offset_x,gc_offset_y,gc_offset_z,gc_outer_radius,gc_depth,dc_bevel_radius,gc_bevel_angle,gc_xangle,gc_yangle,gc_cb_depth,gc_axis_tilt,gc_axis_orient,gh_decision,gh_offset_x,gh_offset_y,gh_offset_z,gh_radius,gp_xangle,gp_yangle,gp_z_offset,gp_std_dev
+,,,in,in,in,in,in,in,deg,deg,deg,in,deg,deg,,in,in,in,in,deg,deg,in,in
+2022-11-06 16:04:02,random_0.25in_10deg,0,0.1775,0.2402,-0.0843,0.1518,2.4,2.1,38.6,8.0,7.4,0.0000,13.9,116.8,0,0.1859,0.2092,-0.0898,0.1220,7.9,7.3,-0.1468,0.0354
+2022-11-06 16:04:07,adjust_3-1,2,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,0,0.0069,-0.0340,-0.0003,0.1226,-0.1,0.1,-0.0003,0.0054
+2022-11-06 16:04:12,adjust_3-2,2,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,0,0.0010,-0.0002,-0.0006,0.1223,0.0,0.0,-0.0006,0.0050
+2022-11-06 16:04:15,adjust_1,2,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,INVALID,0,0.0001,-0.0003,0.0001,0.1223,0.0,0.0,0.0001,0.0046

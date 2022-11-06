@@ -1,0 +1,28 @@
+# 15p Normal Alignment Thru
+exec_python(Examples/Gocator/support.py)
+UsePython()
+import random
+
+start_test()
+
+count=5
+loop:
+movel_rel_part(0,0,0,0,0,0)
+movel_rel_part(0.025,-0.108,0,0,0,0)
+
+# Random +/- 10 degrees
+drx = random.uniform(-0.175, 0.175)
+dry = random.uniform(-0.175, 0.175)
+movel_incr_tool(0,0,0,drx,dry,0)
+
+gocator_trigger(1000)
+gocator_write_data(filename,'random_10deg_tilt')
+
+gocator_adjust(2)
+gocator_trigger(1000)
+gocator_write_data(filename,'adjust_2')
+
+count = count - 1
+jumpif(count > 0, 'loop')
+
+finish_test()

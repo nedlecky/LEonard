@@ -1,12 +1,8 @@
 # 00p Set Origin
+exec_python(Examples/Gocator/support.py)
 UsePython()
 
-leClearConsole()
-leClearVariables()
-lePrint('Origin Setting')
-
-origin = [0,0,0,0,0,0]
-leWriteVarSys('origin',str(origin))
+start_test()
 
 # Coupon is 762mm diam (32in)
 coupon_diameter = 762.0
@@ -32,7 +28,4 @@ grind_max_blend_radius(blend_radius)
 select_tool('gocator3210')
 set_part_geometry('CYLINDER',coupon_diameter)
 
-move_linear('cp_origin')
-movel_rel_set_part_origin_here()
-gocator_trigger(1000)
-lePrint('Origin Set Complete!')
+finish_test()
