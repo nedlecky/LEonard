@@ -48,7 +48,7 @@
     <ID>0</ID>
     <Name>Command</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>TcpServer</DeviceType>
     <Address>127.0.0.1:1000</Address>
     <MessageTag>A.CTL</MessageTag>
@@ -76,7 +76,7 @@
     <ID>1</ID>
     <Name>UR-5eDash</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>UrDashboard</DeviceType>
     <Address>192.168.0.2:29999</Address>
     <MessageTag>R.Dash</MessageTag>
@@ -96,15 +96,15 @@
     <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
     <SpeedSendButtons>stop</SpeedSendButtons>
     <Jobfile>LEonard/LEonard01.urp</Jobfile>
-    <Model />
-    <Serial />
-    <Version />
+    <Model>UR5</Model>
+    <Serial>20195501059</Serial>
+    <Version>URSoftware 5.11.11.1010533 (Apr 12 2022)</Version>
   </Devices>
   <Devices>
     <ID>2</ID>
     <Name>UR-5eCommand</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>UrCommand</DeviceType>
     <Address>192.168.0.252:30000</Address>
     <MessageTag>R.Cmd</MessageTag>
@@ -132,7 +132,7 @@
     <ID>3</ID>
     <Name>Gocator</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
     <MessageTag>A.GO</MessageTag>
@@ -150,8 +150,8 @@
     <SetupWorkingDirectory />
     <SetupFileName />
     <SetupArguments />
-    <SpeedSendButtons>trigger|stop|start|loadjob,LM01|clearalignment</SpeedSendButtons>
-    <Jobfile>LM01</Jobfile>
+    <SpeedSendButtons>trigger|stop|start</SpeedSendButtons>
+    <Jobfile>LEonardHolefinder</Jobfile>
     <Model />
     <Serial />
     <Version />
@@ -178,8 +178,8 @@
     <SetupWorkingDirectory />
     <SetupFileName />
     <SetupArguments />
-    <SpeedSendButtons>trigger|stop|start|loadjob,LM01|clearalignment</SpeedSendButtons>
-    <Jobfile>LM01</Jobfile>
+    <SpeedSendButtons>trigger|stop|start</SpeedSendButtons>
+    <Jobfile>LEonardHolefinder</Jobfile>
     <Model />
     <Serial />
     <Version />
@@ -272,7 +272,7 @@
     <ID>8</ID>
     <Name>Dataman1</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM3</Address>
     <MessageTag>A.DM1</MessageTag>
@@ -300,7 +300,7 @@
     <ID>9</ID>
     <Name>Dataman2</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>Serial</DeviceType>
     <Address>COM4</Address>
     <MessageTag>A.DM2</MessageTag>
@@ -356,7 +356,7 @@
     <ID>11</ID>
     <Name>FS40 Control</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:107</Address>
     <MessageTag>A.FS40.C</MessageTag>
@@ -384,7 +384,7 @@
     <ID>12</ID>
     <Name>FS40 Results</Name>
     <Enabled>true</Enabled>
-    <Connected>false</Connected>
+    <Connected>true</Connected>
     <DeviceType>TcpClient</DeviceType>
     <Address>192.168.0.41:25250</Address>
     <MessageTag>A.FS40.R</MessageTag>

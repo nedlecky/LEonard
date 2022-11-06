@@ -31,6 +31,7 @@ namespace LEonard
         // Can override these before showing dialog
         public string Title { get; set; } = "??";
         public string Label { get; set; } = "???";
+        public Color TextColor { get; set; } = Color.Black;
         public string OkText { get; set; } = "OK";
         public string CancelText { get; set; } = "Cancel";
 
@@ -55,6 +56,7 @@ namespace LEonard
 
             Text = Title;
             label1.Text = Label;
+            label1.ForeColor = TextColor;
             OkBtn.Text = OkText;
             CancelBtn.Text = CancelText;
             result = DialogResult.None;

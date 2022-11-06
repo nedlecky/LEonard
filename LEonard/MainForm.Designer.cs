@@ -31,10 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
             this.LEScriptRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
@@ -112,12 +112,12 @@
             this.StatusLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.RobotConnectBtn = new System.Windows.Forms.Button();
-            this.GrindProcessStateLbl = new System.Windows.Forms.Label();
             this.CommandCounterLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.RobotSentLbl = new System.Windows.Forms.Label();
             this.RobotCompletedLbl = new System.Windows.Forms.Label();
-            this.GocatorConnectedLbl = new System.Windows.Forms.Label();
+            this.GrindProcessStateLbl = new System.Windows.Forms.Label();
             this.GocatorReadyLbl = new System.Windows.Forms.Label();
+            this.GocatorConnectedLbl = new System.Windows.Forms.Label();
             this.LEScriptRTBCopy = new System.Windows.Forms.RichTextBox();
             this.RunCenterColumnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label18 = new System.Windows.Forms.Label();
@@ -153,16 +153,6 @@
             this.BigEditBtn = new System.Windows.Forms.Button();
             this.SetupPage = new System.Windows.Forms.TabPage();
             this.SetupTab = new System.Windows.Forms.TabControl();
-            this.generalPage = new System.Windows.Forms.TabPage();
-            this.SetupGeneralLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.LoadConfigBtn = new System.Windows.Forms.Button();
-            this.SaveConfigBtn = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.LEonardRootLbl = new System.Windows.Forms.Label();
-            this.DefaultConfigBtn = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.StartupDevicesLbl = new System.Windows.Forms.Label();
-            this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
             this.devicesPage = new System.Windows.Forms.TabPage();
             this.SetupDevicesLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.DeviceReconnectBtn = new System.Windows.Forms.Button();
@@ -190,6 +180,16 @@
             this.ReloadDevicesBtn = new System.Windows.Forms.Button();
             this.speedBtnsGrp = new System.Windows.Forms.GroupBox();
             this.SpeedSendBtn1 = new System.Windows.Forms.Button();
+            this.displaysPage = new System.Windows.Forms.TabPage();
+            this.SetupDisplayLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.DisplaysGrd = new System.Windows.Forms.DataGridView();
+            this.SelectDisplayBtn = new System.Windows.Forms.Button();
+            this.LoadDisplaysBtn = new System.Windows.Forms.Button();
+            this.SaveDisplaysBtn = new System.Windows.Forms.Button();
+            this.ClearDisplaysButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.SelectedDisplayLbl = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.toolsPage = new System.Windows.Forms.TabPage();
             this.SetupToolsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SetDoorClosedInputBtn = new System.Windows.Forms.Button();
@@ -211,16 +211,6 @@
             this.LoadToolsBtn = new System.Windows.Forms.Button();
             this.SaveToolsBtn = new System.Windows.Forms.Button();
             this.ClearToolsBtn = new System.Windows.Forms.Button();
-            this.displaysPage = new System.Windows.Forms.TabPage();
-            this.SetupDisplayLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.DisplaysGrd = new System.Windows.Forms.DataGridView();
-            this.SelectDisplayBtn = new System.Windows.Forms.Button();
-            this.LoadDisplaysBtn = new System.Windows.Forms.Button();
-            this.SaveDisplaysBtn = new System.Windows.Forms.Button();
-            this.ClearDisplaysButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.SelectedDisplayLbl = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
             this.robotPage = new System.Windows.Forms.TabPage();
             this.SetupGrindLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SetMoveDefaultsBtn = new System.Windows.Forms.Button();
@@ -242,6 +232,17 @@
             this.SetMaxWaitBtn = new System.Windows.Forms.Button();
             this.SetGrindDefaultsBtn = new System.Windows.Forms.Button();
             this.SetLinearAccelBtn = new System.Windows.Forms.Button();
+            this.generalPage = new System.Windows.Forms.TabPage();
+            this.SetupGeneralLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.LoadConfigBtn = new System.Windows.Forms.Button();
+            this.SaveConfigBtn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LEonardRootLbl = new System.Windows.Forms.Label();
+            this.DefaultConfigBtn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.StartupDevicesLbl = new System.Windows.Forms.Label();
+            this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
+            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.licensePage = new System.Windows.Forms.TabPage();
             this.SetupLicenseLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.LicenseStatusLbl = new System.Windows.Forms.Label();
@@ -289,7 +290,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -317,24 +317,24 @@
             this.FileBigEditPanel.SuspendLayout();
             this.SetupPage.SuspendLayout();
             this.SetupTab.SuspendLayout();
-            this.generalPage.SuspendLayout();
-            this.SetupGeneralLayoutPanel.SuspendLayout();
             this.devicesPage.SuspendLayout();
             this.SetupDevicesLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DevicesGrd)).BeginInit();
             this.RuntimeAppHelperLayoutPanel.SuspendLayout();
             this.SetupAppHelperLayoutPanel.SuspendLayout();
             this.speedBtnsGrp.SuspendLayout();
+            this.displaysPage.SuspendLayout();
+            this.SetupDisplayLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplaysGrd)).BeginInit();
             this.toolsPage.SuspendLayout();
             this.SetupToolsLayoutPanel.SuspendLayout();
             this.FootswitchIoLayoutPanel.SuspendLayout();
             this.DoorIoLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ToolsGrd)).BeginInit();
-            this.displaysPage.SuspendLayout();
-            this.SetupDisplayLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DisplaysGrd)).BeginInit();
             this.robotPage.SuspendLayout();
             this.SetupGrindLayoutPanel.SuspendLayout();
+            this.generalPage.SuspendLayout();
+            this.SetupGeneralLayoutPanel.SuspendLayout();
             this.licensePage.SuspendLayout();
             this.SetupLicenseLayoutPanel.SuspendLayout();
             this.LicenseAdjustGrp.SuspendLayout();
@@ -1429,20 +1429,6 @@
             this.RobotConnectBtn.UseVisualStyleBackColor = false;
             this.RobotConnectBtn.Click += new System.EventHandler(this.RobotConnectBtn_Click);
             // 
-            // GrindProcessStateLbl
-            // 
-            this.GrindProcessStateLbl.BackColor = System.Drawing.Color.Gray;
-            this.GrindProcessStateLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GrindProcessStateLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GrindProcessStateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GrindProcessStateLbl.ForeColor = System.Drawing.Color.White;
-            this.GrindProcessStateLbl.Location = new System.Drawing.Point(288, 430);
-            this.GrindProcessStateLbl.Name = "GrindProcessStateLbl";
-            this.GrindProcessStateLbl.Size = new System.Drawing.Size(175, 90);
-            this.GrindProcessStateLbl.TabIndex = 136;
-            this.GrindProcessStateLbl.Text = "Grind Process State";
-            this.GrindProcessStateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // CommandCounterLayoutPanel
             // 
             this.CommandCounterLayoutPanel.ColumnCount = 1;
@@ -1484,19 +1470,19 @@
             this.RobotCompletedLbl.TabIndex = 135;
             this.RobotCompletedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // GocatorConnectedLbl
+            // GrindProcessStateLbl
             // 
-            this.GocatorConnectedLbl.BackColor = System.Drawing.Color.Gray;
-            this.GocatorConnectedLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GocatorConnectedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GocatorConnectedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GocatorConnectedLbl.ForeColor = System.Drawing.Color.White;
-            this.GocatorConnectedLbl.Location = new System.Drawing.Point(3, 700);
-            this.GocatorConnectedLbl.Name = "GocatorConnectedLbl";
-            this.GocatorConnectedLbl.Size = new System.Drawing.Size(279, 92);
-            this.GocatorConnectedLbl.TabIndex = 161;
-            this.GocatorConnectedLbl.Text = "Gocator Connected";
-            this.GocatorConnectedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.GrindProcessStateLbl.BackColor = System.Drawing.Color.Gray;
+            this.GrindProcessStateLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GrindProcessStateLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GrindProcessStateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GrindProcessStateLbl.ForeColor = System.Drawing.Color.White;
+            this.GrindProcessStateLbl.Location = new System.Drawing.Point(288, 430);
+            this.GrindProcessStateLbl.Name = "GrindProcessStateLbl";
+            this.GrindProcessStateLbl.Size = new System.Drawing.Size(175, 90);
+            this.GrindProcessStateLbl.TabIndex = 136;
+            this.GrindProcessStateLbl.Text = "Grind Process State";
+            this.GrindProcessStateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GocatorReadyLbl
             // 
@@ -1511,6 +1497,20 @@
             this.GocatorReadyLbl.TabIndex = 160;
             this.GocatorReadyLbl.Text = "Gocator Ready";
             this.GocatorReadyLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // GocatorConnectedLbl
+            // 
+            this.GocatorConnectedLbl.BackColor = System.Drawing.Color.Gray;
+            this.GocatorConnectedLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GocatorConnectedLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GocatorConnectedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GocatorConnectedLbl.ForeColor = System.Drawing.Color.White;
+            this.GocatorConnectedLbl.Location = new System.Drawing.Point(3, 700);
+            this.GocatorConnectedLbl.Name = "GocatorConnectedLbl";
+            this.GocatorConnectedLbl.Size = new System.Drawing.Size(279, 92);
+            this.GocatorConnectedLbl.TabIndex = 161;
+            this.GocatorConnectedLbl.Text = "Gocator Connected";
+            this.GocatorConnectedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LEScriptRTBCopy
             // 
@@ -2000,143 +2000,6 @@
             this.SetupTab.TabIndex = 161;
             this.SetupTab.SelectedIndexChanged += new System.EventHandler(this.SetupTab_SelectedIndexChanged);
             // 
-            // generalPage
-            // 
-            this.generalPage.Controls.Add(this.SetupGeneralLayoutPanel);
-            this.generalPage.Location = new System.Drawing.Point(4, 100);
-            this.generalPage.Name = "generalPage";
-            this.generalPage.Size = new System.Drawing.Size(1880, 700);
-            this.generalPage.TabIndex = 5;
-            this.generalPage.Text = "General";
-            this.generalPage.UseVisualStyleBackColor = true;
-            // 
-            // SetupGeneralLayoutPanel
-            // 
-            this.SetupGeneralLayoutPanel.ColumnCount = 6;
-            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.SetupGeneralLayoutPanel.Controls.Add(this.LoadConfigBtn, 3, 4);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.SaveConfigBtn, 4, 4);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.label1, 0, 0);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.LEonardRootLbl, 1, 0);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.DefaultConfigBtn, 5, 4);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.label2, 0, 1);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.StartupDevicesLbl, 1, 1);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.ChangeRootDirectoryBtn, 4, 0);
-            this.SetupGeneralLayoutPanel.Controls.Add(this.AutoConnectOnLoadChk, 4, 1);
-            this.SetupGeneralLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetupGeneralLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.SetupGeneralLayoutPanel.Name = "SetupGeneralLayoutPanel";
-            this.SetupGeneralLayoutPanel.RowCount = 5;
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.315789F));
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.315789F));
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.52631F));
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.05264F));
-            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.78947F));
-            this.SetupGeneralLayoutPanel.Size = new System.Drawing.Size(1880, 700);
-            this.SetupGeneralLayoutPanel.TabIndex = 0;
-            // 
-            // LoadConfigBtn
-            // 
-            this.LoadConfigBtn.BackColor = System.Drawing.Color.Green;
-            this.LoadConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LoadConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadConfigBtn.Location = new System.Drawing.Point(942, 591);
-            this.LoadConfigBtn.Name = "LoadConfigBtn";
-            this.LoadConfigBtn.Size = new System.Drawing.Size(307, 106);
-            this.LoadConfigBtn.TabIndex = 98;
-            this.LoadConfigBtn.Text = "Reload";
-            this.LoadConfigBtn.UseVisualStyleBackColor = false;
-            this.LoadConfigBtn.Click += new System.EventHandler(this.LoadConfigBtn_Click);
-            // 
-            // SaveConfigBtn
-            // 
-            this.SaveConfigBtn.BackColor = System.Drawing.Color.Green;
-            this.SaveConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveConfigBtn.Location = new System.Drawing.Point(1255, 591);
-            this.SaveConfigBtn.Name = "SaveConfigBtn";
-            this.SaveConfigBtn.Size = new System.Drawing.Size(307, 106);
-            this.SaveConfigBtn.TabIndex = 100;
-            this.SaveConfigBtn.Text = "Save";
-            this.SaveConfigBtn.UseVisualStyleBackColor = false;
-            this.SaveConfigBtn.Click += new System.EventHandler(this.SaveConfigBtn_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label1.Location = new System.Drawing.Point(45, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(265, 44);
-            this.label1.TabIndex = 68;
-            this.label1.Text = "LEonard Root Dir";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LEonardRootLbl
-            // 
-            this.LEonardRootLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SetupGeneralLayoutPanel.SetColumnSpan(this.LEonardRootLbl, 3);
-            this.LEonardRootLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LEonardRootLbl.Location = new System.Drawing.Point(316, 0);
-            this.LEonardRootLbl.Name = "LEonardRootLbl";
-            this.LEonardRootLbl.Size = new System.Drawing.Size(933, 44);
-            this.LEonardRootLbl.TabIndex = 69;
-            this.LEonardRootLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DefaultConfigBtn
-            // 
-            this.DefaultConfigBtn.BackColor = System.Drawing.Color.Green;
-            this.DefaultConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DefaultConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DefaultConfigBtn.ForeColor = System.Drawing.Color.White;
-            this.DefaultConfigBtn.Location = new System.Drawing.Point(1568, 591);
-            this.DefaultConfigBtn.Name = "DefaultConfigBtn";
-            this.DefaultConfigBtn.Size = new System.Drawing.Size(309, 106);
-            this.DefaultConfigBtn.TabIndex = 99;
-            this.DefaultConfigBtn.Text = "Restore Defaults";
-            this.DefaultConfigBtn.UseVisualStyleBackColor = false;
-            this.DefaultConfigBtn.Click += new System.EventHandler(this.DefaultConfigBtn_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label2.Location = new System.Drawing.Point(9, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(301, 44);
-            this.label2.TabIndex = 91;
-            this.label2.Text = "Startup Devices File";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // StartupDevicesLbl
-            // 
-            this.StartupDevicesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SetupGeneralLayoutPanel.SetColumnSpan(this.StartupDevicesLbl, 3);
-            this.StartupDevicesLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StartupDevicesLbl.Location = new System.Drawing.Point(316, 44);
-            this.StartupDevicesLbl.Name = "StartupDevicesLbl";
-            this.StartupDevicesLbl.Size = new System.Drawing.Size(933, 44);
-            this.StartupDevicesLbl.TabIndex = 92;
-            this.StartupDevicesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // ChangeRootDirectoryBtn
-            // 
-            this.ChangeRootDirectoryBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ChangeRootDirectoryBtn.Location = new System.Drawing.Point(1255, 3);
-            this.ChangeRootDirectoryBtn.Name = "ChangeRootDirectoryBtn";
-            this.ChangeRootDirectoryBtn.Size = new System.Drawing.Size(60, 38);
-            this.ChangeRootDirectoryBtn.TabIndex = 70;
-            this.ChangeRootDirectoryBtn.Text = "...";
-            this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
-            this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
-            // 
             // devicesPage
             // 
             this.devicesPage.Controls.Add(this.SetupDevicesLayoutPanel);
@@ -2555,6 +2418,168 @@
             this.SpeedSendBtn1.UseVisualStyleBackColor = true;
             this.SpeedSendBtn1.Click += new System.EventHandler(this.SpeedSendBtn1_Click);
             // 
+            // displaysPage
+            // 
+            this.displaysPage.Controls.Add(this.SetupDisplayLayoutPanel);
+            this.displaysPage.Controls.Add(this.label24);
+            this.displaysPage.Location = new System.Drawing.Point(4, 100);
+            this.displaysPage.Name = "displaysPage";
+            this.displaysPage.Size = new System.Drawing.Size(1880, 700);
+            this.displaysPage.TabIndex = 6;
+            this.displaysPage.Text = "Displays";
+            this.displaysPage.UseVisualStyleBackColor = true;
+            // 
+            // SetupDisplayLayoutPanel
+            // 
+            this.SetupDisplayLayoutPanel.ColumnCount = 11;
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
+            this.SetupDisplayLayoutPanel.Controls.Add(this.DisplaysGrd, 0, 1);
+            this.SetupDisplayLayoutPanel.Controls.Add(this.SelectDisplayBtn, 0, 0);
+            this.SetupDisplayLayoutPanel.Controls.Add(this.LoadDisplaysBtn, 8, 2);
+            this.SetupDisplayLayoutPanel.Controls.Add(this.SaveDisplaysBtn, 9, 2);
+            this.SetupDisplayLayoutPanel.Controls.Add(this.ClearDisplaysButton, 10, 2);
+            this.SetupDisplayLayoutPanel.Controls.Add(this.label3, 6, 0);
+            this.SetupDisplayLayoutPanel.Controls.Add(this.SelectedDisplayLbl, 8, 0);
+            this.SetupDisplayLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SetupDisplayLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.SetupDisplayLayoutPanel.Name = "SetupDisplayLayoutPanel";
+            this.SetupDisplayLayoutPanel.RowCount = 3;
+            this.SetupDisplayLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76245F));
+            this.SetupDisplayLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.7283F));
+            this.SetupDisplayLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.50925F));
+            this.SetupDisplayLayoutPanel.Size = new System.Drawing.Size(1880, 700);
+            this.SetupDisplayLayoutPanel.TabIndex = 22;
+            // 
+            // DisplaysGrd
+            // 
+            this.DisplaysGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.DisplaysGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DisplaysGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.DisplaysGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SetupDisplayLayoutPanel.SetColumnSpan(this.DisplaysGrd, 11);
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DisplaysGrd.DefaultCellStyle = dataGridViewCellStyle4;
+            this.DisplaysGrd.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DisplaysGrd.Location = new System.Drawing.Point(3, 85);
+            this.DisplaysGrd.Name = "DisplaysGrd";
+            this.DisplaysGrd.RowTemplate.Height = 34;
+            this.DisplaysGrd.Size = new System.Drawing.Size(1874, 531);
+            this.DisplaysGrd.TabIndex = 85;
+            // 
+            // SelectDisplayBtn
+            // 
+            this.SelectDisplayBtn.BackColor = System.Drawing.Color.Green;
+            this.SelectDisplayBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SelectDisplayBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SelectDisplayBtn.ForeColor = System.Drawing.Color.White;
+            this.SelectDisplayBtn.Location = new System.Drawing.Point(3, 3);
+            this.SelectDisplayBtn.Name = "SelectDisplayBtn";
+            this.SelectDisplayBtn.Size = new System.Drawing.Size(164, 76);
+            this.SelectDisplayBtn.TabIndex = 95;
+            this.SelectDisplayBtn.Text = "Select";
+            this.SelectDisplayBtn.UseVisualStyleBackColor = false;
+            this.SelectDisplayBtn.Click += new System.EventHandler(this.SelectDisplayBtn_Click);
+            // 
+            // LoadDisplaysBtn
+            // 
+            this.LoadDisplaysBtn.BackColor = System.Drawing.Color.Green;
+            this.LoadDisplaysBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoadDisplaysBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadDisplaysBtn.ForeColor = System.Drawing.Color.White;
+            this.LoadDisplaysBtn.Location = new System.Drawing.Point(1363, 622);
+            this.LoadDisplaysBtn.Name = "LoadDisplaysBtn";
+            this.LoadDisplaysBtn.Size = new System.Drawing.Size(164, 75);
+            this.LoadDisplaysBtn.TabIndex = 94;
+            this.LoadDisplaysBtn.Text = "Reload";
+            this.LoadDisplaysBtn.UseVisualStyleBackColor = false;
+            this.LoadDisplaysBtn.Click += new System.EventHandler(this.LoadDisplaysBtn_Click);
+            // 
+            // SaveDisplaysBtn
+            // 
+            this.SaveDisplaysBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveDisplaysBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveDisplaysBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveDisplaysBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveDisplaysBtn.Location = new System.Drawing.Point(1533, 622);
+            this.SaveDisplaysBtn.Name = "SaveDisplaysBtn";
+            this.SaveDisplaysBtn.Size = new System.Drawing.Size(164, 75);
+            this.SaveDisplaysBtn.TabIndex = 93;
+            this.SaveDisplaysBtn.Text = "Save";
+            this.SaveDisplaysBtn.UseVisualStyleBackColor = false;
+            this.SaveDisplaysBtn.Click += new System.EventHandler(this.SaveDisplaysBtn_Click);
+            // 
+            // ClearDisplaysButton
+            // 
+            this.ClearDisplaysButton.BackColor = System.Drawing.Color.Green;
+            this.ClearDisplaysButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ClearDisplaysButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearDisplaysButton.ForeColor = System.Drawing.Color.White;
+            this.ClearDisplaysButton.Location = new System.Drawing.Point(1703, 622);
+            this.ClearDisplaysButton.Name = "ClearDisplaysButton";
+            this.ClearDisplaysButton.Size = new System.Drawing.Size(174, 75);
+            this.ClearDisplaysButton.TabIndex = 92;
+            this.ClearDisplaysButton.Text = "Clear";
+            this.ClearDisplaysButton.UseVisualStyleBackColor = false;
+            this.ClearDisplaysButton.Click += new System.EventHandler(this.ClearDisplaysButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.SetupDisplayLayoutPanel.SetColumnSpan(this.label3, 2);
+            this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(1023, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(334, 31);
+            this.label3.TabIndex = 96;
+            this.label3.Text = "Selected:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // SelectedDisplayLbl
+            // 
+            this.SelectedDisplayLbl.AutoSize = true;
+            this.SelectedDisplayLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SetupDisplayLayoutPanel.SetColumnSpan(this.SelectedDisplayLbl, 3);
+            this.SelectedDisplayLbl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.SelectedDisplayLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SelectedDisplayLbl.Location = new System.Drawing.Point(1363, 49);
+            this.SelectedDisplayLbl.Name = "SelectedDisplayLbl";
+            this.SelectedDisplayLbl.Size = new System.Drawing.Size(514, 33);
+            this.SelectedDisplayLbl.TabIndex = 97;
+            this.SelectedDisplayLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(406, 463);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(45, 37);
+            this.label24.TabIndex = 20;
+            this.label24.Text = "%";
+            // 
             // toolsPage
             // 
             this.toolsPage.Controls.Add(this.SetupToolsLayoutPanel);
@@ -2876,168 +2901,6 @@
             this.ClearToolsBtn.UseVisualStyleBackColor = false;
             this.ClearToolsBtn.Click += new System.EventHandler(this.ClearToolsBtn_Click);
             // 
-            // displaysPage
-            // 
-            this.displaysPage.Controls.Add(this.SetupDisplayLayoutPanel);
-            this.displaysPage.Controls.Add(this.label24);
-            this.displaysPage.Location = new System.Drawing.Point(4, 100);
-            this.displaysPage.Name = "displaysPage";
-            this.displaysPage.Size = new System.Drawing.Size(1880, 700);
-            this.displaysPage.TabIndex = 6;
-            this.displaysPage.Text = "Displays";
-            this.displaysPage.UseVisualStyleBackColor = true;
-            // 
-            // SetupDisplayLayoutPanel
-            // 
-            this.SetupDisplayLayoutPanel.ColumnCount = 11;
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.090908F));
-            this.SetupDisplayLayoutPanel.Controls.Add(this.DisplaysGrd, 0, 1);
-            this.SetupDisplayLayoutPanel.Controls.Add(this.SelectDisplayBtn, 0, 0);
-            this.SetupDisplayLayoutPanel.Controls.Add(this.LoadDisplaysBtn, 8, 2);
-            this.SetupDisplayLayoutPanel.Controls.Add(this.SaveDisplaysBtn, 9, 2);
-            this.SetupDisplayLayoutPanel.Controls.Add(this.ClearDisplaysButton, 10, 2);
-            this.SetupDisplayLayoutPanel.Controls.Add(this.label3, 6, 0);
-            this.SetupDisplayLayoutPanel.Controls.Add(this.SelectedDisplayLbl, 8, 0);
-            this.SetupDisplayLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetupDisplayLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.SetupDisplayLayoutPanel.Name = "SetupDisplayLayoutPanel";
-            this.SetupDisplayLayoutPanel.RowCount = 3;
-            this.SetupDisplayLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76245F));
-            this.SetupDisplayLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.7283F));
-            this.SetupDisplayLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.50925F));
-            this.SetupDisplayLayoutPanel.Size = new System.Drawing.Size(1880, 700);
-            this.SetupDisplayLayoutPanel.TabIndex = 22;
-            // 
-            // DisplaysGrd
-            // 
-            this.DisplaysGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.DisplaysGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DisplaysGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.DisplaysGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SetupDisplayLayoutPanel.SetColumnSpan(this.DisplaysGrd, 11);
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DisplaysGrd.DefaultCellStyle = dataGridViewCellStyle4;
-            this.DisplaysGrd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DisplaysGrd.Location = new System.Drawing.Point(3, 85);
-            this.DisplaysGrd.Name = "DisplaysGrd";
-            this.DisplaysGrd.RowTemplate.Height = 34;
-            this.DisplaysGrd.Size = new System.Drawing.Size(1874, 531);
-            this.DisplaysGrd.TabIndex = 85;
-            // 
-            // SelectDisplayBtn
-            // 
-            this.SelectDisplayBtn.BackColor = System.Drawing.Color.Green;
-            this.SelectDisplayBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SelectDisplayBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectDisplayBtn.ForeColor = System.Drawing.Color.White;
-            this.SelectDisplayBtn.Location = new System.Drawing.Point(3, 3);
-            this.SelectDisplayBtn.Name = "SelectDisplayBtn";
-            this.SelectDisplayBtn.Size = new System.Drawing.Size(164, 76);
-            this.SelectDisplayBtn.TabIndex = 95;
-            this.SelectDisplayBtn.Text = "Select";
-            this.SelectDisplayBtn.UseVisualStyleBackColor = false;
-            this.SelectDisplayBtn.Click += new System.EventHandler(this.SelectDisplayBtn_Click);
-            // 
-            // LoadDisplaysBtn
-            // 
-            this.LoadDisplaysBtn.BackColor = System.Drawing.Color.Green;
-            this.LoadDisplaysBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LoadDisplaysBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadDisplaysBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadDisplaysBtn.Location = new System.Drawing.Point(1363, 622);
-            this.LoadDisplaysBtn.Name = "LoadDisplaysBtn";
-            this.LoadDisplaysBtn.Size = new System.Drawing.Size(164, 75);
-            this.LoadDisplaysBtn.TabIndex = 94;
-            this.LoadDisplaysBtn.Text = "Reload";
-            this.LoadDisplaysBtn.UseVisualStyleBackColor = false;
-            this.LoadDisplaysBtn.Click += new System.EventHandler(this.LoadDisplaysBtn_Click);
-            // 
-            // SaveDisplaysBtn
-            // 
-            this.SaveDisplaysBtn.BackColor = System.Drawing.Color.Green;
-            this.SaveDisplaysBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveDisplaysBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveDisplaysBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveDisplaysBtn.Location = new System.Drawing.Point(1533, 622);
-            this.SaveDisplaysBtn.Name = "SaveDisplaysBtn";
-            this.SaveDisplaysBtn.Size = new System.Drawing.Size(164, 75);
-            this.SaveDisplaysBtn.TabIndex = 93;
-            this.SaveDisplaysBtn.Text = "Save";
-            this.SaveDisplaysBtn.UseVisualStyleBackColor = false;
-            this.SaveDisplaysBtn.Click += new System.EventHandler(this.SaveDisplaysBtn_Click);
-            // 
-            // ClearDisplaysButton
-            // 
-            this.ClearDisplaysButton.BackColor = System.Drawing.Color.Green;
-            this.ClearDisplaysButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClearDisplaysButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClearDisplaysButton.ForeColor = System.Drawing.Color.White;
-            this.ClearDisplaysButton.Location = new System.Drawing.Point(1703, 622);
-            this.ClearDisplaysButton.Name = "ClearDisplaysButton";
-            this.ClearDisplaysButton.Size = new System.Drawing.Size(174, 75);
-            this.ClearDisplaysButton.TabIndex = 92;
-            this.ClearDisplaysButton.Text = "Clear";
-            this.ClearDisplaysButton.UseVisualStyleBackColor = false;
-            this.ClearDisplaysButton.Click += new System.EventHandler(this.ClearDisplaysButton_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.SetupDisplayLayoutPanel.SetColumnSpan(this.label3, 2);
-            this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1023, 51);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(334, 31);
-            this.label3.TabIndex = 96;
-            this.label3.Text = "Selected:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // SelectedDisplayLbl
-            // 
-            this.SelectedDisplayLbl.AutoSize = true;
-            this.SelectedDisplayLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SetupDisplayLayoutPanel.SetColumnSpan(this.SelectedDisplayLbl, 3);
-            this.SelectedDisplayLbl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.SelectedDisplayLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectedDisplayLbl.Location = new System.Drawing.Point(1363, 49);
-            this.SelectedDisplayLbl.Name = "SelectedDisplayLbl";
-            this.SelectedDisplayLbl.Size = new System.Drawing.Size(514, 33);
-            this.SelectedDisplayLbl.TabIndex = 97;
-            this.SelectedDisplayLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(406, 463);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(45, 37);
-            this.label24.TabIndex = 20;
-            this.label24.Text = "%";
-            // 
             // robotPage
             // 
             this.robotPage.Controls.Add(this.SetupGrindLayoutPanel);
@@ -3356,6 +3219,154 @@
             this.SetLinearAccelBtn.Text = "Set Linear Accel";
             this.SetLinearAccelBtn.UseVisualStyleBackColor = false;
             this.SetLinearAccelBtn.Click += new System.EventHandler(this.SetLinearAccelBtn_Click);
+            // 
+            // generalPage
+            // 
+            this.generalPage.Controls.Add(this.SetupGeneralLayoutPanel);
+            this.generalPage.Location = new System.Drawing.Point(4, 100);
+            this.generalPage.Name = "generalPage";
+            this.generalPage.Size = new System.Drawing.Size(1880, 700);
+            this.generalPage.TabIndex = 5;
+            this.generalPage.Text = "General";
+            this.generalPage.UseVisualStyleBackColor = true;
+            // 
+            // SetupGeneralLayoutPanel
+            // 
+            this.SetupGeneralLayoutPanel.ColumnCount = 6;
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.SetupGeneralLayoutPanel.Controls.Add(this.LoadConfigBtn, 3, 4);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.SaveConfigBtn, 4, 4);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.label1, 0, 0);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.LEonardRootLbl, 1, 0);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.DefaultConfigBtn, 5, 4);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.label2, 0, 1);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.StartupDevicesLbl, 1, 1);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.ChangeRootDirectoryBtn, 4, 0);
+            this.SetupGeneralLayoutPanel.Controls.Add(this.AutoConnectOnLoadChk, 4, 1);
+            this.SetupGeneralLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SetupGeneralLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.SetupGeneralLayoutPanel.Name = "SetupGeneralLayoutPanel";
+            this.SetupGeneralLayoutPanel.RowCount = 5;
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.315789F));
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.315789F));
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.52631F));
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.05264F));
+            this.SetupGeneralLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.78947F));
+            this.SetupGeneralLayoutPanel.Size = new System.Drawing.Size(1880, 700);
+            this.SetupGeneralLayoutPanel.TabIndex = 0;
+            // 
+            // LoadConfigBtn
+            // 
+            this.LoadConfigBtn.BackColor = System.Drawing.Color.Green;
+            this.LoadConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoadConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadConfigBtn.ForeColor = System.Drawing.Color.White;
+            this.LoadConfigBtn.Location = new System.Drawing.Point(942, 591);
+            this.LoadConfigBtn.Name = "LoadConfigBtn";
+            this.LoadConfigBtn.Size = new System.Drawing.Size(307, 106);
+            this.LoadConfigBtn.TabIndex = 98;
+            this.LoadConfigBtn.Text = "Reload";
+            this.LoadConfigBtn.UseVisualStyleBackColor = false;
+            this.LoadConfigBtn.Click += new System.EventHandler(this.LoadConfigBtn_Click);
+            // 
+            // SaveConfigBtn
+            // 
+            this.SaveConfigBtn.BackColor = System.Drawing.Color.Green;
+            this.SaveConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveConfigBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveConfigBtn.Location = new System.Drawing.Point(1255, 591);
+            this.SaveConfigBtn.Name = "SaveConfigBtn";
+            this.SaveConfigBtn.Size = new System.Drawing.Size(307, 106);
+            this.SaveConfigBtn.TabIndex = 100;
+            this.SaveConfigBtn.Text = "Save";
+            this.SaveConfigBtn.UseVisualStyleBackColor = false;
+            this.SaveConfigBtn.Click += new System.EventHandler(this.SaveConfigBtn_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label1.Location = new System.Drawing.Point(45, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(265, 44);
+            this.label1.TabIndex = 68;
+            this.label1.Text = "LEonard Root Dir";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LEonardRootLbl
+            // 
+            this.LEonardRootLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.LEonardRootLbl, 3);
+            this.LEonardRootLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LEonardRootLbl.Location = new System.Drawing.Point(316, 0);
+            this.LEonardRootLbl.Name = "LEonardRootLbl";
+            this.LEonardRootLbl.Size = new System.Drawing.Size(933, 44);
+            this.LEonardRootLbl.TabIndex = 69;
+            this.LEonardRootLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // DefaultConfigBtn
+            // 
+            this.DefaultConfigBtn.BackColor = System.Drawing.Color.Green;
+            this.DefaultConfigBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DefaultConfigBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DefaultConfigBtn.ForeColor = System.Drawing.Color.White;
+            this.DefaultConfigBtn.Location = new System.Drawing.Point(1568, 591);
+            this.DefaultConfigBtn.Name = "DefaultConfigBtn";
+            this.DefaultConfigBtn.Size = new System.Drawing.Size(309, 106);
+            this.DefaultConfigBtn.TabIndex = 99;
+            this.DefaultConfigBtn.Text = "Restore Defaults";
+            this.DefaultConfigBtn.UseVisualStyleBackColor = false;
+            this.DefaultConfigBtn.Click += new System.EventHandler(this.DefaultConfigBtn_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label2.Location = new System.Drawing.Point(9, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(301, 44);
+            this.label2.TabIndex = 91;
+            this.label2.Text = "Startup Devices File";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // StartupDevicesLbl
+            // 
+            this.StartupDevicesLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.StartupDevicesLbl, 3);
+            this.StartupDevicesLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StartupDevicesLbl.Location = new System.Drawing.Point(316, 44);
+            this.StartupDevicesLbl.Name = "StartupDevicesLbl";
+            this.StartupDevicesLbl.Size = new System.Drawing.Size(933, 44);
+            this.StartupDevicesLbl.TabIndex = 92;
+            this.StartupDevicesLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ChangeRootDirectoryBtn
+            // 
+            this.ChangeRootDirectoryBtn.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ChangeRootDirectoryBtn.Location = new System.Drawing.Point(1255, 3);
+            this.ChangeRootDirectoryBtn.Name = "ChangeRootDirectoryBtn";
+            this.ChangeRootDirectoryBtn.Size = new System.Drawing.Size(60, 38);
+            this.ChangeRootDirectoryBtn.TabIndex = 70;
+            this.ChangeRootDirectoryBtn.Text = "...";
+            this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
+            this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
+            // 
+            // AutoConnectOnLoadChk
+            // 
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
+            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
+            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
+            this.AutoConnectOnLoadChk.TabIndex = 117;
+            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
+            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
             // 
             // licensePage
             // 
@@ -4075,17 +4086,6 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // AutoConnectOnLoadChk
-            // 
-            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
-            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
-            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
-            this.AutoConnectOnLoadChk.TabIndex = 117;
-            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
-            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4139,9 +4139,6 @@
             this.FileBigEditPanel.ResumeLayout(false);
             this.SetupPage.ResumeLayout(false);
             this.SetupTab.ResumeLayout(false);
-            this.generalPage.ResumeLayout(false);
-            this.SetupGeneralLayoutPanel.ResumeLayout(false);
-            this.SetupGeneralLayoutPanel.PerformLayout();
             this.devicesPage.ResumeLayout(false);
             this.SetupDevicesLayoutPanel.ResumeLayout(false);
             this.SetupDevicesLayoutPanel.PerformLayout();
@@ -4149,6 +4146,11 @@
             this.RuntimeAppHelperLayoutPanel.ResumeLayout(false);
             this.SetupAppHelperLayoutPanel.ResumeLayout(false);
             this.speedBtnsGrp.ResumeLayout(false);
+            this.displaysPage.ResumeLayout(false);
+            this.displaysPage.PerformLayout();
+            this.SetupDisplayLayoutPanel.ResumeLayout(false);
+            this.SetupDisplayLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplaysGrd)).EndInit();
             this.toolsPage.ResumeLayout(false);
             this.SetupToolsLayoutPanel.ResumeLayout(false);
             this.FootswitchIoLayoutPanel.ResumeLayout(false);
@@ -4156,13 +4158,11 @@
             this.DoorIoLayoutPanel.ResumeLayout(false);
             this.DoorIoLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ToolsGrd)).EndInit();
-            this.displaysPage.ResumeLayout(false);
-            this.displaysPage.PerformLayout();
-            this.SetupDisplayLayoutPanel.ResumeLayout(false);
-            this.SetupDisplayLayoutPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DisplaysGrd)).EndInit();
             this.robotPage.ResumeLayout(false);
             this.SetupGrindLayoutPanel.ResumeLayout(false);
+            this.generalPage.ResumeLayout(false);
+            this.SetupGeneralLayoutPanel.ResumeLayout(false);
+            this.SetupGeneralLayoutPanel.PerformLayout();
             this.licensePage.ResumeLayout(false);
             this.SetupLicenseLayoutPanel.ResumeLayout(false);
             this.LicenseAdjustGrp.ResumeLayout(false);

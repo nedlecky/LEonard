@@ -73,11 +73,34 @@ namespace LEonard
                     if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
                         return 1;
 
+                int GocatorConnectError(string error)
+                {
+                    base.Disconnect();
+                    myForm.ErrorMessageBox($"Gocator Connect Error\n{error}");
+                    status = Status.ERROR;
+                    myForm.GocatorAnnounce();
+
+                    return 10;
+                }
                 // TODO all the below init should be in onConnectExec
-                InquiryResponse("stop");
-                InquiryResponse("clearalignment");
-                InquiryResponse($"loadjob,{ProgramFilename}");
-                InquiryResponse("start");
+                string response;
+                response = InquiryResponse("stop");
+                if (response != "OK")
+                    return GocatorConnectError("No response to stop");
+
+                response = InquiryResponse("clearalignment");
+                if (response != "OK")
+                    return GocatorConnectError("No response to clearalignment");
+
+                response = InquiryResponse($"loadjob,{ProgramFilename}");
+                if (!response.StartsWith("OK"))
+                    return GocatorConnectError($"loadjob {ProgramFilename} failed");
+
+                response = InquiryResponse("start");
+                if (response != "OK")
+                    return GocatorConnectError("No response to start");
+
+
                 myForm.WriteVariable("gocator_ready", true, true);
                 log.Info("Gocator connection ready");
 

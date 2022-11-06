@@ -640,11 +640,12 @@ namespace LEonard
         }
         public DialogResult ErrorMessageBox(string message)
         {
-            log.Error($"ErrorMessageBox({message})");
+            log.Error($"ErrorMessageBox({message.Replace('\n', ' ')})");
             MessageDialog messageForm = new MessageDialog(this)
             {
                 Title = "System ERROR",
-                Label = message,
+                Label = "ERROR\n" + message,
+                TextColor = Color.Red,
                 OkText = "&OK",
                 CancelText = "&Cancel"
             };
@@ -1996,8 +1997,8 @@ namespace LEonard
                 "",
                 "",
                 "",
-                "trigger|stop|start|loadjob,LM01|clearalignment",
-                "LM01",
+                "trigger|stop|start",
+                "LEonardHolefinder",
                 "","","",
             });
             devices.Rows.Add(new object[] {
@@ -2012,8 +2013,8 @@ namespace LEonard
                 "",
                 "",
                 "",
-                "trigger|stop|start|loadjob,LM01|clearalignment",
-                "LM01",
+                "trigger|stop|start",
+                "LEonardHolefinder",
                 "","","",
             });
             devices.Rows.Add(new object[] {
@@ -2429,7 +2430,7 @@ namespace LEonard
             int connectSuccess = interfaces[ID].Connect(address);
             if (!interfaces[ID].IsConnected())
             {
-                ErrorMessageBox($"Device {deviceType} will not connect.");
+                ErrorMessageBox($"Device {ID}:{name} of type {deviceType} will not connect.");
                 interfaces[ID].Disconnect();
                 interfaces[ID] = null;
                 GC.Collect();
@@ -2735,7 +2736,16 @@ namespace LEonard
             speedSendBtns.Clear();
 
             // Nothing specified: leave the anchor button on the screen blank and disabled
-            string speedButtons = (string)(devices.Rows[currentDeviceRowIndex])["SpeedSendButtons"];
+            string speedButtons = "";
+            try
+            {
+                speedButtons = (string)(devices.Rows[currentDeviceRowIndex])["SpeedSendButtons"];
+            }
+            catch
+            {
+                return;
+
+            }
             if (speedButtons.Length < 1)
             {
                 SpeedSendBtn1.Text = "";
@@ -4426,9 +4436,6 @@ namespace LEonard
             return ReadVariable("robot_completed") == robotSendIndex.ToString();
         }
 
-        // TODO this needs to be generalized!
-        bool waitUrStopped = false;
-
         private void ExecTmr_Tick(object sender, EventArgs e)
         {
             // Wait for any operator prompt to be cleared
@@ -4459,23 +4466,13 @@ namespace LEonard
                     return;
             }
 
-            // Wait UR stopped
-            if (waitUrStopped)
-            {
-                if (LeUrDashboard.uiFocusInstance == null)
-                {
-                    waitUrStopped = false;
-                }
-                else
-                {
-                    if (LeUrDashboard.uiFocusInstance.InquiryResponse("programstate", 200).StartsWith("STOP"))
-                    {
-                        waitUrStopped = false;
-                    }
-                    else
-                        return;
-                }
-            }
+            // If a UR is in focus and running, wait for stopped
+            if (LeUrDashboard.uiFocusInstance != null)
+                if (!RobotCompletedCaughtUp()) return;
+
+            // If a Gocator is in focus, wait for stopped
+            if (LeGocator.uiFocusInstance != null)
+                if (ReadVariable("gocator_ready") != "True") return;
 
             if (lineCurrentlyExecuting >= LEScriptRTB.Lines.Count())
             {
@@ -5290,13 +5287,6 @@ namespace LEonard
                 }
                 string response = UrDashboardInquiryResponse(message, 200);
                 WriteVariable("lastUrDashboardResponse", response); ;
-                return true;
-            }
-
-            // ur_wait_stopped
-            if (command == "ur_wait_stopped()")
-            {
-                waitUrStopped = true;
                 return true;
             }
 
