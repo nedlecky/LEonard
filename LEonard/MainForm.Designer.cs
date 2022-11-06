@@ -84,7 +84,6 @@
             this.pythonEnginePage = new System.Windows.Forms.TabPage();
             this.PythonScreenLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.PythonFilenameLbl = new System.Windows.Forms.Label();
-            this.PythonRunBtn = new System.Windows.Forms.Button();
             this.PythonNewBtn = new System.Windows.Forms.Button();
             this.PythonLoadBtn = new System.Windows.Forms.Button();
             this.PythonSaveBtn = new System.Windows.Forms.Button();
@@ -92,6 +91,8 @@
             this.PythonConsoleRTB = new System.Windows.Forms.RichTextBox();
             this.PythonVariablesRTB = new System.Windows.Forms.RichTextBox();
             this.PythonCodeRTB = new System.Windows.Forms.RichTextBox();
+            this.PythonRunBtn = new System.Windows.Forms.Button();
+            this.PythonRestartBtn = new System.Windows.Forms.Button();
             this.manualPage = new System.Windows.Forms.TabPage();
             this.ManualLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.LEonardScriptCommandsRTB = new System.Windows.Forms.RichTextBox();
@@ -242,7 +243,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.StartupDevicesLbl = new System.Windows.Forms.Label();
             this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
-            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.licensePage = new System.Windows.Forms.TabPage();
             this.SetupLicenseLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.LicenseStatusLbl = new System.Windows.Forms.Label();
@@ -290,6 +290,7 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
+            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -1004,7 +1005,6 @@
             this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.PythonScreenLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.PythonScreenLayoutPanel.Controls.Add(this.PythonFilenameLbl, 0, 0);
-            this.PythonScreenLayoutPanel.Controls.Add(this.PythonRunBtn, 0, 2);
             this.PythonScreenLayoutPanel.Controls.Add(this.PythonNewBtn, 2, 2);
             this.PythonScreenLayoutPanel.Controls.Add(this.PythonLoadBtn, 3, 2);
             this.PythonScreenLayoutPanel.Controls.Add(this.PythonSaveBtn, 4, 2);
@@ -1012,6 +1012,8 @@
             this.PythonScreenLayoutPanel.Controls.Add(this.PythonConsoleRTB, 0, 3);
             this.PythonScreenLayoutPanel.Controls.Add(this.PythonVariablesRTB, 3, 3);
             this.PythonScreenLayoutPanel.Controls.Add(this.PythonCodeRTB, 0, 1);
+            this.PythonScreenLayoutPanel.Controls.Add(this.PythonRunBtn, 0, 2);
+            this.PythonScreenLayoutPanel.Controls.Add(this.PythonRestartBtn, 1, 2);
             this.PythonScreenLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PythonScreenLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.PythonScreenLayoutPanel.Name = "PythonScreenLayoutPanel";
@@ -1020,6 +1022,7 @@
             this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 64.35644F));
             this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.920792F));
             this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.77228F));
+            this.PythonScreenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.PythonScreenLayoutPanel.Size = new System.Drawing.Size(1141, 688);
             this.PythonScreenLayoutPanel.TabIndex = 5;
             // 
@@ -1035,18 +1038,6 @@
             this.PythonFilenameLbl.Size = new System.Drawing.Size(1135, 34);
             this.PythonFilenameLbl.TabIndex = 0;
             this.PythonFilenameLbl.Text = "Untitled";
-            // 
-            // PythonRunBtn
-            // 
-            this.PythonRunBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PythonRunBtn.Enabled = false;
-            this.PythonRunBtn.Location = new System.Drawing.Point(3, 479);
-            this.PythonRunBtn.Name = "PythonRunBtn";
-            this.PythonRunBtn.Size = new System.Drawing.Size(184, 48);
-            this.PythonRunBtn.TabIndex = 3;
-            this.PythonRunBtn.Text = "Run";
-            this.PythonRunBtn.UseVisualStyleBackColor = true;
-            this.PythonRunBtn.Click += new System.EventHandler(this.PythonRunBtn_Click);
             // 
             // PythonNewBtn
             // 
@@ -1128,6 +1119,29 @@
             this.PythonCodeRTB.TabIndex = 10;
             this.PythonCodeRTB.Text = "";
             this.PythonCodeRTB.TextChanged += new System.EventHandler(this.PythonCodeRTB_TextChanged);
+            // 
+            // PythonRunBtn
+            // 
+            this.PythonRunBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonRunBtn.Enabled = false;
+            this.PythonRunBtn.Location = new System.Drawing.Point(3, 479);
+            this.PythonRunBtn.Name = "PythonRunBtn";
+            this.PythonRunBtn.Size = new System.Drawing.Size(184, 48);
+            this.PythonRunBtn.TabIndex = 3;
+            this.PythonRunBtn.Text = "Run";
+            this.PythonRunBtn.UseVisualStyleBackColor = true;
+            this.PythonRunBtn.Click += new System.EventHandler(this.PythonRunBtn_Click);
+            // 
+            // PythonRestartBtn
+            // 
+            this.PythonRestartBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PythonRestartBtn.Location = new System.Drawing.Point(193, 479);
+            this.PythonRestartBtn.Name = "PythonRestartBtn";
+            this.PythonRestartBtn.Size = new System.Drawing.Size(184, 48);
+            this.PythonRestartBtn.TabIndex = 11;
+            this.PythonRestartBtn.Text = "Restart";
+            this.PythonRestartBtn.UseVisualStyleBackColor = true;
+            this.PythonRestartBtn.Click += new System.EventHandler(this.PythonRestartBtn_Click);
             // 
             // manualPage
             // 
@@ -3357,17 +3371,6 @@
             this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
             this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
             // 
-            // AutoConnectOnLoadChk
-            // 
-            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
-            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
-            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
-            this.AutoConnectOnLoadChk.TabIndex = 117;
-            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
-            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
-            // 
             // licensePage
             // 
             this.licensePage.Controls.Add(this.SetupLicenseLayoutPanel);
@@ -4086,6 +4089,17 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
+            // AutoConnectOnLoadChk
+            // 
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
+            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
+            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
+            this.AutoConnectOnLoadChk.TabIndex = 117;
+            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
+            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4442,6 +4456,7 @@
         private System.Windows.Forms.Button SpeedSendBtn1;
         private System.Windows.Forms.Label GocatorConnectedLbl;
         private MyCheckBox AutoConnectOnLoadChk;
+        private System.Windows.Forms.Button PythonRestartBtn;
     }
 }
 

@@ -131,8 +131,8 @@
   <Devices>
     <ID>3</ID>
     <Name>Gocator</Name>
-    <Enabled>true</Enabled>
-    <Connected>true</Connected>
+    <Enabled>false</Enabled>
+    <Connected>false</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.3:8190</Address>
     <MessageTag>A.GO</MessageTag>
@@ -159,8 +159,8 @@
   <Devices>
     <ID>4</ID>
     <Name>GocatorAcc</Name>
-    <Enabled>false</Enabled>
-    <Connected>false</Connected>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
     <DeviceType>Gocator</DeviceType>
     <Address>192.168.0.252:8190</Address>
     <MessageTag>A.GO</MessageTag>

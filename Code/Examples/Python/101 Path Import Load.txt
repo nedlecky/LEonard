@@ -1,0 +1,10 @@
+# 101 Python Path Import Load
+leClearConsole()
+exec_python(Examples/Python/samplefuncs.py)
+
+UsePython()
+import sys
+lePrint(str(sys.path))
+
+myfunc()
+lePrint(str(fred(8.26)))

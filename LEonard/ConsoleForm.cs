@@ -29,7 +29,7 @@ namespace LEonard
         IEnumerable<Control> allResizeControlList;
         int originalWidth;
 
-        public StringRedir RedirConsole;
+        private StringRedir RedirConsole;
         private TextWriter ConsoleWriter;
         public ConsoleForm(MainForm _mainForm)
         {
@@ -78,9 +78,14 @@ namespace LEonard
             mainForm.IsConsoleVisible = false;
             Hide();
         }
-        private void ConsoleClearBtn_Click(object sender, EventArgs e)
+        public void Clear()
         {
             ConsoleRTB.Clear();
+            ConsoleRTB.Text = "Console cleared\n";
+        }
+        private void ConsoleClearBtn_Click(object sender, EventArgs e)
+        {
+            Clear();
         }
         private RegistryKey MyRegistryKey()
         {

@@ -149,8 +149,6 @@ namespace LEonard
         private void MainForm_Load(object sender, EventArgs e)
         {
             consoleForm = new ConsoleForm(this);
-            InitializeJavaEngine();
-            InitializePythonEngine();
 
             // Startup logging system (which also displays messages)
             log = NLog.LogManager.GetCurrentClassLogger();
@@ -201,6 +199,9 @@ namespace LEonard
             {
                 AutoClose = true,
             };
+
+            InitializeJavaEngine();
+            InitializePythonEngine();
 
             // Flag that we're starting
             log.Info("================================================================");
@@ -3810,7 +3811,7 @@ namespace LEonard
         static string copyPositionAtWrite = null;
         static bool isSystemAlsoWrite = false;
         static bool isSystemCopyWrite = false;
-        public bool WriteVariable(string name, string value, bool isSystem = false)
+        public bool WriteVariable(string name, string value, bool isSystem = false, bool pushToEngines = true)
         {
             System.Threading.Monitor.Enter(lockObject);
             string nameTrimmed = name.Trim();
@@ -3819,9 +3820,12 @@ namespace LEonard
             // Automatically consider and variables with name starting in robot_ or grind_to be system variables
             if (nameTrimmed.StartsWith("robot_") || nameTrimmed.StartsWith("grind_")) isSystem = true;
 
-            // Automatically add to javaEngine
-            javaEngine.SetValue(name, value);
-            pythonScope.SetVariable(name, value);
+            // Automatically add to javaEngine and pythonEngine
+            if (pushToEngines)
+            {
+                javaEngine.SetValue(name, value);
+                pythonScope.SetVariable(name, value);
+            }
 
             log.Trace("WriteVariable({0}, {1})", nameTrimmed, valueTrimmed);
             if (variables == null)
@@ -4791,13 +4795,6 @@ namespace LEonard
             return null;
         }
 
-        private void LogInterpret(string command, int lineNumber, string line)
-        {
-            if (lineNumber < 1)
-                log.Info("EXEC [{0}] {1}", command.ToUpper(), line);
-            else
-                log.Info("EXEC {0:0000}: [{1}] {2}", lineNumber, command.ToUpper(), line);
-        }
 
         /// <summary>
         /// Return true iff string 'str' represents a number between lowLim and hiLim
@@ -4841,7 +4838,7 @@ namespace LEonard
             // Default time estimate to complete step is 0
             stepEndTimeEstimate = stepStartedTime;
 
-            log.Info($"EXEC {lineNumber:00000}: {line}");
+            log.Info($"EXECJ {lineNumber:00000}: {line}");
 
             // Line gets shown on screen with variables substituted and time estimate (unless we're making system calls)
             if (lineNumber > 0)
@@ -4857,9 +4854,9 @@ namespace LEonard
             {
                 javaEngine.Execute(line);
             }
-            catch
+            catch (Exception ex)
             {
-
+                ExecError($"Java Error: {ex}");
             }
             JavaUpdateVariablesRTB();
 
@@ -4873,7 +4870,7 @@ namespace LEonard
             // Default time estimate to complete step is 0
             stepEndTimeEstimate = stepStartedTime;
 
-            log.Info($"EXEC {lineNumber:00000}: {line}");
+            log.Info($"EXECP {lineNumber:00000}: {line}");
 
             // Line gets shown on screen with variables substituted and time estimate (unless we're making system calls)
             if (lineNumber > 0)
@@ -4890,15 +4887,23 @@ namespace LEonard
                 Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(line);
                 pythonScript.Execute(pythonScope);
             }
-            catch
+            catch (Exception ex)
             {
-
+                ExecError($"Python Error: {ex}");
             }
 
             return true;
         }
         private bool ExecuteLEScriptLine(int lineNumber, string line, LeDeviceInterface dev = null)
         {
+            void LogExecuteLEScriptLine(string myCommand, string myLine)
+            {
+                if (lineNumber < 1)
+                    log.Info("EXECL [{0}] {1}", myCommand.ToUpper(), myLine);
+                else
+                    log.Info("EXECL {0:0000}: [{1}] {2}", lineNumber, myCommand.ToUpper(), line);
+            }
+
             // Step is starting now
             stepStartedTime = DateTime.Now;
 
@@ -4915,7 +4920,7 @@ namespace LEonard
                    )        # Close the capturing group
                }            # Ends with a '}' character  */
             if (line != origLine)
-                log.Info("EXEC {0:0000}: \"{1}\" from \"{2}\"", lineNumber, line, origLine);
+                log.Info("EXECL {0:0000}: \"{1}\" from \"{2}\"", lineNumber, line, origLine);
 
             // Line gets shown on screen with variables substituted and time estimate (unless we're making system calls)
             if (lineNumber > 0)
@@ -4939,28 +4944,28 @@ namespace LEonard
             // Skip blank lines or lines that previously had only comments
             if (command.Length < 1)
             {
-                log.Info("EXEC {0:0000}: [REM] {1}", lineNumber, origLine);
+                log.Info("EXECL {0:0000}: [REM] {1}", lineNumber, origLine);
                 return true;
             }
 
             // Is line a label? If so, we ignore it!
             if (IsLineALabel(command).Success)
             {
-                LogInterpret("label", lineNumber, command);
+                LogExecuteLEScriptLine("label", command);
                 return true;
             }
 
             // end
             if (command == "end()" || command == "end")
             {
-                LogInterpret("end", lineNumber, origLine);
+                LogExecuteLEScriptLine("end", origLine);
                 return false;
             }
 
             // pause
             if (command == "pause()" || command == "pause")
             {
-                LogInterpret("pause", lineNumber, origLine);
+                LogExecuteLEScriptLine("pause", origLine);
                 RobotAndSystemPause();
                 return true;
             }
@@ -4968,7 +4973,7 @@ namespace LEonard
             // clear
             if (command == "clear()" || command == "clear")
             {
-                LogInterpret("clear", lineNumber, command);
+                LogExecuteLEScriptLine("clear", command);
                 ClearNonSystemVariables();
                 return true;
             }
@@ -4984,7 +4989,7 @@ namespace LEonard
             // import filename
             if (command.StartsWith("import("))
             {
-                LogInterpret("import", lineNumber, command);
+                LogExecuteLEScriptLine("import", command);
                 string file = ExtractParameters(command);
                 if (file.Length > 1)
                 {
@@ -5000,7 +5005,7 @@ namespace LEonard
             // sleep
             if (command.StartsWith("sleep("))
             {
-                LogInterpret("sleep", lineNumber, command);
+                LogExecuteLEScriptLine("sleep", command);
                 double sleepSeconds;
                 if (ExtractDoubleParameter(command, out sleepSeconds))
                 {
@@ -5022,7 +5027,7 @@ namespace LEonard
             // random
             if (command.StartsWith("random("))
             {
-                LogInterpret("random", lineNumber, command);
+                LogExecuteLEScriptLine("random", command);
                 double[] randomParams;
                 if (ExtractDoubleParameters(command, 3, out randomParams))
                 {
@@ -5041,7 +5046,7 @@ namespace LEonard
             // assert
             if (command.StartsWith("assert("))
             {
-                LogInterpret("assert", lineNumber, command);
+                LogExecuteLEScriptLine("assert", command);
                 string[] parameters = ExtractParameters(command, 2).Split(',');
                 if (parameters.Length != 2)
                 {
@@ -5065,7 +5070,7 @@ namespace LEonard
             // system_variable
             if (command.StartsWith("system_variable("))
             {
-                LogInterpret("system_variable", lineNumber, command);
+                LogExecuteLEScriptLine("system_variable", command);
                 string[] parameters = ExtractParameters(command, 2).Split(',');
                 if (parameters.Length != 2)
                 {
@@ -5086,7 +5091,7 @@ namespace LEonard
             // system_position
             if (command.StartsWith("system_position("))
             {
-                LogInterpret("system_position", lineNumber, command);
+                LogExecuteLEScriptLine("system_position", command);
                 string[] parameters = ExtractParameters(command, 2).Split(',');
                 if (parameters.Length != 2)
                 {
@@ -5144,7 +5149,7 @@ namespace LEonard
             // exec_java
             if (command.StartsWith("exec_java("))
             {
-                LogInterpret("exec_java", lineNumber, command);
+                LogExecuteLEScriptLine("exec_java", command);
                 string filename = ExtractParameters(command);
 
                 if (!ExecuteJavaFile(filename))
@@ -5156,7 +5161,7 @@ namespace LEonard
             // exec_python
             if (command.StartsWith("exec_python("))
             {
-                LogInterpret("exec_python", lineNumber, command);
+                LogExecuteLEScriptLine("exec_python", command);
                 string filename = ExtractParameters(command);
                 if (!ExecutePythonFile(filename))
                     ExecError($"Cannot execute python file {filename}");
@@ -5224,7 +5229,7 @@ namespace LEonard
             // move_joint
             if (command.StartsWith("move_joint("))
             {
-                LogInterpret("move_joint", lineNumber, command);
+                LogExecuteLEScriptLine("move_joint", command);
                 string positionName = ExtractParameters(command);
                 if (GotoPositionJoint(positionName))
                     PromptOperator($"Wait for move_joint({positionName}) complete", true, true);
@@ -5236,7 +5241,7 @@ namespace LEonard
             // move_linear
             if (command.StartsWith("move_linear("))
             {
-                LogInterpret("move_linear", lineNumber, origLine);
+                LogExecuteLEScriptLine("move_linear", origLine);
                 string positionName = ExtractParameters(command);
 
                 if (GotoPositionPose(positionName))
@@ -5250,7 +5255,7 @@ namespace LEonard
             // This is really deprecated for movel_incr_part(...)
             if (command.StartsWith("move_relative("))
             {
-                LogInterpret("move_relative", lineNumber, origLine);
+                LogExecuteLEScriptLine("move_relative", origLine);
                 string xy = ExtractParameters(command, 2);
 
                 if (xy == "")
@@ -5278,7 +5283,7 @@ namespace LEonard
             // ur_dashboard
             if (command.StartsWith("ur_dashboard("))
             {
-                LogInterpret("ur_dashboard", lineNumber, origLine);
+                LogExecuteLEScriptLine("ur_dashboard", origLine);
                 string message = ExtractParameters(command, 1, false);
                 if (message.Length < 1)
                 {
@@ -5293,7 +5298,7 @@ namespace LEonard
             // save_position
             if (command.StartsWith("save_position("))
             {
-                LogInterpret("save_position", lineNumber, origLine);
+                LogExecuteLEScriptLine("save_position", origLine);
                 string positionName = ExtractParameters(command);
                 if (positionName.Length < 1)
                 {
@@ -5309,7 +5314,7 @@ namespace LEonard
             // move_tool_home
             if (command.StartsWith("move_tool_home()"))
             {
-                LogInterpret("move_tool_home", lineNumber, origLine);
+                LogExecuteLEScriptLine("move_tool_home", origLine);
                 MoveToolHomeBtn_Click(null, null);
                 return true;
             }
@@ -5317,7 +5322,7 @@ namespace LEonard
             // move_tool_mount
             if (command.StartsWith("move_tool_mount()"))
             {
-                LogInterpret("move_tool_mount", lineNumber, origLine);
+                LogExecuteLEScriptLine("move_tool_mount", origLine);
                 MoveToolMountBtn_Click(null, null);
                 return true;
             }
@@ -5325,7 +5330,7 @@ namespace LEonard
             // select_tool  (Assumes operator has already installed it somehow!!)
             if (command.StartsWith("select_tool("))
             {
-                LogInterpret("select_tool", lineNumber, origLine);
+                LogExecuteLEScriptLine("select_tool", origLine);
                 string name = ExtractParameters(command, 1);
                 DataRow row = FindName(name, tools);
                 if (row == null)
@@ -5373,7 +5378,7 @@ namespace LEonard
             // set_part_geometry
             if (command.StartsWith("set_part_geometry("))
             {
-                LogInterpret("set_part_geometry", lineNumber, origLine);
+                LogExecuteLEScriptLine("set_part_geometry", origLine);
 
                 string parameters = ExtractParameters(command, 2);
                 if (parameters.Length == 0)
@@ -5439,34 +5444,34 @@ namespace LEonard
             // leLanguage  0=LEScript 1=Java 2=Python
             if (command.StartsWith("leLanguage("))
             {
-                LogInterpret("leLanguage", lineNumber, origLine);
+                LogExecuteLEScriptLine("leLanguage", origLine);
                 LEonardLanguage = (LEonardLanguages)Convert.ToInt32(ExtractParameters(command, -1, false));
                 return true;
             }
             // UseLanguage Commands
             if (command == "UseLEScript()")
             {
-                LogInterpret("UseLEScript", lineNumber, origLine);
+                LogExecuteLEScriptLine("UseLEScript", origLine);
                 LEonardLanguage = LEonardLanguages.LEScript;
                 return true;
             }
             if (command == "UseJava()")
             {
-                LogInterpret("UseJava", lineNumber, origLine);
+                LogExecuteLEScriptLine("UseJava", origLine);
                 LEonardLanguage = LEonardLanguages.Java;
                 return true;
             }
             if (command == "UsePython()")
             {
-                LogInterpret("UseLEScript", lineNumber, origLine);
+                LogExecuteLEScriptLine("UseLEScript", origLine);
                 LEonardLanguage = LEonardLanguages.Python;
                 return true;
             }
 
-            // lePrompt
-            if (command.StartsWith("lePrompt("))
+            // lePrompt - and grandfather in the old prompt(message)
+            if (command.StartsWith("lePrompt(") || command.StartsWith("prompt("))
             {
-                LogInterpret("lePrompt", lineNumber, origLine);
+                LogExecuteLEScriptLine("lePrompt", origLine);
                 // This just displays the dialog. ExecTmr will wait for it to close
                 PromptOperator(ExtractParameters(command, -1, false));
                 return true;
@@ -5480,15 +5485,15 @@ namespace LEonard
             }
             if (command.StartsWith("lePrint("))
             {
-                LogInterpret("lePrint", lineNumber, origLine);
+                LogExecuteLEScriptLine("lePrint", origLine);
                 lePrintFunc(ExtractParameters(command, -1, false));
                 return true;
             }
 
-            // leConsole
+            // leShowConsole
             if (command.StartsWith("leShowConsole("))
             {
-                LogInterpret("leShowConsole", lineNumber, origLine);
+                LogExecuteLEScriptLine("leShowConsole", origLine);
 
                 string param = ExtractParameters(command, -1, false);
                 if (param == "False" || param == "false")
@@ -5498,10 +5503,18 @@ namespace LEonard
                 return true;
             }
 
+            // leClearConsole
+            if (command == ("leClearConsole()"))
+            {
+                LogExecuteLEScriptLine("leClearConsole", origLine);
+                consoleForm.Clear();
+                return true;
+            }
+
             // leSend
             if (command.StartsWith("leSend("))
             {
-                LogInterpret("leSend", lineNumber, origLine);
+                LogExecuteLEScriptLine("leSend", origLine);
                 string str = ExtractParameters(command, 2, false);
 
                 if (str == "")
@@ -5528,7 +5541,7 @@ namespace LEonard
             // leInquiryResponse
             if (command.StartsWith("leInquiryResponse("))
             {
-                LogInterpret("leInquiryResponse", lineNumber, origLine);
+                LogExecuteLEScriptLine("leInquiryResponse", origLine);
                 string response = "???";
                 string str = ExtractParameters(command, 3, false);
                 if (str == "")
@@ -5560,7 +5573,7 @@ namespace LEonard
                     return true;
                 }
 
-                LogInterpret("gocator_send", lineNumber, origLine);
+                LogExecuteLEScriptLine("gocator_send", origLine);
                 LeGocator.uiFocusInstance?.Send(ExtractParameters(command, -1, false));
                 return true;
             }
@@ -5568,7 +5581,7 @@ namespace LEonard
             // gocator_trigger
             if (command.StartsWith("gocator_trigger("))
             {
-                LogInterpret("gocator_trigger", lineNumber, origLine);
+                LogExecuteLEScriptLine("gocator_trigger", origLine);
                 if (LeGocator.uiFocusInstance == null)
                 {
                     ExecError("No Gocator selected");
@@ -5589,7 +5602,7 @@ namespace LEonard
             // gocator_adjust
             if (command.StartsWith("gocator_adjust("))
             {
-                LogInterpret("gocator_adjust", lineNumber, origLine);
+                LogExecuteLEScriptLine("gocator_adjust", origLine);
                 if (LeGocator.uiFocusInstance == null)
                 {
                     ExecError("No Gocator selected");
@@ -5678,7 +5691,7 @@ namespace LEonard
             // write_gocator_data
             if (command.StartsWith("gocator_write_data("))
             {
-                LogInterpret("gocator_write_data", lineNumber, origLine);
+                LogExecuteLEScriptLine("gocator_write_data", origLine);
 
                 string filename = ExtractParameters(command);
                 if (filename.Length < 1)
@@ -5761,7 +5774,7 @@ namespace LEonard
             // infile_open
             if (command.StartsWith("infile_open("))
             {
-                LogInterpret("infile_open", lineNumber, origLine);
+                LogExecuteLEScriptLine("infile_open", origLine);
 
                 string filename = ExtractParameters(command);
                 if (filename.Length < 1)
@@ -5784,7 +5797,7 @@ namespace LEonard
             // infile_close
             if (command.StartsWith("infile_close("))
             {
-                LogInterpret("infile_close", lineNumber, origLine);
+                LogExecuteLEScriptLine("infile_close", origLine);
 
                 // Currently ignored
                 string parameters = ExtractParameters(command);
@@ -5795,7 +5808,7 @@ namespace LEonard
             // infile_scale
             if (command.StartsWith("infile_scale("))
             {
-                LogInterpret("infile_scale", lineNumber, origLine);
+                LogExecuteLEScriptLine("infile_scale", origLine);
 
                 string parameters = ExtractParameters(command);
                 if (parameters.Length == 0)
@@ -5829,7 +5842,7 @@ namespace LEonard
             // infile_readline
             if (command.StartsWith("infile_readline("))
             {
-                LogInterpret("infile_readline", lineNumber, origLine);
+                LogExecuteLEScriptLine("infile_readline", origLine);
 
                 // Currently ignored
                 string parameters = ExtractParameters(command);
@@ -5847,7 +5860,7 @@ namespace LEonard
             // write_cyline_data
             if (command.StartsWith("write_cyline_data("))
             {
-                LogInterpret("write_cyline_data", lineNumber, origLine);
+                LogExecuteLEScriptLine("write_cyline_data", origLine);
 
                 string filename = ExtractParameters(command);
                 if (filename.Length < 1)
@@ -5901,7 +5914,7 @@ namespace LEonard
             // device_connect
             if (command.StartsWith("device_connect("))
             {
-                LogInterpret("device_connect", lineNumber, origLine);
+                LogExecuteLEScriptLine("device_connect", origLine);
 
                 string deviceName = ExtractParameters(command);
                 if (deviceName.Length < 1)
@@ -5924,7 +5937,7 @@ namespace LEonard
             // device_disconnect
             if (command.StartsWith("device_disconnect("))
             {
-                LogInterpret("device_disconnect", lineNumber, origLine);
+                LogExecuteLEScriptLine("device_disconnect", origLine);
 
                 string deviceName = ExtractParameters(command);
                 if (deviceName.Length < 1)
@@ -5947,7 +5960,7 @@ namespace LEonard
             // device_connect_all
             if (command == "device_connect_all()")
             {
-                LogInterpret("device_connect_all", lineNumber, origLine);
+                LogExecuteLEScriptLine("device_connect_all", origLine);
 
                 DeviceConnectAllBtn_Click(null, null);
                 return true;
@@ -5956,7 +5969,7 @@ namespace LEonard
             // device_disconnect_all
             if (command == "device_disconnect_all()")
             {
-                LogInterpret("device_disconnect_all", lineNumber, origLine);
+                LogExecuteLEScriptLine("device_disconnect_all", origLine);
 
                 DeviceDisconnectAllBtn_Click(null, null);
                 return true;
@@ -5977,7 +5990,7 @@ namespace LEonard
                 string commandInRecipe = command.Substring(0, openParenIndex);
                 if (robotAlias.TryGetValue(commandInRecipe, out CommandSpec commandSpec))
                 {
-                    LogInterpret(commandInRecipe, lineNumber, origLine);
+                    LogExecuteLEScriptLine(commandInRecipe, origLine);
                     string parameters = ExtractParameters(command, commandSpec.nParams);
                     // Must be all numeric: Really, all (nnn,nnn,nnn)
                     if (!Regex.IsMatch(parameters, @"^[()+-.,0-9]*$"))
@@ -6000,7 +6013,7 @@ namespace LEonard
             // Matched nothing above... could be an assignment operator =, -=, +=, ++, --
             if (UpdateVariable(command))
             {
-                LogInterpret("assign", lineNumber, origLine);
+                LogExecuteLEScriptLine("assign", origLine);
                 return true;
             }
 
@@ -6099,6 +6112,10 @@ namespace LEonard
             else
                 consoleForm.Hide();
         }
+        public void leClearConsole()
+        {
+            consoleForm.Clear();
+        }
         public bool leLanguage(int language)
         {
             // TODO should sanity check language and return true iff OK
@@ -6182,15 +6199,18 @@ namespace LEonard
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
-                    .SetValue("leShowConsole", new Action<bool>((bool f) => leShowConsole(f)))
                     .SetValue("lePrint", new Action<string>((string msg) => lePrintJ(msg)))
-                    .SetValue("lePrompt", new Action<string>((string prompt) => PromptOperator("Java Prompt:\n" + prompt)))
+                    .SetValue("leShowConsole", new Action<bool>((bool f) => leShowConsole(f)))
+                    .SetValue("leClearConsole", new Action(() => leClearConsole()))
+                    .SetValue("lePrompt", new Action<string>((string prompt) => PromptOperator(prompt)))
                     .SetValue("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
                     .SetValue("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)))
                     .SetValue("leAsk", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)))
                     .SetValue("leLogInfo", new Action<string>((string msg) => log.Info(msg)))
                     .SetValue("leLogError", new Action<string>(s => log.Error(s)))
-                    .SetValue("leWriteVar", new Action<string, string>((string name, string value) => WriteVariable(name, value)))
+                    .SetValue("leClearVariables", new Action(() => ClearNonSystemVariables()))
+                    .SetValue("leWriteVar", new Action<string, string>((string name, string value) => WriteVariable(name, value, false, false))) // Last param false so we don't write it back here as a string!
+                    .SetValue("leWriteVarSys", new Action<string, string>((string name, string value) => WriteVariable(name, value, true, false))) // Last param false so we don't write it back here as a string!
                     .SetValue("leReadVar", new Func<string, string>((string name) => ReadVariable(name)))
                     .SetValue("leLanguage", new Func<int, bool>((int language) => leLanguage(language)))
                     .SetValue("UseLEScript", new Func<bool>(() => leLanguage(0)))
@@ -6401,7 +6421,7 @@ namespace LEonard
                 return exec(filename);
             }
 
-            filename = Path.Combine(LEonardRoot, filename);
+            filename = Path.Combine(LEonardRoot, CodeFolder, filename);
             if (File.Exists(filename))
             {
                 return exec(filename);
@@ -6422,23 +6442,68 @@ namespace LEonard
 
         private void InitializePythonEngine()
         {
-            pythonEngine = IronPython.Hosting.Python.CreateEngine();
+            pythonEngine = Python.CreateEngine();
             pythonScope = pythonEngine.CreateScope();
 
-            pythonScope.SetVariable("leShowConsole", new Action<bool>((bool f) => leShowConsole(f)));
+            // Make sure we're looking in the right spots for imports!
+            ICollection<string> paths = pythonEngine.GetSearchPaths();
+            paths.Add(Path.Combine(LEonardRoot, "Code"));
+            paths.Add(Path.Combine(LEonardRoot, "Code", "Examples"));
+            foreach (string path in paths)
+            {
+                log.Info($"Python Search Path: {path}");
+            }
+            pythonEngine.SetSearchPaths(paths);
+
+            // The Standard Library
             pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
+            pythonScope.SetVariable("leShowConsole", new Action<bool>((bool f) => leShowConsole(f)));
+            pythonScope.SetVariable("leClearConsole", new Action(() => leClearConsole()));
             pythonScope.SetVariable("lePrompt", new Action<string>((string prompt) => PromptOperator(prompt)));
-            pythonScope.SetVariable("leEexec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
+            pythonScope.SetVariable("leExec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
             pythonScope.SetVariable("leSend", new Func<string, string, bool>((string devName, string msg) => leSend(devName, msg)));
             pythonScope.SetVariable("leAsk", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => leInquiryResponse(devName, msg, timeoutMs)));
             pythonScope.SetVariable("leLogInfo", new Action<string>((string msg) => log.Info(msg)));
             pythonScope.SetVariable("leLogError", new Action<string>(s => log.Error(s)));
-            pythonScope.SetVariable("leWriteVar", new Action<string, string>((string name, string value) => WriteVariable(name, value)));
+            pythonScope.SetVariable("leClearVariables", new Action(() => ClearNonSystemVariables()));
+            pythonScope.SetVariable("leWriteVar", new Action<string, string>((string name, string value) => WriteVariable(name, value, false, false))); // Last param false so we don't write it back here as a string!
+            pythonScope.SetVariable("leWriteVarSys", new Action<string, string>((string name, string value) => WriteVariable(name, value, true, false))); // Last param false so we don't write it back here as a string!
             pythonScope.SetVariable("leReadVar", new Func<string, string>((string name) => ReadVariable(name)));
             pythonScope.SetVariable("leLanguage", new Func<int, bool>((int language) => leLanguage(language)));
             pythonScope.SetVariable("UseLEScript", new Func<bool>(() => leLanguage(0)));
             pythonScope.SetVariable("UseJava", new Func<bool>(() => leLanguage(1)));
             pythonScope.SetVariable("UsePython", new Func<bool>(() => leLanguage(2)));
+
+            // UR Set Variables
+            pythonScope.SetVariable("set_linear_speed", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_linear_speed({x})")));
+            pythonScope.SetVariable("set_linear_accel", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_linear_accel({x})")));
+            pythonScope.SetVariable("set_joint_speed", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_joint_speed({x})")));
+            pythonScope.SetVariable("set_joint_accel", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_joint_accel({x})")));
+            pythonScope.SetVariable("set_blend_radius", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_blend_radius({x})")));
+
+            // UR Grinding Variables
+            pythonScope.SetVariable("grind_trial_speed", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"grind_trial_speed({x})")));
+            pythonScope.SetVariable("grind_linear_accel", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"grind_linear_accel({x})")));
+            pythonScope.SetVariable("grind_max_blend_radius", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"grind_max_blend_radius({x})")));
+
+            // UR Selects
+            pythonScope.SetVariable("select_tool", new Func<string, bool>((string toolName) => ExecuteLEScriptLine(-1, $"select_tool({toolName})")));
+            pythonScope.SetVariable("set_part_geometry", new Func<string, double, bool>((string geom, double diam) => ExecuteLEScriptLine(-1, $"set_part_geometry({geom},{diam})")));
+
+            // UR Motion
+            pythonScope.SetVariable("save_position", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"save_position({posName})")));
+            pythonScope.SetVariable("move_linear", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"move_linear({posName})")));
+            pythonScope.SetVariable("movel_rel_set_part_origin_here", new Func<bool>(() => ExecuteLEScriptLine(-1, $"movel_rel_set_part_origin_here()")));
+            pythonScope.SetVariable("movel_rel_part",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => ExecuteLEScriptLine(-1, $"movel_rel_part({x},{y},{z},{rx},{ry},{rz})")));
+            pythonScope.SetVariable("movel_incr_part",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => ExecuteLEScriptLine(-1, $"movel_incr_part({dx},{dy},{dz},{drx},{dry},{drz})")));
+
+            // Gocator
+            pythonScope.SetVariable("gocator_trigger", new Func<double, bool>((double delay) => ExecuteLEScriptLine(-1, $"gocator_trigger({delay})")));
+            pythonScope.SetVariable("gocator_adjust", new Func<int, bool>((int x) => ExecuteLEScriptLine(-1, $"gocator_adjust({x})")));
         }
         private void PythonNewBtn_Click(object sender, EventArgs e)
         {
@@ -6630,6 +6695,11 @@ namespace LEonard
                 ErrorMessageBox($"PythonRunBtn Error: {ex}");
             }
         }
+        private void PythonRestartBtn_Click(object sender, EventArgs e)
+        {
+            InitializePythonEngine();
+        }
+
         bool ExecutePythonScript(string code, LeDeviceInterface dev)
         {
             log.Info($"Python Execute: {code}");
@@ -6670,7 +6740,7 @@ namespace LEonard
                 return exec(filename);
             }
 
-            filename = Path.Combine(LEonardRoot, filename);
+            filename = Path.Combine(LEonardRoot, CodeFolder, filename);
             if (File.Exists(filename))
             {
                 return exec(filename);
@@ -7580,6 +7650,7 @@ namespace LEonard
             }
         }
         #endregion ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
+
     }
 }
 

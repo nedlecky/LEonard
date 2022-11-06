@@ -1,0 +1,38 @@
+# 00p Set Origin
+UsePython()
+
+leClearConsole()
+leClearVariables()
+lePrint('Origin Setting')
+
+origin = [0,0,0,0,0,0]
+leWriteVarSys('origin',str(origin))
+
+# Coupon is 762mm diam (32in)
+coupon_diameter = 762.0
+leWriteVarSys('coupon_diameter',str(coupon_diameter))
+
+# Force all speeds and accelerations to good inspection ones!
+linear_speed = 100
+linear_accel = 100
+joint_speed = 20
+joint_accel = 10
+blend_radius = 2
+
+set_linear_speed(linear_speed)
+set_linear_accel(linear_accel)
+set_joint_speed(joint_speed)
+set_joint_accel(joint_accel)
+set_blend_radius(blend_radius)
+
+grind_trial_speed(linear_speed)
+grind_linear_accel(linear_accel)
+grind_max_blend_radius(blend_radius)
+
+select_tool('gocator3210')
+set_part_geometry('CYLINDER',coupon_diameter)
+
+move_linear('cp_origin')
+movel_rel_set_part_origin_here()
+gocator_trigger(1000)
+lePrint('Origin Set Complete!')
