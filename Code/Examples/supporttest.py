@@ -16,6 +16,9 @@ def offset_to_probe():
   movel_incr_part(-0.0235,0,0.165,0,0,0)
 
 def file_loader(filename):
+  global file_rows
+  global file_row_count
+  
   root = leReadVar('LEonardRoot')
   csv_file = open(root + '/Data/HoleData.csv')
   csv_reader = csv.DictReader(csv_file)
@@ -24,8 +27,6 @@ def file_loader(filename):
   for row in csv_reader:
     file_rows.append(row)
     file_row_count = file_row_count + 1
-
-  return file_rows  
 
 
 lePrint('Support loaded')

@@ -6493,6 +6493,7 @@ namespace LEonard
             pythonEngine.SetSearchPaths(paths);
 
             // The Standard Library
+            //pythonEngine.Runtime.Globals.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
             pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
             pythonScope.SetVariable("leShowConsole", new Action<bool>((bool f) => leShowConsole(f)));
             pythonScope.SetVariable("leClearConsole", new Action(() => leClearConsole()));
