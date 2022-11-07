@@ -211,6 +211,9 @@ namespace LEonard
             log.Info(caption);
             log.Info("================================================================");
 
+            licenseFilename = Path.Combine(LEonardRoot, "license.txt");
+            protection = new Protection(this, licenseFilename);
+
             UserModeBox.SelectedIndex = (int)operatorMode;
 
             // 1-second tick
@@ -227,9 +230,6 @@ namespace LEonard
             SetState(RunState.READY);
 
             ResumeLayout();
-
-            licenseFilename = Path.Combine(LEonardRoot, "license.txt");
-            protection = new Protection(this, licenseFilename);
         }
         // Function key shortcut handling (primarily for development testing assistance)
         public bool IsConsoleVisible = false;
@@ -346,16 +346,6 @@ namespace LEonard
             MessageTmr.Interval = 100;
             MessageTmr.Enabled = true;
 
-            //StartThreads();
-
-            // TODO this should happen in devices
-            // Connect to the robot and Gocator
-            if (StartupDevicesLbl.Text.Length > 0)
-            {
-                LoadDevicesFile(StartupDevicesLbl.Text);
-            }
-            //RobotConnectBtn_Click(null, null);
-            //GocatorConnectBtn_Click(null, null);
 
             // Load the last recipe if there was one loaded in LoadPersistent()
             if (recipeFileToAutoload != "")
@@ -364,6 +354,11 @@ namespace LEonard
                     SetRecipeState(RecipeState.LOADED);
                     SetState(RunState.READY);
                 }
+
+            if (protection.RunLEonard() && StartupDevicesLbl.Text.Length > 0)
+            {
+                LoadDevicesFile(StartupDevicesLbl.Text);
+            }
 
             log.Info("StartupTmr complete");
             uiUpdatesAreLive = true;
@@ -2376,6 +2371,9 @@ namespace LEonard
                 case "TcpClientAsync":
                     interfaces[ID] = new LeTcpClientAsync(this, messageTag, onConnectExec);
                     break;
+                case "Serial":
+                    interfaces[ID] = new LeSerial(this, messageTag, onConnectExec);
+                    break;
                 case "UrDashboard":
                     interfaces[ID] = new LeUrDashboard(this, messageTag, onConnectExec);
                     ((LeUrDashboard)interfaces[ID]).ProgramFilename = jobFile;
@@ -2386,9 +2384,6 @@ namespace LEonard
                 case "Gocator":
                     interfaces[ID] = new LeGocator(this, messageTag, onConnectExec);
                     ((LeGocator)interfaces[ID]).ProgramFilename = jobFile;
-                    break;
-                case "Serial":
-                    interfaces[ID] = new LeSerial(this, messageTag, onConnectExec);
                     break;
                 case "Null":
                     interfaces[ID] = new LeDevNull(this, messageTag, onConnectExec);
@@ -6041,7 +6036,7 @@ namespace LEonard
         {
             log.Trace($"{prefix}: {message} {dev}");
 
-            // TODO This gets broken if the user tries to do anything else with '#'
+            // TODO This gets broken if the user tries to do anything else with '#' TODO isn't this supposed to follow <SEP>??
             string[] statements = message.Split('#');
             foreach (string statement in statements)
                 if (!ExecuteLEonardStatement(prefix, statement, dev))
