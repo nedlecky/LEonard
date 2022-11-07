@@ -1,8 +1,8 @@
 @echo off
 set filename=get_latest.bat
 set title=LEonard Get Latest
-set version=2022-10-26
-set description=Pulls latest development binaries, data, test code, UR code, and Gocator code into this directory
+set version=2022-11-07
+set description=Pulls latest development binaries, data, test code, and Gocator 3rdParty code into this directory
 
 echo.
 echo *** %title% ***   File: %filename%  Rev: %version%
@@ -32,8 +32,7 @@ if %choice%==y (
     robocopy %LEonardRoot%\DB DB /MIR
     robocopy %LEonardRoot%\Config Config /MIR
     robocopy %LEonardRoot%\Code Code /MIR
-    robocopy %LEonardRoot%\UR UR /MIR
-    robocopy %LEonardRoot%\Gocator Gocator /MIR
+    robocopy %LEonardRoot%\3rdParty 3rdParty /MIR
     echo.
     echo Operation complete.
 ) else (

@@ -1,8 +1,8 @@
 @echo off
 set filename=install.bat
 set title=LEonard Installer
-set version=2022-10-26
-set description=Put latest development binaries, data, test code, UR, and Gocator code into C:\LEonard
+set version=2022-11-07
+set description=Put latest development binaries, data, test code, and 3rd Party code into C:\LEonard
 
 echo.
 echo *** %title% ***   File: %filename%  Rev: %version%
@@ -25,8 +25,7 @@ if %choice%==y (
     robocopy DB %LEonardRoot%\DB /XO /S
     robocopy Config %LEonardRoot%\Config /XO /S
     robocopy Code %LEonardRoot%\Code /XO /S
-    robocopy UR %LEonardRoot%\UR /XO /S
-    robocopy Gocator %LEonardRoot%\Gocator /XO /S
+    robocopy 3rdParty %LEonardRoot%\3rdParty /XO /S
     echo.
     echo Operation complete.
 ) else (

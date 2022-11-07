@@ -243,6 +243,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.StartupDevicesLbl = new System.Windows.Forms.Label();
             this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
+            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.licensePage = new System.Windows.Forms.TabPage();
             this.SetupLicenseLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.LicenseStatusLbl = new System.Windows.Forms.Label();
@@ -290,7 +291,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -3371,6 +3371,17 @@
             this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
             this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
             // 
+            // AutoConnectOnLoadChk
+            // 
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
+            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
+            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
+            this.AutoConnectOnLoadChk.TabIndex = 117;
+            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
+            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
+            // 
             // licensePage
             // 
             this.licensePage.Controls.Add(this.SetupLicenseLayoutPanel);
@@ -4088,17 +4099,6 @@
             this.ExitBtn.Text = "Exit";
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
-            // 
-            // AutoConnectOnLoadChk
-            // 
-            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
-            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
-            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
-            this.AutoConnectOnLoadChk.TabIndex = 117;
-            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
-            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

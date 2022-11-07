@@ -1,9 +1,6 @@
 {
 	"folders": [
 		{
-			"path": "UR\\USB Image- Program Installer"
-		},
-		{
 			"path": "Logs"
 		},
 		{
@@ -22,7 +19,7 @@
 			"path": "Installer"
 		},
 		{
-			"path": "Gocator"
+			"path": "3rdParty"
 		}
 	],
 	"settings": {}
