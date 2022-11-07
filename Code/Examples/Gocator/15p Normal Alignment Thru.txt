@@ -16,11 +16,11 @@ dry = random.uniform(-0.175, 0.175)
 movel_incr_tool(0,0,0,drx,dry,0)
 
 gocator_trigger(1000)
-gocator_write_data(filename,'random_10deg_tilt')
+gocator_write_data(filename, 'random_10deg_tilt')
 
 gocator_adjust(2)
 gocator_trigger(1000)
-gocator_write_data(filename,'adjust_2')
+gocator_write_data(filename, 'adjust_2')
 
 count = count - 1
 jumpif(count > 0, 'loop')

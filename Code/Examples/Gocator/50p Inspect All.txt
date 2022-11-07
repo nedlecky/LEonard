@@ -1,16 +1,11 @@
 # 50p Inspect All
 exec_python(Lib/leGocatorSupport.py)
-
 UsePython()
-
-import sys
 from leCsvplus import *
-
-root = leReadVar('LEonardRoot')
-lePrint(str(sys.path))
 
 start_test()
 
+root = leReadVar('LEonardRoot')
 datafile = root + '/Data/HoleData.csv'
 rows = DictRows(datafile)
 
@@ -28,7 +23,6 @@ jumpif(row < len(rows), 'inspect')
 finish_test()
 end()
 
-
 inspect:
 movel_rel_part(X,Y,Z,0,0,0)
 
@@ -45,6 +39,6 @@ gocator_write_data(filename, ID + '_adjust_1-2')
 
 gocator_adjust(1)
 gocator_trigger(1000)
-gocator_write_data(filename, ID + '_adjust 1')
+gocator_write_data(filename, ID + '_adjust_1')
 
 jump('next_hole')

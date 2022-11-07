@@ -1,50 +1,57 @@
 # 51p Inspect All Perturbed
+exec_python(Lib/leGocatorSupport.py)
+UsePython()
+from leCsvplus import *
+import random
 
-clear()
-filename = {LEScriptFilename}_{DateTime}
+start_test()
 
-infile_open(HoleData.csv)
-infile_scale(2,0.0254,3,0.0254,4,0.0254)
+root = leReadVar('LEonardRoot')
+datafile = root + '/Data/HoleData.csv'
+rows = DictRows(datafile)
 
+row = 1
 next_hole:
-infile_readline()
-jump_gt_zero(infile_lineno,inspect)
+lePrint(str(rows[row]))
+ID = rows[row]['ID']
+X = float(rows[row]['X']) * 0.0254
+Y = float(rows[row]['Y']) * 0.0254
+Z = float(rows[row]['Z']) * 0.0254
+lePrint('Inspecting ID=' + ID)
+row = row + 1
+jumpif(row < len(rows), 'inspect')
 
-infile_close()
-movel_rel_part({origin})
-end
+finish_test()
+end()
 
 
 inspect:
-movel_rel_part({infile_p2},{infile_p3},{infile_p4},0,0,0)
+movel_rel_part(X,Y,Z,0,0,0)
 
 # Random +/- 0.25"
-random(3,-0.0064,0.0064)
-movel_incr_part({rnd1},{rnd2},{rnd3},0,0,0)
+dx = random.uniform(-0.0064, 0.0064)
+dy = random.uniform(-0.0064, 0.0064)
+dz = random.uniform(-0.0064, 0.0064)
+movel_incr_part(dx, dy, dz, 0, 0, 0)
 
 # Random +/- 5 degrees
-# Reduced angular displacement since we
-# Have physical space constraints and hit things otherwise
-random(2,-0.0873,0.0873)
-movel_incr_tool(0,0,0,{rnd1},{rnd2},0)
+drx = random.uniform(-0.0873, 0.0873)
+dry = random.uniform(-0.0873, 0.0873)
+movel_incr_tool(0,0,0,drx,dry,0)
 
-gocator_ID={infile_p1}_initial
 gocator_trigger(1000)
-gocator_write_data({filename})
+gocator_write_data(filename, ID + '_initial')
 
-gocator_ID={infile_p1}_adjust_3-1
 gocator_adjust(3)
 gocator_trigger(1000)
-gocator_write_data({filename})
+gocator_write_data(filename, ID + '_adjust_3-1')
 
-gocator_ID={infile_p1}_adjust_3-2
 gocator_adjust(3)
 gocator_trigger(1000)
-gocator_write_data({filename})
+gocator_write_data(filename, ID + '_adjust_1-2')
 
-gocator_ID={infile_p1}_adjust_1
 gocator_adjust(1)
 gocator_trigger(1000)
-gocator_write_data({filename})
+gocator_write_data(filename, ID + '_adjust_1')
 
-jump(next_hole)
+jump('next_hole')
