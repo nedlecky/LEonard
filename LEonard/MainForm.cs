@@ -3830,8 +3830,10 @@ namespace LEonard
             // Automatically add to javaEngine and pythonEngine
             if (pushToEngines)
             {
-                javaEngine.SetValue(name, value);
-                pythonScope.SetVariable(name, value);
+                //javaEngine.SetValue(name, value);
+                ExecuteJavaScript($"{name} = '{value}'", null);
+                ExecutePythonScript($"{name} = '{value}'", null);
+                //pythonScope.SetVariable(name, value);
                 //pythonEngine.Runtime.Globals.SetVariable(name, value);
             }
 
@@ -6542,10 +6544,10 @@ namespace LEonard
                     (double x, double y, double z, double rx, double ry, double rz) => ExecuteLEScriptLine(-1, $"movel_rel_part({x},{y},{z},{rx},{ry},{rz})")));
             pythonScope.SetVariable("movel_incr_part",
                 new Func<double, double, double, double, double, double, bool>(
-                    (double dx, double dy, double dz, double drx, double dry, double drz) => ExecuteLEScriptLine(-1, $"movel_incr_part({dx},{dy},{dz},{drx},{dry},{drz})")));
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => ExecuteLEScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")));
             pythonScope.SetVariable("movel_incr_tool",
                 new Func<double, double, double, double, double, double, bool>(
-                    (double dx, double dy, double dz, double drx, double dry, double drz) => ExecuteLEScriptLine(-1, $"movel_incr_tool({dx},{dy},{dz},{drx},{dry},{drz})")));
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => ExecuteLEScriptLine(-1, $"movel_incr_tool({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")));
 
             // Gocator
             pythonScope.SetVariable("gocator_trigger", new Func<double, bool>((double delay) => ExecuteLEScriptLine(-1, $"gocator_trigger({delay})")));

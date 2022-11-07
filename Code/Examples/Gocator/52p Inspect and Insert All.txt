@@ -31,17 +31,17 @@ gocator_trigger(1000)
 gocator_write_data(filename, ID + '_initial')
 
 #prompt(align 3?)
-gocator_adjust(3)
+gocator_adjust_handcoded(3)
 gocator_trigger(1000)
 gocator_write_data(filename, ID + '_adjust_3-1')
 
 #prompt(align 3-2?)
-gocator_adjust(3)
+gocator_adjust_handcoded(3)
 gocator_trigger(1000)
 gocator_write_data(filename, ID + '_adjust_3-2')
 
 #prompt(align 1?)
-gocator_adjust(1)
+gocator_adjust_handcoded(1)
 gocator_trigger(1000)
 gocator_write_data(filename, ID + '_adjust_1')
 

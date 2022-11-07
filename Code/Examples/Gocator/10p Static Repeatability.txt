@@ -1,5 +1,5 @@
 # 10p Static Repeatability
-exec_python(Examples/Gocator/support.py)
+exec_python(Lib/leGocatorSupport.py)
 UsePython()
 
 start_test()

@@ -1,5 +1,5 @@
 # 12p XYZ Alignment Sunk
-exec_python(Examples/Gocator/support.py)
+exec_python(Lib/leGocatorSupport.py)
 UsePython()
 import random
 
@@ -19,7 +19,8 @@ movel_incr_part(dx, dy, dz, 0, 0, 0)
 gocator_trigger(1000)
 gocator_write_data(filename, 'random_0.25in_offset')
 
-gocator_adjust(1)
+#gocator_adjust(1)
+gocator_adjust_handcoded(1)
 gocator_trigger(1000)
 gocator_write_data(filename, 'adjust_1')
 
