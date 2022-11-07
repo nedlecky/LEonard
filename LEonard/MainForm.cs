@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -1204,6 +1205,10 @@ namespace LEonard
 
             // We start in LEScript mode!
             LEonardLanguage = LEonardLanguages.LEScript;
+
+            // Wipe the engines
+            InitializeJavaEngine();
+            InitializePythonEngine();
 
             // Gocator
             // TODO this needs to be generalized
@@ -3827,6 +3832,7 @@ namespace LEonard
             {
                 javaEngine.SetValue(name, value);
                 pythonScope.SetVariable(name, value);
+                //pythonEngine.Runtime.Globals.SetVariable(name, value);
             }
 
             log.Trace("WriteVariable({0}, {1})", nameTrimmed, valueTrimmed);
@@ -4510,7 +4516,6 @@ namespace LEonard
                         break;
                 }
 
-
                 if (isSingleStep)
                 {
                     isSingleStep = false;
@@ -4833,19 +4838,22 @@ namespace LEonard
 
         Random random = new Random();
 
-        private void CommonLineExecStart()
+        private void CommonLineExecStart(int lineNumber, string origLine)
         {
-
             // Step is starting now
             stepStartedTime = DateTime.Now;
 
             // Default time estimate to complete step is 0
             stepEndTimeEstimate = stepStartedTime;
+
+            // Setup for ExecError
+            errorLineNumber = lineNumber;
+            errorOrigLine = origLine;
         }
 
         private bool ExecuteJavaLine(int lineNumber, string line, LeDeviceInterface dev = null)
         {
-            CommonLineExecStart();
+            CommonLineExecStart(lineNumber, line);
 
             log.Info($"EXECJ {lineNumber:00000}: {line}");
 
@@ -4856,27 +4864,25 @@ namespace LEonard
                 StepTimeEstimateLbl.Text = TimeSpanFormat(new TimeSpan());
             }
 
-            // Setup for ExecError
-            errorLineNumber = lineNumber;
-
             // Is line a label? If so, we ignore it!
             if (IsLineALabel(line).Success) return true;
 
             try
             {
                 javaEngine.Execute(line);
+                JavaUpdateVariablesRTB();
+                return true;
             }
             catch (Exception ex)
             {
+                // User decides whether to continue!
                 ExecError($"Java Error: {ex}");
+                return true;  //false
             }
-            JavaUpdateVariablesRTB();
-
-            return true;
         }
         private bool ExecutePythonLine(int lineNumber, string line, LeDeviceInterface dev = null)
         {
-            CommonLineExecStart();
+            CommonLineExecStart(lineNumber, line);
 
             log.Info($"EXECP {lineNumber:00000}: {line}");
 
@@ -4887,23 +4893,24 @@ namespace LEonard
                 StepTimeEstimateLbl.Text = TimeSpanFormat(new TimeSpan());
             }
 
-            // Setup for ExecError
-            errorLineNumber = lineNumber;
-
             // Is line a label? If so, we ignore it!
             if (IsLineALabel(line).Success) return true;
 
             try
             {
-                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(line);
-                pythonScript.Execute(pythonScope);
+                bool ret = PythonExec(line);
+                if (!ret)
+                {
+                    ExecError($"Cannot execute Python line {lineNumber:0000}: {line}");
+                }
+                return true; // ret;
             }
             catch (Exception ex)
             {
+                // User decides if continue!
                 ExecError($"Python Error: {ex}");
+                return true; // false;
             }
-
-            return true;
         }
         private bool ExecuteLEScriptLine(int lineNumber, string line, LeDeviceInterface dev = null)
         {
@@ -4915,7 +4922,7 @@ namespace LEonard
                     log.Info("EXECL {0:0000}: [{1}] {2}", lineNumber, myCommand.ToUpper(), line);
             }
 
-            CommonLineExecStart();
+            CommonLineExecStart(lineNumber, line);
 
             // Any variables to substitute {varName}
             string origLine = line;
@@ -4935,10 +4942,6 @@ namespace LEonard
                 CurrentLineLbl.Text = String.Format("{0:000}: {1}", lineNumber, line);
                 StepTimeEstimateLbl.Text = TimeSpanFormat(new TimeSpan());
             }
-
-            // Setup for ExecError
-            errorLineNumber = lineNumber;
-            errorOrigLine = origLine;
 
             // 1) Ignore comments: drop anything from # onward in the line
             int index = line.IndexOf("#");
@@ -6482,10 +6485,9 @@ namespace LEonard
 
             // Make sure we're looking in the right spots for imports!
             ICollection<string> paths = pythonEngine.GetSearchPaths();
-            log.Error("Need to figure out how to find Python libs (hardcoding)");
-            paths.Add("/Users/nedlecky/GitHub/LEonard/LEonard/Lib");
+            paths.Add(Path.Combine(LEonardRoot, "Code", "Lib", "Python"));
+            paths.Add(Path.Combine(LEonardRoot, "Code", "Lib"));
             paths.Add(Path.Combine(LEonardRoot, "Code"));
-            paths.Add(Path.Combine(LEonardRoot, "Code", "Examples"));
             foreach (string path in paths)
             {
                 log.Info($"Python Search Path: {path}");
@@ -6493,7 +6495,6 @@ namespace LEonard
             pythonEngine.SetSearchPaths(paths);
 
             // The Standard Library
-            //pythonEngine.Runtime.Globals.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
             pythonScope.SetVariable("lePrint", new Action<string>((string msg) => lePrintP(msg)));
             pythonScope.SetVariable("leShowConsole", new Action<bool>((bool f) => leShowConsole(f)));
             pythonScope.SetVariable("leClearConsole", new Action(() => leClearConsole()));
@@ -6714,18 +6715,23 @@ namespace LEonard
 
             return true;
         }
-        bool PythonExec(Microsoft.Scripting.Hosting.ScriptSource pythonScript)
+        bool PythonExec(string pythonScript)
         {
             if (!IsPythonLicensed()) throw new AccessViolationException("Python not enabled in LEonard license");
 
+            Microsoft.Scripting.Hosting.ScriptSource script = pythonScope.Engine.CreateScriptSourceFromString(pythonScript);
+            //Microsoft.Scripting.Hosting.ScriptSource script = pythonEngine.CreateScriptSourceFromString(pythonScript);
+
             try
             {
-                pythonScript.Execute(pythonScope);
+                script.Execute(pythonScope);
+                //script.Execute();
                 return true;
             }
             catch (Exception ex)
             {
-                ErrorMessageBox($"PythonExec Error: {ex}");
+                //ExecError("Cannot interpret line");
+                //ErrorMessageBox($"PythonExec Error: {ex}");
                 return false;
             }
         }
@@ -6733,8 +6739,7 @@ namespace LEonard
         {
             try
             {
-                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(PythonCodeRTB.Text);
-                PythonExec(pythonScript);
+                PythonExec(PythonCodeRTB.Text);
             }
             catch (Exception ex)
             {
@@ -6752,8 +6757,7 @@ namespace LEonard
             try
             {
                 LeDeviceBase.currentDevice = dev;
-                Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(code);
-                return PythonExec(pythonScript);
+                return PythonExec(code);
             }
             catch (Exception ex)
             {
@@ -6770,13 +6774,12 @@ namespace LEonard
                 string contents = File.ReadAllText(f);
                 try
                 {
-                    Microsoft.Scripting.Hosting.ScriptSource pythonScript = pythonScope.Engine.CreateScriptSourceFromString(contents);
-                    PythonExec(pythonScript);
+                    PythonExec(contents);
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessageBox($"ExecutePythonScript Error: {ex}");
+                    //ErrorMessageBox($"ExecutePythonScript Error: {ex}");
                     return false;
                 }
             }
@@ -6792,7 +6795,7 @@ namespace LEonard
                 return exec(filename);
             }
 
-            ErrorMessageBox($"ExecutePythonFile({filename}) file does not exist");
+            //ErrorMessageBox($"ExecutePythonFile({filename}) file does not exist");
             return false;
         }
         #endregion ===== PYTHON SUPPORT BEGINS             ==============================================================================================================================

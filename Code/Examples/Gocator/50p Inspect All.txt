@@ -1,12 +1,18 @@
 # 50p Inspect All
-exec_python(Examples/Gocator/support.py)
+exec_python(Lib/leGocatorSupport.py)
+
 UsePython()
+
+import sys
+from leCsvplus import *
+
+root = leReadVar('LEonardRoot')
+lePrint(str(sys.path))
 
 start_test()
 
-rows = file_loader('HoleData.csv')
-
-#infile_scale(2,0.0254,3,0.0254,4,0.0254)
+datafile = root + '/Data/HoleData.csv'
+rows = DictRows(datafile)
 
 row = 1
 next_hole:
@@ -15,7 +21,7 @@ ID = rows[row]['ID']
 X = float(rows[row]['X']) * 0.0254
 Y = float(rows[row]['Y']) * 0.0254
 Z = float(rows[row]['Z']) * 0.0254
-lePrint('ID=' + ID)
+lePrint('Inspecting ID=' + ID)
 row = row + 1
 jumpif(row < len(rows), 'inspect')
 

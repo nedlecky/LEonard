@@ -243,7 +243,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.StartupDevicesLbl = new System.Windows.Forms.Label();
             this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
-            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.licensePage = new System.Windows.Forms.TabPage();
             this.SetupLicenseLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.LicenseStatusLbl = new System.Windows.Forms.Label();
@@ -291,6 +290,7 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
+            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -691,7 +691,7 @@
             // 
             this.ClearAllPositionsBtn.BackColor = System.Drawing.Color.Gray;
             this.ClearAllPositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClearAllPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearAllPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearAllPositionsBtn.ForeColor = System.Drawing.Color.White;
             this.ClearAllPositionsBtn.Location = new System.Drawing.Point(858, 611);
             this.ClearAllPositionsBtn.Name = "ClearAllPositionsBtn";
@@ -705,7 +705,7 @@
             // 
             this.ClearPositionsBtn.BackColor = System.Drawing.Color.Gray;
             this.ClearPositionsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClearPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearPositionsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearPositionsBtn.ForeColor = System.Drawing.Color.White;
             this.ClearPositionsBtn.Location = new System.Drawing.Point(573, 611);
             this.ClearPositionsBtn.Name = "ClearPositionsBtn";
@@ -816,7 +816,7 @@
             // 
             this.ClearAllVariablesBtn.BackColor = System.Drawing.Color.Gray;
             this.ClearAllVariablesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClearAllVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearAllVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearAllVariablesBtn.ForeColor = System.Drawing.Color.White;
             this.ClearAllVariablesBtn.Location = new System.Drawing.Point(852, 605);
             this.ClearAllVariablesBtn.Name = "ClearAllVariablesBtn";
@@ -830,7 +830,7 @@
             // 
             this.ClearVariablesBtn.BackColor = System.Drawing.Color.Gray;
             this.ClearVariablesBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClearVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearVariablesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearVariablesBtn.ForeColor = System.Drawing.Color.White;
             this.ClearVariablesBtn.Location = new System.Drawing.Point(569, 605);
             this.ClearVariablesBtn.Name = "ClearVariablesBtn";
@@ -3371,17 +3371,6 @@
             this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
             this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
             // 
-            // AutoConnectOnLoadChk
-            // 
-            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
-            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
-            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
-            this.AutoConnectOnLoadChk.TabIndex = 117;
-            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
-            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
-            // 
             // licensePage
             // 
             this.licensePage.Controls.Add(this.SetupLicenseLayoutPanel);
@@ -4099,6 +4088,17 @@
             this.ExitBtn.Text = "Exit";
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
+            // 
+            // AutoConnectOnLoadChk
+            // 
+            this.SetupGeneralLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 2);
+            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1255, 47);
+            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(622, 38);
+            this.AutoConnectOnLoadChk.TabIndex = 117;
+            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
+            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
