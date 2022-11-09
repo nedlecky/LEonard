@@ -25,15 +25,15 @@ movel_incr_tool(0,0,0,drx,dry,0)
 gocator_trigger(1000)
 gocator_write_data(filename,'random_0.25in_10deg')
 
-gocator_adjust_handcoded(3)
+gocator_adjust_py(3)
 gocator_trigger(1000)
 gocator_write_data(filename,'adjust_3-1')
 
-gocator_adjust_handcoded(3)
+gocator_adjust_py(3)
 gocator_trigger(1000)
 gocator_write_data(filename,'adjust_3-2')
 
-gocator_adjust_handcoded(1)
+gocator_adjust_py(1)
 gocator_trigger(1000)
 gocator_write_data(filename,'adjust_1')
 
