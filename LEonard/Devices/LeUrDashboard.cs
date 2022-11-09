@@ -77,8 +77,8 @@ namespace LEonard
                     return 1;
 
             // TODO all the below could be in this onConnectExec
-            string closeSafetyPopupResponse = InquiryResponse("close safety popup", 1000);
-            string isInRemoteControlResponse = InquiryResponse("is in remote control", 1000);
+            string closeSafetyPopupResponse = Ask("close safety popup", 1000);
+            string isInRemoteControlResponse = Ask("is in remote control", 1000);
             if (isInRemoteControlResponse == null)
             {
                 myForm.ErrorMessageBox("Failed to check remote control mode. No response.");
@@ -89,7 +89,7 @@ namespace LEonard
                 myForm.ErrorMessageBox("Robot not in remote control mode!");
                 return 0;
             }
-            string loadedProgramResponse = InquiryResponse("load " + ProgramFilename, 1000);
+            string loadedProgramResponse = Ask("load " + ProgramFilename, 1000);
             if (loadedProgramResponse == null)
             {
                 myForm.ErrorMessageBox($"Failed to load {ProgramFilename}. No response.");
@@ -101,7 +101,7 @@ namespace LEonard
                 return 0;
             }
 
-            string getLoadedProgramResponse = InquiryResponse("get loaded program", 1000);
+            string getLoadedProgramResponse = Ask("get loaded program", 1000);
             if (getLoadedProgramResponse == null)
             {
                 myForm.ErrorMessageBox($"Failed to verify loading {ProgramFilename}. No response");
@@ -114,7 +114,7 @@ namespace LEonard
                 return 0;
             }
 
-            string playResponse = InquiryResponse("play", 1000);
+            string playResponse = Ask("play", 1000);
             if (!playResponse.StartsWith("Starting program"))
             {
                 myForm.ErrorMessageBox($"Failed to start program playing. Response was \"{playResponse}\"");
@@ -132,8 +132,8 @@ namespace LEonard
 
             if (IsConnected())
             {
-                InquiryResponse("stop");
-                InquiryResponse("quit");
+                Ask("stop");
+                Ask("quit");
             }
             status = Status.OFF;
             myForm.UrDashboardAnnounce();

@@ -75,7 +75,7 @@ namespace LEonard
             sentMessage = "";
             return ret;
         }
-        public string InquiryResponse(string message, int timeoutMs = 50)
+        public string Ask(string message, int timeoutMs = 50)
         {
             log.Debug($"{logPrefix} DevNull::InquiryResponse({message}, {timeoutMs})");
             return null;

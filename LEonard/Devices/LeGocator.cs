@@ -139,7 +139,7 @@ namespace LEonard
         private string InquiryResponse(string inquiry)
         {
             string response = "ERROR";
-            response = InquiryResponse(inquiry, 1000);
+            response = Ask(inquiry, 1000);
             log.Info($"{logPrefix}: {inquiry} GETS {response}");
             return response;
         }

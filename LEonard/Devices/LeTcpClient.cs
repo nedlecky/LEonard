@@ -186,7 +186,7 @@ namespace LEonard
             return input.Trim();
         }
 
-        public string InquiryResponse(string inquiry, int timeoutMs = 50)
+        public string Ask(string inquiry, int timeoutMs = 50)
         {
             // Purge any remaining responses
             string response = Receive();

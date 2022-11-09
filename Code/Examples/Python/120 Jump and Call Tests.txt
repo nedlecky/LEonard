@@ -1,0 +1,14 @@
+# Python Jump and Call Test
+UsePython()
+lePrint('Starting')
+jump('continue')
+lePrint('Should be skipped')
+continue:
+lePrint('continuing')
+call('sub1')
+lePrint("we're back")
+end()
+
+sub1:
+lePrint('sub1')
+ret()

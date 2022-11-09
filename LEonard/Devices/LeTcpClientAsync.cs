@@ -184,7 +184,7 @@ namespace LEonard
             }
         }
 
-        public string InquiryResponse(string message, int timeoutMs = 50)
+        public string Ask(string message, int timeoutMs = 50)
         {
             log.Error($"{logPrefix} LeTcpClientAsync::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
 

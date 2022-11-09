@@ -112,7 +112,7 @@ namespace LEonard
                 return "";
             */
         }
-        public string InquiryResponse(string message, int timeoutMs = 50)
+        public string Ask(string message, int timeoutMs = 50)
         {
             log.Error($"{logPrefix} LeSerial::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
 
