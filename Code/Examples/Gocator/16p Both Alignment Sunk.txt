@@ -1,6 +1,6 @@
 # 16p Both Alignment Sunk
 exec_python(Lib/leGocatorSupport.py)
-UsePython()
+using_python()
 import random
 
 start_test()

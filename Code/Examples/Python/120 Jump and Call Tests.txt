@@ -1,14 +1,14 @@
 # Python Jump and Call Test
-UsePython()
-lePrint('Starting')
+using_python()
+le_print('Starting')
 jump('continue')
-lePrint('Should be skipped')
+le_print('Should be skipped')
 continue:
-lePrint('continuing')
+le_print('continuing')
 call('sub1')
-lePrint("we're back")
+le_print("we're back")
 end()
 
 sub1:
-lePrint('sub1')
+le_print('sub1')
 ret()

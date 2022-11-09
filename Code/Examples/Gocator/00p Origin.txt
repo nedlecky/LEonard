@@ -1,12 +1,12 @@
 # 00p Set Origin
 exec_python(Lib/leGocatorSupport.py)
-UsePython()
+using_python()
 
 start_test()
 
 # Coupon is 762mm diam (32in)
 coupon_diameter = 762.0
-leWriteVarSys('coupon_diameter',str(coupon_diameter))
+le_write_sysvar('coupon_diameter',str(coupon_diameter))
 
 # Force all speeds and accelerations to good inspection ones!
 linear_speed = 100

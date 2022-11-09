@@ -2,7 +2,7 @@ import random
 
 a = random.uniform(3,4)
 
-lePrint(str(a))
+le_print(str(a))
 
 import csv
 root = leReadVar('LEonardRoot')
@@ -15,8 +15,8 @@ for row in csv_reader:
   rows.append(row)
   row_count = row_count + 1
 
-lePrint(str(row_count))
-lePrint(str(rows[2]))
+le_print(str(row_count))
+le_print(str(rows[2]))
 
 
 

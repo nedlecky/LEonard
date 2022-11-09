@@ -3,12 +3,12 @@ try:
 except NameError:
   pythonprint1_count = 1
 
-lePrint('PythonPrint1 count = ' + str(pythonprint1_count))
+le_print('PythonPrint1 count = ' + str(pythonprint1_count))
 
 origin = [0,0,0,0,0,0]
-lePrint(str(origin))
+le_print(str(origin))
 leWriteVar('origin_p',str(origin))
 
-lePrint(str(linear_speed))
+le_print(str(linear_speed))
 
 

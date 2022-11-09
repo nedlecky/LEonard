@@ -9,11 +9,11 @@ save_position(start)
 # Swap from pen to sander
 move_tool_home()
 move_tool_mount()
-prompt(Please remove tool={robot_tool})
+le_prompt(Please remove tool={robot_tool})
 
 select_tool(sander)
 move_tool_mount()
-prompt(Please mount tool={robot_tool})
+le_prompt(Please mount tool={robot_tool})
 move_tool_home()
 
 move_linear(start)
@@ -21,11 +21,11 @@ move_linear(start)
 # Swap from sander to pen
 move_tool_home()
 move_tool_mount()
-prompt(Please remove tool={robot_tool})
+le_prompt(Please remove tool={robot_tool})
 
 select_tool(pen)
 move_tool_mount()
-prompt(Please mount tool={robot_tool})
+le_prompt(Please mount tool={robot_tool})
 move_tool_home()
 
 move_linear(start)

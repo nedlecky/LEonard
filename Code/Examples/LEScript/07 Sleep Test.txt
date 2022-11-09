@@ -1,9 +1,9 @@
 # 07 Sleep Test
 
-prompt(Hit Enter then I should be back in 2 seconds!)
+le_prompt(Hit Enter then I should be back in 2 seconds!)
 
 sleep(2)
 
-prompt(How was that? Next we'll try 5.5 and exit!)
+le_prompt(How was that? Next we'll try 5.5 and exit!)
 
 sleep(5.5)

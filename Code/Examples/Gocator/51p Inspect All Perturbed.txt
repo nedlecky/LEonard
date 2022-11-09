@@ -1,6 +1,6 @@
 # 51p Inspect All Perturbed
 exec_python(Lib/leGocatorSupport.py)
-UsePython()
+using_python()
 from leCsvplus import *
 import random
 
@@ -12,12 +12,12 @@ rows = DictRows(datafile)
 
 row = 1
 next_hole:
-lePrint(str(rows[row]))
+le_print(str(rows[row]))
 ID = rows[row]['ID']
 X = float(rows[row]['X']) * 0.0254
 Y = float(rows[row]['Y']) * 0.0254
 Z = float(rows[row]['Z']) * 0.0254
-lePrint('Inspecting ID=' + ID)
+le_print('Inspecting ID=' + ID)
 row = row + 1
 jumpif(row < len(rows), 'inspect')
 

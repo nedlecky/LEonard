@@ -1,11 +1,11 @@
 def myfunc():
-  lePrint('myFunc is still here!')
+  le_print('myFunc is still here!')
 
 def fred(x):
   return x*5
 
-lePrint('hey')
+le_print('hey')
 
 myfunc()
 
-lePrint(str(fred(13)))
+le_print(str(fred(13)))

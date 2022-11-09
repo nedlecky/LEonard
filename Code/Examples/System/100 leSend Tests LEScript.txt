@@ -4,10 +4,10 @@ a = 10
 ls_counter = 7
 ls_counter += 1
 
-lePrint(ls_counter = {ls_counter})
+le_print(ls_counter = {ls_counter})
 
 leSend(Command, ls_counter is {ls_counter})
 leSend(Dataman1,+)
 leSend(Dataman2,+)
 leInquiryResponse(UR-5eDash,programstate,100)
-lePrint(URresponse = {URresponse})
+le_print(URresponse = {URresponse})

@@ -1,6 +1,6 @@
 # 11p Robot Repeatability
 exec_python(Lib/leGocatorSupport.py)
-UsePython()
+using_python()
 
 start_test()
 

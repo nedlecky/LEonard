@@ -13,6 +13,6 @@ repeat:
 grind_circle({diameter},{n_cycles},{speed},{force},0)
 
 n++
-prompt(Just completed cycle {n})
+le_prompt(Just completed cycle {n})
 
 jump(repeat)

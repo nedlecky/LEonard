@@ -1,6 +1,6 @@
 # 17p Both Alignment Thru
 exec_python(Lib/leGocatorSupport.py)
-UsePython()
+using_python()
 import random
 
 start_test()

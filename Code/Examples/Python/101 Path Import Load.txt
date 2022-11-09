@@ -2,9 +2,9 @@
 leClearConsole()
 exec_python(Examples/Python/samplefuncs.py)
 
-UsePython()
+using_python()
 import sys
-lePrint(str(sys.path))
+le_print(str(sys.path))
 
 myfunc()
-lePrint(str(fred(8.26)))
+le_print(str(fred(8.26)))

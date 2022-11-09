@@ -1,5 +1,5 @@
 # Hello, World! In LEScript
-UseLEScript()
-lePrint(Hello, World!)
+using_lescript()
+le_print(Hello, World!)
 value = 13.25
-lePrint(value = {value})
+le_print(value = {value})

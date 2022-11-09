@@ -5,7 +5,7 @@ else
 
 leWriteVariable('js_counter',js_counter)
 
-lePrint('js_counter is ' + js_counter)
+le_print('js_counter is ' + js_counter)
 
 leSend('me','+')
 

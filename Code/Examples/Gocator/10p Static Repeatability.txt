@@ -1,17 +1,15 @@
 # 10p Static Repeatability
 exec_python(Lib/leGocatorSupport.py)
-UsePython()
+using_python()
 
 start_test()
 
 movel_rel_part(0.025,0.100,0,0,0,0)
 
-leWriteVar('gocator_ID','static_pose')
-
 count = 5
 loop:
 gocator_trigger(1000)
-gocator_write_data(filename)
+gocator_write_data(filename,'static_pose')
 count = count - 1
 jumpif(count > 0, 'loop')
 

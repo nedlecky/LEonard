@@ -7,7 +7,7 @@ else
 
 leWriteVariable('js_counter',js_counter)
 
-lePrint('js_counter is ' + js_counter)
+le_print('js_counter is ' + js_counter)
 
 function mp(s) {
   leSend('Command', s)
@@ -18,4 +18,4 @@ mp('js_counter is ' + js_counter)
 leSend('Dataman1','+')
 leSend('Dataman2','+')
 state = leInquiryResponse('UR-5eDash','programstate',100)
-lePrint('state = ' + state
+le_print('state = ' + state

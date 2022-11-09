@@ -1,15 +1,15 @@
-lePrint('hey')
-lePrint(robot_ready)
-#lePrint(gc_offset_y)
+le_print('hey')
+le_print(robot_ready)
+#le_print(gc_offset_y)
 
 dx = 0.0000000001
-lePrint(str(dx))
-lePrint("{:.2f}".format(dx))
+le_print(str(dx))
+le_print("{:.2f}".format(dx))
 
 import time
-lePrint('bye')
+le_print('bye')
 time.sleep(1)
-lePrint('bye')
+le_print('bye')
 
 
 

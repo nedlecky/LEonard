@@ -1,6 +1,6 @@
 # 15p Normal Alignment Thru
 exec_python(Lib/leGocatorSupport.py)
-UsePython()
+using_python()
 import random
 
 start_test()
@@ -18,8 +18,7 @@ movel_incr_tool(0,0,0,drx,dry,0)
 gocator_trigger(1000)
 gocator_write_data(filename, 'random_10deg_tilt')
 
-#gocator_adjust(2)
-gocator_adjust_handcoded(2)
+gocator_adjust_py(2)
 gocator_trigger(1000)
 gocator_write_data(filename, 'adjust_2')
 

@@ -863,12 +863,12 @@ class LMTP(SMTP):
 if __name__ == '__main__':
     import sys
 
-    def prompt(prompt):
+    def le_prompt(prompt):
         sys.stdout.write(prompt + ": ")
         return sys.stdin.readline().strip()
 
-    fromaddr = prompt("From")
-    toaddrs = prompt("To").split(',')
+    fromaddr = le_prompt("From")
+    toaddrs = le_prompt("To").split(',')
     print "Enter message, end with ^D:"
     msg = ''
     while 1:

@@ -5449,8 +5449,8 @@ namespace LEonard
                 return true;
             }
 
-            // le_prompt - and grandfather in the old prompt(message)
-            if (command.StartsWith("le_prompt(") || command.StartsWith("prompt("))
+            // le_prompt
+            if (command.StartsWith("le_prompt("))
             {
                 LogExecuteLEScriptLine("lePrompt", origLine);
                 // This just displays the dialog. ExecTmr will wait for it to close

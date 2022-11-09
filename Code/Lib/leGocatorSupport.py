@@ -62,19 +62,19 @@ def gocator_adjust_py(version):
   if version == 1:
     le_print('Version 1 Translation Only')
     if abs_dx > 0.020 or abs_dy > 0.020 or abs_dz > 0.020:
-      lePrint('Excessive gocator_adjust (' + str(dx) + ',' + str(dy) + ',' + str(dz) + ',0,0,0)')
+      le_print('Excessive gocator_adjust (' + str(dx) + ',' + str(dy) + ',' + str(dz) + ',0,0,0)')
     else:
       movel_incr_part(dx,dy,dz,0,0,0)
   elif version == 2:
     le_print('Version 2 Rotation Only')
     if abs_drx > 15 or abs_dry > 15:
-      lePrint('Excessive gocator_adjust (0,0,0,' + str(drx) + ',' + str(dry) + ',0)')
+      le_print('Excessive gocator_adjust (0,0,0,' + str(drx) + ',' + str(dry) + ',0)')
     else:
       movel_incr_tool(0,0,0,drx_rad,dry_rad,0)
   elif version == 3:
     le_print('Version 3 translate, Pause 1sec, Rotate')
     if abs_dx > 0.020 or abs_dy > 0.020 or abs_dz > 0.020 or abs_drx > 15 or abs_dry > 15:
-      lePrint('Excessive gocator_adjust (' + str(dx) + ',' + str(dy) + ',' + str(dz) + ',' + str(drx_rad) +',' + str(dry_rad) + ',0)')
+      le_print('Excessive gocator_adjust (' + str(dx) + ',' + str(dy) + ',' + str(dz) + ',' + str(drx_rad) +',' + str(dry_rad) + ',0)')
     else:
       movel_incr_part(dx,dy,dz,0,0,0)
       time.sleep(1)
@@ -82,7 +82,7 @@ def gocator_adjust_py(version):
   elif version == 4:
     le_print('Version 4 All 5 axes at once- not quite accurate!')
     if abs_dx > 0.020 or abs_dy > 0.020 or abs_dz > 0.020 or abs_drx > 15 or abs_dry > 15:
-      lePrint('Excessive gocator_adjust (' + str(dx) + ',' + str(dy) + ',' + str(dz) + ',' + str(drx) +',' + str(dry) + ',0)')
+      le_print('Excessive gocator_adjust (' + str(dx) + ',' + str(dy) + ',' + str(dz) + ',' + str(drx) +',' + str(dry) + ',0)')
     else:
       movel_incr_tool(dx,dy,dz,drx_rad,dry_rad,0)
 

@@ -3,7 +3,7 @@ try:
 except NameError:
   py_counter = 1
 
-lePrint('py_mcounter2  = ' + str(py_mcounter2))
+le_print('py_mcounter2  = ' + str(py_mcounter2))
 
 #def mp(s):
 #  leSend('Command', str(s))
@@ -16,4 +16,4 @@ leSend('Dataman1', '+')
 leSend('Dataman2', '+')
 
 ret = leInquiryResponse('UR-5eDash', 'programstate', 100)
-lePrint('ret = ' + str(ret))
+le_print('ret = ' + str(ret))

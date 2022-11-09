@@ -3,7 +3,7 @@ if(typeof nGocatorTriggers== 'undefined')
 else
   nGocatorTriggers= nGocatorTriggers+ 1;
 
-lePrint('nGocatorTriggers = ' + nGocatorTriggers);
+le_print('nGocatorTriggers = ' + nGocatorTriggers);
 
 leWriteVariable('nGocatorTriggers',nGocatorTriggers)
 

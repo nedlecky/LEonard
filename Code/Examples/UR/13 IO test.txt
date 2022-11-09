@@ -7,5 +7,5 @@ set_tool_off_outputs(3,2,3,4,5,6,7,8)
 set_coolant_on_outputs(4,2,3,4,5,6,7,8)
 set_coolant_off_outputs(5,2,3,4,5,6,7,8)
 
-prompt(About to select_tool=pen to reset)
+le_prompt(About to select_tool=pen to reset)
 select_tool(pen)
