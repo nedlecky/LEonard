@@ -5492,6 +5492,70 @@ namespace LEonard
                 return true;
             }
 
+            // device_connect
+            if (command.StartsWith("device_connect("))
+            {
+                LogExecuteLEScriptLine("device_connect", origLine);
+
+                string deviceName = ExtractParameters(command);
+                if (deviceName.Length < 1)
+                {
+                    ExecError("No device name specified");
+                    return true;
+                }
+
+                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
+                if (row == null)
+                {
+                    ExecError($"No device named {deviceName} was found.");
+                    return true;
+                }
+
+                DeviceConnect(row);
+                return true;
+            }
+
+            // device_disconnect
+            if (command.StartsWith("device_disconnect("))
+            {
+                LogExecuteLEScriptLine("device_disconnect", origLine);
+
+                string deviceName = ExtractParameters(command);
+                if (deviceName.Length < 1)
+                {
+                    ExecError("No device name specified");
+                    return true;
+                }
+
+                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
+                if (row == null)
+                {
+                    ExecError($"No device named {deviceName} was found.");
+                    return true;
+                }
+
+                DeviceDisconnect(row);
+                return true;
+            }
+
+            // device_connect_all
+            if (command == "device_connect_all()")
+            {
+                LogExecuteLEScriptLine("device_connect_all", origLine);
+
+                DeviceConnectAllBtn_Click(null, null);
+                return true;
+            }
+
+            // device_disconnect_all
+            if (command == "device_disconnect_all()")
+            {
+                LogExecuteLEScriptLine("device_disconnect_all", origLine);
+
+                DeviceDisconnectAllBtn_Click(null, null);
+                return true;
+            }
+
             // le_send
             if (command.StartsWith("le_send("))
             {
@@ -5905,71 +5969,6 @@ namespace LEonard
 
                 return true;
             }
-
-            // device_connect
-            if (command.StartsWith("device_connect("))
-            {
-                LogExecuteLEScriptLine("device_connect", origLine);
-
-                string deviceName = ExtractParameters(command);
-                if (deviceName.Length < 1)
-                {
-                    ExecError("No device name specified");
-                    return true;
-                }
-
-                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
-                if (row == null)
-                {
-                    ExecError($"No device named {deviceName} was found.");
-                    return true;
-                }
-
-                DeviceConnect(row);
-                return true;
-            }
-
-            // device_disconnect
-            if (command.StartsWith("device_disconnect("))
-            {
-                LogExecuteLEScriptLine("device_disconnect", origLine);
-
-                string deviceName = ExtractParameters(command);
-                if (deviceName.Length < 1)
-                {
-                    ExecError("No device name specified");
-                    return true;
-                }
-
-                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
-                if (row == null)
-                {
-                    ExecError($"No device named {deviceName} was found.");
-                    return true;
-                }
-
-                DeviceDisconnect(row);
-                return true;
-            }
-
-            // device_connect_all
-            if (command == "device_connect_all()")
-            {
-                LogExecuteLEScriptLine("device_connect_all", origLine);
-
-                DeviceConnectAllBtn_Click(null, null);
-                return true;
-            }
-
-            // device_disconnect_all
-            if (command == "device_disconnect_all()")
-            {
-                LogExecuteLEScriptLine("device_disconnect_all", origLine);
-
-                DeviceDisconnectAllBtn_Click(null, null);
-                return true;
-            }
-
 
             // Handle all of the other robot commands (which just use send_robot, some prefix params, and any other specified params)
             // Example:
