@@ -18,7 +18,6 @@ namespace LEonard
         string logPrefix;
 
         StreamWriter writer = null;
-        int writerLineNo = 0;
 
         StreamReader reader = null;
         int readerLineNo = 0;
