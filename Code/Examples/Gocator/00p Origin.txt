@@ -1,8 +1,9 @@
 # 00p Set Origin
-exec_python(Lib/leGocatorSupport.py)
+exec_python(Lib/Gocator/start_operation.py)
+exec_python(Lib/Gocator/end_operation.py)
 using_python()
 
-start_test()
+start_operation()
 
 # Coupon is 762mm diam (32in)
 coupon_diameter = 762.0
@@ -28,4 +29,4 @@ grind_max_blend_radius(blend_radius)
 select_tool('gocator3210')
 set_part_geometry('CYLINDER',coupon_diameter)
 
-finish_test()
+end_operation()

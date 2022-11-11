@@ -5645,9 +5645,9 @@ namespace LEonard
             }
 
             // gocator_adjust
-            if (command.StartsWith("gocator_adjust("))
+            if (command.StartsWith("gocator_adjust_("))
             {
-                LogExecuteLEScriptLine("gocator_adjust", origLine);
+                LogExecuteLEScriptLine("gocator_adjust_", origLine);
                 if (LeGocator.uiFocusInstance == null)
                 {
                     ExecError("No Gocator selected");
@@ -6512,6 +6512,7 @@ private void JavaUpdateVariablesRTB()
             ICollection<string> paths = pythonEngine.GetSearchPaths();
             paths.Add(Path.Combine(LEonardRoot, "Code", "Lib", "Python"));
             paths.Add(Path.Combine(LEonardRoot, "Code", "Lib"));
+            paths.Add(Path.Combine(LEonardRoot, "Code", "Lib", "Gocator"));
             paths.Add(Path.Combine(LEonardRoot, "Code"));
             foreach (string path in paths)
             {
