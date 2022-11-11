@@ -1,9 +1,10 @@
 # 14p Normal Alignment Sunk
 exec_python(Lib/leGocatorSupport.py)
+output_datafile = {LEScriptFilename}
 using_python()
 import random
 
-start_test()
+start_operation()
 
 count = 5
 loop:
@@ -16,13 +17,13 @@ dry = random.uniform(-0.175, 0.175)
 movel_incr_tool(0,0,0,drx,dry,0)
 
 gocator_trigger(1000)
-gocator_write_data(filename,'random_10deg_tilt')
+write_results(output_datafile,'random_10deg_tilt')
 
-gocator_adjust_py(2)
+adjust_alignment(2)
 gocator_trigger(1000)
-gocator_write_data(filename,'adjust_2')
+write_results(output_datafile,'adjust_2')
 
 count = count - 1
 jumpif(count > 0, 'loop')
 
-finish_test()
+end_operation()

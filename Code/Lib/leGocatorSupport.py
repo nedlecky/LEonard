@@ -1,3 +1,9 @@
+# LMI Gocator Interface Code for LEonard
+# Lecky Engineering LLC
+# Author:      Ned Lecky
+# Description: LMI Gocator support functions used in LEonard demo programs
+# Use at your own risk and feel free to modify to suit your application
+
 # General LMI Gocator Support Functions
 import os
 import math
@@ -24,7 +30,7 @@ import csv
 #  3: adjusts in translation first, pauses 1S, and then does rotation
 #  4: adjusts all 5 axes simultaneously but 3D calcs are not spot-on
 def adjust_alignment(version):
-  le_print('gocator_adjust_py starting...')
+  le_print('adjust_alignment starting...')
   dx = 0.0
   dy = 0.0
   dz = 0.0
@@ -86,9 +92,8 @@ def adjust_alignment(version):
     else:
       movel_incr_tool(dx,dy,dz,drx_rad,dry_rad,0)
 
-  le_print('gocator_adjust_py complete')
+  le_print('adjust_alignment complete')
 
-le_print('we got adjust_alignment')
 
 # start_operation
 # LMI Gocator Interface Code for LEonard
@@ -103,9 +108,6 @@ le_print('we got adjust_alignment')
 #
 # Customize as needed for your application
 def start_operation():
-  le_clear_variables()
-  global filename
-  filename = le_read_var('LEScriptFilename')
   move_linear('cp_origin')
   movel_rel_set_part_origin_here()
 
@@ -123,7 +125,6 @@ def start_operation():
 def end_operation():
   move_linear('cp_origin')
 
-le_print('we got start/end')
 
 # offset_to_probe
 # LMI Gocator Interface Code for LEonard
@@ -139,26 +140,6 @@ le_print('we got start/end')
 def offset_to_probe():
   movel_incr_part(-0.0235,0,0.165,0,0,0)
 
-# import_location_database
-# LMI Gocator Interface Code for LEonard
-# Lecky Engineering LLC
-# Author:      Ned Lecky
-# Description: Import a CSV file of inspection locations to be used to drive the robot
-#
-# This version:
-#   Reads filename in as a CSV and return all rows as dictionary entries
-#
-# Customize as needed for your application
-def import_location_database(filename):
-  csv_file = open(filename)
-  csv_reader = csv.DictReader(csv_file)
-  file_rows = []
-  for row in csv_reader:
-      file_rows.append(row)
-
-  return file_rows
-
-le_print('we got offset/import')
 
 # write_results
 # LMI Gocator Interface Code for LEonard
@@ -201,21 +182,30 @@ def get_column_names():
         "gp_z_offset",
         "gp_std_dev"
   ]
-
   return column_names
 
-le_print('write0')
-
+# Gocator returns distances in microns (or INVALID) and we'd like inches
 def micron_to_inch_format(micron):
-  inch = float(micron) / 25400
-  return '{:.4f}'.format(inch)
+  ret = ''
+  try:
+    inch = float(micron) / 25400
+    ret = '{:.4f}'.format(inch)
+  except:
+    ret = 'INVALID'
+  return ret
 
+# Gocator returns angles in deg*1000 (or INVALID) and we'd like degrees
 def angle1000_format(angle1000):
-  angle = float(angle1000) / 1000
-  return '{:.2f}'.format(angle)
+  ret = ''
+  try:
+    angle = float(angle1000) / 1000
+    ret = '{:.2f}'.format(angle)
+  except:
+    ret = 'INVALID'
+  return ret
 
-le_print('write1')
 def create_row(tag_name):
+  global gc_decision
   global gc_offset_x
   global gc_decision
   global gc_offset_x
@@ -252,11 +242,22 @@ def create_row(tag_name):
     micron_to_inch_format(gc_outer_radius),
     micron_to_inch_format(gc_depth),
     micron_to_inch_format(gc_bevel_radius),
-    micron_to_inch_format(gc_bevel_angle),
+    angle1000_format(gc_bevel_angle),
     angle1000_format(gc_xangle),
     angle1000_format(gc_yangle),
+    micron_to_inch_format(gc_cb_depth),
+    angle1000_format(gc_axis_tilt),
+    angle1000_format(gc_axis_orient),
+    gh_decision,
+    micron_to_inch_format(gh_offset_x),
+    micron_to_inch_format(gh_offset_y),
+    micron_to_inch_format(gh_offset_z),
+    micron_to_inch_format(gh_radius),
+    angle1000_format(gp_xangle),
+    angle1000_format(gp_yangle),
+    micron_to_inch_format(gp_z_offset),
+    micron_to_inch_format(gp_std_dev),
   ]
-
   return row
 
 # Creates a new file (overwriting any existing) and places the heading labels in it
@@ -272,20 +273,17 @@ def append_data(filename, tag_name):
     row = create_row(tag_name)
     writer.writerow(row)
 
-
 # Creates or appends latest Gocator data to filename
 def write_results(filename, tag_name):
-  le_print('write_results(' + filename + ',' + tag_name + ')')
   root = le_read_var('LEonardRoot').replace(os.sep, '/')
   full_filename = root + '/Data/' + filename + '.csv'
-  le_print('full_filename is ' + full_filename)
+  le_log_info('write_results(' + filename + ',' + tag_name + ') ==> ' + full_filename)
 
   if not os.path.exists(full_filename):
     start_file(full_filename)
 
   append_data(full_filename, tag_name)
 
-le_print('write2')
 
 ######################################################################################
 # TEST CODE
@@ -349,4 +347,3 @@ def go_test2():
 
 #go_test1('demo.csv')
 #go_test2()
-

@@ -1,9 +1,7 @@
 # 10p Static Repeatability
 exec_python(Lib/leGocatorSupport.py)
 output_datafile = {LEScriptFilename}
-le_print(output_datafile={output_datafile})
 using_python()
-
 
 start_operation()
 

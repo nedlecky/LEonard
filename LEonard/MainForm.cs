@@ -5452,7 +5452,7 @@ namespace LEonard
             // le_prompt
             if (command.StartsWith("le_prompt("))
             {
-                LogExecuteLEScriptLine("lePrompt", origLine);
+                LogExecuteLEScriptLine("le_prompt", origLine);
                 // This just displays the dialog. ExecTmr will wait for it to close
                 le_prompt(ExtractParameters(command, -1, false));
                 return true;
@@ -6255,7 +6255,7 @@ namespace LEonard
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
-                    .SetValue("le_print_java", new Action<string>((string msg) => le_print_java(msg)))
+                    .SetValue("le_print", new Action<string>((string msg) => le_print_java(msg)))
                     .SetValue("le_show_console", new Action<bool>((bool f) => le_show_console(f)))
                     .SetValue("le_clear_console", new Action(() => le_clear_console()))
                     .SetValue("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)))
@@ -6466,7 +6466,7 @@ namespace LEonard
         }
         bool ExecuteJavaScript(string code, LeDeviceInterface dev)
         {
-            log.Info($"Java Execute: {code}");
+            //log.Info($"Java Execute: {code}");
             LeDeviceBase.currentDevice = dev;
             return JavaExec(code);
         }
@@ -6785,7 +6785,7 @@ namespace LEonard
 
         bool ExecutePythonScript(string code, LeDeviceInterface dev)
         {
-            log.Info($"Python Execute: {code}");
+            //log.Info($"Python Execute: {code}");
             try
             {
                 LeDeviceBase.currentDevice = dev;
