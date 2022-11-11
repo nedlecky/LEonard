@@ -1,6 +1,5 @@
 # 00p Set Origin
-exec_python(Lib/Gocator/start_operation.py)
-exec_python(Lib/Gocator/end_operation.py)
+exec_python(Lib/leGocatorSupport.py)
 using_python()
 
 start_operation()

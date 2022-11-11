@@ -6224,10 +6224,10 @@ namespace LEonard
             return true;
         }
 
-#endregion ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
+        #endregion ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
 
-#region ===== JAVA SUPPORT BEGINS               ==============================================================================================================================
-private void JavaUpdateVariablesRTB()
+        #region ===== JAVA SUPPORT BEGINS               ==============================================================================================================================
+        private void JavaUpdateVariablesRTB()
         {
             string finalUpdate = "";
 
@@ -6512,7 +6512,6 @@ private void JavaUpdateVariablesRTB()
             ICollection<string> paths = pythonEngine.GetSearchPaths();
             paths.Add(Path.Combine(LEonardRoot, "Code", "Lib", "Python"));
             paths.Add(Path.Combine(LEonardRoot, "Code", "Lib"));
-            paths.Add(Path.Combine(LEonardRoot, "Code", "Lib", "Gocator"));
             paths.Add(Path.Combine(LEonardRoot, "Code"));
             foreach (string path in paths)
             {
@@ -6802,13 +6801,14 @@ private void JavaUpdateVariablesRTB()
         bool ExecutePythonFile(string filename)
         {
 
-            bool exec(string f)
+            bool exec(string fname)
             {
-                string contents = File.ReadAllText(f);
+                log.Info($"try exec {fname}");
+                string contents = File.ReadAllText(fname);
+                log.Info(contents);
                 try
                 {
-                    PythonExec(contents);
-                    return true;
+                    return PythonExec(contents);
                 }
                 catch //(Exception ex)
                 {

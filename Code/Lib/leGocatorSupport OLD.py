@@ -1,10 +1,14 @@
 # General LMI Gocator Support Functions
-import os
-import math
-import time
-import random
-from datetime import datetime
-import csv
+#import os
+#import math
+#import time
+#import random
+#from datetime import datetime
+#import csv
+
+def fred():
+  le_print('fred')
+le_print(' we got fred')
 
 # adjust_alignment.py
 # LMI Gocator Interface Code for LEonard
@@ -88,7 +92,6 @@ def adjust_alignment(version):
 
   le_print('gocator_adjust_py complete')
 
-le_print('we got adjust_alignment')
 
 # start_operation
 # LMI Gocator Interface Code for LEonard
@@ -123,7 +126,6 @@ def start_operation():
 def end_operation():
   move_linear('cp_origin')
 
-le_print('we got start/end')
 
 # offset_to_probe
 # LMI Gocator Interface Code for LEonard
@@ -158,7 +160,6 @@ def import_location_database(filename):
 
   return file_rows
 
-le_print('we got offset/import')
 
 # write_results
 # LMI Gocator Interface Code for LEonard
@@ -174,37 +175,32 @@ le_print('we got offset/import')
 # Customize as needed for your application
 
 # timestamp and tag_name are passed in, the rest are assumed to be Python variables already sent by LEonard
-def get_column_names():
-  column_names = [
-        "time_stamp",
-        "tag_name",
-        "gc_decision",
-        "gc_offset_x",
-        "gc_offset_y",
-        "gc_offset_z",
-        "gc_outer_radius",
-        "gc_depth",
-        "gc_bevel_radius",
-        "gc_bevel_angle",
-        "gc_xangle",
-        "gc_yangle",
-        "gc_cb_depth",
-        "gc_axis_tilt",
-        "gc_axis_orient",
-        "gh_decision",
-        "gh_offset_x",
-        "gh_offset_y",
-        "gh_offset_z",
-        "gh_radius",
-        "gp_xangle",
-        "gp_yangle",
-        "gp_z_offset",
-        "gp_std_dev"
-  ]
-
-  return column_names
-
-le_print('write0')
+column_name = [
+  "time_stamp",
+  "tag_name",
+  "gc_decision",
+  "gc_offset_x",
+  "gc_offset_y",
+  "gc_offset_z",
+  "gc_outer_radius",
+  "gc_depth",
+  "gc_bevel_radius",
+  "gc_bevel_angle",
+  "gc_xangle",
+  "gc_yangle",
+  "gc_cb_depth",
+  "gc_axis_tilt",
+  "gc_axis_orient",
+  "gh_decision",
+  "gh_offset_x",
+  "gh_offset_y",
+  "gh_offset_z",
+  "gh_radius",
+  "gp_xangle",
+  "gp_yangle",
+  "gp_z_offset",
+  "gp_std_dev"
+]
 
 def micron_to_inch_format(micron):
   inch = float(micron) / 25400
@@ -214,7 +210,6 @@ def angle1000_format(angle1000):
   angle = float(angle1000) / 1000
   return '{:.2f}'.format(angle)
 
-le_print('write1')
 def create_row(tag_name):
   global gc_offset_x
   global gc_decision
@@ -263,7 +258,7 @@ def create_row(tag_name):
 def start_file(filename):
   with open(filename, 'w') as f:
     writer = csv.writer(f, lineterminator='\r')
-    writer.writerow(get_column_names())
+    writer.writerow(column_name)
 
 # Collects the global LEonard return variables into a row and appends it to filename
 def append_data(filename, tag_name):
@@ -275,17 +270,10 @@ def append_data(filename, tag_name):
 
 # Creates or appends latest Gocator data to filename
 def write_results(filename, tag_name):
-  le_print('write_results(' + filename + ',' + tag_name + ')')
-  root = le_read_var('LEonardRoot').replace(os.sep, '/')
-  full_filename = root + '/Data/' + filename + '.csv'
-  le_print('full_filename is ' + full_filename)
+  if not os.path.exists(filename):
+    start_file(filename)
 
-  if not os.path.exists(full_filename):
-    start_file(full_filename)
-
-  append_data(full_filename, tag_name)
-
-le_print('write2')
+  append_data(filename, tag_name)
 
 ######################################################################################
 # TEST CODE
@@ -324,8 +312,7 @@ def simulate_input():
   gc_bevel_angle = random.uniform(80000,95000)
   gc_xangle = random.uniform(-10000.0,10000.0)
   gc_yangle = random.uniform(-10000.0,10000.0)
-
-def go_test1(filename):
+def test1(filename):
   start_file(filename)
 
   for i in range(0,10):
@@ -333,7 +320,7 @@ def go_test1(filename):
     append_data(filename, 'demo')
 
 
-def go_test2():
+def test2():
   new_file = 'new_file.csv'
   growing_file = 'growing_file.csv'
   
@@ -347,6 +334,5 @@ def go_test2():
     write_results(new_file, 'new_tag')
     write_results(growing_file, 'grow_tag')
 
-#go_test1('demo.csv')
-#go_test2()
-
+test1('demo.csv')
+test2()

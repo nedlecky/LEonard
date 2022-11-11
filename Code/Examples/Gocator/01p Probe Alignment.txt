@@ -1,8 +1,5 @@
 # 01p Probe Alignment
-exec_python(Lib/Gocator/start_operation.py)
-exec_python(Lib/Gocator/end_operation.py)
-exec_python(Lib/Gocator/offset_to_probe.py)
-exec_python(Lib/Gocator/adjust_alignment.py)
+exec_python(Lib/leGocatorSupport.py)
 using_python()
 
 start_operation()

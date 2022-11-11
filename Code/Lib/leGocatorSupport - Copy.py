@@ -6,6 +6,11 @@ import random
 from datetime import datetime
 import csv
 
+def fred():
+  le_print('fred')
+
+le_print('we got fred')
+
 # adjust_alignment.py
 # LMI Gocator Interface Code for LEonard
 # Lecky Engineering LLC
@@ -263,7 +268,7 @@ def create_row(tag_name):
 def start_file(filename):
   with open(filename, 'w') as f:
     writer = csv.writer(f, lineterminator='\r')
-    writer.writerow(get_column_names())
+    writer.writerow(column_name)
 
 # Collects the global LEonard return variables into a row and appends it to filename
 def append_data(filename, tag_name):
@@ -275,15 +280,10 @@ def append_data(filename, tag_name):
 
 # Creates or appends latest Gocator data to filename
 def write_results(filename, tag_name):
-  le_print('write_results(' + filename + ',' + tag_name + ')')
-  root = le_read_var('LEonardRoot').replace(os.sep, '/')
-  full_filename = root + '/Data/' + filename + '.csv'
-  le_print('full_filename is ' + full_filename)
+  if not os.path.exists(filename):
+    start_file(filename)
 
-  if not os.path.exists(full_filename):
-    start_file(full_filename)
-
-  append_data(full_filename, tag_name)
+  append_data(filename, tag_name)
 
 le_print('write2')
 
