@@ -50,7 +50,6 @@ namespace LEonard
         // Root and Folder Constants
         static string LEonardRoot = null;
         static LEonardLanguages LEonardLanguage = LEonardLanguages.LEScript;
-        const string DatabaseFolder = "DB";
         const string ConfigFolder = "Config";
         const string CodeFolder = "Code";
         const string DataFolder = "Data";
@@ -213,7 +212,7 @@ namespace LEonard
             log.Info(caption);
             log.Info("================================================================");
 
-            licenseFilename = Path.Combine(LEonardRoot, "license.txt");
+            licenseFilename = Path.Combine(LEonardRoot, ConfigFolder, "UserData.xml");
             protection = new Protection(this, licenseFilename);
 
             UserModeBox.SelectedIndex = (int)operatorMode;
@@ -357,9 +356,26 @@ namespace LEonard
                     SetState(RunState.READY);
                 }
 
-            if (protection.RunLEonard() && StartupDevicesLbl.Text.Length > 0)
+            // Load devices... if none specified, offer to create defaults
+            int ret = 1;
+            if (StartupDevicesLbl.Text.Length > 0)
             {
-                LoadDevicesFile(StartupDevicesLbl.Text);
+                ret = LoadDevicesFile(StartupDevicesLbl.Text);
+            }
+
+            if (ret != 0)
+            {
+                DialogResult result = ConfirmMessageBox("Could not load devices. Create some defaults?");
+                if (result == DialogResult.OK)
+                {
+                    ClearAndInitializeDevices();
+                    CreateDefaultDevices();
+                    DevicesFilenameLbl.Text = Path.Combine(LEonardRoot, "Config", "Default.ldev");
+                    SaveDevicesBtn_Click(null, null);
+                    SetStartupDevicesFileBtn_Click(null, null);
+                    AutoConnectOnLoadChk.Checked = false;
+                    SavePersistentStartupDevices();
+                }
             }
 
             log.Info("StartupTmr complete");
@@ -1631,8 +1647,19 @@ namespace LEonard
         }
         public void MakeStandardSubdirectories()
         {
+            // If ConfigDir doesn't exist, wipe out any default devices file!
+            if (System.IO.Directory.Exists(Path.Combine(LEonardRoot, ConfigFolder)))
+                log.Info("Config Folder Exists!");
+            else
+            {
+                // The first time we load in a new folder, we'll default the devices
+                log.Info("Config Folder doesn't exists!");
+                StartupDevicesLbl.Text = "";
+                AutoConnectOnLoadChk.Checked = false;
+                SavePersistentStartupDevices();
+            }
+
             // Make standard subdirectories (if they don't exist)
-            System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, DatabaseFolder));
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, ConfigFolder));
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, CodeFolder));
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, DataFolder));
@@ -1649,16 +1676,16 @@ namespace LEonard
         {
             RegistryKey AppNameKey = GetAppNameKey();
 
-            LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", "C:\\LEonard");
+            string suggestedRoot = "C:\\LEonardData";// Path.GetFullPath(Path.Combine(executionRoot, "../../.."));
+            LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", suggestedRoot);
 
             // Suggested root?
-            string suggestedRoot = Path.GetFullPath(Path.Combine(executionRoot, "../../.."));
             log.Info("Current root is {0}", LEonardRoot);
             log.Info("Suggested root is {0}", suggestedRoot);
 
             if (LEonardRoot != suggestedRoot)
             {
-                DialogResult result = ConfirmMessageBox($"Root is set to\n{LEonardRoot}\nYou are executing out of\n{suggestedRoot}\nChange?");
+                DialogResult result = ConfirmMessageBox($"Root is set to\n{LEonardRoot}\nSuggesting\n{suggestedRoot}\nChange?");
                 if (result == DialogResult.OK)
                 {
                     LEonardRoot = suggestedRoot;
@@ -1671,6 +1698,7 @@ namespace LEonard
                 if (result == DialogResult.OK)
                 {
                     System.IO.Directory.CreateDirectory(LEonardRoot);
+                    recipeFileToAutoload = "";
                 }
                 else
                 {
@@ -1777,6 +1805,13 @@ namespace LEonard
             LoadPythonProgram((string)AppNameKey.GetValue("PythonFilenameLbl.Text", "Untitled"));
         }
 
+        private void SavePersistentStartupDevices()
+        {
+            RegistryKey AppNameKey = GetAppNameKey();
+            AppNameKey.SetValue("StartupDevicesLbl.Text", StartupDevicesLbl.Text);
+            AppNameKey.SetValue("AutoConnectOnLoadChk.Checked", AutoConnectOnLoadChk.Checked);
+        }
+
         void SavePersistent()
         {
             log.Info("SavePersistent()");
@@ -1797,8 +1832,7 @@ namespace LEonard
 
             // From Setup Tab
             AppNameKey.SetValue("LEonardRoot", LEonardRoot);
-            AppNameKey.SetValue("StartupDevicesLbl.Text", StartupDevicesLbl.Text);
-            AppNameKey.SetValue("AutoConnectOnLoadChk.Checked", AutoConnectOnLoadChk.Checked);
+            SavePersistentStartupDevices();
 
             // Operator Mode
             AppNameKey.SetValue("operatorMode", (Int32)operatorMode);
@@ -1942,7 +1976,7 @@ namespace LEonard
         private void CreateDefaultDevices()
         {
             devices.Rows.Add(new object[] {
-                0, "Command", true, false, "TcpServer", "127.0.0.1:1000",
+                0, "Command", false, false, "TcpServer", "127.0.0.1:1000",
                 "A.CTL", "command",
                 "", "<CR>", "<LF>", "#",
                 "JE:le_send('me','Hello!')", "JE:le_send('me','exit')",
@@ -1958,7 +1992,7 @@ namespace LEonard
                 "","","",
             });
             devices.Rows.Add(new object[] {
-                1, "UR-5eDash", true, false, "UrDashboard", "192.168.0.2:29999",
+                1, "UR-5eDash", false, false, "UrDashboard", "192.168.0.2:29999",
                 "R.Dash", "",
                 "", "<CR>", "<LF>", "",
                 "", "",
@@ -1974,7 +2008,7 @@ namespace LEonard
                 "","","",
             });
             devices.Rows.Add(new object[] {
-                2, "UR-5eCommand", true, false, "UrCommand", "192.168.0.252:30000",
+                2, "UR-5eCommand", false, false, "UrCommand", "192.168.0.252:30000",
                 "R.Cmd", "general",
                 "", "<CR>", "<LF>", "#",
                 "", "JE:le_send('me','999')",
@@ -1990,7 +2024,7 @@ namespace LEonard
                 "","","",
             });
             devices.Rows.Add(new object[] {
-                3, "Gocator", true, false, "Gocator", "192.168.0.3:8190",
+                3, "Gocator", false, false, "Gocator", "192.168.0.3:8190",
                 "A.GO", "gocator",
                 "", "<CR>", "<LF>", "#",
                 "", "",
@@ -2070,7 +2104,7 @@ namespace LEonard
                 "","","",
             });
             devices.Rows.Add(new object[] {
-                8, "Dataman1", true, false, "Serial", "COM3",
+                8, "Dataman1", false, false, "Serial", "COM3",
                 "A.DM1", "general",
                 "", "", "<CR>", "#",
                 "LE:le_send(me,+)", "",
@@ -2086,7 +2120,7 @@ namespace LEonard
                 "","","",
             });
             devices.Rows.Add(new object[] {
-                9, "Dataman2", true, false, "Serial", "COM4",
+                9, "Dataman2", false, false, "Serial", "COM4",
                 "A.DM2", "general",
                 "", "", "<CR>", "#",
                 "LE:le_send(me,+)", "",
@@ -2118,7 +2152,7 @@ namespace LEonard
                 "","","",
             });
             devices.Rows.Add(new object[] {
-                11, "FS40 Control", true, false, "TcpClient", "192.168.0.41:107",
+                11, "FS40 Control", false, false, "TcpClient", "192.168.0.41:107",
                 "A.FS40.C", "general",
                 "", "<CR><LF>", "<LF>", "",
                 "", "",
@@ -2134,7 +2168,7 @@ namespace LEonard
                 "","","",
             });
             devices.Rows.Add(new object[] {
-                12, "FS40 Results", true, false, "TcpClient", "192.168.0.41:25250",
+                12, "FS40 Results", false, false, "TcpClient", "192.168.0.41:25250",
                 "A.FS40.R", "general",
                 "", "<CR><LF>", "<LF>", "#",
                 "", "",
@@ -2152,7 +2186,6 @@ namespace LEonard
         }
         private void ClearDevicesBtn_Click(object sender, EventArgs e)
         {
-
             if (DialogResult.OK == ConfirmMessageBox("This will clear all existing devices. Proceed?"))
             {
                 DeviceDisconnectAllBtn_Click(null, null);
@@ -2199,6 +2232,7 @@ namespace LEonard
             catch (Exception ex)
             {
                 log.Error(ex, "Can't load {0}", name);
+                return 1;
             }
 
             return 0;
@@ -3103,7 +3137,7 @@ namespace LEonard
 
         private void LoadDisplaysBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, displaysFilename);
+            string filename = Path.Combine(LEonardRoot, ConfigFolder, displaysFilename);
             log.Info("LoadDisplays from {0}", filename);
             ClearAndInitializeDisplays();
             try
@@ -3124,7 +3158,7 @@ namespace LEonard
 
         private void SaveDisplaysBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, displaysFilename);
+            string filename = Path.Combine(LEonardRoot, ConfigFolder, displaysFilename);
             log.Info("SaveDisplaysBtn_Click to {0}", filename);
             displays.AcceptChanges();
             displays.WriteXml(filename, XmlWriteMode.WriteSchema, true);
@@ -3283,7 +3317,7 @@ namespace LEonard
 
         private void LoadToolsBtn_Click(object sender, EventArgs e)
         {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, toolsFilename);
+            string filename = Path.Combine(LEonardRoot, ConfigFolder, toolsFilename);
             log.Info("LoadTools from {0}", filename);
             ClearAndInitializeTools();
             try
@@ -3306,7 +3340,7 @@ namespace LEonard
 
         private void SaveTools()
         {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, toolsFilename);
+            string filename = Path.Combine(LEonardRoot, ConfigFolder, toolsFilename);
             log.Info($"SaveTools to {filename}");
             tools.WriteXml(filename, XmlWriteMode.WriteSchema, true);
         }
@@ -3495,7 +3529,7 @@ namespace LEonard
 
         private void LoadPositions()
         {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, positionsFilename);
+            string filename = Path.Combine(LEonardRoot, ConfigFolder, positionsFilename);
             log.Info("LoadPositions from {0}", filename);
             ClearAndInitializePositions();
             try
@@ -3510,7 +3544,7 @@ namespace LEonard
 
         private void SavePositions()
         {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, positionsFilename);
+            string filename = Path.Combine(LEonardRoot, ConfigFolder, positionsFilename);
             log.Info("SavePositions to {0}", filename);
             positions.AcceptChanges();
             positions.WriteXml(filename, XmlWriteMode.WriteSchema, true);
@@ -4184,7 +4218,7 @@ namespace LEonard
 
         private void LoadVariables()
         {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, variablesFilename);
+            string filename = Path.Combine(LEonardRoot, ConfigFolder, variablesFilename);
             log.Info("LoadVariables from {0}", filename);
             ClearAndInitializeVariables();
             try
@@ -4203,7 +4237,7 @@ namespace LEonard
 
         private void SaveVariables()
         {
-            string filename = Path.Combine(LEonardRoot, DatabaseFolder, variablesFilename);
+            string filename = Path.Combine(LEonardRoot, ConfigFolder, variablesFilename);
             log.Info("SaveVariables to {0}", filename);
             variables.AcceptChanges();
             variables.WriteXml(filename, XmlWriteMode.WriteSchema, true);
@@ -6428,26 +6462,9 @@ namespace LEonard
                 JavaCodeRTB.Modified = true;
             }
         }
-        private bool IsJavaLicensed()
-        {
-            if (!protection.RunLEonard())
-            {
-                ErrorMessageBox("Cannot run. LEonard license missing");
-                return false;
-            }
-            if (!Protection.license.hasJava)
-            {
-                ErrorMessageBox("Java option not enabled");
-                return false;
-            }
-
-            return true;
-        }
 
         bool JavaExec(string javaScript)
         {
-            if (!IsJavaLicensed()) throw new AccessViolationException("Java not enabled in LEonard license");
-
             try
             {
                 javaEngine.Execute(javaScript);
@@ -6732,25 +6749,8 @@ namespace LEonard
                 PythonCodeRTB.Modified = true;
             }
         }
-        private bool IsPythonLicensed()
-        {
-            if (!protection.RunLEonard())
-            {
-                ErrorMessageBox("Cannot run. LEonard license missing");
-                return false;
-            }
-            if (!Protection.license.hasPython)
-            {
-                ErrorMessageBox("Python option not enabled");
-                return false;
-            }
-
-            return true;
-        }
         bool PythonExec(string pythonScript)
         {
-            if (!IsPythonLicensed()) throw new AccessViolationException("Python not enabled in LEonard license");
-
             Microsoft.Scripting.Hosting.ScriptSource script = pythonScope.Engine.CreateScriptSourceFromString(pythonScript);
             //Microsoft.Scripting.Hosting.ScriptSource script = pythonEngine.CreateScriptSourceFromString(pythonScript);
 

@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonard", "LEonard\LEonard.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonardOriginal", "LEonardOriginal\LEonardOriginal.csproj", "{8C976E92-197B-445C-AB0A-0B9CC89FEAAD}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LEonardSetup", "LEonardSetup\LEonardSetup.vdproj", "{F2AE8F9C-03F6-4B76-9706-08F0D03F1F20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,8 @@ Global
 		{8C976E92-197B-445C-AB0A-0B9CC89FEAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C976E92-197B-445C-AB0A-0B9CC89FEAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C976E92-197B-445C-AB0A-0B9CC89FEAAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2AE8F9C-03F6-4B76-9706-08F0D03F1F20}.Debug|Any CPU.ActiveCfg = Debug
+		{F2AE8F9C-03F6-4B76-9706-08F0D03F1F20}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

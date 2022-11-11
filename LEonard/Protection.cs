@@ -168,8 +168,17 @@ namespace LEonard
             }
             catch
             {
-                mainForm.ErrorMessageBox($"LoadLicense: Cannot load {filename}");
-                log.Error($"LoadLicense: Cannot load {filename}");
+                log.Error($"LoadLicense: Cannot verify LEonard license!");
+                DialogResult result = mainForm.ErrorMessageBox($"LoadLicense: Cannot verify LEonard license. Create trial?");
+                if (result == DialogResult.OK)
+                {
+                    CreateTrialLicense(30);
+                    SaveLicense(filename);
+                    LoadLicense(filename);
+
+                    return true;
+                }
+
                 return false;
             }
         }
