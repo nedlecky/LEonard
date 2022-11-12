@@ -363,7 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # LEonard Specific
-DB/Variables - Copy.xml
-DB/Variables.xml
-DB/Variables2.xml
-/LEonardSetup/Redist
+/LEonardSetup/Package
