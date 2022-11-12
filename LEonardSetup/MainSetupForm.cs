@@ -178,8 +178,9 @@ namespace LEonardSetup
             IPersistFile file = (IPersistFile)link;
             link.SetDescription("LEonard");
             link.SetPath(@"C:\LEonard\LEonard\LEonard.exe");
-            link.SetDescription("Description is?");
+            link.SetDescription("LEonard Integration Software by Lecky Engineering");
             link.SetWorkingDirectory(@"C:\LEonard\LEonard");
+            link.SetIconLocation(@"C:\\LEonard\\LEonard\LEonardIcon.ico",0);
             file.Save(shortcutFilename, false);
         }
 

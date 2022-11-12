@@ -794,8 +794,8 @@ namespace LEonard
 
                     SetupTab.Enabled = true;
 
-                    StartBtn.Enabled = true;
-                    StepBtn.Enabled = true;
+                    StartBtn.Enabled = protection.RunLEonard(); // Only enable if licensed!!
+                    StepBtn.Enabled = protection.RunLEonard(); // Only enable if licensed!!;
                     PauseBtn.Enabled = false;
                     StopBtn.Enabled = false;
                     GrindContactEnabledBtn.Enabled = true;
@@ -882,7 +882,7 @@ namespace LEonard
                     SetupTab.Enabled = true;
 
                     StartBtn.Enabled = false;
-                    StepBtn.Enabled = true;
+                    StepBtn.Enabled = protection.RunLEonard(); // Only enable if licensed!!;
                     PauseBtn.Enabled = true;
                     PauseBtn.Text = "Continue";
                     StopBtn.Enabled = true;

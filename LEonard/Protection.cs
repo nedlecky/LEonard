@@ -149,6 +149,13 @@ namespace LEonard
             LoadLicense(filename);
         }
 
+        public RegistryKey GetAppNameGetLicenseCountingKey()
+        {
+            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+            RegistryKey LeckyEngineeringKey = SoftwareKey.CreateSubKey("TrialCount");
+            return LeckyEngineeringKey.CreateSubKey("Used");
+        }
+
         public bool LoadLicense(string filename)
         {
             log.Info($"LoadLicense({filename})");
@@ -169,14 +176,30 @@ namespace LEonard
             catch
             {
                 log.Error($"LoadLicense: Cannot verify LEonard license!");
-                DialogResult result = mainForm.ErrorMessageBox($"LoadLicense: Cannot verify LEonard license. Create trial?");
-                if (result == DialogResult.OK)
-                {
-                    CreateTrialLicense(30);
-                    SaveLicense(filename);
-                    LoadLicense(filename);
 
-                    return true;
+                // Have we already marked down a 30-day trial?
+                RegistryKey markUsedKey = GetAppNameGetLicenseCountingKey();
+                int nTrialsUsed = (Int32)markUsedKey.GetValue("UsedIt", 0);
+                if (nTrialsUsed > 0)
+                {
+                    DialogResult result = mainForm.ErrorMessageBox($"LoadLicense: No LEonard license and 30-day trial expired.\nContact Lecky Engineering!\nwww.lecky.com\nsales@lecky.com");
+                    return false;
+                }
+                else
+                {
+                    // Offer a 30-day trial
+                    DialogResult result = mainForm.ErrorMessageBox($"LoadLicense: Cannot verify LEonard license.\nWould you like a FREE 30-day trial?");
+                    if (result == DialogResult.OK)
+                    {
+                        CreateTrialLicense(30);
+                        SaveLicense(filename);
+                        LoadLicense(filename);
+
+                        // And mark the trial used
+                        markUsedKey.SetValue("UsedIt", 1);
+
+                        return true;
+                    }
                 }
 
                 return false;
