@@ -1674,23 +1674,14 @@ namespace LEonard
 
         void LoadRootDirectory()
         {
-            RegistryKey AppNameKey = GetAppNameKey();
+            LEonardRoot = @"C:\LEonard";
 
-            string suggestedRoot = "C:\\LEonard";
-            LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", suggestedRoot);
+            // Test if we're running in development mode and shift up 3 directories!
+            if (executionRoot.EndsWith("Debug") || executionRoot.EndsWith("Release"))
+                LEonardRoot = Path.GetFullPath(Path.Combine(executionRoot, @"..\..\.."));
 
-            // Suggested root?
-            log.Info("Current root is {0}", LEonardRoot);
-            log.Info("Suggested root is {0}", suggestedRoot);
-
-            if (!Directory.Exists(LEonardRoot))
-            {
-                DialogResult result = ConfirmMessageBox($"Root is set to\n{LEonardRoot}\nwhich doesn't exist. Suggesting\n{suggestedRoot}\nChange?");
-                if (result == DialogResult.OK)
-                {
-                    LEonardRoot = suggestedRoot;
-                }
-            }
+            // User is not allowed to manually change anymore (for now?)
+            ChangeRootDirectoryBtn.Visible = false;
 
             if (!Directory.Exists(LEonardRoot))
             {
@@ -1781,7 +1772,7 @@ namespace LEonard
             }
 
             // Load Revision History for User Inspection
-            string revisionHistoryFilename = Path.Combine(LEonardRoot, "Documentation", "RevisonHistory.rtf");
+            string revisionHistoryFilename = Path.Combine(LEonardRoot, "Documentation", "RevisionHistory.rtf");
             try
             {
                 RevHistRTB.LoadFile(revisionHistoryFilename);

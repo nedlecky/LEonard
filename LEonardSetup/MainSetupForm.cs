@@ -110,9 +110,22 @@ namespace LEonardSetup
                 MakeDesktopShortcut(true);
                 MakeStartLink(true);
 
+                void ScaryDelete(string path)
+                {
+                    try
+                    {
+                        if (Directory.Exists(path))
+                            Directory.Delete(path, true);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
                 // Scary recursive delete of C:\LEonard
-                Directory.Delete(@"C:\LEonard\LEonard", true);
-                Directory.Delete(@"C:\LEonard\3rdParty", true);
+                ScaryDelete(@"C:\LEonard\LEonard");
+                ScaryDelete(@"C:\LEonard\3rdParty");
             }
         }
 
