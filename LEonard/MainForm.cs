@@ -48,7 +48,7 @@ namespace LEonard
         };
 
         // Root and Folder Constants
-        static string LEonardRoot = null;
+        static public string LEonardRoot = null;
         static LEonardLanguages LEonardLanguage = LEonardLanguages.LEScript;
         const string ConfigFolder = "Config";
         const string CodeFolder = "Code";
@@ -1596,7 +1596,7 @@ namespace LEonard
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
-            startInfo.Arguments = String.Format("file:\\{0}\\LEonard%20User%20Manual.pdf", executionRoot);
+            startInfo.Arguments = $"file:\\{LEonardRoot}\\Documentation\\LEonard%20User%20Manual.pdf";
             process.StartInfo = startInfo;
             process.Start();
         }
@@ -1676,7 +1676,7 @@ namespace LEonard
         {
             RegistryKey AppNameKey = GetAppNameKey();
 
-            string suggestedRoot = "C:\\LEonardData";// Path.GetFullPath(Path.Combine(executionRoot, "../../.."));
+            string suggestedRoot = "C:\\LEonard";
             LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", suggestedRoot);
 
             // Suggested root?
@@ -1769,24 +1769,26 @@ namespace LEonard
             // Load the variables table
             LoadVariables();
 
-            // Load the Recipe Commands for User Inspection
+            // Load the sequencer commands cheatsheet for the user
+            string programStatementsFilename = Path.Combine(LEonardRoot, "Documentation", "ProgramStatements.rtf");
             try
             {
-                LEonardScriptCommandsRTB.LoadFile("ProgramStatements.rtf");
+                LEonardScriptCommandsRTB.LoadFile(programStatementsFilename);
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Could not load ProgramStatements.rtf!");
+                log.Error(ex, $"Could not load {programStatementsFilename}");
             }
 
             // Load Revision History for User Inspection
+            string revisionHistoryFilename = Path.Combine(LEonardRoot, "Documentation", "RevisonHistory.rtf");
             try
             {
-                RevHistRTB.LoadFile("RevisionHistory.rtf");
+                RevHistRTB.LoadFile(revisionHistoryFilename);
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Could not load RevisionHistory.rtf!");
+                log.Error(ex, $"Could not load {revisionHistoryFilename}");
             }
 
             // Autoload file is the last loaded recipe

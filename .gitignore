@@ -363,5 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # LEonard Specific
-/LEonardSetup/Package
+# Don't archive the whole distribution!
 /LEonardSetup/Redist

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,14 +57,15 @@ namespace LEonard
 
             ProgramRTB.Text = Program;
 
-            // Load the Program Statements for User Inspection
+            // Load the sequencer commands cheatsheet for the user
+            string programStatementsFilename = Path.Combine(MainForm.LEonardRoot, "Documentation", "ProgramStatements.rtf");
             try
             {
-                ProgramStatementsRTB.LoadFile("ProgramStatements.rtf");
+                ProgramStatementsRTB.LoadFile(programStatementsFilename);
             }
             catch (Exception ex)
             {
-                log.Error(ex, "Could not load ProgramStatements.rtf");
+                log.Error(ex, $"Could not load {programStatementsFilename}");
             }
         }
         private void BigEditDialog_FormClosing(object sender, FormClosingEventArgs e)

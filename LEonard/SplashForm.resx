@@ -130,7 +130,7 @@
         JccS7hNuS1i25Aem85xQvKbYSq+YP/dULwwu2lOTSpfZyhjjRIiiYbDCMmlydMlqi+ISk/1wCX+L74+K
         yxDXMqY4Rshgoft+1B/87tZN9vbkk4JhqHzyvLd2qN6Cr03P+zz0vK8jKH+EC7vgzxzA4LvomwWtbR8a
         1uHssqAZ23C+AU0PWd3RfalcZiCZhNcT+aYZaLyG2rl8bz/7HN9BXLqauILdPehISfZ8iXfXFPf25xm/
-        P8LfpwByvKZje6AAAAAJcEhZcwAADr4AAA6+AepCscAAAAAHdElNRQfmBhkMEC4xlllwAADcMElEQVR4
+        P8LfpwByvKZje6AAAAAJcEhZcwAADr0AAA69AUf7kK0AAAAHdElNRQfmBhkMEC4xlllwAADcMElEQVR4
         Xuy9939VRff+LYTee3rvvfeekARCAukkkAChF0WsWFHBiiAigig27IANGyKCNEGKCEixt9u7fe7v8zes
         Z661s5Odk0k5yakwP7xfJzlnn9mzZ+8z16w1a9bc8MB9jbTx8SZ66gmFQqFQKBTOyg0bhJj/fXUx/fun
         JQqFQqFQKJyUG2Cd/0v88X+/KhQKhUKhcFaUoCsUCoVCcQ2gBF2hUCgUimsAJegKhUKhUFwDKEFXKBQK
@@ -1076,7 +1076,7 @@
   <data name="DeveloperLogoPic.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAdsAAAEUCAYAAABjxJxVAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAKFxJREFUeF7t3fm/FMWh93EWUaIoRBQJICKyCqKAIIsgEmVTQJF9k+0c45Jo1GtM
+        vQAADr0BR/uQrQAAKFxJREFUeF7t3fm/FMWh93EWUaIoRBQJICKyCqKAIIsgEmVTQJF9k+0c45Jo1GtM
         DIlbvCbE+JgYfcXklbg8EaPmqmjUBK/XJRpxX1ARkaiJ2/0n6jnf5mno6amZ7urpOtNzzueH90uZ00t1
         z3R9u6qX6vDCUxsMAADwp8P/fnSeAQAA/hC2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZYQsA
         gGeELQAAnhG2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZYQsAgGeELQAAnhG2AAB4RtgCAOAZ
@@ -1252,10 +1252,10 @@
 </value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>LEonard is a C# application by Ned Lecky
+    <value>LEonard, in Python, Java, and C#
 Copyright: Lecky Engineering, LLC  c. 2021, 2022, 2023
 
-Open Source Libraries Included.
+The following Open Source Libraries used in LEonard..
 See LEonard User Manual for project links and licensing information.
   Jint 2.11.58 by Sebastian Ros
   IronPython 2.7.12 by many contributors and Microsoft

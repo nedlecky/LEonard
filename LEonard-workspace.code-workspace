@@ -16,10 +16,10 @@
 			"path": "Config"
 		},
 		{
-			"path": "Installer"
+			"path": "3rdParty"
 		},
 		{
-			"path": "3rdParty"
+			"path": "LEonardSetup"
 		}
 	],
 	"settings": {}

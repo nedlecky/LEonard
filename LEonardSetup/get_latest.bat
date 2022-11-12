@@ -22,18 +22,16 @@ set choice=n
 set /p choice=Get latest from %LEonardRoot%? y/[n] 
 
 if %choice%==y (
-    rmdir /s /q LEonard
-    rmdir /s /q LEonardClient
-    rmdir /s /q Config
-    rmdir /s /q Code
-    rmdir /s /q 3rdParty
+    rmdir /s /q Redist
     rem Mirrors in the LEonard bin to LEonard
     rem Gets all of LEonardClient including source but no obj
-    robocopy %LEonardRootDev%\LEonard\bin\Release LEonard /MIR
-    robocopy %LEonardRootDev%\LEonardClient LEonardClient /MIR /XD %LEonardRootDev%\LEonardClient\obj
-    robocopy %LEonardRootDev%\Config Config /MIR
-    robocopy %LEonardRootDev%\Code Code /MIR
-    robocopy %LEonardRootDev%\3rdParty 3rdParty /MIR
+    robocopy %LEonardRootDev%\LEonard\bin\Release Redist\Package\LEonard /MIR
+    copy %LEonardRootDev%\LEonardSetup\bin\Release\*.exe Redist
+    robocopy %LEonardRootDev%\LEonardClient Redist\Package\LEonardClient /MIR /XD %LEonardRootDev%\LEonardClient\obj
+    robocopy %LEonardRootDev%\Config Redist\Package\Config /MIR
+    robocopy %LEonardRootDev%\Code Redist\Package\Code /MIR
+    robocopy %LEonardRootDev%\3rdParty Redist\Package\3rdParty /MIR
+    robocopy %LEonardRootDev%\Documentation Redist\Package\Documentation *.pdf *.rtf
     echo.
     echo Operation complete.
 ) else (
