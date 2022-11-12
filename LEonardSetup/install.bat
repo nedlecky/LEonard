@@ -1,8 +1,8 @@
 @echo off
 set filename=install.bat
 set title=LEonard Installer
-set version=2022-11-07
-set description=Put latest development binaries, data, test code, and 3rd Party code into C:\LEonard
+set version=2022-11-14
+set description=Put latest development binaries, example, and 3rd Party code into C:\LEonard
 
 echo.
 echo *** %title% ***   File: %filename%  Rev: %version%
@@ -19,13 +19,13 @@ set choice=n
 set /p choice=Place latest in %LEonardRoot%? y/[n] 
 
 if %choice%==y (
-    rem bin and UR directories are mirrored to this source directory
-    rem Recipes\Testing are only copied from here to root\Recipes\Testing if new files or newer dates than what is there
-    robocopy LEonard\bin %LEonardRoot%\LEonard\bin /MIR
-    robocopy DB %LEonardRoot%\DB /XO /S
-    robocopy Config %LEonardRoot%\Config /XO /S
-    robocopy Code %LEonardRoot%\Code /XO /S
+    rem LEonard and LEonardClient binaries are mirror copied
+    rem Others are only copied if newer
+    robocopy LEonard %LEonardRoot%\LEonard /MIR
+    robocopy LEonardClient %LEonardRoot%\LEonardClient /MIR
     robocopy 3rdParty %LEonardRoot%\3rdParty /XO /S
+    robocopy Code %LEonardRoot%\Code /XO /S
+    robocopy Config %LEonardRoot%\Config /XO /S
     echo.
     echo Operation complete.
 ) else (

@@ -212,7 +212,7 @@ namespace LEonard
             log.Info(caption);
             log.Info("================================================================");
 
-            licenseFilename = Path.Combine(LEonardRoot, ConfigFolder, "UserData.xml");
+            licenseFilename = Path.Combine(LEonardRoot, ConfigFolder, "license.lic");
             protection = new Protection(this, licenseFilename);
 
             UserModeBox.SelectedIndex = (int)operatorMode;
@@ -938,7 +938,7 @@ namespace LEonard
             if (mountedToolBoxActionDisabled) return;
 
             ToolsGrd.ClearSelection();
-            if (LeUrCommand.uiFocusInstance != null)
+            if (LeUrCommand.uiFocusInstance != null && MountedToolBox.Text.Length > 0)
                 ExecuteLEScriptLine(-1, $"select_tool({MountedToolBox.Text})");
         }
 
@@ -1683,9 +1683,9 @@ namespace LEonard
             log.Info("Current root is {0}", LEonardRoot);
             log.Info("Suggested root is {0}", suggestedRoot);
 
-            if (LEonardRoot != suggestedRoot)
+            if (!Directory.Exists(LEonardRoot))
             {
-                DialogResult result = ConfirmMessageBox($"Root is set to\n{LEonardRoot}\nSuggesting\n{suggestedRoot}\nChange?");
+                DialogResult result = ConfirmMessageBox($"Root is set to\n{LEonardRoot}\nwhich doesn't exist. Suggesting\n{suggestedRoot}\nChange?");
                 if (result == DialogResult.OK)
                 {
                     LEonardRoot = suggestedRoot;
@@ -3354,11 +3354,12 @@ namespace LEonard
 
         private void CreateDefaultTools()
         {
+            tools.Rows.Add(new object[] { "gocator3210", 0, 0, 0.381, 0, 0, -1.57079, 1.8, 0, 0, 0.072, "2,0", "2,0", "2,0", "2,0", "gocator_mount", "gocator_home" });
+            tools.Rows.Add(new object[] { "2F85", 0, 0, 0.175, 0, 0, 0, 1.0, 0, 0, 0.050, "2,1,5,1", "2,0,5,0", "3,1", "3,0", "sander_mount", "sander_home" });
             tools.Rows.Add(new object[] { "sander", 0, 0, 0.186, 0, 0, 0, 2.99, -0.011, 0.019, 0.067, "2,1", "2,0", "3,1", "3,0", "sander_mount", "sander_home" });
             tools.Rows.Add(new object[] { "spindle", 0, -0.165, 0.09, 0, 2.2214, -2.2214, 2.61, -0.004, -0.015, 0.049, "5,1", "5,0", "3,1", "3,0", "spindle_mount", "spindle_home" });
             tools.Rows.Add(new object[] { "pen", 0, -0.08, 0.075, 0, 2.2214, -2.2214, 1.0, -0.004, -0.015, 0.049, "2,0,5,0", "2,0,5,0", "3,0", "3,0", "spindle_mount", "spindle_home" });
             tools.Rows.Add(new object[] { "pen_SA", 0, -0.072, 0.103, 0, 2.2214, -2.2214, 0.98, 0, 0.002, 0.048, "2,0,5,0", "2,0,5,0", "3,0", "3,0", "spindle_mount", "spindle_home" });
-            tools.Rows.Add(new object[] { "2F85", 0, 0, 0.175, 0, 0, 0, 1.0, 0, 0, 0.050, "2,1,5,1", "2,0,5,0", "3,1", "3,0", "sander_mount", "sander_home" });
             tools.Rows.Add(new object[] { "none", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", "", "", "", "sander_mount", "sander_home" });
         }
 
@@ -3562,6 +3563,9 @@ namespace LEonard
             positions.Rows.Add(new object[] { "spindle_home", "[-2.71839,-0.892528,-2.14111,-3.27621,-1.68817,-0.019554]", "p[-0.410055, -0.0168446, 0.429258, -1.54452, -2.73116, -0.0509774]" });
             positions.Rows.Add(new object[] { "sander_mount", "[-2.53006,-2.15599,-1.18223,-1.37402,1.57131,0.124]", "p[-0.933321, -0.442727, 0.284064, 1.61808, 2.6928, 0.000150004]" });
             positions.Rows.Add(new object[] { "sander_home", "[-2.57091,-0.82644,-2.14277,-1.743,1.57367,-0.999559]", "p[-0.319246, 0.00105911, 0.464005, -5.0997e-05, 3.14151, 3.32468e-05]" });
+            positions.Rows.Add(new object[] { "gocator_mount", "[-1.994536,-1.693767,-2.011792,-1.301532,1.941065,2.864294]", "p[-0.105517,-0.335526,-0.082677,2.218557,1.817424,0.612817]" });
+            positions.Rows.Add(new object[] { "gocator_home", "[-0.44141,-1.262893,-2.062313,-1.387395,1.571761,2.704165]", "p[0.266735,-0.271784,0.01577,0.000065,-3.141466,-0.00004]" });
+            positions.Rows.Add(new object[] { "cp_origin", "[-0.746832,-1.629936,-1.676383,-1.406107,1.571093,2.426708]", "p[0.286752,-0.444909,0.042253,0.043984,3.141235,-0.000046]" });
             positions.Rows.Add(new object[] { "grind1", "[-0.964841,-1.56224,-2.25801,-2.46721,-0.975704,0.0351043]", "p[0.115668, -0.664968, 0.149296, -0.0209003, 3.11011, 0.00405717]" });
             positions.Rows.Add(new object[] { "grind2", "[-1.19025,-1.54723,-2.28053,-2.45891,-1.20106,0.0341677]", "p[0.00572967, -0.666445, 0.145823, -0.0208504, 3.11009, 0.004073]" });
             positions.Rows.Add(new object[] { "grind3", "[-1.41341,-1.57357,-2.26161,-2.45085,-1.42422,0.0333479]", "p[-0.0942147, -0.667831, 0.142729, -0.0208677, 3.1101, 0.00394188]" });

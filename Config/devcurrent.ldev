@@ -1,0 +1,411 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Devices" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Devices">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ID" type="xs:int" />
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Enabled" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Connected" type="xs:boolean" minOccurs="0" />
+                <xs:element name="DeviceType" type="xs:string" minOccurs="0" />
+                <xs:element name="Address" type="xs:string" minOccurs="0" />
+                <xs:element name="MessageTag" type="xs:string" minOccurs="0" />
+                <xs:element name="CallBack" type="xs:string" minOccurs="0" />
+                <xs:element name="TxPrefix" type="xs:string" minOccurs="0" />
+                <xs:element name="TxSuffix" type="xs:string" minOccurs="0" />
+                <xs:element name="RxTerminator" type="xs:string" minOccurs="0" />
+                <xs:element name="RxSeparator" type="xs:string" minOccurs="0" />
+                <xs:element name="OnConnectExec" type="xs:string" minOccurs="0" />
+                <xs:element name="OnDisconnectExec" type="xs:string" minOccurs="0" />
+                <xs:element name="RuntimeAutostart" type="xs:boolean" minOccurs="0" />
+                <xs:element name="RuntimeWorkingDirectory" type="xs:string" minOccurs="0" />
+                <xs:element name="RuntimeFileName" type="xs:string" minOccurs="0" />
+                <xs:element name="RuntimeArguments" type="xs:string" minOccurs="0" />
+                <xs:element name="SetupWorkingDirectory" type="xs:string" minOccurs="0" />
+                <xs:element name="SetupFileName" type="xs:string" minOccurs="0" />
+                <xs:element name="SetupArguments" type="xs:string" minOccurs="0" />
+                <xs:element name="SpeedSendButtons" type="xs:string" minOccurs="0" />
+                <xs:element name="Jobfile" type="xs:string" minOccurs="0" />
+                <xs:element name="Model" type="xs:string" minOccurs="0" />
+                <xs:element name="Serial" type="xs:string" minOccurs="0" />
+                <xs:element name="Version" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Devices" />
+        <xs:field xpath="ID" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <Devices>
+    <ID>0</ID>
+    <Name>Command</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>TcpServer</DeviceType>
+    <Address>127.0.0.1:1000</Address>
+    <MessageTag>A.CTL</MessageTag>
+    <CallBack>command</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec>JE:le_send('me','Hello!')</OnConnectExec>
+    <OnDisconnectExec>JE:le_send('me','exit')</OnDisconnectExec>
+    <RuntimeAutostart>true</RuntimeAutostart>
+    <RuntimeWorkingDirectory>C:\Users\nedlecky\GitHub\LEonard\LEonardClient\bin\Debug</RuntimeWorkingDirectory>
+    <RuntimeFileName>LEonardClient.exe</RuntimeFileName>
+    <RuntimeArguments />
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>test|exit</SpeedSendButtons>
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>1</ID>
+    <Name>UR-5eDash</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>UrDashboard</DeviceType>
+    <Address>192.168.0.2:29999</Address>
+    <MessageTag>R.Dash</MessageTag>
+    <CallBack />
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator />
+    <OnConnectExec />
+    <OnDisconnectExec />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files\RealVNC\VNC Viewer</SetupWorkingDirectory>
+    <SetupFileName>vncviewer.exe</SetupFileName>
+    <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
+    <SpeedSendButtons>stop</SpeedSendButtons>
+    <Jobfile>LEonard/LEonard01.urp</Jobfile>
+    <Model>UR5</Model>
+    <Serial>20195501059</Serial>
+    <Version>URSoftware 5.11.11.1010533 (Apr 12 2022)</Version>
+  </Devices>
+  <Devices>
+    <ID>2</ID>
+    <Name>UR-5eCommand</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>UrCommand</DeviceType>
+    <Address>192.168.0.252:30000</Address>
+    <MessageTag>R.Cmd</MessageTag>
+    <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec />
+    <OnDisconnectExec>JE:le_send('me','999')</OnDisconnectExec>
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files\RealVNC\VNC Viewer</SetupWorkingDirectory>
+    <SetupFileName>vncviewer.exe</SetupFileName>
+    <SetupArguments>C:\Users\nedlecky\Desktop\LEonardFiles\VNC\UR-5E.vnc</SetupArguments>
+    <SpeedSendButtons>(3,7,10,17)|(3,5,12,25000,0,0,0,0,0,0,0,25017)|(20)|(21)|(30)|(31)|(50)|(98)|(99)</SpeedSendButtons>
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>3</ID>
+    <Name>Gocator</Name>
+    <Enabled>false</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>Gocator</DeviceType>
+    <Address>192.168.0.3:8190</Address>
+    <MessageTag>A.GO</MessageTag>
+    <CallBack>gocator</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec />
+    <OnDisconnectExec />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>trigger|stop|start</SpeedSendButtons>
+    <Jobfile>LEonardHolefinder</Jobfile>
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>4</ID>
+    <Name>GocatorAcc</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>Gocator</DeviceType>
+    <Address>192.168.0.252:8190</Address>
+    <MessageTag>A.GO</MessageTag>
+    <CallBack>gocator</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec />
+    <OnDisconnectExec />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>trigger|stop|start</SpeedSendButtons>
+    <Jobfile>LEonardHolefinder</Jobfile>
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>5</ID>
+    <Name>Sherlock</Name>
+    <Enabled>false</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>TcpServer</DeviceType>
+    <Address>127.0.0.1:20000</Address>
+    <MessageTag>A.SH</MessageTag>
+    <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec>init()</OnConnectExec>
+    <OnDisconnectExec />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory>C:\Program Files\Teledyne DALSA\Sherlockx64\Bin</RuntimeWorkingDirectory>
+    <RuntimeFileName>IpeStudio.exe</RuntimeFileName>
+    <RuntimeArguments />
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>GO</SpeedSendButtons>
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>6</ID>
+    <Name>HALCON</Name>
+    <Enabled>false</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>TcpClient</DeviceType>
+    <Address>127.0.0.1:21000</Address>
+    <MessageTag>A.HA</MessageTag>
+    <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec>init()</OnConnectExec>
+    <OnDisconnectExec />
+    <RuntimeAutostart>true</RuntimeAutostart>
+    <RuntimeWorkingDirectory>C:\Users\nedlecky\AppData\Local\Programs\MVTec\HALCON-21.11-Progress\bin\x64-win64</RuntimeWorkingDirectory>
+    <RuntimeFileName>hdevelop.exe</RuntimeFileName>
+    <RuntimeArguments>"C:\Users\nedlecky\Documents\GitHub\MVTech\HALCON\LE01 Socket Test (Auto).hdev" -run</RuntimeArguments>
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>GO</SpeedSendButtons>
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>7</ID>
+    <Name>Keyence</Name>
+    <Enabled>false</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>TcpClient</DeviceType>
+    <Address>192.168.0.10:8500</Address>
+    <MessageTag>AUX2K</MessageTag>
+    <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec>TE</OnConnectExec>
+    <OnDisconnectExec />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files (x86)\KEYENCE\CV-X Series Terminal-Software\bin</SetupWorkingDirectory>
+    <SetupFileName>CV-X Series Terminal-Software.exe</SetupFileName>
+    <SetupArguments>C:\Users\nedlecky\Desktop\Keyence\ned1.cxn</SetupArguments>
+    <SpeedSendButtons>T1|T2</SpeedSendButtons>
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>8</ID>
+    <Name>Dataman1</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>Serial</DeviceType>
+    <Address>COM3</Address>
+    <MessageTag>A.DM1</MessageTag>
+    <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix />
+    <RxTerminator>&lt;CR&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec>LE:le_send(me,+)</OnConnectExec>
+    <OnDisconnectExec />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files (x86)\Cognex\DataMan\DataMan Software v6.1.10_SR3</SetupWorkingDirectory>
+    <SetupFileName>SetupTool.exe</SetupFileName>
+    <SetupArguments />
+    <SpeedSendButtons>+</SpeedSendButtons>
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>9</ID>
+    <Name>Dataman2</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>Serial</DeviceType>
+    <Address>COM4</Address>
+    <MessageTag>A.DM2</MessageTag>
+    <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix />
+    <RxTerminator>&lt;CR&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec>LE:le_send(me,+)</OnConnectExec>
+    <OnDisconnectExec />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory>C:\Program Files (x86)\Cognex\DataMan\DataMan Software v6.1.10_SR3</SetupWorkingDirectory>
+    <SetupFileName>SetupTool.exe</SetupFileName>
+    <SetupArguments />
+    <SpeedSendButtons>+</SpeedSendButtons>
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>10</ID>
+    <Name>Chrome</Name>
+    <Enabled>false</Enabled>
+    <Connected>false</Connected>
+    <DeviceType>Null</DeviceType>
+    <Address />
+    <MessageTag>CTL</MessageTag>
+    <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix />
+    <RxTerminator />
+    <RxSeparator />
+    <OnConnectExec />
+    <OnDisconnectExec />
+    <RuntimeAutostart>true</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName>Chrome.exe</RuntimeFileName>
+    <RuntimeArguments>/incognito 192.168.0.3</RuntimeArguments>
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons />
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>11</ID>
+    <Name>FS40 Control</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>TcpClient</DeviceType>
+    <Address>192.168.0.41:107</Address>
+    <MessageTag>A.FS40.C</MessageTag>
+    <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;&lt;LF&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator />
+    <OnConnectExec />
+    <OnDisconnectExec />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons>TRIGGER</SpeedSendButtons>
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+  <Devices>
+    <ID>12</ID>
+    <Name>FS40 Results</Name>
+    <Enabled>true</Enabled>
+    <Connected>true</Connected>
+    <DeviceType>TcpClient</DeviceType>
+    <Address>192.168.0.41:25250</Address>
+    <MessageTag>A.FS40.R</MessageTag>
+    <CallBack>general</CallBack>
+    <TxPrefix />
+    <TxSuffix>&lt;CR&gt;&lt;LF&gt;</TxSuffix>
+    <RxTerminator>&lt;LF&gt;</RxTerminator>
+    <RxSeparator>#</RxSeparator>
+    <OnConnectExec />
+    <OnDisconnectExec />
+    <RuntimeAutostart>false</RuntimeAutostart>
+    <RuntimeWorkingDirectory />
+    <RuntimeFileName />
+    <RuntimeArguments />
+    <SetupWorkingDirectory />
+    <SetupFileName />
+    <SetupArguments />
+    <SpeedSendButtons />
+    <Jobfile />
+    <Model />
+    <Serial />
+    <Version />
+  </Devices>
+</NewDataSet>
