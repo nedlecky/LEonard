@@ -182,16 +182,16 @@ namespace LEonard
         {
             RegistryKey FormNameKey = GetMyFormKey();
 
-            Width = (Int32)FormNameKey.GetValue("Width", 900);
-            Height = (Int32)FormNameKey.GetValue("Height", 500);
+            Width = (Int32)FormNameKey.GetValue("Width", 500);
+            Height = (Int32)FormNameKey.GetValue("Height", 900);
             Left = (Int32)FormNameKey.GetValue("Left", (mainForm.Width - Width) / 2);
             Top = (Int32)FormNameKey.GetValue("Top", (mainForm.Height - Height) / 2);
         }
 
         private void SetValueForm_Resize(object sender, EventArgs e)
         {
-            double scale = Math.Min(100.0 * Width / originalWidth, 150);
-            foreach (Control c in allResizeControlList) RescaleFont(c, scale);
+            double scalePct = Math.Min(100.0 * Width / originalWidth, 100);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scalePct * mainForm.GlobalFontScaleOverridePct / 100.0);
         }
     }
 }

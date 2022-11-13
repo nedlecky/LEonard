@@ -120,8 +120,8 @@ namespace LEonard
 
         private void BigEditDialog_Resize(object sender, EventArgs e)
         {
-            double scale = Math.Min(100.0 * Width / originalWidth, 100);
-            foreach (Control c in allResizeControlList) RescaleFont(c, scale);
+            double scalePct = Math.Min(100.0 * Width / originalWidth, 100);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scalePct * mainForm.GlobalFontScaleOverridePct / 100.0);
         }
     }
 }

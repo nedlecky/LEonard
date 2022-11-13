@@ -25,6 +25,14 @@
     </xs:element>
   </xs:schema>
   <Displays>
+    <Name>Default</Name>
+    <Width>1920</Width>
+    <Height>1080</Height>
+    <Resizable>false</Resizable>
+    <Fullscreen>false</Fullscreen>
+    <FontScale>100</FontScale>
+  </Displays>
+  <Displays>
     <Name>Zebra ET80A</Name>
     <Width>2160</Width>
     <Height>1440</Height>

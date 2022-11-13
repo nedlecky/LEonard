@@ -120,8 +120,8 @@ namespace LEonard
 
         private void ConsoleForm_Resize(object sender, EventArgs e)
         {
-            double scale = Math.Min(100.0 * Width / originalWidth, 100);
-            foreach (Control c in allResizeControlList) RescaleFont(c, scale);
+            double scalePct = Math.Min(100.0 * Width / originalWidth, 100);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scalePct * mainForm.GlobalFontScaleOverridePct / 100.0);
         }
 
         private void ConsoleForm_KeyDown(object sender, KeyEventArgs e)

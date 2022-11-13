@@ -172,7 +172,7 @@ namespace LEonard
                     DialogResult result = messageForm.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        Directory.Delete(deleteDirectory,true);
+                        Directory.Delete(deleteDirectory, true);
                         log.Info("Deleted directory {0}", deleteDirectory);
                         LoadDirectory(DirectoryNameLbl.Text);
                     }
@@ -246,14 +246,14 @@ namespace LEonard
             FileNameTxt.Text = "";
             LoadFiles(path);
         }
-                private RegistryKey MyRegistryKey()
+        private RegistryKey MyRegistryKey()
         {
             RegistryKey AppNameKey = mainForm.GetAppNameKey();
             RegistryKey FormNameKey = AppNameKey.CreateSubKey("FileOpenDialog");
 
             return FormNameKey;
         }
-                private void SavePersistent()
+        private void SavePersistent()
         {
             RegistryKey FormNameKey = MyRegistryKey();
 
@@ -271,10 +271,10 @@ namespace LEonard
             Left = (Int32)FormNameKey.GetValue("Left", (mainForm.Width - Width) / 2);
             Top = (Int32)FormNameKey.GetValue("Top", (mainForm.Height - Height) / 2);
         }
-                private void FileOpenDialog_Resize(object sender, EventArgs e)
+        private void FileOpenDialog_Resize(object sender, EventArgs e)
         {
-            double scale = Math.Min(100.0 * Width / originalWidth, 100);
-            foreach (Control c in allResizeControlList) RescaleFont(c, scale);
+            double scalePct = Math.Min(100.0 * Width / originalWidth, 100);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scalePct * mainForm.GlobalFontScaleOverridePct / 100.0);
         }
     }
 }

@@ -170,21 +170,6 @@ namespace LEonard
             this.Text = caption;
             VersionLbl.Text = caption;
 
-            // Check screen dimensions.....
-            // TODO Good SPOT FOR DONGLE CHECK
-            Rectangle r = Screen.FromControl(this).Bounds;
-            log.Info("Screen Dimensions: {0}x{1}", r.Width, r.Height);
-            if (r.Width < screenDesignWidth || r.Height < screenDesignHeight)
-            {
-                DialogResult result = ConfirmMessageBox(String.Format("Screen dimensions for this application must be at least {0} x {1}. Continue anyway?", screenDesignWidth, screenDesignHeight));
-                if (result != DialogResult.OK)
-                {
-                    forceClose = true;
-                    Close();
-                    return;
-                }
-            }
-
             LoadRootDirectory();
 
             // Set logfile variable in NLog
@@ -231,6 +216,9 @@ namespace LEonard
             SetState(RunState.READY);
 
             ResumeLayout();
+
+            // Make fonts scale as they should!
+            //MainForm_Resize(null, null);
         }
         // Function key shortcut handling (primarily for development testing assistance)
         public bool IsConsoleVisible = false;
@@ -281,17 +269,17 @@ namespace LEonard
             if (!uiUpdatesAreLive) return;
 
             // Scale to the lesser of the implied Width and Height scales
-            double widthScale = 100.0 * (double)Width / (double)screenDesignWidth;
-            double heightScale = 100.0 * (double)Height / (double)screenDesignHeight;
-            suggestedSystemScale = Math.Min(widthScale, heightScale);
+            double widthScalePct = 100.0 * (double)Width / (double)screenDesignWidth;
+            double heightScalePct = 100.0 * (double)Height / (double)screenDesignHeight;
+            suggestedSystemScalePct = Math.Min(widthScalePct, heightScalePct);
 
             // Scale up by maximum maxFontScaleUpPct
-            suggestedSystemScale = Math.Min(suggestedSystemScale, maxFontScaleUpPct);
+            suggestedSystemScalePct = Math.Min(suggestedSystemScalePct, maxFontScaleUpPct);
 
             log?.Info($"MainForm Resize to {Width} x {Height}");
-            log?.Info($"Resizing font to {suggestedSystemScale}%");
+            log?.Info($"Resizing font to {suggestedSystemScalePct}%");
 
-            ScaleUiText(suggestedSystemScale);
+            ScaleUiText(suggestedSystemScalePct * GlobalFontScaleOverridePct / 100.0);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -1751,7 +1739,9 @@ namespace LEonard
             // Restore displays table and set display mode
             LoadDisplaysBtn_Click(null, null);
             SelectedDisplayLbl.Text = (string)AppNameKey.GetValue("SelectedDisplayLbl.Text", "Default");
+            uiUpdatesAreLive = true;
             SelectDisplayMode(SelectedDisplayLbl.Text);
+            uiUpdatesAreLive = false;
 
             // Load the tools table
             LoadToolsBtn_Click(null, null);
@@ -2867,7 +2857,8 @@ namespace LEonard
         #endregion ===== DEVICES DATABASE SUPPORT CODE     ==============================================================================================================================
 
         #region ===== DISPLAY MANAGEMENT CODE           ==============================================================================================================================
-        double suggestedSystemScale = 100.0;
+        public double GlobalFontScaleOverridePct { get; set;} = 100.0;
+        double suggestedSystemScalePct = 100.0;
         bool uiUpdatesAreLive = false;
         public class ControlInfo
         {
@@ -2888,10 +2879,10 @@ namespace LEonard
             controlInfo.originalFont = ctl.Font;
             ctl.Tag = controlInfo;
         }
-        public static void RescaleFont(Control ctl, double scale)
+        public static void RescaleFont(Control ctl, double scalePct)
         {
             Font oldFont = ((ControlInfo)ctl.Tag).originalFont;
-            Font newFont = new Font(oldFont.FontFamily, (float)(oldFont.Size * scale / 100), oldFont.Style, oldFont.Unit);
+            Font newFont = new Font(oldFont.FontFamily, (float)(oldFont.Size * scalePct / 100), oldFont.Style, oldFont.Unit);
             ctl.Font = newFont;
         }
 
@@ -2973,9 +2964,9 @@ namespace LEonard
             return returnList;
         }
 
-        void ScaleUiText(double scale)
+        void ScaleUiText(double scalePct)
         {
-            foreach (Control c in allFontResizableList) RescaleFont(c, scale);
+            foreach (Control c in allFontResizableList) RescaleFont(c, scalePct);
         }
 
         readonly string displaysFilename = "Displays.xml";
@@ -3014,6 +3005,7 @@ namespace LEonard
         // Aspect Ratio: 2560 / 1440 = 1.78 (16:9)
         private void CreateDefaultDisplays()
         {
+            displays.Rows.Add(new object[] { "Default", 1920, 1080, false, false, 100 });
             displays.Rows.Add(new object[] { "Zebra ET80A", 2160, 1440, false, false, 100 });
             displays.Rows.Add(new object[] { "Zebra L10", 1920, 1200, false, false, 100 });
             displays.Rows.Add(new object[] { "My Laptop", 1920, 1200, false, false, 100 });
@@ -3071,11 +3063,10 @@ namespace LEonard
             int height = (int)referencedRow["Height"];
             bool isResizable = (bool)referencedRow["Resizable"];
             bool isFullscreen = (bool)referencedRow["Fullscreen"];
-            //double fontScale = (double)referencedRow["FontScale"];
+            GlobalFontScaleOverridePct = (double)referencedRow["FontScale"];
 
             Rectangle screenRect = Screen.FromControl(this).Bounds;
             log.Info("Screen Dimensions: {0}x{1}", screenRect.Width, screenRect.Height);
-
 
             if (isResizable)
             {
@@ -3100,7 +3091,7 @@ namespace LEonard
             {
                 // Fullscreen
 
-                // Todo- not 0,0 if on other monitor!
+                // TODO- not 0,0 if on other monitor!
                 Left = 0;
                 Top = 0;
                 Width = screenRect.Width;
@@ -3116,6 +3107,9 @@ namespace LEonard
                 Width = width;
                 Height = height;
             }
+
+            // Make sure we execute resize in case someone just changed the FontScale
+            MainForm_Resize(null, null);
         }
 
 
