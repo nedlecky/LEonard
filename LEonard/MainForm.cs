@@ -1580,16 +1580,31 @@ namespace LEonard
             }
             LEScriptRTBCopy.Text = LEScriptRTB.Text;
         }
-        private void FullManualBtn_Click(object sender, EventArgs e)
+
+        public void ShowPDF(string filename)
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
-            startInfo.Arguments = $"file:\\{LEonardRoot}\\Documentation\\LEonard%20User%20Manual.pdf";
+            startInfo.Arguments = $"file:\\{LEonardRoot}\\Documentation\\{filename}";
             process.StartInfo = startInfo;
             process.Start();
         }
+        private void FullManualBtn_Click(object sender, EventArgs e)
+        {
+            ShowPDF("LEonard%20User%20Manual.pdf");
+        }
+        private void URManualBtn_Click(object sender, EventArgs e)
+        {
+            ShowPDF("Using%20Universal%20Robots%20with%20LEonard.pdf");
+        }
+
+        private void GocatorManualBtn_Click(object sender, EventArgs e)
+        {
+            ShowPDF("Using%20LMI%20Gocators%20with%20LEonard.pdf");
+        }
+
         private void BigEditBtn_Click(object sender, EventArgs e)
         {
 
@@ -1751,28 +1766,6 @@ namespace LEonard
 
             // Load the variables table
             LoadVariables();
-
-            // Load the sequencer commands cheatsheet for the user
-            string programStatementsFilename = Path.Combine(LEonardRoot, "Documentation", "ProgramStatements.rtf");
-            try
-            {
-                LEonardScriptCommandsRTB.LoadFile(programStatementsFilename);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex, $"Could not load {programStatementsFilename}");
-            }
-
-            // Load Revision History for User Inspection
-            string revisionHistoryFilename = Path.Combine(LEonardRoot, "Documentation", "RevisionHistory.rtf");
-            try
-            {
-                RevHistRTB.LoadFile(revisionHistoryFilename);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex, $"Could not load {revisionHistoryFilename}");
-            }
 
             // Autoload file is the last loaded recipe
             recipeFileToAutoload = (string)AppNameKey.GetValue("LEonardScriptFilenameLbl.Text", "");
@@ -2857,7 +2850,7 @@ namespace LEonard
         #endregion ===== DEVICES DATABASE SUPPORT CODE     ==============================================================================================================================
 
         #region ===== DISPLAY MANAGEMENT CODE           ==============================================================================================================================
-        public double GlobalFontScaleOverridePct { get; set;} = 100.0;
+        public double GlobalFontScaleOverridePct { get; set; } = 100.0;
         double suggestedSystemScalePct = 100.0;
         bool uiUpdatesAreLive = false;
         public class ControlInfo
@@ -7620,7 +7613,6 @@ namespace LEonard
                 ExecuteLEScriptLine(-1, String.Format("grind_force_mode_gain_scaling({0})", form.Value));
             }
         }
-
         private void SetGrindDefaultsBtn_Click(object sender, EventArgs e)
         {
             log.Info("SetGrindDefaultsBtn_Click(...)");

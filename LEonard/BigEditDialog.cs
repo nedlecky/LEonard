@@ -56,17 +56,6 @@ namespace LEonard
             CancelBtn.Select();
 
             ProgramRTB.Text = Program;
-
-            // Load the sequencer commands cheatsheet for the user
-            string programStatementsFilename = Path.Combine(MainForm.LEonardRoot, "Documentation", "ProgramStatements.rtf");
-            try
-            {
-                ProgramStatementsRTB.LoadFile(programStatementsFilename);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex, $"Could not load {programStatementsFilename}");
-            }
         }
         private void BigEditDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -122,6 +111,22 @@ namespace LEonard
         {
             double scalePct = Math.Min(100.0 * Width / originalWidth, 100);
             foreach (Control c in allResizeControlList) RescaleFont(c, scalePct * mainForm.GlobalFontScaleOverridePct / 100.0);
+        }
+
+        
+        private void FullManualBtn_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowPDF("LEonard%20User%20Manual.pdf");
+        }
+
+        private void URManualBtn_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowPDF("Using%20Universal%20Robots%20with%20LEonard.pdf");
+        }
+
+        private void GocatorManualBtn_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowPDF("Using%20LMI%20Gocators%20with%20LEonard.pdf");
         }
     }
 }
