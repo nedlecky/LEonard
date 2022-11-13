@@ -808,7 +808,9 @@ namespace LEonard
                     //CurrentLineLbl.Text = "";
                     LEScriptRTB.Enabled = true;
 
+                    // If this was left open, it is now closed!
                     fileManager?.AllClose();
+                    fileManager = null;
                     break;
                 case RunState.RUNNING:
                     log.Info($"Clearing callStack (had {callStack.Count} items");
@@ -5918,7 +5920,7 @@ namespace LEonard
                     {
                         int scaleIndex = Convert.ToInt32(paramList[i]);
                         double scale = Convert.ToDouble(paramList[i + 1]);
-                        fileManager.AddScale(scaleIndex, scale);
+                        fileManager?.AddScale(scaleIndex, scale);
                     }
                     catch
                     {
@@ -6176,6 +6178,12 @@ namespace LEonard
             }
             return true;
         }
+        bool le_assert(bool f)
+        {
+            if (f)
+                ExecError("Assertion  FAILS");
+            return f;
+        }
         public string le_ask(string devName, string msg, int timeoutMs = 100)
         {
             DataRow row = FindName(devName, devices);
@@ -6310,6 +6318,7 @@ namespace LEonard
                     .SetValue("ret", new Action(() => PerformReturn()))
                     .SetValue("end", new Action(() => SetState(RunState.READY)))
                     .SetValue("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)))
+                    .SetValue("assert", new Func<bool, bool>((bool f) => le_assert(f)))
             ;
         }
         private void JavaNewBtn_Click(object sender, EventArgs e)
@@ -6558,6 +6567,7 @@ namespace LEonard
             pythonScope.SetVariable("ret", new Action(() => PerformReturn()));
             pythonScope.SetVariable("end", new Action(() => SetState(RunState.READY)));
             pythonScope.SetVariable("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)));
+            pythonScope.SetVariable("assert", new Func<bool, bool>((bool f) => le_assert(f)));
 
 
             // UR Dashboard

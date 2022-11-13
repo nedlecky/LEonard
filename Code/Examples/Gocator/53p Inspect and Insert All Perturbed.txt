@@ -19,8 +19,10 @@ X = float(rows[row]['X']) * 0.0254
 Y = float(rows[row]['Y']) * 0.0254
 Z = float(rows[row]['Z']) * 0.0254
 le_print('Inspecting ID=' + ID)
+call('inspect')
+
 row = row + 1
-jumpif(row < len(rows), 'inspect')
+jumpif(row < len(rows), 'next_hole')
 
 end_operation()
 end()
@@ -66,4 +68,4 @@ movel_incr_part(0,0,-0.030,0,0,0)
 movel_incr_part(0,0,0.030,0,0,0)
 movel_incr_part(0,0,-0.030,0,0,0)
 
-jump('next_hole')
+ret()

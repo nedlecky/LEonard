@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LEonardSetup")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("LEonard Setup")]
+[assembly: AssemblyDescription("Setup Program for LEonard")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LEonardSetup")]
-[assembly: AssemblyCopyright("Copyright ©  2022")]
+[assembly: AssemblyCompany("Lecky Engineering LLC")]
+[assembly: AssemblyProduct("LEonard Setup")]
+[assembly: AssemblyCopyright("Copyright ©  2021, 2022, 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("22.11.1.0")]
+[assembly: AssemblyFileVersion("22.11.1.0")]

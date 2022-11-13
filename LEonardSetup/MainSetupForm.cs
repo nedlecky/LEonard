@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using IWshRuntimeLibrary;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 namespace LEonardSetup
 {
     public partial class MainSetupForm : Form
     {
-        string LEonardVersion = "2.11.1.0";
+        const string LEonardVersion = "2.11.1.0";
 
         private void MainSetupForm_Load(object sender, EventArgs e)
         {
