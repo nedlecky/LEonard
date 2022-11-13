@@ -78,6 +78,6 @@
     <Height>1000</Height>
     <Resizable>true</Resizable>
     <Fullscreen>true</Fullscreen>
-    <FontScale>100</FontScale>
+    <FontScale>60</FontScale>
   </Displays>
 </NewDataSet>
