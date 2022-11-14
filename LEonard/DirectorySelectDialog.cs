@@ -26,6 +26,7 @@ namespace LEonard
         MainForm mainForm;
         IEnumerable<Control> allResizeControlList;
         int originalWidth;
+        int originalHeight;
 
         public string SelectedPath { get; set; }
         public string Title { get; set; }
@@ -40,6 +41,7 @@ namespace LEonard
         private void DirectorySelectDialog_Load(object sender, EventArgs e)
         {
             originalWidth = Width;
+            originalHeight = Height;
             allResizeControlList = TakeControlInventory(this);
 
             LoadPersistent();
@@ -201,8 +203,8 @@ namespace LEonard
 
         private void DirectorySelectDialog_Resize(object sender, EventArgs e)
         {
-            double scalePct = Math.Min(100.0 * Width / originalWidth, 100);
-            foreach (Control c in allResizeControlList) RescaleFont(c, scalePct * mainForm.GlobalFontScaleOverridePct / 100.0);
+            double scalePct = mainForm.ScaleRecommender(Width, originalWidth, Height, originalHeight);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scalePct);
         }
     }
 }

@@ -15,6 +15,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static LEonard.MainForm;
+
 
 namespace LEonard
 {
@@ -31,27 +33,21 @@ namespace LEonard
         private bool freedriveMode = false;
 
         readonly MainForm mainForm;
+        IEnumerable<Control> allResizeControlList;
+        int originalWidth;
+        int originalHeight;
+
         public JoggingDialog(MainForm _mainForm)
         {
             InitializeComponent();
             mainForm = _mainForm;
         }
-
-        private void ExitBtn_Click(object sender, EventArgs e)
-        {
-            FreedriveOff();
-            ShouldSave = false;
-            Close();
-        }
-        private void SaveBtn_Click(object sender, EventArgs e)
-        {
-            FreedriveOff();
-            ShouldSave = true;
-            Close();
-        }
-
         private void JoggingForm_Load(object sender, EventArgs e)
         {
+            originalWidth = Width;
+            originalHeight = Height;
+            allResizeControlList = TakeControlInventory(this);
+
             PurposeLbl.Text = Prompt;
             ToolLbl.Text = "Tool: " + Tool;
             PartLbl.Text = "Part: " + Part;
@@ -67,6 +63,20 @@ namespace LEonard
         {
             SavePersistent();
         }
+
+        private void ExitBtn_Click(object sender, EventArgs e)
+        {
+            FreedriveOff();
+            ShouldSave = false;
+            Close();
+        }
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            FreedriveOff();
+            ShouldSave = true;
+            Close();
+        }
+
         private RegistryKey MyRegistryKey()
         {
             RegistryKey AppNameKey = mainForm.GetAppNameKey();
@@ -81,7 +91,7 @@ namespace LEonard
             FormNameKey.SetValue("Left", Left);
             FormNameKey.SetValue("Top", Top);
             FormNameKey.SetValue("Width", Width);
-            FormNameKey.SetValue("Height", Width);
+            FormNameKey.SetValue("Height", Height);
 
             FormNameKey.SetValue("XyJogDistanceBox.SelectedIndex", XyJogDistanceBox.SelectedIndex);
             FormNameKey.SetValue("ZJogDistanceBox.SelectedIndex", ZJogDistanceBox.SelectedIndex);
@@ -92,6 +102,8 @@ namespace LEonard
         {
             RegistryKey FormNameKey = MyRegistryKey();
 
+            Width = (Int32)FormNameKey.GetValue("Width", Width);
+            Height = (Int32)FormNameKey.GetValue("Height", Height);
             Left = (Int32)FormNameKey.GetValue("Left", (MainForm.screenDesignWidth - Width) / 2);
             Top = (Int32)FormNameKey.GetValue("Top", (MainForm.screenDesignHeight - Height) / 2);
 
@@ -450,6 +462,11 @@ namespace LEonard
             FreeRxChk.Checked = true;
             FreeRyChk.Checked = true;
             FreeRzChk.Checked = true;
+        }
+        private void JoggingDialog_Resize(object sender, EventArgs e)
+        {
+            double scalePct = mainForm.ScaleRecommender(Width, originalWidth, Height, originalHeight);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scalePct);
         }
     }
 }

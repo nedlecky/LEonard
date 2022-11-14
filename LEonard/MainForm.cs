@@ -287,18 +287,12 @@ namespace LEonard
         {
             if (!uiUpdatesAreLive) return;
 
-            // Scale to the lesser of the implied Width and Height scales
-            double widthScalePct = 100.0 * (double)Width / (double)screenDesignWidth;
-            double heightScalePct = 100.0 * (double)Height / (double)screenDesignHeight;
-            suggestedSystemScalePct = Math.Min(widthScalePct, heightScalePct);
-
-            // Scale up by maximum maxFontScaleUpPct
-            suggestedSystemScalePct = Math.Min(suggestedSystemScalePct, maxFontScaleUpPct);
+            suggestedSystemScalePct = ScaleRecommender(Width, screenDesignWidth, Height, screenDesignHeight);
 
             log?.Info($"MainForm Resize to {Width} x {Height}");
             log?.Info($"Resizing font to {suggestedSystemScalePct}%");
 
-            ScaleUiText(suggestedSystemScalePct * GlobalFontScaleOverridePct / 100.0);
+            ScaleUiText(suggestedSystemScalePct);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -1895,7 +1889,7 @@ namespace LEonard
 
             JoggingDialog form = new JoggingDialog(this)
             {
-                Prompt = "Jog to Defect",
+                Prompt = "Jog to Desired Position",
                 Tool = ReadVariable("robot_tool"),
                 Part = partName
             };
@@ -2899,6 +2893,19 @@ namespace LEonard
             controlInfo.originalFont = ctl.Font;
             ctl.Tag = controlInfo;
         }
+
+
+        // Minimum suggested by either height or width scaling, and limit max to maxFontScaleUpPct
+        public double ScaleRecommender(int presentWidth, int originalWidth, int presentHeight, int originalHeight)
+        {
+            double scaleWidthPct = Math.Min(100.0 * presentWidth / originalWidth, maxFontScaleUpPct);
+            double scaleHeightPct = Math.Min(100.0 * presentHeight / originalHeight, maxFontScaleUpPct);
+            double minScalePct = Math.Min(scaleWidthPct, scaleHeightPct);
+            double limitedScalePct = Math.Min(minScalePct, maxFontScaleUpPct);
+
+            return limitedScalePct * GlobalFontScaleOverridePct / 100.0;
+        }
+
         public static void RescaleFont(Control ctl, double scalePct)
         {
             Font oldFont = ((ControlInfo)ctl.Tag).originalFont;
@@ -2971,6 +2978,14 @@ namespace LEonard
                 RememberInitialFont(t);
             }
 
+            IEnumerable<Control> checkboxList = GetAll(ctl, typeof(CheckBox));
+            //log.Info("CheckBox Count: " + checkboxList.Count());
+            foreach (CheckBox c in checkboxList)
+            {
+                //log.Info($"CHECKBOX {c.Text} {c.Font.Size}");
+                RememberInitialFont(c);
+            }
+
             IEnumerable<Control> returnList = buttonList;
             returnList = returnList.Concat(comboboxList);
             returnList = returnList.Concat(datagridviewList);
@@ -2980,6 +2995,7 @@ namespace LEonard
             // returnList = returnList.Concat(tabcontrolList);
             returnList = returnList.Concat(textboxList);
             returnList = returnList.Concat(listboxList);
+            returnList = returnList.Concat(checkboxList);
 
             return returnList;
         }

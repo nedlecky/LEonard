@@ -26,6 +26,7 @@ namespace LEonard
         MainForm mainForm;
         IEnumerable<Control> allResizeControlList;
         int originalWidth;
+        int originalHeight;
 
         public string Title { get; set; }
         public string Filter { get; set; }
@@ -42,18 +43,15 @@ namespace LEonard
             InitializeComponent();
             mainForm = _mainForm;
         }
-        private void FileSaveAsDialog_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            SavePersistent();
-        }
 
         private void FileSaveAsDialog_Load(object sender, EventArgs e)
         {
             originalWidth = Width;
+            originalHeight = Height;
             allResizeControlList = TakeControlInventory(this);
 
             LoadPersistent();
-            
+
             TitleLbl.Text = Title;
             LoadDirectory(InitialDirectory);
 
@@ -61,6 +59,10 @@ namespace LEonard
             FileNameTxt.Text = Path.GetFileName(FileName);
             FileNameTxt.Select();
             FileNameTxt.SelectAll();
+        }
+        private void FileSaveAsDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SavePersistent();
         }
 
         // **********************************************************************************************
@@ -204,7 +206,6 @@ namespace LEonard
         // **********************************************************************************************
         // Support Functions
         // **********************************************************************************************
-
         private void LoadFiles(string path, string nameStartsWith = null)
         {
             fileList = Directory.GetFiles(path, Filter);
@@ -275,9 +276,8 @@ namespace LEonard
 
         private void FileSaveAsDialog_Resize(object sender, EventArgs e)
         {
-            double scalePct = Math.Min(100.0 * Width / originalWidth, 100);
-            foreach (Control c in allResizeControlList) RescaleFont(c, scalePct * mainForm.GlobalFontScaleOverridePct / 100.0);
+            double scalePct = mainForm.ScaleRecommender(Width, originalWidth, Height, originalHeight);
+            foreach (Control c in allResizeControlList) RescaleFont(c, scalePct);
         }
-
     }
 }

@@ -221,8 +221,8 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FileOpenDialog.resx">
-      <DependentUpon>FileOpenDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
+      <DependentUpon>FileOpenDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileSaveAsDialog.resx">
       <DependentUpon>FileSaveAsDialog.cs</DependentUpon>

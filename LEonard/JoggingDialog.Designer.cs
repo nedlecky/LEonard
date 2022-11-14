@@ -66,20 +66,30 @@
             this.FreedrivePlaneBtn = new System.Windows.Forms.Button();
             this.FreedriveRotBtn = new System.Windows.Forms.Button();
             this.FreedriveGrp = new System.Windows.Forms.GroupBox();
+            this.FreedriveTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.LeftTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ClickJogGrp = new System.Windows.Forms.GroupBox();
+            this.MasterTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.RightTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.FreedriveGrp.SuspendLayout();
+            this.FreedriveTableLayoutPanel.SuspendLayout();
+            this.LeftTableLayoutPanel.SuspendLayout();
             this.ClickJogGrp.SuspendLayout();
+            this.MasterTableLayoutPanel.SuspendLayout();
+            this.RightTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // YminusBtn
             // 
             this.YminusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.YminusBtn, 2);
+            this.YminusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.YminusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.YminusBtn.ForeColor = System.Drawing.Color.White;
-            this.YminusBtn.Location = new System.Drawing.Point(254, 338);
+            this.YminusBtn.Location = new System.Drawing.Point(248, 242);
             this.YminusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.YminusBtn.Name = "YminusBtn";
-            this.YminusBtn.Size = new System.Drawing.Size(188, 113);
+            this.YminusBtn.Size = new System.Drawing.Size(242, 116);
             this.YminusBtn.TabIndex = 3;
             this.YminusBtn.Text = "Y -";
             this.YminusBtn.UseVisualStyleBackColor = false;
@@ -89,12 +99,14 @@
             // ZminusBtn
             // 
             this.ZminusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.ZminusBtn, 2);
+            this.ZminusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ZminusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ZminusBtn.ForeColor = System.Drawing.Color.White;
-            this.ZminusBtn.Location = new System.Drawing.Point(254, 85);
+            this.ZminusBtn.Location = new System.Drawing.Point(248, 2);
             this.ZminusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ZminusBtn.Name = "ZminusBtn";
-            this.ZminusBtn.Size = new System.Drawing.Size(188, 113);
+            this.ZminusBtn.Size = new System.Drawing.Size(242, 116);
             this.ZminusBtn.TabIndex = 2;
             this.ZminusBtn.Text = "Z -";
             this.ZminusBtn.UseVisualStyleBackColor = false;
@@ -104,12 +116,14 @@
             // ZplusBtn
             // 
             this.ZplusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.ZplusBtn, 2);
+            this.ZplusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ZplusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ZplusBtn.ForeColor = System.Drawing.Color.White;
-            this.ZplusBtn.Location = new System.Drawing.Point(62, 85);
+            this.ZplusBtn.Location = new System.Drawing.Point(2, 2);
             this.ZplusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ZplusBtn.Name = "ZplusBtn";
-            this.ZplusBtn.Size = new System.Drawing.Size(188, 113);
+            this.ZplusBtn.Size = new System.Drawing.Size(242, 116);
             this.ZplusBtn.TabIndex = 1;
             this.ZplusBtn.Text = "Z +";
             this.ZplusBtn.UseVisualStyleBackColor = false;
@@ -119,12 +133,14 @@
             // ExitBtn
             // 
             this.ExitBtn.BackColor = System.Drawing.Color.Green;
+            this.RightTableLayoutPanel.SetColumnSpan(this.ExitBtn, 2);
+            this.ExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExitBtn.ForeColor = System.Drawing.Color.White;
-            this.ExitBtn.Location = new System.Drawing.Point(1335, 165);
+            this.ExitBtn.Location = new System.Drawing.Point(364, 197);
             this.ExitBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ExitBtn.Name = "ExitBtn";
-            this.ExitBtn.Size = new System.Drawing.Size(252, 161);
+            this.ExitBtn.Size = new System.Drawing.Size(359, 145);
             this.ExitBtn.TabIndex = 4;
             this.ExitBtn.Text = "Exit";
             this.ExitBtn.UseVisualStyleBackColor = false;
@@ -133,12 +149,14 @@
             // YplusBtn
             // 
             this.YplusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.YplusBtn, 2);
+            this.YplusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.YplusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.YplusBtn.ForeColor = System.Drawing.Color.White;
-            this.YplusBtn.Location = new System.Drawing.Point(54, 338);
+            this.YplusBtn.Location = new System.Drawing.Point(2, 242);
             this.YplusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.YplusBtn.Name = "YplusBtn";
-            this.YplusBtn.Size = new System.Drawing.Size(188, 113);
+            this.YplusBtn.Size = new System.Drawing.Size(242, 116);
             this.YplusBtn.TabIndex = 5;
             this.YplusBtn.Text = "Y +";
             this.YplusBtn.UseVisualStyleBackColor = false;
@@ -148,12 +166,14 @@
             // XminusBtn
             // 
             this.XminusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.XminusBtn, 2);
+            this.XminusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.XminusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.XminusBtn.ForeColor = System.Drawing.Color.White;
-            this.XminusBtn.Location = new System.Drawing.Point(141, 214);
+            this.XminusBtn.Location = new System.Drawing.Point(125, 122);
             this.XminusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.XminusBtn.Name = "XminusBtn";
-            this.XminusBtn.Size = new System.Drawing.Size(206, 113);
+            this.XminusBtn.Size = new System.Drawing.Size(242, 116);
             this.XminusBtn.TabIndex = 6;
             this.XminusBtn.Text = "X -";
             this.XminusBtn.UseVisualStyleBackColor = false;
@@ -163,12 +183,14 @@
             // XplusBtn
             // 
             this.XplusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.XplusBtn, 2);
+            this.XplusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.XplusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.XplusBtn.ForeColor = System.Drawing.Color.White;
-            this.XplusBtn.Location = new System.Drawing.Point(141, 477);
+            this.XplusBtn.Location = new System.Drawing.Point(125, 362);
             this.XplusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.XplusBtn.Name = "XplusBtn";
-            this.XplusBtn.Size = new System.Drawing.Size(206, 113);
+            this.XplusBtn.Size = new System.Drawing.Size(242, 116);
             this.XplusBtn.TabIndex = 7;
             this.XplusBtn.Text = "X +";
             this.XplusBtn.UseVisualStyleBackColor = false;
@@ -178,12 +200,14 @@
             // RxPlusBtn
             // 
             this.RxPlusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.RxPlusBtn, 2);
+            this.RxPlusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RxPlusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RxPlusBtn.ForeColor = System.Drawing.Color.White;
-            this.RxPlusBtn.Location = new System.Drawing.Point(71, 635);
+            this.RxPlusBtn.Location = new System.Drawing.Point(2, 482);
             this.RxPlusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.RxPlusBtn.Name = "RxPlusBtn";
-            this.RxPlusBtn.Size = new System.Drawing.Size(150, 113);
+            this.RxPlusBtn.Size = new System.Drawing.Size(242, 116);
             this.RxPlusBtn.TabIndex = 8;
             this.RxPlusBtn.Text = "RX +";
             this.RxPlusBtn.UseVisualStyleBackColor = false;
@@ -193,12 +217,14 @@
             // RxMinusBtn
             // 
             this.RxMinusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.RxMinusBtn, 2);
+            this.RxMinusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RxMinusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RxMinusBtn.ForeColor = System.Drawing.Color.White;
-            this.RxMinusBtn.Location = new System.Drawing.Point(271, 635);
+            this.RxMinusBtn.Location = new System.Drawing.Point(248, 482);
             this.RxMinusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.RxMinusBtn.Name = "RxMinusBtn";
-            this.RxMinusBtn.Size = new System.Drawing.Size(150, 113);
+            this.RxMinusBtn.Size = new System.Drawing.Size(242, 116);
             this.RxMinusBtn.TabIndex = 9;
             this.RxMinusBtn.Text = "RX -";
             this.RxMinusBtn.UseVisualStyleBackColor = false;
@@ -208,12 +234,14 @@
             // RyPlusBtn
             // 
             this.RyPlusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.RyPlusBtn, 2);
+            this.RyPlusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RyPlusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RyPlusBtn.ForeColor = System.Drawing.Color.White;
-            this.RyPlusBtn.Location = new System.Drawing.Point(170, 764);
+            this.RyPlusBtn.Location = new System.Drawing.Point(125, 602);
             this.RyPlusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.RyPlusBtn.Name = "RyPlusBtn";
-            this.RyPlusBtn.Size = new System.Drawing.Size(150, 113);
+            this.RyPlusBtn.Size = new System.Drawing.Size(242, 116);
             this.RyPlusBtn.TabIndex = 10;
             this.RyPlusBtn.Text = "RY +";
             this.RyPlusBtn.UseVisualStyleBackColor = false;
@@ -223,12 +251,14 @@
             // RyMinusBtn
             // 
             this.RyMinusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.RyMinusBtn, 2);
+            this.RyMinusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RyMinusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RyMinusBtn.ForeColor = System.Drawing.Color.White;
-            this.RyMinusBtn.Location = new System.Drawing.Point(170, 1018);
+            this.RyMinusBtn.Location = new System.Drawing.Point(125, 842);
             this.RyMinusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.RyMinusBtn.Name = "RyMinusBtn";
-            this.RyMinusBtn.Size = new System.Drawing.Size(150, 113);
+            this.RyMinusBtn.Size = new System.Drawing.Size(242, 118);
             this.RyMinusBtn.TabIndex = 11;
             this.RyMinusBtn.Text = "RY -";
             this.RyMinusBtn.UseVisualStyleBackColor = false;
@@ -238,12 +268,14 @@
             // RzMinusBtn
             // 
             this.RzMinusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.RzMinusBtn, 2);
+            this.RzMinusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RzMinusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RzMinusBtn.ForeColor = System.Drawing.Color.White;
-            this.RzMinusBtn.Location = new System.Drawing.Point(271, 892);
+            this.RzMinusBtn.Location = new System.Drawing.Point(248, 722);
             this.RzMinusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.RzMinusBtn.Name = "RzMinusBtn";
-            this.RzMinusBtn.Size = new System.Drawing.Size(150, 113);
+            this.RzMinusBtn.Size = new System.Drawing.Size(242, 116);
             this.RzMinusBtn.TabIndex = 12;
             this.RzMinusBtn.Text = "RZ -";
             this.RzMinusBtn.UseVisualStyleBackColor = false;
@@ -253,12 +285,14 @@
             // RzPlusBtn
             // 
             this.RzPlusBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.RzPlusBtn, 2);
+            this.RzPlusBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RzPlusBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RzPlusBtn.ForeColor = System.Drawing.Color.White;
-            this.RzPlusBtn.Location = new System.Drawing.Point(71, 892);
+            this.RzPlusBtn.Location = new System.Drawing.Point(2, 722);
             this.RzPlusBtn.Margin = new System.Windows.Forms.Padding(2);
             this.RzPlusBtn.Name = "RzPlusBtn";
-            this.RzPlusBtn.Size = new System.Drawing.Size(150, 113);
+            this.RzPlusBtn.Size = new System.Drawing.Size(242, 116);
             this.RzPlusBtn.TabIndex = 13;
             this.RzPlusBtn.Text = "RZ +";
             this.RzPlusBtn.UseVisualStyleBackColor = false;
@@ -267,34 +301,40 @@
             // 
             // label1
             // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(465, 438);
+            this.label1.Location = new System.Drawing.Point(495, 360);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(232, 49);
+            this.label1.Size = new System.Drawing.Size(221, 74);
             this.label1.TabIndex = 15;
-            this.label1.Text = "XY Step (mm)";
+            this.label1.Text = "XY Step\r\n(mm)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(435, 765);
+            this.label2.Location = new System.Drawing.Point(495, 720);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(272, 44);
+            this.label2.Size = new System.Drawing.Size(221, 74);
             this.label2.TabIndex = 17;
-            this.label2.Text = "Rot Angle (deg)";
+            this.label2.Text = "Rot Angle\r\n(deg)";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ToolVerticalBtn
             // 
             this.ToolVerticalBtn.BackColor = System.Drawing.Color.Green;
+            this.LeftTableLayoutPanel.SetColumnSpan(this.ToolVerticalBtn, 2);
+            this.ToolVerticalBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolVerticalBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ToolVerticalBtn.ForeColor = System.Drawing.Color.White;
-            this.ToolVerticalBtn.Location = new System.Drawing.Point(472, 900);
+            this.ToolVerticalBtn.Location = new System.Drawing.Point(371, 842);
             this.ToolVerticalBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ToolVerticalBtn.Name = "ToolVerticalBtn";
             this.ToolVerticalBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ToolVerticalBtn.Size = new System.Drawing.Size(234, 218);
+            this.ToolVerticalBtn.Size = new System.Drawing.Size(346, 118);
             this.ToolVerticalBtn.TabIndex = 18;
             this.ToolVerticalBtn.Text = "Align Tool Vertical";
             this.ToolVerticalBtn.UseVisualStyleBackColor = false;
@@ -303,12 +343,14 @@
             // FreedriveBtn
             // 
             this.FreedriveBtn.BackColor = System.Drawing.Color.Green;
+            this.RightTableLayoutPanel.SetColumnSpan(this.FreedriveBtn, 2);
+            this.FreedriveBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreedriveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FreedriveBtn.ForeColor = System.Drawing.Color.White;
-            this.FreedriveBtn.Location = new System.Drawing.Point(950, 543);
+            this.FreedriveBtn.Location = new System.Drawing.Point(183, 460);
             this.FreedriveBtn.Margin = new System.Windows.Forms.Padding(2);
             this.FreedriveBtn.Name = "FreedriveBtn";
-            this.FreedriveBtn.Size = new System.Drawing.Size(409, 141);
+            this.FreedriveBtn.Size = new System.Drawing.Size(358, 172);
             this.FreedriveBtn.TabIndex = 19;
             this.FreedriveBtn.Text = "Freedrive";
             this.FreedriveBtn.UseVisualStyleBackColor = false;
@@ -317,11 +359,13 @@
             // PurposeLbl
             // 
             this.PurposeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RightTableLayoutPanel.SetColumnSpan(this.PurposeLbl, 4);
+            this.PurposeLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PurposeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PurposeLbl.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.PurposeLbl.Location = new System.Drawing.Point(771, 9);
+            this.PurposeLbl.Location = new System.Drawing.Point(3, 0);
             this.PurposeLbl.Name = "PurposeLbl";
-            this.PurposeLbl.Size = new System.Drawing.Size(816, 52);
+            this.PurposeLbl.Size = new System.Drawing.Size(719, 65);
             this.PurposeLbl.TabIndex = 76;
             this.PurposeLbl.Text = "General Jogging";
             this.PurposeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -329,12 +373,14 @@
             // SaveBtn
             // 
             this.SaveBtn.BackColor = System.Drawing.Color.Green;
+            this.RightTableLayoutPanel.SetColumnSpan(this.SaveBtn, 2);
+            this.SaveBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SaveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveBtn.Location = new System.Drawing.Point(771, 167);
+            this.SaveBtn.Location = new System.Drawing.Point(2, 197);
             this.SaveBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SaveBtn.Name = "SaveBtn";
-            this.SaveBtn.Size = new System.Drawing.Size(252, 161);
+            this.SaveBtn.Size = new System.Drawing.Size(358, 145);
             this.SaveBtn.TabIndex = 77;
             this.SaveBtn.Text = "Save";
             this.SaveBtn.UseVisualStyleBackColor = false;
@@ -343,11 +389,13 @@
             // ToolLbl
             // 
             this.ToolLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RightTableLayoutPanel.SetColumnSpan(this.ToolLbl, 4);
+            this.ToolLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToolLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ToolLbl.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.ToolLbl.Location = new System.Drawing.Point(771, 61);
+            this.ToolLbl.Location = new System.Drawing.Point(3, 65);
             this.ToolLbl.Name = "ToolLbl";
-            this.ToolLbl.Size = new System.Drawing.Size(816, 52);
+            this.ToolLbl.Size = new System.Drawing.Size(719, 65);
             this.ToolLbl.TabIndex = 82;
             this.ToolLbl.Text = "Tool:";
             this.ToolLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -355,27 +403,30 @@
             // CoordBox
             // 
             this.CoordBox.BackColor = System.Drawing.Color.Green;
+            this.RightTableLayoutPanel.SetColumnSpan(this.CoordBox, 2);
+            this.CoordBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.CoordBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CoordBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CoordBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CoordBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CoordBox.ForeColor = System.Drawing.Color.White;
             this.CoordBox.FormattingEnabled = true;
             this.CoordBox.Items.AddRange(new object[] {
             "BASE",
             "TOOL",
             "PART"});
-            this.CoordBox.Location = new System.Drawing.Point(1001, 379);
+            this.CoordBox.Location = new System.Drawing.Point(184, 347);
             this.CoordBox.Name = "CoordBox";
-            this.CoordBox.Size = new System.Drawing.Size(332, 81);
+            this.CoordBox.Size = new System.Drawing.Size(356, 69);
             this.CoordBox.TabIndex = 83;
             this.CoordBox.SelectedIndexChanged += new System.EventHandler(this.CoordBox_SelectedIndexChanged);
             // 
             // XyJogDistanceBox
             // 
             this.XyJogDistanceBox.BackColor = System.Drawing.Color.Green;
+            this.XyJogDistanceBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.XyJogDistanceBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.XyJogDistanceBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.XyJogDistanceBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.XyJogDistanceBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.XyJogDistanceBox.ForeColor = System.Drawing.Color.White;
             this.XyJogDistanceBox.FormattingEnabled = true;
             this.XyJogDistanceBox.Items.AddRange(new object[] {
@@ -388,17 +439,18 @@
             "25",
             "50",
             "100"});
-            this.XyJogDistanceBox.Location = new System.Drawing.Point(473, 354);
+            this.XyJogDistanceBox.Location = new System.Drawing.Point(495, 288);
             this.XyJogDistanceBox.Name = "XyJogDistanceBox";
-            this.XyJogDistanceBox.Size = new System.Drawing.Size(217, 81);
+            this.XyJogDistanceBox.Size = new System.Drawing.Size(221, 69);
             this.XyJogDistanceBox.TabIndex = 84;
             // 
             // AngleBox
             // 
             this.AngleBox.BackColor = System.Drawing.Color.Green;
+            this.AngleBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.AngleBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AngleBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AngleBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AngleBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AngleBox.ForeColor = System.Drawing.Color.White;
             this.AngleBox.FormattingEnabled = true;
             this.AngleBox.Items.AddRange(new object[] {
@@ -410,17 +462,19 @@
             "10.0",
             "22.5",
             "45.0"});
-            this.AngleBox.Location = new System.Drawing.Point(473, 681);
+            this.AngleBox.Location = new System.Drawing.Point(495, 648);
             this.AngleBox.Name = "AngleBox";
-            this.AngleBox.Size = new System.Drawing.Size(217, 81);
+            this.AngleBox.Size = new System.Drawing.Size(221, 69);
             this.AngleBox.TabIndex = 85;
             // 
             // label3
             // 
+            this.RightTableLayoutPanel.SetColumnSpan(this.label3, 2);
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1004, 466);
+            this.label3.Location = new System.Drawing.Point(184, 401);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(312, 49);
+            this.label3.Size = new System.Drawing.Size(356, 49);
             this.label3.TabIndex = 86;
             this.label3.Text = "Coordinates";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -428,11 +482,13 @@
             // PartLbl
             // 
             this.PartLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RightTableLayoutPanel.SetColumnSpan(this.PartLbl, 4);
+            this.PartLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PartLbl.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.PartLbl.Location = new System.Drawing.Point(771, 113);
+            this.PartLbl.Location = new System.Drawing.Point(3, 130);
             this.PartLbl.Name = "PartLbl";
-            this.PartLbl.Size = new System.Drawing.Size(816, 52);
+            this.PartLbl.Size = new System.Drawing.Size(719, 65);
             this.PartLbl.TabIndex = 87;
             this.PartLbl.Text = "Part:";
             this.PartLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -440,9 +496,10 @@
             // ZJogDistanceBox
             // 
             this.ZJogDistanceBox.BackColor = System.Drawing.Color.Green;
+            this.ZJogDistanceBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ZJogDistanceBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ZJogDistanceBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ZJogDistanceBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ZJogDistanceBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ZJogDistanceBox.ForeColor = System.Drawing.Color.White;
             this.ZJogDistanceBox.FormattingEnabled = true;
             this.ZJogDistanceBox.Items.AddRange(new object[] {
@@ -454,28 +511,31 @@
             "10",
             "15",
             "20"});
-            this.ZJogDistanceBox.Location = new System.Drawing.Point(473, 113);
+            this.ZJogDistanceBox.Location = new System.Drawing.Point(495, 48);
             this.ZJogDistanceBox.Name = "ZJogDistanceBox";
-            this.ZJogDistanceBox.Size = new System.Drawing.Size(217, 81);
+            this.ZJogDistanceBox.Size = new System.Drawing.Size(221, 69);
             this.ZJogDistanceBox.TabIndex = 89;
             // 
             // label4
             // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(466, 197);
+            this.label4.Location = new System.Drawing.Point(495, 120);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(224, 42);
+            this.label4.Size = new System.Drawing.Size(221, 74);
             this.label4.TabIndex = 88;
-            this.label4.Text = "Z Step (mm)";
+            this.label4.Text = "Z Step\r\n(mm)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FreeXChk
             // 
             this.FreeXChk.Appearance = System.Windows.Forms.Appearance.Button;
+            this.FreeXChk.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreeXChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FreeXChk.Location = new System.Drawing.Point(208, 187);
+            this.FreeXChk.Location = new System.Drawing.Point(181, 83);
             this.FreeXChk.Name = "FreeXChk";
-            this.FreeXChk.Size = new System.Drawing.Size(154, 83);
+            this.FreeXChk.Size = new System.Drawing.Size(172, 74);
             this.FreeXChk.TabIndex = 90;
             this.FreeXChk.Text = "X";
             this.FreeXChk.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -485,10 +545,11 @@
             // FreeYChk
             // 
             this.FreeYChk.Appearance = System.Windows.Forms.Appearance.Button;
+            this.FreeYChk.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreeYChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FreeYChk.Location = new System.Drawing.Point(208, 274);
+            this.FreeYChk.Location = new System.Drawing.Point(181, 163);
             this.FreeYChk.Name = "FreeYChk";
-            this.FreeYChk.Size = new System.Drawing.Size(154, 83);
+            this.FreeYChk.Size = new System.Drawing.Size(172, 74);
             this.FreeYChk.TabIndex = 91;
             this.FreeYChk.Text = "Y";
             this.FreeYChk.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -498,10 +559,11 @@
             // FreeZChk
             // 
             this.FreeZChk.Appearance = System.Windows.Forms.Appearance.Button;
+            this.FreeZChk.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreeZChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FreeZChk.Location = new System.Drawing.Point(208, 363);
+            this.FreeZChk.Location = new System.Drawing.Point(181, 243);
             this.FreeZChk.Name = "FreeZChk";
-            this.FreeZChk.Size = new System.Drawing.Size(154, 83);
+            this.FreeZChk.Size = new System.Drawing.Size(172, 76);
             this.FreeZChk.TabIndex = 92;
             this.FreeZChk.Text = "Z";
             this.FreeZChk.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -511,10 +573,11 @@
             // FreeRzChk
             // 
             this.FreeRzChk.Appearance = System.Windows.Forms.Appearance.Button;
+            this.FreeRzChk.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreeRzChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FreeRzChk.Location = new System.Drawing.Point(407, 365);
+            this.FreeRzChk.Location = new System.Drawing.Point(359, 243);
             this.FreeRzChk.Name = "FreeRzChk";
-            this.FreeRzChk.Size = new System.Drawing.Size(154, 83);
+            this.FreeRzChk.Size = new System.Drawing.Size(172, 76);
             this.FreeRzChk.TabIndex = 95;
             this.FreeRzChk.Text = "RZ";
             this.FreeRzChk.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -524,10 +587,11 @@
             // FreeRyChk
             // 
             this.FreeRyChk.Appearance = System.Windows.Forms.Appearance.Button;
+            this.FreeRyChk.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreeRyChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FreeRyChk.Location = new System.Drawing.Point(407, 276);
+            this.FreeRyChk.Location = new System.Drawing.Point(359, 163);
             this.FreeRyChk.Name = "FreeRyChk";
-            this.FreeRyChk.Size = new System.Drawing.Size(154, 83);
+            this.FreeRyChk.Size = new System.Drawing.Size(172, 74);
             this.FreeRyChk.TabIndex = 94;
             this.FreeRyChk.Text = "RY";
             this.FreeRyChk.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -537,10 +601,11 @@
             // FreeRxChk
             // 
             this.FreeRxChk.Appearance = System.Windows.Forms.Appearance.Button;
+            this.FreeRxChk.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreeRxChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FreeRxChk.Location = new System.Drawing.Point(407, 187);
+            this.FreeRxChk.Location = new System.Drawing.Point(359, 83);
             this.FreeRxChk.Name = "FreeRxChk";
-            this.FreeRxChk.Size = new System.Drawing.Size(154, 83);
+            this.FreeRxChk.Size = new System.Drawing.Size(172, 74);
             this.FreeRxChk.TabIndex = 93;
             this.FreeRxChk.Text = "RX";
             this.FreeRxChk.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -550,12 +615,13 @@
             // FreedriveAllBtn
             // 
             this.FreedriveAllBtn.BackColor = System.Drawing.Color.Green;
+            this.FreedriveAllBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreedriveAllBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FreedriveAllBtn.ForeColor = System.Drawing.Color.White;
-            this.FreedriveAllBtn.Location = new System.Drawing.Point(21, 56);
+            this.FreedriveAllBtn.Location = new System.Drawing.Point(2, 2);
             this.FreedriveAllBtn.Margin = new System.Windows.Forms.Padding(2);
             this.FreedriveAllBtn.Name = "FreedriveAllBtn";
-            this.FreedriveAllBtn.Size = new System.Drawing.Size(178, 113);
+            this.FreedriveAllBtn.Size = new System.Drawing.Size(174, 76);
             this.FreedriveAllBtn.TabIndex = 96;
             this.FreedriveAllBtn.Text = "All";
             this.FreedriveAllBtn.UseVisualStyleBackColor = false;
@@ -564,12 +630,13 @@
             // FreedriveTransBtn
             // 
             this.FreedriveTransBtn.BackColor = System.Drawing.Color.Green;
+            this.FreedriveTransBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreedriveTransBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FreedriveTransBtn.ForeColor = System.Drawing.Color.White;
-            this.FreedriveTransBtn.Location = new System.Drawing.Point(205, 56);
+            this.FreedriveTransBtn.Location = new System.Drawing.Point(180, 2);
             this.FreedriveTransBtn.Margin = new System.Windows.Forms.Padding(2);
             this.FreedriveTransBtn.Name = "FreedriveTransBtn";
-            this.FreedriveTransBtn.Size = new System.Drawing.Size(178, 113);
+            this.FreedriveTransBtn.Size = new System.Drawing.Size(174, 76);
             this.FreedriveTransBtn.TabIndex = 97;
             this.FreedriveTransBtn.Text = "Trans";
             this.FreedriveTransBtn.UseVisualStyleBackColor = false;
@@ -578,12 +645,13 @@
             // FreedrivePlaneBtn
             // 
             this.FreedrivePlaneBtn.BackColor = System.Drawing.Color.Green;
+            this.FreedrivePlaneBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreedrivePlaneBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FreedrivePlaneBtn.ForeColor = System.Drawing.Color.White;
-            this.FreedrivePlaneBtn.Location = new System.Drawing.Point(389, 56);
+            this.FreedrivePlaneBtn.Location = new System.Drawing.Point(358, 2);
             this.FreedrivePlaneBtn.Margin = new System.Windows.Forms.Padding(2);
             this.FreedrivePlaneBtn.Name = "FreedrivePlaneBtn";
-            this.FreedrivePlaneBtn.Size = new System.Drawing.Size(178, 113);
+            this.FreedrivePlaneBtn.Size = new System.Drawing.Size(174, 76);
             this.FreedrivePlaneBtn.TabIndex = 98;
             this.FreedrivePlaneBtn.Text = "Plane";
             this.FreedrivePlaneBtn.UseVisualStyleBackColor = false;
@@ -592,12 +660,13 @@
             // FreedriveRotBtn
             // 
             this.FreedriveRotBtn.BackColor = System.Drawing.Color.Green;
+            this.FreedriveRotBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FreedriveRotBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FreedriveRotBtn.ForeColor = System.Drawing.Color.White;
-            this.FreedriveRotBtn.Location = new System.Drawing.Point(573, 56);
+            this.FreedriveRotBtn.Location = new System.Drawing.Point(536, 2);
             this.FreedriveRotBtn.Margin = new System.Windows.Forms.Padding(2);
             this.FreedriveRotBtn.Name = "FreedriveRotBtn";
-            this.FreedriveRotBtn.Size = new System.Drawing.Size(178, 113);
+            this.FreedriveRotBtn.Size = new System.Drawing.Size(175, 76);
             this.FreedriveRotBtn.TabIndex = 99;
             this.FreedriveRotBtn.Text = "Rot";
             this.FreedriveRotBtn.UseVisualStyleBackColor = false;
@@ -605,69 +674,151 @@
             // 
             // FreedriveGrp
             // 
-            this.FreedriveGrp.Controls.Add(this.FreedriveAllBtn);
-            this.FreedriveGrp.Controls.Add(this.FreedriveRotBtn);
-            this.FreedriveGrp.Controls.Add(this.FreeXChk);
-            this.FreedriveGrp.Controls.Add(this.FreedrivePlaneBtn);
-            this.FreedriveGrp.Controls.Add(this.FreeYChk);
-            this.FreedriveGrp.Controls.Add(this.FreedriveTransBtn);
-            this.FreedriveGrp.Controls.Add(this.FreeZChk);
-            this.FreedriveGrp.Controls.Add(this.FreeRxChk);
-            this.FreedriveGrp.Controls.Add(this.FreeRzChk);
-            this.FreedriveGrp.Controls.Add(this.FreeRyChk);
+            this.RightTableLayoutPanel.SetColumnSpan(this.FreedriveGrp, 4);
+            this.FreedriveGrp.Controls.Add(this.FreedriveTableLayoutPanel);
             this.FreedriveGrp.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FreedriveGrp.Location = new System.Drawing.Point(771, 679);
+            this.FreedriveGrp.Location = new System.Drawing.Point(3, 637);
             this.FreedriveGrp.Name = "FreedriveGrp";
-            this.FreedriveGrp.Size = new System.Drawing.Size(783, 481);
+            this.FreedriveGrp.Size = new System.Drawing.Size(719, 365);
             this.FreedriveGrp.TabIndex = 100;
             this.FreedriveGrp.TabStop = false;
             this.FreedriveGrp.Text = "Freedrive";
             // 
+            // FreedriveTableLayoutPanel
+            // 
+            this.FreedriveTableLayoutPanel.ColumnCount = 4;
+            this.FreedriveTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.FreedriveTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.FreedriveTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.FreedriveTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreedriveAllBtn, 0, 0);
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreeZChk, 1, 3);
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreeYChk, 1, 2);
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreeXChk, 1, 1);
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreedriveRotBtn, 3, 0);
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreedriveTransBtn, 1, 0);
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreedrivePlaneBtn, 2, 0);
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreeRzChk, 2, 3);
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreeRxChk, 2, 1);
+            this.FreedriveTableLayoutPanel.Controls.Add(this.FreeRyChk, 2, 2);
+            this.FreedriveTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FreedriveTableLayoutPanel.Location = new System.Drawing.Point(3, 40);
+            this.FreedriveTableLayoutPanel.Name = "FreedriveTableLayoutPanel";
+            this.FreedriveTableLayoutPanel.RowCount = 4;
+            this.FreedriveTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.FreedriveTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.FreedriveTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.FreedriveTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.FreedriveTableLayoutPanel.Size = new System.Drawing.Size(713, 322);
+            this.FreedriveTableLayoutPanel.TabIndex = 100;
+            // 
+            // LeftTableLayoutPanel
+            // 
+            this.LeftTableLayoutPanel.ColumnCount = 5;
+            this.LeftTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.24138F));
+            this.LeftTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.24138F));
+            this.LeftTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.24138F));
+            this.LeftTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.24138F));
+            this.LeftTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.03448F));
+            this.LeftTableLayoutPanel.Controls.Add(this.ZplusBtn, 0, 0);
+            this.LeftTableLayoutPanel.Controls.Add(this.label2, 4, 6);
+            this.LeftTableLayoutPanel.Controls.Add(this.XplusBtn, 1, 3);
+            this.LeftTableLayoutPanel.Controls.Add(this.RyMinusBtn, 1, 7);
+            this.LeftTableLayoutPanel.Controls.Add(this.RyPlusBtn, 1, 5);
+            this.LeftTableLayoutPanel.Controls.Add(this.RzMinusBtn, 2, 6);
+            this.LeftTableLayoutPanel.Controls.Add(this.RxMinusBtn, 2, 4);
+            this.LeftTableLayoutPanel.Controls.Add(this.RzPlusBtn, 0, 6);
+            this.LeftTableLayoutPanel.Controls.Add(this.RxPlusBtn, 0, 4);
+            this.LeftTableLayoutPanel.Controls.Add(this.XyJogDistanceBox, 4, 2);
+            this.LeftTableLayoutPanel.Controls.Add(this.ZminusBtn, 2, 0);
+            this.LeftTableLayoutPanel.Controls.Add(this.XminusBtn, 1, 1);
+            this.LeftTableLayoutPanel.Controls.Add(this.YminusBtn, 2, 2);
+            this.LeftTableLayoutPanel.Controls.Add(this.YplusBtn, 0, 2);
+            this.LeftTableLayoutPanel.Controls.Add(this.ZJogDistanceBox, 4, 0);
+            this.LeftTableLayoutPanel.Controls.Add(this.label4, 4, 1);
+            this.LeftTableLayoutPanel.Controls.Add(this.label1, 4, 3);
+            this.LeftTableLayoutPanel.Controls.Add(this.ToolVerticalBtn, 3, 7);
+            this.LeftTableLayoutPanel.Controls.Add(this.AngleBox, 4, 5);
+            this.LeftTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LeftTableLayoutPanel.Location = new System.Drawing.Point(3, 40);
+            this.LeftTableLayoutPanel.Name = "LeftTableLayoutPanel";
+            this.LeftTableLayoutPanel.RowCount = 8;
+            this.LeftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.LeftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.LeftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.LeftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.LeftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.LeftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.LeftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.LeftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.LeftTableLayoutPanel.Size = new System.Drawing.Size(719, 962);
+            this.LeftTableLayoutPanel.TabIndex = 102;
+            // 
             // ClickJogGrp
             // 
-            this.ClickJogGrp.Controls.Add(this.AngleBox);
-            this.ClickJogGrp.Controls.Add(this.ZplusBtn);
-            this.ClickJogGrp.Controls.Add(this.ZJogDistanceBox);
-            this.ClickJogGrp.Controls.Add(this.ZminusBtn);
-            this.ClickJogGrp.Controls.Add(this.label4);
-            this.ClickJogGrp.Controls.Add(this.YminusBtn);
-            this.ClickJogGrp.Controls.Add(this.YplusBtn);
-            this.ClickJogGrp.Controls.Add(this.XminusBtn);
-            this.ClickJogGrp.Controls.Add(this.XplusBtn);
-            this.ClickJogGrp.Controls.Add(this.XyJogDistanceBox);
-            this.ClickJogGrp.Controls.Add(this.RxPlusBtn);
-            this.ClickJogGrp.Controls.Add(this.RxMinusBtn);
-            this.ClickJogGrp.Controls.Add(this.RyPlusBtn);
-            this.ClickJogGrp.Controls.Add(this.RyMinusBtn);
-            this.ClickJogGrp.Controls.Add(this.RzMinusBtn);
-            this.ClickJogGrp.Controls.Add(this.RzPlusBtn);
-            this.ClickJogGrp.Controls.Add(this.ToolVerticalBtn);
-            this.ClickJogGrp.Controls.Add(this.label1);
-            this.ClickJogGrp.Controls.Add(this.label2);
+            this.ClickJogGrp.Controls.Add(this.LeftTableLayoutPanel);
+            this.ClickJogGrp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClickJogGrp.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClickJogGrp.Location = new System.Drawing.Point(4, 9);
+            this.ClickJogGrp.Location = new System.Drawing.Point(3, 3);
             this.ClickJogGrp.Name = "ClickJogGrp";
-            this.ClickJogGrp.Size = new System.Drawing.Size(739, 1151);
+            this.ClickJogGrp.Size = new System.Drawing.Size(725, 1005);
             this.ClickJogGrp.TabIndex = 101;
             this.ClickJogGrp.TabStop = false;
-            this.ClickJogGrp.Text = "Click Jog";
+            this.ClickJogGrp.Text = "Click to Step, Hold to Move";
+            // 
+            // MasterTableLayoutPanel
+            // 
+            this.MasterTableLayoutPanel.ColumnCount = 2;
+            this.MasterTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MasterTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MasterTableLayoutPanel.Controls.Add(this.ClickJogGrp, 0, 0);
+            this.MasterTableLayoutPanel.Controls.Add(this.RightTableLayoutPanel, 1, 0);
+            this.MasterTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MasterTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.MasterTableLayoutPanel.Name = "MasterTableLayoutPanel";
+            this.MasterTableLayoutPanel.RowCount = 1;
+            this.MasterTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.MasterTableLayoutPanel.Size = new System.Drawing.Size(1462, 1011);
+            this.MasterTableLayoutPanel.TabIndex = 102;
+            // 
+            // RightTableLayoutPanel
+            // 
+            this.RightTableLayoutPanel.ColumnCount = 4;
+            this.RightTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.RightTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.RightTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.RightTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.RightTableLayoutPanel.Controls.Add(this.PurposeLbl, 0, 0);
+            this.RightTableLayoutPanel.Controls.Add(this.FreedriveGrp, 0, 7);
+            this.RightTableLayoutPanel.Controls.Add(this.ToolLbl, 0, 1);
+            this.RightTableLayoutPanel.Controls.Add(this.FreedriveBtn, 1, 6);
+            this.RightTableLayoutPanel.Controls.Add(this.label3, 1, 5);
+            this.RightTableLayoutPanel.Controls.Add(this.PartLbl, 0, 2);
+            this.RightTableLayoutPanel.Controls.Add(this.CoordBox, 1, 4);
+            this.RightTableLayoutPanel.Controls.Add(this.SaveBtn, 0, 3);
+            this.RightTableLayoutPanel.Controls.Add(this.ExitBtn, 2, 3);
+            this.RightTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RightTableLayoutPanel.Location = new System.Drawing.Point(734, 3);
+            this.RightTableLayoutPanel.Name = "RightTableLayoutPanel";
+            this.RightTableLayoutPanel.RowCount = 8;
+            this.RightTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.498757F));
+            this.RightTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.498756F));
+            this.RightTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.498756F));
+            this.RightTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.82661F));
+            this.RightTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.702543F));
+            this.RightTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.702543F));
+            this.RightTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.60481F));
+            this.RightTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.66722F));
+            this.RightTableLayoutPanel.Size = new System.Drawing.Size(725, 1005);
+            this.RightTableLayoutPanel.TabIndex = 102;
             // 
             // JoggingDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1599, 1182);
+            this.ClientSize = new System.Drawing.Size(1462, 1011);
             this.ControlBox = false;
-            this.Controls.Add(this.ClickJogGrp);
-            this.Controls.Add(this.FreedriveGrp);
-            this.Controls.Add(this.PartLbl);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.CoordBox);
-            this.Controls.Add(this.ToolLbl);
-            this.Controls.Add(this.SaveBtn);
-            this.Controls.Add(this.PurposeLbl);
-            this.Controls.Add(this.FreedriveBtn);
-            this.Controls.Add(this.ExitBtn);
+            this.Controls.Add(this.MasterTableLayoutPanel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "JoggingDialog";
@@ -675,8 +826,14 @@
             this.Text = "LEonard Robot Jogging";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.JoggingDialog_FormClosing);
             this.Load += new System.EventHandler(this.JoggingForm_Load);
+            this.Resize += new System.EventHandler(this.JoggingDialog_Resize);
             this.FreedriveGrp.ResumeLayout(false);
+            this.FreedriveTableLayoutPanel.ResumeLayout(false);
+            this.LeftTableLayoutPanel.ResumeLayout(false);
+            this.LeftTableLayoutPanel.PerformLayout();
             this.ClickJogGrp.ResumeLayout(false);
+            this.MasterTableLayoutPanel.ResumeLayout(false);
+            this.RightTableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -721,6 +878,10 @@
         private System.Windows.Forms.Button FreedrivePlaneBtn;
         private System.Windows.Forms.Button FreedriveRotBtn;
         private System.Windows.Forms.GroupBox FreedriveGrp;
+        private System.Windows.Forms.TableLayoutPanel LeftTableLayoutPanel;
         private System.Windows.Forms.GroupBox ClickJogGrp;
+        private System.Windows.Forms.TableLayoutPanel MasterTableLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel RightTableLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel FreedriveTableLayoutPanel;
     }
 }
