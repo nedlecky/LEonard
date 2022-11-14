@@ -4,6 +4,7 @@
 // Copyright 2021, 2022, 2023
 // Purpose: The main code window for the LEonard application
 
+#region USING
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,6 +26,7 @@ using Jint;
 using Microsoft.Win32;
 using NLog;
 using static IronPython.Modules._ast;
+#endregion
 
 namespace LEonard
 {
