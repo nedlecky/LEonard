@@ -1,3 +1,0 @@
-timestamp,gocator_ID,gc_decision,gc_offset_x,gc_offset_y,gc_offset_z,gc_outer_radius,gc_depth,dc_bevel_radius,gc_bevel_angle,gc_xangle,gc_yangle,gc_cb_depth,gc_axis_tilt,gc_axis_orient,gh_decision,gh_offset_x,gh_offset_y,gh_offset_z,gh_radius,gp_xangle,gp_yangle,gp_z_offset,gp_std_dev
-,,,in,in,in,in,in,in,deg,deg,deg,in,deg,deg,,in,in,in,in,deg,deg,in,in
-2022-06-22 12:46:34,100_initial,0,-0.0210,-0.2035,-0.0983,0.1929,1.6,-1.0,99.3,6.6,9.2,0.0000,2.2,95.8,0,-0.0109,-0.1987,-0.1000,0.1217,7.4,9.4,-0.0816,0.0483

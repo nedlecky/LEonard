@@ -1,4 +1,0 @@
-# 100 Language Calls
-
-execjava(Recipes\Testing\100_Sample_1.js)
-execpython(Recipes\Testing\100_Sample_1.py)
