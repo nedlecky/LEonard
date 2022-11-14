@@ -50,10 +50,10 @@
             this.OpenBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OpenBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OpenBtn.ForeColor = System.Drawing.Color.White;
-            this.OpenBtn.Location = new System.Drawing.Point(744, 828);
+            this.OpenBtn.Location = new System.Drawing.Point(684, 671);
             this.OpenBtn.Margin = new System.Windows.Forms.Padding(2);
             this.OpenBtn.Name = "OpenBtn";
-            this.OpenBtn.Size = new System.Drawing.Size(367, 131);
+            this.OpenBtn.Size = new System.Drawing.Size(337, 105);
             this.OpenBtn.TabIndex = 79;
             this.OpenBtn.Text = "&Open";
             this.OpenBtn.UseVisualStyleBackColor = false;
@@ -66,10 +66,10 @@
             this.CancelBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelBtn.ForeColor = System.Drawing.Color.White;
-            this.CancelBtn.Location = new System.Drawing.Point(1115, 828);
+            this.CancelBtn.Location = new System.Drawing.Point(1025, 671);
             this.CancelBtn.Margin = new System.Windows.Forms.Padding(2);
             this.CancelBtn.Name = "CancelBtn";
-            this.CancelBtn.Size = new System.Drawing.Size(367, 131);
+            this.CancelBtn.Size = new System.Drawing.Size(338, 105);
             this.CancelBtn.TabIndex = 78;
             this.CancelBtn.Text = "&Cancel";
             this.CancelBtn.UseVisualStyleBackColor = false;
@@ -82,9 +82,9 @@
             this.FileListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FileListBox.FormattingEnabled = true;
             this.FileListBox.ItemHeight = 42;
-            this.FileListBox.Location = new System.Drawing.Point(374, 109);
+            this.FileListBox.Location = new System.Drawing.Point(344, 89);
             this.FileListBox.Name = "FileListBox";
-            this.FileListBox.Size = new System.Drawing.Size(736, 661);
+            this.FileListBox.Size = new System.Drawing.Size(676, 534);
             this.FileListBox.TabIndex = 80;
             this.FileListBox.Click += new System.EventHandler(this.FileListBox_Click);
             this.FileListBox.SelectedIndexChanged += new System.EventHandler(this.FileListBox_SelectedIndexChanged);
@@ -97,7 +97,7 @@
             this.TitleLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLbl.Location = new System.Drawing.Point(3, 0);
             this.TitleLbl.Name = "TitleLbl";
-            this.TitleLbl.Size = new System.Drawing.Size(1107, 53);
+            this.TitleLbl.Size = new System.Drawing.Size(1017, 43);
             this.TitleLbl.TabIndex = 81;
             this.TitleLbl.Text = "TitleLbl";
             this.TitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -108,9 +108,9 @@
             this.DirectoryListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DirectoryListBox.FormattingEnabled = true;
             this.DirectoryListBox.ItemHeight = 42;
-            this.DirectoryListBox.Location = new System.Drawing.Point(3, 109);
+            this.DirectoryListBox.Location = new System.Drawing.Point(3, 89);
             this.DirectoryListBox.Name = "DirectoryListBox";
-            this.DirectoryListBox.Size = new System.Drawing.Size(365, 661);
+            this.DirectoryListBox.Size = new System.Drawing.Size(335, 534);
             this.DirectoryListBox.TabIndex = 82;
             this.DirectoryListBox.Click += new System.EventHandler(this.DirectoryListBox_Click);
             this.DirectoryListBox.DoubleClick += new System.EventHandler(this.DirectoryListBox_DoubleClick);
@@ -121,9 +121,9 @@
             this.FileOpenLayoutPanel.SetColumnSpan(this.DirectoryNameLbl, 3);
             this.DirectoryNameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DirectoryNameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DirectoryNameLbl.Location = new System.Drawing.Point(3, 53);
+            this.DirectoryNameLbl.Location = new System.Drawing.Point(3, 43);
             this.DirectoryNameLbl.Name = "DirectoryNameLbl";
-            this.DirectoryNameLbl.Size = new System.Drawing.Size(1107, 53);
+            this.DirectoryNameLbl.Size = new System.Drawing.Size(1017, 43);
             this.DirectoryNameLbl.TabIndex = 84;
             this.DirectoryNameLbl.Text = "DirectoryName";
             this.DirectoryNameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -134,10 +134,10 @@
             this.FileOpenLayoutPanel.SetColumnSpan(this.FileNameTxt, 2);
             this.FileNameTxt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FileNameTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileNameTxt.Location = new System.Drawing.Point(373, 775);
+            this.FileNameTxt.Location = new System.Drawing.Point(343, 628);
             this.FileNameTxt.Margin = new System.Windows.Forms.Padding(2);
             this.FileNameTxt.Name = "FileNameTxt";
-            this.FileNameTxt.Size = new System.Drawing.Size(738, 44);
+            this.FileNameTxt.Size = new System.Drawing.Size(678, 44);
             this.FileNameTxt.TabIndex = 85;
             this.FileNameTxt.TextChanged += new System.EventHandler(this.FileNameTxt_TextChanged);
             // 
@@ -145,12 +145,12 @@
             // 
             this.PreviewRTB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PreviewRTB.Font = new System.Drawing.Font("Courier New", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PreviewRTB.Location = new System.Drawing.Point(1115, 55);
+            this.PreviewRTB.Location = new System.Drawing.Point(1025, 45);
             this.PreviewRTB.Margin = new System.Windows.Forms.Padding(2);
             this.PreviewRTB.Name = "PreviewRTB";
             this.PreviewRTB.ReadOnly = true;
             this.FileOpenLayoutPanel.SetRowSpan(this.PreviewRTB, 3);
-            this.PreviewRTB.Size = new System.Drawing.Size(367, 769);
+            this.PreviewRTB.Size = new System.Drawing.Size(338, 622);
             this.PreviewRTB.TabIndex = 86;
             this.PreviewRTB.Text = "";
             // 
@@ -158,9 +158,9 @@
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Right;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(72, 773);
+            this.label1.Location = new System.Drawing.Point(42, 626);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(296, 53);
+            this.label1.Size = new System.Drawing.Size(296, 43);
             this.label1.TabIndex = 87;
             this.label1.Text = "File Name:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -169,9 +169,9 @@
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(1116, 16);
+            this.label2.Location = new System.Drawing.Point(1026, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(365, 37);
+            this.label2.Size = new System.Drawing.Size(336, 37);
             this.label2.TabIndex = 88;
             this.label2.Text = "Preview";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -182,10 +182,10 @@
             this.DeleteBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DeleteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DeleteBtn.ForeColor = System.Drawing.Color.White;
-            this.DeleteBtn.Location = new System.Drawing.Point(373, 828);
+            this.DeleteBtn.Location = new System.Drawing.Point(343, 671);
             this.DeleteBtn.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteBtn.Name = "DeleteBtn";
-            this.DeleteBtn.Size = new System.Drawing.Size(367, 131);
+            this.DeleteBtn.Size = new System.Drawing.Size(337, 105);
             this.DeleteBtn.TabIndex = 89;
             this.DeleteBtn.Text = "&Delete";
             this.DeleteBtn.UseVisualStyleBackColor = false;
@@ -197,10 +197,10 @@
             this.NewFolderBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NewFolderBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NewFolderBtn.ForeColor = System.Drawing.Color.White;
-            this.NewFolderBtn.Location = new System.Drawing.Point(2, 828);
+            this.NewFolderBtn.Location = new System.Drawing.Point(2, 671);
             this.NewFolderBtn.Margin = new System.Windows.Forms.Padding(2);
             this.NewFolderBtn.Name = "NewFolderBtn";
-            this.NewFolderBtn.Size = new System.Drawing.Size(367, 131);
+            this.NewFolderBtn.Size = new System.Drawing.Size(337, 105);
             this.NewFolderBtn.TabIndex = 90;
             this.NewFolderBtn.Text = "&New Folder";
             this.NewFolderBtn.UseVisualStyleBackColor = false;
@@ -234,7 +234,7 @@
             this.FileOpenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 69.44444F));
             this.FileOpenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.555555F));
             this.FileOpenLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.88889F));
-            this.FileOpenLayoutPanel.Size = new System.Drawing.Size(1484, 961);
+            this.FileOpenLayoutPanel.Size = new System.Drawing.Size(1365, 778);
             this.FileOpenLayoutPanel.TabIndex = 91;
             // 
             // FileOpenDialog
@@ -243,7 +243,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(1484, 961);
+            this.ClientSize = new System.Drawing.Size(1365, 778);
             this.ControlBox = false;
             this.Controls.Add(this.FileOpenLayoutPanel);
             this.MaximizeBox = false;

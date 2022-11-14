@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonardClient", "LEonardClient\LEonardClient.csproj", "{0AABD7BC-7F11-4754-8111-8BD23D9517D0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonardJint", "LEonardJint\LEonardJint.csproj", "{2E14073C-19CF-48F3-871E-358E3581D83F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncSocketTester", "AsyncSocketTester\AsyncSocketTester.csproj", "{06365228-F701-4D61-929B-31E8384E780C}"
@@ -12,19 +10,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3E01AEA-9974-468E-8459-ADC530A3B8DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonard", "LEonard\LEonard.csproj", "{F7D044A8-5B81-4D11-BE3F-211B2AE919EE}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0AABD7BC-7F11-4754-8111-8BD23D9517D0} = {0AABD7BC-7F11-4754-8111-8BD23D9517D0}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonardOriginal", "LEonardOriginal\LEonardOriginal.csproj", "{8C976E92-197B-445C-AB0A-0B9CC89FEAAD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEonardSetup", "LEonardSetup\LEonardSetup.csproj", "{A6E198B0-7566-47DC-A698-8383C27C035B}"
 	ProjectSection(ProjectDependencies) = postProject
-		{0AABD7BC-7F11-4754-8111-8BD23D9517D0} = {0AABD7BC-7F11-4754-8111-8BD23D9517D0}
 		{F7D044A8-5B81-4D11-BE3F-211B2AE919EE} = {F7D044A8-5B81-4D11-BE3F-211B2AE919EE}
 	EndProjectSection
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{712BB66E-B703-48CA-9EE4-B5EA8E7DDCC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,10 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0AABD7BC-7F11-4754-8111-8BD23D9517D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AABD7BC-7F11-4754-8111-8BD23D9517D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AABD7BC-7F11-4754-8111-8BD23D9517D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AABD7BC-7F11-4754-8111-8BD23D9517D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2E14073C-19CF-48F3-871E-358E3581D83F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2E14073C-19CF-48F3-871E-358E3581D83F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E14073C-19CF-48F3-871E-358E3581D83F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -56,8 +44,6 @@ Global
 		{A6E198B0-7566-47DC-A698-8383C27C035B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6E198B0-7566-47DC-A698-8383C27C035B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6E198B0-7566-47DC-A698-8383C27C035B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{712BB66E-B703-48CA-9EE4-B5EA8E7DDCC7}.Debug|Any CPU.ActiveCfg = Debug
-		{712BB66E-B703-48CA-9EE4-B5EA8E7DDCC7}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

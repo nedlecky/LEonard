@@ -266,8 +266,8 @@ namespace LEonard
         {
             RegistryKey FormNameKey = MyRegistryKey();
 
-            Width = (Int32)FormNameKey.GetValue("Width", 1500);
-            Height = (Int32)FormNameKey.GetValue("Height", 1000);
+            Width = (Int32)FormNameKey.GetValue("Width", Width);
+            Height = (Int32)FormNameKey.GetValue("Height", Height);
             Left = (Int32)FormNameKey.GetValue("Left", (mainForm.Width - Width) / 2);
             Top = (Int32)FormNameKey.GetValue("Top", (mainForm.Height - Height) / 2);
         }

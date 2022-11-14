@@ -342,7 +342,7 @@ namespace LEonard
 
         public RegistryKey GetAppNameKey()
         {
-            RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+            RegistryKey SoftwareKey = Registry.LocalMachine.OpenSubKey("Software", true);
             RegistryKey LeckyEngineeringKey = SoftwareKey.CreateSubKey("Lecky Engineering");
             return LeckyEngineeringKey.CreateSubKey("LEonardOriginal");
         }

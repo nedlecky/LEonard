@@ -144,11 +144,30 @@ namespace LEonard
         #endregion ===== MAINFORM VARIABLES                =============================================================================================================================
 
         #region ===== MAINFORM EVENTS                   ==============================================================================================================================
-        public MainForm()
-        {
-            InitializeComponent();
+        OperatorMode operatorModeOverride = OperatorMode.OPERATOR;
+        bool useOperatorModeOverride = false;
 
+        public MainForm(string[] args)
+        {
+            if (args.Length > 1)
+            {
+                switch (args[0])
+                {
+                    case "OperatorMode":
+                        try
+                        {
+                            operatorModeOverride = (OperatorMode)(int)Convert.ToInt32(args[1]);
+                        }
+                        catch { }
+                        useOperatorModeOverride = true;
+                        break;
+                }
+            }
+
+            InitializeComponent();
         }
+
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             consoleForm = new ConsoleForm(this);
@@ -691,7 +710,6 @@ namespace LEonard
                 EnterRunState();
             }
         }
-
         private void SetManualMoveButtons(bool f)
         {
             bool enable = f && robotReady;
@@ -1012,43 +1030,46 @@ namespace LEonard
             OperatorMode newOperatorMode = (OperatorMode)UserModeBox.SelectedIndex;
 
 #if !DEBUG
-            // Enforce any password requirements (unless we're in DEBUG for convenience)
-            switch (newOperatorMode)
+            // Enforce any password requirements (unless we're in DEBUG for convenience or if we force OperatorMode)
+            if (!useOperatorModeOverride)
             {
-                case OperatorMode.OPERATOR:
-                    break;
-                case OperatorMode.EDITOR:
-                    SetValueForm form = new SetValueForm(this)
-                    {
-                        Value = 0,
-                        Label = "Passcode for EDITOR",
-                        NumberOfDecimals = 0,
-                        MaxAllowed = 999999,
-                        MinAllowed = 0,
-                        IsPassword = true,
-                    };
-                    if (form.ShowDialog(this) != DialogResult.OK || form.Value != 9)
-                    {
-                        UserModeBox.SelectedIndex = 0;
-                        return;
-                    }
-                    break;
-                case OperatorMode.ENGINEERING:
-                    form = new SetValueForm(this)
-                    {
-                        Value = 0,
-                        Label = "Passcode for ENGINEERING",
-                        NumberOfDecimals = 0,
-                        MaxAllowed = 999999,
-                        MinAllowed = 0,
-                        IsPassword = true,
-                    };
-                    if (form.ShowDialog(this) != DialogResult.OK || form.Value != 99)
-                    {
-                        UserModeBox.SelectedIndex = 0;
-                        return;
-                    }
-                    break;
+                switch (newOperatorMode)
+                {
+                    case OperatorMode.OPERATOR:
+                        break;
+                    case OperatorMode.EDITOR:
+                        SetValueForm form = new SetValueForm(this)
+                        {
+                            Value = 0,
+                            Label = "Passcode for EDITOR",
+                            NumberOfDecimals = 0,
+                            MaxAllowed = 999999,
+                            MinAllowed = 0,
+                            IsPassword = true,
+                        };
+                        if (form.ShowDialog(this) != DialogResult.OK || form.Value != 9)
+                        {
+                            UserModeBox.SelectedIndex = 0;
+                            return;
+                        }
+                        break;
+                    case OperatorMode.ENGINEERING:
+                        form = new SetValueForm(this)
+                        {
+                            Value = 0,
+                            Label = "Passcode for ENGINEERING",
+                            NumberOfDecimals = 0,
+                            MaxAllowed = 999999,
+                            MinAllowed = 0,
+                            IsPassword = true,
+                        };
+                        if (form.ShowDialog(this) != DialogResult.OK || form.Value != 99)
+                        {
+                            UserModeBox.SelectedIndex = 0;
+                            return;
+                        }
+                        break;
+                }
             }
 #endif
             operatorMode = newOperatorMode;
@@ -1670,6 +1691,8 @@ namespace LEonard
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, DataFolder));
             System.IO.Directory.CreateDirectory(Path.Combine(LEonardRoot, LogsFolder));
         }
+
+        // The root Rgistry key location for all of LEonard
         public RegistryKey GetAppNameKey()
         {
             RegistryKey SoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
@@ -1679,11 +1702,9 @@ namespace LEonard
 
         void LoadRootDirectory()
         {
-            LEonardRoot = @"C:\LEonard";
+            RegistryKey AppNameKey = GetAppNameKey();
 
-            // Test if we're running in development mode and shift up 3 directories!
-            if (executionRoot.EndsWith("Debug") || executionRoot.EndsWith("Release"))
-                LEonardRoot = Path.GetFullPath(Path.Combine(executionRoot, @"..\..\.."));
+            LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", @"C:\Users\Public\LEonard");
 
             // User is not allowed to manually change anymore (for now?)
             ChangeRootDirectoryBtn.Visible = false;
@@ -1741,7 +1762,10 @@ namespace LEonard
 #if DEBUG
             operatorMode = OperatorMode.ENGINEERING;
 #else
-            operatorMode = OperatorMode.OPERATOR; // (OperatorMode)(Int32)AppNameKey.GetValue("operatorMode", 0);
+            if (useOperatorModeOverride)
+                operatorMode = operatorModeOverride;
+            else
+                operatorMode = OperatorMode.OPERATOR; // (OperatorMode)(Int32)AppNameKey.GetValue("operatorMode", 0);
 #endif
             UserModeBox.SelectedIndex = (int)operatorMode;
 
@@ -1959,7 +1983,7 @@ namespace LEonard
                 "", "<CR>", "<LF>", "#",
                 "JE:le_send('me','Hello!')", "JE:le_send('me','exit')",
                 true,
-                "C:\\Users\\nedlecky\\GitHub\\LEonard\\LEonardClient\\bin\\Debug",
+                @"C:\Users\Public\LEonard\LEonardClient\bin\Debug",
                 "LEonardClient.exe",
                 "",
                 "",
@@ -2130,7 +2154,7 @@ namespace LEonard
                 "","","",
             });
             devices.Rows.Add(new object[] {
-                11, "FS40 Control", false, false, "TcpClient", "192.168.0.41:107",
+                11, "Zebra FS40 Control", false, false, "TcpClient", "192.168.0.41:107",
                 "A.FS40.C", "general",
                 "", "<CR><LF>", "<LF>", "",
                 "", "",
@@ -2146,7 +2170,7 @@ namespace LEonard
                 "","","",
             });
             devices.Rows.Add(new object[] {
-                12, "FS40 Results", false, false, "TcpClient", "192.168.0.41:25250",
+                12, "Zebra FS40 Results", false, false, "TcpClient", "192.168.0.41:25250",
                 "A.FS40.R", "general",
                 "", "<CR><LF>", "<LF>", "#",
                 "", "",
@@ -2590,7 +2614,7 @@ namespace LEonard
                     }
                     catch
                     {
-                        log.Error($"Cannot find hWnd");
+                        log.Error($"DeviceRuntimeStart for {row["Name"]}: Cannot find hWnd of Runtime window for {row["RuntimeFileName"]}");
                     }
                 }
 
@@ -2674,6 +2698,9 @@ namespace LEonard
                         SetWindowOnTop(hWnd);
                         break;
                     }
+                    else
+                        log.Error($"DeviceSetupStart for {row["Name"]}: Cannot find hWnd of Runtime window for {row["SetupFileName"]}");
+
                 }
                 waitingForOperatorMessageForm.Close();
                 waitingForOperatorMessageForm = null;
@@ -2998,10 +3025,11 @@ namespace LEonard
         // Aspect Ratio: 2560 / 1440 = 1.78 (16:9)
         private void CreateDefaultDisplays()
         {
-            displays.Rows.Add(new object[] { "Default", 1920, 1080, false, false, 100 });
+            displays.Rows.Add(new object[] { "Default", 1920, 1080, false, true, 100 });
+            displays.Rows.Add(new object[] { "Standard Laptop", 1920, 1080, false, false, 100 });
+            displays.Rows.Add(new object[] { "Wide Laptop", 1920, 1200, false, false, 100 });
             displays.Rows.Add(new object[] { "Zebra ET80A", 2160, 1440, false, false, 100 });
             displays.Rows.Add(new object[] { "Zebra L10", 1920, 1200, false, false, 100 });
-            displays.Rows.Add(new object[] { "My Laptop", 1920, 1200, false, false, 100 });
             displays.Rows.Add(new object[] { "Large Monitor", 2560, 1440, false, true, 100 });
             displays.Rows.Add(new object[] { "Resize Medium", 1800, 1000, true, false, 100 });
             displays.Rows.Add(new object[] { "Resize Fullscreen", 1800, 1000, true, true, 100 });
@@ -6512,7 +6540,6 @@ namespace LEonard
             log.Info("PY** " + msg);
             Console.WriteLine(msg);
         }
-
         private void InitializePythonEngine()
         {
             pythonEngine = Python.CreateEngine();
@@ -6520,7 +6547,7 @@ namespace LEonard
 
             // Make sure we're looking in the right spots for imports!
             ICollection<string> paths = pythonEngine.GetSearchPaths();
-            paths.Add(Path.Combine(LEonardRoot, "Code", "Lib", "Python"));
+            paths.Add(Path.Combine(executionRoot, @"..\..\Lib"));
             paths.Add(Path.Combine(LEonardRoot, "Code", "Lib"));
             paths.Add(Path.Combine(LEonardRoot, "Code"));
             foreach (string path in paths)
