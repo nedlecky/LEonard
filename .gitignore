@@ -365,3 +365,5 @@ FodyWeavers.xsd
 # LEonard Specific
 # Don't archive the whole distribution!
 /LEonardSetup/Redist
+/LEonardInstallerAI/Setup Files
+/LEonardInstallerAI/LEonard-cache
