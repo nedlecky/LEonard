@@ -690,7 +690,12 @@ namespace LEonard
         private void MainTab_Selecting(object sender, TabControlCancelEventArgs e)
         {
             if (e.TabPageIndex < 0) return;
-            e.Cancel = !e.TabPage.Enabled;
+
+            if (!e.TabPage.Enabled)
+            {
+                ErrorMessageBox($"{e.TabPage.Name} not allowed for User {operatorMode}");
+                e.Cancel = true;
+            }
         }
 
 
@@ -1069,7 +1074,7 @@ namespace LEonard
             operatorMode = newOperatorMode;
 
             const int RunPage = 0;
-            const int ProgramPage = 1;
+            const int CodePage = 1;
             const int SetupPage = 2;
             const int LogPage = 3;
             if (MainTab.TabPages[1] != null)  // Helps during program load before instantiation!
@@ -1079,21 +1084,21 @@ namespace LEonard
                 {
                     case OperatorMode.OPERATOR:
                         MainTab.TabPages[RunPage].Enabled = true;
-                        MainTab.TabPages[ProgramPage].Enabled = false;
+                        MainTab.TabPages[CodePage].Enabled = false;
                         MainTab.TabPages[SetupPage].Enabled = false;
                         MainTab.TabPages[LogPage].Enabled = true;
                         MainTab.SelectedIndex = 0;
                         break;
                     case OperatorMode.EDITOR:
                         MainTab.TabPages[RunPage].Enabled = true;
-                        MainTab.TabPages[ProgramPage].Enabled = true;
+                        MainTab.TabPages[CodePage].Enabled = true;
                         MainTab.TabPages[SetupPage].Enabled = false;
                         MainTab.TabPages[LogPage].Enabled = true;
                         MainTab.SelectedIndex = 1;
                         break;
                     case OperatorMode.ENGINEERING:
                         MainTab.TabPages[RunPage].Enabled = true;
-                        MainTab.TabPages[ProgramPage].Enabled = true;
+                        MainTab.TabPages[CodePage].Enabled = true;
                         MainTab.TabPages[SetupPage].Enabled = true;
                         MainTab.TabPages[LogPage].Enabled = true;
                         break;

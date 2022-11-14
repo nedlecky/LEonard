@@ -144,7 +144,7 @@
             this.GrindLbl4 = new System.Windows.Forms.Label();
             this.MoveToolMountLbl = new System.Windows.Forms.Label();
             this.MoveToolHomeLbl = new System.Windows.Forms.Label();
-            this.ProgramPage = new System.Windows.Forms.TabPage();
+            this.CodePage = new System.Windows.Forms.TabPage();
             this.ProgramTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.FileBigEditPanel = new System.Windows.Forms.TableLayoutPanel();
             this.BigEditBtn = new System.Windows.Forms.Button();
@@ -156,16 +156,12 @@
             this.DeviceConnectBtn = new System.Windows.Forms.Button();
             this.DeviceDisconnectBtn = new System.Windows.Forms.Button();
             this.DevicesGrd = new System.Windows.Forms.DataGridView();
-            this.DeviceRuntimeStartBtn = new System.Windows.Forms.Button();
-            this.DeviceSetupStartBtn = new System.Windows.Forms.Button();
             this.DeviceConnectAllBtn = new System.Windows.Forms.Button();
             this.DeviceDisconnectAllBtn = new System.Windows.Forms.Button();
             this.RuntimeAppHelperLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.DeviceRuntimeExitBtn = new System.Windows.Forms.Button();
             this.DeviceRuntimeMinimizeBtn = new System.Windows.Forms.Button();
             this.DeviceRuntimeRestoreBtn = new System.Windows.Forms.Button();
             this.SetupAppHelperLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.DeviceSetupExitBtn = new System.Windows.Forms.Button();
             this.DeviceSetupRestoreBtn = new System.Windows.Forms.Button();
             this.DeviceSetupMinimizeBtn = new System.Windows.Forms.Button();
             this.SetStartupDevicesFileBtn = new System.Windows.Forms.Button();
@@ -174,13 +170,18 @@
             this.SaveDevicesBtn = new System.Windows.Forms.Button();
             this.LoadDevicesBtn = new System.Windows.Forms.Button();
             this.ReloadDevicesBtn = new System.Windows.Forms.Button();
-            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.speedBtnsGrp = new System.Windows.Forms.GroupBox();
             this.SpeedSendBtn1 = new System.Windows.Forms.Button();
             this.lbl4 = new System.Windows.Forms.Label();
             this.StartupDevicesLbl = new System.Windows.Forms.Label();
             this.DevicesFilenameLbl = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.RuntimeAppHelperLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.DeviceRuntimeExitBtn = new System.Windows.Forms.Button();
+            this.DeviceRuntimeStartBtn = new System.Windows.Forms.Button();
+            this.SetupAppHelperLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.DeviceSetupExitBtn = new System.Windows.Forms.Button();
+            this.DeviceSetupStartBtn = new System.Windows.Forms.Button();
             this.displaysPage = new System.Windows.Forms.TabPage();
             this.SetupDisplayLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.DisplaysGrd = new System.Windows.Forms.DataGridView();
@@ -288,8 +289,7 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.RuntimeAppHelperLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.SetupAppHelperLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -310,7 +310,7 @@
             this.RunCenterColumnLayoutPanel.SuspendLayout();
             this.GrindNofNLayoutPanel.SuspendLayout();
             this.LastReportedZLayoutPanel.SuspendLayout();
-            this.ProgramPage.SuspendLayout();
+            this.CodePage.SuspendLayout();
             this.ProgramTableLayoutPanel.SuspendLayout();
             this.FileBigEditPanel.SuspendLayout();
             this.SetupPage.SuspendLayout();
@@ -321,6 +321,8 @@
             this.RuntimeAppHelperLayoutPanel2.SuspendLayout();
             this.SetupAppHelperLayoutPanel2.SuspendLayout();
             this.speedBtnsGrp.SuspendLayout();
+            this.RuntimeAppHelperLayoutPanel1.SuspendLayout();
+            this.SetupAppHelperLayoutPanel1.SuspendLayout();
             this.displaysPage.SuspendLayout();
             this.SetupDisplayLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DisplaysGrd)).BeginInit();
@@ -351,8 +353,6 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.DiamVersionLayoutPanel.SuspendLayout();
             this.TopButtonLayoutPanel.SuspendLayout();
-            this.RuntimeAppHelperLayoutPanel1.SuspendLayout();
-            this.SetupAppHelperLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CurrentLineLbl
@@ -1304,7 +1304,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MainTab.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.MainTab.Controls.Add(this.RunPage);
-            this.MainTab.Controls.Add(this.ProgramPage);
+            this.MainTab.Controls.Add(this.CodePage);
             this.MainTab.Controls.Add(this.SetupPage);
             this.MainTab.Controls.Add(this.LogsPage);
             this.MainTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1885,17 +1885,17 @@
             this.MoveToolHomeLbl.Text = "Joint Move to\r\nTool Home Pose";
             this.MoveToolHomeLbl.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // ProgramPage
+            // CodePage
             // 
-            this.ProgramPage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.ProgramPage.Controls.Add(this.ProgramTableLayoutPanel);
-            this.ProgramPage.Location = new System.Drawing.Point(4, 100);
-            this.ProgramPage.Name = "ProgramPage";
-            this.ProgramPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ProgramPage.Size = new System.Drawing.Size(1892, 808);
-            this.ProgramPage.TabIndex = 1;
-            this.ProgramPage.Text = "Code";
-            this.ProgramPage.UseVisualStyleBackColor = true;
+            this.CodePage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.CodePage.Controls.Add(this.ProgramTableLayoutPanel);
+            this.CodePage.Location = new System.Drawing.Point(4, 100);
+            this.CodePage.Name = "CodePage";
+            this.CodePage.Padding = new System.Windows.Forms.Padding(3);
+            this.CodePage.Size = new System.Drawing.Size(1892, 808);
+            this.CodePage.TabIndex = 1;
+            this.CodePage.Text = "Code";
+            this.CodePage.UseVisualStyleBackColor = true;
             // 
             // ProgramTableLayoutPanel
             // 
@@ -2097,36 +2097,6 @@
             this.DevicesGrd.TabIndex = 89;
             this.DevicesGrd.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DevicesGrd_RowEnter);
             // 
-            // DeviceRuntimeStartBtn
-            // 
-            this.DeviceRuntimeStartBtn.BackColor = System.Drawing.Color.Green;
-            this.DeviceRuntimeStartBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DeviceRuntimeStartBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeviceRuntimeStartBtn.ForeColor = System.Drawing.Color.White;
-            this.DeviceRuntimeStartBtn.Location = new System.Drawing.Point(2, 2);
-            this.DeviceRuntimeStartBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.DeviceRuntimeStartBtn.Name = "DeviceRuntimeStartBtn";
-            this.DeviceRuntimeStartBtn.Size = new System.Drawing.Size(146, 46);
-            this.DeviceRuntimeStartBtn.TabIndex = 109;
-            this.DeviceRuntimeStartBtn.Text = "Runtime";
-            this.DeviceRuntimeStartBtn.UseVisualStyleBackColor = false;
-            this.DeviceRuntimeStartBtn.Click += new System.EventHandler(this.DeviceRuntimeStartBtn_Click);
-            // 
-            // DeviceSetupStartBtn
-            // 
-            this.DeviceSetupStartBtn.BackColor = System.Drawing.Color.Green;
-            this.DeviceSetupStartBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DeviceSetupStartBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeviceSetupStartBtn.ForeColor = System.Drawing.Color.White;
-            this.DeviceSetupStartBtn.Location = new System.Drawing.Point(2, 2);
-            this.DeviceSetupStartBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.DeviceSetupStartBtn.Name = "DeviceSetupStartBtn";
-            this.DeviceSetupStartBtn.Size = new System.Drawing.Size(146, 46);
-            this.DeviceSetupStartBtn.TabIndex = 110;
-            this.DeviceSetupStartBtn.Text = "Setup";
-            this.DeviceSetupStartBtn.UseVisualStyleBackColor = false;
-            this.DeviceSetupStartBtn.Click += new System.EventHandler(this.DeviceSetupStartBtn_Click);
-            // 
             // DeviceConnectAllBtn
             // 
             this.DeviceConnectAllBtn.BackColor = System.Drawing.Color.Green;
@@ -2173,21 +2143,6 @@
             this.RuntimeAppHelperLayoutPanel2.Size = new System.Drawing.Size(150, 101);
             this.RuntimeAppHelperLayoutPanel2.TabIndex = 111;
             // 
-            // DeviceRuntimeExitBtn
-            // 
-            this.DeviceRuntimeExitBtn.BackColor = System.Drawing.Color.Green;
-            this.DeviceRuntimeExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DeviceRuntimeExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeviceRuntimeExitBtn.ForeColor = System.Drawing.Color.White;
-            this.DeviceRuntimeExitBtn.Location = new System.Drawing.Point(2, 52);
-            this.DeviceRuntimeExitBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.DeviceRuntimeExitBtn.Name = "DeviceRuntimeExitBtn";
-            this.DeviceRuntimeExitBtn.Size = new System.Drawing.Size(146, 47);
-            this.DeviceRuntimeExitBtn.TabIndex = 115;
-            this.DeviceRuntimeExitBtn.Text = "Stop";
-            this.DeviceRuntimeExitBtn.UseVisualStyleBackColor = false;
-            this.DeviceRuntimeExitBtn.Click += new System.EventHandler(this.DeviceRuntimeExitBtn_Click);
-            // 
             // DeviceRuntimeMinimizeBtn
             // 
             this.DeviceRuntimeMinimizeBtn.BackColor = System.Drawing.Color.Green;
@@ -2233,21 +2188,6 @@
             this.SetupAppHelperLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.SetupAppHelperLayoutPanel2.Size = new System.Drawing.Size(150, 101);
             this.SetupAppHelperLayoutPanel2.TabIndex = 112;
-            // 
-            // DeviceSetupExitBtn
-            // 
-            this.DeviceSetupExitBtn.BackColor = System.Drawing.Color.Green;
-            this.DeviceSetupExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DeviceSetupExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeviceSetupExitBtn.ForeColor = System.Drawing.Color.White;
-            this.DeviceSetupExitBtn.Location = new System.Drawing.Point(2, 52);
-            this.DeviceSetupExitBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.DeviceSetupExitBtn.Name = "DeviceSetupExitBtn";
-            this.DeviceSetupExitBtn.Size = new System.Drawing.Size(146, 47);
-            this.DeviceSetupExitBtn.TabIndex = 116;
-            this.DeviceSetupExitBtn.Text = "Stop";
-            this.DeviceSetupExitBtn.UseVisualStyleBackColor = false;
-            this.DeviceSetupExitBtn.Click += new System.EventHandler(this.DeviceSetupExitBtn_Click);
             // 
             // DeviceSetupRestoreBtn
             // 
@@ -2364,17 +2304,6 @@
             this.ReloadDevicesBtn.UseVisualStyleBackColor = false;
             this.ReloadDevicesBtn.Click += new System.EventHandler(this.ReloadDevicesBtn_Click);
             // 
-            // AutoConnectOnLoadChk
-            // 
-            this.SetupDevicesLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 3);
-            this.AutoConnectOnLoadChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1407, 511);
-            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(464, 30);
-            this.AutoConnectOnLoadChk.TabIndex = 118;
-            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
-            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
-            // 
             // speedBtnsGrp
             // 
             this.SetupDevicesLayoutPanel.SetColumnSpan(this.speedBtnsGrp, 12);
@@ -2447,6 +2376,96 @@
             this.label2.TabIndex = 122;
             this.label2.Text = "Current";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // RuntimeAppHelperLayoutPanel1
+            // 
+            this.RuntimeAppHelperLayoutPanel1.ColumnCount = 1;
+            this.RuntimeAppHelperLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.RuntimeAppHelperLayoutPanel1.Controls.Add(this.DeviceRuntimeExitBtn, 0, 1);
+            this.RuntimeAppHelperLayoutPanel1.Controls.Add(this.DeviceRuntimeStartBtn, 0, 0);
+            this.RuntimeAppHelperLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RuntimeAppHelperLayoutPanel1.Location = new System.Drawing.Point(627, 3);
+            this.RuntimeAppHelperLayoutPanel1.Name = "RuntimeAppHelperLayoutPanel1";
+            this.RuntimeAppHelperLayoutPanel1.RowCount = 2;
+            this.RuntimeAppHelperLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.RuntimeAppHelperLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.RuntimeAppHelperLayoutPanel1.Size = new System.Drawing.Size(150, 101);
+            this.RuntimeAppHelperLayoutPanel1.TabIndex = 123;
+            // 
+            // DeviceRuntimeExitBtn
+            // 
+            this.DeviceRuntimeExitBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceRuntimeExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceRuntimeExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceRuntimeExitBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceRuntimeExitBtn.Location = new System.Drawing.Point(2, 52);
+            this.DeviceRuntimeExitBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceRuntimeExitBtn.Name = "DeviceRuntimeExitBtn";
+            this.DeviceRuntimeExitBtn.Size = new System.Drawing.Size(146, 47);
+            this.DeviceRuntimeExitBtn.TabIndex = 115;
+            this.DeviceRuntimeExitBtn.Text = "Stop";
+            this.DeviceRuntimeExitBtn.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeExitBtn.Click += new System.EventHandler(this.DeviceRuntimeExitBtn_Click);
+            // 
+            // DeviceRuntimeStartBtn
+            // 
+            this.DeviceRuntimeStartBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceRuntimeStartBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceRuntimeStartBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceRuntimeStartBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceRuntimeStartBtn.Location = new System.Drawing.Point(2, 2);
+            this.DeviceRuntimeStartBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceRuntimeStartBtn.Name = "DeviceRuntimeStartBtn";
+            this.DeviceRuntimeStartBtn.Size = new System.Drawing.Size(146, 46);
+            this.DeviceRuntimeStartBtn.TabIndex = 109;
+            this.DeviceRuntimeStartBtn.Text = "Runtime";
+            this.DeviceRuntimeStartBtn.UseVisualStyleBackColor = false;
+            this.DeviceRuntimeStartBtn.Click += new System.EventHandler(this.DeviceRuntimeStartBtn_Click);
+            // 
+            // SetupAppHelperLayoutPanel1
+            // 
+            this.SetupAppHelperLayoutPanel1.ColumnCount = 1;
+            this.SetupAppHelperLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.SetupAppHelperLayoutPanel1.Controls.Add(this.DeviceSetupExitBtn, 0, 1);
+            this.SetupAppHelperLayoutPanel1.Controls.Add(this.DeviceSetupStartBtn, 0, 0);
+            this.SetupAppHelperLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SetupAppHelperLayoutPanel1.Location = new System.Drawing.Point(1095, 3);
+            this.SetupAppHelperLayoutPanel1.Name = "SetupAppHelperLayoutPanel1";
+            this.SetupAppHelperLayoutPanel1.RowCount = 2;
+            this.SetupAppHelperLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.SetupAppHelperLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.SetupAppHelperLayoutPanel1.Size = new System.Drawing.Size(150, 101);
+            this.SetupAppHelperLayoutPanel1.TabIndex = 124;
+            // 
+            // DeviceSetupExitBtn
+            // 
+            this.DeviceSetupExitBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceSetupExitBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceSetupExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceSetupExitBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceSetupExitBtn.Location = new System.Drawing.Point(2, 52);
+            this.DeviceSetupExitBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceSetupExitBtn.Name = "DeviceSetupExitBtn";
+            this.DeviceSetupExitBtn.Size = new System.Drawing.Size(146, 47);
+            this.DeviceSetupExitBtn.TabIndex = 116;
+            this.DeviceSetupExitBtn.Text = "Stop";
+            this.DeviceSetupExitBtn.UseVisualStyleBackColor = false;
+            this.DeviceSetupExitBtn.Click += new System.EventHandler(this.DeviceSetupExitBtn_Click);
+            // 
+            // DeviceSetupStartBtn
+            // 
+            this.DeviceSetupStartBtn.BackColor = System.Drawing.Color.Green;
+            this.DeviceSetupStartBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceSetupStartBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeviceSetupStartBtn.ForeColor = System.Drawing.Color.White;
+            this.DeviceSetupStartBtn.Location = new System.Drawing.Point(2, 2);
+            this.DeviceSetupStartBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceSetupStartBtn.Name = "DeviceSetupStartBtn";
+            this.DeviceSetupStartBtn.Size = new System.Drawing.Size(146, 46);
+            this.DeviceSetupStartBtn.TabIndex = 110;
+            this.DeviceSetupStartBtn.Text = "Setup";
+            this.DeviceSetupStartBtn.UseVisualStyleBackColor = false;
+            this.DeviceSetupStartBtn.Click += new System.EventHandler(this.DeviceSetupStartBtn_Click);
             // 
             // displaysPage
             // 
@@ -4064,35 +4083,16 @@
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
-            // RuntimeAppHelperLayoutPanel1
+            // AutoConnectOnLoadChk
             // 
-            this.RuntimeAppHelperLayoutPanel1.ColumnCount = 1;
-            this.RuntimeAppHelperLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.RuntimeAppHelperLayoutPanel1.Controls.Add(this.DeviceRuntimeExitBtn, 0, 1);
-            this.RuntimeAppHelperLayoutPanel1.Controls.Add(this.DeviceRuntimeStartBtn, 0, 0);
-            this.RuntimeAppHelperLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RuntimeAppHelperLayoutPanel1.Location = new System.Drawing.Point(627, 3);
-            this.RuntimeAppHelperLayoutPanel1.Name = "RuntimeAppHelperLayoutPanel1";
-            this.RuntimeAppHelperLayoutPanel1.RowCount = 2;
-            this.RuntimeAppHelperLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.RuntimeAppHelperLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.RuntimeAppHelperLayoutPanel1.Size = new System.Drawing.Size(150, 101);
-            this.RuntimeAppHelperLayoutPanel1.TabIndex = 123;
-            // 
-            // SetupAppHelperLayoutPanel1
-            // 
-            this.SetupAppHelperLayoutPanel1.ColumnCount = 1;
-            this.SetupAppHelperLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.SetupAppHelperLayoutPanel1.Controls.Add(this.DeviceSetupExitBtn, 0, 1);
-            this.SetupAppHelperLayoutPanel1.Controls.Add(this.DeviceSetupStartBtn, 0, 0);
-            this.SetupAppHelperLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetupAppHelperLayoutPanel1.Location = new System.Drawing.Point(1095, 3);
-            this.SetupAppHelperLayoutPanel1.Name = "SetupAppHelperLayoutPanel1";
-            this.SetupAppHelperLayoutPanel1.RowCount = 2;
-            this.SetupAppHelperLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.SetupAppHelperLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.SetupAppHelperLayoutPanel1.Size = new System.Drawing.Size(150, 101);
-            this.SetupAppHelperLayoutPanel1.TabIndex = 124;
+            this.SetupDevicesLayoutPanel.SetColumnSpan(this.AutoConnectOnLoadChk, 3);
+            this.AutoConnectOnLoadChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1407, 511);
+            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(464, 30);
+            this.AutoConnectOnLoadChk.TabIndex = 118;
+            this.AutoConnectOnLoadChk.Text = "     Auto Connect On Load";
+            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -4140,7 +4140,7 @@
             this.GrindNofNLayoutPanel.PerformLayout();
             this.LastReportedZLayoutPanel.ResumeLayout(false);
             this.LastReportedZLayoutPanel.PerformLayout();
-            this.ProgramPage.ResumeLayout(false);
+            this.CodePage.ResumeLayout(false);
             this.ProgramTableLayoutPanel.ResumeLayout(false);
             this.FileBigEditPanel.ResumeLayout(false);
             this.SetupPage.ResumeLayout(false);
@@ -4152,6 +4152,8 @@
             this.RuntimeAppHelperLayoutPanel2.ResumeLayout(false);
             this.SetupAppHelperLayoutPanel2.ResumeLayout(false);
             this.speedBtnsGrp.ResumeLayout(false);
+            this.RuntimeAppHelperLayoutPanel1.ResumeLayout(false);
+            this.SetupAppHelperLayoutPanel1.ResumeLayout(false);
             this.displaysPage.ResumeLayout(false);
             this.displaysPage.PerformLayout();
             this.SetupDisplayLayoutPanel.ResumeLayout(false);
@@ -4188,8 +4190,6 @@
             this.DiamVersionLayoutPanel.ResumeLayout(false);
             this.DiamVersionLayoutPanel.PerformLayout();
             this.TopButtonLayoutPanel.ResumeLayout(false);
-            this.RuntimeAppHelperLayoutPanel1.ResumeLayout(false);
-            this.SetupAppHelperLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -4238,7 +4238,7 @@
         private System.Windows.Forms.Label DiameterDimLbl;
         private System.Windows.Forms.TabControl MainTab;
         private System.Windows.Forms.TabPage RunPage;
-        private System.Windows.Forms.TabPage ProgramPage;
+        private System.Windows.Forms.TabPage CodePage;
         private System.Windows.Forms.TabPage SetupPage;
         private System.Windows.Forms.Button SelectToolBtn;
         private System.Windows.Forms.DataGridView ToolsGrd;
