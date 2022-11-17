@@ -1,22 +1,16 @@
 {
 	"folders": [
 		{
-			"path": "Logs"
+			"path": "../../../Public/LEonard/Code"
 		},
 		{
-			"path": "Data"
+			"path": "../../../Public/LEonard/3rdParty"
 		},
 		{
-			"path": "Code"
+			"path": "../../../Public/LEonard/Config"
 		},
 		{
-			"path": "Config"
-		},
-		{
-			"path": "3rdParty"
-		},
-		{
-			"path": "LEonardSetup"
+			"path": "../../../Public/LEonard/Data"
 		}
 	],
 	"settings": {}
