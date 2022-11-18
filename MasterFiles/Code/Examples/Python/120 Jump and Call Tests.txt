@@ -7,7 +7,7 @@ continue:
 le_print('continuing')
 call('sub1')
 le_print("we're back")
-end()
+le_stop()
 
 sub1:
 le_print('sub1')

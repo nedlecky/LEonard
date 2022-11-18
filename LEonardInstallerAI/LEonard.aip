@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="20.0" version="20.0" Modules="professional" RootPath="." Language="en" Id="{49B3B8B1-D7B7-4CF0-89D7-CBC65BB3377A}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="20.0" version="20.1" Modules="professional" RootPath="." Language="en" Id="{49B3B8B1-D7B7-4CF0-89D7-CBC65BB3377A}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="AppXProductDetailsComponent;AppXDependenciesComponent;AppXAppDetailsComponent;AppXVisualAssetsComponent;AppXCapabilitiesComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;MsiDriverPackagesComponent;UserAccountsComponent;ScheduledTasksComponent;SqlConnectionComponent;AutorunComponent;FirewallExceptionComponent;GameUxComponent;MsiDirectEditorComponent;SharePointSlnComponent;SilverlightSlnComponent;MultipleInstancesComponent;SccmComponent;ActSyncAppComponent;CPLAppletComponent;FixupComponent;MsiXDiffComponent;MsixManifestEditorComponent"/>
   </COMPONENT>
@@ -11,7 +11,7 @@
     <ROW Property="AI_CLEAN_RESOURCES_USER_PROMPT_FULL_UI" Value="1"/>
     <ROW Property="AI_CURRENT_YEAR" Value="2022" ValueLocId="-"/>
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
-    <ROW Property="AI_PACKAGING_TOOL" Value="Advanced Installer 20.0 build e4706cc2" ValueLocId="-"/>
+    <ROW Property="AI_PACKAGING_TOOL" Value="Advanced Installer 20.1 build 87d75adb" ValueLocId="-"/>
     <ROW Property="AI_PRODUCTNAME_ARP" Value="LEonard"/>
     <ROW Property="AI_UNINSTALLER" Value="msiexec.exe"/>
     <ROW Property="ALLUSERS" Value="1"/>
@@ -21,12 +21,12 @@
     <ROW Property="ARPSYSTEMCOMPONENT" Value="1"/>
     <ROW Property="ARPURLINFOABOUT" Value="www.lecky.com"/>
     <ROW Property="Manufacturer" Value="Lecky Engineering"/>
-    <ROW Property="ProductCode" Value="1033:{D0CE4BE9-780D-4ADB-B690-783C8DFF6530} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{20C0E0E1-0279-473E-AD72-DCADB8085C00} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="LEonard"/>
-    <ROW Property="ProductVersion" Value="22.11.1.0"/>
+    <ROW Property="ProductVersion" Value="22.11.1.1"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
-    <ROW Property="UpgradeCode" Value="{BD9151F5-B457-4939-9FEB-8396A7F3DDD3}"/>
+    <ROW Property="UpgradeCode" Value="{BCBC6783-1AED-4581-A426-C3D3A4683B6B}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT" MultiBuildValue="DefaultBuild:Windows 9x/ME/NT/2000/XP/Vista/Windows 7/Windows 8 x86/Windows 8.1 x86/Windows 10 x86" ValueLocId="-"/>
@@ -45,19 +45,19 @@
     <ROW Directory="Code_Dir" Directory_Parent="LEonard_Dir" DefaultDir="Code"/>
     <ROW Directory="Config_Dir" Directory_Parent="LEonard_Dir" DefaultDir="Config"/>
     <ROW Directory="Data_Dir" Directory_Parent="LEonard_Dir" DefaultDir="Data"/>
+    <ROW Directory="Debug_1_Dir" Directory_Parent="obj_Dir" DefaultDir="Debug"/>
     <ROW Directory="Debug_2_Dir" Directory_Parent="bin_1_Dir" DefaultDir="Debug"/>
     <ROW Directory="Debug_Dir" Directory_Parent="bin_Dir" DefaultDir="Debug"/>
     <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
     <ROW Directory="Documentation_Dir" Directory_Parent="LEonard_Dir" DefaultDir="DOCUME~1|Documentation"/>
     <ROW Directory="Examples_Dir" Directory_Parent="Code_Dir" DefaultDir="Examples"/>
-    <ROW Directory="FileContentIndex_Dir" Directory_Parent="LEonardClient_1_Dir" DefaultDir="FILECO~1|FileContentIndex"/>
+    <ROW Directory="Functions_Dir" Directory_Parent="Examples_Dir" DefaultDir="FUNCTI~1|Functions"/>
     <ROW Directory="Gocator_1_Dir" Directory_Parent="Examples_Dir" DefaultDir="Gocator"/>
     <ROW Directory="Gocator_Dir" Directory_Parent="rdParty_Dir" DefaultDir="Gocator"/>
     <ROW Directory="Grinding_Dir" Directory_Parent="UR_1_Dir" DefaultDir="Grinding"/>
     <ROW Directory="Java_Dir" Directory_Parent="Examples_Dir" DefaultDir="Java"/>
     <ROW Directory="Jint.2.11.58_Dir" Directory_Parent="packages_Dir" DefaultDir="JINT21~1.58|Jint.2.11.58"/>
     <ROW Directory="LEScript_Dir" Directory_Parent="Examples_Dir" DefaultDir="LEScript"/>
-    <ROW Directory="LEonardClient_1_Dir" Directory_Parent="vs_Dir" DefaultDir="LEONAR~1|LEonardClient"/>
     <ROW Directory="LEonardClient_Dir" Directory_Parent="LEonard_Dir" DefaultDir="LEONAR~1|LEonardClient"/>
     <ROW Directory="LEonard_1_Dir" Directory_Parent="USBImageProgramInstaller_Dir" DefaultDir="LEonard"/>
     <ROW Directory="LEonard_2_Dir" Directory_Parent="APPDIR" DefaultDir="LEonard"/>
@@ -73,10 +73,13 @@
     <ROW Directory="Properties_Dir" Directory_Parent="LEonardClient_Dir" DefaultDir="PROPER~1|Properties"/>
     <ROW Directory="PublicFolder" Directory_Parent="TARGETDIR" DefaultDir="PUBLIC~1|PublicFolder" IsPseudoRoot="1"/>
     <ROW Directory="Python_Dir" Directory_Parent="Examples_Dir" DefaultDir="Python"/>
+    <ROW Directory="Release_1_Dir" Directory_Parent="obj_Dir" DefaultDir="Release"/>
     <ROW Directory="Release_2_Dir" Directory_Parent="bin_1_Dir" DefaultDir="Release"/>
     <ROW Directory="Release_Dir" Directory_Parent="bin_Dir" DefaultDir="Release"/>
     <ROW Directory="System_Dir" Directory_Parent="Examples_Dir" DefaultDir="System"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="TempPE_1_Dir" Directory_Parent="Release_1_Dir" DefaultDir="TempPE"/>
+    <ROW Directory="TempPE_Dir" Directory_Parent="Debug_1_Dir" DefaultDir="TempPE"/>
     <ROW Directory="UR_1_Dir" Directory_Parent="Examples_Dir" DefaultDir="UR"/>
     <ROW Directory="UR_Dir" Directory_Parent="rdParty_Dir" DefaultDir="UR"/>
     <ROW Directory="USBImageProgramInstaller_Dir" Directory_Parent="UR_Dir" DefaultDir="USBIMA~1|USB Image- Program Installer"/>
@@ -121,6 +124,7 @@
     <ROW Directory="netstandard1.5_Dir" Directory_Parent="lib_1_Dir" DefaultDir="NETSTA~1.5|netstandard1.5"/>
     <ROW Directory="netstandard2.0_1_Dir" Directory_Parent="lib_1_Dir" DefaultDir="NETSTA~1.0|netstandard2.0"/>
     <ROW Directory="netstandard2.0_Dir" Directory_Parent="lib_Dir" DefaultDir="NETSTA~1.0|netstandard2.0"/>
+    <ROW Directory="obj_Dir" Directory_Parent="LEonardClient_Dir" DefaultDir="obj"/>
     <ROW Directory="package_Dir" Directory_Parent="USBImageVNCInstall_Dir" DefaultDir="package"/>
     <ROW Directory="packages_Dir" Directory_Parent="LEonardClient_Dir" DefaultDir="packages"/>
     <ROW Directory="parsers_Dir" Directory_Parent="xml_Dir" DefaultDir="parsers"/>
@@ -134,15 +138,13 @@
     <ROW Directory="sl5_Dir" Directory_Parent="lib_1_Dir" DefaultDir="sl5"/>
     <ROW Directory="sqlite3_Dir" Directory_Parent="Lib_1_Dir" DefaultDir="sqlite3"/>
     <ROW Directory="unittest_Dir" Directory_Parent="Lib_1_Dir" DefaultDir="unittest"/>
-    <ROW Directory="v17_Dir" Directory_Parent="LEonardClient_1_Dir" DefaultDir="v17"/>
-    <ROW Directory="vs_Dir" Directory_Parent="LEonardClient_Dir" DefaultDir="VS~1|.vs"/>
     <ROW Directory="wp8_Dir" Directory_Parent="lib_1_Dir" DefaultDir="wp8"/>
     <ROW Directory="wsgiref_Dir" Directory_Parent="Lib_1_Dir" DefaultDir="wsgiref"/>
     <ROW Directory="xamarinios10_Dir" Directory_Parent="lib_1_Dir" DefaultDir="XAMARI~1|xamarinios10"/>
     <ROW Directory="xml_Dir" Directory_Parent="Lib_1_Dir" DefaultDir="xml"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
-    <ROW Component="AI_CustomARPName" ComponentId="{22E10E75-A042-4A3C-8A3B-30AF729159CD}" Directory_="APPDIR" Attributes="260" KeyPath="DisplayName" Options="1"/>
+    <ROW Component="AI_CustomARPName" ComponentId="{2262BCD9-CA58-45FB-83CB-A09C2071EA5C}" Directory_="APPDIR" Attributes="260" KeyPath="DisplayName" Options="1"/>
     <ROW Component="AI_ExePath" ComponentId="{6E8B50CC-A014-40A4-9ECC-0872B38EE2C6}" Directory_="APPDIR" Attributes="260" KeyPath="AI_ExePath"/>
     <ROW Component="APPDIR" ComponentId="{FFDC834B-A10D-4544-988F-3729FB1840AB}" Directory_="APPDIR" Attributes="0"/>
     <ROW Component="App.config" ComponentId="{25DE6E63-99AF-4D49-AE43-FD08D7F5220C}" Directory_="LEonardClient_Dir" Attributes="0" KeyPath="App.config" Type="0"/>
@@ -150,6 +152,7 @@
     <ROW Component="App.config_2" ComponentId="{3228EF28-0F1F-4775-A292-E03E76FC485F}" Directory_="Release_Dir" Attributes="0" KeyPath="App.config_2" Type="0"/>
     <ROW Component="AssemblyInfo.cs" ComponentId="{A9913906-4D1B-492A-BCE3-177629F46B41}" Directory_="Properties_Dir" Attributes="0" KeyPath="AssemblyInfo.cs" Type="0"/>
     <ROW Component="Config" ComponentId="{3D4B8689-F54A-4A1B-B97C-34FE8FFD659A}" Directory_="Config_Dir" Attributes="0"/>
+    <ROW Component="GIBInterfaceTester.exe" ComponentId="{1701E56C-45F6-4080-B8B4-C9FEAE781D9E}" Directory_="Release_1_Dir" Attributes="0" KeyPath="GIBInterfaceTester.exe"/>
     <ROW Component="IronPython.Modules.dll" ComponentId="{6EADE878-3D4D-40C2-AF16-FD7D7EA13752}" Directory_="Debug_2_Dir" Attributes="0" KeyPath="IronPython.Modules.dll"/>
     <ROW Component="IronPython.Modules.dll_1" ComponentId="{E25AECCA-C695-428C-97D9-91F26066E5B7}" Directory_="Release_2_Dir" Attributes="0" KeyPath="IronPython.Modules.dll_1"/>
     <ROW Component="IronPython.Modules.xml" ComponentId="{E3243CDD-E7BA-4715-88A1-EE17011205E4}" Directory_="Debug_2_Dir" Attributes="0" KeyPath="IronPython.Modules.xml" Type="0"/>
@@ -177,7 +180,10 @@
     <ROW Component="LEonard01.script" ComponentId="{96D7586D-856B-4F28-8676-9581568B0468}" Directory_="LEonard_1_Dir" Attributes="0" KeyPath="LEonard01.script" Type="0"/>
     <ROW Component="LEonardClient.exe" ComponentId="{0314F40A-D460-466C-B5BE-0E308A133303}" Directory_="Debug_Dir" Attributes="0" KeyPath="LEonardClient.exe"/>
     <ROW Component="LEonardClient.exe_1" ComponentId="{28A45017-D9E0-4DEB-8C36-C2CD14983CD7}" Directory_="Release_Dir" Attributes="0" KeyPath="LEonardClient.exe_1"/>
+    <ROW Component="LEonardClient.exe_2" ComponentId="{56CC96D2-F477-4A91-99CC-AABCFF9D5091}" Directory_="Debug_1_Dir" Attributes="0" KeyPath="LEonardClient.exe_2"/>
+    <ROW Component="LEonardClient.exe_3" ComponentId="{63441FEC-9F18-4F42-9FF7-94A291B449F8}" Directory_="Release_1_Dir" Attributes="0" KeyPath="LEonardClient.exe_3"/>
     <ROW Component="LEonardHolefinder.job" ComponentId="{75A10045-4C60-4F7E-973F-908C672F8342}" Directory_="Gocator_Dir" Attributes="0" KeyPath="LEonardHolefinder.job" Type="0"/>
+    <ROW Component="LEonardInterfaceTester.exe" ComponentId="{ED28BE0D-154E-4CD8-9FF3-F4B88AADC902}" Directory_="Debug_1_Dir" Attributes="0" KeyPath="LEonardInterfaceTester.exe"/>
     <ROW Component="LEonardUserManual.pdf" ComponentId="{2E932A9C-6569-4CF6-BE89-FED6C00E3D53}" Directory_="Documentation_Dir" Attributes="0" KeyPath="LEonardUserManual.pdf" Type="0"/>
     <ROW Component="LEonard_2" ComponentId="{71C6587F-2476-49AA-9259-D065A726803B}" Directory_="LEonard_2_Dir" Attributes="0"/>
     <ROW Component="LeckyEngineering" ComponentId="{7FF0A0C6-7CF2-4322-B003-BDBC64D2A5D1}" Directory_="LeckyEngineering_Dir" Attributes="0"/>
@@ -188,6 +194,8 @@
     <ROW Component="Microsoft.Scripting.Metadata.dll_1" ComponentId="{E9280180-3E87-44E5-9963-6AF4DC574068}" Directory_="Release_2_Dir" Attributes="0" KeyPath="Microsoft.Scripting.Metadata.dll_1"/>
     <ROW Component="Microsoft.Scripting.dll" ComponentId="{43149EAF-D159-45C6-BC41-A5DBB6350A1F}" Directory_="Debug_2_Dir" Attributes="0" KeyPath="Microsoft.Scripting.dll"/>
     <ROW Component="Microsoft.Scripting.dll_1" ComponentId="{8FA05729-2456-43E4-BEC5-9625FC33D1B3}" Directory_="Release_2_Dir" Attributes="0" KeyPath="Microsoft.Scripting.dll_1"/>
+    <ROW Component="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" ComponentId="{4550F63B-4E01-477E-9241-5A9B51D06866}" Directory_="Debug_1_Dir" Attributes="0" KeyPath="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" Type="0"/>
+    <ROW Component="NETFrameworkVersionv4.8.AssemblyAttributes.cs" ComponentId="{B62531D9-13AB-4712-8277-6A10348DC0FD}" Directory_="Release_1_Dir" Attributes="0" KeyPath="NETFrameworkVersionv4.8.AssemblyAttributes.cs_1" Type="0"/>
     <ROW Component="NLog.Windows.Forms.dll" ComponentId="{3D59C474-FE42-47F1-8747-838408F78721}" Directory_="Debug_Dir" Attributes="0" KeyPath="NLog.Windows.Forms.dll"/>
     <ROW Component="NLog.Windows.Forms.dll_1" ComponentId="{B8AABA72-8DAB-4D17-AFFD-9CD26248E8AF}" Directory_="Release_Dir" Attributes="0" KeyPath="NLog.Windows.Forms.dll_1"/>
     <ROW Component="NLog.Windows.Forms.dll_4" ComponentId="{8AAE5380-7416-4694-B27D-6D499F1C07E0}" Directory_="net35_1_Dir" Attributes="0" KeyPath="NLog.Windows.Forms.dll_4"/>
@@ -227,20 +235,25 @@
     <ROW Component="NewFolder" ComponentId="{ECECAD26-7182-436A-9EAE-54ADCC113220}" Directory_="NewFolder_Dir" Attributes="0"/>
     <ROW Component="Origin.txt" ComponentId="{323E1B00-7DCF-4D04-B890-5507C3437C1B}" Directory_="OriginalTesting_Dir" Attributes="0" KeyPath="Origin.txt" Type="0"/>
     <ROW Component="ProductInformation" ComponentId="{F5FB1E97-157D-449A-9C27-B9B67AFDCB67}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
+    <ROW Component="Properties.Resources.Designer.cs.dll" ComponentId="{BF2856A1-4988-4DC6-AF53-3983146D497C}" Directory_="TempPE_Dir" Attributes="0" KeyPath="Properties.Resources.Designer.cs.dll"/>
+    <ROW Component="Properties.Resources.Designer.cs.dll_1" ComponentId="{D07D7FA4-7A12-4863-8FB0-80E3AAEA678B}" Directory_="TempPE_1_Dir" Attributes="0" KeyPath="Properties.Resources.Designer.cs.dll_1"/>
     <ROW Component="README.txt" ComponentId="{C80CF3E0-50B8-4784-8E50-2F2DAE9DFA2D}" Directory_="sitepackages_Dir" Attributes="0" KeyPath="README.txt_1" Type="0"/>
     <ROW Component="ReadMe.txt" ComponentId="{BD216D30-7D26-43EA-9B5D-A64B8D98A416}" Directory_="USBImageVNCInstall_Dir" Attributes="0" KeyPath="ReadMe.txt" Type="0"/>
     <ROW Component="SyntaxTester.txt" ComponentId="{DAA8FC21-C4DF-4B8F-9457-CAB693ED91D5}" Directory_="LEScript_Dir" Attributes="0" KeyPath="SyntaxTester.txt" Type="0"/>
+    <ROW Component="TCPClient.exe" ComponentId="{DE3D2CE7-85C5-47BC-A7C0-07FE21B1825E}" Directory_="Debug_1_Dir" Attributes="0" KeyPath="TCPClient.exe"/>
+    <ROW Component="TCPListener.exe" ComponentId="{74F42421-7E45-44D4-93CC-D5348E9DA682}" Directory_="Debug_1_Dir" Attributes="0" KeyPath="TCPListener.exe"/>
     <ROW Component="URDashboardTest.txt" ComponentId="{6B8997DD-EA9A-4595-8C46-E2854110B3AF}" Directory_="UR_1_Dir" Attributes="0" KeyPath="URDashboardTest.txt" Type="0"/>
     <ROW Component="UsingLMIGocatorswithLEonard.pdf" ComponentId="{BC2CCA60-4FDC-4D11-85B4-CABD44D37EB3}" Directory_="Documentation_Dir" Attributes="0" KeyPath="UsingLMIGocatorswithLEonard.pdf"/>
     <ROW Component="UsingUniversalRobotswithLEonard.pdf" ComponentId="{91EF3C16-A92D-4EBA-93AA-14FB5AC4FA20}" Directory_="Documentation_Dir" Attributes="0" KeyPath="UsingUniversalRobotswithLEonard.pdf"/>
     <ROW Component="__init__.py" ComponentId="{49990CBE-4792-4212-A0B6-4CD2A6DE2426}" Directory_="importlib_Dir" Attributes="0" KeyPath="__init__.py_8" Type="0"/>
     <ROW Component="__init__.py_1" ComponentId="{6250E18E-FA4E-498E-AAB8-552E84133B36}" Directory_="xml_Dir" Attributes="0" KeyPath="__init__.py_24" Type="0"/>
     <ROW Component="_uninstall.py" ComponentId="{C0537685-33F9-4BD0-885D-E356D201904D}" Directory_="ensurepip_Dir" Attributes="0" KeyPath="_uninstall.py" Type="0"/>
-    <ROW Component="aa.txt" ComponentId="{34E435AA-B7D4-40E1-AEA9-669F91E9005B}" Directory_="Code_Dir" Attributes="0" KeyPath="aa.txt" Type="0"/>
+    <ROW Component="aa.txt" ComponentId="{34E435AA-B7D4-40E1-AEA9-669F91E9005B}" Directory_="Code_Dir" Attributes="0" KeyPath="CommandInit.js" Type="0"/>
     <ROW Component="abc.py" ComponentId="{D6D976B5-9754-4E3E-9DC0-EA9FD1418D31}" Directory_="Lib_1_Dir" Attributes="0" KeyPath="abc.py" Type="0"/>
     <ROW Component="aliases.py" ComponentId="{727897C4-71B4-4A1F-82A4-4C0DB4B30483}" Directory_="encodings_Dir" Attributes="0" KeyPath="aliases.py" Type="0"/>
     <ROW Component="application.py" ComponentId="{6FB9BA5B-5981-41C1-AC22-34F7F46A9CCF}" Directory_="mime_Dir" Attributes="0" KeyPath="application.py" Type="0"/>
     <ROW Component="archive_util.py" ComponentId="{26CEC387-AA88-4845-AB98-9085A39113D2}" Directory_="distutils_Dir" Attributes="0" KeyPath="archive_util.py" Type="0"/>
+    <ROW Component="assert.txt" ComponentId="{673571AC-E2B9-4798-B94C-C09B974AA3A6}" Directory_="Functions_Dir" Attributes="0" KeyPath="assert.txt" Type="0"/>
     <ROW Component="base64mime.py" ComponentId="{EE0AADEA-D41A-4846-9390-CE95C6B5D886}" Directory_="email_Dir" Attributes="0" KeyPath="base64mime.py" Type="0"/>
     <ROW Component="bdist.py" ComponentId="{E13AF539-AD0A-46F0-8E40-82825B4FDDC2}" Directory_="command_Dir" Attributes="0" KeyPath="bdist.py" Type="0"/>
     <ROW Component="btm_matcher.py" ComponentId="{811F4185-EFA2-4D88-BAE0-55902E4C45C9}" Directory_="lib2to3_Dir" Attributes="0" KeyPath="btm_matcher.py" Type="0"/>
@@ -258,9 +271,8 @@
     <ROW Component="dyld.py" ComponentId="{E403F247-36B8-4DA4-8BA3-A7077407CEDE}" Directory_="macholib_Dir" Attributes="0" KeyPath="dyld.py" Type="0"/>
     <ROW Component="expat.py" ComponentId="{2A89F734-4D67-4125-B54D-AEF74B01BBDA}" Directory_="parsers_Dir" Attributes="0" KeyPath="expat.py" Type="0"/>
     <ROW Component="expatreader.py" ComponentId="{D398AE7A-8201-4462-868C-204C349E4016}" Directory_="sax_Dir" Attributes="0" KeyPath="expatreader.py" Type="0"/>
-    <ROW Component="f47048fc0b34ef9a9d7e75eb6b300de.vsidx" ComponentId="{E3D69117-2ACD-4B3E-9431-780FED1B5925}" Directory_="FileContentIndex_Dir" Attributes="0" KeyPath="f47048fc0b34ef9a9d7e75eb6b300de.vsidx" Type="0"/>
     <ROW Component="fix_apply.py" ComponentId="{2AFAE387-C5DE-466B-9798-FCC4F8589DA0}" Directory_="fixes_Dir" Attributes="0" KeyPath="fix_apply.py" Type="0"/>
-    <ROW Component="globals.txt" ComponentId="{927D2ACC-A3CB-45F4-BFB3-A816076E475E}" Directory_="Examples_Dir" Attributes="0" KeyPath="globals.txt" Type="0"/>
+    <ROW Component="globals.txt" ComponentId="{927D2ACC-A3CB-45F4-BFB3-A816076E475E}" Directory_="Examples_Dir" Attributes="0" KeyPath="HelloWorlds.txt" Type="0"/>
     <ROW Component="handlers.py" ComponentId="{1AF3C090-EC0F-4B64-9CEB-70E8CDE4BCBB}" Directory_="wsgiref_Dir" Attributes="0" KeyPath="handlers.py_1" Type="0"/>
     <ROW Component="leSendTestsJava.txt" ComponentId="{5C17C18B-14C2-45F4-85D3-F3DD1E40C8A1}" Directory_="Java_Dir" Attributes="0" KeyPath="leSendTestsJava.txt" Type="0"/>
     <ROW Component="leSendTestsLEScript.txt" ComponentId="{75641D2C-AA0C-4BF7-B0B9-A58AA5E027E6}" Directory_="System_Dir" Attributes="0" KeyPath="leSendTestsLEScript.txt" Type="0"/>
@@ -272,7 +284,6 @@
     <ROW Component="signature.p7s" ComponentId="{80A9AABF-532C-4ACC-A080-BB4AAA040DD4}" Directory_="Jint.2.11.58_Dir" Attributes="0" KeyPath="signature.p7s" Type="0"/>
     <ROW Component="signature.p7s_1" ComponentId="{D6AA4B89-A7D6-40B0-8AB0-8BCA34503321}" Directory_="NLog.4.7.13_Dir" Attributes="0" KeyPath="signature.p7s_1" Type="0"/>
     <ROW Component="signature.p7s_2" ComponentId="{31ED4C54-CE80-4830-8133-79AB2C67F10E}" Directory_="NLog.Windows.Forms.4.5.0_Dir" Attributes="0" KeyPath="signature.p7s_2" Type="0"/>
-    <ROW Component="suo" ComponentId="{AC88CC6C-DC27-4458-8470-CE3D3FD3D7B9}" Directory_="v17_Dir" Attributes="0" KeyPath="suo" Type="0"/>
     <ROW Component="topics.py" ComponentId="{C13FB896-576C-4DDA-98B2-68FA368C2B9B}" Directory_="pydoc_data_Dir" Attributes="0" KeyPath="topics.py" Type="0"/>
     <ROW Component="util.py" ComponentId="{961EBA93-E5CE-403F-9645-9C30CC53E559}" Directory_="ctypes_Dir" Attributes="0" KeyPath="util.py" Type="0"/>
     <ROW Component="x11vnc" ComponentId="{B9F9F967-EB97-47FF-B097-250A891BBD3B}" Directory_="script_Dir" Attributes="0" KeyPath="x11vnc" Type="0"/>
@@ -303,11 +314,9 @@
     <ROW File="ReadMe.txt" Component_="ReadMe.txt" FileName="ReadMe.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install\ReadMe.txt" SelfReg="false"/>
     <ROW File="x11vnc" Component_="x11vnc" FileName="x11vnc" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install\script\x11vnc" SelfReg="false"/>
     <ROW File="urmagic_x11vnc.sh" Component_="ReadMe.txt" FileName="URMAGI~1.SH|urmagic_x11vnc.sh" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install\urmagic_x11vnc.sh" SelfReg="false"/>
-    <ROW File="aa.txt" Component_="aa.txt" FileName="aa.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\aa.txt" SelfReg="false"/>
     <ROW File="CommandInit.js" Component_="aa.txt" FileName="COMMAN~1.JS|CommandInit.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\CommandInit.js" SelfReg="false"/>
     <ROW File="CommandInit.py" Component_="aa.txt" FileName="COMMAN~1.PY|CommandInit.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\CommandInit.py" SelfReg="false"/>
     <ROW File="datamantrigger.js" Component_="aa.txt" FileName="DATAMA~1.JS|datamantrigger.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\datamantrigger.js" SelfReg="false"/>
-    <ROW File="globals.txt" Component_="globals.txt" FileName="globals.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\globals.txt" SelfReg="false"/>
     <ROW File="pOrigin.txt" Component_="pOrigin.txt" FileName="00PORI~1.TXT|00p Origin.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\00p Origin.txt" SelfReg="false"/>
     <ROW File="pProbeAlignment.txt" Component_="pOrigin.txt" FileName="01PPRO~1.TXT|01p Probe Alignment.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\01p Probe Alignment.txt" SelfReg="false"/>
     <ROW File="pStaticRepeatability.txt" Component_="pOrigin.txt" FileName="10PSTA~1.TXT|10p Static Repeatability.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\10p Static Repeatability.txt" SelfReg="false"/>
@@ -405,28 +414,19 @@
     <ROW File="ExecTest.txt" Component_="aa.txt" FileName="EXECTE~1.TXT|Exec Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Exec Test.txt" SelfReg="false"/>
     <ROW File="filetest.py" Component_="aa.txt" FileName="filetest.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\filetest.py" SelfReg="false"/>
     <ROW File="filetest.txt_1" Component_="aa.txt" FileName="filetest.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\filetest.txt" SelfReg="false"/>
-    <ROW File="footest.py" Component_="aa.txt" FileName="footest.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\footest.py" SelfReg="false"/>
     <ROW File="gc_trigger.txt" Component_="aa.txt" FileName="GC_TRI~1.TXT|gc_trigger.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\gc_trigger.txt" SelfReg="false"/>
     <ROW File="gocatortrigger.js" Component_="aa.txt" FileName="GOCATO~1.JS|gocator trigger.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\gocator trigger.js" SelfReg="false"/>
     <ROW File="inch_conversions.txt" Component_="aa.txt" FileName="INCH_C~1.TXT|inch_conversions.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\inch_conversions.txt" SelfReg="false"/>
-    <ROW File="JavaPrint1.js" Component_="aa.txt" FileName="JAVAPR~1.JS|JavaPrint1.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\JavaPrint1.js" SelfReg="false"/>
-    <ROW File="JavaPrint2.js" Component_="aa.txt" FileName="JAVAPR~2.JS|JavaPrint2.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\JavaPrint2.js" SelfReg="false"/>
     <ROW File="csv_addons.py" Component_="csv_addons.py" FileName="CSV_AD~1.PY|csv_addons.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Lib\csv_addons.py" SelfReg="false"/>
     <ROW File="leGocatorSupport.py" Component_="csv_addons.py" FileName="LEGOCA~1.PY|leGocatorSupport.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Lib\leGocatorSupport.py" SelfReg="false"/>
     <ROW File="Manual001LEScriptExample.txt" Component_="aa.txt" FileName="MANUAL~1.TXT|Manual001 LEScript Example.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Manual001 LEScript Example.txt" SelfReg="false"/>
     <ROW File="Manual002JavaExample.txt" Component_="aa.txt" FileName="MANUAL~2.TXT|Manual002 Java Example.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Manual002 Java Example.txt" SelfReg="false"/>
     <ROW File="Manual003PythonExample.txt" Component_="aa.txt" FileName="MANUAL~3.TXT|Manual003 Python Example.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Manual003 Python Example.txt" SelfReg="false"/>
     <ROW File="MoveTest.txt_1" Component_="aa.txt" FileName="MoveTest.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\MoveTest.txt" SelfReg="false"/>
-    <ROW File="PythonPrint1.py" Component_="aa.txt" FileName="PYTHON~1.PY|PythonPrint1.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\PythonPrint1.py" SelfReg="false"/>
-    <ROW File="PythonPrint2.py" Component_="aa.txt" FileName="PYTHON~2.PY|PythonPrint2.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\PythonPrint2.py" SelfReg="false"/>
-    <ROW File="tt1.py" Component_="aa.txt" FileName="tt1.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\tt1.py" SelfReg="false"/>
     <ROW File="ur_init.py" Component_="aa.txt" FileName="ur_init.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\ur_init.py" SelfReg="false"/>
     <ROW File="LEonardUserManual.pdf" Component_="LEonardUserManual.pdf" FileName="LEONAR~1.PDF|LEonard User Manual.pdf" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Documentation\LEonard User Manual.pdf" SelfReg="false"/>
     <ROW File="UsingLMIGocatorswithLEonard.pdf" Component_="UsingLMIGocatorswithLEonard.pdf" FileName="USINGL~1.PDF|Using LMI Gocators with LEonard.pdf" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Documentation\Using LMI Gocators with LEonard.pdf" SelfReg="false"/>
     <ROW File="UsingUniversalRobotswithLEonard.pdf" Component_="UsingUniversalRobotswithLEonard.pdf" FileName="USINGU~1.PDF|Using Universal Robots with LEonard.pdf" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Documentation\Using Universal Robots with LEonard.pdf" SelfReg="false"/>
-    <ROW File="f47048fc0b34ef9a9d7e75eb6b300de.vsidx" Component_="f47048fc0b34ef9a9d7e75eb6b300de.vsidx" FileName="2F4704~1.VSI|2f47048f-c0b3-4ef9-a9d7-e75eb6b300de.vsidx" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\.vs\LEonardClient\FileContentIndex\2f47048f-c0b3-4ef9-a9d7-e75eb6b300de.vsidx" SelfReg="false"/>
-    <ROW File="read.lock" Component_="f47048fc0b34ef9a9d7e75eb6b300de.vsidx" FileName="READ~1.LOC|read.lock" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\.vs\LEonardClient\FileContentIndex\read.lock" SelfReg="false"/>
-    <ROW File="suo" Component_="suo" FileName="SUO~1|.suo" Attributes="2" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\.vs\LEonardClient\v17\.suo" SelfReg="false"/>
     <ROW File="App.config" Component_="App.config" FileName="APP~1.CON|App.config" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\App.config" SelfReg="false"/>
     <ROW File="App.config_1" Component_="App.config_1" FileName="APP~1.CON|App.config" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\bin\Debug\App.config" SelfReg="false"/>
     <ROW File="Jint.dll_2" Component_="Jint.dll_2" FileName="Jint.dll" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\bin\Debug\Jint.dll" SelfReg="false"/>
@@ -1070,6 +1070,96 @@
     <ROW File="_weakrefset.py" Component_="abc.py" FileName="_WEAKR~1.PY|_weakrefset.py" Attributes="0" SourcePath="..\LEonard\Lib\_weakrefset.py" SelfReg="false"/>
     <ROW File="__future__.py" Component_="abc.py" FileName="__FUTU~1.PY|__future__.py" Attributes="0" SourcePath="..\LEonard\Lib\__future__.py" SelfReg="false"/>
     <ROW File="__phello__.foo.py" Component_="abc.py" FileName="__PHEL~1.PY|__phello__.foo.py" Attributes="0" SourcePath="..\LEonard\Lib\__phello__.foo.py" SelfReg="false"/>
+    <ROW File="aa.txt" Component_="aa.txt" FileName="aa.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\aa.txt" SelfReg="false"/>
+    <ROW File="assert.txt" Component_="assert.txt" FileName="assert.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\assert.txt" SelfReg="false"/>
+    <ROW File="console.txt" Component_="assert.txt" FileName="console.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\console.txt" SelfReg="false"/>
+    <ROW File="exec_java.txt" Component_="assert.txt" FileName="EXEC_J~1.TXT|exec_java.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\exec_java.txt" SelfReg="false"/>
+    <ROW File="exec_python.txt" Component_="assert.txt" FileName="EXEC_P~1.TXT|exec_python.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\exec_python.txt" SelfReg="false"/>
+    <ROW File="import_test_data.txt" Component_="assert.txt" FileName="IMPORT~1.TXT|import_test_data.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\import_test_data.txt" SelfReg="false"/>
+    <ROW File="le_clear_variables.txt" Component_="assert.txt" FileName="LE_CLE~1.TXT|le_clear_variables.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\le_clear_variables.txt" SelfReg="false"/>
+    <ROW File="le_import_variables.txt" Component_="assert.txt" FileName="LE_IMP~1.TXT|le_import_variables.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\le_import_variables.txt" SelfReg="false"/>
+    <ROW File="log.txt" Component_="assert.txt" FileName="log.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\log.txt" SelfReg="false"/>
+    <ROW File="random.txt" Component_="assert.txt" FileName="random.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\random.txt" SelfReg="false"/>
+    <ROW File="using_languages.txt" Component_="assert.txt" FileName="USING_~1.TXT|using_languages.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\using_languages.txt" SelfReg="false"/>
+    <ROW File="variables.txt" Component_="assert.txt" FileName="VARIAB~1.TXT|variables.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\variables.txt" SelfReg="false"/>
+    <ROW File="JavaPrint1.js" Component_="leSendTestsJava.txt" FileName="JAVAPR~1.JS|JavaPrint1.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Java\JavaPrint1.js" SelfReg="false"/>
+    <ROW File="JavaPrint2.js" Component_="leSendTestsJava.txt" FileName="JAVAPR~2.JS|JavaPrint2.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Java\JavaPrint2.js" SelfReg="false"/>
+    <ROW File="PythonPrint1.py" Component_="leSendTestsPython.txt" FileName="PYTHON~1.PY|PythonPrint1.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\PythonPrint1.py" SelfReg="false"/>
+    <ROW File="PythonPrint2.py" Component_="leSendTestsPython.txt" FileName="PYTHON~2.PY|PythonPrint2.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\PythonPrint2.py" SelfReg="false"/>
+    <ROW File="footest.py" Component_="aa.txt" FileName="footest.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\footest.py" SelfReg="false"/>
+    <ROW File="tt1.py" Component_="aa.txt" FileName="tt1.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\tt1.py" SelfReg="false"/>
+    <ROW File="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="NETFRA~1.CS|.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" SelfReg="false"/>
+    <ROW File="NETFrameworkVersionv4.8.AssemblyAttributes.cs" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="NETFRA~2.CS|.NETFramework,Version=v4.8.AssemblyAttributes.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" SelfReg="false"/>
+    <ROW File="DesignTimeResolveAssemblyReferences.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="DESIGN~1.CAC|DesignTimeResolveAssemblyReferences.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\DesignTimeResolveAssemblyReferences.cache" SelfReg="false"/>
+    <ROW File="DesignTimeResolveAssemblyReferencesInput.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="DESIGN~2.CAC|DesignTimeResolveAssemblyReferencesInput.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.AssemblyReference.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="INTERF~1.CAC|InterfaceTester.csproj.AssemblyReference.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\InterfaceTester.csproj.AssemblyReference.cache" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.CopyComplete" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="INTERF~1.COP|InterfaceTester.csproj.CopyComplete" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\InterfaceTester.csproj.CopyComplete" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.CoreCompileInputs.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="INTERF~2.CAC|InterfaceTester.csproj.CoreCompileInputs.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\InterfaceTester.csproj.CoreCompileInputs.cache" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.FileListAbsolute.txt" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="INTERF~1.TXT|InterfaceTester.csproj.FileListAbsolute.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\InterfaceTester.csproj.FileListAbsolute.txt" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.GenerateResource.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="INTERF~3.CAC|InterfaceTester.csproj.GenerateResource.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\InterfaceTester.csproj.GenerateResource.cache" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.SuggestedBindingRedirects.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="INTERF~4.CAC|InterfaceTester.csproj.SuggestedBindingRedirects.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\InterfaceTester.csproj.SuggestedBindingRedirects.cache" SelfReg="false"/>
+    <ROW File="InterfaceTester.csprojAssemblyReference.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="INTERF~5.CAC|InterfaceTester.csprojAssemblyReference.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\InterfaceTester.csprojAssemblyReference.cache" SelfReg="false"/>
+    <ROW File="LEonardClient.ClientForm.resources" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="LEONAR~1.RES|LEonardClient.ClientForm.resources" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardClient.ClientForm.resources" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.AssemblyReference.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="LEONAR~1.CAC|LEonardClient.csproj.AssemblyReference.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardClient.csproj.AssemblyReference.cache" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.CopyComplete" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="LEONAR~1.COP|LEonardClient.csproj.CopyComplete" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardClient.csproj.CopyComplete" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.CoreCompileInputs.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="LEONAR~2.CAC|LEonardClient.csproj.CoreCompileInputs.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardClient.csproj.CoreCompileInputs.cache" SelfReg="false"/>
+    <ROW File="LeonardClient.csproj.FileListAbsolute.txt" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="LEONAR~1.TXT|LeonardClient.csproj.FileListAbsolute.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LeonardClient.csproj.FileListAbsolute.txt" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.GenerateResource.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="LEONAR~3.CAC|LEonardClient.csproj.GenerateResource.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardClient.csproj.GenerateResource.cache" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.SuggestedBindingRedirects.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="LEONAR~4.CAC|LEonardClient.csproj.SuggestedBindingRedirects.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardClient.csproj.SuggestedBindingRedirects.cache" SelfReg="false"/>
+    <ROW File="LEonardClient.exe_2" Component_="LEonardClient.exe_2" FileName="LEONAR~1.EXE|LEonardClient.exe" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardClient.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="LEonardClient.pdb_2" Component_="LEonardClient.exe_2" FileName="LEONAR~1.PDB|LEonardClient.pdb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardClient.pdb" SelfReg="false"/>
+    <ROW File="LEonardClient.Properties.Resources.resources" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="LEONAR~2.RES|LEonardClient.Properties.Resources.resources" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardClient.Properties.Resources.resources" SelfReg="false"/>
+    <ROW File="LEonardInterfaceTester.exe" Component_="LEonardInterfaceTester.exe" FileName="LEONAR~2.EXE|LEonardInterfaceTester.exe" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardInterfaceTester.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="LEonardInterfaceTester.pdb" Component_="LEonardInterfaceTester.exe" FileName="LEONAR~2.PDB|LEonardInterfaceTester.pdb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardInterfaceTester.pdb" SelfReg="false"/>
+    <ROW File="LEonardInterfaceTester.Properties.Resources.resources" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="LEONAR~3.RES|LEonardInterfaceTester.Properties.Resources.resources" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\LEonardInterfaceTester.Properties.Resources.resources" SelfReg="false"/>
+    <ROW File="TCPClient.csproj.CopyComplete" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TCPCLI~1.COP|TCPClient.csproj.CopyComplete" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPClient.csproj.CopyComplete" SelfReg="false"/>
+    <ROW File="TCPClient.csproj.CoreCompileInputs.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TCPCLI~1.CAC|TCPClient.csproj.CoreCompileInputs.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPClient.csproj.CoreCompileInputs.cache" SelfReg="false"/>
+    <ROW File="TCPClient.csproj.FileListAbsolute.txt" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TCPCLI~1.TXT|TCPClient.csproj.FileListAbsolute.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPClient.csproj.FileListAbsolute.txt" SelfReg="false"/>
+    <ROW File="TCPClient.csproj.GenerateResource.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TCPCLI~2.CAC|TCPClient.csproj.GenerateResource.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPClient.csproj.GenerateResource.cache" SelfReg="false"/>
+    <ROW File="TCPClient.csprojAssemblyReference.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TCPCLI~3.CAC|TCPClient.csprojAssemblyReference.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPClient.csprojAssemblyReference.cache" SelfReg="false"/>
+    <ROW File="TCPClient.exe" Component_="TCPClient.exe" FileName="TCPCLI~1.EXE|TCPClient.exe" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPClient.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="TCPClient.pdb" Component_="TCPClient.exe" FileName="TCPCLI~1.PDB|TCPClient.pdb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPClient.pdb" SelfReg="false"/>
+    <ROW File="TCPListener.csproj.CoreCompileInputs.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TCPLIS~1.CAC|TCPListener.csproj.CoreCompileInputs.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPListener.csproj.CoreCompileInputs.cache" SelfReg="false"/>
+    <ROW File="TCPListener.csproj.FileListAbsolute.txt" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TCPLIS~1.TXT|TCPListener.csproj.FileListAbsolute.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPListener.csproj.FileListAbsolute.txt" SelfReg="false"/>
+    <ROW File="TCPListener.csproj.GenerateResource.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TCPLIS~2.CAC|TCPListener.csproj.GenerateResource.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPListener.csproj.GenerateResource.cache" SelfReg="false"/>
+    <ROW File="TCPListener.exe" Component_="TCPListener.exe" FileName="TCPLIS~1.EXE|TCPListener.exe" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPListener.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="TCPListener.pdb" Component_="TCPListener.exe" FileName="TCPLIS~1.PDB|TCPListener.pdb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPListener.pdb" SelfReg="false"/>
+    <ROW File="TCPListener.Properties.Resources.resources" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TCPLIS~1.RES|TCPListener.Properties.Resources.resources" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TCPListener.Properties.Resources.resources" SelfReg="false"/>
+    <ROW File="TemporaryGeneratedFile_036C0B5B148143238D208F5ADCB23D92.cs" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TEMPOR~1.CS|TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" SelfReg="false"/>
+    <ROW File="TemporaryGeneratedFile_5937a6700e604077877bf7221da3dda1.cs" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TEMPOR~2.CS|TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" SelfReg="false"/>
+    <ROW File="TemporaryGeneratedFile_E7A71F730F8D4B9BB56E8E70B10BC5D3.cs" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="TEMPOR~3.CS|TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" SelfReg="false"/>
+    <ROW File="Properties.Resources.Designer.cs.dll" Component_="Properties.Resources.Designer.cs.dll" FileName="PROPER~1.DLL|Properties.Resources.Designer.cs.dll" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\TempPE\Properties.Resources.Designer.cs.dll" SelfReg="false"/>
+    <ROW File="NETFrameworkVersionv4.8.AssemblyAttributes.cs_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="NETFRA~1.CS|.NETFramework,Version=v4.8.AssemblyAttributes.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\.NETFramework,Version=v4.8.AssemblyAttributes.cs" SelfReg="false"/>
+    <ROW File="DesignTimeResolveAssemblyReferences.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="DESIGN~1.CAC|DesignTimeResolveAssemblyReferences.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\DesignTimeResolveAssemblyReferences.cache" SelfReg="false"/>
+    <ROW File="DesignTimeResolveAssemblyReferencesInput.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="DESIGN~2.CAC|DesignTimeResolveAssemblyReferencesInput.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" SelfReg="false"/>
+    <ROW File="GIBInterfaceTester.exe" Component_="GIBInterfaceTester.exe" FileName="GIBINT~1.EXE|GIB Interface Tester.exe" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\GIB Interface Tester.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="GIBInterfaceTester.pdb" Component_="GIBInterfaceTester.exe" FileName="GIBINT~1.PDB|GIB Interface Tester.pdb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\GIB Interface Tester.pdb" SelfReg="false"/>
+    <ROW File="GibController.ClientForm.resources" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="GIBCON~1.RES|GibController.ClientForm.resources" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\GibController.ClientForm.resources" SelfReg="false"/>
+    <ROW File="GIBController.Properties.Resources.resources" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="GIBCON~2.RES|GIBController.Properties.Resources.resources" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\GIBController.Properties.Resources.resources" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.CopyComplete_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="INTERF~1.COP|InterfaceTester.csproj.CopyComplete" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\InterfaceTester.csproj.CopyComplete" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.CoreCompileInputs.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="INTERF~1.CAC|InterfaceTester.csproj.CoreCompileInputs.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\InterfaceTester.csproj.CoreCompileInputs.cache" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.FileListAbsolute.txt_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="INTERF~1.TXT|InterfaceTester.csproj.FileListAbsolute.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\InterfaceTester.csproj.FileListAbsolute.txt" SelfReg="false"/>
+    <ROW File="InterfaceTester.csproj.GenerateResource.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="INTERF~2.CAC|InterfaceTester.csproj.GenerateResource.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\InterfaceTester.csproj.GenerateResource.cache" SelfReg="false"/>
+    <ROW File="InterfaceTester.csprojAssemblyReference.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="INTERF~3.CAC|InterfaceTester.csprojAssemblyReference.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\InterfaceTester.csprojAssemblyReference.cache" SelfReg="false"/>
+    <ROW File="LEonardClient.ClientForm.resources_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="LEONAR~1.RES|LEonardClient.ClientForm.resources" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.ClientForm.resources" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.AssemblyReference.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="LEONAR~1.CAC|LEonardClient.csproj.AssemblyReference.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.csproj.AssemblyReference.cache" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.CopyComplete_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="LEONAR~1.COP|LEonardClient.csproj.CopyComplete" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.csproj.CopyComplete" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.CoreCompileInputs.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="LEONAR~2.CAC|LEonardClient.csproj.CoreCompileInputs.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.csproj.CoreCompileInputs.cache" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.FileListAbsolute.txt_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="LEONAR~1.TXT|LEonardClient.csproj.FileListAbsolute.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.csproj.FileListAbsolute.txt" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.GenerateResource.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="LEONAR~3.CAC|LEonardClient.csproj.GenerateResource.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.csproj.GenerateResource.cache" SelfReg="false"/>
+    <ROW File="LEonardClient.csproj.SuggestedBindingRedirects.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="LEONAR~4.CAC|LEonardClient.csproj.SuggestedBindingRedirects.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.csproj.SuggestedBindingRedirects.cache" SelfReg="false"/>
+    <ROW File="LEonardClient.exe_3" Component_="LEonardClient.exe_3" FileName="LEONAR~1.EXE|LEonardClient.exe" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="LEonardClient.pdb_3" Component_="LEonardClient.exe_3" FileName="LEONAR~1.PDB|LEonardClient.pdb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.pdb" SelfReg="false"/>
+    <ROW File="LEonardClient.Properties.Resources.resources_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="LEONAR~2.RES|LEonardClient.Properties.Resources.resources" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\LEonardClient.Properties.Resources.resources" SelfReg="false"/>
+    <ROW File="TCPClient.csproj.CopyComplete_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TCPCLI~1.COP|TCPClient.csproj.CopyComplete" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TCPClient.csproj.CopyComplete" SelfReg="false"/>
+    <ROW File="TCPClient.csproj.CoreCompileInputs.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TCPCLI~1.CAC|TCPClient.csproj.CoreCompileInputs.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TCPClient.csproj.CoreCompileInputs.cache" SelfReg="false"/>
+    <ROW File="TCPClient.csproj.FileListAbsolute.txt_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TCPCLI~1.TXT|TCPClient.csproj.FileListAbsolute.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TCPClient.csproj.FileListAbsolute.txt" SelfReg="false"/>
+    <ROW File="TCPClient.csproj.GenerateResource.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TCPCLI~2.CAC|TCPClient.csproj.GenerateResource.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TCPClient.csproj.GenerateResource.cache" SelfReg="false"/>
+    <ROW File="TCPClient.csprojAssemblyReference.cache_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TCPCLI~3.CAC|TCPClient.csprojAssemblyReference.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TCPClient.csprojAssemblyReference.cache" SelfReg="false"/>
+    <ROW File="TemporaryGeneratedFile_036C0B5B148143238D208F5ADCB23D92.cs_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TEMPOR~1.CS|TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" SelfReg="false"/>
+    <ROW File="TemporaryGeneratedFile_5937a6700e604077877bf7221da3dda1.cs_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TEMPOR~2.CS|TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" SelfReg="false"/>
+    <ROW File="TemporaryGeneratedFile_E7A71F730F8D4B9BB56E8E70B10BC5D3.cs_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TEMPOR~3.CS|TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" SelfReg="false"/>
+    <ROW File="Properties.Resources.Designer.cs.dll_1" Component_="Properties.Resources.Designer.cs.dll_1" FileName="PROPER~1.DLL|Properties.Resources.Designer.cs.dll" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TempPE\Properties.Resources.Designer.cs.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiRemoveFileComponent">
     <ROW RemoveFile="_" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)" Options="3"/>
@@ -1081,7 +1171,7 @@
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="Setup Files" PackageFileName="LEonard_22_11_1_0" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install" UseLargeSchema="true" MsiPackageType="x64"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="Setup Files" PackageFileName="LEonard_22_11_1_1" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install" UseLargeSchema="true" MsiPackageType="x64"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -1207,6 +1297,7 @@
     <ROW Action="AI_GetArpIconPath" Type="1" Source="aicustact.dll" Target="GetArpIconPath"/>
     <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_PRESERVE_INSTALL_TYPE" Type="65" Source="aicustact.dll" Target="PreserveInstallType"/>
     <ROW Action="AI_PromptUserBasicUI" Type="1" Source="ResourceCleaner.dll" Target="OnPromptUserBasicUI"/>
     <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH" Target="[AI_SETUPEXEPATH_ORIGINAL]"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
@@ -1228,8 +1319,6 @@
     <ROW Feature_="MainFeature" Component_="LEonard.exe"/>
     <ROW Feature_="MainFeature" Component_="IronPython.dll"/>
     <ROW Feature_="MainFeature" Component_="IronPython.Modules.dll"/>
-    <ROW Feature_="MainFeature" Component_="f47048fc0b34ef9a9d7e75eb6b300de.vsidx"/>
-    <ROW Feature_="MainFeature" Component_="suo"/>
     <ROW Feature_="MainFeature" Component_="App.config"/>
     <ROW Feature_="MainFeature" Component_="App.config_1"/>
     <ROW Feature_="MainFeature" Component_="Jint.dll_2"/>
@@ -1352,6 +1441,17 @@
     <ROW Feature_="MainFeature" Component_="expatreader.py"/>
     <ROW Feature_="MainFeature" Component_="__init__.py_1"/>
     <ROW Feature_="MainFeature" Component_="UsingLMIGocatorswithLEonard.pdf"/>
+    <ROW Feature_="MainFeature" Component_="assert.txt"/>
+    <ROW Feature_="MainFeature" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs"/>
+    <ROW Feature_="MainFeature" Component_="LEonardClient.exe_2"/>
+    <ROW Feature_="MainFeature" Component_="LEonardInterfaceTester.exe"/>
+    <ROW Feature_="MainFeature" Component_="TCPClient.exe"/>
+    <ROW Feature_="MainFeature" Component_="TCPListener.exe"/>
+    <ROW Feature_="MainFeature" Component_="Properties.Resources.Designer.cs.dll"/>
+    <ROW Feature_="MainFeature" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs"/>
+    <ROW Feature_="MainFeature" Component_="GIBInterfaceTester.exe"/>
+    <ROW Feature_="MainFeature" Component_="LEonardClient.exe_3"/>
+    <ROW Feature_="MainFeature" Component_="Properties.Resources.Designer.cs.dll_1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="LEonard.exe" SourcePath="..\LEonard\LEonardIcon.ico" Index="0"/>
@@ -1388,6 +1488,7 @@
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99"/>
     <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101"/>
+    <ROW Action="AI_PRESERVE_INSTALL_TYPE" Sequence="199"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
     <ROW Condition="( Version9X OR ( NOT VersionNT64 ) OR ( VersionNT64 AND ((VersionNT64 &lt;&gt; 600) OR (MsiNTProductType &lt;&gt; 1)) AND ((VersionNT64 &lt;&gt; 600) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 601) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 602) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 603) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 1000) OR (MsiNTProductType = 1)) ) )" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNT64Display]." DescriptionLocId="AI.LaunchCondition.NoSpecificNT64" IsPredefined="true" Builds="DefaultBuild"/>
@@ -1461,7 +1562,14 @@
     <ATTRIBUTE name="UsedTheme" value="classic"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
-    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="769" ActionProperty="OLDPRODUCTS"/>
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.SynchronizedFolderComponent">
+    <ROW Directory_="rdParty_Dir" SourcePath="..\..\..\..\Public\LEonard\3rdParty" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6" FileAddOptions="4"/>
+    <ROW Directory_="Code_Dir" SourcePath="..\..\..\..\Public\LEonard\Code" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6" FileAddOptions="4"/>
+    <ROW Directory_="Documentation_Dir" SourcePath="..\..\..\..\Public\LEonard\Documentation" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6" FileAddOptions="4"/>
+    <ROW Directory_="LEonardClient_Dir" SourcePath="..\..\..\..\Public\LEonard\LEonardClient" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6" FileAddOptions="4"/>
+    <ROW Directory_="Data_Dir" SourcePath="..\..\..\..\Public\LEonard\Data" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6" FileAddOptions="4"/>
   </COMPONENT>
 </DOCUMENT>

@@ -1,16 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "../../../Public/LEonard/Code"
-		},
-		{
-			"path": "../../../Public/LEonard/3rdParty"
-		},
-		{
 			"path": "../../../Public/LEonard/Config"
 		},
 		{
 			"path": "../../../Public/LEonard/Data"
+		},
+		{
+			"path": "MasterFiles"
 		}
 	],
 	"settings": {}

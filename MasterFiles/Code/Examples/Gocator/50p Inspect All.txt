@@ -24,7 +24,7 @@ row = row + 1
 jumpif(row < len(rows), 'next_hole')
 
 end_operation()
-end()
+le_stop()
 
 inspect:
 movel_rel_part(X,Y,Z,0,0,0)

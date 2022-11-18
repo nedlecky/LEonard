@@ -4476,7 +4476,7 @@ namespace LEonard
         /// <param name="message">This is the message to be displayed</param>
         private void le_prompt(string message, bool closeOnReady = false, bool isMotionWait = false)
         {
-            log.Info("PromptOperator(message={0}, closeOnReady={1}, isMotioWait={2}", message, closeOnReady, isMotionWait);
+            log.Info("le_prompt(message={0}, closeOnReady={1}, isMotioWait={2}", message, closeOnReady, isMotionWait);
             waitingForOperatorMessageForm = new MessageDialog(this)
             {
                 Title = "LEonard Prompt",
@@ -5015,6 +5015,14 @@ namespace LEonard
                 return true;
             }
 
+            // All commands are assignment or end with )
+            int parenIndex = command.IndexOf(')');
+            if (parenIndex >= 0 && parenIndex != command.Length - 1)
+            {
+                ExecError("Illegal line contains characters after ')'");
+                return true;
+            }
+
             // Language Selection Functions
             // using_lescript
             if (command == "using_lescript()")
@@ -5163,77 +5171,24 @@ namespace LEonard
             }
 
             // Flow Control
-
-            // end
-            if (command == "end()" || command == "end")
-            {
-                return false;
-            }
-
-            // pause
-            if (command == "pause()" || command == "pause")
+            // le_pause
+            if (command == "le_pause()")
             {
                 RobotAndSystemPause();
                 return true;
             }
 
-            // All other commands are assignment or end with )
-            int parenIndex = command.IndexOf(')');
-            if (parenIndex >= 0 && parenIndex != command.Length - 1)
+            // le_stop
+            if (command == "le_stop()")
             {
-                ExecError("Illegal line contains characters after ')'");
-                return true;
+                return false;
             }
 
-            // sleep
-            if (command.StartsWith("sleep("))
+            // le_prompt
+            if (command.StartsWith("le_prompt("))
             {
-                double sleepSeconds;
-                if (ExtractDoubleParameter(command, out sleepSeconds))
-                    le_sleep(sleepSeconds);
-                return true;
-            }
-
-            // assert
-            if (command.StartsWith("assert("))
-            {
-                string[] parameters = ExtractParameters(command, 2).Split(',');
-                if (parameters.Length != 2)
-                {
-                    ExecError("Unknown assert command");
-                    return true;
-                }
-                string value = ReadVariable(parameters[0], null);
-                if (value == null)
-                {
-                    ExecError("Unknown variable in assert command");
-                    return true;
-                }
-                if (value != parameters[1])
-                {
-                    ExecError($"Assertion FAILS\n{value} != {parameters[1]}");
-                    return true;
-                }
-                return true;
-            }
-
-            // system_position
-            if (command.StartsWith("system_position("))
-            {
-                string[] parameters = ExtractParameters(command, 2).Split(',');
-                if (parameters.Length != 2)
-                {
-                    ExecError("Unrecognized system_position command");
-                    return true;
-                }
-                string positionName = parameters[0];
-                string value = ReadPositionJoint(positionName);
-                if (value == null)
-                {
-                    ExecError("Unrecognized position in system_position command");
-                    return true;
-                }
-                SetSystemPosition(positionName, parameters[1] == "True");
+                // This just displays the dialog. ExecTmr will wait for it to close
+                le_prompt(ExtractParameters(command, -1, false));
                 return true;
             }
 
@@ -5243,21 +5198,6 @@ namespace LEonard
                 string labelName = ExtractParameters(command);
 
                 PerformJump(labelName);
-                return true;
-            }
-
-            // call
-            if (command.StartsWith("call("))
-            {
-                string labelName = ExtractParameters(command);
-                PerformCall(labelName);
-                return true;
-            }
-
-            // ret
-            if (command == "ret" || command == "ret()")
-            {
-                PerformReturn();
                 return true;
             }
 
@@ -5310,6 +5250,154 @@ namespace LEonard
                     }
                 }
             }
+
+            // call
+            if (command.StartsWith("call("))
+            {
+                string labelName = ExtractParameters(command);
+                PerformCall(labelName);
+                return true;
+            }
+
+            // ret
+            if (command == "ret" || command == "ret()")
+            {
+                PerformReturn();
+                return true;
+            }
+
+            // sleep
+            if (command.StartsWith("sleep("))
+            {
+                double sleepSeconds;
+                if (ExtractDoubleParameter(command, out sleepSeconds))
+                    le_sleep(sleepSeconds);
+                return true;
+            }
+
+            // assert
+            if (command.StartsWith("assert("))
+            {
+                string[] parameters = ExtractParameters(command, 2).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Unknown assert command");
+                    return true;
+                }
+                string value = ReadVariable(parameters[0], null);
+                if (value == null)
+                {
+                    ExecError("Unknown variable in assert command");
+                    return true;
+                }
+                if (value != parameters[1])
+                {
+                    ExecError($"Assertion FAILS\n{value} != {parameters[1]}");
+                    return true;
+                }
+                return true;
+            }
+
+            // Input File Support
+            // infile_open
+            if (command.StartsWith("infile_open("))
+            {
+                string filename = ExtractParameters(command);
+                if (filename.Length < 1)
+                {
+                    ExecError("No file name specified");
+                    return true;
+                }
+
+                string full_filename = System.IO.Path.Combine(LEonardRoot, DataFolder, filename);
+                if (fileManager == null)
+                    fileManager = new FileManager(this);
+
+                if (fileManager.InputOpen(full_filename))
+                    log.Info($"Input file {full_filename} open");
+                else
+                    ExecError($"Could not open {full_filename}");
+                return true;
+            }
+
+            // infile_close
+            if (command.StartsWith("infile_close("))
+            {
+                // Currently ignored
+                string parameters = ExtractParameters(command);
+                fileManager?.InputClose();
+                return true;
+            }
+
+            // infile_scale
+            if (command.StartsWith("infile_scale("))
+            {
+                string parameters = ExtractParameters(command);
+                if (parameters.Length == 0)
+                {
+                    ExecError($"No parameters provided for infile_scale command");
+                    return true;
+                }
+                string[] paramList = parameters.Split(',');
+                if (paramList.Length % 2 != 0)
+                {
+                    ExecError($"infile_scale(...) requires parameters in pairs");
+                    return true;
+                }
+                for (int i = 0; i < paramList.Length; i += 2)
+                {
+                    try
+                    {
+                        int scaleIndex = Convert.ToInt32(paramList[i]);
+                        double scale = Convert.ToDouble(paramList[i + 1]);
+                        fileManager?.AddScale(scaleIndex, scale);
+                    }
+                    catch
+                    {
+                        ExecError($"infile_scale(...) bad parameter pair: {paramList[i]},{paramList[i + 1]}");
+                        return true;
+                    }
+                }
+                return true;
+            }
+
+            // infile_readline
+            if (command.StartsWith("infile_readline("))
+            {
+                // Currently ignored
+                string parameters = ExtractParameters(command);
+
+                if (fileManager == null || !fileManager.IsInputOpen())
+                {
+                    ExecError($"Input file not open");
+                    return true;
+                }
+
+                fileManager.InputReadLine();
+                return true;
+            }
+
+            // system_position
+            if (command.StartsWith("system_position("))
+            {
+                string[] parameters = ExtractParameters(command, 2).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Unrecognized system_position command");
+                    return true;
+                }
+                string positionName = parameters[0];
+                string value = ReadPositionJoint(positionName);
+                if (value == null)
+                {
+                    ExecError("Unrecognized position in system_position command");
+                    return true;
+                }
+                SetSystemPosition(positionName, parameters[1] == "True");
+                return true;
+            }
+
+
 
             // move_joint
             if (command.StartsWith("move_joint("))
@@ -5520,14 +5608,6 @@ namespace LEonard
                 partGeometryBoxDisabled = false;
 
                 UpdateGeometryToRobot();
-                return true;
-            }
-
-            // le_prompt
-            if (command.StartsWith("le_prompt("))
-            {
-                // This just displays the dialog. ExecTmr will wait for it to close
-                le_prompt(ExtractParameters(command, -1, false));
                 return true;
             }
 
@@ -5854,83 +5934,6 @@ namespace LEonard
                 return true;
             }
 
-            // infile_open
-            if (command.StartsWith("infile_open("))
-            {
-                string filename = ExtractParameters(command);
-                if (filename.Length < 1)
-                {
-                    ExecError("No file name specified");
-                    return true;
-                }
-
-                string full_filename = System.IO.Path.Combine(LEonardRoot, DataFolder, filename);
-                if (fileManager == null)
-                    fileManager = new FileManager(this);
-
-                if (fileManager.InputOpen(full_filename))
-                    log.Info($"Input file {full_filename} open");
-                else
-                    ExecError($"Could not open {full_filename}");
-                return true;
-            }
-
-            // infile_close
-            if (command.StartsWith("infile_close("))
-            {
-                // Currently ignored
-                string parameters = ExtractParameters(command);
-                fileManager?.InputClose();
-                return true;
-            }
-
-            // infile_scale
-            if (command.StartsWith("infile_scale("))
-            {
-                string parameters = ExtractParameters(command);
-                if (parameters.Length == 0)
-                {
-                    ExecError($"No parameters provided for infile_scale command");
-                    return true;
-                }
-                string[] paramList = parameters.Split(',');
-                if (paramList.Length % 2 != 0)
-                {
-                    ExecError($"infile_scale(...) requires parameters in pairs");
-                    return true;
-                }
-                for (int i = 0; i < paramList.Length; i += 2)
-                {
-                    try
-                    {
-                        int scaleIndex = Convert.ToInt32(paramList[i]);
-                        double scale = Convert.ToDouble(paramList[i + 1]);
-                        fileManager?.AddScale(scaleIndex, scale);
-                    }
-                    catch
-                    {
-                        ExecError($"infile_scale(...) bad parameter pair: {paramList[i]},{paramList[i + 1]}");
-                        return true;
-                    }
-                }
-                return true;
-            }
-
-            // infile_readline
-            if (command.StartsWith("infile_readline("))
-            {
-                // Currently ignored
-                string parameters = ExtractParameters(command);
-
-                if (fileManager == null || !fileManager.IsInputOpen())
-                {
-                    ExecError($"Input file not open");
-                    return true;
-                }
-
-                fileManager.InputReadLine();
-                return true;
-            }
 
             // write_cyline_data
             if (command.StartsWith("write_cyline_data("))
@@ -6300,19 +6303,21 @@ namespace LEonard
                     .SetValue("le_log_info", new Action<string>((string msg) => log.Info(msg)))
                     .SetValue("le_log_error", new Action<string>(s => log.Error(s)))
 
+                    .SetValue("le_pause", new Action(() => RobotAndSystemPause()))
+                    .SetValue("le_stop", new Action(() => SetState(RunState.READY)))
                     .SetValue("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)))
-                    .SetValue("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
-                    .SetValue("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)))
-                    .SetValue("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)))
-                    .SetValue("le_clear_variables", new Action(() => ClearNonSystemVariables()))
                     .SetValue("jump", new Action<string>((string labelName) => PerformJump(labelName)))
                     .SetValue("jump_if", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
                     .SetValue("call", new Action<string>((string labelName) => PerformCall(labelName)))
                     .SetValue("call_if", new Action<bool, string>((bool condition, string labelName) => PerformCallIf(condition, labelName)))
                     .SetValue("ret", new Action(() => PerformReturn()))
-                    .SetValue("end", new Action(() => SetState(RunState.READY)))
                     .SetValue("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)))
                     .SetValue("assert", new Func<bool, bool>((bool f) => le_assert(f)))
+
+                    .SetValue("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
+                    .SetValue("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)))
+                    .SetValue("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)))
+                    //.SetValue("le_clear_variables", new Action(() => ClearNonSystemVariables()))
             ;
         }
         private void JavaNewBtn_Click(object sender, EventArgs e)
@@ -6553,19 +6558,22 @@ namespace LEonard
             pythonScope.SetVariable("le_log_info", new Action<string>((string msg) => log.Info(msg)));
             pythonScope.SetVariable("le_log_error", new Action<string>(s => log.Error(s)));
 
+            pythonScope.SetVariable("le_pause", new Action(() => RobotAndSystemPause()));
+            pythonScope.SetVariable("le_stop", new Action(() => SetState(RunState.READY)));
             pythonScope.SetVariable("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)));
-            pythonScope.SetVariable("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
-            pythonScope.SetVariable("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)));
-            pythonScope.SetVariable("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)));
-            pythonScope.SetVariable("le_clear_variables", new Action(() => ClearNonSystemVariables()));
             pythonScope.SetVariable("jump", new Action<string>((string labelName) => PerformJump(labelName)));
             pythonScope.SetVariable("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)));
             pythonScope.SetVariable("call", new Action<string>((string labelName) => PerformCall(labelName)));
             pythonScope.SetVariable("callif", new Action<bool, string>((bool condition, string labelName) => PerformCallIf(condition, labelName)));
             pythonScope.SetVariable("ret", new Action(() => PerformReturn()));
-            pythonScope.SetVariable("end", new Action(() => SetState(RunState.READY)));
             pythonScope.SetVariable("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)));
             pythonScope.SetVariable("assert", new Func<bool, bool>((bool f) => le_assert(f)));
+            
+
+            pythonScope.SetVariable("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
+            pythonScope.SetVariable("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)));
+            pythonScope.SetVariable("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)));
+            pythonScope.SetVariable("le_clear_variables", new Action(() => ClearNonSystemVariables()));
 
 
             // UR Dashboard
