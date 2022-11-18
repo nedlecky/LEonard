@@ -807,4 +807,10 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>robocopy $(SolutionDir)\MasterFiles\3rdParty c:\Users\Public\LEonard\3rdParty /MIR
+robocopy $(SolutionDir)\MasterFiles\Code c:\Users\Public\LEonard\Code /MIR
+robocopy $(SolutionDir)\MasterFiles\Documentation c:\Users\Public\LEonard\Documentation *.pdf
+if %25errorlevel%25 leq 1 exit 0 else exit %25errorlevel%25</PostBuildEvent>
+  </PropertyGroup>
 </Project>
