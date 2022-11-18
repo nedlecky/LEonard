@@ -1,0 +1,24 @@
+#200 Devices
+
+device_disconnect_all()
+
+device_connect(Dataman1)
+
+count=5
+loop:
+sleep(2)
+device_connect(Gocator)
+
+gocator_trigger(100)
+sleep(2)
+
+gocator_trigger(100)
+sleep(2)
+
+device_disconnect(Gocator)
+
+count--
+jump_gt_zero(count,loop)
+
+
+#device_connect(UR-5eDash)

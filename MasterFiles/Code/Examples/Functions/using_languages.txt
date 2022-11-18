@@ -1,0 +1,24 @@
+# using_languages
+# Test moving between languages
+
+le_print(using_language)
+le_print(le_language = {le_language})
+
+using_java()
+le_print('le_language = ' + le_language)
+
+using_lescript()
+le_print(le_language = {le_language})
+
+using_python()
+le_print('le_language = ' + le_language)
+
+using_lescript()
+le_print(le_language = {le_language})
+
+using_python()
+le_print('le_language = ' + le_language)
+
+using_java()
+le_print('le_language = ' + le_language)
+

@@ -1,0 +1,28 @@
+using_lescript()
+test1 = 3.0
+le_print({LEonardLanguage} test1={test1})
+exec_java(Code/JavaPrint1.js)
+exec_java(Code/JavaPrint2.js)
+exec_python(Code/PythonPrint1.py)
+exec_python(Code/PythonPrint2.py)
+
+using_java()
+le_print('Language = ' + LEonardLanguage)
+test1 = 13.1
+test1++
+test1 = test1 * 13.25
+d = [1, 2, 3]
+le_print('java le_print start ' + test1)
+le_print(DM1_result)
+le_print('java le_print end')
+le_print(d)
+
+using_python()
+le_print(LEonardLanguage)
+le_print('python le_print start')
+a = {1, 2, 3}
+b=[3,8,[1,2]]
+le_print(DM2_result)
+le_print(str(a))
+le_print(str(b))
+le_print('python le_print end')

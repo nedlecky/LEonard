@@ -1,0 +1,13 @@
+# console
+
+le_log_info(LEScript LogInfo)
+le_log_error(LEScript LogError)
+
+using_java()
+le_log_info('Java LogInfo')
+le_log_error('Java LogError')
+
+using_python()
+le_log_info('Python LogInfo')
+le_log_error('Python LogError')
+

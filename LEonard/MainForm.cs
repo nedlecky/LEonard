@@ -5101,16 +5101,31 @@ namespace LEonard
                 return true;
             }
 
-            // Console I/O
-            // le_print
-            void le_print(string s)
+            // le_random
+            if (command.StartsWith("le_random("))
             {
-                log.Info("LE** " + s);
-                Console.WriteLine(s);
+                double[] randomParams;
+                if (ExtractDoubleParameters(command, 3, out randomParams))
+                {
+                    int n = (int)randomParams[0];
+                    double low = randomParams[1];
+                    double high = randomParams[2];
+                    for (int i = 0; i < n; i++)
+                    {
+                        double r = low + random.NextDouble() * (high - low);
+                        WriteVariable($"rnd{i + 1}", $"{r:0.000000}");
+                    }
+                }
+                return true;
             }
+
+            // Console Control
+            // le_print
             if (command.StartsWith("le_print("))
             {
-                le_print(ExtractParameters(command, -1, false));
+                string s = ExtractParameters(command, -1, false);
+                log.Info("LPR:" + s);
+                Console.WriteLine(s);
                 return true;
             }
 
@@ -5129,6 +5144,21 @@ namespace LEonard
             if (command == ("le_clear_console()"))
             {
                 consoleForm.Clear();
+                return true;
+            }
+
+            // Logging
+            // le_log_info
+            if (command.StartsWith("le_log_info("))
+            {
+                log.Info(ExtractParameters(command, -1, false));
+                return true;
+            }
+
+            // le_log_error
+            if (command.StartsWith("le_log_error("))
+            {
+                log.Error(ExtractParameters(command, -1, false));
                 return true;
             }
 
@@ -5161,24 +5191,6 @@ namespace LEonard
                 double sleepSeconds;
                 if (ExtractDoubleParameter(command, out sleepSeconds))
                     le_sleep(sleepSeconds);
-                return true;
-            }
-
-            // random
-            if (command.StartsWith("random("))
-            {
-                double[] randomParams;
-                if (ExtractDoubleParameters(command, 3, out randomParams))
-                {
-                    int n = (int)randomParams[0];
-                    double low = randomParams[1];
-                    double high = randomParams[2];
-                    for (int i = 0; i < n; i++)
-                    {
-                        double r = low + random.NextDouble() * (high - low);
-                        WriteVariable($"rnd{i + 1}", $"{r:0.000000}");
-                    }
-                }
                 return true;
             }
 
@@ -6226,7 +6238,7 @@ namespace LEonard
 
         bool le_sleep(double sleepSeconds)
         {
-            log.Info($"EXEC {lineCurrentlyExecuting:0000}: [SLEEP({sleepSeconds:0.000})]");
+            log.Info($"EXEC {lineCurrentlyExecuting:0000}: le_sleep({sleepSeconds:0.000})");
             sleepMs = sleepSeconds * 1000.0;
             sleepTimer = new Stopwatch();
             sleepTimer.Start();
@@ -6265,7 +6277,7 @@ namespace LEonard
         private void le_print_java(string msg)
         {
             CrawlRTB(JavaConsoleRTB, msg);
-            log.Info("JV** " + msg);
+            log.Info("JPR:" + msg);
             Console.WriteLine(msg);
         }
         private void InitializeJavaEngine()
@@ -6285,12 +6297,13 @@ namespace LEonard
                     .SetValue("le_show_console", new Action<bool>((bool f) => le_show_console(f)))
                     .SetValue("le_clear_console", new Action(() => le_clear_console()))
 
+                    .SetValue("le_log_info", new Action<string>((string msg) => log.Info(msg)))
+                    .SetValue("le_log_error", new Action<string>(s => log.Error(s)))
+
                     .SetValue("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)))
                     .SetValue("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
                     .SetValue("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)))
                     .SetValue("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)))
-                    .SetValue("le_log_info", new Action<string>((string msg) => log.Info(msg)))
-                    .SetValue("le_log_error", new Action<string>(s => log.Error(s)))
                     .SetValue("le_clear_variables", new Action(() => ClearNonSystemVariables()))
                     .SetValue("jump", new Action<string>((string labelName) => PerformJump(labelName)))
                     .SetValue("jump_if", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
@@ -6503,7 +6516,7 @@ namespace LEonard
         private void le_print_python(string msg)
         {
             CrawlRTB(PythonConsoleRTB, msg);
-            log.Info("PY** " + msg);
+            log.Info("PPR:" + msg);
             Console.WriteLine(msg);
         }
         private void InitializePythonEngine()
@@ -6537,12 +6550,13 @@ namespace LEonard
             pythonScope.SetVariable("le_show_console", new Action<bool>((bool f) => le_show_console(f)));
             pythonScope.SetVariable("le_clear_console", new Action(() => le_clear_console()));
 
+            pythonScope.SetVariable("le_log_info", new Action<string>((string msg) => log.Info(msg)));
+            pythonScope.SetVariable("le_log_error", new Action<string>(s => log.Error(s)));
+
             pythonScope.SetVariable("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)));
             pythonScope.SetVariable("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
             pythonScope.SetVariable("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)));
             pythonScope.SetVariable("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)));
-            pythonScope.SetVariable("le_log_info", new Action<string>((string msg) => log.Info(msg)));
-            pythonScope.SetVariable("le_log_error", new Action<string>(s => log.Error(s)));
             pythonScope.SetVariable("le_clear_variables", new Action(() => ClearNonSystemVariables()));
             pythonScope.SetVariable("jump", new Action<string>((string labelName) => PerformJump(labelName)));
             pythonScope.SetVariable("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)));

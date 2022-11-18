@@ -1,0 +1,7 @@
+# random
+
+le_clear_variables()
+
+le_random(3,10,20)
+
+le_print({rnd1}, {rnd2}, {rnd3})

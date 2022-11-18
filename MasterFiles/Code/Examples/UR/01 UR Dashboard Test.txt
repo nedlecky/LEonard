@@ -1,0 +1,16 @@
+# 300 UR Dashboard Test
+
+ur_dashboard(robotmode)
+ur_dashboard(safetystatus)
+
+ur_dashboard(get robot model)
+ur_dashboard(get serial number)
+ur_dashboard(PolyscopeVersion)
+
+ur_dashboard(stop)
+
+device_disconnect(UR-5eCommand)
+sleep(1)
+device_connect(UR-5eCommand)
+
+ur_dashboard(play)

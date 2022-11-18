@@ -1,0 +1,6 @@
+# import_test_data.txt
+
+foo1 = 123
+foo2 = 234abc
+
+count1 = 4.5

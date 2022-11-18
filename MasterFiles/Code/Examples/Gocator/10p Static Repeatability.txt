@@ -1,0 +1,17 @@
+# 10p Static Repeatability
+exec_python(Lib/leGocatorSupport.py)
+output_datafile = {LEScriptFilename}
+using_python()
+
+start_operation()
+
+movel_rel_part(0.025,0.100,0,0,0,0)
+
+count = 5
+loop:
+gocator_trigger(1000)
+write_results(output_datafile,'static_pose')
+count = count - 1
+jumpif(count > 0, 'loop')
+
+end_operation()

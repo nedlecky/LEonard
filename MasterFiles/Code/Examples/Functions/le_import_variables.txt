@@ -1,0 +1,13 @@
+# le_import_variables
+
+foo1 = stuff
+assert(foo1,stuff) # should pass
+le_clear_variables()
+assert(foo1,stuff) # should fail
+
+le_import_variables()    # should fail
+le_import_variables(xyz) # should fail
+le_import_variables(Examples/Functions/import_test_data.txt)  # should pass
+
+assert(foo1,123) # should pass
+assert(foo2,234abc) # should pass

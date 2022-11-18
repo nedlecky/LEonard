@@ -1,0 +1,4 @@
+move_linear(cp_origin)
+move_linear(p_start)
+gocator_trigger(1000)
+move_linear(cp_origin)

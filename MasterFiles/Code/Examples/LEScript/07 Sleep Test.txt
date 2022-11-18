@@ -1,0 +1,9 @@
+# 07 Sleep Test
+
+le_prompt(Hit Enter then I should be back in 2 seconds!)
+
+sleep(2)
+
+le_prompt(How was that? Next we'll try 5.5 and exit!)
+
+sleep(5.5)

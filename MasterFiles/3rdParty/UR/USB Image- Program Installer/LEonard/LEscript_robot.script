@@ -1,0 +1,1742 @@
+# File: LEscript_robot.script
+# Project: LEonard
+# Author: Ned Lecky, Lecky Engineering LLC
+# Purpose: LEonard Robot Control Support
+
+global robot_version = "2022-06-17"
+
+global response = "unknown"
+global robot_index = 0
+global robot_checkvalue = 0
+
+global robot_linear_speed_mps = 0.2
+global robot_linear_accel_mpss = 0.4
+global robot_blend_radius_m = 0.003
+global robot_joint_speed_rps = 1.0
+global robot_joint_accel_rpss = 4.0
+global robot_tcp = p[0, 0, 0.175, 0, 0, 0]
+global robot_tcp_part = robot_tcp
+global robot_payload_mass_kg = 1.0
+global robot_payload_cog_m = [0, 0, 0.50]
+# Geometry [1=FLAT 2=CYL 3=SPHERE, diameter_mm)
+global robot_part_geometry = [0, 0]
+global robot_door_closed_input = [-1, -1]
+global robot_footswitch_pressed_input = [-1, -1]
+global robot_tool_on_outputs = [-1, -1, -1, -1, -1, -1, -1, -1]
+global robot_tool_off_outputs = [-1, -1, -1, -1, -1, -1, -1, -1]
+global robot_coolant_on_outputs = [-1, -1, -1, -1, -1, -1, -1, -1]
+global robot_coolant_off_outputs = [-1, -1, -1, -1, -1, -1, -1, -1]
+global robot_freedrive_mode = 0
+
+def init_autogrind():
+  speed_setter(robot_linear_speed_mps * 1000.0)
+  #init_cycline_coeffs()
+end
+
+# command should be[nElements,index,checkval,param[0],param[1],...]
+# put index into robot_index
+# validate checkval
+# Remove both from command so we get command = [nElements-2, param[0], param[1],...]
+#global command = [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]
+def command_validate():
+  # must be at least index, check, and 1 param
+  if command[0] < 3:
+    command[0] = 0
+    return False
+  end
+
+  # Now make sure checksum matches what we expect
+  global test_index = command[1]
+  global test_checksum = command[2]
+  if test_checksum != 1000 - test_index:
+    command[0] = 0
+    return False
+  end
+
+  # Now if we are still in the grind state and we are not getting a grind command (40) make sure we're are off the part!
+  if grind_process_state and command[3] != 40:
+    # Using set_grind_process_state which assumes robot_tcp_part!
+    iset_tcp(robot_tcp_part)
+    set_grind_process_state(False)
+    iset_tcp(robot_tcp)
+  end
+
+  # Slide the robot commands and parameters back in command[] to remove the index and checksum
+  local i = 3
+  while (i < command[0] + 1):
+    command[i-2] = command[i]
+    i = i + 1
+  end
+  command[i-1] = 0
+  command[i-2] = 0
+  command[0] = command[0] - 2    # 2 fewer elements in the array now!
+
+  global robot_index = test_index
+  return True
+end
+
+# Call this when starting command execution
+def command_start():
+  global last_comand = command
+
+  # This one signifies we're starting a new command!
+  global robot_starting = robot_index
+  socket_send_number("robot_starting", robot_starting)
+  socket_send_bool("robot_ready", False)
+end
+
+# Call this when a command is complete
+def command_finish():
+  local retval = "robot_response=" + response + "#robot_ready=True"
+  socket_send_line(retval)
+
+  global robot_completed = robot_index
+  socket_send_number("robot_completed", robot_completed)
+end
+
+# Move Interface
+def move_interface():
+  if command[2] == 10:
+    # get_actual_tcp_pose  Send get_actual_tcp_pose() to socket
+    local p = iget_actual_tcp_pose()
+    socket_send_pose("actual_tcp_pose", p)
+    global response = "get_actual_tcp_pose()"
+  elif command[2] == 11:
+    # get_target_tcp_pose  Send get_target_tcp_pose() to socket
+    local p = iget_target_tcp_pose()
+    socket_send_pose("target_tcp_pose", p)
+    global response = "get_target_tcp_pose()"
+  elif command[2] == 12:
+    # get_actual_joint_positions  Send get_actual_joint_positions() to socket
+    local p = iget_actual_joint_positions()
+    socket_send_joints("actual_joint_positions", p)
+    global response = "get_actual_joint_positions()"
+  elif command[2] == 13:
+    # get_target_joint_positions  Send get_target_joint_positions() to socket
+    local p = iget_target_joint_positions()
+    socket_send_joints("target_joint_positions", p)
+    global response = "get_target_joint_positions()"
+  elif command[2] == 14:
+    # get_actual_both  Send both actual joints and pose to socket
+    socket_send_joints("actual_joint_positions", iget_actual_joint_positions())
+    socket_send_pose("actual_tcp_pose", iget_actual_tcp_pose())
+    global response = "get_actual_both()"
+  elif command[2] == 15:
+    # get_target_both  Send both target joints and pose to socket
+    socket_send_joints("target_joint_positions", iget_target_joint_positions())
+    socket_send_pose("target_tcp_pose", iget_target_tcp_pose())
+    global response = "get_actual_both()"
+  elif command[2] == 16:
+    # movej  Movej to joints
+    local q = [command[3], command[4], command[5], command[6], command[7], command[8]]
+    start_listen_halt_thread()
+    imovej_int(q, a = robot_joint_accel_rpss, v = robot_joint_speed_rps)
+    stop_listen_halt_thread()
+    global response = "movej()"
+  elif command[2] == 17:
+    # movel  Movel to pose
+    local p = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+    start_listen_halt_thread()
+    imovel_int(p, a = robot_linear_accel_mpss, v = robot_linear_speed_mps)
+    stop_listen_halt_thread()
+    global response = "movel()"
+  elif command[2] == 18:
+    # get_tcp_offset  Send get_tcp_offset() result to socket
+    local p = iget_tcp_offset()
+    socket_send_pose("tcp_offset", p)
+    global response = "get_tcp_offset()"
+  elif command[2] == 20:
+    # movel_incr_base  Movel incrementally in base coordinates
+    local p0 = iget_target_tcp_pose()
+    local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+    local p2 = pose_add(p0, p1)
+    start_listen_halt_thread()
+    if p1[0] == 0 and p1[1] == 0 and p1[2] == 0:  # Rotational move
+      imovel_int(p2, robot_joint_accel_rpss, robot_joint_speed_rps)
+    else:
+      imovel_int(p2, robot_linear_accel_mpss, robot_linear_speed_mps)
+    end
+    stop_listen_halt_thread()
+    global response = "movel_incr_base()"
+  elif command[2] == 21:
+    # movel_incr_tool  Movel incrementally in tool TCP coordinates
+    local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+    local p2 = pose_trans(iget_target_tcp_pose(), p1)
+    start_listen_halt_thread()
+    if p1[0] == 0 and p1[1] == 0 and p1[2] == 0:  # Rotational move
+      imovel_int(p2, robot_joint_accel_rpss, robot_joint_speed_rps)
+    else:
+      imovel_int(p2, robot_linear_accel_mpss, robot_linear_speed_mps)
+    end
+    stop_listen_halt_thread()
+    global response = "movel_incr_tool()"
+  elif command[2] == 22:
+    # movel_incr_part  Movel incrementally in part TCP coordinates
+    local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+    start_listen_halt_thread()
+    iset_tcp(robot_tcp_part)
+
+    local origin0 = draw_p_origin 
+
+    draw_origin(iget_target_tcp_pose())
+    speed_setter(robot_linear_speed_mps * 1000.0)
+    drawgi_finish(p1)
+
+    draw_origin(origin0)
+    draw_sync_current_dp(iget_target_tcp_pose())
+
+    stop_listen_halt_thread()
+    iset_tcp(robot_tcp)
+    global response = "movel_incr_part()"
+  elif command[2] == 30:
+    # movel_single_axis  Change one element of current pose and movel there
+    local index = command[3]
+    local val = command[4]
+    local p = iget_target_tcp_pose()
+    p[index] = val
+    start_listen_halt_thread()
+    if index < 3:  # Translational
+      imovel_int(p, a = robot_linear_accel_mpss, v = robot_linear_speed_mps)
+    else:
+      imovel_int(p, a = robot_joint_accel_rpss, v = robot_joint_speed_rps)
+    end
+    stop_listen_halt_thread()
+    global response = "movel_single_axis()"
+  elif command[2] == 31:
+    # movel_rot_only  Change only rotation elements of current pose and movel there
+    # Angles set to 999 are ignored!
+    local p1 = iget_target_tcp_pose()
+    local rx = command[3]
+    local ry = command[4]
+    local rz = command[5]
+    if rx != 999:
+      p1[3] = rx
+    end
+    if ry != 999:
+      p1[4] = ry
+    end
+    if rz != 999:
+      p1[5] = rz
+    end
+    start_listen_halt_thread()
+    imovel_int(p1, a = robot_joint_accel_rpss, v = robot_joint_speed_rps)
+    stop_listen_halt_thread()
+    global response = "movel_rot_only()"
+  elif command[2] == 40:
+    # movel_rel_set_tool_origin  Set draw origin for tool
+    # If no params sent, uses get_target_tcp_pose. Otherwise uses specified pose
+    if command[0] != 8:
+      local p0 = iget_target_tcp_pose()
+    else:
+      local p0 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+    end
+    draw_origin(p0)
+    socket_send_pose("movel_rel_tool_origin", p0)
+    global response = "movel_rel_set_tool_origin()"
+  elif command[2] == 41:
+    # movel_rel_set_part_origin  Set draw origin for part
+    # If no params sent, uses get_target_tcp_pose. Otherwise uses specified pose
+    iset_tcp(robot_tcp_part)
+    if command[0] != 8:
+      local p0 = iget_target_tcp_pose()
+    else:
+      local p0 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+    end
+    draw_origin(p0)
+    socket_send_pose("movel_rel_part_origin", p0)
+    iset_tcp(robot_tcp)
+    global response = "movel_rel_set_part_origin()"
+  elif command[2] == 42:
+    # movel_rel_tool  Movel relative to draw origin in tool TCP coordinates
+    local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+    start_listen_halt_thread()
+    speed_setter(robot_linear_speed_mps * 1000.0)
+    draw_finish(p1)
+    stop_listen_halt_thread()
+    global response = "movel_rel_tool()"
+  elif command[2] == 43:
+    # movel_rel_part  Movel relative to draw origin in geometry-independent part TCP coordinates
+    local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+    start_listen_halt_thread()
+    iset_tcp(robot_tcp_part)
+    speed_setter(robot_linear_speed_mps * 1000.0)
+    drawgi_finish(p1)
+    stop_listen_halt_thread()
+    iset_tcp(robot_tcp)
+    global response = "movel_rel_part()"
+  else:
+    global response = "set_variable ERROR"
+  end
+end
+
+# Set variable interface. Interprets command[2] to select what to set and returns result to socket
+# Can also be used for validation and enforcing limits
+def set_variable():
+  if command[2] == 1:
+    # Set speed to s if s>0. Always returns current value
+    s = command[3]
+    if s > 0:
+      robot_linear_speed_mps = ceil(s) / 1000.0
+    end
+    socket_send_number("robot_linear_speed_mmps", robot_linear_speed_mps * 1000.0)
+    global response = "set_linear_speed()"
+  elif command[2] == 2:
+    # Set accel to a if a>0. Always returns current value
+    a = command[3]
+    if a > 0:
+      robot_linear_accel_mpss = ceil(a) / 1000.0
+    end
+    socket_send_number("robot_linear_accel_mmpss", robot_linear_accel_mpss * 1000.0)
+    global response = "set_linear_accel()"
+  elif command[2] == 3:
+    # Set blend to b if b>=0. Always returns current value
+    b = command[3]
+    if b >= 0:
+      robot_blend_radius_m = b / 1000.0
+    end
+    # No socket_send_number since we allow to 0.1mm!
+    socket_send_number("robot_blend_radius_mm", robot_blend_radius_m * 1000.0)
+    global response = "set_blend_radius()"
+  elif command[2] == 4:
+    # Set joint speed to s if s>0. Always returns current value
+    s = command[3]
+    if s > 0:
+      robot_joint_speed_rps = d2r(ceil(s))
+    end
+    socket_send_number("robot_joint_speed_dps", r2d(robot_joint_speed_rps))
+    global response = "set_joint_speed()"
+  elif command[2] == 5:
+    # Set joint accel to a if a>0. Always returns current value
+    a = command[3]
+    if a > 0:
+      robot_joint_accel_rpss = d2r(ceil(a))
+    end
+    socket_send_number("robot_joint_accel_dpss", r2d(robot_joint_accel_rpss))
+    global response = "set_joint_accel()"
+  elif command[2] == 6:
+    # Set part_geometry to [shape, diameter_mm] if shape==1,2,3. Always returns "robot_part_geometry=[current geometry]"
+    # Also updates robot_part_tcp using update_robot_tcp_part
+    shape = command[3]
+    if shape == 1:
+      robot_part_geometry = [1, 0]
+    elif shape == 2 or shape == 3:
+      diameter_mm = limiter(command[4], 50, 3000)
+      robot_part_geometry = [shape, diameter_mm]
+      # Put in the cyline corrections if this is a cylinder
+      if shape == 2:
+        default_cyline_cal(diameter_mm)
+      end
+    end
+    update_robot_tcp_part()
+    socket_send_vector("robot_part_geometry", robot_part_geometry, 2)
+    global response = "set_part_geometry()"
+  elif command[2] == 10:
+    # Set door closed input
+    if command[3] >= 0:
+      robot_door_closed_input[0] = command[3]
+      robot_door_closed_input[1] = command[4]
+    end
+    socket_send_vector("robot_door_closed_input", robot_door_closed_input, 2)
+    socket_send_bool("robot_door_closed", is_door_closed())
+    global response = "set_door_closed_input()"
+  elif command[2] == 11:
+    # Set tool on output
+    robot_tool_on_outputs = command_3_padded_8(command)
+    socket_send_vector("robot_tool_on_outputs", robot_tool_on_outputs, 8)
+    global response = "set_tool_on_outputs()"
+  elif command[2] == 12:
+    # Set tool off output
+    robot_tool_off_outputs = command_3_padded_8(command)
+    socket_send_vector("robot_tool_off_outputs", robot_tool_off_outputs, 8)
+    global response = "set_tool_off_outputs()"
+  elif command[2] == 13:
+    # Set coolant on output
+    robot_coolant_on_outputs = command_3_padded_8(command)
+    socket_send_vector("robot_coolant_on_outputs", robot_coolant_on_outputs, 8)
+    global response = "set_coolant_on_outputs()"
+  elif command[2] == 14:
+    # Set coolant off output
+    robot_coolant_off_outputs = command_3_padded_8(command)
+    socket_send_vector("robot_coolant_off_outputs", robot_coolant_off_outputs, 8)
+    global response = "set_coolant_off_outputs()"
+  elif command[2] == 15:
+    # tool_on
+    tool_power(True, 2)
+    global response = "tool_on()"
+  elif command[2] == 16:
+    # tool_off
+    tool_power(False, 2)
+    global response = "tool_off()"
+  elif command[2] == 17:
+    # coolant_on
+    coolant_flow(True, 2)
+    global response = "coolant_on()"
+  elif command[2] == 18:
+    # coolant_off
+    coolant_flow(False, 2)
+    global response = "coolant_off()"
+  elif command[2] == 19:
+    # freedrive 1=on/0=off, 0=base|1=tcp|2=tcp_part, 6 axisEnables
+    if command[3] == 0:
+      end_freedrive_mode()
+      iset_tcp(robot_tcp)
+      robot_freedrive_mode = 0
+      socket_send_number("robot_freedrive_mode", robot_freedrive_mode)
+    else:
+      local coordSys = command[4]
+      local freeAxes = [command[5], command[6], command[7], command[8], command[9], command[10]]
+      if coordSys == 1:
+        iset_tcp(robot_tcp)
+        freedrive_mode(freeAxes = freeAxes, feature = "tool")
+      elif coordSys == 2:
+        iset_tcp(robot_tcp_part)
+        freedrive_mode(freeAxes = freeAxes, feature = "tool")
+      else:
+        # Base
+        freedrive_mode(freeAxes = freeAxes)
+      end
+      robot_freedrive_mode = 1
+      socket_send_number("robot_freedrive_mode", robot_freedrive_mode)
+    end
+    global response = "freedrive_mode()"
+  elif command[2] == 20:
+    # set_tcp if command[3] > -10. Always returns robot_tcp=p[...]
+    if command[3] > -10:
+      robot_tcp = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+      iset_tcp(robot_tcp)
+    end
+    socket_send_pose("robot_tcp", get_tcp_offset())
+    # Recompute robot_tcp_part based on current geometry
+    update_robot_tcp_part()
+    global response = "set_tcp()"
+  elif command[2] == 21:
+    # set_payload if command[3] > 0. Always return robot_m and robot_cog
+    if command[3] > 0:
+      robot_payload_mass_kg = command[3]
+      robot_payload_cog_m = [command[4], command[5], command[6]]
+      iset_payload(robot_payload_mass_kg, robot_payload_cog_m)
+    end
+    socket_send_number("robot_payload_mass_kg", robot_payload_mass_kg)
+    socket_send_vector("robot_payload_cog_m", robot_payload_cog_m, 3)
+    global response = "set_payload()"
+  elif command[2] == 22:
+    # Set footswitch pressed input
+    if command[3] >= 0:
+      robot_footswitch_pressed_input[0] = command[3]
+      robot_footswitch_pressed_input[1] = command[4]
+    end
+    socket_send_vector("robot_footswitch_pressed_input", robot_footswitch_pressed_input, 2)
+    socket_send_bool("robot_footswitch_pressed", is_footswitch_pressed())
+    global response = "set footswitch_pressed_input()"
+  elif command[2] == 30:
+    # set_output
+    local out = command[3]
+    local state = command[4] > 0
+    set_digital_out(out, state)
+    global response = "set_output()"
+  elif command[2] == 40:
+    # zero_cal_timers
+    zero_cal_timers()
+    global response = "zero_cal_timers()"
+  elif command[2] == 41:
+    # default_cyline_cal
+    local diam = limiter(command[3], 100, 3000)
+    default_cyline_cal(diam)
+    global response = "default_cyline_cal()"
+  elif command[2] == 42:
+    # unity_cyline_cal
+    unity_cyline_cal()
+    global response = "unity_cyline_cal()"
+  elif command[2] == 43:
+    # return_cyline_cal
+    return_cyline_cal()
+    global response = "return_cyline_cal()"
+  elif command[2] == 44:
+    # enable_cyline_cal
+    local f = command[3] > 0
+    enable_cyline_cal(f)
+    socket_send_bool("cyline_cal_enabled", cyline_cal_enabled)
+    global response = "enable_cyline_cal()"
+  elif command[2] == 45:
+    # set_cyline_training_weight
+    local weight = limiter(command[3], 1, 100)
+    set_cyline_training_weight(weight)
+    socket_send_number("cyline_training_weight", cyline_training_weight)
+    global response = "set_cyline_training_weight()"
+  elif command[2] == 46:
+    # set_cyline_expected_time
+    local t = limiter(command[3], 1, 1000)
+    set_cyline_expected_time(t)
+    socket_send_number("cyline_expected_time", cyline_expected_time)
+    global response = "cyline_expected_time()"
+  elif command[2] == 47:
+    # set_cyline_deadband_time
+    local t = limiter(command[3], 0, 100)
+    set_cyline_deadband_time(t)
+    socket_send_number("cyline_deadband_time", cyline_deadband_time)
+    global response = "set_cyline_deadband_time()"
+  elif command[2] == 48:
+    # new_cyline_cycle
+    new_cyline_cycle()
+    global response = "new_cyline_cycle()"
+  elif command[2] == 50:
+    # enable_user_timers
+    local f = command[3] > 0
+    enable_user_timers(f)
+    global response = "enable_user_timers()"
+  elif command[2] == 51:
+    # zero_user_timers
+    zero_user_timers()
+    return_user_timers()
+    global response = "zero_user_timers()"
+  elif command[2] == 52:
+    # return_user_timers
+    return_user_timers()
+    global response = "return_user_timers()"
+  else:
+    global response = "set_variable ERROR"
+  end
+end
+
+# Compute appropriate robot_tcp for the part based on robot_tcp and robot_part_geometry
+# They're the same for flat parts, but the TCP is adjusted to the center of the cylinder or sphere
+def update_robot_tcp_part():
+  shape = robot_part_geometry[0]
+  if shape == 1:  # Flat
+    robot_tcp_part = robot_tcp
+  else:  # Cylinder or Sphere
+    robot_tcp_part = pose_trans(robot_tcp, p[0, 0, robot_part_geometry[1] / 2000.0, 0, 0, 0])
+  end
+  socket_send_pose("robot_tcp_part", robot_tcp_part)
+end
+
+# ####################################################################################
+# Interrupting Motion
+# Motion and force_mode and part contact muct all end if any of 3 things happen
+#  1) Door is opened
+#  2) We're in contact with the part and grinding, but no grind command comes within some time (default 1.5s)
+#  3) We receive an abort message from the host
+#
+# How is it implemented?
+#
+# 1) io_monitor_thread (below) is ALWAYS running. Fires every time_door_check_rate_s (0.25s)
+#    - Whenever it sees the state of the door change, it sends SET robot_door_closed state to host
+#    - Whenever it sees the state of the footswitch (DIN7) change, it sends SET robot_footswitch state to host
+#    - It monitors if we're still in contact wth the part butr not grinding (grind_process_state and grind_ready)
+#      - If that goes beyond grind_max_wait_ms it sets halt_grind=True
+# 2) no_command function (below). Called by PolScript everyu time it's waiting for a command and doesn't get one with a second
+#    - If halt_grind is set (by door monitor thread above)
+#      - stopl and simulate receiving a grind_retract
+#      - THIS FORCES THE force_off and motion commands to come from the primary thread, as they must
+# 3) listener_thread started by grind()
+#    - This runs only while a grind is in progress
+#    - It listens for commands from the host since PolyScope is blocked
+#    - Any command received increments halt_count which makes ok_to_proceed() false
+#    - That is checked in all the grinding programs and forces them to finish up and get off the part in an orderly fashion
+
+# ####################################################################################
+# START AUTOMATED DOOR MONITORING THREAD
+#
+# Return True if door in closed state (or if door input is undefined)
+def is_door_closed():
+  if robot_door_closed_input[0] < 0:
+    return True
+  end
+  if get_standard_digital_in(robot_door_closed_input[0]):
+    f = 1
+  else:
+    f = 0
+  end
+  return f == robot_door_closed_input[1]
+end
+
+# Return True if footswitch pressed (or False if footswitch input is undefined)
+def is_footswitch_pressed():
+  if robot_footswitch_pressed_input[0] < 0:
+    return False
+  end
+  if get_standard_digital_in(robot_footswitch_pressed_input[0]):
+    f = 1
+  else:
+    f = 0
+  end
+  return f == robot_footswitch_pressed_input[1]
+end
+
+global robot_door_closed = is_door_closed()
+global robot_footswitch_pressed = is_footswitch_pressed()
+global time_in_uncommanded_grind = 0
+global time_door_check_rate_s = 0.250
+global grind_max_wait_ms = 1500
+# Also monitors footswitch!
+thread io_monitor_thread():
+  # Send current state on start... in future will only be sent on change
+  socket_send_bool("robot_door_closed", robot_door_closed)
+  socket_send_bool("robot_footswitch_pressed", robot_footswitch_pressed)
+
+  while True:
+    sleep(time_door_check_rate_s)
+    local new_door_closed = is_door_closed()
+    local new_footswitch_pressed = is_footswitch_pressed()
+
+    # Notify host if door state has changed
+    if robot_door_closed != new_door_closed:
+      robot_door_closed = new_door_closed
+      socket_send_bool("robot_door_closed", robot_door_closed)
+    end
+
+    # Notify host if footswitch state has changed
+    if robot_footswitch_pressed != new_footswitch_pressed:
+      robot_footswitch_pressed = new_footswitch_pressed
+      socket_send_bool("robot_footswitch_pressed", robot_footswitch_pressed)
+    end
+
+    # Check for still in grind process but not executing a grind command
+    # This is what happens after a grind_...(....,1) executes while waiting for next command
+    if grind_process_state and grind_ready:
+      time_in_uncommanded_grind = time_in_uncommanded_grind + time_door_check_rate_s
+      # No new grind commands for grind_max_wait_ms... schedule a grind_retract!
+      if time_in_uncommanded_grind > grind_max_wait_ms / 1000.0:
+        global halt_grind = True
+      end
+    else:
+      time_in_uncommanded_grind = 0
+    end
+    sync()
+  end
+end
+global ioMonitorThread = run io_monitor_thread()
+#
+# END AUTOMATED DOOR MONITORING THREAD
+# ####################################################################################
+
+######################################################################################
+# START LISTEN HALT THREAD
+#
+global listen_halt_thread_handle = 0
+global halt_count = 0
+global halt_command = [0, 0, 0, 0]
+global grind_force_report_counter = 0
+global grind_force_report = p[0, 0, 0, 0, 0, 0]
+global grind_force_report_z_n = 0
+
+def start_listen_halt_thread():
+  stop_listen_halt_thread()
+  global listen_halt_thread_handle = run listen_halt_thread()
+end
+
+def stop_listen_halt_thread():
+  if listen_halt_thread_handle > 0:
+    kill listen_halt_thread_handle
+    listen_halt_thread_handle = 0
+  end
+  set_ok_to_proceed(True)
+end
+
+# Should we proceed? halt_count==0 means no door-opens and no abort commands from host
+def ok_to_proceed():
+  return halt_count == 0
+end
+
+def set_ok_to_proceed(ok):
+  if ok:
+    global halt_count = 0
+    socket_send_number("halt_count", halt_count)
+  else:
+    global halt_count = 99
+    socket_send_number("halt_count", halt_count)
+  end
+end
+
+thread listen_halt_thread():
+  global halt_command = [0, 0, 0, 0]
+  global halt_count = 0
+  global grind_force_report_counter = 0
+  global grind_force_readings_n = 5
+  global grind_force_readings = [0., 0., 0., 0., 0.]
+
+  socket_send_number("halt_count", halt_count)
+
+  # Initialize force readings array
+  local i = 0
+  while i < grind_force_readings_n:
+    local f = get_tcp_force()
+    grind_force_readings[i] = f[2]
+    i = i + 1
+  end
+  global grind_force_report_z_n = grind_force_readings[grind_force_readings_n-1]
+  global grind_force_filtered_z_n = grind_force_report_z_n
+
+
+  while (halt_count == 0):
+    # Commands should never arrive, so this will block us for 0.2s
+    global halt_command = socket_read_ascii_float(3, timeout = 0.2)
+
+    # If door is open, that adds a halt count (anything >0 will stop us!)
+    if not is_door_closed():
+      global halt_count = halt_count + 1
+      socket_send_number("halt_count", halt_count)
+    end
+
+    # If we've received anything we should halt!
+    if halt_command[0] > 0:
+      global halt_count = halt_count + 1
+      socket_send_number("halt_count", halt_count)
+    end
+
+    # Increment reading counter (10000 is high enough... don't need to worry about wraparound effects)
+    grind_force_report_counter = grind_force_report_counter + 1
+    if grind_force_report_counter > 10000:
+      grind_force_report_counter = 0
+    end
+
+    # Store force in circular buffer
+    local force = get_tcp_force()
+    grind_force_readings[grind_force_report_counter % grind_force_readings_n] = force[2]
+    # Report force periodically (This executes at 5Hz because of timeout=0.2 in socket_read_ascii_float(...)
+    if grind_force_report_counter % 5 == 0:
+      # Compute average of the stored readings
+      local i = 0
+      local sum = 0.0
+      while i < grind_force_readings_n:
+        sum = sum + grind_force_readings[i]
+        i = i + 1
+      end
+      global grind_force_average_z_n = sum / grind_force_readings_n
+
+      # Any other filtering could be done here...
+      # Round to 2 DP
+      global grind_force_report_z_n = ceil(grind_force_average_z_n * 100) / 100
+
+      socket_send_number("grind_force_report_z_n", grind_force_report_z_n)
+    end
+    sync()
+  end
+  return None
+end
+#
+# END LISTEN HALT THREAD
+######################################################################################
+
+# ####################################################################################
+# START NO_COMMAND HOUSEKEEPING
+# This gets called when the PolyScope receives no command (about 1/second)
+# We can fire off any command here safely since no others will be seen until we exit
+#
+global no_command_count = 0
+global halt_grind = False
+def no_command():
+  global no_command_count = no_command_count + 1
+
+  if grind_process_state and grind_ready and halt_grind:
+    halt_grind = False
+    istopl(20)
+
+    iset_tcp(robot_tcp_part)
+    set_grind_process_state(False)
+    iset_tcp(robot_tcp)
+  end
+end
+#
+# END NO_COMMAND HOUSEKEEPING
+# ####################################################################################
+
+# ####################################################################################
+# START TOUCHOFF HANDLER
+#
+def calculate_point_to_move_towards(feature, direction, position_distance):
+  local posDir = [direction[0], direction[1], direction[2]]
+  if (norm(posDir) < 1e-6):
+    return get_target_waypoint()
+  end
+  local direction_vector_normalized = normalize(posDir)
+  local displacement_pose = p[direction_vector_normalized[0] * position_distance, direction_vector_normalized[1] * position_distance, direction_vector_normalized[2] * position_distance, 0, 0, 0]
+  local wanted_displacement_in_base_frame = pose_sub(pose_trans(feature, displacement_pose), feature)
+  return pose_add(get_target_waypoint(), wanted_displacement_in_base_frame)
+end
+
+global move_thread_flag = 0
+global move_thread_approach_speed_mps = 0.01  # Set by touchoff(...)
+def move_nowait():
+  global move_thread_flag = 1
+  local towardsPos = calculate_point_to_move_towards(get_forward_kin(), [0.0, 0.0, 1.0], 0.025)
+  imovel_int(towardsPos, a = 2.0, v = move_thread_approach_speed_mps, wait = False)
+  global move_thread_flag = 2
+end
+
+def touchoff(approach_speed_mmps, retract_mm):
+  #local approach_speed_mps = approach_speed_mmps / 1000.0
+  global move_thread_approach_speed_mps = approach_speed_mmps / 1000.0
+
+  local retract_m = retract_mm / 1000.0
+
+  # Start non-blocking move: only works with imover_realtime!
+  imover_realtime(True)
+  move_nowait()
+
+  while (True):
+    local targetTcpDirection = get_target_tcp_speed()
+    local stepsToRetract = tool_contact(direction = targetTcpDirection)
+    if (stepsToRetract > 0): # This means there was contact!
+      # Contact! Stop the move
+      imover_restart()
+      local backTrackMovement = get_actual_joint_positions_history(stepsToRetract)
+      local contactPose = get_forward_kin(backTrackMovement)
+      local posDir = [targetTcpDirection[0], targetTcpDirection[1], targetTcpDirection[2]]
+      local retractTo = contactPose
+      if (norm(posDir) > 1e-6):
+        local normalizedPosDir = normalize(posDir)
+        local additionalRetraction = p[normalizedPosDir[0] * retract_m, normalizedPosDir[1] * retract_m, normalizedPosDir[2] * retract_m, 0, 0, 0]
+        retractTo = pose_sub(contactPose, additionalRetraction)
+      end
+      imovel_int(retractTo, a = grind_jog_accel_mmpss / 1000.0, v = grind_jog_speed_mmps / 1000.0)
+      draw_sync_current_dp(iget_actual_tcp_pose())
+      return True
+      break
+    end
+    sleep(1.0E-10)
+    if (imover_cmd == 0): # Done moving means no part was ever contacted
+      return False
+      break
+    end
+    sync()
+  end
+  return False
+end
+#
+# END TOUCHOFF HANDLER
+# ####################################################################################
+
+# ####################################################################################
+# START IMOVER SYSTEM
+#
+global imover_realtime_enabled = True
+global imover_restart_count = 0
+global imover_kill_count = 0
+global imover_stopl_count = 0
+global imover_stopj_count = 0
+global imover_p = p[0, 0, 0, 0, 0, 0]
+global imover_q = [0, 0, 0, 0, 0, 0]
+global imover_a = 1.2
+global imover_v = 0.25
+global imover_t = 0
+global imover_r = 0
+global imover_ret_f = False
+global imover_force_on = False
+global imover_force_N = 5
+global imover_force_speed_mmps = 10
+global imover_tcp = p[0, 0, 0, 0, 0, 0]
+global imover_mass = 1.0
+global imover_cog = [0, 0, 0]
+global imover_thread_handle = 0
+global imover_cmd = 0
+global imover_cmd_hist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+global imover_param1 = 0
+global imover_param2 = 0
+imover_PING = 1
+imover_MOVEL = 2
+imover_MOVEJ = 3
+imover_STOPL = 4
+imover_ZEROFORCE = 5
+imover_STARTFORCE = 6
+imover_UPDATEFORCE = 7
+imover_ENDFORCE = 8
+imover_GETACTUALTCPPOSE = 9
+imover_GETACTUALJOINTPOSITIONS = 10
+imover_GETTARGETTCPPOSE = 11
+imover_GETTARGETJOINTPOSITIONS = 12
+imover_GETTCPOFFSET = 13
+imover_SETTCP = 14
+imover_SETPAYLOAD = 15
+imover_TOUCHOFF = 16
+
+def imover_realtime(f = False):
+  if f and (not imover_realtime_enabled):
+    # Turning on separate imover thread
+    imover_realtime_enabled = True
+    imover_restart()
+    #imover_state_alignment()    # Called by imover_restart()
+  elif (not f) and imover_realtime_enabled:
+    # Turning off separate imover thread
+    imover_kill()
+    imover_realtime_enabled = False
+    imover_state_alignment()
+  end
+end
+
+def imover_is_realtime():
+  return imover_realtime_enabled
+end
+
+def imover_state_alignment():
+  # Reestablish state of motion control in current thread
+  iset_tcp(imover_tcp)
+  iset_payload(imover_mass, imover_cog)
+  if imover_force_on:
+    iforce_mode(imover_force_N, imover_force_speed_mmps)
+  else:
+    iend_force_mode()
+  end
+end
+
+# Kill the imover thread and insure motion is stopped
+def imover_kill():
+  if imover_thread_handle > 0:
+    kill imover_thread_handle
+    imover_thread_handle = 0
+    global imover_kill_count = imover_kill_count + 1
+    sleep(0.05)
+    stopl(20)
+  end
+end
+
+def imover_restart():
+  imover_kill()
+
+  global imover_cmd = 0
+  global imover_thread_handle = run imover_thread()
+  sleep(0.2)
+  # Reload state (tcp, payload, force mode...)
+  imover_state_alignment()
+  global imover_restart_count = imover_restart_count + 1
+end
+
+def imover_wait(terminate_not_ok = False):
+  while imover_cmd > 0:
+    if terminate_not_ok and not ok_to_proceed():
+      return None
+    end
+    sync()
+  end
+end
+
+def imover_cmd_exec(cmd, param1 = 0, param2 = 0, terminate_not_ok = False, wait_complete = True):
+  imover_wait()
+  global imover_param1 = param1
+  global imover_param2 = param2
+
+  local i = 9
+  while i > 0:
+    imover_cmd_hist[i] = imover_cmd_hist[i - 1]
+    i = i - 1
+  end
+  imover_cmd_hist[0] = cmd
+
+  # This initiates the thread executing the specified command
+  global imover_cmd = cmd
+
+  if wait_complete:
+    imover_wait(terminate_not_ok)
+  end
+end
+
+def istopl(a, aRot = 999):
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_STOPL, a, aRot)
+  else:
+    if aRot == 999:
+      stopl(a)
+    else:
+      stopl(a, aRot)
+    end
+  end
+end
+
+def izero_ftsensor():
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_ZEROFORCE)
+  else:
+    sleep(0.25)
+    zero_ftsensor()
+    zero_ftsensor()
+  end
+end
+
+def iforce_mode(force_N, approach_speed_mmps):
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_STARTFORCE, force_N, approach_speed_mmps)
+  else:
+    # Don't forget to call izero_ftsensor before this at some point when appropriate!
+
+    # Using the defaults here
+    force_mode_set_damping(grind_force_mode_damping)
+    force_mode_set_gain_scaling(grind_force_mode_gain_scaling)
+
+    # Force is in tool frame
+    # Compliant in Tool Z
+    # Applying grind_force_N in Z+
+    # 2: Force frame not transformed
+    # Speed limits
+    force_mode(tool_pose(), [0, 0, 1, 0, 0, 0], [0.0, 0.0, force_N, 0.0, 0.0, 0.0], 2, [0.1, 0.1, approach_speed_mmps / 1000.0, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
+  end
+  global imover_force_N = force_N
+  global imover_force_speed_mmps = approach_speed_mmps
+  global imover_force_on = True
+end
+
+def iforce_update(force_N = 5, approach_speed_mmps = 10):
+  if not imover_force_on:
+    return None
+  end
+
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_UPDATEFORCE, force_N - imover_force_N, approach_speed_mmps)
+  else:
+    # Force is in tool frame
+    # Compliant in Tool Z
+    # Applying grind_force_N in Z+
+    # 2: Force frame not transformed
+    # Speed limits
+    force_mode(tool_pose(), [0, 0, 1, 0, 0, 0], [0.0, 0.0, force_N - imover_force_N, 0.0, 0.0, 0.0], 2, [0.1, 0.1, approach_speed_mmps / 1000.0, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
+  end
+  global imover_force_N = force_N
+  global imover_force_speed_mmps = approach_speed_mmps
+end
+
+def iend_force_mode():
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_ENDFORCE)
+  else:
+    end_force_mode()
+  end
+  global imover_force_on = False
+end
+
+def iget_actual_tcp_pose():
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_GETACTUALTCPPOSE)
+    return imover_p
+  else:
+    return get_actual_tcp_pose()
+  end
+end
+
+def iget_actual_joint_positions():
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_GETACTUALJOINTPOSITIONS)
+    return imover_q
+  else:
+    return get_actual_joint_positions()
+  end
+end
+
+def iget_target_tcp_pose():
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_GETTARGETTCPPOSE)
+    return imover_p
+  else:
+    return get_target_tcp_pose()
+  end
+end
+
+def iget_target_joint_positions():
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_GETTARGETJOINTPOSITIONS)
+    return imover_q
+  else:
+    return get_target_joint_positions()
+  end
+end
+
+def iset_tcp(tcp):
+  imover_tcp = tcp
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_SETTCP)
+  else:
+    set_tcp(tcp)
+  end
+end
+
+def iget_tcp_offset():
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_GETTCPOFFSET)
+    return imover_tcp
+  else:
+    return get_tcp_offset()
+  end
+end
+
+def iset_payload(mass, cog):
+  imover_mass = mass
+  imover_cog = cog
+  if imover_realtime_enabled:
+    imover_cmd_exec(imover_SETPAYLOAD)
+  else:
+    set_payload(mass, cog)
+  end
+end
+
+def itouchoff(speed_mmps, retract_mm):
+  if False: #imover_realtime_enabled:
+    imover_param1 = speed_mmps
+    imover_param2 = retract_mm
+    imover_cmd_exec(imover_TOUCHOFF)
+    return imover_ret_f
+  else:
+    return touchoff(speed_mmps, retract_mm)
+  end
+end
+
+def imovel(p, a = 1.2, v = 0.25, t = 0, r = 0):
+  if imover_realtime_enabled:
+    imover_wait()
+    global imover_p = p
+    global imover_a = a
+    global imover_v = v
+    global imover_t = t
+    global imover_r = r
+    imover_cmd_exec(imover_MOVEL)
+  else:
+    movel(p, a = a, v = v, t = t, r = r)
+  end
+end
+
+def imovel_int(p, a = 1.2, v = 0.25, t = 0, r = 0, wait = True):
+  if not ok_to_proceed():
+    return None
+  end
+
+  if imover_realtime_enabled:
+    imover_wait()
+    global imover_p = p
+    global imover_a = a
+    global imover_v = v
+    global imover_t = t
+    global imover_r = r
+    imover_cmd_exec(imover_MOVEL, terminate_not_ok = True, wait_complete = wait)
+    if not ok_to_proceed():  # We got interrupted
+      # Halt any motion in progress... this is really the whole reason for imover
+      imover_kill()
+
+      # Had occasional move continuation.. added these as belt-and-suspenders!
+      sleep(0.1)
+      stopl(10)
+      global imover_stopl_count = imover_stopl_count + 1
+
+      sleep(0.1)
+      stopj(0.01)
+      global imover_stopj_count = imover_stopj_count + 1
+
+      # Restart the thread
+      imover_restart()
+    end
+  else:
+    movel(p, a = a, v = v, t = t, r = r)
+  end
+end
+
+def imovej(q, a = 1.2, v = 0.25, t = 0, r = 0):
+  if imover_realtime_enabled:
+    imover_wait()
+    global imover_q = q
+    global imover_a = a
+    global imover_v = v
+    global imover_t = t
+    global imover_r = r
+    imover_cmd_exec(imover_MOVEJ, 0, 0, True)
+  else:
+    movej(q, a = a, v = v, t = t, r = r)
+  end
+end
+
+def imovej_int(q, a = 1.2, v = 0.25, t = 0, r = 0, wait = True):
+  if not ok_to_proceed():
+    return None
+  end
+
+  if imover_realtime_enabled:
+    imover_wait()
+    global imover_q = q
+    global imover_a = a
+    global imover_v = v
+    global imover_t = t
+    global imover_r = r
+    imover_cmd_exec(imover_MOVEJ, terminate_not_ok = True, wait_complete = wait)
+    if not ok_to_proceed():  # We got interrupted
+      # Halt any motion in progress... this is really the whole reason for imover
+      imover_kill()
+
+      # Had occasional move continuation.. added these as belt-and-suspenders!
+      sleep(0.1)
+      stopl(10)
+      global imover_stopl_count = imover_stopl_count + 1
+
+      sleep(0.1)
+      stopj(10)
+      global imover_stopj_count = imover_stopj_count + 1
+
+      # Restart the thread
+      imover_restart()
+    end
+  else:
+    movej(q, a = a, v = v, t = t, r = r)
+  end
+end
+
+thread imover_thread():
+  global imover_cmd = 0
+  while True:
+    if imover_cmd == imover_MOVEL:
+      #socket_send_number("imover_a-thread", imover_a)
+      #socket_send_number("imover_v-thread", imover_v)
+      #socket_send_number("imover_r-thread", imover_r)
+      movel(imover_p, a = imover_a, v = imover_v, t = imover_t, r = imover_r)
+      global imover_cmd = 0
+    elif imover_cmd == imover_MOVEJ:
+      movej(imover_q, imover_a, imover_v, imover_t, imover_r)
+      global imover_cmd = 0
+    elif imover_cmd == imover_STOPL:
+      stopl(grind_linear_vel_mps, grind_angular_vel_rps)
+      global imover_cmd = 0
+    elif imover_cmd == imover_ZEROFORCE:
+      sleep(0.25)
+      zero_ftsensor()
+      zero_ftsensor()
+      global imover_cmd = 0
+    elif imover_cmd == imover_STARTFORCE:
+      force_mode_set_damping(grind_force_mode_damping)
+      force_mode_set_gain_scaling(grind_force_mode_gain_scaling)
+
+      # Force is in tool frame
+      # Compliant in Tool Z
+      # Applying grind_force_N in Z+
+      # 2: Force frame not transformed
+      # Speed limits
+      force_mode(tool_pose(), [0, 0, 1, 0, 0, 0], [0.0, 0.0, imover_param1, 0.0, 0.0, 0.0], 2, [0.1, 0.1, imover_param2 / 1000.0, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
+      global imover_cmd = 0
+    elif imover_cmd == imover_UPDATEFORCE:
+      # Update force
+      # Force is in tool frame
+      # Compliant in Tool Z
+      # Applying grind_force_N in Z+
+      # 2: Force frame not transformed
+      # Speed limits
+      force_mode(tool_pose(), [0, 0, 1, 0, 0, 0], [0.0, 0.0, imover_param1, 0.0, 0.0, 0.0], 2, [0.1, 0.1, imover_param2 / 1000.0, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
+      global imover_cmd = 0
+    elif imover_cmd == imover_ENDFORCE:
+      end_force_mode()
+      global imover_cmd = 0
+    elif imover_cmd == imover_GETACTUALTCPPOSE:
+      global imover_p = get_actual_tcp_pose()
+      global imover_cmd = 0
+    elif imover_cmd == imover_GETACTUALJOINTPOSITIONS:
+      global imover_q = get_actual_joint_positions()
+      global imover_cmd = 0
+    elif imover_cmd == imover_GETTARGETTCPPOSE:
+      global imover_p = get_target_tcp_pose()
+      global imover_cmd = 0
+    elif imover_cmd == imover_GETTARGETJOINTPOSITIONS:
+      global imover_q = get_target_joint_positions()
+      global imover_cmd = 0
+    elif imover_cmd == imover_GETTCPOFFSET:
+      global imover_tcp = get_tcp_offset()
+      global imover_cmd = 0
+    elif imover_cmd == imover_SETTCP:
+      set_tcp(imover_tcp)
+      global imover_cmd = 0
+    elif imover_cmd == imover_SETPAYLOAD:
+      set_payload(imover_mass, imover_cog)
+      global imover_cmd = 0
+    elif imover_cmd == imover_TOUCHOFF:
+      global imover_ret_f = touchoff(imover_param1, imover_param2)
+      global imover_cmd = 0
+    elif imover_cmd == imover_PING:
+      global imover_cmd = 0
+    end
+    sync()
+  end
+end
+global imover_thread_handle = run imover_thread()
+#
+# END IMOVER SYSTEM
+# ####################################################################################
+
+# ####################################################################################
+# START USER TIMER SUPPORT
+#
+global user_timers_enabled = False
+global user_timer_size = 36
+global user_timers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+global user_timer_count = 0
+global user_timer_index = 0
+global user_timer_handle = 0
+global user_time_latest = 0.0
+
+thread user_timer_thread():
+  user_timer_count = 0
+  while (True):
+    user_timer_count = user_timer_count + 1
+    sync()
+  end
+end
+
+def enable_user_timers(f = False):
+  if f and not user_timers_enabled:
+    # Turning on
+    zero_user_timers()
+  elif not f and user_timers_enabled:
+    # Turning off
+  end
+
+  global user_timers_enabled = f
+  socket_send_bool("user_timers_enabled", user_timers_enabled)
+  return_user_timers()
+end
+
+def zero_user_timers():
+  global user_timer_index = 0
+  local i = 0
+  while i < user_timer_size:
+    user_timers[i] = 0
+    i = i + 1
+  end
+
+  global user_time_latest = 0.0
+end
+
+def return_user_timers():
+  socket_send_number("user_time_latest", user_time_latest)
+  socket_send_vector("user_timers", user_timers, user_timer_size)
+end
+
+def start_user_timer():
+  if user_timers_enabled:
+    user_timer_handle = run user_timer_thread()
+  end
+end
+
+def stop_user_timer():
+  if not user_timers_enabled:
+    return None
+  end
+
+  kill user_timer_handle
+  global user_timer_handle = 0
+
+  # 2 ms per tick!
+  global user_time_latest = user_timer_count * 0.002
+  user_timers[user_timer_index] = user_time_latest
+
+  global user_timer_index = user_timer_index + 1
+  if user_timer_index >= user_timer_size:
+    global user_timer_index = 0
+  end
+
+  return_user_timers()
+  return user_time_latest
+end
+#
+# END USER TIMER SUPPORT
+# ####################################################################################
+
+# ####################################################################################
+# START CALIBRATION TIMER SUPPORT
+#
+global cal_timer_size = 36
+global cal_timers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+global cal_timer_count = 0
+global cal_timer_index = 0
+global cal_timer_handle = 0
+
+thread cal_timer_thread():
+  cal_timer_count = 0
+  while (True):
+    cal_timer_count = cal_timer_count + 1
+    sync()
+  end
+end
+
+def zero_cal_timers():
+  global cal_timer_index = 0
+  local i = 0
+  while i < cal_timer_size:
+    cal_timers[i] = 0
+    i = i + 1
+  end
+  socket_send_vector("cal_timers", cal_timers, cal_timer_size)
+end
+
+def start_cal_timer():
+  cal_timer_handle = run cal_timer_thread()
+end
+
+def stop_cal_timer():
+  kill cal_timer_handle
+  global cal_timer_handle = 0
+
+  # 2 ms per tick!
+  local t = cal_timer_count * 0.002
+  cal_timers[cal_timer_index] = t
+
+  global cal_timer_index = cal_timer_index + 1
+  if cal_timer_index >= cal_timer_size:
+    global cal_timer_index = 0
+  end
+  return t
+end
+#
+# END CALIBRATION SUPPORT
+# ####################################################################################
+
+# ####################################################################################
+# START CYLINE CAL SYSTEM
+#
+global cyline_cal_enabled = False
+global cyline_training_weight = 5.0
+global cyline_deadband_time = 0.02
+global cyline_expected_time = 5.2
+global cyline_max_e = -100
+global cyline_max_e_angle = 0.0
+global cyline_min_e = 100
+global cyline_min_e_angle = 0.0
+
+# Empirical correction to the rfactor... 0-2.5, 2.5-5.0, ..., 97.5-90
+global cyline_correction_size = 36
+global cyline_degree_slice = 90.0 / cyline_correction_size
+global cyline_calibration_counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+global cyline_latest_e = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+global cyline_coeff_table_size = 31
+global cyline_coeff_table_index = -1
+
+# Corrections to be used in cylinder lines... these get loaded and overwritten
+global cyline_correction = [0.994231, 0.981154, 0.966923, 0.951154, 0.933846, 0.911864, 0.891596, 0.86957, 0.846735, 0.822852, 0.797641, 0.7716, 0.744658, 0.716958, 0.72103, 0.755499, 0.787812, 0.817955, 0.846025, 0.872201, 0.895809, 0.920769, 0.939615, 0.956154, 0.971154, 0.983846, 0.994615, 1, 1.01, 1.01462, 1.01769, 1.01846, 1.01769, 1.015, 1.01038, 1]
+
+def enable_cyline_cal(f = False):
+  if f:
+    global cyline_cal_enabled = True
+    new_cyline_cycle()
+    zero_cyline_calbration_counts()
+    return_cyline_cal()
+  else:
+    global cyline_cal_enabled = False
+    socket_send_number("cyline_cal_enabled", cyline_cal_enabled)
+  end
+end
+
+def set_cyline_training_weight(weight):
+  global cyline_training_weight = weight
+end
+
+def set_cyline_expected_time(t):
+  global cyline_expected_time = t
+end
+
+def set_cyline_deadband_time(t):
+  global cyline_deadband_time = t
+end
+
+def zero_cyline_latest_e():
+  local i = 0
+  while i < cyline_correction_size:
+    cyline_latest_e[i] = 0
+    i = i + 1
+  end
+end
+
+def zero_cyline_calbration_counts():
+  local i = 0
+  while i < cyline_correction_size:
+    cyline_calibration_counts[i] = 0
+    i = i + 1
+  end
+end
+
+def new_cyline_cycle():
+  global cyline_max_e = -999.0
+  global cyline_min_e = 999.0
+  global cyline_max_e_angle = 0.0
+  global cyline_min_e_angle = 0.0
+  zero_cal_timers()
+  zero_cyline_latest_e()
+  return_cyline_cal()
+end
+
+def unity_cyline_cal():
+  enable_cyline_cal(False)
+  local i = 0
+  while i < cyline_correction_size:
+    cyline_correction[i] = 1.0
+    i = i + 1
+  end
+  global cyline_coeff_table_index = 99
+end
+
+def default_cyline_cal(diam_mm):
+  local cyline_coeff_tables = 
+  [
+    [0.900000, 0.620000, 0.750000, 0.860000, 0.940000, 1.020000, 1.100000, 1.150000, 1.200000, 1.239652, 1.270302, 1.294257, 1.312201, 1.324502, 1.340405, 1.346328, 1.349003, 1.348860, 1.345110, 1.338750, 1.329420, 1.318790, 1.304780, 1.290500, 1.273380, 1.255610, 1.236670, 1.215670, 1.193510, 1.161530, 1.138460, 1.115000, 1.090770, 1.065390, 1.039610, 1.013460],
+    [0.949231, 0.855854, 0.778371, 0.712231, 0.654475, 0.738294, 0.812746, 0.877131, 0.934615, 0.980769, 1.020000, 1.053850, 1.082690, 1.106920, 1.132510, 1.149510, 1.163540, 1.174430, 1.182170, 1.187260, 1.189520, 1.189970, 1.187580, 1.183710, 1.177460, 1.169730, 1.160450, 1.149180, 1.136370, 1.117690, 1.102690, 1.086540, 1.069230, 1.050770, 1.031150, 1.010770],
+    [0.980385, 0.941538, 0.900753, 0.863069, 0.826287, 0.790784, 0.755879, 0.722168, 0.688801, 0.721886, 0.769698, 0.813443, 0.853179, 0.889338, 0.924615, 0.952692, 0.978077, 1.000000, 1.019230, 1.035770, 1.049620, 1.061150, 1.070380, 1.076920, 1.081540, 1.083850, 1.084230, 1.082690, 1.079230, 1.073850, 1.066920, 1.058080, 1.047690, 1.036150, 1.022690, 1.008080],
+    [0.991154, 0.972308, 0.952308, 0.931154, 0.905734, 0.882064, 0.857383, 0.831953, 0.805572, 0.778751, 0.751406, 0.723306, 0.702589, 0.741240, 0.777307, 0.810840, 0.842206, 0.870717, 0.896958, 0.923846, 0.944615, 0.963077, 0.979231, 0.993462, 1.005000, 1.015000, 1.022690, 1.028460, 1.031920, 1.033460, 1.033460, 1.031540, 1.027310, 1.021920, 1.014230, 1.005380],
+    [1.000000, 0.988077, 0.978077, 0.966538, 0.953077, 0.938462, 0.921923, 0.900405, 0.880575, 0.858912, 0.836476, 0.812299, 0.787050, 0.760735, 0.733074, 0.706927, 0.740101, 0.771220, 0.800618, 0.828195, 0.853613, 0.877513, 0.899256, 0.921923, 0.939231, 0.954615, 0.967692, 0.979231, 0.988846, 0.994423, 1.000000, 1.005770, 1.007690, 1.008080, 1.006150, 1.000000],
+    [1.000000, 1.000000, 0.994615, 0.988846, 0.981538, 0.972692, 0.961923, 0.949231, 0.935000, 0.918846, 0.897341, 0.877131, 0.855141, 0.831953, 0.807028, 0.780274, 0.752459, 0.722927, 0.722927, 0.752459, 0.780274, 0.807028, 0.831953, 0.855141, 0.877131, 0.897341, 0.918846, 0.935000, 0.949231, 0.961923, 0.972692, 0.981538, 0.988846, 0.994615, 1.000000, 1.000000],
+    [1.000000, 1.005000, 1.005770, 1.004620, 1.000000, 1.000000, 0.990385, 0.981923, 0.971538, 0.959231, 0.945000, 0.929231, 0.907649, 0.887081, 0.864981, 0.840678, 0.814587, 0.786669, 0.756933, 0.725202, 0.718573, 0.746847, 0.773883, 0.799856, 0.824441, 0.847881, 0.869906, 0.890447, 0.912692, 0.929615, 0.945000, 0.958846, 0.970769, 0.981538, 0.990385, 1.000000],
+    [1.000000, 1.009620, 1.013850, 1.016150, 1.016540, 1.015380, 1.011920, 1.006920, 1.000000, 0.990385, 0.979615, 0.966154, 0.951154, 0.934231, 0.911481, 0.889721, 0.865363, 0.839207, 0.810840, 0.780654, 0.747987, 0.713646, 0.723685, 0.751318, 0.777990, 0.803597, 0.828195, 0.852032, 0.874496, 0.895809, 0.918846, 0.936923, 0.953462, 0.968462, 0.982308, 0.994615],
+    [1.005000, 1.013460, 1.020000, 1.025000, 1.028080, 1.029230, 1.028850, 1.026150, 1.021920, 1.015380, 1.006920, 1.000000, 0.983846, 0.968846, 0.951923, 0.933077, 0.908033, 0.883637, 0.857001, 0.827814, 0.796426, 0.762553, 0.726340, 0.708063, 0.736396, 0.763777, 0.790784, 0.816811, 0.842206, 0.866510, 0.890104, 0.915769, 0.936538, 0.956154, 0.974615, 0.991923],
+    [1.005770, 1.016150, 1.025000, 1.031920, 1.037310, 1.040770, 1.042310, 1.041920, 1.040000, 1.035770, 1.029620, 1.021150, 1.010770, 1.000000, 0.983077, 0.966154, 0.946538, 0.924615, 0.896575, 0.868805, 0.838443, 0.805503, 0.769779, 0.731462, 0.698804, 0.727762, 0.756259, 0.784385, 0.811984, 0.839207, 0.866080, 0.892018, 0.920385, 0.944231, 0.967308, 0.989231],
+    [1.006540, 1.018460, 1.028850, 1.037690, 1.044620, 1.050000, 1.053460, 1.055000, 1.054620, 1.052690, 1.048080, 1.041920, 1.033460, 1.022690, 1.009620, 0.994231, 0.976538, 0.956154, 0.933462, 0.904584, 0.875600, 0.843351, 0.808553, 0.770539, 0.729659, 0.695018, 0.724823, 0.754359, 0.784080, 0.813824, 0.842970, 0.872201, 0.901136, 0.932308, 0.959615, 0.986923],
+    [1.007310, 1.020380, 1.031920, 1.042310, 1.050770, 1.057690, 1.062690, 1.065770, 1.067310, 1.066920, 1.064230, 1.059620, 1.052690, 1.043850, 1.032310, 1.018850, 1.000000, 0.983846, 0.962692, 0.938462, 0.911538, 0.877513, 0.843351, 0.805953, 0.765595, 0.721409, 0.695775, 0.726720, 0.758074, 0.789641, 0.821389, 0.853231, 0.885509, 0.920769, 0.952308, 0.984231],
+    [1.007690, 1.021920, 1.035000, 1.046150, 1.055770, 1.063850, 1.070380, 1.075000, 1.078080, 1.078850, 1.077690, 1.074620, 1.069620, 1.061920, 1.052310, 1.040000, 1.025380, 1.008080, 0.988077, 0.965385, 0.940000, 0.907649, 0.874835, 0.838061, 0.798021, 0.754359, 0.706272, 0.701075, 0.733739, 0.766736, 0.800618, 0.835007, 0.870288, 0.906117, 0.945385, 0.981538],
+    [1.008080, 1.023460, 1.037310, 1.049620, 1.060380, 1.069620, 1.077310, 1.083080, 1.087310, 1.089230, 1.089620, 1.088080, 1.084230, 1.078080, 1.069620, 1.058850, 1.045770, 1.029620, 1.011150, 0.989615, 0.965000, 0.937692, 0.903086, 0.867611, 0.828134, 0.784461, 0.736776, 0.684641, 0.710715, 0.745417, 0.781035, 0.817638, 0.855854, 0.895043, 0.938077, 0.979231],
+    [1.008460, 1.024620, 1.039230, 1.052310, 1.064230, 1.074230, 1.083080, 1.090000, 1.095000, 1.098460, 1.100000, 1.099620, 1.096920, 1.091920, 1.085000, 1.075380, 1.063460, 1.048850, 1.031540, 1.011150, 0.988077, 0.961538, 0.931538, 0.894277, 0.855472, 0.812365, 0.764917, 0.712610, 0.689180, 0.725202, 0.762256, 0.800999, 0.841442, 0.884019, 0.931154, 0.976538],
+    [1.008850, 1.025380, 1.040770, 1.055000, 1.067310, 1.078460, 1.088080, 1.096150, 1.102310, 1.106540, 1.109230, 1.109620, 1.108460, 1.104620, 1.098850, 1.090380, 1.079620, 1.066150, 1.050000, 1.031150, 1.008850, 0.983462, 0.954615, 0.921923, 0.880958, 0.838443, 0.791238, 0.739054, 0.681348, 0.705893, 0.744658, 0.785146, 0.827814, 0.873349, 0.924231, 0.973846],
+    [1.009230, 1.026540, 1.042310, 1.056920, 1.070380, 1.082310, 1.092690, 1.101540, 1.108460, 1.113850, 1.122030, 1.123580, 1.123190, 1.120490, 1.111150, 1.103850, 1.094230, 1.081920, 1.066920, 1.048850, 1.027690, 1.000000, 0.975385, 0.943462, 0.904201, 0.862353, 0.815731, 0.763777, 0.705893, 0.687667, 0.727478, 0.769779, 0.814587, 0.862686, 0.917692, 0.971538],
+    [1.009620, 1.027310, 1.043850, 1.058850, 1.073080, 1.085380, 1.096540, 1.106150, 1.114230, 1.120380, 1.129370, 1.132120, 1.132460, 1.130970, 1.127060, 1.120490, 1.107310, 1.096150, 1.081920, 1.065000, 1.045000, 1.021540, 0.994615, 0.963846, 0.928846, 0.884785, 0.838768, 0.787050, 0.729280, 0.670351, 0.711372, 0.755119, 0.801761, 0.852466, 0.910769, 0.968846],
+    [1.009620, 1.028080, 1.045000, 1.060770, 1.075380, 1.088460, 1.100380, 1.110380, 1.119230, 1.130920, 1.136370, 1.139850, 1.141010, 1.140240, 1.137100, 1.131690, 1.123970, 1.108850, 1.096150, 1.080000, 1.060770, 1.038460, 1.012310, 0.982308, 0.948077, 0.905734, 0.860392, 0.808934, 0.751026, 0.686154, 0.695775, 0.740861, 0.789335, 0.842588, 0.900753, 0.966538],
+    [1.010000, 1.028460, 1.046150, 1.062310, 1.077310, 1.091150, 1.103460, 1.114230, 1.128210, 1.136370, 1.142610, 1.146420, 1.148740, 1.148740, 1.146860, 1.142170, 1.135170, 1.125510, 1.108850, 1.093850, 1.075770, 1.054230, 1.028850, 1.000000, 0.966154, 0.928077, 0.880575, 0.829662, 0.771980, 0.706927, 0.680970, 0.727099, 0.777307, 0.832716, 0.893932, 0.963846],
+    [1.010000, 1.029230, 1.046920, 1.063850, 1.079230, 1.093460, 1.106540, 1.122420, 1.132460, 1.141010, 1.148020, 1.153040, 1.155750, 1.156910, 1.155360, 1.151880, 1.145650, 1.136710, 1.125120, 1.106540, 1.089230, 1.068460, 1.044230, 1.015770, 0.983462, 0.945769, 0.899604, 0.849028, 0.791619, 0.726720, 0.666691, 0.713746, 0.765595, 0.823234, 0.887424, 0.961538],
+    [1.010380, 1.029620, 1.047690, 1.065000, 1.081150, 1.095770, 1.108850, 1.125510, 1.136330, 1.145650, 1.153040, 1.158900, 1.162320, 1.163870, 1.163540, 1.160390, 1.155360, 1.147190, 1.136330, 1.122810, 1.101920, 1.081920, 1.058460, 1.031150, 1.000000, 0.962692, 0.920385, 0.867611, 0.810459, 0.745417, 0.671107, 0.701075, 0.754359, 0.813824, 0.880958, 0.959231],
+    [1.010380, 1.030000, 1.048850, 1.066150, 1.082690, 1.097690, 1.111540, 1.128600, 1.140240, 1.149950, 1.157680, 1.163870, 1.168570, 1.170500, 1.170890, 1.168570, 1.164310, 1.156910, 1.146810, 1.134060, 1.113460, 1.094620, 1.071920, 1.045000, 1.014230, 0.978077, 0.936923, 0.884785, 0.828195, 0.763396, 0.688801, 0.688801, 0.743229, 0.804741, 0.874496, 0.956538],
+    [1.010380, 1.030380, 1.049230, 1.067310, 1.083850, 1.099620, 1.113850, 1.131300, 1.143330, 1.153430, 1.161930, 1.168950, 1.174040, 1.176690, 1.177460, 1.176360, 1.172490, 1.165860, 1.156520, 1.144490, 1.128990, 1.106150, 1.084230, 1.058460, 1.028080, 0.993077, 0.952308, 0.901519, 0.845261, 0.780654, 0.705893, 0.677037, 0.732695, 0.795736, 0.868040, 0.954231],
+    [1.010770, 1.030770, 1.050000, 1.068080, 1.085380, 1.101150, 1.115770, 1.134060, 1.146470, 1.156910, 1.166250, 1.173660, 1.179070, 1.182550, 1.183710, 1.182940, 1.179840, 1.174430, 1.165860, 1.154200, 1.139850, 1.117310, 1.096150, 1.070770, 1.041540, 1.006920, 0.966923, 0.920385, 0.861539, 0.797188, 0.722266, 0.665559, 0.722266, 0.787050, 0.861922, 0.951923],
+    [1.010770, 1.031150, 1.050770, 1.069230, 1.086540, 1.102690, 1.117690, 1.136370, 1.149180, 1.160450, 1.169730, 1.177460, 1.183710, 1.187580, 1.189970, 1.189520, 1.187260, 1.182170, 1.174430, 1.163540, 1.149510, 1.132510, 1.106920, 1.082690, 1.053850, 1.020000, 0.980769, 0.934615, 0.877131, 0.812746, 0.738294, 0.654475, 0.712231, 0.778371, 0.855854, 0.949231],
+    [1.010770, 1.031540, 1.051150, 1.070000, 1.087690, 1.104230, 1.123970, 1.138690, 1.151440, 1.163090, 1.173210, 1.181390, 1.187970, 1.192680, 1.195390, 1.195780, 1.193840, 1.189130, 1.182170, 1.172050, 1.158840, 1.142170, 1.122030, 1.093850, 1.065770, 1.032690, 0.993846, 0.948462, 0.891635, 0.827814, 0.753305, 0.665936, 0.702485, 0.770078, 0.849792, 0.946923],
+    [1.011150, 1.031920, 1.051920, 1.070770, 1.088850, 1.105380, 1.125900, 1.140620, 1.154200, 1.166250, 1.176300, 1.185260, 1.192290, 1.197320, 1.200420, 1.201190, 1.200100, 1.196160, 1.189520, 1.180230, 1.167790, 1.151880, 1.132080, 1.104230, 1.076920, 1.044230, 1.006150, 0.961538, 0.906117, 0.842588, 0.768176, 0.680325, 0.692855, 0.761876, 0.843733, 0.944615],
+    [1.011150, 1.032310, 1.052310, 1.071540, 1.089620, 1.106540, 1.127440, 1.142560, 1.156140, 1.168570, 1.179460, 1.188360, 1.196160, 1.201580, 1.205140, 1.206680, 1.205910, 1.202350, 1.196550, 1.188040, 1.175910, 1.160830, 1.141780, 1.114230, 1.087310, 1.055770, 1.018080, 0.974231, 0.922308, 0.856287, 0.782177, 0.694368, 0.683617, 0.753979, 0.837680, 0.942308],
+    [1.011150, 1.032310, 1.052690, 1.072310, 1.090380, 1.107690, 1.128600, 1.144100, 1.158510, 1.170890, 1.182170, 1.191910, 1.199640, 1.205450, 1.209780, 1.211720, 1.211330, 1.208620, 1.203130, 1.195000, 1.183710, 1.168950, 1.150670, 1.128210, 1.097690, 1.066540, 1.029620, 0.986154, 0.935000, 0.869906, 0.795736, 0.707787, 0.674392, 0.746088, 0.831953, 0.940000],
+    [1.011150, 1.032690, 1.053080, 1.072690, 1.091540, 1.108850, 1.130150, 1.146090, 1.160450, 1.173210, 1.184870, 1.194610, 1.202740, 1.209390, 1.213650, 1.215980, 1.216360, 1.214040, 1.209390, 1.201580, 1.191130, 1.177140, 1.159230, 1.137480, 1.106920, 1.076540, 1.040380, 1.000000, 0.946923, 0.882830, 0.808934, 0.721030, 0.665819, 0.738294, 0.826287, 0.937692]
+  ]
+
+  enable_cyline_cal(False)
+  global cyline_coeff_table_index = limiter(floor(diam_mm / 100 + 0.5), 0, cyline_coeff_table_size-1)
+  local i = 0
+  while i < cyline_correction_size:
+    cyline_correction[i] = cyline_coeff_tables[cyline_coeff_table_index, i]
+    i = i + 1
+  end
+end
+
+def return_cyline_cal():
+  socket_send_number("cyline_cal_enabled", cyline_cal_enabled)
+  socket_send_number("cyline_coeff_table_size", cyline_coeff_table_size)
+  socket_send_number("cyline_coeff_table_index", cyline_coeff_table_index)
+  socket_send_number("cyline_correction_size", cyline_correction_size)
+  socket_send_number("cyline_expected_time", cyline_expected_time)
+  socket_send_number("cyline_training_weight", cyline_training_weight)
+  socket_send_number("cyline_max_e", cyline_max_e)
+  socket_send_number("cyline_max_e_angle", cyline_max_e_angle)
+  socket_send_number("cyline_min_e", cyline_min_e)
+  socket_send_number("cyline_min_e_angle", cyline_min_e_angle)
+  socket_send_number("cyline_deadband_time", cyline_deadband_time)
+  socket_send_number("cyline_degree_slice", cyline_degree_slice)
+
+  socket_send_vector("cal_timers", cal_timers, cal_timer_size)
+  socket_send_vector("cyline_correction", cyline_correction, cyline_correction_size)
+  socket_send_vector("cyline_latest_e", cyline_latest_e, cyline_correction_size)
+  socket_send_vector("cyline_calibration_counts", cyline_calibration_counts, cyline_correction_size)
+end
+
+def adjust_cyline_coefficient(t):
+  local e = t - cyline_expected_time
+  cyline_latest_e[process_correction_index] = e
+
+  local abs_e = abs(e)
+  if e > cyline_max_e:
+    global cyline_max_e = e
+    global cyline_max_e_angle = process_correction_index * cyline_degree_slice
+  end
+  if e < cyline_min_e:
+    global cyline_min_e = e
+    global cyline_min_e_angle = process_correction_index * cyline_degree_slice
+  end
+
+  if abs(e) > cyline_deadband_time:
+    # Example 1. Expect 5s. Get 4s (too fast).   e = 4-5 = -1  scale_factor *= (1 + e/expected)  scale_factor *= (1 + -1/5)  scale_factor *= 0.8
+    # Example 2. Expect 5s. Get 7s (too slow).   e = 7-5 = +2  scale_factor *= (1 + e/expected)  scale_factor *= (1 + 2/5)  scale_factor *= 1.4
+    local adjustment_speed = cyline_training_weight / 100.0
+    local adjustment_multiplier = 1 + adjustment_speed * e / cyline_expected_time
+    cyline_correction[process_correction_index] = cyline_correction[process_correction_index] * adjustment_multiplier
+  end
+  cyline_calibration_counts[process_correction_index] = cyline_calibration_counts[process_correction_index] + 1
+  return_cyline_cal()
+end
+#
+# END CYLINE CAL SYSTEM
+# ####################################################################################
+
+# ####################################################################################
+# START DRAWING SYSTEM
+#
+global draw_current_dp = p[0, 0, 0, 0, 0, 0]
+global draw_accel_factor = 1.0
+global draw_speed_factor = 1.0
+global draw_p_origin = p[0, 0, 0, 0, 0, 0]
+global process_a = 1.0
+global process_v = 0.1
+global process_r = 0.002
+
+# Sets a 1-time speed for velocity (ad optionally accel if !=0 specified)
+def draw_speed_once(speed_desired_one_move_mmps, accel_desired_one_move_mmpss = 0.0):
+  local v_scale = (speed_desired_one_move_mmps / 1000.0) / grind_linear_vel_mps
+  local a_scale = 1.0
+  if accel_desired_one_move_mmpss > 0:
+    a_scale = (accel_desired_one_move_mmpss / 1000.0) / grind_linear_accel_mpss
+    draw_scale_once(a_scale, v_scale)
+  end
+end
+
+# Sets a 1-time speedup factor on velocity
+def draw_scale_once(a_scale = 1.0, v_scale = 1.0):
+  global draw_accel_factor = a_scale
+  global draw_speed_factor = v_scale
+end
+
+def draw_origin(p):
+  global draw_p_origin = p
+  global draw_current_dp = p[0, 0, 0, 0, 0, 0]
+end
+
+# Recalculate draw_current_dp to be at p
+def draw_sync_current_dp(p):
+  global draw_current_dp = pose_trans(pose_inv(draw_p_origin), p)
+end
+
+def draw_to(dp, r = -1, wait = True):
+  global draw_current_ddp0 = abs(dp[0] - draw_current_dp[0])
+  global draw_current_ddp1 = abs(dp[1] - draw_current_dp[1])
+  global draw_current_ddp2 = abs(dp[2] - draw_current_dp[2])
+  global draw_current_ddp3 = abs(dp[3] - draw_current_dp[3])
+  global draw_current_ddp4 = abs(dp[4] - draw_current_dp[4])
+
+  # If you're asking for any Z moves, we assume this is a linear move
+  local z_move_only = 
+  (
+    draw_current_ddp0 < 0.001 and
+    draw_current_ddp1 < 0.001 and
+    draw_current_ddp2 > 0.001 and
+    draw_current_ddp3 < 0.009 and
+    draw_current_ddp4 < 0.009
+  )
+
+  # Flat:     X, Y
+  # Cylinder: X, RX
+  # Sphere:   RX, RX
+  local shape = robot_part_geometry[0]
+  if shape == 1 or z_move_only: # Flat or a Z-move
+    global process_a = grind_linear_accel_mpss
+    global process_v = grind_linear_vel_mps
+    global process_r = grind_linear_blend_radius_m
+  elif shape == 3: # Sphere
+    global process_a = grind_angular_accel_rpss
+    global process_v = grind_angular_vel_rps
+    global process_r = grind_angular_blend_radius_rad
+  elif shape == 2: # Cylinder
+    # Cylinder: Linear speed is good for X moves, rotational speed for theta
+
+    # process_theta_deg is 0 degrees (pure X) to 90 degrees (pure RX)
+    global process_dx_m = draw_current_ddp0
+    global process_dy_m = draw_current_ddp3 * robot_part_geometry[1] / 2000.
+    global process_theta_deg = abs(r2d(atan2(process_dy_m, process_dx_m)))
+    if process_theta_deg > 90.0:
+      global process_theta_deg = abs(180.0 - process_theta_deg)
+    end
+
+    # process_sliderfactor is 0 (pure X) to 1 (pure RX)
+    global process_sliderfactor = process_theta_deg / 90.0
+    global process_correction_index = limiter(floor(process_theta_deg / cyline_degree_slice), 0, cyline_correction_size-1)
+
+    if process_theta_deg < 1.25 or process_theta_deg > 88.5:
+      # Pure linear or rotational moves (within 0.5 degree) need no correction
+      global process_correctionfactor = 1
+    else:
+      # Otherwise, we do the table lookup
+      global process_correctionfactor = cyline_correction[process_correction_index]
+    end
+
+    # Choose speeds as a linear combination of the two values!
+    global process_a = linear_slider(grind_linear_accel_mpss, grind_angular_accel_rpss, process_sliderfactor)
+    global process_v = linear_slider(grind_linear_vel_mps, grind_angular_vel_rps, process_sliderfactor)
+    global process_r = linear_slider(grind_linear_blend_radius_m, grind_angular_blend_radius_rad, process_sliderfactor)
+
+    # Apply calibrated corrections
+    global process_a = process_a * process_correctionfactor
+    global process_v = process_v * process_correctionfactor
+    global process_r = process_r * process_correctionfactor
+  else:
+    # Unknown shape!
+    return p[0, 0, 0, 0, 0, 0]
+  end
+
+  # Apply one-time scaling factors
+  global process_a = process_a * draw_accel_factor
+  global process_v = process_v * draw_speed_factor
+
+  # Clear 1-time speed factors
+  global draw_accel_factor = 1.0
+  global draw_speed_factor = 1.0
+
+  # Apply optional blend radius override
+  global process_r_in = r
+  if r >= 0:
+    global process_r = r
+  end
+
+  # Let's go!
+  local p = pose_trans(draw_p_origin, dp)
+  imovel_int(p, a = process_a, v = process_v, r = process_r, wait = wait)
+  if ok_to_proceed():
+    global draw_current_dp = dp
+  else:
+    # We got interrupted!
+    # Figure out what dp we wound up at after the stop
+    draw_sync_current_dp(iget_actual_tcp_pose())
+  end
+
+  return p
+end
+
+def draw_finish(p):
+  return draw_to(p, r = 0)
+end
+
+def draw_relative(dp, r = 0, wait = True):
+  local dpdest = pose_add(draw_current_dp, dp)
+  return draw_to(dpdest, r, wait)
+end
+
+# Geometry Independent Versions
+def draw_geometry_compensate(dc):
+  local dp = p[0, 0, 0, 0, 0, 0]
+
+  # The geo-independent coordinates are specified in [0] and [1]
+  # Z and RZ remain unchanged
+  # RX and RY should be incremented
+  local shape = robot_part_geometry[0]
+  if shape == 1: # FLAT
+    dp[0] = dc[0]
+    dp[1] = dc[1]
+  elif shape == 2: # CYLINDER
+    local cylinder_radius_m = robot_part_geometry[1] / 1000.0 / 2.0
+    local rx = dc[1] / cylinder_radius_m
+    dp[0] = dc[0]
+    dp[3] = rx
+  elif shape == 3: # SPHERE
+    local sphere_radius_m = robot_part_geometry[1] / 1000.0 / 2.0
+    local rx = dc[0] / sphere_radius_m
+    local ry = dc[1] / sphere_radius_m
+    # Axis swapping here keeps orientation of X,Y same: [+towards operator, +towards left]
+    dp[3] = ry
+    dp[4] = -rx
+  end
+
+  # Keep any Z or RZ motion as-is
+  dp[2] = dc[2]
+  dp[5] = dc[5]
+
+  return dp
+end
+
+global drawgi_dp = p[0, 0, 0, 0, 0, 0]
+def drawgi_to(dc, r = -1, wait = True):
+  global drawgi_dp = draw_geometry_compensate(dc)
+  return draw_to(drawgi_dp, r, wait)
+end
+
+def drawgi_finish(dc):
+  return drawgi_to(dc, r = 0)
+end
+
+#
+# END DRAWING SYSTEM
+# ####################################################################################

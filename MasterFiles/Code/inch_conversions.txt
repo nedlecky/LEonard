@@ -1,0 +1,14 @@
+# inch_conversions
+# Provide inch equivalents to meters
+
+d_1in  = 0.0254
+d_2in  = 0.0508
+d_3in  = 0.0762
+d_4in  = 0.1016
+d_5in  = 0.1270
+d_6in  = 0.1524
+d_7in  = 0.1778
+d_8in  = 0.2032
+d_9in  = 0.2286
+d_10in = 0.2540
+d_11in = 0.2794
