@@ -1,0 +1,12 @@
+# sleep
+
+sleep(1)
+sleep(1.5)
+
+using_java()
+sleep(2)
+sleep(2.5)
+
+using_python()
+sleep(3)
+sleep(3.5)

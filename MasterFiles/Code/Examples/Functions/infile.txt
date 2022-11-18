@@ -1,0 +1,17 @@
+# infile
+# LEScript Only
+
+le_print(Starting...)
+infile_open(HoleData.csv)
+infile_scale(2,0.0254,3,0.0254,4,0.0254)
+
+next_hole:
+infile_readline()
+jump_gt_zero(infile_lineno, inspect)
+
+infile_close()
+le_stop()
+
+inspect:
+le_print(Name {infile_p1} {infile_p2})
+jump(next_hole)

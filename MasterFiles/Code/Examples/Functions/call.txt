@@ -1,0 +1,49 @@
+# call
+
+call(sub1)
+callif(Nope,sub1)
+call(sub2)
+callif(True,sub2)
+
+jump(java)
+
+sub1:
+le_print(LEScript Sub 1)
+ret()
+sub2:
+le_print(LEScript Sub 2)
+ret()
+
+java:
+using_java()
+
+call('jsub1')
+callif(3>4,'jsub1')
+call('jsub2')
+callif(4>3,'jsub2')
+
+jump('python')
+
+jsub1:
+le_print('Java Sub 1')
+ret()
+jsub2:
+le_print('Java Sub 2')
+ret()
+
+python:
+using_python()
+
+call('psub1')
+callif(3>4,'psub1')
+call('psub2')
+callif(4>3,'psub2')
+
+le_stop()
+
+psub1:
+le_print('Python Sub 1')
+ret()
+psub2:
+le_print('Python Sub 2')
+ret()

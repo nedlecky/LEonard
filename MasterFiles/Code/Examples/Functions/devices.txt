@@ -1,0 +1,22 @@
+# devices
+
+le_disconnect_all()
+
+le_connect(Command)
+sleep(2)
+le_send(Command,test message)
+
+
+le_connect(UR-5eDash)
+le_ask(UR-5eDash,robotmode,200)
+le_print(Dash={le_ask_response})
+
+le_disconnect(UR-5eDash)
+# now these should fail!
+le_ask(UR-5eDash,robotmode,200)
+le_print(Dash={le_ask_response})
+
+le_connect_all()
+# And should work again
+le_ask(UR-5eDash,robotmode,200)
+le_print(Dash={le_ask_response})

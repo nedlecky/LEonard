@@ -3884,6 +3884,7 @@ namespace LEonard
         public bool WriteVariable(string name, string value, bool isSystem = false, bool pushToEngines = true)
         {
             System.Threading.Monitor.Enter(lockObject);
+            if (value == null) value = "Null";
             string nameTrimmed = name.Trim();
             string valueTrimmed = value.Trim();
 
@@ -5201,6 +5202,23 @@ namespace LEonard
                 return true;
             }
 
+            // jumpif
+            if (command.StartsWith("jumpif("))
+            {
+                string[] parameters = ExtractParameters(command).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Expected jumpif(True|False,label)");
+                    return true;
+                }
+                else
+                {
+                    if (parameters[0] == "True")
+                        PerformJump(parameters[1]);
+                }
+                return true;
+            }
+
             // jump_gt_zero
             if (command.StartsWith("jump_gt_zero("))
             {
@@ -5259,6 +5277,23 @@ namespace LEonard
                 return true;
             }
 
+            // callif
+            if (command.StartsWith("callif("))
+            {
+                string[] parameters = ExtractParameters(command).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Expected callif(True|False,label)");
+                    return true;
+                }
+                else
+                {
+                    if (parameters[0] == "True")
+                        PerformCall(parameters[1]);
+                }
+                return true;
+            }
+
             // ret
             if (command == "ret" || command == "ret()")
             {
@@ -5295,6 +5330,114 @@ namespace LEonard
                     ExecError($"Assertion FAILS\n{value} != {parameters[1]}");
                     return true;
                 }
+                return true;
+            }
+
+            // Device Management
+            // le_connect
+            if (command.StartsWith("le_connect("))
+            {
+                string deviceName = ExtractParameters(command);
+                if (deviceName.Length < 1)
+                {
+                    ExecError("No device name specified");
+                    return true;
+                }
+
+                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
+                if (row == null)
+                {
+                    ExecError($"No device named {deviceName} was found.");
+                    return true;
+                }
+
+                DeviceConnect(row);
+                return true;
+            }
+
+            // le_disconnect
+            if (command.StartsWith("le_disconnect("))
+            {
+                string deviceName = ExtractParameters(command);
+                if (deviceName.Length < 1)
+                {
+                    ExecError("No device name specified");
+                    return true;
+                }
+
+                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
+                if (row == null)
+                {
+                    ExecError($"No device named {deviceName} was found.");
+                    return true;
+                }
+
+                DeviceDisconnect(row);
+                return true;
+            }
+
+            // le_connect_all
+            if (command == "le_connect_all()")
+            {
+                DeviceConnectAllBtn_Click(null, null);
+                return true;
+            }
+
+            // le_disconnect_all
+            if (command == "le_disconnect_all()")
+            {
+                DeviceDisconnectAllBtn_Click(null, null);
+                return true;
+            }
+
+            // le_send
+            if (command.StartsWith("le_send("))
+            {
+                string str = ExtractParameters(command, 2, false);
+
+                if (str == "")
+                    ExecError($"le_send({command}) Bad syntax");
+                else
+                {
+                    string[] values = str.Split(',');
+                    string devName = values[0];
+                    string message = values[1];
+                    if (devName == "me")
+                    {
+                        if (dev != null)
+                            dev.Send(message);
+                        else
+                            ExecError($"le_send({devName}, {message}) me is not defined");
+                    }
+                    else if (!le_send(devName, message))
+                        ExecError($"le_send({devName}, {message}) Failed");
+                }
+
+                return true;
+            }
+
+            // le_ask
+            if (command.StartsWith("le_ask("))
+            {
+                string response = "???";
+                string str = ExtractParameters(command, 3, false);
+                if (str == "")
+                    ExecError($"le_ask({command}) Bad syntax");
+                else
+                {
+                    string[] values = str.Split(',');
+
+                    string devName = values[0];
+                    string message = values[1];
+                    int timeoutMs = Convert.ToInt32(values[2]);
+                    if (devName == "me" && dev != null)
+                        response = dev.Ask(str);
+                    else
+                        response = le_ask(devName, message);
+                }
+
+                WriteVariable("le_ask_response", response);
+
                 return true;
             }
 
@@ -5611,112 +5754,6 @@ namespace LEonard
                 return true;
             }
 
-            // device_connect
-            if (command.StartsWith("device_connect("))
-            {
-                string deviceName = ExtractParameters(command);
-                if (deviceName.Length < 1)
-                {
-                    ExecError("No device name specified");
-                    return true;
-                }
-
-                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
-                if (row == null)
-                {
-                    ExecError($"No device named {deviceName} was found.");
-                    return true;
-                }
-
-                DeviceConnect(row);
-                return true;
-            }
-
-            // device_disconnect
-            if (command.StartsWith("device_disconnect("))
-            {
-                string deviceName = ExtractParameters(command);
-                if (deviceName.Length < 1)
-                {
-                    ExecError("No device name specified");
-                    return true;
-                }
-
-                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
-                if (row == null)
-                {
-                    ExecError($"No device named {deviceName} was found.");
-                    return true;
-                }
-
-                DeviceDisconnect(row);
-                return true;
-            }
-
-            // device_connect_all
-            if (command == "device_connect_all()")
-            {
-                DeviceConnectAllBtn_Click(null, null);
-                return true;
-            }
-
-            // device_disconnect_all
-            if (command == "device_disconnect_all()")
-            {
-                DeviceDisconnectAllBtn_Click(null, null);
-                return true;
-            }
-
-            // le_send
-            if (command.StartsWith("le_send("))
-            {
-                string str = ExtractParameters(command, 2, false);
-
-                if (str == "")
-                    ExecError($"le_send({command}) Bad syntax");
-                else
-                {
-                    string[] values = str.Split(',');
-                    string devName = values[0];
-                    string message = values[1];
-                    if (devName == "me")
-                    {
-                        if (dev != null)
-                            dev.Send(message);
-                        else
-                            ExecError($"le_send({devName}, {message}) me is not defined");
-                    }
-                    else if (!le_send(devName, message))
-                        ExecError($"le_send({devName}, {message}) Failed");
-                }
-
-                return true;
-            }
-
-            // le_ask
-            if (command.StartsWith("le_ask("))
-            {
-                string response = "???";
-                string str = ExtractParameters(command, 3, false);
-                if (str == "")
-                    ExecError($"le_ask({command}) Bad syntax");
-                else
-                {
-                    string[] values = str.Split(',');
-
-                    string devName = values[0];
-                    string message = values[1];
-                    int timeoutMs = Convert.ToInt32(values[2]);
-                    if (devName == "me" && dev != null)
-                        response = dev.Ask(str);
-                    else
-                        response = le_ask(devName, message);
-                }
-
-                WriteVariable("le_ask_response", response);
-
-                return true;
-            }
 
             // gocator_send
             if (command.StartsWith("gocator_send("))
@@ -6142,6 +6179,12 @@ namespace LEonard
         {
             consoleForm.Clear();
         }
+        bool le_assert(bool f)
+        {
+            if (!f)
+                ExecError("Assertion FAILED");
+            return f;
+        }
         public bool le_send(string devName, string msg)
         {
             if (devName == "me")
@@ -6160,6 +6203,11 @@ namespace LEonard
                     return false;
                 }
 
+                if (interfaces[(int)row["ID"]] == null)
+                {
+                    log.Error($"le_send: {devName} exists but is not instantiated for connection");
+                    return false;
+                }
                 if (!interfaces[(int)row["ID"]].IsConnected())
                 {
                     log.Error($"le_send: {devName} exists but is not connected");
@@ -6170,12 +6218,6 @@ namespace LEonard
             }
             return true;
         }
-        bool le_assert(bool f)
-        {
-            if (!f)
-                ExecError("Assertion FAILED");
-            return f;
-        }
         public string le_ask(string devName, string msg, int timeoutMs = 100)
         {
             DataRow row = FindName(devName, devices);
@@ -6185,9 +6227,15 @@ namespace LEonard
                 return null;
             }
 
+            if (interfaces[(int)row["ID"]] == null)
+            {
+                log.Error($"le_ask: {devName} exists but is not instantiated for connection");
+                return null;
+            }
+
             if (!interfaces[(int)row["ID"]].IsConnected())
             {
-                log.Error($"leInquiryResponse: {devName} exists but is not connected");
+                log.Error($"le_ask: {devName} exists but is not connected");
                 return null;
             }
 
@@ -6307,9 +6355,9 @@ namespace LEonard
                     .SetValue("le_stop", new Action(() => SetState(RunState.READY)))
                     .SetValue("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)))
                     .SetValue("jump", new Action<string>((string labelName) => PerformJump(labelName)))
-                    .SetValue("jump_if", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
+                    .SetValue("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
                     .SetValue("call", new Action<string>((string labelName) => PerformCall(labelName)))
-                    .SetValue("call_if", new Action<bool, string>((bool condition, string labelName) => PerformCallIf(condition, labelName)))
+                    .SetValue("callif", new Action<bool, string>((bool condition, string labelName) => PerformCallIf(condition, labelName)))
                     .SetValue("ret", new Action(() => PerformReturn()))
                     .SetValue("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)))
                     .SetValue("assert", new Func<bool, bool>((bool f) => le_assert(f)))
@@ -6317,7 +6365,7 @@ namespace LEonard
                     .SetValue("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
                     .SetValue("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)))
                     .SetValue("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)))
-                    //.SetValue("le_clear_variables", new Action(() => ClearNonSystemVariables()))
+            //.SetValue("le_clear_variables", new Action(() => ClearNonSystemVariables()))
             ;
         }
         private void JavaNewBtn_Click(object sender, EventArgs e)
@@ -6547,9 +6595,9 @@ namespace LEonard
             pythonScope.SetVariable("exec_java", new Func<string, bool>((string filename) => ExecuteJavaFile(filename)));
             pythonScope.SetVariable("exec_python", new Func<string, bool>((string filename) => ExecutePythonFile(filename)));
 
+            pythonScope.SetVariable("le_read_var", new Func<string, string>((string name) => ReadVariable(name)));
             pythonScope.SetVariable("le_write_var", new Action<string, string>((string name, string value) => WriteVariable(name, value, false, false))); // Last param false so we don't write it back here as a string!
             pythonScope.SetVariable("le_write_sysvar", new Action<string, string>((string name, string value) => WriteVariable(name, value, true, false))); // Last param false so we don't write it back here as a string!
-            pythonScope.SetVariable("le_read_var", new Func<string, string>((string name) => ReadVariable(name)));
 
             pythonScope.SetVariable("le_print", new Action<string>((string msg) => le_print_python(msg)));
             pythonScope.SetVariable("le_show_console", new Action<bool>((bool f) => le_show_console(f)));
@@ -6568,12 +6616,14 @@ namespace LEonard
             pythonScope.SetVariable("ret", new Action(() => PerformReturn()));
             pythonScope.SetVariable("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)));
             pythonScope.SetVariable("assert", new Func<bool, bool>((bool f) => le_assert(f)));
-            
 
-            pythonScope.SetVariable("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
+
             pythonScope.SetVariable("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)));
             pythonScope.SetVariable("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)));
-            pythonScope.SetVariable("le_clear_variables", new Action(() => ClearNonSystemVariables()));
+
+
+
+            pythonScope.SetVariable("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
 
 
             // UR Dashboard
