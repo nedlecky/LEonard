@@ -4570,31 +4570,36 @@ namespace LEonard
 
                 string line = SetCurrentLine(lineCurrentlyExecuting + 1);
 
-                bool fContinue = false;
-                switch (LEonardLanguage)
+                if (labels.ContainsValue(lineCurrentlyExecuting))
+                    log.Info($"EXEC  {lineCurrentlyExecuting:00000}: Label {line}");
+                else
                 {
-                    case LEonardLanguages.LEScript:
-                        fContinue = ExecuteLEScriptLine(lineCurrentlyExecuting, line);
-                        break;
-                    case LEonardLanguages.Java:
-                        fContinue = ExecuteJavaLine(lineCurrentlyExecuting, line);
-                        break;
-                    case LEonardLanguages.Python:
-                        fContinue = ExecutePythonLine(lineCurrentlyExecuting, line);
-                        break;
-                }
+                    bool fContinue = false;
+                    switch (LEonardLanguage)
+                    {
+                        case LEonardLanguages.LEScript:
+                            fContinue = ExecuteLEScriptLine(lineCurrentlyExecuting, line);
+                            break;
+                        case LEonardLanguages.Java:
+                            fContinue = ExecuteJavaLine(lineCurrentlyExecuting, line);
+                            break;
+                        case LEonardLanguages.Python:
+                            fContinue = ExecutePythonLine(lineCurrentlyExecuting, line);
+                            break;
+                    }
 
-                if (isSingleStep)
-                {
-                    isSingleStep = false;
-                    SetState(RunState.PAUSED);
-                }
-                if (!fContinue)
-                {
-                    log.Info("EXEC Execution ending");
-                    UnboldRecipe();
-                    SetRecipeState(recipeStateAtRun);
-                    SetState(RunState.READY);
+                    if (isSingleStep)
+                    {
+                        isSingleStep = false;
+                        SetState(RunState.PAUSED);
+                    }
+                    if (!fContinue)
+                    {
+                        log.Info("EXEC Execution ending");
+                        UnboldRecipe();
+                        SetRecipeState(recipeStateAtRun);
+                        SetState(RunState.READY);
+                    }
                 }
             }
         }
@@ -4935,9 +4940,6 @@ namespace LEonard
 
             CommonLineExecStart(lineNumber, line);
 
-            // Is line a label? If so, we ignore it!
-            if (IsLineALabel(line).Success) return true;
-
             try
             {
                 javaEngine.Execute(line);
@@ -4959,9 +4961,6 @@ namespace LEonard
                 log.Info($"EXECP {lineNumber:00000}: {line}");
 
             CommonLineExecStart(lineNumber, line);
-
-            // Is line a label? If so, we ignore it!
-            if (IsLineALabel(line).Success) return true;
 
             try
             {
@@ -5016,15 +5015,7 @@ namespace LEonard
                 return true;
             }
 
-            // Is line a label? If so, we ignore it!
-            if (IsLineALabel(command).Success)
-            {
-                return true;
-            }
-
-            // Start the table of commands!
-            // Language Selection Commands
-
+            // Language Selection Functions
             // using_lescript
             if (command == "using_lescript()")
             {
@@ -5046,6 +5037,103 @@ namespace LEonard
                 return true;
             }
 
+            // exec_java
+            if (command.StartsWith("exec_java("))
+            {
+                string filename = ExtractParameters(command);
+
+                if (!ExecuteJavaFile(filename))
+                    ExecError($"Cannot execute java file {filename}");
+
+                return true;
+            }
+
+            // exec_python
+            if (command.StartsWith("exec_python("))
+            {
+                string filename = ExtractParameters(command);
+                if (!ExecutePythonFile(filename))
+                    ExecError($"Cannot execute python file {filename}");
+
+                return true;
+            }
+
+            // Variable Management Functions
+            // clear_variables
+            if (command == "le_clear_variables()")
+            {
+                ClearNonSystemVariables();
+                return true;
+            }
+
+            // import_variables
+            if (command.StartsWith("le_import_variables("))
+            {
+                string file = ExtractParameters(command);
+                if (file.Length > 1)
+                {
+                    if (!ImportFile(file))
+                        ExecError($"File import error");
+                }
+                else
+                    ExecError("Invalid import command");
+
+                return true;
+            }
+
+            // system_variable
+            if (command.StartsWith("le_system_variable("))
+            {
+                string[] parameters = ExtractParameters(command, 2).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Unrecognized system_variable command");
+                    return true;
+                }
+                string variableName = parameters[0];
+                string value = ReadVariable(variableName, null);
+                if (value == null)
+                {
+                    ExecError("Unrecognized variable in system_variable command");
+                    return true;
+                }
+                SetSystemVariable(variableName, parameters[1] == "True");
+                return true;
+            }
+
+            // Console I/O
+            // le_print
+            void le_print(string s)
+            {
+                log.Info("LE** " + s);
+                Console.WriteLine(s);
+            }
+            if (command.StartsWith("le_print("))
+            {
+                le_print(ExtractParameters(command, -1, false));
+                return true;
+            }
+
+            // le_show_console
+            if (command.StartsWith("le_show_console("))
+            {
+                string param = ExtractParameters(command, -1, false);
+                if (param == "False" || param == "false")
+                    consoleForm.Hide();
+                else
+                    consoleForm.Show();
+                return true;
+            }
+
+            // le_clear_console
+            if (command == ("le_clear_console()"))
+            {
+                consoleForm.Clear();
+                return true;
+            }
+
+            // Flow Control
+
             // end
             if (command == "end()" || command == "end")
             {
@@ -5059,33 +5147,11 @@ namespace LEonard
                 return true;
             }
 
-            // clear
-            if (command == "clear()" || command == "clear")
-            {
-                ClearNonSystemVariables();
-                return true;
-            }
-
             // All other commands are assignment or end with )
             int parenIndex = command.IndexOf(')');
             if (parenIndex >= 0 && parenIndex != command.Length - 1)
             {
                 ExecError("Illegal line contains characters after ')'");
-                return true;
-            }
-
-            // import_variables
-            if (command.StartsWith("import_variables("))
-            {
-                string file = ExtractParameters(command);
-                if (file.Length > 1)
-                {
-                    if (!ImportFile(file))
-                        ExecError($"File import error");
-                }
-                else
-                    ExecError("Invalid import command");
-
                 return true;
             }
 
@@ -5139,26 +5205,6 @@ namespace LEonard
                 return true;
             }
 
-            // system_variable
-            if (command.StartsWith("system_variable("))
-            {
-                string[] parameters = ExtractParameters(command, 2).Split(',');
-                if (parameters.Length != 2)
-                {
-                    ExecError("Unrecognized system_variable command");
-                    return true;
-                }
-                string variableName = parameters[0];
-                string value = ReadVariable(variableName, null);
-                if (value == null)
-                {
-                    ExecError("Unrecognized variable in system_variable command");
-                    return true;
-                }
-                SetSystemVariable(variableName, parameters[1] == "True");
-                return true;
-            }
-
             // system_position
             if (command.StartsWith("system_position("))
             {
@@ -5200,27 +5246,6 @@ namespace LEonard
             if (command == "ret" || command == "ret()")
             {
                 PerformReturn();
-                return true;
-            }
-
-            // exec_java
-            if (command.StartsWith("exec_java("))
-            {
-                string filename = ExtractParameters(command);
-
-                if (!ExecuteJavaFile(filename))
-                    ExecError($"Cannot execute java file {filename}");
-
-                return true;
-            }
-
-            // exec_python
-            if (command.StartsWith("exec_python("))
-            {
-                string filename = ExtractParameters(command);
-                if (!ExecutePythonFile(filename))
-                    ExecError($"Cannot execute python file {filename}");
-
                 return true;
             }
 
@@ -5491,36 +5516,6 @@ namespace LEonard
             {
                 // This just displays the dialog. ExecTmr will wait for it to close
                 le_prompt(ExtractParameters(command, -1, false));
-                return true;
-            }
-
-            // le_print
-            void le_print(string s)
-            {
-                log.Info("LE** " + s);
-                Console.WriteLine(s);
-            }
-            if (command.StartsWith("le_print("))
-            {
-                le_print(ExtractParameters(command, -1, false));
-                return true;
-            }
-
-            // le_show_console
-            if (command.StartsWith("le_show_console("))
-            {
-                string param = ExtractParameters(command, -1, false);
-                if (param == "False" || param == "false")
-                    consoleForm.Hide();
-                else
-                    consoleForm.Show();
-                return true;
-            }
-
-            // le_clear_console
-            if (command == ("le_clear_console()"))
-            {
-                consoleForm.Clear();
                 return true;
             }
 
@@ -6162,8 +6157,8 @@ namespace LEonard
         }
         bool le_assert(bool f)
         {
-            if (f)
-                ExecError("Assertion  FAILS");
+            if (!f)
+                ExecError("Assertion FAILED");
             return f;
         }
         public string le_ask(string devName, string msg, int timeoutMs = 100)
@@ -6279,10 +6274,17 @@ namespace LEonard
                     .SetValue("using_lescript", new Action(() => using_lescript()))
                     .SetValue("using_java", new Action(() => using_java()))
                     .SetValue("using_python", new Action(() => using_python()))
+                    .SetValue("exec_java", new Func<string, bool>((string filename) => ExecuteJavaFile(filename)))
+                    .SetValue("exec_python", new Func<string, bool>((string filename) => ExecutePythonFile(filename)))
+
+                    .SetValue("le_read_var", new Func<string, string>((string name) => ReadVariable(name)))
+                    .SetValue("le_write_var", new Action<string, string>((string name, string value) => WriteVariable(name, value, false, false))) // Last param false so we don't write it back here as a string!
+                    .SetValue("le_write_sysvar", new Action<string, string>((string name, string value) => WriteVariable(name, value, true, false))) // Last param false so we don't write it back here as a string!
 
                     .SetValue("le_print", new Action<string>((string msg) => le_print_java(msg)))
                     .SetValue("le_show_console", new Action<bool>((bool f) => le_show_console(f)))
                     .SetValue("le_clear_console", new Action(() => le_clear_console()))
+
                     .SetValue("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)))
                     .SetValue("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
                     .SetValue("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)))
@@ -6290,9 +6292,6 @@ namespace LEonard
                     .SetValue("le_log_info", new Action<string>((string msg) => log.Info(msg)))
                     .SetValue("le_log_error", new Action<string>(s => log.Error(s)))
                     .SetValue("le_clear_variables", new Action(() => ClearNonSystemVariables()))
-                    .SetValue("le_write_var", new Action<string, string>((string name, string value) => WriteVariable(name, value, false, false))) // Last param false so we don't write it back here as a string!
-                    .SetValue("le_write_sysvar", new Action<string, string>((string name, string value) => WriteVariable(name, value, true, false))) // Last param false so we don't write it back here as a string!
-                    .SetValue("le_read_var", new Func<string, string>((string name) => ReadVariable(name)))
                     .SetValue("jump", new Action<string>((string labelName) => PerformJump(labelName)))
                     .SetValue("jump_if", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
                     .SetValue("call", new Action<string>((string labelName) => PerformCall(labelName)))
@@ -6527,10 +6526,17 @@ namespace LEonard
             pythonScope.SetVariable("using_lescript", new Action(() => using_lescript()));
             pythonScope.SetVariable("using_java", new Action(() => using_java()));
             pythonScope.SetVariable("using_python", new Action(() => using_python()));
+            pythonScope.SetVariable("exec_java", new Func<string, bool>((string filename) => ExecuteJavaFile(filename)));
+            pythonScope.SetVariable("exec_python", new Func<string, bool>((string filename) => ExecutePythonFile(filename)));
+
+            pythonScope.SetVariable("le_write_var", new Action<string, string>((string name, string value) => WriteVariable(name, value, false, false))); // Last param false so we don't write it back here as a string!
+            pythonScope.SetVariable("le_write_sysvar", new Action<string, string>((string name, string value) => WriteVariable(name, value, true, false))); // Last param false so we don't write it back here as a string!
+            pythonScope.SetVariable("le_read_var", new Func<string, string>((string name) => ReadVariable(name)));
 
             pythonScope.SetVariable("le_print", new Action<string>((string msg) => le_print_python(msg)));
             pythonScope.SetVariable("le_show_console", new Action<bool>((bool f) => le_show_console(f)));
             pythonScope.SetVariable("le_clear_console", new Action(() => le_clear_console()));
+
             pythonScope.SetVariable("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)));
             pythonScope.SetVariable("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
             pythonScope.SetVariable("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)));
@@ -6538,9 +6544,6 @@ namespace LEonard
             pythonScope.SetVariable("le_log_info", new Action<string>((string msg) => log.Info(msg)));
             pythonScope.SetVariable("le_log_error", new Action<string>(s => log.Error(s)));
             pythonScope.SetVariable("le_clear_variables", new Action(() => ClearNonSystemVariables()));
-            pythonScope.SetVariable("le_write_var", new Action<string, string>((string name, string value) => WriteVariable(name, value, false, false))); // Last param false so we don't write it back here as a string!
-            pythonScope.SetVariable("le_write_sysvar", new Action<string, string>((string name, string value) => WriteVariable(name, value, true, false))); // Last param false so we don't write it back here as a string!
-            pythonScope.SetVariable("le_read_var", new Func<string, string>((string name) => ReadVariable(name)));
             pythonScope.SetVariable("jump", new Action<string>((string labelName) => PerformJump(labelName)));
             pythonScope.SetVariable("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)));
             pythonScope.SetVariable("call", new Action<string>((string labelName) => PerformCall(labelName)));
