@@ -2,7 +2,7 @@
 // Project: LEonard
 // Author: Ned Lecky, Lecky Engineering LLC
 // Copyright 2021, 2022, 2023
-// Purpose: The main code window for the LEonard application
+// Purpose: The main UI form and the bulk of the UI code for LEonard
 
 #region USING
 using System;
@@ -5711,36 +5711,23 @@ namespace LEonard
                 return true;
             }
 
-
             // gocator_send
             if (command.StartsWith("gocator_send("))
             {
-                if (LeGocator.uiFocusInstance == null)
-                {
-                    ExecError("No Gocator selected");
-                    return true;
-                }
+                string message = ExtractParameters(command, -1, false);
 
-                LeGocator.uiFocusInstance?.Send(ExtractParameters(command, -1, false));
+                gocator_send(message);
                 return true;
             }
 
             // gocator_trigger
             if (command.StartsWith("gocator_trigger("))
             {
-                if (LeGocator.uiFocusInstance == null)
-                {
-                    ExecError("No Gocator selected");
-                    return true;
-                }
-
                 int preDelay_ms;
                 if (ExtractIntParameter(command, out preDelay_ms))
-                {
-                    LeGocator.uiFocusInstance?.Trigger(preDelay_ms);
-                    GocatorReadyLbl.BackColor = ColorFromBooleanName("False");
-                    GocatorReadyLbl.Refresh();
-                }
+                    gocator_trigger(preDelay_ms);
+                else
+                    ExecError($"gocator_trigger: {command}: Expected (preDelay_ms)");
 
                 return true;
             }
@@ -5748,88 +5735,12 @@ namespace LEonard
             // gocator_adjust
             if (command.StartsWith("gocator_adjust_("))
             {
-                if (LeGocator.uiFocusInstance == null)
-                {
-                    ExecError("No Gocator selected");
-                    return true;
-                }
-
                 int version;
-                if (!ExtractIntParameter(command, out version))
-                    return true;
+                if (ExtractIntParameter(command, out version))
+                    gocator_adjust(version);
+                else
+                    ExecError($"gocator_adjust: {command}: Expected (int version 1-4)");
 
-                double dx = 0;
-                double dy = 0;
-                double dz = 0;
-                double drx = 0;
-                double dry = 0;
-                if (ReadVariableInt("gc_decision", 2) == 0)
-                {
-                    log.Info("gocator_adjust() using counterbore");
-                    dx = Convert.ToDouble(ReadVariable("gc_offset_x", "0")) / 1000000.0;
-                    dy = Convert.ToDouble(ReadVariable("gc_offset_y", "0")) / 1000000.0;
-                    dz = -Convert.ToDouble(ReadVariable("gc_offset_z", "0")) / 1000000.0;
-                    drx = -Convert.ToDouble(ReadVariable("gc_xangle", "0")) / 1000.0;
-                    dry = Convert.ToDouble(ReadVariable("gc_yangle", "0")) / 1000.0;
-                }
-                else if (ReadVariableInt("gh_decision", 2) == 0)
-                {
-                    log.Info("gocator_adjust() using thru hole");
-                    dx = Convert.ToDouble(ReadVariable("gh_offset_x", "0")) / 1000000.0;
-                    dy = Convert.ToDouble(ReadVariable("gh_offset_y", "0")) / 1000000.0;
-                    dz = -Convert.ToDouble(ReadVariable("gh_offset_z", "0")) / 1000000.0;
-                    drx = -Convert.ToDouble(ReadVariable("gp_xangle", "0")) / 1000.0;
-                    dry = Convert.ToDouble(ReadVariable("gp_yangle", "0")) / 1000.0;
-                }
-
-                double abs_dx = Math.Abs(dx);
-                double abs_dy = Math.Abs(dy);
-                double abs_dz = Math.Abs(dz);
-                double abs_drx = Math.Abs(drx);
-                double abs_dry = Math.Abs(dry);
-
-                double deg2rad(double x)
-                {
-                    return x * Math.PI / 180.0;
-                }
-
-                log.Info($"gocator_adjust All Values: [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
-                switch (version)
-                {
-                    case 1:
-                        if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020)
-                            ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, 0, 0, 0]");
-                        else
-                            ExecuteLEScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
-                        break;
-                    case 2:
-                        if (abs_drx > 15 || abs_dry > 15)
-                            ExecError($"Excessive gocator_adjust [0, 0, 0, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
-                        else
-                            ExecuteLEScriptLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
-                        break;
-                    case 3:
-                        if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
-                            abs_drx > 15 || abs_dry > 15)
-                            ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
-                        else
-                        {
-                            ExecuteLEScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
-                            // TODO this should be a wait complete
-                            Thread.Sleep(1000);
-                            ExecuteLEScriptLine(-1, $"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
-                        }
-                        break;
-                    case 4:
-                        if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
-                            abs_drx > 15 || abs_dry > 15)
-                            ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
-                        else
-                            ExecuteLEScriptLine(-1, $"movel_incr_tool({dx}:0.000000,{dy}:0.000000,{dz}:0.000000,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
-                        break;
-                    default:
-                        break;
-                }
                 return true;
             }
 
@@ -5837,9 +5748,9 @@ namespace LEonard
             if (command.StartsWith("gocator_write_data("))
             {
                 string filename;
-                string tagName = ReadVariable("gocator_ID", "???");
+                string tagName;
 
-                // Can put in (filename,tagName) or just (fuilename), in which case tagName = ReadVariable("gocator_ID", "???"
+                // Can put in (filename,tagName) or just (fuilename), in which case tagName = ReadVariable("gocator_ID", "Null")
                 string[] parameters = ExtractParameters(command).Split(',');
                 if (parameters.Length == 2)
                 {
@@ -5849,81 +5760,15 @@ namespace LEonard
                 else if (parameters.Length == 1)
                 {
                     filename = parameters[0];
-                    tagName = ReadVariable("gocator_ID", "???");
+                    tagName = ReadVariable("gocator_ID", "Null");
                 }
                 else
                 {
-                    ExecError("No file name specified");
+                    ExecError($"gocator_write_data: {command} No file name specified");
                     return true;
                 }
 
-                string full_filename = System.IO.Path.Combine(LEonardRoot, DataFolder, filename);
-                full_filename = System.IO.Path.ChangeExtension(full_filename, ".csv");
-
-                try
-                {
-                    StreamWriter writer;
-                    if (!File.Exists(full_filename))
-                    {
-                        writer = new StreamWriter(full_filename);
-                        string gc_headers = "timestamp,gocator_ID,gc_decision,gc_offset_x,gc_offset_y,gc_offset_z,gc_outer_radius,gc_depth,dc_bevel_radius,gc_bevel_angle,gc_xangle,gc_yangle,gc_cb_depth,gc_axis_tilt,gc_axis_orient";
-                        string gc_units = ",,,in,in,in,in,in,in,deg,deg,deg,in,deg,deg";
-                        string gh_headers = "gh_decision,gh_offset_x,gh_offset_y,gh_offset_z,gh_radius";
-                        string gh_units = ",in,in,in,in";
-                        string gp_headers = "gp_xangle,gp_yangle,gp_z_offset,gp_std_dev";
-                        string gp_units = "deg,deg,in,in";
-                        string headers = gc_headers + "," + gh_headers + "," + gp_headers;
-                        string units = gc_units + "," + gh_units + "," + gp_units;
-
-                        writer.WriteLine(headers);
-                        writer.WriteLine(units);
-                    }
-                    else
-                        writer = new StreamWriter(full_filename, true);
-
-                    string GetRaw(string name)
-                    {
-                        return ReadVariable(name, "??");
-                    }
-                    string GetDist(string name, double scale = 39.3701)
-                    {
-                        try
-                        {
-                            double x = Convert.ToDouble(ReadVariable(name, "999")) * scale / 1000000.0;
-                            return x.ToString("0.0000");
-                        }
-                        catch
-                        {
-                            return "INVALID";
-                        }
-                    }
-                    string GetAngle(string name, double scale = 1.0)
-                    {
-                        try
-                        {
-                            double x = Convert.ToDouble(ReadVariable(name, "999")) * scale / 1000.0;
-                            return x.ToString("0.0");
-                        }
-                        catch
-                        {
-                            return "INVALID";
-                        }
-                    }
-
-                    string output = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    output += $",{tagName},{GetRaw("gc_decision")},{GetDist("gc_offset_x")},{GetDist("gc_offset_y")},{GetDist("gc_offset_z")}";
-                    output += $",{GetDist("gc_outer_radius")},{GetAngle("gc_depth")},{GetAngle("gc_bevel_radius")},{GetAngle("gc_bevel_angle")},{GetAngle("gc_xangle")},{GetAngle("gc_yangle")}";
-                    output += $",{GetDist("gc_cb_depth")},{GetAngle("gc_axis_tilt")},{GetAngle("gc_axis_orient")}";
-                    output += $",{GetRaw("gh_decision")},{GetDist("gh_offset_x")},{GetDist("gh_offset_y")},{GetDist("gh_offset_z")},{GetDist("gh_radius")}";
-                    output += $",{GetAngle("gp_xangle")},{GetAngle("gp_yangle")},{GetDist("gp_z_offset")},{GetDist("gp_std_dev")}";
-                    writer.WriteLine(output);
-
-                    writer.Close();
-                }
-                catch
-                {
-                    ExecError($"write_gocator_data(...) cannot write to\n{full_filename}");
-                }
+                gocator_write_data(filename, tagName);
 
                 return true;
             }
@@ -6271,7 +6116,7 @@ namespace LEonard
 
         #endregion ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
 
-        #region ===== JAVA SUPPORT BEGINS               ==============================================================================================================================
+        #region ===== JAVA SUPPORT CODE                 ==============================================================================================================================
         private void JavaUpdateVariablesRTB()
         {
             string finalUpdate = "";
@@ -6300,44 +6145,188 @@ namespace LEonard
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
-                    .SetValue("using_lescript", new Action(() => using_lescript()))
-                    .SetValue("using_java", new Action(() => using_java()))
-                    .SetValue("using_python", new Action(() => using_python()))
-                    .SetValue("exec_lescript", new Func<string, bool>((string filename) => ExecuteLEScriptFile(filename)))
-                    .SetValue("exec_java", new Func<string, bool>((string filename) => ExecuteJavaFile(filename)))
-                    .SetValue("exec_python", new Func<string, bool>((string filename) => ExecutePythonFile(filename)))
-                    .SetValue("execline_lescript", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
-                    .SetValue("execline_jave", new Action<string>((string line) => ExecuteJavaLine(-1, line)))
-                    .SetValue("execline_python", new Action<string>((string line) => ExecutePythonLine(-1, line)))
+            .SetValue("using_lescript", new Action(() => using_lescript()))
+            .SetValue("using_java", new Action(() => using_java()))
+            .SetValue("using_python", new Action(() => using_python()))
+            .SetValue("exec_lescript", new Func<string, bool>((string filename) => ExecuteLEScriptFile(filename)))
+            .SetValue("exec_java", new Func<string, bool>((string filename) => ExecuteJavaFile(filename)))
+            .SetValue("exec_python", new Func<string, bool>((string filename) => ExecutePythonFile(filename)))
+            .SetValue("execline_lescript", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
+            .SetValue("execline_jave", new Action<string>((string line) => ExecuteJavaLine(-1, line)))
+            .SetValue("execline_python", new Action<string>((string line) => ExecutePythonLine(-1, line)))
 
-                    .SetValue("le_read_var", new Func<string, string>((string name) => ReadVariable(name)))
-                    .SetValue("le_write_var", new Func<string, string, bool>((string name, string value) => WriteVariable(name, value, false, false))) // Last param false so we don't write it back here as a string!
-                    .SetValue("le_write_sysvar", new Func<string, string, bool>((string name, string value) => WriteVariable(name, value, true, false))) // Last param false so we don't write it back here as a string!
+            .SetValue("le_read_var", new Func<string, string>((string name) => ReadVariable(name)))
+            .SetValue("le_write_var", new Func<string, string, bool>((string name, string value) => WriteVariable(name, value, false, false))) // Last param false so we don't write it back here as a string!
+            .SetValue("le_write_sysvar", new Func<string, string, bool>((string name, string value) => WriteVariable(name, value, true, false))) // Last param false so we don't write it back here as a string!
 
-                    .SetValue("le_print", new Action<string>((string msg) => le_print_java(msg)))
-                    .SetValue("le_show_console", new Action<bool>((bool f) => le_show_console(f)))
-                    .SetValue("le_clear_console", new Action(() => le_clear_console()))
+            .SetValue("le_print", new Action<string>((string msg) => le_print_java(msg)))
+            .SetValue("le_show_console", new Action<bool>((bool f) => le_show_console(f)))
+            .SetValue("le_clear_console", new Action(() => le_clear_console()))
 
-                    .SetValue("le_log_info", new Action<string>((string msg) => log.Info(msg)))
-                    .SetValue("le_log_error", new Action<string>(s => log.Error(s)))
+            .SetValue("le_log_info", new Action<string>((string msg) => log.Info(msg)))
+            .SetValue("le_log_error", new Action<string>(s => log.Error(s)))
 
-                    .SetValue("le_pause", new Action(() => RobotAndSystemPause()))
-                    .SetValue("le_stop", new Action(() => SetState(RunState.READY)))
-                    .SetValue("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)))
-                    .SetValue("jump", new Action<string>((string labelName) => PerformJump(labelName)))
-                    .SetValue("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
-                    .SetValue("call", new Action<string>((string labelName) => PerformCall(labelName)))
-                    .SetValue("callif", new Action<bool, string>((bool condition, string labelName) => PerformCallIf(condition, labelName)))
-                    .SetValue("ret", new Action(() => PerformReturn()))
-                    .SetValue("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)))
-                    .SetValue("assert", new Func<bool, bool>((bool f) => le_assert(f)))
+            .SetValue("le_pause", new Action(() => RobotAndSystemPause()))
+            .SetValue("le_stop", new Action(() => SetState(RunState.READY)))
+            .SetValue("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)))
+            .SetValue("jump", new Action<string>((string labelName) => PerformJump(labelName)))
+            .SetValue("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
+            .SetValue("call", new Action<string>((string labelName) => PerformCall(labelName)))
+            .SetValue("callif", new Action<bool, string>((bool condition, string labelName) => PerformCallIf(condition, labelName)))
+            .SetValue("ret", new Action(() => PerformReturn()))
+            .SetValue("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)))
+            .SetValue("assert", new Func<bool, bool>((bool f) => le_assert(f)))
 
-                    .SetValue("le_connect", new Func<string, int>((string devName) => le_connect(devName)))
-                    .SetValue("le_disconnect", new Func<string, int>((string devName) => le_disconnect(devName)))
-                    .SetValue("le_connect_all", new Func<int>(() => le_connect_all()))
-                    .SetValue("le_disconnect_all", new Func<int>(() => le_disconnect_all()))
-                    .SetValue("le_send", new Func<string, string, int>((string devName, string msg) => le_send(devName, msg)))
-                    .SetValue("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)))
+            .SetValue("le_connect", new Func<string, int>((string devName) => le_connect(devName)))
+            .SetValue("le_disconnect", new Func<string, int>((string devName) => le_disconnect(devName)))
+            .SetValue("le_connect_all", new Func<int>(() => le_connect_all()))
+            .SetValue("le_disconnect_all", new Func<int>(() => le_disconnect_all()))
+            .SetValue("le_send", new Func<string, string, int>((string devName, string msg) => le_send(devName, msg)))
+            .SetValue("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)))
+
+            // Universal Robots
+            // TODO Should these look at license?
+            // Dashboard Communication
+            .SetValue("ur_dashboard", new Func<string, int, string>((string msg, int timeout) => ur_dashboard(msg, timeout)))
+
+            // PolyScope Communication
+            .SetValue("send_robot", new Func<string, bool>((string msg) => PerformRobotCommand($"send_robot({msg})")))
+            .SetValue("robot_socket_reset", new Func<bool>(() => PerformRobotCommand("robot_socket_reset()")))
+            .SetValue("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")))
+
+            // Position and Tool Interface
+            .SetValue("save_position", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"save_position({posName})")))
+            .SetValue("move_linear", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"move_linear({posName})")))
+            .SetValue("select_tool", new Func<string, bool>((string toolName) => ExecuteLEScriptLine(-1, $"select_tool({toolName})")))
+            .SetValue("set_part_geometry", new Func<string, double, bool>((string geom, double diam) => ExecuteLEScriptLine(-1, $"set_part_geometry({geom},{diam})")))
+            .SetValue("free_drive", new Func<int, bool>((int x) => PerformRobotCommand($"free_drive({x})")))
+
+            // Core Motion
+            .SetValue("movej",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double j1, double j2, double j3, double j4, double j5, double j6) => PerformRobotCommand($"movej({j1:0.000000},{j2:0.000000},{j3:0.000000},{j4:0.000000},{j5:0.000000},{j6:0.000000})")))
+            .SetValue("get_actual_joint_positions", new Func<bool>(() => PerformRobotCommand("get_actual_joint_positions()")))
+            .SetValue("get_target_joint_positions", new Func<bool>(() => PerformRobotCommand("get_target_joint_positions()")))
+            .SetValue("movel",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")))
+            .SetValue("get_actual_tcp_pose", new Func<bool>(() => PerformRobotCommand("get_actual_tcp_pose()")))
+            .SetValue("get_target_tcp_pose", new Func<bool>(() => PerformRobotCommand("get_target_tcp_pose()")))
+            .SetValue("get_actual_both", new Func<bool>(() => PerformRobotCommand("get_actual_both()")))
+            .SetValue("get_target_both", new Func<bool>(() => PerformRobotCommand("get_target_both()")))
+            .SetValue("set_tcp",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x_m, double y_m, double z_m, double rx_rad, double ry_rad, double rz_rad) => PerformRobotCommand($"set_tcp({x_m:0.000000},{y_m:0.000000},{z_m:0.000000},{rx_rad:0.000000},{ry_rad:0.000000},{rz_rad:0.000000})")))
+            .SetValue("get_tcp_offset", new Func<bool>(() => PerformRobotCommand("get_tcp_offset()")))
+            .SetValue("set_payload",
+                new Func<double, double, double, double, bool>(
+                    (double mass_kg, double cog_x_m, double cog_y_m, double cog_z_m) => PerformRobotCommand($"set_payload({mass_kg:0.000000},{cog_x_m:0.000000},{cog_y_m:0.000000},{cog_z_m:0.000000})")))
+
+            // Movel Incremental
+            .SetValue("movel_incr_base",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => PerformRobotCommand($"movel_incr_base({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")))
+            .SetValue("movel_incr_tool",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => PerformRobotCommand($"movel_incr_tool({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")))
+            .SetValue("movel_incr_part",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => PerformRobotCommand($"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")))
+            .SetValue("movel_single_axis", new Func<int, double, bool>((int axis, double daxis) => PerformRobotCommand($"movel_single_axis({axis},{daxis:0.000000})")))
+            .SetValue("movel_rot_only", new Func<double, double, double, bool>((double drx, double dry, double drz) => PerformRobotCommand($"movel_rot_only({drx:0.000000},{dry:0.000000},{drz:0.000000})")))
+
+            // Movel Relative
+            .SetValue("movel_rel_set_tool_origin",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_set_tool_origin({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")))
+            .SetValue("movel_rel_set_tool_origin_here", new Func<bool>(() => PerformRobotCommand("movel_rel_set_part_origin_here()")))
+            .SetValue("movel_rel_set_part_origin",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_set_part_origin({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")))
+            .SetValue("movel_rel_set_part_origin_here", new Func<bool>(() => PerformRobotCommand("movel_rel_set_part_origin_here()")))
+            .SetValue("movel_rel_tool",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_tool({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")))
+            .SetValue("movel_rel_part",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_part({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")))
+
+            // Set Robot Variables
+            .SetValue("set_linear_speed", new Func<double, bool>((double speed_mmps) => PerformRobotCommand($"set_linear_speed({speed_mmps:0.000})")))
+            .SetValue("set_linear_accel", new Func<double, bool>((double accel_mmpss) => PerformRobotCommand($"set_linear_accel({accel_mmpss:0.000})")))
+            .SetValue("set_blend_radius", new Func<double, bool>((double blend_radius_mm) => PerformRobotCommand($"set_blend_radius({blend_radius_mm:0.000})")))
+            .SetValue("set_joint_speed", new Func<double, bool>((double speed_dps) => PerformRobotCommand($"set_joint_speed({speed_dps:0.000})")))
+            .SetValue("set_joint_accel", new Func<double, bool>((double accel_dpss) => PerformRobotCommand($"set_joint_accel({accel_dpss:0.000})")))
+            .SetValue("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.000})")))
+
+            // Robot I/O
+            .SetValue("set_output", new Func<int, int, bool>((int dig_out, int state) => PerformRobotCommand($"set_output({dig_out},{state})")))
+            .SetValue("tool_on", new Func<bool>(() => PerformRobotCommand("tool_on()")))
+            .SetValue("tool_off", new Func<bool>(() => PerformRobotCommand("tool_off()")))
+            .SetValue("coolant_on", new Func<bool>(() => PerformRobotCommand("coolant_on()")))
+            .SetValue("coolant_off", new Func<bool>(() => PerformRobotCommand("coolant_off()")))
+
+            // Grinding Patterns
+            // TODO Should these look at license?
+            // grind_line(dx_mm, dy_mm, n_cycles, speed_mm/s, force_N, stay_in_contact)
+            .SetValue("grind_line",
+                new Func<double, double, int, double, double, int, bool>(
+                    (double dx_mm, double dy_mm, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_line({dx_mm:0.0},{dy_mm:0.0},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")))
+
+            // grind_line_deg(length_mm, angle_deg, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            .SetValue("grind_line_deg",
+                new Func<double, double, int, double, double, int, bool>(
+                    (double length_mm, double angle_deg, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_line_deg({length_mm:0.0},{angle_deg:0.00},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")))
+            // grind_rect(dx_mm, dy_mm, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            .SetValue("grind_rect",
+                new Func<double, double, int, double, double, int, bool>(
+                    (double dx_mm, double dy_mm, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_rect({dx_mm:0.0},{dy_mm:0.0},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")))
+            // grind_serp(dx_mm, dy_mm, n_xsteps, n_ysteps, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            .SetValue("grind_serp",
+                new Func<double, double, int, int, int, double, double, int, bool>(
+                    (double dx_mm, double dy_mm, int n_xsteps, int n_ysteps, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_serp({dx_mm:0.0},{dy_mm:0.0},{n_xsteps},{n_ysteps},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")))
+            // grind_poly(circle_diam_mm, n_sides, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            .SetValue("grind_poly",
+                new Func<double, int, int, double, double, int, bool>(
+                    (double circle_diam_mm, int n_sides, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_poly({circle_diam_mm:0.0},{n_sides},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")))
+            // grind_circle(circle_diam_mm, n_cycles, speed_mm/s, force_N, stay_in_contact)
+            .SetValue("grind_circle",
+                new Func<double, int, double, double, int, bool>(
+                    (double circle_diam_mm, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_circle({circle_diam_mm:0.0},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")))
+            // grind_spiral(circle1_diam_mm, grind_circle2_diam_mm, n_spirals, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            .SetValue("grind_spiral",
+                new Func<double, double, int, int, double, double, int, bool>(
+                    (double circle1_diam_mm, double circle2_diam_mm, int n_spirals, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_spiral({circle1_diam_mm:0.0},{circle2_diam_mm:0.0},{n_spirals},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")))
+            .SetValue("grind_retract", new Func<bool>(() => PerformRobotCommand("grind_retract()")))
+
+            // UR Grinding Variables
+            .SetValue("grind_contact_enable", new Func<int, bool>((int x) => PerformRobotCommand($"grind_contact_enable({x})")))
+            .SetValue("grind_touch_retract", new Func<double, bool>((double x) => PerformRobotCommand($"grind_touch_retract({x})")))
+            .SetValue("grind_touch_speed", new Func<double, bool>((double x) => PerformRobotCommand($"grind_touch_speed({x})")))
+            .SetValue("grind_force_dwell", new Func<double, bool>((double x) => PerformRobotCommand($"grind_force_dwell({x})")))
+            .SetValue("grind_max_wait", new Func<double, bool>((double x) => PerformRobotCommand($"grind_max_wait({x})")))
+            .SetValue("grind_max_blend_radius", new Func<double, bool>((double x) => PerformRobotCommand($"grind_max_blend_radius({x})")))
+            .SetValue("grind_trial_speed", new Func<double, bool>((double x) => PerformRobotCommand($"grind_trial_speed({x})")))
+            .SetValue("grind_linear_accel", new Func<double, bool>((double x) => PerformRobotCommand($"grind_linear_accel({x})")))
+            .SetValue("grind_point_frequency", new Func<double, bool>((double x) => PerformRobotCommand($"grind_point_frequency({x})")))
+            .SetValue("grind_jog_speed", new Func<double, bool>((double x) => PerformRobotCommand($"grind_jog_speed({x})")))
+            .SetValue("grind_jog_accel", new Func<double, bool>((double x) => PerformRobotCommand($"grind_jog_accel({x})")))
+            .SetValue("grind_force_mode_damping", new Func<double, bool>((double x) => PerformRobotCommand($"grind_force_mode_damping({x})")))
+            .SetValue("grind_force_mode_gain_scaling", new Func<double, bool>((double x) => PerformRobotCommand($"grind_force_mode_gain_scaling({x})")))
+
+            // LMI Gocator
+            // TODO Should these look at license
+            .SetValue("gocator_send", new Func<string, int>((string message) => gocator_send(message)))
+            .SetValue("gocator_trigger", new Func<int, int>((int preDelay_ms) => gocator_trigger(preDelay_ms)))
+            .SetValue("gocator_adjust", new Func<int, int>((int version) => gocator_adjust(version)))
+            .SetValue("gocator_write_data", new Func<string, string, int>((string filename, string tagName) => gocator_write_data(filename, tagName)))
             ;
         }
         private void JavaNewBtn_Click(object sender, EventArgs e)
@@ -6535,9 +6524,9 @@ namespace LEonard
             ExecError($"File {filename} does not exist");
             return false;
         }
-        #endregion ===== JAVA SUPPORT BEGINS               ==============================================================================================================================
+        #endregion ===== JAVA SUPPORT CODE                 ==============================================================================================================================
 
-        #region ===== PYTHON SUPPORT BEGINS             ==============================================================================================================================
+        #region ===== PYTHON SUPPORT CODE               ==============================================================================================================================
         private void le_print_python(string msg)
         {
             CrawlRTB(PythonConsoleRTB, msg);
@@ -6601,8 +6590,7 @@ namespace LEonard
             pythonScope.SetVariable("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)));
 
             // Universal Robots
-            // TODO Should these require the license??
-
+            // TODO Should these look at license?
             // Dashboard Communication
             pythonScope.SetVariable("ur_dashboard", new Func<string, int, string>((string msg, int timeout) => ur_dashboard(msg, timeout)));
 
@@ -6684,10 +6672,11 @@ namespace LEonard
             pythonScope.SetVariable("coolant_off", new Func<bool>(() => PerformRobotCommand("coolant_off()")));
 
             // Grinding Patterns
+            // TODO Should these look at license?
             // grind_line(dx_mm, dy_mm, n_cycles, speed_mm/s, force_N, stay_in_contact)
             pythonScope.SetVariable("grind_line",
                 new Func<double, double, int, double, double, int, bool>(
-                    (double dx_mm, double dy_mm, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) => 
+                    (double dx_mm, double dy_mm, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
                     PerformRobotCommand($"grind_line({dx_mm:0.0},{dy_mm:0.0},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")));
 
             // grind_line_deg(length_mm, angle_deg, n_cycles, speed_mm/s, force_N, stay_in_contact) 
@@ -6738,10 +6727,11 @@ namespace LEonard
             pythonScope.SetVariable("grind_force_mode_gain_scaling", new Func<double, bool>((double x) => PerformRobotCommand($"grind_force_mode_gain_scaling({x})")));
 
             // LMI Gocator
-            // TODO Should these require the license??
-            pythonScope.SetVariable("gocator_trigger", new Func<double, bool>((double delay) => ExecuteLEScriptLine(-1, $"gocator_trigger({delay})")));
-            pythonScope.SetVariable("gocator_adjust", new Func<int, bool>((int x) => ExecuteLEScriptLine(-1, $"gocator_adjust({x})")));
-            pythonScope.SetVariable("gocator_write_data", new Func<string, string, bool>((string filename, string tagName) => ExecuteLEScriptLine(-1, $"gocator_write_data({filename},{tagName})")));
+            // TODO Should these look at license
+            pythonScope.SetVariable("gocator_send", new Func<string, int>((string message) => gocator_send(message)));
+            pythonScope.SetVariable("gocator_trigger", new Func<int, int>((int preDelay_ms) => gocator_trigger(preDelay_ms)));
+            pythonScope.SetVariable("gocator_adjust", new Func<int, int>((int version) => gocator_adjust(version)));
+            pythonScope.SetVariable("gocator_write_data", new Func<string, string, int>((string filename, string tagName) => gocator_write_data(filename, tagName)));
         }
         private void PythonNewBtn_Click(object sender, EventArgs e)
         {
@@ -6973,7 +6963,7 @@ namespace LEonard
             //ErrorMessageBox($"ExecutePythonFile({filename}) file does not exist");
             return false;
         }
-        #endregion ===== PYTHON SUPPORT BEGINS             ==============================================================================================================================
+        #endregion ===== PYTHON SUPPORT CODE               ==============================================================================================================================
 
         #region ===== LICENSING CODE                    ==============================================================================================================================
         private void GetLicenseStatus()
@@ -7954,7 +7944,7 @@ namespace LEonard
         }
         #endregion ===== UR INTERFACE CODE                 ==============================================================================================================================
 
-        #region ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
+        #region ===== GOCATOR INTERFACE CODE            ==============================================================================================================================
         public void GocatorAnnounce()
         {
             log.Debug($"GocatorAnnounce nInstances={LeGocator.nInstances}");
@@ -8000,8 +7990,203 @@ namespace LEonard
                     break;
             }
         }
-        #endregion ===== GOCATOR INTERFACE SUPPORT         ==============================================================================================================================
+        int gocator_send(string message)
+        {
+            if (LeGocator.uiFocusInstance == null)
+            {
+                ExecError("gocator_send: No Gocator selected");
+                return 1;
+            }
 
+            LeGocator.uiFocusInstance.Send(message);
+            return 0;
+        }
+        int gocator_trigger(int preDelay_ms)
+        {
+            if (LeGocator.uiFocusInstance == null)
+            {
+                ExecError("gocator_trigger: No Gocator selected");
+                return 1;
+            }
+
+            LeGocator.uiFocusInstance.Trigger(preDelay_ms);
+            GocatorReadyLbl.BackColor = ColorFromBooleanName("False");
+            GocatorReadyLbl.Refresh();
+            return 0;
+        }
+        int gocator_adjust(int version)
+        {
+            if (LeGocator.uiFocusInstance == null)
+            {
+                ExecError("gocator_adjust: No Gocator selected");
+                return 1;
+            }
+
+            double dx = 0;
+            double dy = 0;
+            double dz = 0;
+            double drx = 0;
+            double dry = 0;
+            if (ReadVariableInt("gc_decision", 2) == 0)
+            {
+                log.Info("gocator_adjust() using counterbore");
+                dx = Convert.ToDouble(ReadVariable("gc_offset_x", "0")) / 1000000.0;
+                dy = Convert.ToDouble(ReadVariable("gc_offset_y", "0")) / 1000000.0;
+                dz = -Convert.ToDouble(ReadVariable("gc_offset_z", "0")) / 1000000.0;
+                drx = -Convert.ToDouble(ReadVariable("gc_xangle", "0")) / 1000.0;
+                dry = Convert.ToDouble(ReadVariable("gc_yangle", "0")) / 1000.0;
+            }
+            else if (ReadVariableInt("gh_decision", 2) == 0)
+            {
+                log.Info("gocator_adjust() using thru hole");
+                dx = Convert.ToDouble(ReadVariable("gh_offset_x", "0")) / 1000000.0;
+                dy = Convert.ToDouble(ReadVariable("gh_offset_y", "0")) / 1000000.0;
+                dz = -Convert.ToDouble(ReadVariable("gh_offset_z", "0")) / 1000000.0;
+                drx = -Convert.ToDouble(ReadVariable("gp_xangle", "0")) / 1000.0;
+                dry = Convert.ToDouble(ReadVariable("gp_yangle", "0")) / 1000.0;
+            }
+
+            double abs_dx = Math.Abs(dx);
+            double abs_dy = Math.Abs(dy);
+            double abs_dz = Math.Abs(dz);
+            double abs_drx = Math.Abs(drx);
+            double abs_dry = Math.Abs(dry);
+
+            double deg2rad(double x)
+            {
+                return x * Math.PI / 180.0;
+            }
+
+            log.Info($"gocator_adjust All Values: [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
+            switch (version)
+            {
+                case 1:
+                    if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020)
+                    {
+                        ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, 0, 0, 0]");
+                        return 2;
+                    }
+                    else
+                    {
+                        PerformRobotCommand($"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
+                        return 0;
+                    }
+                case 2:
+                    if (abs_drx > 15 || abs_dry > 15)
+                    {
+                        ExecError($"Excessive gocator_adjust [0, 0, 0, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
+                        return 3;
+                    }
+                    else
+                    {
+                        PerformRobotCommand($"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
+                        return 0;
+                    }
+                case 3:
+                    if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
+                        abs_drx > 15 || abs_dry > 15)
+                    {
+                        ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
+                        return 4;
+                    }
+                    else
+                    {
+                        PerformRobotCommand($"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
+                        // TODO this should be a wait complete
+                        Thread.Sleep(1000);
+                        PerformRobotCommand($"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
+                        return 0;
+                    }
+                case 4:
+                    if (abs_dx > 0.020 || abs_dy > 0.020 || abs_dz > 0.020 ||
+                        abs_drx > 15 || abs_dry > 15)
+                    {
+                        ExecError($"Excessive gocator_adjust [{dx:0.000000} m, {dy:0.000000} m, {dz:0.000000} m, {drx:0.000000} deg, {dry:0.000000} deg, 0]");
+                        return 5;
+                    }
+                    else
+                    {
+                        ExecuteLEScriptLine(-1, $"movel_incr_tool({dx}:0.000000,{dy}:0.000000,{dz}:0.000000,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
+                        return 0;
+                    }
+                default:
+                    return 6;
+            }
+        }
+        int gocator_write_data(string filename, string tagName)
+        {
+            string full_filename = System.IO.Path.Combine(LEonardRoot, DataFolder, filename);
+            full_filename = System.IO.Path.ChangeExtension(full_filename, ".csv");
+
+            try
+            {
+                StreamWriter writer;
+                if (!File.Exists(full_filename))
+                {
+                    writer = new StreamWriter(full_filename);
+                    string gc_headers = "timestamp,gocator_ID,gc_decision,gc_offset_x,gc_offset_y,gc_offset_z,gc_outer_radius,gc_depth,dc_bevel_radius,gc_bevel_angle,gc_xangle,gc_yangle,gc_cb_depth,gc_axis_tilt,gc_axis_orient";
+                    string gc_units = ",,,in,in,in,in,in,in,deg,deg,deg,in,deg,deg";
+                    string gh_headers = "gh_decision,gh_offset_x,gh_offset_y,gh_offset_z,gh_radius";
+                    string gh_units = ",in,in,in,in";
+                    string gp_headers = "gp_xangle,gp_yangle,gp_z_offset,gp_std_dev";
+                    string gp_units = "deg,deg,in,in";
+                    string headers = gc_headers + "," + gh_headers + "," + gp_headers;
+                    string units = gc_units + "," + gh_units + "," + gp_units;
+
+                    writer.WriteLine(headers);
+                    writer.WriteLine(units);
+                }
+                else
+                    writer = new StreamWriter(full_filename, true);
+
+                string GetRaw(string name)
+                {
+                    return ReadVariable(name, "??");
+                }
+                string GetDist(string name, double scale = 39.3701)
+                {
+                    try
+                    {
+                        double x = Convert.ToDouble(ReadVariable(name, "999")) * scale / 1000000.0;
+                        return x.ToString("0.0000");
+                    }
+                    catch
+                    {
+                        return "INVALID";
+                    }
+                }
+                string GetAngle(string name, double scale = 1.0)
+                {
+                    try
+                    {
+                        double x = Convert.ToDouble(ReadVariable(name, "999")) * scale / 1000.0;
+                        return x.ToString("0.0");
+                    }
+                    catch
+                    {
+                        return "INVALID";
+                    }
+                }
+
+                string output = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                output += $",{tagName},{GetRaw("gc_decision")},{GetDist("gc_offset_x")},{GetDist("gc_offset_y")},{GetDist("gc_offset_z")}";
+                output += $",{GetDist("gc_outer_radius")},{GetAngle("gc_depth")},{GetAngle("gc_bevel_radius")},{GetAngle("gc_bevel_angle")},{GetAngle("gc_xangle")},{GetAngle("gc_yangle")}";
+                output += $",{GetDist("gc_cb_depth")},{GetAngle("gc_axis_tilt")},{GetAngle("gc_axis_orient")}";
+                output += $",{GetRaw("gh_decision")},{GetDist("gh_offset_x")},{GetDist("gh_offset_y")},{GetDist("gh_offset_z")},{GetDist("gh_radius")}";
+                output += $",{GetAngle("gp_xangle")},{GetAngle("gp_yangle")},{GetDist("gp_z_offset")},{GetDist("gp_std_dev")}";
+                writer.WriteLine(output);
+
+                writer.Close();
+                return 0;
+            }
+            catch
+            {
+                ExecError($"write_gocator_data(...) cannot write to\n{full_filename}");
+                return 1;
+            }
+        }
+
+        #endregion ===== GOCATOR INTERFACE CODE            ==============================================================================================================================
     }
 }
 
