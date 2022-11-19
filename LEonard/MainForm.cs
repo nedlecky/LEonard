@@ -541,8 +541,6 @@ namespace LEonard
                         //Thread.Sleep(1000);
 
                         // Send persistent values (or defaults) for speeds, accelerations, I/O, etc.
-                        //ExecuteLEScriptLine(-1, "grind_contact_enable(0)");  // Set contact enabled = No Touch No Grind
-                        //log.Error("Hacky repeat.....");
                         ExecuteLEScriptLine(-1, "grind_contact_enable(0)");  // Set contact enabled = No Touch No Grind
                         ExecuteLEScriptLine(-1, "grind_retract()");  // Ensure we're not on the part
                         ExecuteLEScriptLine(-1, string.Format("set_linear_speed({0})", ReadVariable("robot_linear_speed_mmps", DEFAULT_linear_speed)));
@@ -4795,98 +4793,9 @@ namespace LEonard
             public string prefix;
         };
 
-        // These recipe commands will be converted to send_robot(prefix,[nParams additional parameters])
-        public readonly static Dictionary<string, CommandSpec> robotAlias = new Dictionary<string, CommandSpec>
-        {
-            // The main "send anything" command
-            {"send_robot",                      new CommandSpec(){nParams=-1, prefix="" } },
-            {"robot_socket_reset",              new CommandSpec(){nParams=0,  prefix="98" } },
-            {"robot_program_exit",              new CommandSpec(){nParams=0,  prefix="99" } },
-
-            {"get_actual_tcp_pose",             new CommandSpec(){nParams=0,  prefix="1,10" } },
-            {"get_target_tcp_pose",             new CommandSpec(){nParams=0,  prefix="1,11" } },
-            {"get_actual_joint_positions",      new CommandSpec(){nParams=0,  prefix="1,12" } },
-            {"get_target_joint_positions",      new CommandSpec(){nParams=0,  prefix="1,13" } },
-            {"get_actual_both",                 new CommandSpec(){nParams=0,  prefix="1,14" } },
-            {"get_target_both",                 new CommandSpec(){nParams=0,  prefix="1,15" } },
-            {"movej",                           new CommandSpec(){nParams=6,  prefix="1,16" } },
-            {"movel",                           new CommandSpec(){nParams=6,  prefix="1,17" } },
-            {"get_tcp_offset",                  new CommandSpec(){nParams=0,  prefix="1,18" } },
-
-            {"movel_incr_base",                 new CommandSpec(){nParams=6,  prefix="1,20" } },
-            {"movel_incr_tool",                 new CommandSpec(){nParams=6,  prefix="1,21" } },
-            {"movel_incr_part",                 new CommandSpec(){nParams=6,  prefix="1,22" } },
-            {"movel_single_axis",               new CommandSpec(){nParams=2,  prefix="1,30" } },
-            {"movel_rot_only",                  new CommandSpec(){nParams=3,  prefix="1,31" } },
-            {"movel_rel_set_tool_origin",       new CommandSpec(){nParams=6,  prefix="1,40" } },
-            {"movel_rel_set_tool_origin_here",  new CommandSpec(){nParams=0,  prefix="1,40" } },
-            {"movel_rel_set_part_origin",       new CommandSpec(){nParams=6,  prefix="1,41" } },
-            {"movel_rel_set_part_origin_here",  new CommandSpec(){nParams=0,  prefix="1,41" } },
-            {"movel_rel_tool",                  new CommandSpec(){nParams=6,  prefix="1,42" } },
-            {"movel_rel_part",                  new CommandSpec(){nParams=6,  prefix="1,43" } },
-
-            {"set_linear_speed",                new CommandSpec(){nParams=1,  prefix="30,1" } },
-            {"set_linear_accel",                new CommandSpec(){nParams=1,  prefix="30,2" } },
-            {"set_blend_radius",                new CommandSpec(){nParams=1,  prefix="30,3" } },
-            {"set_joint_speed",                 new CommandSpec(){nParams=1,  prefix="30,4" } },
-            {"set_joint_accel",                 new CommandSpec(){nParams=1,  prefix="30,5" } },
-            {"set_part_geometry_N",             new CommandSpec(){nParams=2,  prefix="30,6" } },
-            {"set_door_closed_input",           new CommandSpec(){nParams=2,  prefix="30,10" } },
-            {"set_tool_on_outputs",             new CommandSpec(){nParams=-1, prefix="30,11" } },
-            {"set_tool_off_outputs",            new CommandSpec(){nParams=-1, prefix="30,12" } },
-            {"set_coolant_on_outputs",          new CommandSpec(){nParams=-1, prefix="30,13" } },
-            {"set_coolant_off_outputs",         new CommandSpec(){nParams=-1, prefix="30,14" } },
-            {"tool_on",                         new CommandSpec(){nParams=0,  prefix="30,15" } },
-            {"tool_off",                        new CommandSpec(){nParams=0,  prefix="30,16" } },
-            {"coolant_on",                      new CommandSpec(){nParams=0,  prefix="30,17" } },
-            {"coolant_off",                     new CommandSpec(){nParams=0,  prefix="30,18" } },
-            {"free_drive",                      new CommandSpec(){nParams=1,  prefix="30,19" } },
-            {"set_tcp",                         new CommandSpec(){nParams=6,  prefix="30,20" } },
-            {"set_payload",                     new CommandSpec(){nParams=4,  prefix="30,21" } },
-            {"set_footswitch_pressed_input",    new CommandSpec(){nParams=2,  prefix="30,22" } },
-            {"set_output",                      new CommandSpec(){nParams=2,  prefix="30,30" } },
-
-            {"zero_cal_timers",                 new CommandSpec(){nParams=0,  prefix="30,40" } },
-            {"default_cyline_cal",              new CommandSpec(){nParams=1,  prefix="30,41" } },
-            {"unity_cyline_cal",                new CommandSpec(){nParams=0,  prefix="30,42" } },
-            {"return_cyline_cal",               new CommandSpec(){nParams=0,  prefix="30,43" } },
-            {"enable_cyline_cal",               new CommandSpec(){nParams=1,  prefix="30,44" } },
-            {"set_cyline_training_weight",      new CommandSpec(){nParams=1,  prefix="30,45" } },
-            {"set_cyline_expected_time",        new CommandSpec(){nParams=1,  prefix="30,46" } },
-            {"set_cyline_deadband_time",        new CommandSpec(){nParams=1,  prefix="30,47" } },
-            {"new_cyline_cycle",                new CommandSpec(){nParams=0,  prefix="30,48" } },
-
-            {"enable_user_timers",              new CommandSpec(){nParams=1,  prefix="30,50" } },
-            {"zero_user_timers",                new CommandSpec(){nParams=0,  prefix="30,51" } },
-            {"return_user_timers",              new CommandSpec(){nParams=0,  prefix="30,52" } },
-
-            {"grind_contact_enable",            new CommandSpec(){nParams=1,  prefix="35,1" } },
-            {"grind_touch_retract",             new CommandSpec(){nParams=1,  prefix="35,2" } },
-            {"grind_touch_speed",               new CommandSpec(){nParams=1,  prefix="35,3" } },
-            {"grind_force_dwell",               new CommandSpec(){nParams=1,  prefix="35,4" } },
-            {"grind_max_wait",                  new CommandSpec(){nParams=1,  prefix="35,5" } },
-            {"grind_max_blend_radius",          new CommandSpec(){nParams=1,  prefix="35,6" } },
-            {"grind_trial_speed",               new CommandSpec(){nParams=1,  prefix="35,7" } },
-            {"grind_linear_accel",              new CommandSpec(){nParams=1,  prefix="35,8" } },
-            {"grind_point_frequency",           new CommandSpec(){nParams=1,  prefix="35,9" } },
-            {"grind_jog_speed",                 new CommandSpec(){nParams=1,  prefix="35,10" } },
-            {"grind_jog_accel",                 new CommandSpec(){nParams=1,  prefix="35,11" } },
-            {"grind_force_mode_damping",        new CommandSpec(){nParams=1,  prefix="35,12" } },
-            {"grind_force_mode_gain_scaling",   new CommandSpec(){nParams=1,  prefix="35,13" } },
-
-            {"grind_line",                      new CommandSpec(){nParams=6,  prefix="40,10" }  },
-            {"grind_line_deg",                  new CommandSpec(){nParams=6,  prefix="40,11" }  },
-            {"grind_rect",                      new CommandSpec(){nParams=6,  prefix="40,20" }  },
-            {"grind_serp",                      new CommandSpec(){nParams=8,  prefix="40,30" }  },
-            {"grind_poly",                      new CommandSpec(){nParams=6,  prefix="40,40" }  },
-            {"grind_circle",                    new CommandSpec(){nParams=5,  prefix="40,45" }  },
-            {"grind_spiral",                    new CommandSpec(){nParams=7,  prefix="40,50" }  },
-            {"grind_retract",                   new CommandSpec(){nParams=0,  prefix="40,99" } },
-        };
-
         public static string GetRobotPrefix(string command)
         {
-            if (robotAlias.TryGetValue(command, out CommandSpec commandSpec))
+            if (robotFunctionConversionDictionary.TryGetValue(command, out CommandSpec commandSpec))
                 return commandSpec.prefix;
             else
                 log.Error($"GetRobotPrefix({command}) Does not exist.");
@@ -5694,7 +5603,18 @@ namespace LEonard
                 {
                     // Kind of like a subroutine that calls all the pieces needed to effect a tool change
                     // Just in case... make sure we disable current tool
-
+                    PerformRobotCommand($"set_tcp({row["x_m"]},{row["y_m"]},{row["z_m"]},{row["rx_rad"]},{row["ry_rad"]},{row["rz_rad"]})");
+                    PerformRobotCommand($"set_payload({row["mass_kg"]},{row["cogx_m"]},{row["cogy_m"]},{row["cogz_m"]})");
+                    PerformRobotCommand("tool_off()");
+                    PerformRobotCommand("coolant_off()");
+                    PerformRobotCommand($"set_tool_on_outputs({row["ToolOnOuts"]})");
+                    PerformRobotCommand($"set_tool_off_outputs({row["ToolOffOuts"]})");
+                    PerformRobotCommand($"set_coolant_on_outputs({row["CoolantOnOuts"]})");
+                    PerformRobotCommand($"set_coolant_off_outputs({row["CoolantOffOuts"]})");
+                    PerformRobotCommand("tool_off()");
+                    PerformRobotCommand("coolant_off()");
+                    /*
+                    // The original technique... more circuitous since it was recursive!
                     ExecuteLEScriptLine(-1, String.Format("set_tcp({0},{1},{2},{3},{4},{5})", row["x_m"], row["y_m"], row["z_m"], row["rx_rad"], row["ry_rad"], row["rz_rad"]));
                     ExecuteLEScriptLine(-1, String.Format("set_payload({0},{1},{2},{3})", row["mass_kg"], row["cogx_m"], row["cogy_m"], row["cogz_m"]));
 
@@ -5706,6 +5626,7 @@ namespace LEonard
                     ExecuteLEScriptLine(-1, String.Format("set_coolant_off_outputs({0})", row["CoolantOffOuts"]));
                     ExecuteLEScriptLine(-1, String.Format("tool_off()"));
                     ExecuteLEScriptLine(-1, String.Format("coolant_off()"));
+                    */
                     WriteVariable("robot_tool", row["Name"].ToString());
 
                     // Set Move buttons to go to tool change and home locations
@@ -6060,38 +5981,8 @@ namespace LEonard
                 return true;
             }
 
-            // Handle all of the other robot commands (which just use send_robot, some prefix params, and any other specified params)
-            // Example:
-            // set_linear_speed(1.1) ==> RobotSend("30,1.1")
-            // grind_rect(30,30,5,20,10) ==> RobotSend("40,20,30,30,5,20,10")
-            // etc.
-
-            // Find the commandName from commandName(parameters)
-            int openParenIndex = command.IndexOf("(");
-            int closeParenIndex = command.IndexOf(")");
-            if (openParenIndex > -1 && closeParenIndex > openParenIndex)
-            {
-                string commandInRecipe = command.Substring(0, openParenIndex);
-                if (robotAlias.TryGetValue(commandInRecipe, out CommandSpec commandSpec))
-                {
-                    string parameters = ExtractParameters(command, commandSpec.nParams);
-                    // Must be all numeric: Really, all (nnn,nnn,nnn)
-                    if (!Regex.IsMatch(parameters, @"^[()+-.,0-9]*$"))
-                        ExecError("Incorrect parameters");
-                    else
-                    {
-                        if (commandSpec.nParams == 0 && parameters.Length == 0)   // Expected 0 parameters and got nothing
-                            RobotSend(commandSpec.prefix);
-                        else if ((commandSpec.nParams > 0 && parameters.Length > 0) ||   // Got some parameters and must have been the right number
-                                 (commandSpec.nParams == -1 && parameters.Length > 0)    // Willing to accept whatever you have (as long as there's something!)
-                                )
-                            RobotSend(commandSpec.prefix + "," + parameters);
-                        else
-                            ExecError($"Wrong number of operands. Expected {commandSpec.nParams}");
-                    }
-                    return true;
-                }
-            }
+            if (PerformRobotCommand(command))
+                return true;
 
             // Matched nothing above... could be an assignment operator =, -=, +=, ++, --
             if (UpdateVariable(command))
@@ -6709,44 +6600,145 @@ namespace LEonard
             pythonScope.SetVariable("le_send", new Func<string, string, int>((string devName, string msg) => le_send(devName, msg)));
             pythonScope.SetVariable("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)));
 
+            // Universal Robots
+            // TODO Should these require the license??
 
-
-
-
-            // UR Dashboard
+            // Dashboard Communication
             pythonScope.SetVariable("ur_dashboard", new Func<string, int, string>((string msg, int timeout) => ur_dashboard(msg, timeout)));
 
-            // UR Set Variables
-            pythonScope.SetVariable("set_linear_speed", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_linear_speed({x})")));
-            pythonScope.SetVariable("set_linear_accel", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_linear_accel({x})")));
-            pythonScope.SetVariable("set_joint_speed", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_joint_speed({x})")));
-            pythonScope.SetVariable("set_joint_accel", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_joint_accel({x})")));
-            pythonScope.SetVariable("set_blend_radius", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"set_blend_radius({x})")));
+            // PolyScope Communication
+            pythonScope.SetVariable("send_robot", new Func<string, bool>((string msg) => PerformRobotCommand($"send_robot({msg})")));
+            pythonScope.SetVariable("robot_socket_reset", new Func<bool>(() => PerformRobotCommand("robot_socket_reset()")));
+            pythonScope.SetVariable("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")));
 
-            // UR Grinding Variables
-            pythonScope.SetVariable("grind_trial_speed", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"grind_trial_speed({x})")));
-            pythonScope.SetVariable("grind_linear_accel", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"grind_linear_accel({x})")));
-            pythonScope.SetVariable("grind_max_blend_radius", new Func<double, bool>((double x) => ExecuteLEScriptLine(-1, $"grind_max_blend_radius({x})")));
-
-            // UR Selects
-            pythonScope.SetVariable("select_tool", new Func<string, bool>((string toolName) => ExecuteLEScriptLine(-1, $"select_tool({toolName})")));
-            pythonScope.SetVariable("set_part_geometry", new Func<string, double, bool>((string geom, double diam) => ExecuteLEScriptLine(-1, $"set_part_geometry({geom},{diam})")));
-
-            // UR Motion
+            // Position and Tool Interface
             pythonScope.SetVariable("save_position", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"save_position({posName})")));
             pythonScope.SetVariable("move_linear", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"move_linear({posName})")));
-            pythonScope.SetVariable("movel_rel_set_part_origin_here", new Func<bool>(() => ExecuteLEScriptLine(-1, $"movel_rel_set_part_origin_here()")));
-            pythonScope.SetVariable("movel_rel_part",
+            pythonScope.SetVariable("select_tool", new Func<string, bool>((string toolName) => ExecuteLEScriptLine(-1, $"select_tool({toolName})")));
+            pythonScope.SetVariable("set_part_geometry", new Func<string, double, bool>((string geom, double diam) => ExecuteLEScriptLine(-1, $"set_part_geometry({geom},{diam})")));
+            pythonScope.SetVariable("free_drive", new Func<int, bool>((int x) => PerformRobotCommand($"free_drive({x})")));
+
+            // Core Motion
+            pythonScope.SetVariable("movej",
                 new Func<double, double, double, double, double, double, bool>(
-                    (double x, double y, double z, double rx, double ry, double rz) => ExecuteLEScriptLine(-1, $"movel_rel_part({x},{y},{z},{rx},{ry},{rz})")));
-            pythonScope.SetVariable("movel_incr_part",
+                    (double j1, double j2, double j3, double j4, double j5, double j6) => PerformRobotCommand($"movej({j1:0.000000},{j2:0.000000},{j3:0.000000},{j4:0.000000},{j5:0.000000},{j6:0.000000})")));
+            pythonScope.SetVariable("get_actual_joint_positions", new Func<bool>(() => PerformRobotCommand("get_actual_joint_positions()")));
+            pythonScope.SetVariable("get_target_joint_positions", new Func<bool>(() => PerformRobotCommand("get_target_joint_positions()")));
+            pythonScope.SetVariable("movel",
                 new Func<double, double, double, double, double, double, bool>(
-                    (double dx, double dy, double dz, double drx, double dry, double drz) => ExecuteLEScriptLine(-1, $"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")));
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")));
+            pythonScope.SetVariable("get_actual_tcp_pose", new Func<bool>(() => PerformRobotCommand("get_actual_tcp_pose()")));
+            pythonScope.SetVariable("get_target_tcp_pose", new Func<bool>(() => PerformRobotCommand("get_target_tcp_pose()")));
+            pythonScope.SetVariable("get_actual_both", new Func<bool>(() => PerformRobotCommand("get_actual_both()")));
+            pythonScope.SetVariable("get_target_both", new Func<bool>(() => PerformRobotCommand("get_target_both()")));
+            pythonScope.SetVariable("set_tcp",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x_m, double y_m, double z_m, double rx_rad, double ry_rad, double rz_rad) => PerformRobotCommand($"set_tcp({x_m:0.000000},{y_m:0.000000},{z_m:0.000000},{rx_rad:0.000000},{ry_rad:0.000000},{rz_rad:0.000000})")));
+            pythonScope.SetVariable("get_tcp_offset", new Func<bool>(() => PerformRobotCommand("get_tcp_offset()")));
+            pythonScope.SetVariable("set_payload",
+                new Func<double, double, double, double, bool>(
+                    (double mass_kg, double cog_x_m, double cog_y_m, double cog_z_m) => PerformRobotCommand($"set_payload({mass_kg:0.000000},{cog_x_m:0.000000},{cog_y_m:0.000000},{cog_z_m:0.000000})")));
+
+            // Movel Incremental
+            pythonScope.SetVariable("movel_incr_base",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => PerformRobotCommand($"movel_incr_base({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")));
             pythonScope.SetVariable("movel_incr_tool",
                 new Func<double, double, double, double, double, double, bool>(
-                    (double dx, double dy, double dz, double drx, double dry, double drz) => ExecuteLEScriptLine(-1, $"movel_incr_tool({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")));
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => PerformRobotCommand($"movel_incr_tool({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")));
+            pythonScope.SetVariable("movel_incr_part",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double dx, double dy, double dz, double drx, double dry, double drz) => PerformRobotCommand($"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},{drx:0.000000},{dry:0.000000},{drz:0.000000})")));
+            pythonScope.SetVariable("movel_single_axis", new Func<int, double, bool>((int axis, double daxis) => PerformRobotCommand($"movel_single_axis({axis},{daxis:0.000000})")));
+            pythonScope.SetVariable("movel_rot_only", new Func<double, double, double, bool>((double drx, double dry, double drz) => PerformRobotCommand($"movel_rot_only({drx:0.000000},{dry:0.000000},{drz:0.000000})")));
 
-            // Gocator
+            // Movel Relative
+            pythonScope.SetVariable("movel_rel_set_tool_origin",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_set_tool_origin({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")));
+            pythonScope.SetVariable("movel_rel_set_tool_origin_here", new Func<bool>(() => PerformRobotCommand("movel_rel_set_part_origin_here()")));
+            pythonScope.SetVariable("movel_rel_set_part_origin",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_set_part_origin({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")));
+            pythonScope.SetVariable("movel_rel_set_part_origin_here", new Func<bool>(() => PerformRobotCommand("movel_rel_set_part_origin_here()")));
+            pythonScope.SetVariable("movel_rel_tool",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_tool({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")));
+            pythonScope.SetVariable("movel_rel_part",
+                new Func<double, double, double, double, double, double, bool>(
+                    (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_part({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")));
+
+            // Set Robot Variables
+            pythonScope.SetVariable("set_linear_speed", new Func<double, bool>((double speed_mmps) => PerformRobotCommand($"set_linear_speed({speed_mmps:0.000})")));
+            pythonScope.SetVariable("set_linear_accel", new Func<double, bool>((double accel_mmpss) => PerformRobotCommand($"set_linear_accel({accel_mmpss:0.000})")));
+            pythonScope.SetVariable("set_blend_radius", new Func<double, bool>((double blend_radius_mm) => PerformRobotCommand($"set_blend_radius({blend_radius_mm:0.000})")));
+            pythonScope.SetVariable("set_joint_speed", new Func<double, bool>((double speed_dps) => PerformRobotCommand($"set_joint_speed({speed_dps:0.000})")));
+            pythonScope.SetVariable("set_joint_accel", new Func<double, bool>((double accel_dpss) => PerformRobotCommand($"set_joint_accel({accel_dpss:0.000})")));
+            pythonScope.SetVariable("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.000})")));
+
+            // Robot I/O
+            pythonScope.SetVariable("set_output", new Func<int, int, bool>((int dig_out, int state) => PerformRobotCommand($"set_output({dig_out},{state})")));
+            pythonScope.SetVariable("tool_on", new Func<bool>(() => PerformRobotCommand("tool_on()")));
+            pythonScope.SetVariable("tool_off", new Func<bool>(() => PerformRobotCommand("tool_off()")));
+            pythonScope.SetVariable("coolant_on", new Func<bool>(() => PerformRobotCommand("coolant_on()")));
+            pythonScope.SetVariable("coolant_off", new Func<bool>(() => PerformRobotCommand("coolant_off()")));
+
+            // Grinding Patterns
+            // grind_line(dx_mm, dy_mm, n_cycles, speed_mm/s, force_N, stay_in_contact)
+            pythonScope.SetVariable("grind_line",
+                new Func<double, double, int, double, double, int, bool>(
+                    (double dx_mm, double dy_mm, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) => 
+                    PerformRobotCommand($"grind_line({dx_mm:0.0},{dy_mm:0.0},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")));
+
+            // grind_line_deg(length_mm, angle_deg, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            pythonScope.SetVariable("grind_line_deg",
+                new Func<double, double, int, double, double, int, bool>(
+                    (double length_mm, double angle_deg, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_line_deg({length_mm:0.0},{angle_deg:0.00},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")));
+            // grind_rect(dx_mm, dy_mm, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            pythonScope.SetVariable("grind_rect",
+                new Func<double, double, int, double, double, int, bool>(
+                    (double dx_mm, double dy_mm, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_rect({dx_mm:0.0},{dy_mm:0.0},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")));
+            // grind_serp(dx_mm, dy_mm, n_xsteps, n_ysteps, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            pythonScope.SetVariable("grind_serp",
+                new Func<double, double, int, int, int, double, double, int, bool>(
+                    (double dx_mm, double dy_mm, int n_xsteps, int n_ysteps, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_serp({dx_mm:0.0},{dy_mm:0.0},{n_xsteps},{n_ysteps},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")));
+            // grind_poly(circle_diam_mm, n_sides, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            pythonScope.SetVariable("grind_poly",
+                new Func<double, int, int, double, double, int, bool>(
+                    (double circle_diam_mm, int n_sides, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_poly({circle_diam_mm:0.0},{n_sides},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")));
+            // grind_circle(circle_diam_mm, n_cycles, speed_mm/s, force_N, stay_in_contact)
+            pythonScope.SetVariable("grind_circle",
+                new Func<double, int, double, double, int, bool>(
+                    (double circle_diam_mm, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_circle({circle_diam_mm:0.0},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")));
+            // grind_spiral(circle1_diam_mm, grind_circle2_diam_mm, n_spirals, n_cycles, speed_mm/s, force_N, stay_in_contact) 
+            pythonScope.SetVariable("grind_spiral",
+                new Func<double, double, int, int, double, double, int, bool>(
+                    (double circle1_diam_mm, double circle2_diam_mm, int n_spirals, int n_cycles, double speed_mmps, double force_N, int stay_in_contact) =>
+                    PerformRobotCommand($"grind_spiral({circle1_diam_mm:0.0},{circle2_diam_mm:0.0},{n_spirals},{n_cycles},{speed_mmps:0.0},{force_N:0.00},{stay_in_contact})")));
+            pythonScope.SetVariable("grind_retract", new Func<bool>(() => PerformRobotCommand("grind_retract()")));
+
+            // UR Grinding Variables
+            pythonScope.SetVariable("grind_contact_enable", new Func<int, bool>((int x) => PerformRobotCommand($"grind_contact_enable({x})")));
+            pythonScope.SetVariable("grind_touch_retract", new Func<double, bool>((double x) => PerformRobotCommand($"grind_touch_retract({x})")));
+            pythonScope.SetVariable("grind_touch_speed", new Func<double, bool>((double x) => PerformRobotCommand($"grind_touch_speed({x})")));
+            pythonScope.SetVariable("grind_force_dwell", new Func<double, bool>((double x) => PerformRobotCommand($"grind_force_dwell({x})")));
+            pythonScope.SetVariable("grind_max_wait", new Func<double, bool>((double x) => PerformRobotCommand($"grind_max_wait({x})")));
+            pythonScope.SetVariable("grind_max_blend_radius", new Func<double, bool>((double x) => PerformRobotCommand($"grind_max_blend_radius({x})")));
+            pythonScope.SetVariable("grind_trial_speed", new Func<double, bool>((double x) => PerformRobotCommand($"grind_trial_speed({x})")));
+            pythonScope.SetVariable("grind_linear_accel", new Func<double, bool>((double x) => PerformRobotCommand($"grind_linear_accel({x})")));
+            pythonScope.SetVariable("grind_point_frequency", new Func<double, bool>((double x) => PerformRobotCommand($"grind_point_frequency({x})")));
+            pythonScope.SetVariable("grind_jog_speed", new Func<double, bool>((double x) => PerformRobotCommand($"grind_jog_speed({x})")));
+            pythonScope.SetVariable("grind_jog_accel", new Func<double, bool>((double x) => PerformRobotCommand($"grind_jog_accel({x})")));
+            pythonScope.SetVariable("grind_force_mode_damping", new Func<double, bool>((double x) => PerformRobotCommand($"grind_force_mode_damping({x})")));
+            pythonScope.SetVariable("grind_force_mode_gain_scaling", new Func<double, bool>((double x) => PerformRobotCommand($"grind_force_mode_gain_scaling({x})")));
+
+            // LMI Gocator
+            // TODO Should these require the license??
             pythonScope.SetVariable("gocator_trigger", new Func<double, bool>((double delay) => ExecuteLEScriptLine(-1, $"gocator_trigger({delay})")));
             pythonScope.SetVariable("gocator_adjust", new Func<int, bool>((int x) => ExecuteLEScriptLine(-1, $"gocator_adjust({x})")));
             pythonScope.SetVariable("gocator_write_data", new Func<string, string, bool>((string filename, string tagName) => ExecuteLEScriptLine(-1, $"gocator_write_data({filename},{tagName})")));
@@ -7460,6 +7452,134 @@ namespace LEonard
             LeUrCommand.uiFocusInstance.Send(sendMessage);
             return true;
         }
+
+        bool PerformRobotCommand(string command)
+        {
+            // Handle all of the other robot commands (which just use send_robot, some prefix params, and any other specified params)
+            // Example:
+            // set_linear_speed(1.1) ==> RobotSend("30,1.1")
+            // grind_rect(30,30,5,20,10) ==> RobotSend("40,20,30,30,5,20,10")
+            // etc.
+
+            // Find the commandName from commandName(parameters)
+            int openParenIndex = command.IndexOf("(");
+            int closeParenIndex = command.IndexOf(")");
+            if (openParenIndex > -1 && closeParenIndex > openParenIndex)
+            {
+                string commandInRecipe = command.Substring(0, openParenIndex);
+                if (robotFunctionConversionDictionary.TryGetValue(commandInRecipe, out CommandSpec commandSpec))
+                {
+                    string parameters = ExtractParameters(command, commandSpec.nParams);
+                    // Must be all numeric: Really, all (nnn,nnn,nnn)
+                    if (!Regex.IsMatch(parameters, @"^[()+-.,0-9]*$"))
+                        ExecError("PerformRobotCommand: Incorrect parameters");
+                    else
+                    {
+                        if (commandSpec.nParams == 0 && parameters.Length == 0)          // Expected 0 parameters and got nothing
+                            RobotSend(commandSpec.prefix);
+                        else if ((commandSpec.nParams > 0 && parameters.Length > 0) ||   // Got some parameters and must have been the right number
+                                 (commandSpec.nParams == -1 && parameters.Length > 0)    // Willing to accept whatever you have (as long as there's something!)
+                                )
+                            RobotSend(commandSpec.prefix + "," + parameters);
+                        else
+                            ExecError($"PerformRobotCommand: Wrong number of operands. Expected {commandSpec.nParams}");
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // These Sequence function will be converted to send_robot(prefix,[nParams additional parameters])
+        public readonly static Dictionary<string, CommandSpec> robotFunctionConversionDictionary = new Dictionary<string, CommandSpec>
+        {
+            // The main "send anything" command
+            {"send_robot",                      new CommandSpec(){nParams=-1, prefix="" } },
+            {"robot_socket_reset",              new CommandSpec(){nParams=0,  prefix="98" } },
+            {"robot_program_exit",              new CommandSpec(){nParams=0,  prefix="99" } },
+
+            {"get_actual_tcp_pose",             new CommandSpec(){nParams=0,  prefix="1,10" } },
+            {"get_target_tcp_pose",             new CommandSpec(){nParams=0,  prefix="1,11" } },
+            {"get_actual_joint_positions",      new CommandSpec(){nParams=0,  prefix="1,12" } },
+            {"get_target_joint_positions",      new CommandSpec(){nParams=0,  prefix="1,13" } },
+            {"get_actual_both",                 new CommandSpec(){nParams=0,  prefix="1,14" } },
+            {"get_target_both",                 new CommandSpec(){nParams=0,  prefix="1,15" } },
+            {"movej",                           new CommandSpec(){nParams=6,  prefix="1,16" } },
+            {"movel",                           new CommandSpec(){nParams=6,  prefix="1,17" } },
+            {"get_tcp_offset",                  new CommandSpec(){nParams=0,  prefix="1,18" } },
+
+            {"movel_incr_base",                 new CommandSpec(){nParams=6,  prefix="1,20" } },
+            {"movel_incr_tool",                 new CommandSpec(){nParams=6,  prefix="1,21" } },
+            {"movel_incr_part",                 new CommandSpec(){nParams=6,  prefix="1,22" } },
+            {"movel_single_axis",               new CommandSpec(){nParams=2,  prefix="1,30" } },
+            {"movel_rot_only",                  new CommandSpec(){nParams=3,  prefix="1,31" } },
+            {"movel_rel_set_tool_origin",       new CommandSpec(){nParams=6,  prefix="1,40" } },
+            {"movel_rel_set_tool_origin_here",  new CommandSpec(){nParams=0,  prefix="1,40" } },
+            {"movel_rel_set_part_origin",       new CommandSpec(){nParams=6,  prefix="1,41" } },
+            {"movel_rel_set_part_origin_here",  new CommandSpec(){nParams=0,  prefix="1,41" } },
+            {"movel_rel_tool",                  new CommandSpec(){nParams=6,  prefix="1,42" } },
+            {"movel_rel_part",                  new CommandSpec(){nParams=6,  prefix="1,43" } },
+
+            {"set_linear_speed",                new CommandSpec(){nParams=1,  prefix="30,1" } },
+            {"set_linear_accel",                new CommandSpec(){nParams=1,  prefix="30,2" } },
+            {"set_blend_radius",                new CommandSpec(){nParams=1,  prefix="30,3" } },
+            {"set_joint_speed",                 new CommandSpec(){nParams=1,  prefix="30,4" } },
+            {"set_joint_accel",                 new CommandSpec(){nParams=1,  prefix="30,5" } },
+            {"set_part_geometry_N",             new CommandSpec(){nParams=2,  prefix="30,6" } },
+            {"set_door_closed_input",           new CommandSpec(){nParams=2,  prefix="30,10" } },
+            {"set_tool_on_outputs",             new CommandSpec(){nParams=-1, prefix="30,11" } },
+            {"set_tool_off_outputs",            new CommandSpec(){nParams=-1, prefix="30,12" } },
+            {"set_coolant_on_outputs",          new CommandSpec(){nParams=-1, prefix="30,13" } },
+            {"set_coolant_off_outputs",         new CommandSpec(){nParams=-1, prefix="30,14" } },
+            {"tool_on",                         new CommandSpec(){nParams=0,  prefix="30,15" } },
+            {"tool_off",                        new CommandSpec(){nParams=0,  prefix="30,16" } },
+            {"coolant_on",                      new CommandSpec(){nParams=0,  prefix="30,17" } },
+            {"coolant_off",                     new CommandSpec(){nParams=0,  prefix="30,18" } },
+            {"free_drive",                      new CommandSpec(){nParams=1,  prefix="30,19" } },
+            {"set_tcp",                         new CommandSpec(){nParams=6,  prefix="30,20" } },
+            {"set_payload",                     new CommandSpec(){nParams=4,  prefix="30,21" } },
+            {"set_footswitch_pressed_input",    new CommandSpec(){nParams=2,  prefix="30,22" } },
+            {"set_output",                      new CommandSpec(){nParams=2,  prefix="30,30" } },
+
+            {"zero_cal_timers",                 new CommandSpec(){nParams=0,  prefix="30,40" } },
+            {"default_cyline_cal",              new CommandSpec(){nParams=1,  prefix="30,41" } },
+            {"unity_cyline_cal",                new CommandSpec(){nParams=0,  prefix="30,42" } },
+            {"return_cyline_cal",               new CommandSpec(){nParams=0,  prefix="30,43" } },
+            {"enable_cyline_cal",               new CommandSpec(){nParams=1,  prefix="30,44" } },
+            {"set_cyline_training_weight",      new CommandSpec(){nParams=1,  prefix="30,45" } },
+            {"set_cyline_expected_time",        new CommandSpec(){nParams=1,  prefix="30,46" } },
+            {"set_cyline_deadband_time",        new CommandSpec(){nParams=1,  prefix="30,47" } },
+            {"new_cyline_cycle",                new CommandSpec(){nParams=0,  prefix="30,48" } },
+
+            {"enable_user_timers",              new CommandSpec(){nParams=1,  prefix="30,50" } },
+            {"zero_user_timers",                new CommandSpec(){nParams=0,  prefix="30,51" } },
+            {"return_user_timers",              new CommandSpec(){nParams=0,  prefix="30,52" } },
+
+            {"grind_contact_enable",            new CommandSpec(){nParams=1,  prefix="35,1" } },
+            {"grind_touch_retract",             new CommandSpec(){nParams=1,  prefix="35,2" } },
+            {"grind_touch_speed",               new CommandSpec(){nParams=1,  prefix="35,3" } },
+            {"grind_force_dwell",               new CommandSpec(){nParams=1,  prefix="35,4" } },
+            {"grind_max_wait",                  new CommandSpec(){nParams=1,  prefix="35,5" } },
+            {"grind_max_blend_radius",          new CommandSpec(){nParams=1,  prefix="35,6" } },
+            {"grind_trial_speed",               new CommandSpec(){nParams=1,  prefix="35,7" } },
+            {"grind_linear_accel",              new CommandSpec(){nParams=1,  prefix="35,8" } },
+            {"grind_point_frequency",           new CommandSpec(){nParams=1,  prefix="35,9" } },
+            {"grind_jog_speed",                 new CommandSpec(){nParams=1,  prefix="35,10" } },
+            {"grind_jog_accel",                 new CommandSpec(){nParams=1,  prefix="35,11" } },
+            {"grind_force_mode_damping",        new CommandSpec(){nParams=1,  prefix="35,12" } },
+            {"grind_force_mode_gain_scaling",   new CommandSpec(){nParams=1,  prefix="35,13" } },
+
+            {"grind_line",                      new CommandSpec(){nParams=6,  prefix="40,10" }  },
+            {"grind_line_deg",                  new CommandSpec(){nParams=6,  prefix="40,11" }  },
+            {"grind_rect",                      new CommandSpec(){nParams=6,  prefix="40,20" }  },
+            {"grind_serp",                      new CommandSpec(){nParams=8,  prefix="40,30" }  },
+            {"grind_poly",                      new CommandSpec(){nParams=6,  prefix="40,40" }  },
+            {"grind_circle",                    new CommandSpec(){nParams=5,  prefix="40,45" }  },
+            {"grind_spiral",                    new CommandSpec(){nParams=7,  prefix="40,50" }  },
+            {"grind_retract",                   new CommandSpec(){nParams=0,  prefix="40,99" } },
+        };
+
+
         private void SetLinearSpeedBtn_Click(object sender, EventArgs e)
         {
             SetValueForm form = new SetValueForm(this)
