@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Contexts;
+using System.Security.Cryptography;
 using System.ServiceModel.Channels;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -27,6 +28,7 @@ using Jint;
 using Microsoft.Win32;
 using NLog;
 using static IronPython.Modules._ast;
+using static IronPython.SQLite.PythonSQLite;
 #endregion
 
 namespace LEonard
@@ -4445,12 +4447,29 @@ namespace LEonard
             return false;
         }
 
-        /// <summary>
+        private bool ExecuteLEScriptFile(string filename)
+        {
+            try
+            {
+                string[] lines = System.IO.File.ReadAllLines(System.IO.Path.Combine(LEonardRoot, CodeFolder, filename));
+
+                int lineNo = 1;
+                foreach (string line in lines)
+                {
+                    log.Info("Execute Line: {0}", line);
+                    ExecuteLEScriptLine(lineNo++, line);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, $"ExecuteLEScriptFile({filename}) failed");
+                return false;
+            }
+        }
+
         /// Read file looking for lines of the form "name=value" and pass then to the variable write function
-        /// </summary>
-        /// <param name="filename">File to import- assumed to reside in LEonardRoot/Code</param>
-        /// <returns>true if file import completed successfully</returns>
-        private bool ImportFile(string filename)
+        private bool le_import_variables(string filename)
         {
             try
             {
@@ -4471,10 +4490,7 @@ namespace LEonard
             }
         }
 
-        /// <summary>
-        /// Put up MessageForm dialog. Execution will pause until the operator handles the response.
-        /// </summary>
-        /// <param name="message">This is the message to be displayed</param>
+        /// Put up MessageForm dialog. Execution will pause until the operator handles the response
         private void le_prompt(string message, bool closeOnReady = false, bool isMotionWait = false)
         {
             log.Info("le_prompt(message={0}, closeOnReady={1}, isMotioWait={2}", message, closeOnReady, isMotionWait);
@@ -5046,13 +5062,24 @@ namespace LEonard
                 return true;
             }
 
+            // exec_lescript
+            if (command.StartsWith("exec_lescript("))
+            {
+                string filename = ExtractParameters(command);
+
+                if (!ExecuteLEScriptFile(filename))
+                    ExecError($"Cannot execute LEScript file {filename}");
+
+                return true;
+            }
+
             // exec_java
             if (command.StartsWith("exec_java("))
             {
                 string filename = ExtractParameters(command);
 
                 if (!ExecuteJavaFile(filename))
-                    ExecError($"Cannot execute java file {filename}");
+                    ExecError($"Cannot execute Java file {filename}");
 
                 return true;
             }
@@ -5062,7 +5089,40 @@ namespace LEonard
             {
                 string filename = ExtractParameters(command);
                 if (!ExecutePythonFile(filename))
-                    ExecError($"Cannot execute python file {filename}");
+                    ExecError($"Cannot execute Python file {filename}");
+
+                return true;
+            }
+
+            // execline_lescript
+            if (command.StartsWith("execline_lescript("))
+            {
+                string param = ExtractParameters(command);
+
+                if (!ExecuteLEScriptLine(-1, param))
+                    ExecError($"Cannot execute LEScript line {param}");
+
+                return true;
+            }
+
+            // execline_java
+            if (command.StartsWith("execline_java("))
+            {
+                string param = ExtractParameters(command);
+
+                if (!ExecuteJavaLine(-1, param))
+                    ExecError($"Cannot execute Java line {param}");
+
+                return true;
+            }
+
+            // execline_python
+            if (command.StartsWith("execline_python("))
+            {
+                string param = ExtractParameters(command);
+
+                if (!ExecutePythonLine(-1, param))
+                    ExecError($"Cannot execute Python line {param}");
 
                 return true;
             }
@@ -5081,7 +5141,7 @@ namespace LEonard
                 string file = ExtractParameters(command);
                 if (file.Length > 1)
                 {
-                    if (!ImportFile(file))
+                    if (!le_import_variables(file))
                         ExecError($"File import error");
                 }
                 else
@@ -5344,14 +5404,7 @@ namespace LEonard
                     return true;
                 }
 
-                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
-                if (row == null)
-                {
-                    ExecError($"No device named {deviceName} was found.");
-                    return true;
-                }
-
-                DeviceConnect(row);
+                le_connect(deviceName);
                 return true;
             }
 
@@ -5365,28 +5418,21 @@ namespace LEonard
                     return true;
                 }
 
-                DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
-                if (row == null)
-                {
-                    ExecError($"No device named {deviceName} was found.");
-                    return true;
-                }
-
-                DeviceDisconnect(row);
+                le_disconnect(deviceName);
                 return true;
             }
 
             // le_connect_all
             if (command == "le_connect_all()")
             {
-                DeviceConnectAllBtn_Click(null, null);
+                le_connect_all();
                 return true;
             }
 
             // le_disconnect_all
             if (command == "le_disconnect_all()")
             {
-                DeviceDisconnectAllBtn_Click(null, null);
+                le_disconnect_all();
                 return true;
             }
 
@@ -5402,14 +5448,7 @@ namespace LEonard
                     string[] values = str.Split(',');
                     string devName = values[0];
                     string message = values[1];
-                    if (devName == "me")
-                    {
-                        if (dev != null)
-                            dev.Send(message);
-                        else
-                            ExecError($"le_send({devName}, {message}) me is not defined");
-                    }
-                    else if (!le_send(devName, message))
+                    if (0 != le_send(devName, message))
                         ExecError($"le_send({devName}, {message}) Failed");
                 }
 
@@ -5419,7 +5458,7 @@ namespace LEonard
             // le_ask
             if (command.StartsWith("le_ask("))
             {
-                string response = "???";
+                string response = "Null";
                 string str = ExtractParameters(command, 3, false);
                 if (str == "")
                     ExecError($"le_ask({command}) Bad syntax");
@@ -5430,10 +5469,7 @@ namespace LEonard
                     string devName = values[0];
                     string message = values[1];
                     int timeoutMs = Convert.ToInt32(values[2]);
-                    if (devName == "me" && dev != null)
-                        response = dev.Ask(str);
-                    else
-                        response = le_ask(devName, message);
+                    response = le_ask(devName, message);
                 }
 
                 WriteVariable("le_ask_response", response);
@@ -6179,20 +6215,60 @@ namespace LEonard
         {
             consoleForm.Clear();
         }
-        bool le_assert(bool f)
+
+        private bool le_assert(bool f)
         {
             if (!f)
                 ExecError("Assertion FAILED");
             return f;
         }
-        public bool le_send(string devName, string msg)
+
+        private int le_connect(string deviceName)
+        {
+            DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
+            if (row == null)
+            {
+                ExecError($"le_connect: No device named {deviceName} found");
+                return 10;
+            }
+
+            return DeviceConnect(row);
+        }
+
+        private int le_disconnect(string deviceName)
+        {
+            DataRow row = devices.AsEnumerable().FirstOrDefault(r => (string)r["Name"] == deviceName);
+            if (row == null)
+            {
+                ExecError($"No device named {deviceName} was found.");
+                return 10;
+            }
+
+            DeviceDisconnect(row);
+            return 0;
+        }
+        private int le_connect_all()
+        {
+            DeviceConnectAllBtn_Click(null, null);
+            return 0;
+        }
+        private int le_disconnect_all()
+        {
+            DeviceDisconnectAllBtn_Click(null, null);
+            return 0;
+        }
+
+        public int le_send(string devName, string msg)
         {
             if (devName == "me")
             {
                 if (LeDeviceBase.currentDevice == null)
+                {
                     log.Error($"le_send(me,...): Could not identify 'me'");
+                    return 10;
+                }
                 else
-                    LeDeviceBase.currentDevice.Send(msg);
+                    return LeDeviceBase.currentDevice.Send(msg);
             }
             else
             {
@@ -6200,30 +6276,29 @@ namespace LEonard
                 if (row == null)
                 {
                     log.Error($"le_send: Could not find device {devName}");
-                    return false;
+                    return 11;
                 }
 
                 if (interfaces[(int)row["ID"]] == null)
                 {
                     log.Error($"le_send: {devName} exists but is not instantiated for connection");
-                    return false;
+                    return 12;
                 }
                 if (!interfaces[(int)row["ID"]].IsConnected())
                 {
                     log.Error($"le_send: {devName} exists but is not connected");
-                    return false;
+                    return 13;
                 }
 
-                interfaces[(int)row["ID"]].Send(msg);
+                return interfaces[(int)row["ID"]].Send(msg);
             }
-            return true;
         }
         public string le_ask(string devName, string msg, int timeoutMs = 100)
         {
             DataRow row = FindName(devName, devices);
             if (row == null)
             {
-                log.Error($"leInquiryResponse: Could not find device {devName}");
+                log.Error($"le_ask: Could not find device {devName}");
                 return null;
             }
 
@@ -6337,12 +6412,16 @@ namespace LEonard
                     .SetValue("using_lescript", new Action(() => using_lescript()))
                     .SetValue("using_java", new Action(() => using_java()))
                     .SetValue("using_python", new Action(() => using_python()))
+                    .SetValue("exec_lescript", new Func<string, bool>((string filename) => ExecuteLEScriptFile(filename)))
                     .SetValue("exec_java", new Func<string, bool>((string filename) => ExecuteJavaFile(filename)))
                     .SetValue("exec_python", new Func<string, bool>((string filename) => ExecutePythonFile(filename)))
+                    .SetValue("execline_lescript", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
+                    .SetValue("execline_jave", new Action<string>((string line) => ExecuteJavaLine(-1, line)))
+                    .SetValue("execline_python", new Action<string>((string line) => ExecutePythonLine(-1, line)))
 
                     .SetValue("le_read_var", new Func<string, string>((string name) => ReadVariable(name)))
-                    .SetValue("le_write_var", new Action<string, string>((string name, string value) => WriteVariable(name, value, false, false))) // Last param false so we don't write it back here as a string!
-                    .SetValue("le_write_sysvar", new Action<string, string>((string name, string value) => WriteVariable(name, value, true, false))) // Last param false so we don't write it back here as a string!
+                    .SetValue("le_write_var", new Func<string, string, bool>((string name, string value) => WriteVariable(name, value, false, false))) // Last param false so we don't write it back here as a string!
+                    .SetValue("le_write_sysvar", new Func<string, string, bool>((string name, string value) => WriteVariable(name, value, true, false))) // Last param false so we don't write it back here as a string!
 
                     .SetValue("le_print", new Action<string>((string msg) => le_print_java(msg)))
                     .SetValue("le_show_console", new Action<bool>((bool f) => le_show_console(f)))
@@ -6362,10 +6441,12 @@ namespace LEonard
                     .SetValue("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)))
                     .SetValue("assert", new Func<bool, bool>((bool f) => le_assert(f)))
 
-                    .SetValue("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
-                    .SetValue("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)))
+                    .SetValue("le_connect", new Func<string, int>((string devName) => le_connect(devName)))
+                    .SetValue("le_disconnect", new Func<string, int>((string devName) => le_disconnect(devName)))
+                    .SetValue("le_connect_all", new Func<int>(() => le_connect_all()))
+                    .SetValue("le_disconnect_all", new Func<int>(() => le_disconnect_all()))
+                    .SetValue("le_send", new Func<string, string, int>((string devName, string msg) => le_send(devName, msg)))
                     .SetValue("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)))
-            //.SetValue("le_clear_variables", new Action(() => ClearNonSystemVariables()))
             ;
         }
         private void JavaNewBtn_Click(object sender, EventArgs e)
@@ -6592,12 +6673,16 @@ namespace LEonard
             pythonScope.SetVariable("using_lescript", new Action(() => using_lescript()));
             pythonScope.SetVariable("using_java", new Action(() => using_java()));
             pythonScope.SetVariable("using_python", new Action(() => using_python()));
+            pythonScope.SetVariable("exec_lescript", new Func<string, bool>((string filename) => ExecuteLEScriptFile(filename)));
             pythonScope.SetVariable("exec_java", new Func<string, bool>((string filename) => ExecuteJavaFile(filename)));
             pythonScope.SetVariable("exec_python", new Func<string, bool>((string filename) => ExecutePythonFile(filename)));
+            pythonScope.SetVariable("execline_lescript", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
+            pythonScope.SetVariable("execline_jave", new Action<string>((string line) => ExecuteJavaLine(-1, line)));
+            pythonScope.SetVariable("execline_python", new Action<string>((string line) => ExecutePythonLine(-1, line)));
 
             pythonScope.SetVariable("le_read_var", new Func<string, string>((string name) => ReadVariable(name)));
-            pythonScope.SetVariable("le_write_var", new Action<string, string>((string name, string value) => WriteVariable(name, value, false, false))); // Last param false so we don't write it back here as a string!
-            pythonScope.SetVariable("le_write_sysvar", new Action<string, string>((string name, string value) => WriteVariable(name, value, true, false))); // Last param false so we don't write it back here as a string!
+            pythonScope.SetVariable("le_write_var", new Func<string, string, bool>((string name, string value) => WriteVariable(name, value, false, false))); // Last param false so we don't write it back here as a string!
+            pythonScope.SetVariable("le_write_sysvar", new Func<string, string, bool>((string name, string value) => WriteVariable(name, value, true, false))); // Last param false so we don't write it back here as a string!
 
             pythonScope.SetVariable("le_print", new Action<string>((string msg) => le_print_python(msg)));
             pythonScope.SetVariable("le_show_console", new Action<bool>((bool f) => le_show_console(f)));
@@ -6617,13 +6702,15 @@ namespace LEonard
             pythonScope.SetVariable("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)));
             pythonScope.SetVariable("assert", new Func<bool, bool>((bool f) => le_assert(f)));
 
-
-            pythonScope.SetVariable("le_send", new Func<string, string, bool>((string devName, string msg) => le_send(devName, msg)));
+            pythonScope.SetVariable("le_connect", new Func<string, int>((string devName) => le_connect(devName)));
+            pythonScope.SetVariable("le_disconnect", new Func<string, int>((string devName) => le_disconnect(devName)));
+            pythonScope.SetVariable("le_connect_all", new Func<int>(() => le_connect_all()));
+            pythonScope.SetVariable("le_disconnect_all", new Func<int>(() => le_disconnect_all()));
+            pythonScope.SetVariable("le_send", new Func<string, string, int>((string devName, string msg) => le_send(devName, msg)));
             pythonScope.SetVariable("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)));
 
 
 
-            pythonScope.SetVariable("le_exec", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
 
 
             // UR Dashboard
