@@ -23,10 +23,12 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Shapes;
+using IronPython.Compiler.Ast;
 using IronPython.Hosting;
 using Jint;
 using Microsoft.Win32;
 using NLog;
+using NLog.Fluent;
 using static IronPython.Modules._ast;
 using static IronPython.SQLite.PythonSQLite;
 #endregion
@@ -949,7 +951,7 @@ namespace LEonard
 
             ToolsGrd.ClearSelection();
             if (LeUrCommand.uiFocusInstance != null && MountedToolBox.Text.Length > 0)
-                ExecuteLEScriptLine(-1, $"select_tool({MountedToolBox.Text})");
+                select_tool(MountedToolBox.Text);
         }
 
         private void UpdateGeometryToRobot()
@@ -3255,7 +3257,7 @@ namespace LEonard
             else
             {
                 log.Info("Selecting tool {0}", name);
-                ExecuteLEScriptLine(-1, string.Format("select_tool({0})", name));
+                select_tool(name);
             }
         }
 
@@ -5465,74 +5467,53 @@ namespace LEonard
                 return true;
             }
 
-            // system_position
-            if (command.StartsWith("system_position("))
+            // write_cyline_data
+            if (command.StartsWith("write_cyline_data("))
             {
-                string[] parameters = ExtractParameters(command, 2).Split(',');
-                if (parameters.Length != 2)
+                string filename = ExtractParameters(command);
+                if (filename.Length < 1)
                 {
-                    ExecError("Unrecognized system_position command");
+                    ExecError("No file name specified");
                     return true;
                 }
-                string positionName = parameters[0];
-                string value = ReadPositionJoint(positionName);
-                if (value == null)
+
+                string full_filename = System.IO.Path.Combine(LEonardRoot, DataFolder, filename);
+                full_filename = System.IO.Path.ChangeExtension(full_filename, ".csv");
+
+                try
                 {
-                    ExecError("Unrecognized position in system_position command");
-                    return true;
+                    StreamWriter writer = new StreamWriter(full_filename);
+                    {
+                        writer.WriteLine("filename,{0}", full_filename);
+                        writer.WriteLine("date,{0}", DateTime.Now.ToString());
+                        writer.WriteLine("robot_geometry,{0}", ReadVariable("robot_geometry", "???"));
+                        writer.WriteLine("cyline_calibration_counts,{0}", ReadVariable("cyline_calibration_counts", "???").Trim(new char[] { '[', ']' }));
+                        writer.WriteLine("cyline_correction,{0}", ReadVariable("cyline_correction", "???").Trim(new char[] { '[', ']' }));
+                        writer.WriteLine("cyline_correction_size,{0}", ReadVariable("cyline_correction_size", "???"));
+                        writer.WriteLine("cyline_coeff_table_size,{0}", ReadVariable("cyline_coeff_table_size", "???"));
+                        writer.WriteLine("cyline_coeff_table_index,{0}", ReadVariable("cyline_coeff_table_index", "???"));
+                        writer.WriteLine("cyline_deadband_time,{0}", ReadVariable("cyline_deadband_time", "???"));
+                        writer.WriteLine("cyline_degree_slice,{0}", ReadVariable("cyline_degree_slice", "???"));
+                        writer.WriteLine("cyline_expected_time,{0}", ReadVariable("cyline_expected_time", "???"));
+                        writer.WriteLine("cyline_latest_e,{0}", ReadVariable("cyline_latest_e", "???").Trim(new char[] { '[', ']' }));
+                        writer.WriteLine("cyline_max_e,{0}", ReadVariable("cyline_max_e", "???"));
+                        writer.WriteLine("cyline_max_e_angle,{0}", ReadVariable("cyline_max_e_angle", "???"));
+                        writer.WriteLine("cyline_min_e,{0}", ReadVariable("cyline_min_e", "???"));
+                        writer.WriteLine("cyline_min_e_angle,{0}", ReadVariable("cyline_min_e_angle", "???"));
+                        writer.WriteLine("cyline_training_weight,{0}", ReadVariable("cyline_training_weight", "???"));
+                        writer.WriteLine("grind_linear_vel_mmps,{0}", ReadVariable("grind_linear_vel_mmps", "???"));
+                        writer.WriteLine("grind_linear_accel_mmpss,{0}", ReadVariable("grind_linear_accel_mmpss", "???"));
+                        writer.WriteLine("grind_linear_blend_radius_mm,{0}", ReadVariable("grind_linear_blend_radius_mm", "???"));
+                        writer.WriteLine("grind_ang_vel_rps,{0}", ReadVariable("grind_ang_vel_rps", "???"));
+                        writer.WriteLine("grind_ang_accel_rpss,{0}", ReadVariable("grind_ang_accel_rpss", "???"));
+                        writer.WriteLine("grind_ang_blend_radius_rad,{0}", ReadVariable("grind_ang_blend_radius_rad", "???"));
+
+                        writer.Close();
+                    }
                 }
-                SetSystemPosition(positionName, parameters[1] == "True");
-                return true;
-            }
-
-
-
-            // move_joint
-            if (command.StartsWith("move_joint("))
-            {
-                string positionName = ExtractParameters(command);
-                if (GotoPositionJoint(positionName))
-                    le_prompt($"Wait for move_joint({positionName}) complete", true, true);
-                else
-                    ExecError($"Joint move to {positionName} failed");
-                return true;
-            }
-
-            // move_linear
-            if (command.StartsWith("move_linear("))
-            {
-                string positionName = ExtractParameters(command);
-
-                if (GotoPositionPose(positionName))
-                    le_prompt($"Wait for move_linear({positionName}) complete", true, true);
-                else
-                    ExecError($"Linear move to {positionName} failed");
-                return true;
-            }
-
-            // move_relative
-            // This is really deprecated for movel_incr_part(...)
-            if (command.StartsWith("move_relative("))
-            {
-                string xy = ExtractParameters(command, 2);
-
-                if (xy == "")
-                    ExecError("Relative move no parameters x,y");
-                else
+                catch
                 {
-                    try
-                    {
-                        string[] p = xy.Split(',');
-                        double x_mm = Convert.ToDouble(p[0]);
-                        double y_mm = Convert.ToDouble(p[1]);
-                        if (Math.Abs(x_mm) > DEFAULT_max_allowable_relative_move_mm || Math.Abs(y_mm) > DEFAULT_max_allowable_relative_move_mm)
-                            ExecError($"X and Y must be no more than +/{DEFAULT_max_allowable_relative_move_mm} mm");
-                        RobotSend($"{MainForm.GetRobotPrefix("movel_incr_part")},{x_mm / 1000.0},{y_mm / 1000.0},0,0,0,0");
-                    }
-                    catch
-                    {
-                        ExecError("Relative move bad parameters x,y");
-                    }
+                    ExecError($"write_cyline_data(...) cannot write to\n{full_filename}");
                 }
 
                 return true;
@@ -5568,82 +5549,64 @@ namespace LEonard
                     ExecError("No position name specified");
                     return true;
                 }
-                copyPositionAtWrite = positionName;
 
-                RobotSend(MainForm.GetRobotPrefix("get_actual_both"));
+                save_position(positionName);
+                return true;
+            }
+
+            // system_position
+            if (command.StartsWith("system_position("))
+            {
+                string[] parameters = ExtractParameters(command, 2).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Unrecognized system_position command");
+                    return true;
+                }
+                string positionName = parameters[0];
+
+                system_position(positionName, parameters[1] == "True");
+                return true;
+            }
+
+            // move_joint
+            if (command.StartsWith("move_joint("))
+            {
+                string positionName = ExtractParameters(command);
+
+                move_joint(positionName);
+                return true;
+            }
+
+            // move_linear
+            if (command.StartsWith("move_linear("))
+            {
+                string positionName = ExtractParameters(command);
+
+                move_linear(positionName);
                 return true;
             }
 
             // move_tool_home
             if (command.StartsWith("move_tool_home()"))
             {
-                MoveToolHomeBtn_Click(null, null);
+                move_tool_home();
                 return true;
             }
 
             // move_tool_mount
             if (command.StartsWith("move_tool_mount()"))
             {
-                MoveToolMountBtn_Click(null, null);
+                move_tool_mount();
                 return true;
             }
 
             // select_tool  (Assumes operator has already installed it somehow!!)
             if (command.StartsWith("select_tool("))
             {
-                string name = ExtractParameters(command, 1);
-                DataRow row = FindName(name, tools);
-                if (row == null)
-                {
-                    log.Error("Unknown tool specified in EXEC: {0.000} {1}", lineNumber, command);
-                    le_prompt("Unrecognized command: " + command);
-                    return true;
-                }
-                else
-                {
-                    // Kind of like a subroutine that calls all the pieces needed to effect a tool change
-                    // Just in case... make sure we disable current tool
-                    PerformRobotCommand($"set_tcp({row["x_m"]},{row["y_m"]},{row["z_m"]},{row["rx_rad"]},{row["ry_rad"]},{row["rz_rad"]})");
-                    PerformRobotCommand($"set_payload({row["mass_kg"]},{row["cogx_m"]},{row["cogy_m"]},{row["cogz_m"]})");
-                    PerformRobotCommand("tool_off()");
-                    PerformRobotCommand("coolant_off()");
-                    PerformRobotCommand($"set_tool_on_outputs({row["ToolOnOuts"]})");
-                    PerformRobotCommand($"set_tool_off_outputs({row["ToolOffOuts"]})");
-                    PerformRobotCommand($"set_coolant_on_outputs({row["CoolantOnOuts"]})");
-                    PerformRobotCommand($"set_coolant_off_outputs({row["CoolantOffOuts"]})");
-                    PerformRobotCommand("tool_off()");
-                    PerformRobotCommand("coolant_off()");
-                    /*
-                    // The original technique... more circuitous since it was recursive!
-                    ExecuteLEScriptLine(-1, String.Format("set_tcp({0},{1},{2},{3},{4},{5})", row["x_m"], row["y_m"], row["z_m"], row["rx_rad"], row["ry_rad"], row["rz_rad"]));
-                    ExecuteLEScriptLine(-1, String.Format("set_payload({0},{1},{2},{3})", row["mass_kg"], row["cogx_m"], row["cogy_m"], row["cogz_m"]));
+                string toolName = ExtractParameters(command, 1);
+                select_tool(toolName);
 
-                    ExecuteLEScriptLine(-1, String.Format("tool_off()"));
-                    ExecuteLEScriptLine(-1, String.Format("coolant_off()"));
-                    ExecuteLEScriptLine(-1, String.Format("set_tool_on_outputs({0})", row["ToolOnOuts"]));
-                    ExecuteLEScriptLine(-1, String.Format("set_tool_off_outputs({0})", row["ToolOffOuts"]));
-                    ExecuteLEScriptLine(-1, String.Format("set_coolant_on_outputs({0})", row["CoolantOnOuts"]));
-                    ExecuteLEScriptLine(-1, String.Format("set_coolant_off_outputs({0})", row["CoolantOffOuts"]));
-                    ExecuteLEScriptLine(-1, String.Format("tool_off()"));
-                    ExecuteLEScriptLine(-1, String.Format("coolant_off()"));
-                    */
-                    WriteVariable("robot_tool", row["Name"].ToString());
-
-                    // Set Move buttons to go to tool change and home locations
-                    MoveToolMountBtn.Text = row["MountPosition"].ToString();
-                    MoveToolHomeBtn.Text = row["HomePosition"].ToString();
-
-                    // Update the UI selector but don't trigger another set of commands to the robot!
-                    mountedToolBoxActionDisabled = true;
-                    MountedToolBox.Text = (string)row["Name"];
-                    mountedToolBoxActionDisabled = false;
-
-                    // Highlight the corresponding row in the DataGridView
-                    SelectDataGridViewRow(ToolsGrd, name);
-
-                    // Give the UI some time to process all of those command returns!!!
-                    Thread.Sleep(1000);
-                }
                 return true;
             }
 
@@ -5653,61 +5616,26 @@ namespace LEonard
                 string parameters = ExtractParameters(command, 2);
                 if (parameters.Length == 0)
                 {
-                    log.Error("Illegal parameters for set_part_geometry EXEC: {0.000} {1}", lineNumber, command);
-                    le_prompt("Illegal set_part_geometry command:\n" + command);
+                    ExecError($"set_part_geometry: illegal parameters {parameters}");
                     return true;
                 }
                 string[] paramList = parameters.Split(',');
                 if (paramList.Length != 2)
                 {
-                    log.Error("Illegal parameters for set_part_geometry EXEC: {0.000} {1}", lineNumber, command);
-                    le_prompt("Illegal set_part_geometry command:\n" + command);
+                    ExecError($"set_part_geometry: illegal parameters {parameters}");
                     return true;
                 }
 
-                switch (paramList[0])
+                string geometryName = paramList[0];
+                try
                 {
-                    case "FLAT":
-                        DiameterLbl.Text = "0.0";
-                        DiameterLbl.Visible = false;
-                        DiameterDimLbl.Visible = false;
-                        break;
-                    case "CYLINDER":
-                        if (!ValidNumericString(paramList[1], 75, 3000))
-                        {
-                            log.Error("Diameter must be between 75 and 3000 EXEC: {0.000} {1}", lineNumber, command);
-                            le_prompt("Diameter be between 75 and 3000:\n" + command);
-                            return true;
-                        }
-                        DiameterLbl.Text = paramList[1];
-                        DiameterLbl.Visible = true;
-                        DiameterDimLbl.Visible = true;
-                        diameterDefaults[1] = paramList[1];
-                        break;
-                    case "SPHERE":
-                        if (!ValidNumericString(paramList[1], 75, 3000))
-                        {
-                            log.Error("Diameter must be between 75 and 3000 EXEC: {0.000} {1}", lineNumber, command);
-                            le_prompt("Diameter be between 75 and 3000:\n" + command);
-                            return true;
-                        }
-                        DiameterLbl.Text = paramList[1];
-                        DiameterLbl.Visible = true;
-                        DiameterDimLbl.Visible = true;
-                        diameterDefaults[2] = paramList[1];
-                        break;
-                    default:
-                        log.Error("First argument to must be FLAT, CYLINDER, or SPHERE EXEC: {0.000} {1}", lineNumber, command);
-                        le_prompt("First argument to must be FLAT, CYLINDER, or SPHERE:\n" + command);
-                        return true;
+                    double diam_mm = Convert.ToDouble(paramList[1]);
+                    set_part_geometry(geometryName, diam_mm);
                 }
-
-                // Update the UI control but don't have it trigger commands to robot, which is done explicitly below
-                partGeometryBoxDisabled = true;
-                PartGeometryBox.Text = paramList[0];
-                partGeometryBoxDisabled = false;
-
-                UpdateGeometryToRobot();
+                catch
+                {
+                    ExecError($"set_part_geometry: illegal parameters {parameters}");
+                }
                 return true;
             }
 
@@ -5774,57 +5702,6 @@ namespace LEonard
             }
 
 
-            // write_cyline_data
-            if (command.StartsWith("write_cyline_data("))
-            {
-                string filename = ExtractParameters(command);
-                if (filename.Length < 1)
-                {
-                    ExecError("No file name specified");
-                    return true;
-                }
-
-                string full_filename = System.IO.Path.Combine(LEonardRoot, DataFolder, filename);
-                full_filename = System.IO.Path.ChangeExtension(full_filename, ".csv");
-
-                try
-                {
-                    StreamWriter writer = new StreamWriter(full_filename);
-                    {
-                        writer.WriteLine("filename,{0}", full_filename);
-                        writer.WriteLine("date,{0}", DateTime.Now.ToString());
-                        writer.WriteLine("robot_geometry,{0}", ReadVariable("robot_geometry", "???"));
-                        writer.WriteLine("cyline_calibration_counts,{0}", ReadVariable("cyline_calibration_counts", "???").Trim(new char[] { '[', ']' }));
-                        writer.WriteLine("cyline_correction,{0}", ReadVariable("cyline_correction", "???").Trim(new char[] { '[', ']' }));
-                        writer.WriteLine("cyline_correction_size,{0}", ReadVariable("cyline_correction_size", "???"));
-                        writer.WriteLine("cyline_coeff_table_size,{0}", ReadVariable("cyline_coeff_table_size", "???"));
-                        writer.WriteLine("cyline_coeff_table_index,{0}", ReadVariable("cyline_coeff_table_index", "???"));
-                        writer.WriteLine("cyline_deadband_time,{0}", ReadVariable("cyline_deadband_time", "???"));
-                        writer.WriteLine("cyline_degree_slice,{0}", ReadVariable("cyline_degree_slice", "???"));
-                        writer.WriteLine("cyline_expected_time,{0}", ReadVariable("cyline_expected_time", "???"));
-                        writer.WriteLine("cyline_latest_e,{0}", ReadVariable("cyline_latest_e", "???").Trim(new char[] { '[', ']' }));
-                        writer.WriteLine("cyline_max_e,{0}", ReadVariable("cyline_max_e", "???"));
-                        writer.WriteLine("cyline_max_e_angle,{0}", ReadVariable("cyline_max_e_angle", "???"));
-                        writer.WriteLine("cyline_min_e,{0}", ReadVariable("cyline_min_e", "???"));
-                        writer.WriteLine("cyline_min_e_angle,{0}", ReadVariable("cyline_min_e_angle", "???"));
-                        writer.WriteLine("cyline_training_weight,{0}", ReadVariable("cyline_training_weight", "???"));
-                        writer.WriteLine("grind_linear_vel_mmps,{0}", ReadVariable("grind_linear_vel_mmps", "???"));
-                        writer.WriteLine("grind_linear_accel_mmpss,{0}", ReadVariable("grind_linear_accel_mmpss", "???"));
-                        writer.WriteLine("grind_linear_blend_radius_mm,{0}", ReadVariable("grind_linear_blend_radius_mm", "???"));
-                        writer.WriteLine("grind_ang_vel_rps,{0}", ReadVariable("grind_ang_vel_rps", "???"));
-                        writer.WriteLine("grind_ang_accel_rpss,{0}", ReadVariable("grind_ang_accel_rpss", "???"));
-                        writer.WriteLine("grind_ang_blend_radius_rad,{0}", ReadVariable("grind_ang_blend_radius_rad", "???"));
-
-                        writer.Close();
-                    }
-                }
-                catch
-                {
-                    ExecError($"write_cyline_data(...) cannot write to\n{full_filename}");
-                }
-
-                return true;
-            }
 
             if (PerformRobotCommand(command))
                 return true;
@@ -6114,6 +5991,164 @@ namespace LEonard
             return true;
         }
 
+        // UR
+        private int save_position(string positionName)
+        {
+            copyPositionAtWrite = positionName;
+
+            PerformRobotCommand("get_actual_both()");
+            return 0;
+        }
+        private int system_position(string positionName, bool f)
+        {
+            string value = ReadPositionJoint(positionName);
+            if (value == null)
+            {
+                ExecError("Unrecognized position in system_position command");
+                return 1;
+            }
+            SetSystemPosition(positionName, f);
+            return 0;
+        }
+        private int move_joint(string positionName)
+        {
+            if (GotoPositionJoint(positionName))
+            {
+                le_prompt($"Wait for move_joint({positionName}) complete", true, true);
+                return 0;
+            }
+            else
+            {
+                ExecError($"move_joint to {positionName} failed");
+                return 1;
+            }
+        }
+        private int move_linear(string positionName)
+        {
+            if (GotoPositionPose(positionName))
+            {
+                le_prompt($"Wait for move_linear({positionName}) complete", true, true);
+                return 0;
+            }
+            else
+            {
+                ExecError($"move_linear to {positionName} failed");
+                return 1;
+            }
+        }
+
+        private int move_tool_home()
+        {
+            MoveToolHomeBtn_Click(null, null);
+            return 0;
+        }
+        private int move_tool_mount()
+        {
+            MoveToolMountBtn_Click(null, null);
+            return 0;
+        }
+
+        private int select_tool(string toolName)
+        {
+            DataRow row = FindName(toolName, tools);
+            if (row == null)
+            {
+                ExecError($"select_tool: cannot find tool {toolName}");
+                return 1;
+            }
+            // Kind of like a subroutine that calls all the pieces needed to effect a tool change
+            // Just in case... make sure we disable current tool
+            PerformRobotCommand($"set_tcp({row["x_m"]},{row["y_m"]},{row["z_m"]},{row["rx_rad"]},{row["ry_rad"]},{row["rz_rad"]})");
+            PerformRobotCommand($"set_payload({row["mass_kg"]},{row["cogx_m"]},{row["cogy_m"]},{row["cogz_m"]})");
+            PerformRobotCommand("tool_off()");
+            PerformRobotCommand("coolant_off()");
+            PerformRobotCommand($"set_tool_on_outputs({row["ToolOnOuts"]})");
+            PerformRobotCommand($"set_tool_off_outputs({row["ToolOffOuts"]})");
+            PerformRobotCommand($"set_coolant_on_outputs({row["CoolantOnOuts"]})");
+            PerformRobotCommand($"set_coolant_off_outputs({row["CoolantOffOuts"]})");
+            PerformRobotCommand("tool_off()");
+            PerformRobotCommand("coolant_off()");
+            /*
+            // The original technique... more circuitous since it was recursive!
+            ExecuteLEScriptLine(-1, String.Format("set_tcp({0},{1},{2},{3},{4},{5})", row["x_m"], row["y_m"], row["z_m"], row["rx_rad"], row["ry_rad"], row["rz_rad"]));
+            ExecuteLEScriptLine(-1, String.Format("set_payload({0},{1},{2},{3})", row["mass_kg"], row["cogx_m"], row["cogy_m"], row["cogz_m"]));
+
+            ExecuteLEScriptLine(-1, String.Format("tool_off()"));
+            ExecuteLEScriptLine(-1, String.Format("coolant_off()"));
+            ExecuteLEScriptLine(-1, String.Format("set_tool_on_outputs({0})", row["ToolOnOuts"]));
+            ExecuteLEScriptLine(-1, String.Format("set_tool_off_outputs({0})", row["ToolOffOuts"]));
+            ExecuteLEScriptLine(-1, String.Format("set_coolant_on_outputs({0})", row["CoolantOnOuts"]));
+            ExecuteLEScriptLine(-1, String.Format("set_coolant_off_outputs({0})", row["CoolantOffOuts"]));
+            ExecuteLEScriptLine(-1, String.Format("tool_off()"));
+            ExecuteLEScriptLine(-1, String.Format("coolant_off()"));
+            */
+            WriteVariable("robot_tool", row["Name"].ToString());
+
+            // Set Move buttons to go to tool change and home locations
+            MoveToolMountBtn.Text = row["MountPosition"].ToString();
+            MoveToolHomeBtn.Text = row["HomePosition"].ToString();
+
+            // Update the UI selector but don't trigger another set of commands to the robot!
+            mountedToolBoxActionDisabled = true;
+            MountedToolBox.Text = (string)row["Name"];
+            mountedToolBoxActionDisabled = false;
+
+            // Highlight the corresponding row in the DataGridView
+            SelectDataGridViewRow(ToolsGrd, toolName);
+
+            // Give the UI some time to process all of those command returns!!!
+            Thread.Sleep(1000);
+            return 0;
+        }
+
+        int set_part_geometry(string geometryName, double diam_mm)
+        {
+            string diamStr = $"{diam_mm:0.0}";
+            switch (geometryName)
+            {
+                case "FLAT":
+                    DiameterLbl.Text = "0.0";
+                    DiameterLbl.Visible = false;
+                    DiameterDimLbl.Visible = false;
+                    break;
+                case "CYLINDER":
+                    if (diam_mm < 75 || diam_mm > 3000)
+                    {
+                        ExecError($"Cylinder diameter must be between 75 and 3000: {diam_mm}");
+                        return 1;
+                    }
+                    DiameterLbl.Text = diamStr;
+                    DiameterLbl.Visible = true;
+                    DiameterDimLbl.Visible = true;
+                    diameterDefaults[1] = diamStr;
+                    break;
+                case "SPHERE":
+                    if (diam_mm < 75 || diam_mm > 3000)
+                    {
+                        ExecError($"Sphere diameter must be between 75 and 3000: {diam_mm}");
+                        return 2;
+                    }
+                    DiameterLbl.Text = diamStr;
+                    DiameterLbl.Visible = true;
+                    DiameterDimLbl.Visible = true;
+                    diameterDefaults[2] = diamStr;
+                    break;
+                default:
+                    ExecError($"set_part_geometry: First argument must be FLAT, CYLINDER, or SPHERE: {geometryName}");
+                    return 3;
+            }
+
+            // Update the UI control but don't have it trigger commands to robot, which is done explicitly below
+            partGeometryBoxDisabled = true;
+            PartGeometryBox.Text = geometryName;
+            partGeometryBoxDisabled = false;
+
+            UpdateGeometryToRobot();
+            return 0;
+        }
+
+
+
         #endregion ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
 
         #region ===== JAVA SUPPORT CODE                 ==============================================================================================================================
@@ -6195,10 +6230,14 @@ namespace LEonard
             .SetValue("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")))
 
             // Position and Tool Interface
-            .SetValue("save_position", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"save_position({posName})")))
-            .SetValue("move_linear", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"move_linear({posName})")))
-            .SetValue("select_tool", new Func<string, bool>((string toolName) => ExecuteLEScriptLine(-1, $"select_tool({toolName})")))
-            .SetValue("set_part_geometry", new Func<string, double, bool>((string geom, double diam) => ExecuteLEScriptLine(-1, $"set_part_geometry({geom},{diam})")))
+            .SetValue("save_position", new Func<string, int>((string posName) => save_position(posName)))
+            .SetValue("system_position", new Func<string, bool, int>((string posName, bool f) => system_position(posName, f)))
+            .SetValue("move_joint", new Func<string, int>((string posName) => move_joint(posName)))
+            .SetValue("move_linear", new Func<string, int>((string posName) => move_linear(posName)))
+            .SetValue("move_tool_home", new Func<int>(() => move_tool_home()))
+            .SetValue("move_tool_mount", new Func<int>(() => move_tool_mount()))
+            .SetValue("select_tool", new Func<string, int>((string toolName) => select_tool(toolName)))
+            .SetValue("set_part_geometry", new Func<string, double, int>((string geometryName, double diam_mm) => set_part_geometry(geometryName, diam_mm)))
             .SetValue("free_drive", new Func<int, bool>((int x) => PerformRobotCommand($"free_drive({x})")))
 
             // Core Motion
@@ -6600,10 +6639,14 @@ namespace LEonard
             pythonScope.SetVariable("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")));
 
             // Position and Tool Interface
-            pythonScope.SetVariable("save_position", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"save_position({posName})")));
-            pythonScope.SetVariable("move_linear", new Func<string, bool>((string posName) => ExecuteLEScriptLine(-1, $"move_linear({posName})")));
-            pythonScope.SetVariable("select_tool", new Func<string, bool>((string toolName) => ExecuteLEScriptLine(-1, $"select_tool({toolName})")));
-            pythonScope.SetVariable("set_part_geometry", new Func<string, double, bool>((string geom, double diam) => ExecuteLEScriptLine(-1, $"set_part_geometry({geom},{diam})")));
+            pythonScope.SetVariable("save_position", new Func<string, int>((string posName) => save_position(posName)));
+            pythonScope.SetVariable("system_position", new Func<string, bool, int>((string posName, bool f) => system_position(posName, f)));
+            pythonScope.SetVariable("move_joint", new Func<string, int>((string posName) => move_joint(posName)));
+            pythonScope.SetVariable("move_linear", new Func<string, int>((string posName) => move_linear(posName)));
+            pythonScope.SetVariable("move_tool_home", new Func<int>(() => move_tool_home()));
+            pythonScope.SetVariable("move_tool_mount", new Func<int>(() => move_tool_mount()));
+            pythonScope.SetVariable("select_tool", new Func<string, int>((string toolName) => select_tool(toolName)));
+            pythonScope.SetVariable("set_part_geometry", new Func<string, double, int>((string geometryName, double diam_mm) => set_part_geometry(geometryName, diam_mm)));
             pythonScope.SetVariable("free_drive", new Func<int, bool>((int x) => PerformRobotCommand($"free_drive({x})")));
 
             // Core Motion
