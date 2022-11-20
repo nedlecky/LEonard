@@ -13,24 +13,15 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Contexts;
-using System.Security.Cryptography;
-using System.ServiceModel.Channels;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Shapes;
-using IronPython.Compiler.Ast;
 using IronPython.Hosting;
 using Jint;
 using Microsoft.Win32;
 using NLog;
-using NLog.Fluent;
 using static IronPython.Modules._ast;
-using static IronPython.SQLite.PythonSQLite;
 #endregion
 
 namespace LEonard
@@ -153,6 +144,31 @@ namespace LEonard
         #region ===== MAINFORM EVENTS                   ==============================================================================================================================
         OperatorMode operatorModeOverride = OperatorMode.OPERATOR;
         bool useOperatorModeOverride = false;
+       
+        
+        // TODO is this worth expanding???
+        private void TextLargerButtonHandler(object sender, EventArgs e)
+        {
+
+        }
+        void SetupRTB(RichTextBox rtb)
+        {
+            // This is handled in the Designer
+            //rtb.DetectUrls= false;
+
+            /*
+                Button b = new Button();
+                b.Location = new System.Drawing.Point(100, 100);
+                b.Name = rtb.Name + "UpBtn";
+                b.Size = new System.Drawing.Size(100, 100);
+                b.TabIndex = rtb.TabIndex + 1;
+                b.Text = "UP";
+                b.UseVisualStyleBackColor = true;
+                b.Click += new System.EventHandler(TextLargerButtonHandler);
+
+                this.Controls.Add(b);
+            */
+        }
 
         public MainForm(string[] args)
         {
@@ -172,8 +188,11 @@ namespace LEonard
             }
 
             InitializeComponent();
-        }
 
+            SetupRTB(SequenceRTB);
+            SetupRTB(SequenceRTBCopy);
+
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -777,7 +796,7 @@ namespace LEonard
 
                     ExecTmr.Enabled = false;
                     CurrentLineLbl.Text = "";
-                    LEScriptRTB.Enabled = true;
+                    SequenceRTB.Enabled = true;
                     break;
                 case RunState.READY:
                     RunStateLbl.Text = "STOPPED";
@@ -816,7 +835,7 @@ namespace LEonard
 
                     ExecTmr.Enabled = false;
                     //CurrentLineLbl.Text = "";
-                    LEScriptRTB.Enabled = true;
+                    SequenceRTB.Enabled = true;
 
                     // If this was left open, it is now closed!
                     fileManager?.AllClose();
@@ -862,7 +881,7 @@ namespace LEonard
                     DiameterLbl.Enabled = false;
 
                     CurrentLineLbl.Text = "";
-                    LEScriptRTB.Enabled = false;
+                    SequenceRTB.Enabled = false;
 
                     ExecTmr.Interval = 100;
                     ExecTmr.Enabled = true;
@@ -904,7 +923,7 @@ namespace LEonard
                     PartGeometryBox.Enabled = false;
                     DiameterLbl.Enabled = false;
 
-                    LEScriptRTB.Enabled = false;
+                    SequenceRTB.Enabled = false;
 
                     ExecTmr.Enabled = false;
                     break;
@@ -1441,18 +1460,18 @@ namespace LEonard
         private string recipeAsLoaded = "";  // As it was when loaded so we can test for actual mods
         private bool RecipeWasModified()
         {
-            return recipeAsLoaded != LEScriptRTB.Text;
+            return recipeAsLoaded != SequenceRTB.Text;
         }
         bool LoadLEonardScriptFile(string file)
         {
             log.Info("LoadRecipeFile({0})", file);
             LEScriptFilenameLbl.Text = "";
-            LEScriptRTB.Text = "";
+            SequenceRTB.Text = "";
             try
             {
-                LEScriptRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                SequenceRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
                 LEScriptFilenameLbl.Text = file;
-                recipeAsLoaded = LEScriptRTB.Text;
+                recipeAsLoaded = SequenceRTB.Text;
                 return true;
             }
             catch (Exception ex)
@@ -1475,7 +1494,7 @@ namespace LEonard
             SetRecipeState(RecipeState.NEW);
             SetState(RunState.IDLE);
             LEScriptFilenameLbl.Text = "Untitled";
-            LEScriptRTB.Clear();
+            SequenceRTB.Clear();
             recipeAsLoaded = "";
             MainTab.SelectedIndex = 1; // = "Program";
         }
@@ -1521,8 +1540,8 @@ namespace LEonard
             else
             {
                 log.Info("Save Recipe program to {0}", LEScriptFilenameLbl.Text);
-                LEScriptRTB.SaveFile(LEScriptFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-                recipeAsLoaded = LEScriptRTB.Text;
+                SequenceRTB.SaveFile(LEScriptFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                recipeAsLoaded = SequenceRTB.Text;
                 SetRecipeState(RecipeState.LOADED);
                 SetState(RunState.READY);
             }
@@ -1603,7 +1622,7 @@ namespace LEonard
                 SetRecipeState(RecipeState.MODIFIED);
                 //UnboldRecipe();
             }
-            LEScriptRTBCopy.Text = LEScriptRTB.Text;
+            SequenceRTBCopy.Text = SequenceRTB.Text;
         }
 
         public void ShowPDF(string filename)
@@ -1642,7 +1661,7 @@ namespace LEonard
                 Title = LEScriptFilenameLbl.Text,
                 ScreenWidth = Width,
                 ScreenHeight = Height,
-                Program = LEScriptRTB.Text
+                Program = SequenceRTB.Text
             };
             bigeditForm.ShowDialog();
 
@@ -1650,7 +1669,7 @@ namespace LEonard
 
             if (bigeditForm.DialogResult == DialogResult.OK)
             {
-                LEScriptRTB.Text = bigeditForm.Program;
+                SequenceRTB.Text = bigeditForm.Program;
                 log.Info("Installing from BigEdit");
             }
         }
@@ -4368,7 +4387,7 @@ namespace LEonard
             labels = new Dictionary<string, int>();
 
             int lineNo = 1;
-            foreach (string line in LEScriptRTB.Lines)
+            foreach (string line in SequenceRTB.Lines)
             {
                 string cleanLine = line;
 
@@ -4410,23 +4429,23 @@ namespace LEonard
         {
             lineCurrentlyExecuting = n;
 
-            if (n >= 1 && n <= LEScriptRTB.Lines.Count())
+            if (n >= 1 && n <= SequenceRTB.Lines.Count())
             {
-                (int start, int length) = LEScriptRTB.GetLineExtents(lineCurrentlyExecuting - 1);
+                (int start, int length) = SequenceRTB.GetLineExtents(lineCurrentlyExecuting - 1);
 
-                LEScriptRTB.SelectAll();
-                LEScriptRTB.SelectionFont = new Font(LEScriptRTB.Font, FontStyle.Regular);
+                SequenceRTB.SelectAll();
+                SequenceRTB.SelectionFont = new Font(SequenceRTB.Font, FontStyle.Regular);
 
-                LEScriptRTB.Select(start, length);
-                LEScriptRTB.SelectionFont = new Font(LEScriptRTB.Font, FontStyle.Bold);
-                LEScriptRTB.ScrollToCaret();
-                LEScriptRTB.ScrollToCaret();
+                SequenceRTB.Select(start, length);
+                SequenceRTB.SelectionFont = new Font(SequenceRTB.Font, FontStyle.Bold);
+                SequenceRTB.ScrollToCaret();
+                SequenceRTB.ScrollToCaret();
 
-                LEScriptRTBCopy.Select(start, length);
-                LEScriptRTBCopy.SelectionFont = new Font(LEScriptRTBCopy.Font, FontStyle.Bold);
-                LEScriptRTBCopy.ScrollToCaret();
-                LEScriptRTBCopy.ScrollToCaret();
-                return LEScriptRTB.Lines[lineCurrentlyExecuting - 1];
+                SequenceRTBCopy.Select(start, length);
+                SequenceRTBCopy.SelectionFont = new Font(SequenceRTBCopy.Font, FontStyle.Bold);
+                SequenceRTBCopy.ScrollToCaret();
+                SequenceRTBCopy.ScrollToCaret();
+                return SequenceRTB.Lines[lineCurrentlyExecuting - 1];
             }
             return null;
         }
@@ -4511,13 +4530,13 @@ namespace LEonard
 
         private void UnboldRecipe()
         {
-            LEScriptRTB.SelectAll();
-            LEScriptRTB.SelectionFont = new Font(LEScriptRTB.Font, FontStyle.Regular);
-            LEScriptRTB.DeselectAll();
+            SequenceRTB.SelectAll();
+            SequenceRTB.SelectionFont = new Font(SequenceRTB.Font, FontStyle.Regular);
+            SequenceRTB.DeselectAll();
 
-            LEScriptRTBCopy.SelectAll();
-            LEScriptRTBCopy.SelectionFont = new Font(LEScriptRTB.Font, FontStyle.Regular);
-            LEScriptRTBCopy.DeselectAll();
+            SequenceRTBCopy.SelectAll();
+            SequenceRTBCopy.SelectionFont = new Font(SequenceRTB.Font, FontStyle.Regular);
+            SequenceRTBCopy.DeselectAll();
         }
 
         bool isSingleStep = false;
@@ -4575,7 +4594,7 @@ namespace LEonard
             if (LeGocator.uiFocusInstance != null)
                 if (ReadVariable("gocator_ready") != "True") return;
 
-            if (lineCurrentlyExecuting >= LEScriptRTB.Lines.Count())
+            if (lineCurrentlyExecuting >= SequenceRTB.Lines.Count())
             {
                 log.Info($"EXEC  {lineCurrentlyExecuting:00000}: End of Sequence");
                 ReportStepTimeStats();

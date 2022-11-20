@@ -36,9 +36,9 @@
             this.MainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.FullManualBtn = new System.Windows.Forms.Button();
-            this.URManualBtn = new System.Windows.Forms.Button();
             this.GocatorManualBtn = new System.Windows.Forms.Button();
+            this.URManualBtn = new System.Windows.Forms.Button();
+            this.FullManualBtn = new System.Windows.Forms.Button();
             this.MainTableLayoutPanel.SuspendLayout();
             this.ButtonTableLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -79,6 +79,7 @@
             // ProgramRTB
             // 
             this.MainTableLayoutPanel.SetColumnSpan(this.ProgramRTB, 2);
+            this.ProgramRTB.DetectUrls = false;
             this.ProgramRTB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ProgramRTB.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProgramRTB.Location = new System.Drawing.Point(3, 3);
@@ -159,17 +160,17 @@
             this.panel1.Size = new System.Drawing.Size(983, 94);
             this.panel1.TabIndex = 12;
             // 
-            // FullManualBtn
+            // GocatorManualBtn
             // 
-            this.FullManualBtn.AutoSize = true;
-            this.FullManualBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FullManualBtn.Location = new System.Drawing.Point(3, 7);
-            this.FullManualBtn.Name = "FullManualBtn";
-            this.FullManualBtn.Size = new System.Drawing.Size(410, 78);
-            this.FullManualBtn.TabIndex = 109;
-            this.FullManualBtn.Text = "Show Full Manual PDF\r\nin Chrome";
-            this.FullManualBtn.UseVisualStyleBackColor = true;
-            this.FullManualBtn.Click += new System.EventHandler(this.FullManualBtn_Click);
+            this.GocatorManualBtn.AutoSize = true;
+            this.GocatorManualBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GocatorManualBtn.Location = new System.Drawing.Point(617, 7);
+            this.GocatorManualBtn.Name = "GocatorManualBtn";
+            this.GocatorManualBtn.Size = new System.Drawing.Size(216, 81);
+            this.GocatorManualBtn.TabIndex = 111;
+            this.GocatorManualBtn.Text = "Gocator Manual";
+            this.GocatorManualBtn.UseVisualStyleBackColor = true;
+            this.GocatorManualBtn.Click += new System.EventHandler(this.GocatorManualBtn_Click);
             // 
             // URManualBtn
             // 
@@ -183,17 +184,17 @@
             this.URManualBtn.UseVisualStyleBackColor = true;
             this.URManualBtn.Click += new System.EventHandler(this.URManualBtn_Click);
             // 
-            // GocatorManualBtn
+            // FullManualBtn
             // 
-            this.GocatorManualBtn.AutoSize = true;
-            this.GocatorManualBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GocatorManualBtn.Location = new System.Drawing.Point(617, 7);
-            this.GocatorManualBtn.Name = "GocatorManualBtn";
-            this.GocatorManualBtn.Size = new System.Drawing.Size(216, 81);
-            this.GocatorManualBtn.TabIndex = 111;
-            this.GocatorManualBtn.Text = "Gocator Manual";
-            this.GocatorManualBtn.UseVisualStyleBackColor = true;
-            this.GocatorManualBtn.Click += new System.EventHandler(this.GocatorManualBtn_Click);
+            this.FullManualBtn.AutoSize = true;
+            this.FullManualBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FullManualBtn.Location = new System.Drawing.Point(3, 7);
+            this.FullManualBtn.Name = "FullManualBtn";
+            this.FullManualBtn.Size = new System.Drawing.Size(410, 78);
+            this.FullManualBtn.TabIndex = 109;
+            this.FullManualBtn.Text = "Show Full Manual\r\nUsing System PDF Viewer";
+            this.FullManualBtn.UseVisualStyleBackColor = true;
+            this.FullManualBtn.Click += new System.EventHandler(this.FullManualBtn_Click);
             // 
             // BigEditDialog
             // 

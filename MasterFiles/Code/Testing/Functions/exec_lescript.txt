@@ -2,7 +2,7 @@
 # Test running LEScript files
 
 file1 = Examples\\LEScript\\LEScriptPrint1.txt
-file2 = Examples\\LEScript\\LESc riptPrint2.txt
+file2 = Examples\\LEScript\\LEScriptPrint2.txt
 
 le_print(using_language)
 le_print(le_language = {le_language})

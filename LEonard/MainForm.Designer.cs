@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CurrentLineLbl = new System.Windows.Forms.Label();
-            this.LEScriptRTB = new System.Windows.Forms.RichTextBox();
+            this.SequenceRTB = new System.Windows.Forms.RichTextBox();
             this.StepBtn = new System.Windows.Forms.Button();
             this.StopBtn = new System.Windows.Forms.Button();
             this.PauseBtn = new System.Windows.Forms.Button();
@@ -115,7 +115,7 @@
             this.GrindProcessStateLbl = new System.Windows.Forms.Label();
             this.GocatorReadyLbl = new System.Windows.Forms.Label();
             this.GocatorConnectedLbl = new System.Windows.Forms.Label();
-            this.LEScriptRTBCopy = new System.Windows.Forms.RichTextBox();
+            this.SequenceRTBCopy = new System.Windows.Forms.RichTextBox();
             this.RunCenterColumnLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label18 = new System.Windows.Forms.Label();
             this.MoveToolHomeBtn = new System.Windows.Forms.Button();
@@ -366,19 +366,20 @@
             this.CurrentLineLbl.TabIndex = 79;
             this.CurrentLineLbl.TextChanged += new System.EventHandler(this.CurrentLineLbl_TextChanged);
             // 
-            // LEScriptRTB
+            // SequenceRTB
             // 
-            this.LEScriptRTB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LEScriptRTB.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LEScriptRTB.Location = new System.Drawing.Point(2, 2);
-            this.LEScriptRTB.Margin = new System.Windows.Forms.Padding(2);
-            this.LEScriptRTB.Name = "LEScriptRTB";
-            this.LEScriptRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.LEScriptRTB.Size = new System.Drawing.Size(723, 664);
-            this.LEScriptRTB.TabIndex = 72;
-            this.LEScriptRTB.Text = "";
-            this.LEScriptRTB.VScroll += new System.EventHandler(this.LEonardScriptRTB_VScroll);
-            this.LEScriptRTB.TextChanged += new System.EventHandler(this.RecipeRTB_TextChanged);
+            this.SequenceRTB.DetectUrls = false;
+            this.SequenceRTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SequenceRTB.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SequenceRTB.Location = new System.Drawing.Point(2, 2);
+            this.SequenceRTB.Margin = new System.Windows.Forms.Padding(2);
+            this.SequenceRTB.Name = "SequenceRTB";
+            this.SequenceRTB.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.SequenceRTB.Size = new System.Drawing.Size(723, 664);
+            this.SequenceRTB.TabIndex = 72;
+            this.SequenceRTB.Text = "";
+            this.SequenceRTB.VScroll += new System.EventHandler(this.LEonardScriptRTB_VScroll);
+            this.SequenceRTB.TextChanged += new System.EventHandler(this.RecipeRTB_TextChanged);
             // 
             // StepBtn
             // 
@@ -667,14 +668,14 @@
             // 
             this.PositionsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.PositionsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PositionsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.PositionsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PositionLayoutPanel.SetColumnSpan(this.PositionsGrd, 4);
             this.PositionsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -792,14 +793,14 @@
             // 
             this.VariablesGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.VariablesGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.VariablesGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.VariablesGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.VariablesLayoutPanel.SetColumnSpan(this.VariablesGrd, 4);
             this.VariablesGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1338,7 +1339,7 @@
             this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.RunTabLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.RunTabLayoutPanel.Controls.Add(this.StatusLayoutPanel, 2, 0);
-            this.RunTabLayoutPanel.Controls.Add(this.LEScriptRTBCopy, 0, 0);
+            this.RunTabLayoutPanel.Controls.Add(this.SequenceRTBCopy, 0, 0);
             this.RunTabLayoutPanel.Controls.Add(this.RunCenterColumnLayoutPanel, 1, 0);
             this.RunTabLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RunTabLayoutPanel.Location = new System.Drawing.Point(3, 3);
@@ -1491,19 +1492,20 @@
             this.GocatorConnectedLbl.Text = "Gocator Connected";
             this.GocatorConnectedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // LEScriptRTBCopy
+            // SequenceRTBCopy
             // 
-            this.LEScriptRTBCopy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LEScriptRTBCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LEScriptRTBCopy.Location = new System.Drawing.Point(2, 2);
-            this.LEScriptRTBCopy.Margin = new System.Windows.Forms.Padding(2);
-            this.LEScriptRTBCopy.Name = "LEScriptRTBCopy";
-            this.LEScriptRTBCopy.ReadOnly = true;
-            this.LEScriptRTBCopy.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.LEScriptRTBCopy.Size = new System.Drawing.Size(654, 794);
-            this.LEScriptRTBCopy.TabIndex = 129;
-            this.LEScriptRTBCopy.Text = "";
-            this.LEScriptRTBCopy.VScroll += new System.EventHandler(this.LEonardScriptRTBCopy_VScroll);
+            this.SequenceRTBCopy.DetectUrls = false;
+            this.SequenceRTBCopy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SequenceRTBCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SequenceRTBCopy.Location = new System.Drawing.Point(2, 2);
+            this.SequenceRTBCopy.Margin = new System.Windows.Forms.Padding(2);
+            this.SequenceRTBCopy.Name = "SequenceRTBCopy";
+            this.SequenceRTBCopy.ReadOnly = true;
+            this.SequenceRTBCopy.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.SequenceRTBCopy.Size = new System.Drawing.Size(654, 794);
+            this.SequenceRTBCopy.TabIndex = 129;
+            this.SequenceRTBCopy.Text = "";
+            this.SequenceRTBCopy.VScroll += new System.EventHandler(this.LEonardScriptRTBCopy_VScroll);
             // 
             // RunCenterColumnLayoutPanel
             // 
@@ -1902,7 +1904,7 @@
             this.ProgramTableLayoutPanel.ColumnCount = 2;
             this.ProgramTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.65031F));
             this.ProgramTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.34969F));
-            this.ProgramTableLayoutPanel.Controls.Add(this.LEScriptRTB, 0, 0);
+            this.ProgramTableLayoutPanel.Controls.Add(this.SequenceRTB, 0, 0);
             this.ProgramTableLayoutPanel.Controls.Add(this.CurrentLineLbl, 0, 1);
             this.ProgramTableLayoutPanel.Controls.Add(this.MonitorTab, 1, 0);
             this.ProgramTableLayoutPanel.Controls.Add(this.FileBigEditPanel, 0, 2);
@@ -2524,14 +2526,14 @@
             // 
             this.DisplaysGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DisplaysGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DisplaysGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DisplaysGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DisplaysGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupDisplayLayoutPanel.SetColumnSpan(this.DisplaysGrd, 11);
             this.DisplaysGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2788,14 +2790,14 @@
             // 
             this.ToolsGrd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.ToolsGrd.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ToolsGrd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.ToolsGrd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SetupToolsLayoutPanel.SetColumnSpan(this.ToolsGrd, 11);
             this.ToolsGrd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -4206,7 +4208,7 @@
         private System.Windows.Forms.Button StopBtn;
         private System.Windows.Forms.Button PauseBtn;
         private System.Windows.Forms.Button StartBtn;
-        private System.Windows.Forms.RichTextBox LEScriptRTB;
+        private System.Windows.Forms.RichTextBox SequenceRTB;
         private System.Windows.Forms.Timer ExecTmr;
         private System.Windows.Forms.Timer MessageTmr;
         private System.Windows.Forms.Label RobotCommandStatusLbl;
@@ -4253,7 +4255,7 @@
         private System.Windows.Forms.Button RobotConnectBtn;
         private System.Windows.Forms.ComboBox PartGeometryBox;
         private System.Windows.Forms.Label DiameterLbl;
-        private System.Windows.Forms.RichTextBox LEScriptRTBCopy;
+        private System.Windows.Forms.RichTextBox SequenceRTBCopy;
         private System.Windows.Forms.Button JogRunBtn;
         private System.Windows.Forms.TextBox DoorClosedInputTxt;
         private System.Windows.Forms.Button SetDoorClosedInputBtn;
