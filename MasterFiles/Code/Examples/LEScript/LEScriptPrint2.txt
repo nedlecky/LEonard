@@ -1,0 +1,4 @@
+// LEScriptPrint2.txt
+lescriptprint2_count += 1
+
+le_print(lescriptprint2_count = {lescriptprint2_count})

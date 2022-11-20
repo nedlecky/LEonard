@@ -1608,26 +1608,29 @@ namespace LEonard
 
         public void ShowPDF(string filename)
         {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
-            startInfo.Arguments = $"file:\\{LEonardRoot}\\Documentation\\{filename}";
-            process.StartInfo = startInfo;
-            process.Start();
+            string full_filename = $@"{LEonardRoot}\Documentation\{filename}";
+            System.Diagnostics.Process.Start(full_filename);
+
+            //System.Diagnostics.Process process = new System.Diagnostics.Process();
+            //System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            //startInfo.FileName = "chrome.exe";
+            //startInfo.Arguments = $"/incognito file:\\{LEonardRoot}\\Documentation\\{filename}";
+            //process.StartInfo = startInfo;
+            //process.Start();
         }
         private void FullManualBtn_Click(object sender, EventArgs e)
         {
-            ShowPDF("LEonard%20User%20Manual.pdf");
+            ShowPDF("LEonard User Manual.pdf");
         }
         private void URManualBtn_Click(object sender, EventArgs e)
         {
-            ShowPDF("Using%20Universal%20Robots%20with%20LEonard.pdf");
+            ShowPDF("Using Universal Robots with LEonard.pdf");
         }
 
         private void GocatorManualBtn_Click(object sender, EventArgs e)
         {
-            ShowPDF("Using%20LMI%20Gocators%20with%20LEonard.pdf");
+            ShowPDF("Using LMI Gocators with LEonard.pdf");
         }
 
         private void BigEditBtn_Click(object sender, EventArgs e)
@@ -4220,7 +4223,7 @@ namespace LEonard
                 if (m.Success)
                 {
                     log.Trace("PlusMinusEqualsAssignment {0}{1}{2}", m.Groups["name"].Value, m.Groups["operator"].Value, m.Groups["value"].Value);
-                    string v = ReadVariable(m.Groups["name"].Value);
+                    string v = ReadVariable(m.Groups["name"].Value, "0");  // For += and -=, if the variable does nbot exist, it will be assumed to be 0!
                     if (v != null)
                     {
                         try
@@ -4240,7 +4243,7 @@ namespace LEonard
                     if (m.Success)
                     {
                         log.Trace("IncrAssignment {0}{1}", m.Groups["name"].Value, m.Groups["operator"].Value);
-                        string v = ReadVariable(m.Groups["name"].Value);
+                        string v = ReadVariable(m.Groups["name"].Value, "0");  // For ++ and --, if the variable does nbot exist, it will be assumed to be 0!
                         if (v != null)
                         {
                             try
@@ -4929,8 +4932,11 @@ namespace LEonard
             if (line != origLine)
                 log.Info($"EXECL {lineNumber:00000}: {line}");
 
-            // 1) Ignore comments: drop anything from # onward in the line
+            // 1) Ignore comments: drop anything from # onward in the line AND anything from // onward!
             int index = line.IndexOf("#");
+            if (index >= 0)
+                line = line.Substring(0, index);
+            index = line.IndexOf("//");
             if (index >= 0)
                 line = line.Substring(0, index);
 
@@ -4939,11 +4945,9 @@ namespace LEonard
 
             // Skip blank lines or lines that previously had only comments
             if (command.Length < 1)
-            {
                 return true;
-            }
 
-            // All commands are assignment or end with )
+            // Ensure all commands end with ) and nbothing comes after the first )
             int parenIndex = command.IndexOf(')');
             if (parenIndex >= 0 && parenIndex != command.Length - 1)
             {
@@ -5700,8 +5704,6 @@ namespace LEonard
 
                 return true;
             }
-
-
 
             if (PerformRobotCommand(command))
                 return true;

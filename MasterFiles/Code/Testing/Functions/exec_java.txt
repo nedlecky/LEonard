@@ -1,5 +1,5 @@
 # exec_java
-# Test running files from Java
+# Test running Java files
 
 file1 = Examples\\Java\\JavaPrint1.js
 file2 = Examples\\Java\\JavaPrint2.js
@@ -18,9 +18,9 @@ exec_java(file2)
 exec_java(file1)
 exec_java(file2)
 
-using_lescript()
-le_print(le_language = {le_language})
-exec_java({file1})
-exec_java({file2})
-exec_java({file1})
-exec_java({file2})
+using_python()
+le_print('le_language = ' + le_language)
+exec_java(file1)
+exec_java(file2)
+exec_java(file1)
+exec_java(file2)
