@@ -1,0 +1,17 @@
+# execline_python
+# Test running Python lines
+
+x=7
+le_print(le_language = {le_language})
+execline_python(x = '234')
+#execline_python(le_print(str(x)))
+
+using_java()
+le_print('le_language = ' + le_language)
+execline_python('x += str(2)')
+execline_python('le_print(str(x))')
+
+using_python()
+le_print('le_language = ' + le_language)
+execline_python('x += str(2)')
+execline_python('le_print(str(x))')

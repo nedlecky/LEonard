@@ -1,8 +1,8 @@
 # exec_java
 # Test running Java files
 
-file1 = Examples\\Java\\JavaPrint1.js
-file2 = Examples\\Java\\JavaPrint2.js
+file1 = Examples/Java/JavaPrint1.js
+file2 = Examples/Java/JavaPrint2.js
 
 le_print(using_language)
 le_print(le_language = {le_language})

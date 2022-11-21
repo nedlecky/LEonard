@@ -1,8 +1,8 @@
 # exec_python
 # Test running Python files
 
-file1 = Examples\\Python\\PythonPrint1.py
-file2 = Examples\\Python\\PythonPrint2.py
+file1 = Examples/Python/PythonPrint1.py
+file2 = Examples/Python/PythonPrint2.py
 
 le_print(using_language)
 le_print(le_language = {le_language})

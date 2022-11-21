@@ -23,6 +23,7 @@ using Jint.Native;
 using Microsoft.Win32;
 using NLog;
 using static IronPython.Modules._ast;
+using static IronPython.Modules.PythonWeakRef;
 #endregion
 
 namespace LEonard
@@ -105,7 +106,7 @@ namespace LEonard
         string executionRoot = "";
 
         // System Defaults
-        const string DEFAULT_LEonardRoot = "C:\\LEonard";
+        const string DEFAULT_LEonardRoot = @"C:\Users\Public\LEonard";
         const double maxFontScaleUpPct = 125;
 
         // I/O Defaults
@@ -145,8 +146,8 @@ namespace LEonard
         #region ===== MAINFORM EVENTS                   ==============================================================================================================================
         OperatorMode operatorModeOverride = OperatorMode.OPERATOR;
         bool useOperatorModeOverride = false;
-       
-        
+
+
         // TODO is this worth expanding???
         private void TextLargerButtonHandler(object sender, EventArgs e)
         {
@@ -1734,7 +1735,7 @@ namespace LEonard
             LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", @"C:\Users\Public\LEonard");
 
             // User is not allowed to manually change anymore (for now?)
-            ChangeRootDirectoryBtn.Visible = false;
+            //ChangeRootDirectoryBtn.Visible = false;
 
             if (!Directory.Exists(LEonardRoot))
             {
@@ -4893,14 +4894,23 @@ namespace LEonard
 
             try
             {
-                javaEngine.Execute(line);
-                JavaUpdateVariablesRTB();
+                bool ret = false;
+                if (line != null)
+                {
+                    javaEngine.Execute(line);
+                    JavaUpdateVariablesRTB();
+                    ret = true;
+                }
+                if (!ret)
+                {
+                    ExecError($"Cannot execute Java line {lineNumber:0000}: {line}");
+                }
                 return true;
             }
             catch (Exception ex)
             {
                 // User decides whether to continue!
-                ExecError($"Java Error: {ex}");
+                ExecError($"Java Line Error: {line}\n{ex}");
                 return true;  //false
             }
         }
@@ -4915,7 +4925,8 @@ namespace LEonard
 
             try
             {
-                bool ret = PythonExec(line);
+                bool ret = false;
+                if (line != null) ret = PythonExec(line);
                 if (!ret)
                 {
                     ExecError($"Cannot execute Python line {lineNumber:0000}: {line}");
@@ -4925,7 +4936,7 @@ namespace LEonard
             catch (Exception ex)
             {
                 // User decides if continue!
-                ExecError($"Python Error: {ex}");
+                ExecError($"Python Error: {line}\n{ex}");
                 return true; // false;
             }
         }
@@ -5337,7 +5348,7 @@ namespace LEonard
                     ExecError("Unknown assert syntax");
                     return true;
                 }
-                
+
                 // Variable undefined is OK here... that should pass!
                 string value = ReadVariable(parameters[0], null);
                 if (value == parameters[1])
@@ -5352,7 +5363,7 @@ namespace LEonard
             if (command.StartsWith("assertTrue("))
             {
                 string boolean = ExtractParameters(command);
-                if (!String.Equals(boolean,"true", StringComparison.OrdinalIgnoreCase))
+                if (!String.Equals(boolean, "true", StringComparison.OrdinalIgnoreCase))
                 {
                     ExecError($"assertTrue was NOT TRUE\n{boolean}");
                     return true;
@@ -6256,7 +6267,7 @@ namespace LEonard
             .SetValue("exec_java", new Func<string, bool>((string filename) => ExecuteJavaFile(filename)))
             .SetValue("exec_python", new Func<string, bool>((string filename) => ExecutePythonFile(filename)))
             .SetValue("execline_lescript", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)))
-            .SetValue("execline_jave", new Action<string>((string line) => ExecuteJavaLine(-1, line)))
+            .SetValue("execline_java", new Action<string>((string line) => ExecuteJavaLine(-1, line)))
             .SetValue("execline_python", new Action<string>((string line) => ExecutePythonLine(-1, line)))
 
             .SetValue("le_read_var", new Func<string, string>((string name) => ReadVariable(name)))
@@ -6666,7 +6677,7 @@ namespace LEonard
             pythonScope.SetVariable("exec_java", new Func<string, bool>((string filename) => ExecuteJavaFile(filename)));
             pythonScope.SetVariable("exec_python", new Func<string, bool>((string filename) => ExecutePythonFile(filename)));
             pythonScope.SetVariable("execline_lescript", new Action<string>((string line) => ExecuteLEScriptLine(-1, line)));
-            pythonScope.SetVariable("execline_jave", new Action<string>((string line) => ExecuteJavaLine(-1, line)));
+            pythonScope.SetVariable("execline_java", new Action<string>((string line) => ExecuteJavaLine(-1, line)));
             pythonScope.SetVariable("execline_python", new Action<string>((string line) => ExecutePythonLine(-1, line)));
 
             pythonScope.SetVariable("le_read_var", new Func<string, string>((string name) => ReadVariable(name)));
