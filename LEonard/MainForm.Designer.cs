@@ -3678,6 +3678,7 @@
             // 
             // RobotLogRTB
             // 
+            this.RobotLogRTB.DetectUrls = false;
             this.RobotLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.RobotLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RobotLogRTB.Location = new System.Drawing.Point(3, 25);
@@ -3705,6 +3706,7 @@
             // 
             // ExecLogRTB
             // 
+            this.ExecLogRTB.DetectUrls = false;
             this.ExecLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ExecLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExecLogRTB.Location = new System.Drawing.Point(3, 25);
@@ -3732,6 +3734,7 @@
             // 
             // ErrorLogRTB
             // 
+            this.ErrorLogRTB.DetectUrls = false;
             this.ErrorLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ErrorLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErrorLogRTB.Location = new System.Drawing.Point(3, 25);
@@ -3759,6 +3762,7 @@
             // 
             // AuxLogRTB
             // 
+            this.AuxLogRTB.DetectUrls = false;
             this.AuxLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AuxLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AuxLogRTB.Location = new System.Drawing.Point(3, 25);
@@ -3786,6 +3790,7 @@
             // 
             // AllLogRTB
             // 
+            this.AllLogRTB.DetectUrls = false;
             this.AllLogRTB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AllLogRTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AllLogRTB.Location = new System.Drawing.Point(3, 25);

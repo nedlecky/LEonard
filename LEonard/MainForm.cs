@@ -5593,7 +5593,7 @@ namespace LEonard
                 string message = ExtractParameters(command, 2, false);
                 if (message.Length < 1)
                 {
-                    ExecError("Expected ur_dashboard(message, timeout_ms");
+                    ExecError("Expected ur_dashboard(message, timeout_ms)");
                     return true;
                 }
                 string[] p = message.Split(',');
@@ -5603,7 +5603,7 @@ namespace LEonard
                     timeout_ms = Convert.ToInt32(p[1]);
                 }
                 catch { }
-                string response = ur_dashboard(message, timeout_ms);
+                string response = ur_dashboard(p[0], timeout_ms);
                 WriteVariable("ur_dashboard_response", response); ;
                 return true;
             }
@@ -7358,8 +7358,9 @@ namespace LEonard
         }
         private string ur_dashboard(string inquiry, int timeoutMs = 200)
         {
-            string response = LeUrDashboard.uiFocusInstance?.Ask(inquiry, timeoutMs);
-            log.Info($"UrDashboardInquiryResponse({inquiry}) = {response}");
+            string response = "Null";
+            response = LeUrDashboard.uiFocusInstance?.Ask(inquiry, timeoutMs);
+            log.Info($"ur_dashboard({inquiry}) received {response}");
             return response;
         }
         private void HandleRobotmodeResponse(string robotmodeResponse)

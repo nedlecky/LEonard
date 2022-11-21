@@ -1,15 +1,12 @@
 # 17 Move Rel Test
 
-#jump(part_moves)
-
+origin = 0,0,0,0,0,0
 get_actual_tcp_pose()
 get_target_tcp_pose()
 get_actual_joint_positions()
 get_target_joint_positions()
 get_actual_both()
 get_target_both()
-#movej(-1.528163,-1.877903,-1.389164,-1.345241,1.570296,1.517194)
-#movel(-0.178936,-0.652675,0.025789,0,3.14159,0)
 get_tcp_offset()
 
 incremental_moves:
@@ -56,7 +53,6 @@ movel_rel_part(0,0,0.020,0,0,0)
 movel_rel_part({origin})
 movel_rel_part(0,0,0,0,0,0.1)
 movel_rel_part({origin})
-end
 movel_rel_part(0.040,0.04,0,0,0,0)
 movel_rel_part(0.040,0.04,0.01,0,0,0)
 movel_rel_part(0,0,0.01,0,0,0)
