@@ -2,28 +2,28 @@
 
 infile_open(fred) # should fail
 
-infile_open(Data/TestData.csv)
+infile_open(HoleData.csv)
 infile_readline()
-assert(infile_lineno,1)
-assert(infile_p0,X_mm)
+assertEqual(infile_lineno,3)
+assertEqual(infile_p1,100)
 infile_readline()
-assert(infile_lineno,2)
-assert(infile_p0,1)
+assertEqual(infile_lineno,4)
+assertEqual(infile_p1,101)
 infile_close()
 
 infile_readline() # should fail
 
-infile_open(Data/TestData.csv)
+infile_open(HoleData.csv)
 infile_readline()
-assert(infile_lineno,1)
+assertEqual(infile_lineno,3)
 infile_readline()
-assert(infile_lineno,2)
-assert(infile_p0,1)
-assert(infile_p1,2)
-assert(infile_p2,3)
+assertEqual(infile_lineno,4)
+assertEqual(infile_p1,101)
+assertEqual(infile_p2,1)
+assertEqual(infile_p3,2)
 infile_close()
 
-infile_open(Data/TestData.csv)
+infile_open(HoleData.csv)
 
 read_all:
 infile_readline()

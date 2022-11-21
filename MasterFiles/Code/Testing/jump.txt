@@ -42,7 +42,7 @@ loop:
 a--
 b++
 jump_gt_zero(a,loop)
-assert(b,4)
+assertEqual(b,4)
 
 jump_gt_zero(aa,loop)  # should fail
 jump_gt_zero(a,looop)  # should fail

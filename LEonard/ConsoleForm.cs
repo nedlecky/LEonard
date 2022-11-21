@@ -83,7 +83,7 @@ namespace LEonard
         public void Clear()
         {
             ConsoleRTB.Clear();
-            ConsoleRTB.Text = "Console cleared\n";
+            ConsoleRTB.Text = $"Console cleared at {DateTime.Now}\n";
         }
         private void ConsoleClearBtn_Click(object sender, EventArgs e)
         {

@@ -1,13 +1,13 @@
 # 02 Import Test
 
 le_clear_variables()
-assert(diam_demo,40) # should fail
+assertNotEqual(diam3,41) # should fail
 
-le_import_variables(Examples/globals.txt)  # should pass
+le_import_variables(Examples/LEScript/Globals.txt)
 le_import_variables(xyz) # should fail
 le_import_variables()    # should fail
 
-assert(tool1,400grit)
-assert(diam2,7)
-assert(diam_demo,40) # should fail
-assert(diam_demo,41) # should pass
+assertEqual(tool1,400grit)
+assertEqual(diam2,7)
+assertNotEqual(diam3,40)
+assertEqual(diam3,41)

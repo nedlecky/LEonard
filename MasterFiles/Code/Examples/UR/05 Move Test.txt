@@ -4,16 +4,16 @@
 # Standard set_speeds with asserts to check correctness
 old_speed = {robot_linear_speed_mmps}
 set_linear_speed(201)
-assert(robot_linear_speed_mmps,201)
+assertEqual(robot_linear_speed_mmps,201)
 set_linear_speed({old_speed})
-assert(robot_linear_speed_mmps,{old_speed})
+assertEqual(robot_linear_speed_mmps,{old_speed})
 
 # Grind set_speeds with asserts to check correctness
 old_speed = {grind_trial_speed_mmps}
 grind_trial_speed(18)
-assert(grind_trial_speed_mmps,18)
+assertEqual(grind_trial_speed_mmps,18)
 grind_trial_speed({old_speed})
-assert(grind_trial_speed_mmps,{old_speed})
+assertEqual(grind_trial_speed_mmps,{old_speed})
 
 select_tool(pen_SA)
 set_part_geometry(FLAT,0)

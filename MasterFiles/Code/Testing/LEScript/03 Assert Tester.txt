@@ -1,20 +1,19 @@
 # 03 Assert Tester
 
-clear
-assert(a,1) # should fail no var
+le_clear_variables()
+assertEqual(a,1) # should fail no var
 
 a=2
-assert(a,asd) # should fail bad syntax
+assertEqual(a,asd) # should fail bad syntax
 
 a++
-assert(a,2) # should fail not equal 
-
-assert(a,3) # should pass
+assertNotEqual(a,2)
+assertEqual(a,3)
 
 b=123
-assert(a,{b}) # should fail
+assertNotEqual(a,{b})
 
 a={b}
-assert(a,123)
-assert(a,{b}) # should pass
+assertEqual(a,123)
+assertEqual(a,{b})
 

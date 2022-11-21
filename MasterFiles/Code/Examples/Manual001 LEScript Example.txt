@@ -1,5 +1,7 @@
 # Hello, World! In LEScript
 using_lescript()
+le_show_console(True)
+le_clear_console()
 le_print(Hello, World!)
 value = 13.25
 le_print(value = {value})

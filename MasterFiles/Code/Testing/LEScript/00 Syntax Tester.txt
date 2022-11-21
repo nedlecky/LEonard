@@ -4,9 +4,9 @@ le_clear_variables()
 a=5
 
 # These spaces shouldn't matter!
-assert(a,5)
-assert(a, 5)
-assert( a , 5 )
+assertEqual(a,5)
+assertEqual(a, 5)
+assertEqual( a , 5 )
 
 le_prompt(But keep these spaces!)
 

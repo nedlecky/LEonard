@@ -1,0 +1,5 @@
+# Globals.txt
+# Example global variable import for LEScript
+tool1 = 400grit
+diam2 = 7
+diam3 = 41

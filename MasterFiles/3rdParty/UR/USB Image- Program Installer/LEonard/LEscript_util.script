@@ -3,7 +3,7 @@
 # Author: Ned Lecky, Lecky Engineering LLC
 # Purpose: LEonard Utility Functions
 
-global robot_util_version = "2022-06-17"
+global version_util = "LEscript_util.script 2022-06-17"
 
 MATH_PI = 3.1415926535
 

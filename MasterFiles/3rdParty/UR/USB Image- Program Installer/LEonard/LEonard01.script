@@ -1,6 +1,19 @@
 def LEonard01():
   global _hidden_verificationVariable=0
-  set_tcp(p[0.0,0.0,0.175,0.0,0.0,0.0])
+  set_gravity([0.0, 0.0, 9.82])
+  step_count_361b9016_8952_4a01_a995_ded92a1f8f00 = 0.0
+  thread Step_Counter_Thread_9885a0ed_da61_4b73_8f95_2157be9ec158():
+    while (True):
+      step_count_361b9016_8952_4a01_a995_ded92a1f8f00 = step_count_361b9016_8952_4a01_a995_ded92a1f8f00 + 1.0
+      sync()
+    end
+  end
+  run Step_Counter_Thread_9885a0ed_da61_4b73_8f95_2157be9ec158()
+  set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
+  set_tool_output_mode(0)
+  set_tool_digital_output_mode(0, 1)
+  set_tool_digital_output_mode(1, 1)
+  set_tool_voltage(24)
   set_standard_analog_input_domain(0, 1)
   set_standard_analog_input_domain(1, 1)
   set_tool_analog_input_domain(0, 1)
@@ -17,22 +30,298 @@ def LEonard01():
   set_runstate_standard_digital_output_to_value(4, 4)
   set_runstate_standard_digital_output_to_value(5, 4)
   set_runstate_standard_digital_output_to_value(6, 4)
-  set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
-  set_tool_output_mode(0)
-  set_tool_digital_output_mode(0, 1)
-  set_tool_digital_output_mode(1, 1)
-  set_tool_voltage(24)
   set_target_payload(0.980000, [0.000000, 0.002000, 0.048000], [0.001488, 0.001488, 0.001488, 0.000000, 0.000000, 0.000000])
-  step_count_0c42c594_f83a_48c2_a914_684fc5f327d8 = 0.0
-  thread Step_Counter_Thread_636cb71a_5f92_46e5_9a99_989a402bdb23():
-    while (True):
-      step_count_0c42c594_f83a_48c2_a914_684fc5f327d8 = step_count_0c42c594_f83a_48c2_a914_684fc5f327d8 + 1.0
-      sync()
-    end
-  end
-  run Step_Counter_Thread_636cb71a_5f92_46e5_9a99_989a402bdb23()
   set_safety_mode_transition_hardness(1)
-  set_gravity([0.0, 0.0, 9.82])
+  set_tcp(p[0.0,0.0,0.175,0.0,0.0,0.0])
+  # begin: URCap Installation Node
+  #   Source: Olis Teleop, 0.20.0, Olis Robotics
+  #   Type: Olis Teleop v0.20.0
+  OLIS_SERVER_IP = "192.168.0.171"
+  OLIS_TOOL_NAME = "None"
+  ##########olis_preamble.script start###########
+  
+  ### NETWORKING UTILS ###
+  def olisOpenSocket(ipaddr, port, name):
+      socket_open_result = socket_open(ipaddr, port, name)
+      if (socket_open_result != True):
+          textmsg("Cannot open socket to ", name)
+          return -1
+      else:
+          return 0
+      end
+  end
+  
+  def olisSocketRead(size, name, timeout):
+      local olis_socket_buf = socket_read_ascii_float(size,name,timeout)
+      # get size as the first index if socket_read_ascii_float works correctly
+      if (olis_socket_buf[0] != size): # getting size means data received fine
+          if (olis_socket_buf[0] != 0):
+              textmsg("Unexpected value of olis_socket_buf[0] = ", olis_socket_buf[0])
+              textmsg("size = ", size)
+          else:
+              textmsg("socket timeout")
+          end
+          olis_socket_buf[0] = -1
+      end
+      return olis_socket_buf
+  end
+  
+  ### GLOBAL VARIABLES INITIALIZATION ###
+  global olis_shutdown_flag_ = False                          # begin shutdown operation once being set
+  global olis_operator_done_ = False
+  global olis_commanded_joint_angles_ = [0.,0.,0.,0.,0.,0.]   # servoj function input
+  global olis_ready_to_servoj_ = False                        # if True, servoj is allowed to start. Use for confirm all safety needed before moving the robot
+  global olis_servoj_controlling_time_ = 0.008                # servoj function param
+  global olis_servoj_lookahead_time_ = 0.1                    # servoj function param
+  global olis_servoj_gain_ = 300                              # servoj function param
+  global olis_halt_olis_threads_ = False
+  global olis_end_session_flag_ = False
+  global olis_bypass_teleop_signal_ = False
+  
+  ### (int) olis_commanded_control_mode_
+  ####-1000: empty heartbeat msg, ignore...
+  ### -999: recv_commanded_data not yet updated since synchronization with Olis has not started.
+  ### -2: Input joint angles have not yet been initialized on Olis side
+  ### -1: Olis has not received actual robot mode from RTDE yet
+  ### 0: initial value
+  ### 1: joint control
+  ### 2: freedrive control
+  
+  olis_commanded_control_mode_ = 0
+  
+  ### OLIS NETWORKING THREAD ###
+  # this thread exchanges actual data with commanded data from Olis-OS
+  thread olisURDataSynchronizationThread():
+      halt_olis_threads = False
+      while (not halt_olis_threads):
+          ready_to_servoj = False
+  
+          # recv_commanded_data layout:
+          # [0]:size, [1]:commanded_control_mode, [2:7]:commanded_joint_angles, [8]:olis_operator_done_, [9]:servo_j time,
+          # [10]:servoj lookahead_time, [11]:servoj gain
+          recv_commanded_data = olisSocketRead(11,"olis_server",0.5)
+          if (recv_commanded_data[0] == -1): # error
+              enter_critical ### START MUTEX ###
+              olis_ready_to_servoj_ = False
+              olis_shutdown_flag_ = True
+              exit_critical ### END MUTEX ###
+              break
+          elif (recv_commanded_data[1] == -1000): #heartbeat msg for socket, ignore message
+              enter_critical ### START MUTEX ###
+              halt_olis_threads = olis_halt_olis_threads_
+              exit_critical ### END MUTEX ###
+              continue
+          else:
+              commanded_control_mode = recv_commanded_data[1]
+              if (commanded_control_mode == 1):
+                  ready_to_servoj = True
+              else:
+                  ready_to_servoj = False
+              end
+  
+              enter_critical ### START MUTEX ###
+              olis_commanded_control_mode_ = commanded_control_mode
+              if (commanded_control_mode == 1 or commanded_control_mode == 2):
+                  i = 0
+                  while i < 6:
+                      olis_commanded_joint_angles_[i] = recv_commanded_data[i+2]
+                      i = i + 1
+                  end
+                  if (recv_commanded_data[8] == 1):
+                      olis_operator_done_ = True
+                  end
+                  olis_servoj_controlling_time_ = recv_commanded_data[9]
+                  olis_servoj_lookahead_time_ = recv_commanded_data[10]
+                  olis_servoj_gain_ = recv_commanded_data[11]
+                  halt_olis_threads = olis_halt_olis_threads_
+              end
+              olis_ready_to_servoj_ = ready_to_servoj
+              exit_critical ### END MUTEX ###
+  
+              if (commanded_control_mode == -999):
+                  textmsg("recv_commanded_data not yet updated since synchronization with Olis has not started.")
+              #elif (commanded_control_mode == -2):
+              #    textmsg("Input joint angles have not yet been initialized on Olis side")  #Chose to silence this
+              elif (commanded_control_mode == -1):
+                  textmsg("Olis has not received actual robot mode from RTDE yet")
+              elif (commanded_control_mode == 0):
+                  textmsg("olis_commanded_control_mode_ is still initial value and not updated with recv_commanded_data[1]. This must not happen at all")
+              end
+          end
+      end
+      socket_close("olis_server")
+  end
+  
+  
+  ### ROBOT MOVEMENT CONTROL THREAD ###
+  # This thread controls robot movement regardless of the gripper. Only one thread can have control over robot movement, thus we have both servoj and freedrive control here
+  
+  thread olisMovementControlThread():
+     global olis_freedrive_set_flag_ = False # For verification if freedrive is already on, so it won't be called again.
+  
+      # need sync after
+      def endFreeDrive():
+          if (olis_freedrive_set_flag_ == True):
+              end_freedrive_mode()
+              olis_freedrive_set_flag_ = False
+          end
+      end
+  
+      # needs sync after
+      def startFreeDrive():
+          if (olis_freedrive_set_flag_ == False):
+              freedrive_mode()
+              olis_freedrive_set_flag_ = True
+          end
+      end
+  
+      halt_olis_threads = False
+      while (not halt_olis_threads):
+  
+          enter_critical ### START MUTEX ###
+          commanded_control_mode = olis_commanded_control_mode_
+          commanded_joint_angles = olis_commanded_joint_angles_
+          servoj_controlling_time = olis_servoj_controlling_time_
+          servoj_lookahead_time = olis_servoj_lookahead_time_
+          servoj_gain = olis_servoj_gain_
+          ready_to_servoj = olis_ready_to_servoj_
+          halt_olis_threads = olis_halt_olis_threads_
+          exit_critical ### END MUTEX ###
+  
+          if (commanded_control_mode == 1):
+              endFreeDrive() # make sure freedrive mode is not set
+              # start servoj only if ready_to_servoj is True which confirms all data has been received
+              if (ready_to_servoj == True):
+                  servoj(commanded_joint_angles,0,0,servoj_controlling_time,servoj_lookahead_time,servoj_gain)
+              else:
+                  sleep(0.008)
+              end
+          elif (commanded_control_mode == 2):
+              olis_ready_to_servoj_ = False
+              startFreeDrive()
+              sync()
+          else:
+              endFreeDrive() # make sure freedrive mode is not set
+              sync()
+          end
+      end
+  end
+  
+  #####BYPASS TELEOP MONITOR
+  thread olisBypassTeleopMonitorThread():
+  	halt_olis_threads = False
+  	recv_error = True
+  
+      while (not halt_olis_threads):
+  
+      	if (recv_error == True):
+      		socket_opened_err = olisOpenSocket("127.0.0.1", 39595, "olis_dashboardserver_client") #reconnect
+  
+      		if (socket_opened_err == 0):
+      			recv_error = False
+  
+                  welcome_msg = socket_read_string("olis_dashboardserver_client","","",True,0.2) #read the welcome msg
+                  # textmsg("Welcome msg: ",welcome_msg)
+                  socket_send_line("get_and_reset_bypass_teleop_flag","olis_dashboardserver_client") #clear any flag that exists on first connection
+                  olisSocketRead(1,"olis_dashboardserver_client",0.2)
+      		else:
+      			enter_critical ### START MUTEX ###
+      			halt_olis_threads = olis_halt_olis_threads_
+      			exit_critical ### END MUTEX ###
+      			if(not halt_olis_threads):
+      				sleep(1.0)
+      			end
+  				sleep(0.05) #don't see the need to check more often than this
+      			continue
+      		end
+  		end
+  
+          socket_send_line("get_and_reset_bypass_teleop_flag","olis_dashboardserver_client")
+          recv_commanded_data = olisSocketRead(1,"olis_dashboardserver_client",0.2)
+          if (recv_commanded_data[0] == -1): # error
+              enter_critical ### START MUTEX ###
+              recv_error = True
+              halt_olis_threads = olis_halt_olis_threads_
+              exit_critical ### END MUTEX ###
+              break
+          elif (recv_commanded_data[1] == 1): #heartbeat flag for socket, ignore message
+              # textmsg("Received bypass == True")
+   			enter_critical ### START MUTEX ###
+              olis_bypass_teleop_signal_ = True
+              halt_olis_threads = olis_halt_olis_threads_
+  			exit_critical ### END MUTEX ###
+          elif (recv_commanded_data[1] == 0): #heartbeat flag for socket, ignore message
+              # textmsg("Received bypass == False")
+              enter_critical ### START MUTEX ###
+              halt_olis_threads = olis_halt_olis_threads_
+              exit_critical ### END MUTEX ###
+          end
+  
+          sleep(0.1)
+      end
+      socket_send_line("bye","olis_dashboardserver_client")
+      socket_close("olis_dashboardserver_client")
+  end
+  
+  def olis_start_stop_dummy_movej_thread():
+      run_movej_thread = run olis_dummy_movej_thread()
+      sleep(0.008)
+      kill run_movej_thread
+  end
+  
+  thread olis_dummy_movej_thread():
+      dummy_move_j_thread_position = get_actual_joint_positions()
+      movej(dummy_move_j_thread_position)
+  end
+  
+  thread olisMainLoop():
+      shutdown_flag = False
+  	end_session_flag = False
+  
+      olis_shutdown_flag_ = False
+      olis_operator_done_ = False
+      olis_commanded_joint_angles_ = [0.,0.,0.,0.,0.,0.]
+      olis_ready_to_servoj_ = False
+      olis_servoj_controlling_time_ = 0.1
+      olis_servoj_lookahead_time_ = 0.1
+      olis_servoj_gain_ = 300
+      olis_halt_olis_threads_ = False
+      olis_end_session_flag_ = False
+  
+  
+      olis_ur_data_sync_thread_handle = run olisURDataSynchronizationThread()
+      movement_control_thread_handle = run olisMovementControlThread()
+      olis_bypass_teleop_monitor_thread = run olisBypassTeleopMonitorThread()
+      TOOL_THREAD_RUN_CODE = 0
+  
+      while (not shutdown_flag and not end_session_flag):
+          enter_critical ### START MUTEX ###
+          shutdown_flag = olis_shutdown_flag_
+          end_session_flag = olis_end_session_flag_
+          exit_critical ### END MUTEX ###
+          sleep(0.05) #don't see the need to check more often than this
+      end
+  
+      #We need to kill this thread rather than joining, we then need to run the olis_start_stop_dummy_movej_thread function
+      #, otherwise we (sometimes) run into the error "another thread is controlling movement of the robot" error
+      # We need to keep this her until UR addresses this bug
+      kill movement_control_thread_handle
+      olis_start_stop_dummy_movej_thread()
+  
+      enter_critical ### START MUTEX ###
+      olis_halt_olis_threads_ = True
+      exit_critical ### END MUTEX ###
+      join olis_ur_data_sync_thread_handle
+      # textmsg("Joined olis_ur_data_sync_thread_handle")
+      join olis_bypass_teleop_monitor_thread
+      # textmsg("Joined olis_bypass_teleop_monitor_thread")
+      TOOL_THREAD_JOIN_CODE = 0
+  
+      sync()
+  end
+  #### olis_preamble.script end ####
+  
+  # end: URCap Installation Node
   # begin: URCap Installation Node
   #   Source: Robotiq_Grippers, 1.8.10.17249, Robotiq Inc.
   #   Type: Vacuum
@@ -2403,7 +2692,7 @@ def LEonard01():
   # Author: Ned Lecky, Lecky Engineering LLC
   # Purpose: LEonard Utility Functions
   
-  global robot_util_version = "2022-06-17"
+  global version_util = "LEscript_util.script 2022-06-17"
   
   MATH_PI = 3.1415926535
   
@@ -2537,7 +2826,7 @@ def LEonard01():
   # Author: Ned Lecky, Lecky Engineering LLC
   # Purpose: LEonard Robot Control Support
   
-  global robot_version = "2022-06-17"
+  global version_robot = "LEscript_robot.script 2022-07-01"
   
   global response = "unknown"
   global robot_index = 0
@@ -2626,6 +2915,181 @@ def LEonard01():
   
     global robot_completed = robot_index
     socket_send_number("robot_completed", robot_completed)
+  end
+  
+  # Move Interface
+  def move_interface():
+    if command[2] == 10:
+      # get_actual_tcp_pose  Send get_actual_tcp_pose() to socket
+      local p = iget_actual_tcp_pose()
+      socket_send_pose("actual_tcp_pose", p)
+      global response = "get_actual_tcp_pose()"
+    elif command[2] == 11:
+      # get_target_tcp_pose  Send get_target_tcp_pose() to socket
+      local p = iget_target_tcp_pose()
+      socket_send_pose("target_tcp_pose", p)
+      global response = "get_target_tcp_pose()"
+    elif command[2] == 12:
+      # get_actual_joint_positions  Send get_actual_joint_positions() to socket
+      local p = iget_actual_joint_positions()
+      socket_send_joints("actual_joint_positions", p)
+      global response = "get_actual_joint_positions()"
+    elif command[2] == 13:
+      # get_target_joint_positions  Send get_target_joint_positions() to socket
+      local p = iget_target_joint_positions()
+      socket_send_joints("target_joint_positions", p)
+      global response = "get_target_joint_positions()"
+    elif command[2] == 14:
+      # get_actual_both  Send both actual joints and pose to socket
+      socket_send_joints("actual_joint_positions", iget_actual_joint_positions())
+      socket_send_pose("actual_tcp_pose", iget_actual_tcp_pose())
+      global response = "get_actual_both()"
+    elif command[2] == 15:
+      # get_target_both  Send both target joints and pose to socket
+      socket_send_joints("target_joint_positions", iget_target_joint_positions())
+      socket_send_pose("target_tcp_pose", iget_target_tcp_pose())
+      global response = "get_actual_both()"
+    elif command[2] == 16:
+      # movej  Movej to joints
+      local q = [command[3], command[4], command[5], command[6], command[7], command[8]]
+      start_listen_halt_thread()
+      imovej_int(q, a = robot_joint_accel_rpss, v = robot_joint_speed_rps)
+      stop_listen_halt_thread()
+      global response = "movej()"
+    elif command[2] == 17:
+      # movel  Movel to pose
+      local p = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+      start_listen_halt_thread()
+      imovel_int(p, a = robot_linear_accel_mpss, v = robot_linear_speed_mps)
+      stop_listen_halt_thread()
+      global response = "movel()"
+    elif command[2] == 18:
+      # get_tcp_offset  Send get_tcp_offset() result to socket
+      local p = iget_tcp_offset()
+      socket_send_pose("tcp_offset", p)
+      global response = "get_tcp_offset()"
+    elif command[2] == 20:
+      # movel_incr_base  Movel incrementally in base coordinates
+      local p0 = iget_target_tcp_pose()
+      local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+      local p2 = pose_add(p0, p1)
+      start_listen_halt_thread()
+      if p1[0] == 0 and p1[1] == 0 and p1[2] == 0:  # Rotational move
+        imovel_int(p2, robot_joint_accel_rpss, robot_joint_speed_rps)
+      else:
+        imovel_int(p2, robot_linear_accel_mpss, robot_linear_speed_mps)
+      end
+      stop_listen_halt_thread()
+      global response = "movel_incr_base()"
+    elif command[2] == 21:
+      # movel_incr_tool  Movel incrementally in tool TCP coordinates
+      local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+      local p2 = pose_trans(iget_target_tcp_pose(), p1)
+      start_listen_halt_thread()
+      if p1[0] == 0 and p1[1] == 0 and p1[2] == 0:  # Rotational move
+        imovel_int(p2, robot_joint_accel_rpss, robot_joint_speed_rps)
+      else:
+        imovel_int(p2, robot_linear_accel_mpss, robot_linear_speed_mps)
+      end
+      stop_listen_halt_thread()
+      global response = "movel_incr_tool()"
+    elif command[2] == 22:
+      # movel_incr_part  Movel incrementally in part TCP coordinates
+      local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+      start_listen_halt_thread()
+      iset_tcp(robot_tcp_part)
+  
+      local origin0 = draw_p_origin
+  
+      draw_origin(iget_target_tcp_pose())
+      speed_setter(robot_linear_speed_mps * 1000.0)
+      drawgi_finish(p1)
+  
+      draw_origin(origin0)
+      draw_sync_current_dp(iget_target_tcp_pose())
+  
+      stop_listen_halt_thread()
+      iset_tcp(robot_tcp)
+      global response = "movel_incr_part()"
+    elif command[2] == 30:
+      # movel_single_axis  Change one element of current pose and movel there
+      local index = command[3]
+      local val = command[4]
+      local p = iget_target_tcp_pose()
+      p[index] = val
+      start_listen_halt_thread()
+      if index < 3:  # Translational
+        imovel_int(p, a = robot_linear_accel_mpss, v = robot_linear_speed_mps)
+      else:
+        imovel_int(p, a = robot_joint_accel_rpss, v = robot_joint_speed_rps)
+      end
+      stop_listen_halt_thread()
+      global response = "movel_single_axis()"
+    elif command[2] == 31:
+      # movel_rot_only  Change only rotation elements of current pose and movel there
+      # Angles set to 999 are ignored!
+      local p1 = iget_target_tcp_pose()
+      local rx = command[3]
+      local ry = command[4]
+      local rz = command[5]
+      if rx != 999:
+        p1[3] = rx
+      end
+      if ry != 999:
+        p1[4] = ry
+      end
+      if rz != 999:
+        p1[5] = rz
+      end
+      start_listen_halt_thread()
+      imovel_int(p1, a = robot_joint_accel_rpss, v = robot_joint_speed_rps)
+      stop_listen_halt_thread()
+      global response = "movel_rot_only()"
+    elif command[2] == 40:
+      # movel_rel_set_tool_origin  Set draw origin for tool
+      # If no params sent, uses get_target_tcp_pose. Otherwise uses specified pose
+      if command[0] != 8:
+        local p0 = iget_target_tcp_pose()
+      else:
+        local p0 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+      end
+      draw_origin(p0)
+      socket_send_pose("movel_rel_tool_origin", p0)
+      global response = "movel_rel_set_tool_origin()"
+    elif command[2] == 41:
+      # movel_rel_set_part_origin  Set draw origin for part
+      # If no params sent, uses get_target_tcp_pose. Otherwise uses specified pose
+      iset_tcp(robot_tcp_part)
+      if command[0] != 8:
+        local p0 = iget_target_tcp_pose()
+      else:
+        local p0 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+      end
+      draw_origin(p0)
+      socket_send_pose("movel_rel_part_origin", p0)
+      iset_tcp(robot_tcp)
+      global response = "movel_rel_set_part_origin()"
+    elif command[2] == 42:
+      # movel_rel_tool  Movel relative to draw origin in tool TCP coordinates
+      local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+      start_listen_halt_thread()
+      speed_setter(robot_linear_speed_mps * 1000.0)
+      draw_finish(p1)
+      stop_listen_halt_thread()
+      global response = "movel_rel_tool()"
+    elif command[2] == 43:
+      # movel_rel_part  Movel relative to draw origin in geometry-independent part TCP coordinates
+      local p1 = p[command[3], command[4], command[5], command[6], command[7], command[8]]
+      start_listen_halt_thread()
+      iset_tcp(robot_tcp_part)
+      speed_setter(robot_linear_speed_mps * 1000.0)
+      drawgi_finish(p1)
+      stop_listen_halt_thread()
+      iset_tcp(robot_tcp)
+      global response = "movel_rel_part()"
+    else:
+      global response = "set_variable ERROR"
+    end
   end
   
   # Set variable interface. Interprets command[2] to select what to set and returns result to socket
@@ -2869,134 +3333,6 @@ def LEonard01():
     socket_send_pose("robot_tcp_part", robot_tcp_part)
   end
   
-  # Command 10: Send get_actual_tcp_pose() to socket
-  def return_actual_tcp_pose():
-    p = iget_actual_tcp_pose()
-    socket_send_pose("actual_tcp_pose", p)
-    global response = "return_actual_tcp_pose()"
-  end
-  
-  # Command 12: Send get_tcp_offset() result to socket
-  def return_tcp_offset():
-    p = iget_tcp_offset()
-    socket_send_pose("tcp_offset", p)
-    global response = "return_tcp_offset()"
-  end
-  
-  # Command 13: Movel relatively in base coordinates
-  def movel_relative_base(p1):
-    local p0 = get_target_tcp_pose()
-    local p2 = pose_add(p0, p1)
-    start_listen_halt_thread()
-    if p1[0] == 0 and p1[1] == 0 and p1[2] == 0:  # Rotational move
-      imovel_int(p2, robot_joint_accel_rpss, robot_joint_speed_rps)
-    else:
-      imovel_int(p2, robot_linear_accel_mpss, robot_linear_speed_mps)
-    end
-    stop_listen_halt_thread()
-    global response = "movel_relative_base()"
-  end
-  
-  # Command 14: Movel relatively in TCP coordinates
-  def movel_relative_tcp(p1):
-    local p2 = pose_trans(get_target_tcp_pose(), p1)
-    start_listen_halt_thread()
-    if p1[0] == 0 and p1[1] == 0 and p1[2] == 0:  # Rotational move
-      imovel_int(p2, robot_joint_accel_rpss, robot_joint_speed_rps)
-    else:
-      imovel_int(p2, robot_linear_accel_mpss, robot_linear_speed_mps)
-    end
-    stop_listen_halt_thread()
-    global response = "movel_relative_tcp()"
-  end
-  
-  # Command 15: Movel relatively in TCP_part coordinates
-  def movel_relative_tcp_part(p1):
-    start_listen_halt_thread()
-    iset_tcp(robot_tcp_part)
-  
-    speed_setter(robot_linear_speed_mps * 1000.0)
-    draw_origin(get_target_tcp_pose())
-    drawgi_finish(p1)
-  
-    #  local p2 = pose_trans(get_target_tcp_pose(), p1)
-    #  if p1[0] == 0 and p1[1] == 0 and p1[2] == 0:  # Rotational move
-    #    imovel_int(p2, robot_joint_accel_rpss, robot_joint_speed_rps)
-    #  else:
-    #    imovel_int(p2, robot_linear_accel_mpss, robot_linear_speed_mps)
-    #  end
-  
-    stop_listen_halt_thread()
-    iset_tcp(robot_tcp)
-    global response = "movel_relative_tcp_part()"
-  end
-  
-  # Command 16: Change one element of current pose and movel there
-  def movel_one_only(index = 0, val = 0):
-    local p = iget_target_tcp_pose()
-    p[index] = val
-    start_listen_halt_thread()
-    if index < 3:  # Translational
-      imovel_int(p, a = robot_linear_accel_mpss, v = robot_linear_speed_mps)
-    else:
-      imovel_int(p, a = robot_joint_accel_rpss, v = robot_joint_speed_rps)
-    end
-    stop_listen_halt_thread()
-    global response = "movel_one_only()"
-  end
-  
-  # Command 18: Change only rotation elements of current pose and movel there
-  # Angles set to 999 are ignored!
-  def movel_rot_only(r1 = 999, r2 = 999, r3 = 999):
-    local p1 = iget_target_tcp_pose()
-    if r1 != 999:
-      p1[3] = r1
-    end
-    if r2 != 999:
-      p1[4] = r2
-    end
-    if r3 != 999:
-      p1[5] = r3
-    end
-  
-    local p2 = p1#pose_trans(pose_inv(get_target_tcp_pose()), p1)
-  
-    start_listen_halt_thread()
-    imovel_int(p2, a = robot_joint_accel_rpss, v = robot_joint_speed_rps)
-    stop_listen_halt_thread()
-    global response = "movel_rot_only()"
-  end
-  
-  # Command 20: Send get_actual_joint_positions() to socket
-  def return_get_actual_joint_positions():
-    p = iget_actual_joint_positions()
-    socket_send_joints("actual_joint_positions", p)
-    global response = "return_get_actual_joint_positions()"
-  end
-  
-  # Command 21: Movej to position (works with joints or poses)
-  def movej_ag(p):
-    start_listen_halt_thread()
-    imovej_int(p, a = robot_joint_accel_rpss, v = robot_joint_speed_rps)
-    stop_listen_halt_thread()
-    global response = "movej_ag()"
-  end
-  
-  # Command 22: Movel to position (works with joints or poses)
-  def movel_ag(p):
-    start_listen_halt_thread()
-    imovel_int(p, a = robot_linear_accel_mpss, v = robot_linear_speed_mps)
-    stop_listen_halt_thread()
-    global response = "movel_ag()"
-  end
-  
-  # Command 25: Send both joints and pose to socket labeled position_p and position_q
-  def return_both_positions():
-    socket_send_joints("position_q", iget_actual_joint_positions())
-    socket_send_pose("position_p", iget_actual_tcp_pose())
-    global response = "return_both_positions()"
-  end
-  
   # ####################################################################################
   # Interrupting Motion
   # Motion and force_mode and part contact muct all end if any of 3 things happen
@@ -3217,7 +3553,7 @@ def LEonard01():
   
     if grind_process_state and grind_ready and halt_grind:
       halt_grind = False
-      istopl(20)
+      istopl(robot_linear_accel_mpss, robot_joint_accel_rpss)
   
       iset_tcp(robot_tcp_part)
       set_grind_process_state(False)
@@ -3242,31 +3578,23 @@ def LEonard01():
     return pose_add(get_target_waypoint(), wanted_displacement_in_base_frame)
   end
   
-  global move_thread_flag = 0
-  global move_thread_approach_speed_mps = 0.01  # Set by touchoff(...)
-  def move_nowait():
-    global move_thread_flag = 1
-    local towardsPos = calculate_point_to_move_towards(get_forward_kin(), [0.0, 0.0, 1.0], 0.025)
-    imovel_int(towardsPos, a = 2.0, v = move_thread_approach_speed_mps, wait = False)
-    global move_thread_flag = 2
-  end
-  
   def touchoff(approach_speed_mmps, retract_mm):
-    #local approach_speed_mps = approach_speed_mmps / 1000.0
-    global move_thread_approach_speed_mps = approach_speed_mmps / 1000.0
-  
+    local approach_speed_mps = approach_speed_mmps / 1000.0
     local retract_m = retract_mm / 1000.0
   
-    # Start non-blocking move: only works with imover_realtime!
-    imover_realtime(True)
-    move_nowait()
+    # Make sure you are imover_realtime(True) before coming in here!
+    local towardsPos = calculate_point_to_move_towards(get_forward_kin(), [0.0, 0.0, 1.0], 0.025)
+    imovel_int(towardsPos, a = 2.0, v = approach_speed_mps, wait = False)
   
     while (True):
       local targetTcpDirection = get_target_tcp_speed()
       local stepsToRetract = tool_contact(direction = targetTcpDirection)
       if (stepsToRetract > 0): # This means there was contact!
         # Contact! Stop the move
-        imover_restart()
+        imover_kill()
+        stopl(1,1)
+        imover_realtime(False)
+  
         local backTrackMovement = get_actual_joint_positions_history(stepsToRetract)
         local contactPose = get_forward_kin(backTrackMovement)
         local posDir = [targetTcpDirection[0], targetTcpDirection[1], targetTcpDirection[2]]
@@ -3276,15 +3604,13 @@ def LEonard01():
           local additionalRetraction = p[normalizedPosDir[0] * retract_m, normalizedPosDir[1] * retract_m, normalizedPosDir[2] * retract_m, 0, 0, 0]
           retractTo = pose_sub(contactPose, additionalRetraction)
         end
-        imovel_int(retractTo, a = grind_jog_accel_mmpss / 1000.0, v = grind_jog_speed_mmps / 1000.0)
+        imovel(retractTo, a = grind_jog_accel_mmpss / 1000.0, v = grind_jog_speed_mmps / 1000.0)
         draw_sync_current_dp(iget_actual_tcp_pose())
         return True
-        break
       end
       sleep(1.0E-10)
       if (imover_cmd == 0): # Done moving means no part was ever contacted
         return False
-        break
       end
       sync()
     end
@@ -3297,11 +3623,14 @@ def LEonard01():
   # ####################################################################################
   # START IMOVER SYSTEM
   #
-  global imover_realtime_enabled = True
+  global imover_realtime_enabled = False
   global imover_restart_count = 0
   global imover_kill_count = 0
   global imover_stopl_count = 0
   global imover_stopj_count = 0
+  global imover_thread_count = 0
+  global imover_wait_count = 0
+  
   global imover_p = p[0, 0, 0, 0, 0, 0]
   global imover_q = [0, 0, 0, 0, 0, 0]
   global imover_a = 1.2
@@ -3324,29 +3653,31 @@ def LEonard01():
   imover_MOVEL = 2
   imover_MOVEJ = 3
   imover_STOPL = 4
-  imover_ZEROFORCE = 5
-  imover_STARTFORCE = 6
-  imover_UPDATEFORCE = 7
-  imover_ENDFORCE = 8
-  imover_GETACTUALTCPPOSE = 9
-  imover_GETACTUALJOINTPOSITIONS = 10
-  imover_GETTARGETTCPPOSE = 11
-  imover_GETTARGETJOINTPOSITIONS = 12
-  imover_GETTCPOFFSET = 13
-  imover_SETTCP = 14
-  imover_SETPAYLOAD = 15
-  imover_TOUCHOFF = 16
+  imover_STOPJ = 5
+  imover_ZEROFORCE = 6
+  imover_STARTFORCE = 7
+  imover_UPDATEFORCE = 8
+  imover_ENDFORCE = 9
+  imover_GETACTUALTCPPOSE = 10
+  imover_GETACTUALJOINTPOSITIONS = 11
+  imover_GETTARGETTCPPOSE = 12
+  imover_GETTARGETJOINTPOSITIONS = 13
+  imover_GETTCPOFFSET = 14
+  imover_SETTCP = 15
+  imover_SETPAYLOAD = 16
   
   def imover_realtime(f = False):
     if f and (not imover_realtime_enabled):
       # Turning on separate imover thread
       imover_realtime_enabled = True
-      imover_restart()
-      #imover_state_alignment()    # Called by imover_restart()
+      imover_start()
+      sleep(0.1)
+      imover_state_alignment()
     elif (not f) and imover_realtime_enabled:
       # Turning off separate imover thread
       imover_kill()
       imover_realtime_enabled = False
+      sleep(0.1)
       imover_state_alignment()
     end
   end
@@ -3366,30 +3697,43 @@ def LEonard01():
     end
   end
   
+  def imover_start():
+    enter_critical
+    global imover_thread_handle = run imover_thread()
+    global imover_restart_count = imover_restart_count + 1
+    socket_send_number("imover_restart_count", imover_restart_count)
+    imover_state_alignment()
+    exit_critical
+  end
+  
   # Kill the imover thread and insure motion is stopped
   def imover_kill():
     if imover_thread_handle > 0:
+      enter_critical
       kill imover_thread_handle
+      # Still rolling after the kill... how fast do you want to stop?
+      stopl(1, 1)
       imover_thread_handle = 0
       global imover_kill_count = imover_kill_count + 1
-      sleep(0.05)
-      stopl(20)
+      socket_send_number("imover_kill_count", imover_kill_count)
+      exit_critical
     end
   end
   
   def imover_restart():
     imover_kill()
-  
-    global imover_cmd = 0
+    sleep(1) # THIS MAKES US HANG ON SET_TCP ????????????????????????????????????????????
+    enter_critical
     global imover_thread_handle = run imover_thread()
-    sleep(0.2)
-    # Reload state (tcp, payload, force mode...)
-    imover_state_alignment()
     global imover_restart_count = imover_restart_count + 1
+    socket_send_number("imover_restart_count", imover_restart_count)
+    imover_state_alignment()
+    exit_critical
   end
   
   def imover_wait(terminate_not_ok = False):
     while imover_cmd > 0:
+      global imover_wait_count = imover_wait_count + 1
       if terminate_not_ok and not ok_to_proceed():
         return None
       end
@@ -3426,6 +3770,14 @@ def LEonard01():
       else:
         stopl(a, aRot)
       end
+    end
+  end
+  
+  def istopj(a):
+    if imover_realtime_enabled:
+      imover_cmd_exec(imover_STOPJ, a)
+    else:
+      stopj(a)
     end
   end
   
@@ -3554,14 +3906,16 @@ def LEonard01():
   end
   
   def itouchoff(speed_mmps, retract_mm):
-    if False: #imover_realtime_enabled:
-      imover_param1 = speed_mmps
-      imover_param2 = retract_mm
-      imover_cmd_exec(imover_TOUCHOFF)
-      return imover_ret_f
-    else:
-      return touchoff(speed_mmps, retract_mm)
-    end
+    # This doesn't run through our thread since it requires killng our thread!
+  
+    # Ensure we can use imover_realtime for a non-blocking move!
+    local imover_realtime_enabled_ori = imover_realtime_enabled
+  
+    imover_realtime(True)
+    local ret = touchoff(speed_mmps, retract_mm)
+    imover_realtime(imover_realtime_enabled_ori)
+  
+    return ret
   end
   
   def imovel(p, a = 1.2, v = 0.25, t = 0, r = 0):
@@ -3592,20 +3946,14 @@ def LEonard01():
       global imover_r = r
       imover_cmd_exec(imover_MOVEL, terminate_not_ok = True, wait_complete = wait)
       if not ok_to_proceed():  # We got interrupted
-        # Halt any motion in progress... this is really the whole reason for imover
         imover_kill()
-  
-        # Had occasional move continuation.. added these as belt-and-suspenders!
-        sleep(0.1)
-        stopl(10)
+        stopl(robot_linear_accel_mpss, robot_joint_accel_rpss)
         global imover_stopl_count = imover_stopl_count + 1
   
-        sleep(0.1)
-        stopj(0.01)
+        stopj(robot_joint_accel_rpss)
         global imover_stopj_count = imover_stopj_count + 1
   
-        # Restart the thread
-        imover_restart()
+        imover_realtime(False)
       end
     else:
       movel(p, a = a, v = v, t = t, r = r)
@@ -3640,20 +3988,12 @@ def LEonard01():
       global imover_r = r
       imover_cmd_exec(imover_MOVEJ, terminate_not_ok = True, wait_complete = wait)
       if not ok_to_proceed():  # We got interrupted
-        # Halt any motion in progress... this is really the whole reason for imover
         imover_kill()
   
-        # Had occasional move continuation.. added these as belt-and-suspenders!
-        sleep(0.1)
-        stopl(10)
-        global imover_stopl_count = imover_stopl_count + 1
-  
-        sleep(0.1)
-        stopj(10)
+        stopj(robot_joint_accel_rpss)
         global imover_stopj_count = imover_stopj_count + 1
   
-        # Restart the thread
-        imover_restart()
+        imover_realtime(False)
       end
     else:
       movej(q, a = a, v = v, t = t, r = r)
@@ -3662,7 +4002,12 @@ def LEonard01():
   
   thread imover_thread():
     global imover_cmd = 0
+    global imover_wait_count = 0
+    global imover_thread_count = 0
+  
     while True:
+      global imover_thread_count = imover_thread_count + 1
+  
       if imover_cmd == imover_MOVEL:
         #socket_send_number("imover_a-thread", imover_a)
         #socket_send_number("imover_v-thread", imover_v)
@@ -3673,7 +4018,10 @@ def LEonard01():
         movej(imover_q, imover_a, imover_v, imover_t, imover_r)
         global imover_cmd = 0
       elif imover_cmd == imover_STOPL:
-        stopl(grind_linear_vel_mps, grind_angular_vel_rps)
+        stopl(imover_param1, imover_param2)
+        global imover_cmd = 0
+      elif imover_cmd == imover_STOPJ:
+        stopj(imover_param1)
         global imover_cmd = 0
       elif imover_cmd == imover_ZEROFORCE:
         sleep(0.25)
@@ -3724,16 +4072,12 @@ def LEonard01():
       elif imover_cmd == imover_SETPAYLOAD:
         set_payload(imover_mass, imover_cog)
         global imover_cmd = 0
-      elif imover_cmd == imover_TOUCHOFF:
-        global imover_ret_f = touchoff(imover_param1, imover_param2)
-        global imover_cmd = 0
       elif imover_cmd == imover_PING:
         global imover_cmd = 0
       end
       sync()
     end
   end
-  global imover_thread_handle = run imover_thread()
   #
   # END IMOVER SYSTEM
   # ####################################################################################
@@ -4233,8 +4577,7 @@ def LEonard01():
   # Author: Ned Lecky, Lecky Engineering LLC
   # Purpose: LEonard Grinding Support
   
-  global grind_version = "2022-06-17"
-  
+  global version_grind = "LEscript_grind.script 2022-07-01"
   
   global grind_ready = True
   # grind_contact_enable:  0=No Contact   1=Touch but no tool/coolant on or force  2=Touch, Tool, Coolant, and Force
@@ -4575,15 +4918,27 @@ def LEonard01():
         draw_speed_once(grind_jog_speed_mmps, grind_jog_accel_mmpss)
         p_contact_init = draw_relative(p[0, 0, 0.005, 0, 0, 0])
       elif enable == 1:
-        # Advance until contact but retract 2X grind distance and use this as a simulated p_contact_init
-        local success = itouchoff(grind_touch_speed_mmps, grind_touch_retract_mm * 2.0)
-        global p_contact_init = iget_actual_tcp_pose()
+        if grind_force_N > 0:
+          # Advance until contact but retract 2X grind distance and use this as a simulated p_contact_init
+          local success = itouchoff(grind_touch_speed_mmps, grind_touch_retract_mm * 2.0)
+          global p_contact_init = iget_actual_tcp_pose()
+        else:
+          # No Touchoff: p_contact_init is just assumed to be where you are!
+          global p_contact_init = iget_actual_tcp_pose()
+          local success = True
+        end
         return success
       elif enable == 2:
-        # Advance until contact
-        local success = itouchoff(grind_touch_speed_mmps, grind_touch_retract_mm)
-        # Touchoff has backed off by grind_touch_retract_mm so we need to compute that actual p_contact_init
-        global p_contact_init = pose_trans(iget_actual_tcp_pose(), p[0, 0, grind_touch_retract_mm / 1000.0, 0, 0, 0])
+        if grind_force_N > 0:
+          # Advance until contact
+          local success = itouchoff(grind_touch_speed_mmps, grind_touch_retract_mm)
+          # Touchoff has backed off by grind_touch_retract_mm so we need to compute that actual p_contact_init
+          global p_contact_init = pose_trans(iget_actual_tcp_pose(), p[0, 0, grind_touch_retract_mm / 1000.0, 0, 0, 0])
+        else:
+          # No Touchoff: p_contact_init is just assumed to be right in front of you!
+          global p_contact_init = pose_trans(iget_actual_tcp_pose(), p[0, 0, grind_touch_retract_mm / 1000.0, 0, 0, 0])
+          local success = True
+        end
         return success
       end
     else:  # Back away
@@ -4649,8 +5004,16 @@ def LEonard01():
   
     if on:
       izero_ftsensor()
-      iforce_mode(force_n, approach_speed_mmps)
-      sleep(grind_force_dwell_ms / 1000.0)
+      if force_n > 0:
+        # Standard force mode
+        iforce_mode(force_n, approach_speed_mmps)
+        sleep(grind_force_dwell_ms / 1000.0)
+      else:
+        # Move straight to previously estimated p_contact_init (grind_retract_mm ahead of you)
+        draw_speed_once(grind_touch_speed_mmps, grind_jog_accel_mmpss)
+        draw_relative(p[0, 0, 0, 0, 0, 0])
+        global imover_force_N = 0
+      end
     else:
       iend_force_mode()
       sleep(0.1)
@@ -4704,12 +5067,10 @@ def LEonard01():
       # All remaining grind moves will be relative to this computed center point
       draw_origin(p_contact_center)
   
-      # Should already be here? (Should be using the speeds set by the grind() command)
-      drawgi_finish(coord_to_center)
-  
       # Now power everything on (although these will do nothing unless contact_enable==2)
       tool_power(True, grind_contact_enable)
       coolant_flow(True, grind_contact_enable)
+      drawgi_finish(coord_to_center)
       apply_force(True, grind_contact_enable, grind_force_N, grind_touch_speed_mmps)
   
       if not ok_to_proceed():
@@ -4751,9 +5112,16 @@ def LEonard01():
           return False
         end
   
-        izero_ftsensor()
-        iforce_mode(grind_force_N, grind_touch_speed_mmps)
-        sleep(grind_force_dwell_ms / 1000.0)
+        if grind_force_N > 0:
+          # Switching to force>0
+          izero_ftsensor()
+          iforce_mode(grind_force_N, grind_touch_speed_mmps)
+          sleep(grind_force_dwell_ms / 1000.0)
+        else:
+          # Switching to force=0
+          draw_speed_once(grind_jog_speed_mmps, grind_jog_accel_mmpss)
+          draw_relative(p[0, 0, 0.004, 0, 0, 0])
+        end
       end
       return True
     elif not on and grind_process_state:
@@ -4768,6 +5136,7 @@ def LEonard01():
   
   def terminate_grind():
     set_ok_to_proceed(True)
+    #imover_realtime(True)
   
     # Shut everything down and return to original pose
     apply_force(False, grind_contact_enable, 0)
@@ -4775,8 +5144,7 @@ def LEonard01():
     coolant_flow(False, grind_contact_enable)
     tool_power(False, grind_contact_enable)
   
-    # Always end with a move back to with the imover realtime back running
-    imover_realtime(True)
+    # Always end with a move back to origin
     draw_speed_once(grind_jog_speed_mmps, grind_jog_accel_mmpss)
     draw_origin(p_operator_init)
     draw_sync_current_dp(iget_actual_tcp_pose())
@@ -4802,12 +5170,12 @@ def LEonard01():
     local time_ms = sqrt(dx_mm * dx_mm + dy_mm * dy_mm) * n_cycles / grind_linear_vel_mps + 1500
     socket_send_number("robot_step_time_estimate_ms", time_ms)
   
+    imover_realtime(True)
     if not set_grind_process_state(True, pattern_line(dx_m, dy_m, n_cycles, True)):
       return False
     end
   
     # Grind the pattern
-    imover_realtime(True)
     start_user_timer()
     pattern_line(dx_m, dy_m, n_cycles)
     stop_user_timer()
@@ -4885,12 +5253,12 @@ def LEonard01():
     time_ms = 2 * (dx_mm + dy_mm) * n_cycles / grind_linear_vel_mps + 1500
     socket_send_number("robot_step_time_estimate_ms", time_ms)
   
+    imover_realtime(True)
     if not set_grind_process_state(True, pattern_rect(dx_m, dy_m, n_cycles, True)):
       return False
     end
   
     # Grind the pattern
-    imover_realtime(True)
     start_user_timer()
     pattern_rect(dx_m, dy_m, n_cycles)
     stop_user_timer()
@@ -5030,12 +5398,12 @@ def LEonard01():
     end
     socket_send_number("robot_step_time_estimate_ms", time_ms)
   
+    imover_realtime(True)
     if not set_grind_process_state(True, pattern_serpentine(dx_m, dy_m, n_xsteps, n_ysteps, n_cycles, True)):
       return False
     end
   
     # Grind the pattern
-    imover_realtime(True)
     start_user_timer()
     pattern_serpentine(dx_m, dy_m, n_xsteps, n_ysteps, n_cycles)
     stop_user_timer()
@@ -5088,7 +5456,7 @@ def LEonard01():
         x_grid = x_grid + x_incr
   
         # Move to the corresponding position
-        local dc = [x_grid * grid_dx_m - x2, y_grid * grid_dy_m - y2, 0]
+        local dc = [x_grid * grid_dx_m - x2, y_grid * grid_dy_m - y2, 0,0,0,0]
         if move_count == n_moves_per_pass:
           drawgi_finish(dc)
         else:
@@ -5110,7 +5478,7 @@ def LEonard01():
         y_grid = y_grid + y_incr
   
         # Move to the corresponding position
-        local dc = [x_grid * grid_dx_m - x2, y_grid * grid_dy_m - y2, 0]
+        local dc = [x_grid * grid_dx_m - x2, y_grid * grid_dy_m - y2, 0,0,0,0]
         if move_count == n_moves_per_pass:
           drawgi_finish(dc)
         else:
@@ -5150,12 +5518,12 @@ def LEonard01():
     local time_ms = MATH_PI * circle_diam_mm * n_cycles / grind_linear_vel_mps + 1500
     socket_send_number("robot_step_time_estimate_ms", time_ms)
   
+    imover_realtime(True)
     if not set_grind_process_state(True, pattern_poly(circle_diam_m, n_sides, n_cycles, True)):
       return False
     end
   
     # Grind the pattern
-    imover_realtime(True)
     start_user_timer()
     pattern_poly(circle_diam_m, n_sides, n_cycles)
     stop_user_timer()
@@ -5185,7 +5553,7 @@ def LEonard01():
         local x = circle_radius_m * cos(theta)
         local y = circle_radius_m * sin(theta)
   
-        local dc = [x, y, 0]
+        local dc = [x, y, 0,0,0,0]
         if not ok_to_proceed() or i == n_sides:
           drawgi_finish(dc)
         else:
@@ -5214,12 +5582,12 @@ def LEonard01():
     local time_ms = MATH_PI * circle_diam_mm * n_cycles / grind_linear_vel_mps + 1500
     socket_send_number("robot_step_time_estimate_ms", time_ms)
   
+    imover_realtime(False) # True seems to workl!?
     if not set_grind_process_state(True, pattern_circle(circle_diam_m, n_cycles, True)):
       return False
     end
   
     # Grind the pattern
-    imover_realtime(False) # True seems to workl!?
     start_user_timer()
     pattern_circle(circle_diam_m, n_cycles)
     stop_user_timer()
@@ -5258,7 +5626,7 @@ def LEonard01():
         local x = circle_radius_m * cos(theta)
         local y = circle_radius_m * sin(theta)
   
-        local dc = [x, y, 0]
+        local dc = [x, y, 0,0,0,0]
         if not ok_to_proceed() or i == n_points:
           drawgi_finish(dc)
         else:
@@ -5288,12 +5656,12 @@ def LEonard01():
     local time_ms = MATH_PI * avg_diam_mm * n_revolutions * n_cycles / grind_linear_vel_mps + 1500
     socket_send_number("robot_step_time_estimate_ms", time_ms)
   
+    imover_realtime(False) # True fails!?
     if not set_grind_process_state(True, pattern_spiral(circle1_diam_m, circle2_diam_m, n_revolutions, n_cycles, True)):
       return False
     end
   
     # Grind the pattern
-    imover_realtime(False) # True fails!?
     start_user_timer()
     pattern_spiral(circle1_diam_m, circle2_diam_m, n_revolutions, n_cycles)
     stop_user_timer()
@@ -5334,7 +5702,7 @@ def LEonard01():
         local x = r_m * cos(theta)
         local y = r_m * sin(theta)
   
-        local dc = [x, y, 0]
+        local dc = [x, y, 0,0,0,0]
         if not ok_to_proceed() or revs_completed >= n_revolutions:
           drawgi_finish(dc)
         else:
@@ -5379,8 +5747,8 @@ def LEonard01():
       global socket_is_open=socket_open("169.254.254.200", 30000)
       $ 15 "If not socket_is_open"
       if (not socket_is_open):
-        $ 16 "socket_is_open≔socket_open('169.254.254.210', 30000)"
-        global socket_is_open=socket_open("169.254.254.210", 30000)
+        $ 16 "socket_is_open≔socket_open('192.168.0.253', 30000)"
+        global socket_is_open=socket_open("192.168.0.253", 30000)
       end
       $ 17 "If not socket_is_open"
       if (not socket_is_open):

@@ -7,24 +7,26 @@ c=0
 counter=5
 repeat:
 call(sub_a)
-
 call(sub_b)
 
 counter -= 1
 jump_gt_zero(counter,repeat)
 
-end
+le_stop()
 
 sub_a:
+le_print(sub_a)
 a += 1
-return
+ret()
 
 sub_b:
+le_print(sub_b)
 b += 1
 call(sub_c)
-return
+ret()
 
 sub_c:
+le_print(sub_c)
 c += 1
 call(sub_a)
-return
+ret()

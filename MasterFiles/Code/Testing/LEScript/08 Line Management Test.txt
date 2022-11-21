@@ -6,8 +6,6 @@ speed = 5
 force = 10
 n_cycles = 2
 
-move_linear(demo_flat)
-
 n=0
 repeat:
 grind_circle({diameter},{n_cycles},{speed},{force},0)

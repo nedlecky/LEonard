@@ -19,6 +19,7 @@ using System.Threading;
 using System.Windows.Forms;
 using IronPython.Hosting;
 using Jint;
+using Jint.Native;
 using Microsoft.Win32;
 using NLog;
 using static IronPython.Modules._ast;
@@ -5304,24 +5305,68 @@ namespace LEonard
                 return true;
             }
 
-            // assert
-            if (command.StartsWith("assert("))
+            // assertEquals
+            if (command.StartsWith("assertEqual("))
             {
                 string[] parameters = ExtractParameters(command, 2).Split(',');
                 if (parameters.Length != 2)
                 {
-                    ExecError("Unknown assert command");
+                    ExecError("Unknown assert syntax");
                     return true;
                 }
                 string value = ReadVariable(parameters[0], null);
                 if (value == null)
                 {
-                    ExecError("Unknown variable in assert command");
+                    ExecError("Unknown variable in assert function");
                     return true;
                 }
                 if (value != parameters[1])
                 {
-                    ExecError($"Assertion FAILS\n{value} != {parameters[1]}");
+                    ExecError($"assertEquals FAILED\n{value} != {parameters[1]}");
+                    return true;
+                }
+                return true;
+            }
+
+            // assertNotEquals
+            if (command.StartsWith("assertNotEqual("))
+            {
+                string[] parameters = ExtractParameters(command, 2).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Unknown assert syntax");
+                    return true;
+                }
+                
+                // Variable undefined is OK here... that should pass!
+                string value = ReadVariable(parameters[0], null);
+                if (value == parameters[1])
+                {
+                    ExecError($"assertNotEquals FAILED\n{value} == {parameters[1]}");
+                    return true;
+                }
+                return true;
+            }
+
+            // assertTrue
+            if (command.StartsWith("assertTrue("))
+            {
+                string boolean = ExtractParameters(command);
+                if (!String.Equals(boolean,"true", StringComparison.OrdinalIgnoreCase))
+                {
+                    ExecError($"assertTrue was NOT TRUE\n{boolean}");
+                    return true;
+                }
+                return true;
+            }
+
+            // assertFalse
+            if (command.StartsWith("assertFalse("))
+            {
+                string boolean = ExtractParameters(command);
+                if (String.Equals(boolean, "true", StringComparison.OrdinalIgnoreCase))
+                {
+                    ExecError($"assertFalse was TRUE\n{boolean}");
                     return true;
                 }
                 return true;
@@ -5850,10 +5895,16 @@ namespace LEonard
             consoleForm.Clear();
         }
 
-        private bool le_assert(bool f)
+        private bool assertTrue(bool f)
         {
             if (!f)
-                ExecError("Assertion FAILED");
+                ExecError("assertTrue was FALSE");
+            return f;
+        }
+        private bool assertFalse(bool f)
+        {
+            if (f)
+                ExecError("assertFalse was TRUE");
             return f;
         }
 
@@ -6167,9 +6218,6 @@ namespace LEonard
             UpdateGeometryToRobot();
             return 0;
         }
-
-
-
         #endregion ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
 
         #region ===== JAVA SUPPORT CODE                 ==============================================================================================================================
@@ -6231,7 +6279,8 @@ namespace LEonard
             .SetValue("callif", new Action<bool, string>((bool condition, string labelName) => PerformCallIf(condition, labelName)))
             .SetValue("ret", new Action(() => PerformReturn()))
             .SetValue("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)))
-            .SetValue("assert", new Func<bool, bool>((bool f) => le_assert(f)))
+            .SetValue("assertTrue", new Func<bool, bool>((bool f) => assertTrue(f)))
+            .SetValue("assertFalse", new Func<bool, bool>((bool f) => assertFalse(f)))
 
             .SetValue("le_connect", new Func<string, int>((string devName) => le_connect(devName)))
             .SetValue("le_disconnect", new Func<string, int>((string devName) => le_disconnect(devName)))
@@ -6640,7 +6689,8 @@ namespace LEonard
             pythonScope.SetVariable("callif", new Action<bool, string>((bool condition, string labelName) => PerformCallIf(condition, labelName)));
             pythonScope.SetVariable("ret", new Action(() => PerformReturn()));
             pythonScope.SetVariable("sleep", new Func<double, bool>((double timeout_s) => le_sleep(timeout_s)));
-            pythonScope.SetVariable("assert", new Func<bool, bool>((bool f) => le_assert(f)));
+            pythonScope.SetVariable("assertTrue", new Func<bool, bool>((bool f) => assertTrue(f)));
+            pythonScope.SetVariable("assertFalse", new Func<bool, bool>((bool f) => assertFalse(f)));
 
             pythonScope.SetVariable("le_connect", new Func<string, int>((string devName) => le_connect(devName)));
             pythonScope.SetVariable("le_disconnect", new Func<string, int>((string devName) => le_disconnect(devName)));

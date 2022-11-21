@@ -4,29 +4,29 @@ le_clear_variables()
 jump(tryme)
 
 abc=13
-assert(abc,13)
+assertEqual(abc,13)
 abc= 12
-assert(abc,12)
+assertEqual(abc,12)
 abc =b
-assert(abc, b)
+assertEqual(abc, b)
 
 xx=10
 xx++
-assert(xx,11)
+assertEqual(xx,11)
 xx--
-assert(xx,10)
+assertEqual(xx,10)
 xx+=3
-assert(xx,13)
+assertEqual(xx,13)
 xx-=6
-assert(xx,7)
+assertEqual(xx,7)
 xx+=-3
-assert(xx,4)
+assertEqual(xx,4)
 xx-=-7
-assert(xx,11)
+assertEqual(xx,11)
 xx -= -5
-assert(xx,16)
+assertEqual(xx,16)
 xx += -3
-assert(xx,13)
+assertEqual(xx,13)
 
 xx=abc
 xx++  # should fail
@@ -37,20 +37,20 @@ p2 = p[1,2,3,4,5]
 speed1 = 2.1
 Jeff1 = fred 
 
-assert(xx,abc) # should pass
+assertEqual(xx,abc) # should pass
 le_clear_variables()
-assert(xx,abc) # should fail
+assertEqual(xx,abc) # should fail
 
 tryme:
 foo1 = 123
 foo2 = abc
 using_java()
-assert(foo1 == 123) // should pass
+assertEqual(foo1 == 123) // should pass
 foo1 = 246
 foo1 = le_read_var('foo1')
 le_print('foo1 = ' + foo1)
-assert(foo1 == 246) // should fail
-assert(foo1 == 123) // should pass
+assertEqual(foo1 == 246) // should fail
+assertEqual(foo1 == 123) // should pass
 le_write_var('foo3', 'test1')
 le_write_sysvar('foo4', 'test2')
 
@@ -58,12 +58,12 @@ using_lescript()
 foo1 = 123
 foo2 = abc
 using_python()
-assert(foo1 == '123') # should pass
+assertEqual(foo1 == '123') # should pass
 foo1 = 246
 foo1 = le_read_var('foo1')
 le_print('foo1 = ' + foo1)
-assert(foo1 == '246') # should fail
-assert(foo1 == '123') # should pass
+assertEqual(foo1 == '246') # should fail
+assertEqual(foo1 == '123') # should pass
 le_write_var('foo5', 'test3')
 le_write_sysvar('foo6', 'test4')
 

@@ -1,0 +1,17 @@
+# le_clear_variables
+
+a = 123
+sysa = 234
+le_system_variable(sysa,True)
+
+assertEqual(a,123)  # should pass
+assertEqual(sysa,234)  # should pass
+
+le_clear_variables()
+assertEqual(a,123)  # should fail
+assertEqual(sysa,234)  # should pass
+
+le_system_variable(sysa,False)
+assertEqual(sysa,234)  # should pass
+le_clear_variables()
+assertEqual(sysa,234)  # should fail
