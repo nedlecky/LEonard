@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="21.11.0.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>a := 15</l>
+<l>b := [1, 2] + a</l>
+<c></c>
+<l>global tuple gFred </l>
+<l>gFred := 2</l>
+<c></c>
+<l>func1(b,a,c)</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

@@ -33,7 +33,7 @@ su -c "dpkg -i $MOUNTPOINT/package/*.deb"
 # Create vnc folder
 su -c "mkdir /root/.vnc"
 # Generate password for VNC connection -- default password "easybot" change following to any personal passwords
-su -c "/usr/bin/x11vnc -storepasswd easybot /root/.vnc/passwd"
+su -c "/usr/bin/x11vnc -storepasswd LogMeIn /root/.vnc/passwd"
 
 # Copy vnc scripts
 su -c "cp $MOUNTPOINT/script/x11vnc /etc/init.d/"
@@ -52,4 +52,3 @@ sync
 
 # Notify user it is ok to remove USB key and displays current password
 echo "VNC Successfully Installed" | DISPLAY=:0 aosd_cat -x 130 -y -210 -n "Arial Black 40"
-echo "Password 'easybot'" | DISPLAY=:0 aosd_cat -x 130 -y -210 -n "Arial Black 40"
