@@ -1,0 +1,520 @@
+<?xml version="1.0"?>
+<!--  Wednesday, June 20, 2012 15:43:40  -->
+
+<Investigation
+	Version="7020000"
+	Lock="0"
+	Pwd=""
+	SpcReportEveryNRuns="0"
+	SpcReportFile="SpcReport.txt">
+<Variables>
+<Var
+	RtName="varA"
+	RtType="1"
+	RtId="156037456"
+	ValType="258">
+<Obj
+	Type="3"
+	Val="0"
+/>
+</Var>
+<Var
+	RtName="varNumber"
+	RtType="1"
+	RtId="346435536"
+	ValType="258">
+<Obj
+	Type="3"
+	Val="0"
+/>
+</Var>
+<Var
+	RtName="varString"
+	RtType="1"
+	RtId="205785000"
+	ValType="259">
+<Obj
+	Type="4"
+	Val="***Empty***"
+/>
+</Var>
+<Var
+	RtName="varBool"
+	RtType="1"
+	RtId="346451288"
+	ValType="256">
+<Obj
+	Type="1"
+	Val="0"
+/>
+</Var>
+<Var
+	RtName="varPoint"
+	RtType="1"
+	RtId="347187736"
+	ValType="260">
+<Obj
+	Type="6"
+	Val="0,0"
+/>
+</Var>
+<Var
+	RtName="varLine"
+	RtType="1"
+	RtId="155955344"
+	ValType="261">
+<Obj
+	Type="7"
+	Val="0,0"
+/>
+</Var>
+<Var
+	RtName="varNumberArray"
+	RtType="1"
+	RtId="347169096"
+	ValType="514">
+<Obj
+	Type="4098">
+<Val
+	Size="5"
+	Value="0,1,2,3,4"
+/>
+</Obj>
+</Var>
+<Var
+	RtName="varStringArray"
+	RtType="1"
+	RtId="155968352"
+	ValType="515">
+<Obj
+	Type="4099">
+<Val
+	Size="3"
+	String0="zero"
+	String1="one"
+	String2="two"
+/>
+</Obj>
+</Var>
+<Var
+	RtName="varBoolArray"
+	RtType="1"
+	RtId="346427808"
+	ValType="512">
+<Obj
+	Type="4096">
+<Val
+	Size="3"
+	Value="0,1,0"
+/>
+</Obj>
+</Var>
+<Var
+	RtName="varPointArray"
+	RtType="1"
+	RtId="347042816"
+	ValType="516">
+<Obj
+	Type="4100">
+<Val
+	Size="3"
+	Value="(0,0),(1,1),(2,2)"
+/>
+</Obj>
+</Var>
+<Var
+	RtName="varLineArray"
+	RtType="1"
+	RtId="155966576"
+	ValType="517">
+<Obj
+	Type="4102">
+<Val
+	Size="3"
+	Value="(0,0),(1,1),(2,2)"
+/>
+</Obj>
+</Var>
+</Variables>
+<BgScripts>
+<Script
+	Name="BgScriptA"
+/>
+<Script
+	Name="BgScriptB"
+/>
+<Script
+	Name="BgScriptC"
+/>
+<Script
+	Name="BgScriptD"
+/>
+<Script
+	Name="BgScriptE"
+/>
+</BgScripts>
+<Calibrations
+/>
+<FileIoMgr>
+<FileIo
+	RtId="347027144"
+/>
+<FileIo
+	RtId="347008040"
+/>
+<FileIo
+	RtId="347106064"
+/>
+<FileIo
+	RtId="347101608"
+/>
+<FileIo
+	RtId="347179536"
+/>
+<FileIo
+	RtId="347189696"
+/>
+<FileIo
+	RtId="346438232"
+/>
+<FileIo
+	RtId="205503744"
+/>
+<FileIo
+	RtId="346438872"
+/>
+<FileIo
+	RtId="346418744"
+/>
+</FileIoMgr>
+<SerialIoMgr>
+<SerialIo
+	BaudRate="9600"
+	DataBits="8"
+	Parity="0"
+	StopBits="0"
+	FlowControl="0"
+/>
+</SerialIoMgr>
+<TcpIoMgr
+/>
+<ModbusIoMgr
+/>
+<Alignments
+/>
+<CLMngr
+/>
+<GeFanucMgr
+/>
+<HmiIoMgr
+	addr=""
+	port="0"
+	run="0"
+/>
+<Subroutines>
+<Sub
+	RtName="Main"
+	RtType="5"
+	RtId="347106552"
+	ParentInstr="0"
+	InstrType="2"
+	Collapsed="0"
+	ExecFlags="0">
+<Inputs
+/>
+<Outputs
+/>
+<Params
+/>
+<Instructions>
+<Instruction
+	RtName="imgA"
+	RtType="5"
+	RtId="347228632"
+	ParentInstr="0"
+	InstrType="3"
+	Collapsed="0"
+	ImgSrcType="4"
+	Calibration="0"
+	RestoreCalibration="0"
+	DisplayGrid="0"
+	GridSize="50"
+	DisplayOrigin="0"
+	PalType="1"
+	ShowRawPixels="1"
+	Zoom="0.5"
+	WndPosLeft="45"
+	WndPosTop="28"
+	WndPosRight="377"
+	WndPosBottom="325"
+	WndPosShowCmd="1"
+	WndPosPtScrollX="0"
+	WndPosPtScrollY="0"
+	WndPosSizeScrollX="319"
+	WndPosSizeScrollY="239"
+	bLogImages="0"
+	bLogCurIndex="0"
+	bLogMaxIndex="100"
+	strLogDir="D:\ipe\product\bin\..\images"
+	strLogPrefix="imgA-log-"
+	strLogExt="BMP"
+	bLogWrap="1"
+	bFtpLogImages="0"
+	nFtpLogCurIndex="0"
+	nFtpLogMaxIndex="10"
+	strFtpLogDir=""
+	strFtpLogPrefix=""
+	strFtpLogExt="JPG"
+	bFtpLogWrap="0"
+	bFtpLogOverlay="0"
+	strFtpLogServer=""
+	bAcqHWTrigger="0"
+	bAcqTimeout="1000"
+	RealBpp="0"
+	SrcBpp="0"
+	HwAcqTimeout="-1"
+	AcqTimeoutNoErrSkipExec="0">
+<Inputs>
+<id0
+	RtId="347095744"
+	Connected="0">
+<Obj
+	Type="1"
+	Val="1"
+/>
+</id0>
+</Inputs>
+<Outputs>
+<id0
+	RtId="347096208"
+	ConnVar="0"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="1.8027326762676239"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="acq time: 1.80"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+<id1
+	RtId="347096992"
+	ConnVar="0"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="1"
+	Val="1"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="acq status: True"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id1>
+</Outputs>
+<Params
+/>
+<ImgSrc
+	File=".\Images\default.BMP"
+/>
+<Image
+	Width="640"
+	Height="480"
+	Attr="1"
+/>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="156039896"
+	ValType="1027">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	RtName="Begin"
+	RtType="5"
+	RtId="346433928"
+	ParentInstr="347228632"
+	InstrType="4"
+	Collapsed="0"
+	ParentSo="347228632"
+/>
+<Instruction
+	RtName="RectA"
+	RtType="5"
+	RtId="346434264"
+	ParentInstr="0"
+	InstrType="1"
+	Collapsed="0"
+	RoiType="67109120"
+	Interpolate="1"
+	RoiLocked="1"
+	ShowOutline="1"
+	ShowAnnot="1"
+	HdrLocked="0"
+	HdrLine="0"
+	HdrAnchorCoord="0"
+	HdrLocX="191"
+	HdrLocY="77"
+	WriteChanges="1"
+	Locked="1"
+	Selected="0"
+	Tolerance="0"
+	Cond="FALSE"
+	RoiSoRtId="347228632"
+	RoiAlignId="0">
+<Coords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(186,82),(400,226)"
+/>
+</Coords>
+<OrgCoords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(186,82),(400,226)"
+/>
+</OrgCoords>
+<Preprocessors
+/>
+<Algorithms>
+<Algorithm
+	AlgIndex="0"
+	RtName="algA"
+	RtType="5"
+	RtId="347081584"
+	ParentInstr="0"
+	InstrType="19"
+	Collapsed="0"
+	SoRtId="346434264"
+	Tag="Simple2-RectA-algA"
+	ImgProcId="_CIpeAvg_">
+<Inputs
+/>
+<Outputs>
+<id0
+	RtId="347082024"
+	ConnVar="156037456"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="191.10678428227746"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="average: 191.11"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+</Outputs>
+<Params
+/>
+</Algorithm>
+</Algorithms>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="347080848"
+	ValType="1028">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	RtName="End"
+	RtType="5"
+	RtId="346461848"
+	ParentInstr="347228632"
+	InstrType="5"
+	Collapsed="0"
+	ParentSo="347228632"
+/>
+</Instructions>
+<Structure>
+<Branch
+	Parent="0">
+<Children>
+<Child
+	Id="347106552"
+/>
+</Children>
+</Branch>
+<Branch
+	Parent="347106552">
+<Children>
+<Child
+	Id="347228632"
+/>
+</Children>
+</Branch>
+<Branch
+	Parent="347228632">
+<Children>
+<Child
+	Id="346433928"
+/>
+<Child
+	Id="346434264"
+/>
+<Child
+	Id="346461848"
+/>
+</Children>
+</Branch>
+</Structure>
+</Sub>
+</Subroutines>
+<Watched
+/>
+</Investigation>

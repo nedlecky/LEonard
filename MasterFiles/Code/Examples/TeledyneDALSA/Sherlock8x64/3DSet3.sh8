@@ -1,0 +1,699 @@
+{
+    "engine": {
+        "digitalInputMgr": {
+            "__valueOrder": [
+                "input_LP1_1120_R2_Beta_010_Line3",
+                "input_LP1_1120_R2_Beta_010_Line4"
+            ],
+            "input_LP1_1120_R2_Beta_010_Line3": {
+                "create_id": "dio_input",
+                "index": {
+                    "number": 0
+                },
+                "name": "input_LP1_1120_R2_Beta_010_Line3",
+                "state": {
+                    "number": -1
+                }
+            },
+            "input_LP1_1120_R2_Beta_010_Line4": {
+                "create_id": "dio_input",
+                "index": {
+                    "number": 1
+                },
+                "name": "input_LP1_1120_R2_Beta_010_Line4",
+                "state": {
+                    "number": -1
+                }
+            }
+        },
+        "digitalOutputMgr": {
+            "__valueOrder": [
+                "output_LP1_1120_R2_Beta_010_Line5",
+                "output_LP1_1120_R2_Beta_010_Line6"
+            ],
+            "output_LP1_1120_R2_Beta_010_Line5": {
+                "create_id": "dio_output",
+                "index": {
+                    "number": 0
+                },
+                "name": "output_LP1_1120_R2_Beta_010_Line5",
+                "state": {
+                    "number": -1
+                }
+            },
+            "output_LP1_1120_R2_Beta_010_Line6": {
+                "create_id": "dio_output",
+                "index": {
+                    "number": 1
+                },
+                "name": "output_LP1_1120_R2_Beta_010_Line6",
+                "state": {
+                    "number": -1
+                }
+            }
+        },
+        "imageSourceMgr": {
+            "__valueOrder": [
+                "dirA"
+            ],
+            "dirA": {
+                "acquired_lines": {
+                    "number": 0
+                },
+                "bytespp": {
+                    "number": 0
+                },
+                "create_id": "dir",
+                "current_file": {
+                    "string": "image0001.tif"
+                },
+                "delay_time": {
+                    "number": 30
+                },
+                "device": {
+                    "string": "n/a"
+                },
+                "dir": {
+                    "string": "C:/ProgramData/Teledyne DALSA/Sherlock8x64/images/3DSet3"
+                },
+                "driver": {
+                    "string": "n/a"
+                },
+                "driver_config": {
+                    "string": "n/a"
+                },
+                "driver_path": {
+                    "string": "n/a"
+                },
+                "height": {
+                    "number": 0
+                },
+                "name": "dirA",
+                "name_filters": {
+                    "string": "*.png *.jpg *.bmp *.tif"
+                },
+                "width": {
+                    "number": 0
+                }
+            }
+        },
+        "program": [
+            {
+                "data": {
+                    "children": [
+                        {
+                            "data": {
+                                "comment": "Example showing how to calculate height from 8-bit range image",
+                                "name": "commentA"
+                            },
+                            "id": "system:comment",
+                            "instr": "commentA"
+                        },
+                        {
+                            "data": {
+                                "comment": "Left image is 16-bit actual, right image is 8-bit range",
+                                "name": "commentB"
+                            },
+                            "id": "system:comment",
+                            "instr": "commentB"
+                        },
+                        {
+                            "data": {
+                                "bytespp": {
+                                    "number": 0
+                                },
+                                "height": {
+                                    "number": 0
+                                },
+                                "image_source": {
+                                    "supl": "dirA.handle"
+                                },
+                                "name": "acquireA",
+                                "status": {
+                                    "bool": true
+                                },
+                                "timeout": {
+                                    "number": 10000
+                                },
+                                "width": {
+                                    "number": 0
+                                }
+                            },
+                            "id": "image:acquire",
+                            "instr": "acquireA"
+                        },
+                        {
+                            "data": {
+                                "children": [
+                                    {
+                                        "data": {
+                                            "children": [
+                                                {
+                                                    "data": {
+                                                        "count": {
+                                                            "number": 865534
+                                                        },
+                                                        "kurtosis": {
+                                                            "number": 0.09135009365607072
+                                                        },
+                                                        "max_z": {
+                                                            "number": 38190
+                                                        },
+                                                        "max_z_pt": {
+                                                            "point3d": [
+                                                                25296,
+                                                                68544,
+                                                                38190
+                                                            ]
+                                                        },
+                                                        "mean_z": {
+                                                            "number": 13301.704337437899,
+                                                            "recv": "HeightZ16.value"
+                                                        },
+                                                        "min_z": {
+                                                            "number": 0
+                                                        },
+                                                        "min_z_pt": {
+                                                            "point3d": [
+                                                                17816,
+                                                                68,
+                                                                0
+                                                            ]
+                                                        },
+                                                        "name": "z_statsB",
+                                                        "skewness_z": {
+                                                            "number": -1.3169014071613325
+                                                        },
+                                                        "stddev_z": {
+                                                            "number": 6657.926288495517
+                                                        }
+                                                    },
+                                                    "id": "3D:z_stats",
+                                                    "instr": "z_statsB"
+                                                }
+                                            ],
+                                            "depth": {
+                                                "number": 38274
+                                            },
+                                            "height": {
+                                                "number": 74732
+                                            },
+                                            "label_pos": {
+                                                "point": "10.00000000000000000 -20.00000000000000000"
+                                            },
+                                            "lock_movement": {
+                                                "bool": true
+                                            },
+                                            "name": "cubeA",
+                                            "pass": {
+                                                "bool": true
+                                            },
+                                            "proc_slots": {
+                                                "boolvector": [
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    true,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false
+                                                ]
+                                            },
+                                            "roi_in_image": {
+                                                "bool": true
+                                            },
+                                            "tolerance": [
+                                            ],
+                                            "userdata": {
+                                                "pass": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "roi_in_image": {
+                                                    "showInProgramTree": false
+                                                }
+                                            },
+                                            "width": {
+                                                "number": 83504
+                                            },
+                                            "x": {
+                                                "number": 16524
+                                            },
+                                            "y": {
+                                                "number": 0
+                                            },
+                                            "z": {
+                                                "number": 0
+                                            }
+                                        },
+                                        "id": "roi:3d:cube",
+                                        "instr": "cubeA"
+                                    }
+                                ],
+                                "executed_by_thread": {
+                                    "string": "main"
+                                },
+                                "maxx": {
+                                    "number": -1
+                                },
+                                "maxy": {
+                                    "number": -1
+                                },
+                                "maxz": {
+                                    "number": -1
+                                },
+                                "minx": {
+                                    "number": -1
+                                },
+                                "miny": {
+                                    "number": -1
+                                },
+                                "minz": {
+                                    "number": -1
+                                },
+                                "name": "workspace_3dA",
+                                "pass": {
+                                    "bool": true
+                                },
+                                "plugin_data": {
+                                    "overlay_data": ""
+                                },
+                                "src_image": {
+                                    "supl": "acquireA.image"
+                                },
+                                "tolerance": [
+                                ],
+                                "userdata": {
+                                    "handle": {
+                                        "showInProgramTree": false
+                                    },
+                                    "image": {
+                                        "showInProgramTree": false
+                                    },
+                                    "pass": {
+                                        "showInProgramTree": false
+                                    },
+                                    "window_geometry": {
+                                        "camAngle": 30,
+                                        "camFocalX": 58276,
+                                        "camFocalY": 37366,
+                                        "camFocalZ": 19137,
+                                        "camPosX": 58276,
+                                        "camPosY": 37366,
+                                        "camPosZ": 247901.91753161137,
+                                        "camScale": 86687.48330417812,
+                                        "camViewUpX": 0,
+                                        "camViewUpY": 1,
+                                        "camViewUpZ": 0,
+                                        "colorover": [
+                                            0,
+                                            0,
+                                            0,
+                                            0
+                                        ],
+                                        "colors": 0,
+                                        "colorsvalues": [
+                                        ],
+                                        "colorunder": [
+                                            0,
+                                            0,
+                                            0,
+                                            0
+                                        ],
+                                        "height": 605,
+                                        "lutautorange": true,
+                                        "lutcolors": 8,
+                                        "lutrangemax": 1,
+                                        "lutrangemin": 0,
+                                        "maximized": false,
+                                        "pal": "hsv",
+                                        "palcolors": 8,
+                                        "posx": 0,
+                                        "posy": 0,
+                                        "width": 610
+                                    }
+                                }
+                            },
+                            "id": "system:imageworkspace_cloud",
+                            "instr": "workspace_3dA"
+                        },
+                        {
+                            "data": {
+                                "gray_to_um_scaler": {
+                                    "number": 11.71875,
+                                    "recv": "Scaler.value"
+                                },
+                                "name": "convert3Dto8MA",
+                                "range_bottom_um": {
+                                    "number": 17000
+                                },
+                                "range_top_um": {
+                                    "number": 20000
+                                },
+                                "reverse_y": {
+                                    "bool": true
+                                },
+                                "sampling_rate": {
+                                    "number": 20
+                                },
+                                "src_image": {
+                                    "supl": "workspace_3dA.image"
+                                },
+                                "success": {
+                                    "bool": true
+                                }
+                            },
+                            "id": "image:convert3Dto8M",
+                            "instr": "convert3Dto8MA"
+                        },
+                        {
+                            "data": {
+                                "children": [
+                                    {
+                                        "data": {
+                                            "a": {
+                                                "number": 0
+                                            },
+                                            "children": [
+                                                {
+                                                    "data": {
+                                                        "average": {
+                                                            "number": 104.00654960981048,
+                                                            "recv": "Gray_Value.value"
+                                                        },
+                                                        "name": "averageA",
+                                                        "userdata": {
+                                                            "image": {
+                                                                "showInProgramTree": false
+                                                            }
+                                                        }
+                                                    },
+                                                    "id": "algorithm:average",
+                                                    "instr": "averageA"
+                                                }
+                                            ],
+                                            "cx": {
+                                                "number": 738
+                                            },
+                                            "cy": {
+                                                "number": 711
+                                            },
+                                            "error_on_roi_outside": {
+                                                "bool": false
+                                            },
+                                            "h": {
+                                                "number": 46
+                                            },
+                                            "interpolation": {
+                                                "number": 1
+                                            },
+                                            "label_pos": {
+                                                "point": "10.00000000000000000 -20.00000000000000000"
+                                            },
+                                            "lock_movement": {
+                                                "bool": false
+                                            },
+                                            "mask_input": {
+                                                "bool": false
+                                            },
+                                            "mask_output": {
+                                                "bool": false
+                                            },
+                                            "modify_image": {
+                                                "bool": true
+                                            },
+                                            "name": "Height_Gray",
+                                            "pass": {
+                                                "bool": true
+                                            },
+                                            "plugin_data": {
+                                                "mask_descr": {
+                                                    "invert": false
+                                                }
+                                            },
+                                            "proc_slots": {
+                                                "boolvector": [
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    true,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false
+                                                ]
+                                            },
+                                            "roi_in_image": {
+                                                "bool": true
+                                            },
+                                            "show_roi": {
+                                                "bool": true
+                                            },
+                                            "tolerance": [
+                                            ],
+                                            "userdata": {
+                                                "image": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "parent_image": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "pass": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "roi_in_image": {
+                                                    "showInProgramTree": false
+                                                }
+                                            },
+                                            "w": {
+                                                "number": 156
+                                            }
+                                        },
+                                        "id": "roi:rectangle",
+                                        "instr": "Height_Gray"
+                                    },
+                                    {
+                                        "data": {
+                                            "code": {
+                                                "script": "ve.HeightZ8.value=(ve.averageA.average*ve.convert3Dto8MA.gray_to_um_scaler)+ve.HOffset.value"
+                                            },
+                                            "name": "Calculate_HeightZ8"
+                                        },
+                                        "id": "system:script",
+                                        "instr": "Calculate_HeightZ8"
+                                    }
+                                ],
+                                "display_palette": {
+                                    "number": 0
+                                },
+                                "executed_by_thread": {
+                                    "string": "main"
+                                },
+                                "grid_size": {
+                                    "number": 50
+                                },
+                                "name": "workspace_mono8A",
+                                "pass": {
+                                    "bool": true
+                                },
+                                "plugin_data": {
+                                    "overlay_data": ""
+                                },
+                                "show_grid": {
+                                    "bool": false
+                                },
+                                "src_image": {
+                                    "supl": "convert3Dto8MA.image"
+                                },
+                                "tolerance": [
+                                ],
+                                "userdata": {
+                                    "handle": {
+                                        "showInProgramTree": false
+                                    },
+                                    "image": {
+                                        "showInProgramTree": false
+                                    },
+                                    "pass": {
+                                        "showInProgramTree": false
+                                    },
+                                    "window_geometry": {
+                                        "hScroll": 0,
+                                        "height": 606,
+                                        "maximized": false,
+                                        "posx": 612,
+                                        "posy": 0,
+                                        "vScroll": 0,
+                                        "width": 660,
+                                        "zoom": 0.5
+                                    }
+                                }
+                            },
+                            "id": "system:imageworkspace_m8",
+                            "instr": "workspace_mono8A"
+                        }
+                    ],
+                    "name": "main",
+                    "run_count": {
+                        "number": 147
+                    },
+                    "run_on": {
+                        "number": 0
+                    },
+                    "runs_per_second": {
+                        "number": 0.0009743243161633245
+                    },
+                    "tab_index": {
+                        "number": 0
+                    },
+                    "time_since_last_call": {
+                        "number": 255.00069999694824
+                    }
+                },
+                "id": "system:subroutine",
+                "instr": "main"
+            }
+        ],
+        "serialMgr": {
+            "__valueOrder": [
+                "serialPortA",
+                "serialPortB"
+            ],
+            "serialPortA": {
+                "baud_rate": {
+                    "number": 9600
+                },
+                "create_id": "serial_port",
+                "data_bits": {
+                    "number": 8
+                },
+                "device": {
+                    "string": "COM1"
+                },
+                "driver": {
+                    "string": "Serial port driver"
+                },
+                "driver_path": {
+                    "string": "D:/Sherlock8/x64/release/drivers-bin/ipeserialportdrv.dll"
+                },
+                "flow_control": {
+                    "number": 0
+                },
+                "index": {
+                    "number": 0
+                },
+                "name": "serialPortA",
+                "parity": {
+                    "number": 0
+                },
+                "stop_bits": {
+                    "number": 1
+                }
+            },
+            "serialPortB": {
+                "baud_rate": {
+                    "number": 9600
+                },
+                "create_id": "serial_port",
+                "data_bits": {
+                    "number": 8
+                },
+                "device": {
+                    "string": "COM2"
+                },
+                "driver": {
+                    "string": "Serial port driver"
+                },
+                "driver_path": {
+                    "string": "D:/Sherlock8/x64/release/drivers-bin/ipeserialportdrv.dll"
+                },
+                "flow_control": {
+                    "number": 0
+                },
+                "index": {
+                    "number": 1
+                },
+                "name": "serialPortB",
+                "parity": {
+                    "number": 0
+                },
+                "stop_bits": {
+                    "number": 1
+                }
+            }
+        },
+        "variableMgr": {
+            "Gray_Value": {
+                "create_id": "number",
+                "name": "Gray_Value",
+                "value": {
+                    "number": 104.00654960981048
+                }
+            },
+            "HOffset": {
+                "create_id": "number",
+                "name": "HOffset",
+                "value": {
+                    "number": 17000
+                }
+            },
+            "HeightZ16": {
+                "create_id": "number",
+                "name": "HeightZ16",
+                "value": {
+                    "number": 13301.704337437899
+                }
+            },
+            "HeightZ8": {
+                "create_id": "number",
+                "name": "HeightZ8",
+                "value": {
+                    "number": 18218.826753239966
+                }
+            },
+            "Scaler": {
+                "create_id": "number",
+                "name": "Scaler",
+                "value": {
+                    "number": 11.71875
+                }
+            },
+            "__valueOrder": [
+                "HeightZ16",
+                "HeightZ8",
+                "HOffset",
+                "Gray_Value",
+                "Scaler"
+            ]
+        }
+    },
+    "info": {
+        "engine build": "x86_64 Jun 28 2021 15:27:16",
+        "engine storage version": 1,
+        "engine version": 1,
+        "os running": "x86_64 Windows 10 (10.0)",
+        "program save time": "28 Jun 2021 15:47:59 -0400"
+    },
+    "tabbedMode": false,
+    "watchedValues": [
+        "HeightZ16.value",
+        "HeightZ8.value",
+        "HOffset.value",
+        "Gray_Value.value",
+        "Scaler.value"
+    ]
+}

@@ -2090,7 +2090,7 @@ namespace LEonard
                 "A.SH", "general",
                 "", "<CR>", "<LF>", "#",
                 "init()", "",
-                false,
+                true,
                 "C:\\Program Files\\Teledyne DALSA\\Sherlockx64\\Bin",
                 "IpeStudio.exe",
                 "",
@@ -2107,9 +2107,9 @@ namespace LEonard
                 "", "<CR>", "<LF>", "#",
                 "init()", "",
                 true,
-                "C:\\Users\\nedlecky\\AppData\\Local\\Programs\\MVTec\\HALCON-21.11-Progress\\bin\\x64-win64",
+                "",
                 "hdevelop.exe",
-                "\"C:\\Users\\nedlecky\\Documents\\GitHub\\MVTech\\HALCON\\LE01 Socket Test (Auto).hdev\" -run",
+                @"""C:\Users\Public\LEonard\Code\Examples\MVTec\HALCON\LE01 Socket Test (Auto).hdev"" -run",
                 "",
                 "",
                 "",
@@ -2459,6 +2459,9 @@ namespace LEonard
                     return 3;
             }
 
+            // Setup the "me" device
+            LeDeviceBase.currentDevice = interfaces[ID];
+
             // STEP 2: Start any requested runtime
             if ((bool)row["RuntimeAutostart"])
                 DeviceRuntimeStartBtn_Click(null, null);
@@ -2580,16 +2583,8 @@ namespace LEonard
             }
             DataRow row = devices.Rows[currentDeviceRowIndex];
 
-
-            string name = (string)row["Name"];
-            bool connected = (bool)row["Connected"];
-            string address = (string)row["Address"];
-
-            log.Info($"Reconnecting {name}"); ;
-            if (interfaces[currentDeviceRowIndex] != null)
-            {
-                interfaces[currentDeviceRowIndex].Connect(address);
-            }
+            DeviceDisconnect(row);
+            DeviceConnect(row);
         }
         void SetWindowOnTop(IntPtr hWnd)
         {

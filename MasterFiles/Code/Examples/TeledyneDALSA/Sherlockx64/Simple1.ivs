@@ -1,0 +1,1227 @@
+<?xml version="1.0"?>
+<!--  Wednesday, June 20, 2012 15:41:11  -->
+
+<Investigation
+	Version="7020000"
+	Lock="0"
+	Pwd=""
+	SpcReportEveryNRuns="0"
+	SpcReportFile="SpcReport.txt">
+<Variables>
+<Var
+	RtName="varA"
+	RtType="1"
+	RtId="347377768"
+	ValType="258">
+<Obj
+	Type="3"
+	Val="25"
+/>
+</Var>
+<Var
+	RtName="varB"
+	RtType="1"
+	RtId="347378816"
+	ValType="258">
+<Obj
+	Type="3"
+	Val="67.441769236306058"
+/>
+</Var>
+<Var
+	RtName="varC"
+	RtType="1"
+	RtId="347239120"
+	ValType="258">
+<Obj
+	Type="3"
+	Val="25"
+/>
+</Var>
+<Var
+	RtName="varD"
+	RtType="1"
+	RtId="346439544"
+	ValType="258">
+<Obj
+	Type="3"
+	Val="76.140380196365157"
+/>
+</Var>
+</Variables>
+<BgScripts>
+<Script
+	Name="BgScriptA"
+/>
+<Script
+	Name="BgScriptB"
+/>
+<Script
+	Name="BgScriptC"
+/>
+<Script
+	Name="BgScriptD"
+/>
+<Script
+	Name="BgScriptE"
+/>
+</BgScripts>
+<Calibrations
+/>
+<FileIoMgr>
+<FileIo
+	RtId="156037864"
+/>
+<FileIo
+	RtId="347237568"
+/>
+<FileIo
+	RtId="347148288"
+/>
+<FileIo
+	RtId="346438872"
+/>
+<FileIo
+	RtId="346418744"
+/>
+<FileIo
+	RtId="347076192"
+/>
+<FileIo
+	RtId="347008040"
+/>
+<FileIo
+	RtId="347075120"
+/>
+<FileIo
+	RtId="347102576"
+/>
+<FileIo
+	RtId="156039696"
+/>
+</FileIoMgr>
+<SerialIoMgr>
+<SerialIo
+	BaudRate="9600"
+	DataBits="8"
+	Parity="0"
+	StopBits="0"
+	FlowControl="0"
+/>
+</SerialIoMgr>
+<TcpIoMgr
+/>
+<ModbusIoMgr
+/>
+<Alignments
+/>
+<CLMngr
+/>
+<GeFanucMgr
+/>
+<HmiIoMgr
+	addr=""
+	port="0"
+	run="0"
+/>
+<Subroutines>
+<Sub
+	RtName="Main"
+	RtType="5"
+	RtId="155965144"
+	ParentInstr="0"
+	InstrType="2"
+	Collapsed="0"
+	ExecFlags="0">
+<Inputs
+/>
+<Outputs
+/>
+<Params
+/>
+<Instructions>
+<Instruction
+	RtName="imgA"
+	RtType="5"
+	RtId="347027704"
+	ParentInstr="0"
+	InstrType="3"
+	Collapsed="0"
+	ImgSrcType="4"
+	Calibration="0"
+	RestoreCalibration="0"
+	DisplayGrid="0"
+	GridSize="50"
+	DisplayOrigin="0"
+	PalType="1"
+	ShowRawPixels="1"
+	Zoom="0.5"
+	WndPosLeft="7"
+	WndPosTop="10"
+	WndPosRight="339"
+	WndPosBottom="307"
+	WndPosShowCmd="1"
+	WndPosPtScrollX="0"
+	WndPosPtScrollY="0"
+	WndPosSizeScrollX="319"
+	WndPosSizeScrollY="239"
+	bLogImages="0"
+	bLogCurIndex="0"
+	bLogMaxIndex="100"
+	strLogDir="D:\ipe\product\bin\..\images"
+	strLogPrefix="imgA-log-"
+	strLogExt="BMP"
+	bLogWrap="1"
+	bFtpLogImages="0"
+	nFtpLogCurIndex="0"
+	nFtpLogMaxIndex="10"
+	strFtpLogDir=""
+	strFtpLogPrefix=""
+	strFtpLogExt="JPG"
+	bFtpLogWrap="0"
+	bFtpLogOverlay="0"
+	strFtpLogServer=""
+	bAcqHWTrigger="0"
+	bAcqTimeout="1000"
+	RealBpp="0"
+	SrcBpp="0"
+	HwAcqTimeout="-1"
+	AcqTimeoutNoErrSkipExec="0">
+<Inputs>
+<id0
+	RtId="346429440"
+	Connected="0">
+<Obj
+	Type="1"
+	Val="1"
+/>
+</id0>
+</Inputs>
+<Outputs>
+<id0
+	RtId="347144464"
+	ConnVar="0"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="1.7375786900520325"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="acq time: 1.74"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+<id1
+	RtId="347145472"
+	ConnVar="0"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="1"
+	Val="1"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="acq status: True"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id1>
+</Outputs>
+<Params
+/>
+<ImgSrc
+	File=".\Images\default.bmp"
+/>
+<Image
+	Width="640"
+	Height="480"
+	Attr="1"
+/>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="205504848"
+	ValType="1027">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	RtName="imgA_A"
+	RtType="5"
+	RtId="346435888"
+	ParentInstr="0"
+	InstrType="3"
+	Collapsed="0"
+	ImgSrcType="4"
+	Calibration="0"
+	RestoreCalibration="0"
+	DisplayGrid="0"
+	GridSize="50"
+	DisplayOrigin="0"
+	PalType="1"
+	ShowRawPixels="1"
+	Zoom="0.5"
+	WndPosLeft="8"
+	WndPosTop="321"
+	WndPosRight="340"
+	WndPosBottom="618"
+	WndPosShowCmd="1"
+	WndPosPtScrollX="0"
+	WndPosPtScrollY="0"
+	WndPosSizeScrollX="319"
+	WndPosSizeScrollY="239"
+	bLogImages="0"
+	bLogCurIndex="0"
+	bLogMaxIndex="100"
+	strLogDir="D:\ipe\product\bin\..\images"
+	strLogPrefix="imgB-log-"
+	strLogExt="BMP"
+	bLogWrap="1"
+	bFtpLogImages="0"
+	nFtpLogCurIndex="0"
+	nFtpLogMaxIndex="10"
+	strFtpLogDir=""
+	strFtpLogPrefix=""
+	strFtpLogExt="JPG"
+	bFtpLogWrap="0"
+	bFtpLogOverlay="0"
+	strFtpLogServer=""
+	bAcqHWTrigger="0"
+	bAcqTimeout="1000"
+	RealBpp="0"
+	SrcBpp="0"
+	HwAcqTimeout="-1"
+	AcqTimeoutNoErrSkipExec="0">
+<Inputs>
+<id0
+	RtId="346442104"
+	Connected="0">
+<Obj
+	Type="1"
+	Val="1"
+/>
+</id0>
+</Inputs>
+<Outputs>
+<id0
+	RtId="346442640"
+	ConnVar="0"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="1.7589594274759293"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="acq time: 1.76"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+<id1
+	RtId="346443720"
+	ConnVar="0"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="1"
+	Val="1"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="acq status: True"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id1>
+</Outputs>
+<Params
+/>
+<ImgSrc
+	File=".\Images\default.bmp"
+/>
+<Image
+	Width="640"
+	Height="480"
+	Attr="1"
+/>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="346464736"
+	ValType="1027">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	RtName="Begin"
+	RtType="5"
+	RtId="346445480"
+	ParentInstr="347027704"
+	InstrType="4"
+	Collapsed="0"
+	ParentSo="347027704"
+/>
+<Instruction
+	RtName="RectA"
+	RtType="5"
+	RtId="346445712"
+	ParentInstr="0"
+	InstrType="1"
+	Collapsed="0"
+	RoiType="67109120"
+	Interpolate="1"
+	RoiLocked="1"
+	ShowOutline="1"
+	ShowAnnot="1"
+	HdrLocked="0"
+	HdrLine="0"
+	HdrAnchorCoord="0"
+	HdrLocX="5"
+	HdrLocY="-5"
+	WriteChanges="1"
+	Locked="1"
+	Selected="0"
+	Tolerance="0"
+	Cond="FALSE"
+	RoiSoRtId="347027704"
+	RoiAlignId="0">
+<Coords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(0,0),(639,479)"
+/>
+</Coords>
+<OrgCoords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(0,0),(639,479)"
+/>
+</OrgCoords>
+<Preprocessors>
+<Preprocessor
+	PreprocIndex="0"
+	RtName="prepA"
+	RtType="5"
+	RtId="346447512"
+	ParentInstr="0"
+	InstrType="18"
+	Collapsed="0"
+	SoRtId="346445712"
+	Tag="Simple1-RectA-prepA"
+	ImgProcId="_CIpeMonoRotate_">
+<Inputs
+/>
+<Outputs
+/>
+<Params>
+<id0
+	RtName="angle (deg)"
+	RtType="2"
+	RtId="346447952"
+	ValType="258"
+	Connected="347377768">
+<Obj
+	Type="3"
+	Val="5"
+/>
+</id0>
+<id1
+	RtName="interpolation"
+	RtType="2"
+	RtId="346448704"
+	ValType="257"
+	Connected="0">
+<Obj
+	Type="2"
+	Val="1"
+/>
+</id1>
+<id2
+	RtName="fill color"
+	RtType="2"
+	RtId="346449496"
+	ValType="257"
+	Connected="0">
+<Obj
+	Type="2"
+	Val="0"
+/>
+</id2>
+</Params>
+</Preprocessor>
+</Preprocessors>
+<Algorithms
+/>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="346446776"
+	ValType="1028">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	FormulaId="_Ipe_Numeric_AddNumbers_"
+	RtName="AddA"
+	RtType="5"
+	RtId="346452480"
+	ParentInstr="0"
+	InstrType="17"
+	Collapsed="0"
+	Tag="Simple1-AddA">
+<Inputs>
+<id0
+	RtId="346452816"
+	Connected="347377768">
+<Obj
+	Type="3"
+	Val="0"
+/>
+</id0>
+<InfInputsId0
+	Count="1">
+<Input
+	RtId="346454968"
+	Connected="0">
+<Obj
+	Type="3"
+	Val="1"
+/>
+</Input>
+</InfInputsId0>
+</Inputs>
+<Outputs>
+<id0
+	RtId="346453624"
+	ConnVar="347377768"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="25"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="sum: 25.00"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+</Outputs>
+<Params
+/>
+</Instruction>
+<Instruction
+	RtName="RectB"
+	RtType="5"
+	RtId="347013136"
+	ParentInstr="0"
+	InstrType="1"
+	Collapsed="0"
+	RoiType="67109120"
+	Interpolate="1"
+	RoiLocked="0"
+	ShowOutline="1"
+	ShowAnnot="1"
+	HdrLocked="0"
+	HdrLine="0"
+	HdrAnchorCoord="0"
+	HdrLocX="105"
+	HdrLocY="63"
+	WriteChanges="1"
+	Locked="0"
+	Selected="0"
+	Tolerance="0"
+	Cond="FALSE"
+	RoiSoRtId="347027704"
+	RoiAlignId="0">
+<Coords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(100,68),(520,199)"
+/>
+</Coords>
+<OrgCoords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(100,68),(520,199)"
+/>
+</OrgCoords>
+<Preprocessors>
+<Preprocessor
+	PreprocIndex="0"
+	RtName="prepB"
+	RtType="5"
+	RtId="347014392"
+	ParentInstr="0"
+	InstrType="18"
+	Collapsed="0"
+	SoRtId="347013136"
+	Tag="Simple1-RectB-prepB"
+	ImgProcId="_CIpeInvert_">
+<Inputs
+/>
+<Outputs
+/>
+<Params
+/>
+</Preprocessor>
+</Preprocessors>
+<Algorithms>
+<Algorithm
+	AlgIndex="0"
+	RtName="algA"
+	RtType="5"
+	RtId="347014896"
+	ParentInstr="0"
+	InstrType="19"
+	Collapsed="0"
+	SoRtId="347013136"
+	Tag="Simple1-RectB-algA"
+	ImgProcId="_CIpeAvg_">
+<Inputs
+/>
+<Outputs>
+<id0
+	RtId="347015400"
+	ConnVar="347378816"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="67.441769236306058"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="average: 67.44"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+</Outputs>
+<Params
+/>
+</Algorithm>
+</Algorithms>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="346455776"
+	ValType="1028">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	RtName="End"
+	RtType="5"
+	RtId="347017176"
+	ParentInstr="347027704"
+	InstrType="5"
+	Collapsed="0"
+	ParentSo="347027704"
+/>
+<Instruction
+	RtName="Begin"
+	RtType="5"
+	RtId="347017584"
+	ParentInstr="346435888"
+	InstrType="4"
+	Collapsed="0"
+	ParentSo="346435888"
+/>
+<Instruction
+	RtName="RectA_A"
+	RtType="5"
+	RtId="347017992"
+	ParentInstr="0"
+	InstrType="1"
+	Collapsed="0"
+	RoiType="67109120"
+	Interpolate="1"
+	RoiLocked="1"
+	ShowOutline="1"
+	ShowAnnot="1"
+	HdrLocked="0"
+	HdrLine="0"
+	HdrAnchorCoord="0"
+	HdrLocX="5"
+	HdrLocY="-5"
+	WriteChanges="1"
+	Locked="1"
+	Selected="0"
+	Tolerance="0"
+	Cond="FALSE"
+	RoiSoRtId="346435888"
+	RoiAlignId="0">
+<Coords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(0,0),(639,479)"
+/>
+</Coords>
+<OrgCoords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(0,0),(639,479)"
+/>
+</OrgCoords>
+<Preprocessors>
+<Preprocessor
+	PreprocIndex="0"
+	RtName="prepC"
+	RtType="5"
+	RtId="347019792"
+	ParentInstr="0"
+	InstrType="18"
+	Collapsed="0"
+	SoRtId="347017992"
+	Tag="Simple1-RectA_A-prepC"
+	ImgProcId="_CIpeMonoRotate_">
+<Inputs
+/>
+<Outputs
+/>
+<Params>
+<id0
+	RtName="angle (deg)"
+	RtType="2"
+	RtId="347020296"
+	ValType="258"
+	Connected="347377768">
+<Obj
+	Type="3"
+	Val="5"
+/>
+</id0>
+<id1
+	RtName="interpolation"
+	RtType="2"
+	RtId="347021112"
+	ValType="257"
+	Connected="0">
+<Obj
+	Type="2"
+	Val="1"
+/>
+</id1>
+<id2
+	RtName="fill color"
+	RtType="2"
+	RtId="347021904"
+	ValType="257"
+	Connected="0">
+<Obj
+	Type="2"
+	Val="0"
+/>
+</id2>
+</Params>
+</Preprocessor>
+</Preprocessors>
+<Algorithms
+/>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="347019056"
+	ValType="1028">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	FormulaId="_Ipe_Numeric_AddNumbers_"
+	RtName="AddA_A"
+	RtType="5"
+	RtId="347023688"
+	ParentInstr="0"
+	InstrType="17"
+	Collapsed="0"
+	Tag="Simple1-AddA_A">
+<Inputs>
+<id0
+	RtId="347024096"
+	Connected="347239120">
+<Obj
+	Type="3"
+	Val="0"
+/>
+</id0>
+<InfInputsId0
+	Count="1">
+<Input
+	RtId="347030264"
+	Connected="0">
+<Obj
+	Type="3"
+	Val="1"
+/>
+</Input>
+</InfInputsId0>
+</Inputs>
+<Outputs>
+<id0
+	RtId="347029520"
+	ConnVar="347239120"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="25"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="sum: 25.00"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+</Outputs>
+<Params
+/>
+</Instruction>
+<Instruction
+	RtName="TorusA"
+	RtType="5"
+	RtId="347030976"
+	ParentInstr="0"
+	InstrType="1"
+	Collapsed="0"
+	RoiType="134219776"
+	Interpolate="1"
+	RoiLocked="0"
+	ShowOutline="1"
+	ShowAnnot="1"
+	HdrLocked="0"
+	HdrLine="0"
+	HdrAnchorCoord="0"
+	HdrLocX="199"
+	HdrLocY="175"
+	WriteChanges="1"
+	Locked="0"
+	Selected="0"
+	Tolerance="0"
+	Cond="FALSE"
+	RoiSoRtId="346435888"
+	RoiAlignId="0">
+<Coords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="3"
+	Value="(194,180),(241,217),(293,257)"
+/>
+</Coords>
+<OrgCoords
+	Rotation="-0"
+	Elements="0">
+<Val
+	Size="3"
+	Value="(194,180),(241,217),(293,257)"
+/>
+</OrgCoords>
+<Preprocessors>
+<Preprocessor
+	PreprocIndex="0"
+	RtName="prepD"
+	RtType="5"
+	RtId="347033280"
+	ParentInstr="0"
+	InstrType="18"
+	Collapsed="0"
+	SoRtId="347030976"
+	Tag="Simple1-TorusA-prepD"
+	ImgProcId="_CIpeInvert_">
+<Inputs
+/>
+<Outputs
+/>
+<Params
+/>
+</Preprocessor>
+</Preprocessors>
+<Algorithms>
+<Algorithm
+	AlgIndex="0"
+	RtName="algB"
+	RtType="5"
+	RtId="347033784"
+	ParentInstr="0"
+	InstrType="19"
+	Collapsed="0"
+	SoRtId="347030976"
+	Tag="Simple1-TorusA-algB"
+	ImgProcId="_CIpeAvg_">
+<Inputs
+/>
+<Outputs>
+<id0
+	RtId="347034288"
+	ConnVar="346439544"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="76.140380196365157"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="average: 76.14"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+</Outputs>
+<Params
+/>
+</Algorithm>
+</Algorithms>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="347032176"
+	ValType="1028">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	RtName="End"
+	RtType="5"
+	RtId="347036032"
+	ParentInstr="346435888"
+	InstrType="5"
+	Collapsed="0"
+	ParentSo="346435888"
+/>
+</Instructions>
+<Structure>
+<Branch
+	Parent="0">
+<Children>
+<Child
+	Id="155965144"
+/>
+</Children>
+</Branch>
+<Branch
+	Parent="155965144">
+<Children>
+<Child
+	Id="347027704"
+/>
+<Child
+	Id="346435888"
+/>
+</Children>
+</Branch>
+<Branch
+	Parent="347027704">
+<Children>
+<Child
+	Id="346445480"
+/>
+<Child
+	Id="346445712"
+/>
+<Child
+	Id="346452480"
+/>
+<Child
+	Id="347013136"
+/>
+<Child
+	Id="347017176"
+/>
+</Children>
+</Branch>
+<Branch
+	Parent="346435888">
+<Children>
+<Child
+	Id="347017584"
+/>
+<Child
+	Id="347017992"
+/>
+<Child
+	Id="347023688"
+/>
+<Child
+	Id="347030976"
+/>
+<Child
+	Id="347036032"
+/>
+</Children>
+</Branch>
+</Structure>
+</Sub>
+<Sub
+	RtName="subA"
+	RtType="5"
+	RtId="347037400"
+	ParentInstr="0"
+	InstrType="2"
+	Collapsed="0"
+	ExecFlags="2">
+<Inputs
+/>
+<Outputs
+/>
+<Params
+/>
+<Instructions>
+<Instruction
+	FormulaId="_Ipe_Numeric_Set_"
+	RtName="SetNumericA"
+	RtType="5"
+	RtId="347115840"
+	ParentInstr="0"
+	InstrType="17"
+	Collapsed="0"
+	Tag="Simple1-SetNumericA">
+<Inputs>
+<id0
+	RtId="347116312"
+	Connected="0">
+<Obj
+	Type="3"
+	Val="0"
+/>
+</id0>
+</Inputs>
+<Outputs>
+<id0
+	RtId="347116744"
+	ConnVar="347377768"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="0"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="output: 0.00"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+</Outputs>
+<Params
+/>
+</Instruction>
+<Instruction
+	FormulaId="_Ipe_Numeric_Set_"
+	RtName="SetNumericA_A"
+	RtType="5"
+	RtId="347118232"
+	ParentInstr="0"
+	InstrType="17"
+	Collapsed="0"
+	Tag="Simple1-SetNumericA_A">
+<Inputs>
+<id0
+	RtId="347118632"
+	Connected="0">
+<Obj
+	Type="3"
+	Val="0"
+/>
+</id0>
+</Inputs>
+<Outputs>
+<id0
+	RtId="347119064"
+	ConnVar="347239120"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="0"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="output: 0.00"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+</Outputs>
+<Params
+/>
+</Instruction>
+</Instructions>
+<Structure>
+<Branch
+	Parent="0">
+<Children>
+<Child
+	Id="347037400"
+/>
+</Children>
+</Branch>
+<Branch
+	Parent="347037400">
+<Children>
+<Child
+	Id="347115840"
+/>
+<Child
+	Id="347118232"
+/>
+</Children>
+</Branch>
+</Structure>
+</Sub>
+</Subroutines>
+<Watched
+/>
+</Investigation>

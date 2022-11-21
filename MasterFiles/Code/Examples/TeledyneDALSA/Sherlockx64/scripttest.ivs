@@ -1,0 +1,496 @@
+<?xml version="1.0"?>
+<!--  Sunday, September 25, 2022 09:32:49  -->
+
+<Investigation
+	Version="7030109"
+	Lock="0"
+	Pwd=""
+	SpcReportEveryNRuns="0"
+	SpcReportFile="SpcReport.txt">
+<Variables>
+<Var
+	RtName="varA"
+	RtType="1"
+	RtId="1908806868592"
+	ValType="258">
+<Obj
+	Type="3"
+	Val="4214"
+/>
+</Var>
+<Var
+	RtName="varB"
+	RtType="1"
+	RtId="1908806857568"
+	ValType="258">
+<Obj
+	Type="3"
+	Val="4216"
+/>
+</Var>
+<Var
+	RtName="avg"
+	RtType="1"
+	RtId="1908806865888"
+	ValType="258">
+<Obj
+	Type="3"
+	Val="110.22785714285715"
+/>
+</Var>
+</Variables>
+<BgScripts>
+<Script
+	Name="BgScriptA"
+	ScriptCode="function print(str)  {&#xD;	VEngine.Reporter(str)&#xD;}&#xD;&#xD;while(true) {&#xD;&#xD;System.Sleep(1000)&#xD;print(&quot;************************************** BgScriptA *********************************************************&quot;)&#xD;}"
+	StartEvent="2"
+	StopEvent="1"
+/>
+<Script
+	Name="BgScriptB"
+	ScriptCode="while(true) {&#xD;&#xD;System.Sleep(250)&#xD;}"
+/>
+<Script
+	Name="BgScriptC"
+/>
+<Script
+	Name="BgScriptD"
+/>
+<Script
+	Name="BgScriptE"
+/>
+</BgScripts>
+<Calibrations
+/>
+<FileIoMgr>
+<FileIo
+	RtId="1908806366288"
+/>
+<FileIo
+	RtId="1908806347808"
+/>
+<FileIo
+	RtId="1908806355648"
+/>
+<FileIo
+	RtId="1908806365728"
+/>
+<FileIo
+	RtId="1908806360688"
+/>
+<FileIo
+	RtId="1908806366848"
+/>
+<FileIo
+	RtId="1908806356208"
+/>
+<FileIo
+	RtId="1908806350608"
+/>
+<FileIo
+	RtId="1908806365168"
+/>
+<FileIo
+	RtId="1908806363488"
+/>
+</FileIoMgr>
+<SerialIoMgr
+/>
+<UdpIoMgr
+/>
+<EthernetIpMgr
+	ip=""
+/>
+<TcpIoMgr
+/>
+<ModbusIoMgr
+/>
+<Alignments
+/>
+<CLMngr
+/>
+<GeFanucMgr
+/>
+<HmiIoMgr
+	addr="127.0.0.1"
+	port="5085"
+	run="0"
+/>
+<ProfinetMgr
+	ip=""
+/>
+<Subroutines>
+<Sub
+	RtName="Main"
+	RtType="5"
+	RtId="1908806492752"
+	ParentInstr="0"
+	InstrType="2"
+	Collapsed="0"
+	ExecFlags="0">
+<Inputs
+/>
+<Outputs
+/>
+<Params
+/>
+<Instructions>
+<Instruction
+	RtName="imgA"
+	RtType="5"
+	RtId="1908807615552"
+	ParentInstr="0"
+	InstrType="3"
+	Collapsed="0"
+	ImgSrcType="1"
+	Calibration="0"
+	RestoreCalibration="0"
+	DisplayGrid="0"
+	GridSize="50"
+	DisplayOrigin="0"
+	PalType="1"
+	ShowRawPixels="1"
+	Zoom="0.5"
+	WndPosLeft="79"
+	WndPosTop="34"
+	WndPosRight="1059"
+	WndPosBottom="705"
+	WndPosShowCmd="1"
+	WndPosPtScrollX="0"
+	WndPosPtScrollY="0"
+	WndPosSizeScrollX="959"
+	WndPosSizeScrollY="601"
+	WndToolbarVisible="1"
+	bLogImages="0"
+	bDisableNumFile="0"
+	bLogCurIndex="0"
+	bLogMaxIndex="100"
+	strLogDir="C:\ProgramData\Teledyne DALSA\Sherlockx64\images"
+	strLogPrefix="imgA-log-"
+	strLogExt="bmp"
+	bLogWrap="1"
+	bFtpLogImages="0"
+	bDisableNumFtp="0"
+	nFtpLogCurIndex="0"
+	nFtpLogMaxIndex="100"
+	strFtpLogDir="/Public"
+	strFtpLogPrefix="imgA-ftp-log-"
+	strFtpLogExt="jpg"
+	bFtpLogWrap="1"
+	bFtpLogOverlay="0"
+	strFtpLogServer="user:password@ftpServer or ftpServer"
+	bAcqHWTrigger="0"
+	bAcqTimeout="5000"
+	RealBpp="12"
+	SrcBpp="12"
+	HwAcqTimeout="-1"
+	AcqTimeoutNoErrSkipExec="0">
+<Inputs>
+<id0
+	RtId="1908805693280"
+	Connected="0">
+<Obj
+	Type="1"
+	Val="1"
+/>
+</id0>
+</Inputs>
+<Outputs>
+<id0
+	RtId="1908795168096"
+	ConnVar="0"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="28.433300003409386"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="acq time: 28.43"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+<id1
+	RtId="1908795171552"
+	ConnVar="0"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="1"
+	Val="1"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="acq status: True"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id1>
+<id2
+	RtId="1908795169824"
+	ConnVar="0"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="10">
+<Val
+	HdlType="262"
+/>
+</Obj>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="image: Handle"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id2>
+</Outputs>
+<Params
+/>
+<ImgSrc
+	CameraIndex="0"
+/>
+<Image
+	Width="1920"
+	Height="1204"
+	Attr="1"
+/>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="1908806862976"
+	ValType="1027">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	RtName="scriptA"
+	RtType="5"
+	RtId="1908939489344"
+	ParentInstr="0"
+	InstrType="14"
+	Collapsed="0"
+	ScriptCode="function print(str) {&#xD;	VEngine.Reporter(str)&#xD;}&#xD;&#xD;&#xD;Vars.varA++&#xD;Vars.varB++&#xD;VEngine.Monitor(&quot;TestMon varA=&quot; + Vars.varA)&#xD;print(&quot;TestReporter varB=&quot; + Vars.varB + &quot; avg=&quot; + Vars.avg)&#xD;&#xD;list1 = [1, 3, , 7, &quot;ted&quot;]&#xD;print(&quot;list1 = &quot; + list1)&#xD;&#xD;car = {manyCars: {a: &quot;Saab&quot;, b: &quot;Jeep&quot;}, 7: &quot;Mazda&quot;, &quot;t&quot;: &quot;Tesla&quot;, &quot;T&quot;: &quot;BigTesla&quot;} &#xD;&#xD;print(car.manyCars.b) // Jeep&#xD;print(car[7]) // Mazda&#xD;print(car[&quot;t&quot;]) // Tesla&#xD;print(car[&quot;T&quot;]) // BigTesla&#xD;&#xD;var B = new Boolean(false)&#xD;print(B.value)&#xD;&#xD;for(i=0; i&lt;10; i++)&#xD;	print(i)&#xD;&#xD;function factorial(n) {&#xD;   if ((n == 0) || (n == 1))&#xD;      return 1&#xD;   else {&#xD;      var result = (n * factorial(n-1) );&#xD;      return result&#xD;   }&#xD;} &#xD;&#xD;print(factorial(5))&#xD;&#xD;function myConcat(separator) {&#xD;   var result=&quot;&quot;&#xD;   for (var i=1; i&lt;arguments.length; i++) {&#xD;      result+=arguments[i]&#xD;		if(i&lt;arguments.length-1) result+=separator&#xD;   }&#xD;   return result&#xD;} &#xD;&#xD;// returns &quot;red, orange, blue, &quot;&#xD;print(myConcat(&quot;, &quot;,&quot;red&quot;,&quot;orange&quot;,&quot;blue&quot;))&#xD;print(myConcat(&quot;, &quot;,&quot;red&quot;,&quot;orange&quot;,&quot;blue&quot;,&quot;bluer&quot;))&#xD;print(myConcat(&quot;, &quot;,&quot;a&quot;,&quot;b&quot;))&#xD;print(myConcat(&quot;, &quot;,&quot;a&quot;))">
+<Inputs
+/>
+<Outputs
+/>
+<Params
+/>
+</Instruction>
+<Instruction
+	RtName="scriptB"
+	RtType="5"
+	RtId="1908939489728"
+	ParentInstr="0"
+	InstrType="14"
+	Collapsed="0"
+	ScriptCode="function car(make, model, year) {&#xD;   this.make = make&#xD;   this.model = model&#xD;   this.year = year&#xD;} &#xD;&#xD;mycar = new car(&quot;Eagle&quot;, &quot;Talon TSi&quot;, 1993)&#xD;&#xD;kenscar = new car(&quot;Nissan&quot;, &quot;300ZX&quot;, 1992)&#xD;vpgscar = new car(&quot;Mazda&quot;, &quot;Miata&quot;, 1990)&#xD;&#xD;function person(name, age, sex) {&#xD;   this.name = name&#xD;   this.age = age&#xD;   this.sex = sex&#xD;} &#xD;&#xD;rand = new person(&quot;Rand McKinnon&quot;, 33, &quot;M&quot;)&#xD;ken = new person(&quot;Ken Jones&quot;, 39, &quot;M&quot;)&#xD;&#xD;function carp(make, model, year, owner) {&#xD;   this.make = make&#xD;   this.model = model&#xD;   this.year = year&#xD;   this.owner = owner&#xD;} &#xD;&#xD;car1 = new carp(&quot;Eagle&quot;, &quot;Talon TSi&quot;, 1993, rand)&#xD;car2 = new carp(&quot;Nissan&quot;, &quot;300ZX&quot;, 1992, ken)&#xD;&#xD;print(car2.make + &quot; &quot; + car2.model + &quot; owner: &quot; + car2.owner.name + &quot; age: &quot; + car2.owner.age)&#xD;&#xD;function displayCar() {&#xD;   var result = &quot;A Beautiful &quot; + this.year + &quot; &quot; + this.make + &quot; &quot; + this.model&#xD;   print(result)&#xD;} &#xD;&#xD;car1.displayCar = displayCar&#xD;car2.displayCar = displayCar&#xD;&#xD;car1.displayCar()&#xD;car2.displayCar ()">
+<Inputs
+/>
+<Outputs
+/>
+<Params
+/>
+</Instruction>
+<Instruction
+	RtName="Begin"
+	RtType="5"
+	RtId="1908941904752"
+	ParentInstr="1908807615552"
+	InstrType="4"
+	Collapsed="0"
+	ParentSo="1908807615552"
+/>
+<Instruction
+	RtName="RectA"
+	RtType="5"
+	RtId="1908941906832"
+	ParentInstr="0"
+	InstrType="1"
+	Collapsed="0"
+	RoiType="67109120"
+	Interpolate="0"
+	RoiLocked="0"
+	ShowOutline="1"
+	ShowAnnot="1"
+	HdrLocked="0"
+	HdrLine="0"
+	HdrAnchorCoord="0"
+	HdrLocX="842"
+	HdrLocY="527"
+	WriteChanges="1"
+	Locked="0"
+	Selected="0"
+	Tolerance="0"
+	Cond="FALSE"
+	RoiSoRtId="1908807615552"
+	RoiAlignId="0">
+<Coords
+	Rotation="0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(837,532),(911,587)"
+/>
+</Coords>
+<OrgCoords
+	Rotation="0"
+	Elements="0">
+<Val
+	Size="2"
+	Value="(837,532),(911,587)"
+/>
+</OrgCoords>
+<Preprocessors
+/>
+<Algorithms>
+<Algorithm
+	AlgIndex="0"
+	RtName="algA"
+	RtType="5"
+	RtId="1908807106320"
+	ParentInstr="1908941906832"
+	InstrType="19"
+	Collapsed="0"
+	ProxyHandleRtId="0"
+	SoRtId="1908941906832"
+	Tag="scripttest-RectA-algA"
+	ImgProcId="_CIpeAvg_">
+<Inputs
+/>
+<Outputs>
+<id0
+	RtId="1908795164640"
+	ConnVar="1908806865888"
+	Watch="0"
+	SpcOn="0"
+	Hidden="0"
+	Lmark="0">
+<Obj
+	Type="3"
+	Val="110.22785714285715"
+/>
+<Annot
+	Type="6"
+	X="-1"
+	Y="-1"
+	Clr="0"
+	Text="average: 110.23"
+	Display="1"
+	Highlight="0"
+	So="0">
+<Coord
+	Size="0"
+	Value=""
+/>
+</Annot>
+</id0>
+</Outputs>
+<Params
+/>
+</Algorithm>
+</Algorithms>
+<Proxy
+	RtName="[None]"
+	RtType="7"
+	RtId="1908806876704"
+	ValType="1028">
+<Obj
+	Type="10">
+<Val
+	HdlType="0"
+/>
+</Obj>
+</Proxy>
+</Instruction>
+<Instruction
+	RtName="End"
+	RtType="5"
+	RtId="1908941900384"
+	ParentInstr="1908807615552"
+	InstrType="5"
+	Collapsed="0"
+	ParentSo="1908807615552"
+/>
+</Instructions>
+<Structure>
+<Branch
+	Parent="0">
+<Children>
+<Child
+	Id="1908806492752"
+/>
+</Children>
+</Branch>
+<Branch
+	Parent="1908806492752">
+<Children>
+<Child
+	Id="1908807615552"
+/>
+<Child
+	Id="1908939489344"
+/>
+<Child
+	Id="1908939489728"
+/>
+</Children>
+</Branch>
+<Branch
+	Parent="1908807615552">
+<Children>
+<Child
+	Id="1908941904752"
+/>
+<Child
+	Id="1908941906832"
+/>
+<Child
+	Id="1908941900384"
+/>
+</Children>
+</Branch>
+</Structure>
+</Sub>
+</Subroutines>
+<Watched
+/>
+</Investigation>

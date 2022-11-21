@@ -1,0 +1,1011 @@
+{
+    "engine": {
+        "digitalInputMgr": {
+            "__valueOrder": [
+                "input_LP1_1120_R2_Beta_010_Line3",
+                "input_LP1_1120_R2_Beta_010_Line4"
+            ],
+            "input_LP1_1120_R2_Beta_010_Line3": {
+                "create_id": "dio_input",
+                "index": {
+                    "number": 0
+                },
+                "name": "input_LP1_1120_R2_Beta_010_Line3",
+                "state": {
+                    "number": -1
+                }
+            },
+            "input_LP1_1120_R2_Beta_010_Line4": {
+                "create_id": "dio_input",
+                "index": {
+                    "number": 1
+                },
+                "name": "input_LP1_1120_R2_Beta_010_Line4",
+                "state": {
+                    "number": -1
+                }
+            }
+        },
+        "digitalOutputMgr": {
+            "__valueOrder": [
+                "output_LP1_1120_R2_Beta_010_Line5",
+                "output_LP1_1120_R2_Beta_010_Line6"
+            ],
+            "output_LP1_1120_R2_Beta_010_Line5": {
+                "create_id": "dio_output",
+                "index": {
+                    "number": 0
+                },
+                "name": "output_LP1_1120_R2_Beta_010_Line5",
+                "state": {
+                    "number": -1
+                }
+            },
+            "output_LP1_1120_R2_Beta_010_Line6": {
+                "create_id": "dio_output",
+                "index": {
+                    "number": 1
+                },
+                "name": "output_LP1_1120_R2_Beta_010_Line6",
+                "state": {
+                    "number": -1
+                }
+            }
+        },
+        "eipMgr": {
+            "__valueOrder": [
+                "ethernet_ipA"
+            ],
+            "ethernet_ipA": {
+                "create_id": "eip",
+                "is_running": {
+                    "bool": true
+                },
+                "name": "ethernet_ipA",
+                "network_interface": {
+                    "number": 0
+                }
+            }
+        },
+        "imageSourceMgr": {
+            "__valueOrder": [
+                "dirA"
+            ],
+            "dirA": {
+                "acquired_lines": {
+                    "number": 1000
+                },
+                "bitspp": {
+                    "number": 0
+                },
+                "bytespp": {
+                    "number": 2
+                },
+                "create_id": "dir",
+                "current_file": {
+                    "string": "image0009.tif"
+                },
+                "delay_time": {
+                    "number": 30
+                },
+                "device": {
+                    "string": "n/a"
+                },
+                "dir": {
+                    "string": "C:/ProgramData/Teledyne DALSA/Sherlock8x64/images/3DSet2"
+                },
+                "driver": {
+                    "string": "n/a"
+                },
+                "driver_config": {
+                    "string": "n/a"
+                },
+                "driver_path": {
+                    "string": "n/a"
+                },
+                "height": {
+                    "number": 1000
+                },
+                "name": "dirA",
+                "name_filters": {
+                    "string": "*.png *.jpg *.bmp *.tif"
+                },
+                "type": {
+                    "string": "area"
+                },
+                "width": {
+                    "number": 1472
+                }
+            }
+        },
+        "profinetMgr": {
+            "__valueOrder": [
+                "profinetA"
+            ],
+            "profinetA": {
+                "guid": {
+                    "string": ""
+                },
+                "ip": {
+                    "string": "169.254.51.39"
+                },
+                "is_running": {
+                    "bool": false
+                },
+                "mac": {
+                    "string": "02:50:41:00:00:01"
+                },
+                "name": "profinetA",
+                "network_interface": {
+                    "number": 0
+                },
+                "nic": {
+                    "string": "CamPort5"
+                }
+            }
+        },
+        "program": [
+            {
+                "data": {
+                    "children": [
+                        {
+                            "data": {
+                                "comment": "Example shows how to verify number of formed cavities in a plastic pill pack",
+                                "name": "commentA"
+                            },
+                            "id": "system:comment",
+                            "instr": "commentA"
+                        },
+                        {
+                            "data": {
+                                "comment": "Only cavities of the correct size and shape are counted",
+                                "name": "commentB"
+                            },
+                            "id": "system:comment",
+                            "instr": "commentB"
+                        },
+                        {
+                            "data": {
+                                "bytespp": {
+                                    "number": 2
+                                },
+                                "height": {
+                                    "number": 1000
+                                },
+                                "image_source": {
+                                    "supl": "dirA.handle"
+                                },
+                                "name": "acquireA",
+                                "status": {
+                                    "bool": true
+                                },
+                                "timeout": {
+                                    "number": 15000
+                                },
+                                "width": {
+                                    "number": 1472
+                                }
+                            },
+                            "id": "image:acquire",
+                            "instr": "acquireA"
+                        },
+                        {
+                            "data": {
+                                "display_bits": {
+                                    "number": 12
+                                },
+                                "name": "workspace_3dA",
+                                "pass": {
+                                    "bool": true
+                                },
+                                "plugin_data": {
+                                    "overlay_data": ""
+                                },
+                                "src_image": {
+                                    "supl": "acquireA.image"
+                                },
+                                "tolerance": [
+                                ],
+                                "userdata": {
+                                    "handle": {
+                                        "showInProgramTree": false
+                                    },
+                                    "image": {
+                                        "showInProgramTree": false
+                                    },
+                                    "pass": {
+                                        "showInProgramTree": false
+                                    },
+                                    "window_geometry": {
+                                        "hScroll": 115,
+                                        "height": 624,
+                                        "maximized": false,
+                                        "posx": 22,
+                                        "posy": 7,
+                                        "vScroll": 0,
+                                        "width": 498,
+                                        "zoom": 0.5
+                                    }
+                                }
+                            },
+                            "id": "system:imageworkspace_3d",
+                            "instr": "workspace_3dA"
+                        },
+                        {
+                            "data": {
+                                "gray_to_um_scaler": {
+                                    "number": 23.4375
+                                },
+                                "name": "convert3Dto8MA",
+                                "range_bottom_um": {
+                                    "number": 4000
+                                },
+                                "range_top_um": {
+                                    "number": 10000
+                                },
+                                "src_image": {
+                                    "supl": "acquireA.image"
+                                }
+                            },
+                            "id": "image:convert3Dto8M",
+                            "instr": "convert3Dto8MA"
+                        },
+                        {
+                            "data": {
+                                "children": [
+                                    {
+                                        "data": {
+                                            "a": {
+                                                "number": 0.19716526973955917
+                                            },
+                                            "children": [
+                                                {
+                                                    "data": {
+                                                        "in_value_inclusive": {
+                                                            "number": -1
+                                                        },
+                                                        "name": "threshold_bandA",
+                                                        "out_value": {
+                                                            "number": 0
+                                                        },
+                                                        "threshold_high": {
+                                                            "number": 193
+                                                        },
+                                                        "threshold_low": {
+                                                            "number": 73
+                                                        },
+                                                        "userdata": {
+                                                            "image": {
+                                                                "showInProgramTree": false
+                                                            }
+                                                        }
+                                                    },
+                                                    "id": "preprocessor:threshold_band",
+                                                    "instr": "threshold_bandA"
+                                                },
+                                                {
+                                                    "data": {
+                                                        "area": {
+                                                            "numbervector": [
+                                                                31583,
+                                                                31139,
+                                                                30817,
+                                                                29730,
+                                                                28257,
+                                                                27078,
+                                                                25230
+                                                            ]
+                                                        },
+                                                        "bbox_br": {
+                                                            "pointvector": [
+                                                                "1086.92450816170207872 843.33660457382086406",
+                                                                "881.91539840998154887 845.63114566235833536",
+                                                                "675.90285340278990134 848.92223965369498728",
+                                                                "470.89718482740522632 850.21678666309730943",
+                                                                "1088.51089045257140242 382.33933409250101931",
+                                                                "887.50175701739158285 384.64763988638225101",
+                                                                "469.50423193888457263 383.20922817795849369"
+                                                            ]
+                                                        },
+                                                        "bbox_tl": {
+                                                            "pointvector": [
+                                                                "950.82346634386271944 581.86670876151379161",
+                                                                "747.81090357407663305 585.16812628185834910",
+                                                                "542.82932323304362399 579.46271473731428614",
+                                                                "339.78923105256990311 590.76408489074026420",
+                                                                "959.38916013066261712 126.89349098935662141",
+                                                                "754.36972684993429539 132.18801431529959700",
+                                                                "350.35491299764021278 135.79774947125497420"
+                                                            ]
+                                                        },
+                                                        "bboxes": {
+                                                            "bool": true
+                                                        },
+                                                        "calculate_ferets": {
+                                                            "bool": false
+                                                        },
+                                                        "calculate_moments": {
+                                                            "bool": false
+                                                        },
+                                                        "calculate_perimeter": {
+                                                            "bool": false
+                                                        },
+                                                        "centroid": {
+                                                            "pointvector": [
+                                                                "1018.91215639803829163 711.33597241501263397",
+                                                                "815.32878108632894509 715.08324324998909560",
+                                                                "609.56671155651326899 717.34089129490507730",
+                                                                "405.97707887648368796 720.04205286033334232",
+                                                                "1023.41640700278958320 255.48108224038546155",
+                                                                "818.55998384124472977 259.94655650166663463",
+                                                                "409.16557903598817347 260.18979817820354583"
+                                                            ]
+                                                        },
+                                                        "connect_8_way": {
+                                                            "bool": true
+                                                        },
+                                                        "count": {
+                                                            "recv": "Cavity_Count.value"
+                                                        },
+                                                        "descending": {
+                                                            "bool": true
+                                                        },
+                                                        "detect_black_blobs": {
+                                                            "bool": false
+                                                        },
+                                                        "ellipse_angle": {
+                                                            "numbervector": [
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0
+                                                            ]
+                                                        },
+                                                        "ellipse_axes": {
+                                                            "bool": false
+                                                        },
+                                                        "ellipse_axes_ratio": {
+                                                            "numbervector": [
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0
+                                                            ]
+                                                        },
+                                                        "ellipse_major": {
+                                                            "numbervector": [
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0
+                                                            ]
+                                                        },
+                                                        "ellipse_minor": {
+                                                            "numbervector": [
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0
+                                                            ]
+                                                        },
+                                                        "ellipse_roundness": {
+                                                            "numbervector": [
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0
+                                                            ]
+                                                        },
+                                                        "elongation": {
+                                                            "numbervector": [
+                                                                2.8751699924468994,
+                                                                4.310284614562988,
+                                                                10.492979049682617,
+                                                                4.036303997039795,
+                                                                4.2568039894104,
+                                                                10.029729843139648,
+                                                                4.872884750366211
+                                                            ]
+                                                        },
+                                                        "enable_sorting": {
+                                                            "bool": true
+                                                        },
+                                                        "feret_angles": {
+                                                            "number": 180
+                                                        },
+                                                        "feret_bbox_angle": {
+                                                            "numbervector": [
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0,
+                                                                0
+                                                            ]
+                                                        },
+                                                        "feret_bbox_bl": {
+                                                            "pointvector": [
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526"
+                                                            ]
+                                                        },
+                                                        "feret_bbox_br": {
+                                                            "pointvector": [
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526"
+                                                            ]
+                                                        },
+                                                        "feret_bbox_center": {
+                                                            "pointvector": [
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526"
+                                                            ]
+                                                        },
+                                                        "feret_bbox_lr": {
+                                                            "pointvector": [
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526"
+                                                            ]
+                                                        },
+                                                        "feret_bbox_lt": {
+                                                            "pointvector": [
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526",
+                                                                "270.58594548133351054 68.52285206232221526"
+                                                            ]
+                                                        },
+                                                        "feret_bboxes": {
+                                                            "bool": false
+                                                        },
+                                                        "fiber_length": {
+                                                            "numbervector": [
+                                                                301.3411560058594,
+                                                                366.3576965332031,
+                                                                568.6494140625,
+                                                                346.4091796875,
+                                                                346.8205871582031,
+                                                                521.13818359375,
+                                                                350.6321105957031
+                                                            ]
+                                                        },
+                                                        "fiber_width": {
+                                                            "numbervector": [
+                                                                104.80812072753906,
+                                                                84.99617004394531,
+                                                                54.193321228027344,
+                                                                85.8233642578125,
+                                                                81.47440338134766,
+                                                                51.959346771240234,
+                                                                71.95575714111328
+                                                            ]
+                                                        },
+                                                        "first_blob_bbox": {
+                                                            "bool": true
+                                                        },
+                                                        "first_centroid": {
+                                                            "point": "1018.91215639803829163 711.33597241501263397"
+                                                        },
+                                                        "form_factor": {
+                                                            "numbervector": [
+                                                                0.6014947891235352,
+                                                                0.48019784688949585,
+                                                                0.24956487119197845,
+                                                                0.4999307692050934,
+                                                                0.4839382469654083,
+                                                                0.25900572538375854,
+                                                                0.44384676218032837
+                                                            ]
+                                                        },
+                                                        "height": {
+                                                            "numbervector": [
+                                                                262,
+                                                                261,
+                                                                270,
+                                                                260,
+                                                                256,
+                                                                253,
+                                                                248
+                                                            ]
+                                                        },
+                                                        "hole_count": {
+                                                            "numbervector": [
+                                                                6,
+                                                                13,
+                                                                15,
+                                                                9,
+                                                                11,
+                                                                17,
+                                                                8
+                                                            ]
+                                                        },
+                                                        "labels": {
+                                                            "bool": true
+                                                        },
+                                                        "max_area": {
+                                                            "number": 1000000
+                                                        },
+                                                        "max_ellipse_angle": {
+                                                            "number": 180
+                                                        },
+                                                        "max_ellipse_major": {
+                                                            "number": 0
+                                                        },
+                                                        "max_ellipse_minor": {
+                                                            "number": 1000
+                                                        },
+                                                        "max_ellipse_roundness": {
+                                                            "number": 1
+                                                        },
+                                                        "max_feret_height": {
+                                                            "number": 1000
+                                                        },
+                                                        "max_feret_width": {
+                                                            "number": 1000000
+                                                        },
+                                                        "max_height": {
+                                                            "number": 1000000
+                                                        },
+                                                        "max_hole_count": {
+                                                            "number": 1000
+                                                        },
+                                                        "max_returned": {
+                                                            "number": 1000
+                                                        },
+                                                        "max_width": {
+                                                            "number": 150
+                                                        },
+                                                        "min_area": {
+                                                            "number": 100
+                                                        },
+                                                        "min_ellipse_angle": {
+                                                            "number": -180
+                                                        },
+                                                        "min_ellipse_major": {
+                                                            "number": 1000
+                                                        },
+                                                        "min_ellipse_minor": {
+                                                            "number": 1
+                                                        },
+                                                        "min_ellipse_roundness": {
+                                                            "number": 0
+                                                        },
+                                                        "min_feret_height": {
+                                                            "number": 1
+                                                        },
+                                                        "min_feret_width": {
+                                                            "number": 0
+                                                        },
+                                                        "min_height": {
+                                                            "number": 200
+                                                        },
+                                                        "min_hole_count": {
+                                                            "number": 0
+                                                        },
+                                                        "min_width": {
+                                                            "number": 100
+                                                        },
+                                                        "name": "connectivity_binaryA",
+                                                        "perimeter_length": {
+                                                            "numbervector": [
+                                                                812.298583984375,
+                                                                902.7077026367188,
+                                                                1245.6854248046875,
+                                                                864.465087890625,
+                                                                856.5899658203125,
+                                                                1146.195068359375,
+                                                                845.17578125
+                                                            ]
+                                                        },
+                                                        "perimeters": {
+                                                            "bool": false
+                                                        },
+                                                        "remove_border_blobs": {
+                                                            "bool": false
+                                                        },
+                                                        "sorting_criteria": {
+                                                            "number": 0
+                                                        },
+                                                        "userdata": {
+                                                            "bbox_br": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "bbox_tl": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "centroid": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            },
+                                                            "count": {
+                                                                "gr_data_workspace_mono8A": {
+                                                                    "x": 320,
+                                                                    "y": 108
+                                                                },
+                                                                "gr_windows": [
+                                                                ]
+                                                            },
+                                                            "ellipse_angle": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "ellipse_axes_ratio": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "ellipse_major": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "ellipse_minor": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "ellipse_roundness": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "elongation": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "feret_bbox_angle": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "feret_bbox_bl": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "feret_bbox_br": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "feret_bbox_center": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "feret_bbox_lr": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "feret_bbox_lt": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "fiber_length": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "fiber_width": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "first_centroid": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            },
+                                                            "form_factor": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "hole_count": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "image": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "perimeter_length": {
+                                                                "showInProgramTree": false
+                                                            }
+                                                        },
+                                                        "width": {
+                                                            "numbervector": [
+                                                                138,
+                                                                136,
+                                                                135,
+                                                                133,
+                                                                131,
+                                                                135,
+                                                                121
+                                                            ]
+                                                        }
+                                                    },
+                                                    "id": "algorithm:connectivity_binary",
+                                                    "instr": "connectivity_binaryA"
+                                                }
+                                            ],
+                                            "cx": {
+                                                "number": 709.1483697687268
+                                            },
+                                            "cy": {
+                                                "number": 487.0345006495086
+                                            },
+                                            "error_on_roi_outside": {
+                                                "bool": false
+                                            },
+                                            "h": {
+                                                "number": 834.0000000000001
+                                            },
+                                            "interpolation": {
+                                                "number": 1
+                                            },
+                                            "lock_movement": {
+                                                "bool": false
+                                            },
+                                            "mask_input": {
+                                                "bool": false
+                                            },
+                                            "mask_output": {
+                                                "bool": false
+                                            },
+                                            "modify_image": {
+                                                "bool": true
+                                            },
+                                            "name": "CountCav",
+                                            "pass": {
+                                                "bool": true
+                                            },
+                                            "plugin_data": {
+                                                "mask_descr": {
+                                                    "invert": false
+                                                }
+                                            },
+                                            "proc_slots": {
+                                                "boolvector": [
+                                                    true,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    true,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false
+                                                ]
+                                            },
+                                            "roi_in_image": {
+                                                "bool": true
+                                            },
+                                            "tolerance": [
+                                            ],
+                                            "userdata": {
+                                                "image": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "parent_image": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "pass": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "roi_in_image": {
+                                                    "showInProgramTree": false
+                                                }
+                                            },
+                                            "w": {
+                                                "number": 880
+                                            }
+                                        },
+                                        "id": "roi:rectangle",
+                                        "instr": "CountCav"
+                                    }
+                                ],
+                                "grid_size": {
+                                    "number": 50
+                                },
+                                "name": "workspace_mono8A",
+                                "pass": {
+                                    "bool": true
+                                },
+                                "plugin_data": {
+                                    "overlay_data": "AAAAIwAAACgAYwBvAG4AbgBlAGMAdABpAHYAaQB0AHkAXwBiAGkAbgBhAHIAeQBBAAAAAgAAABwAbABpAGcAaAB0AHMAdABlAGUAbABiAGwAdQBlAAAAAQAAAAEAAAAQQI22lnWFwfpAgi7vBQDO3kCQ/0pmHvRrQIIytIfx7HsAAAAQQJD/SmYe9GtAgjK0h/Hse0CQ+7KyRH2VQIpasV29IfUAAAAQQJD7srJEfZVAilqxXb0h9UCNr2cN0NROQIpW69rMBFgAAAAQQI2vZw3Q1E5Ailbr2swEWECNtpZ1hcH6QIIu7wUAzt4AAAACAAAABgByAGUAZAAAAAEAAAABAAAAGAAAA/oAAALHAAAAAgAwAAAAAgAAABwAbABpAGcAaAB0AHMAdABlAGUAbABiAGwAdQBlAAAAAQAAAAEAAAAQQIdefLsDVvNAgklYUpeRcECLlnsX8NyKQIJND70y8eMAAAAQQIuWexfw3IpAgk0PvTLx40CLj1K8Zs1zQIptDJYY1rsAAAAQQIuPUrxmzXNAim0MlhjWu0CHV1RfeUfcQIppVSt9dkgAAAAQQIdXVF95R9xAimlVK312SECHXny7A1bzQIJJWFKXkXAAAAACAAAABgByAGUAZAAAAAEAAAABAAAAGAAAAy8AAALLAAAAAgAxAAAAAgAAABwAbABpAGcAaAB0AHMAdABlAGUAbABiAGwAdQBlAAAAAQAAAAEAAAAQQID2onQ4HeJAghuzo8jBI0CFJqDUQFLXQIIfZAI5QwIAAAAQQIUmoNRAUtdAgh9kAjlDAkCFHzkLNHCFQIqHYL8u/Y4AAAAQQIUfOQs0cIVAiodgvy79jkCA7zqrLDuQQIqDsGC+e7AAAAAQQIDvOqssO5BAioOwYL57sECA9qJ0OB3iQIIbs6PIwSMAAAACAAAABgByAGUAZAAAAAEAAAABAAAAGAAAAmEAAALNAAAAAgAyAAAAAgAAABwAbABpAGcAaAB0AHMAdABlAGUAbABiAGwAdQBlAAAAAQAAAAEAAAAQQHU8oLC9fGhAgnYc2IoIx0B9fJ19OKPJQIJ5vx6kzXwAAAAQQH18nX04o8lAgnm/HqTNfEB9blreekLEQIqRu/qlYbIAAAAQQH1uWt56QsRAipG7+qVhskB1Ll4R/xtjQIqOGbSKnPwAAAAQQHUuXhH/G2NAio4ZtIqc/EB1PKCwvXxoQIJ2HNiKCMcAAAACAAAABgByAGUAZAAAAAEAAAABAAAAGAAAAZUAAALQAAAAAgAzAAAAAgAAABwAbABpAGcAaAB0AHMAdABlAGUAbABiAGwAdQBlAAAAAQAAAAEAAAAQQI37HP/8kNNAX7ku9NSjrECRBY22N8GgQF/V0GL84AgAAAAQQJEFjbY3waBAX9XQYvzgCECRAgsm3eaIQHflbemV21sAAAAQQJECCybd5ohAd+Vt6ZXbW0CN9BfhSNqkQHfeRY4LzEQAAAAQQI30F+FI2qRAd95FjgvMRECN+xz//JDTQF+5LvTUo6wAAAACAAAABgByAGUAZAAAAAEAAAABAAAAGAAAA/8AAAD/AAAAAgA0AAAAAgAAABwAbABpAGcAaAB0AHMAdABlAGUAbABiAGwAdQBlAAAAAQAAAAEAAAAQQIeS9TNZx15AYIYENpjsiECLwvOTYfxTQGCUxbBa9AQAAAAQQIvC85Nh/FNAYJTFsFr0BECLvAOZLuHiQHgKXLukOY0AAAAQQIu8A5ku4eJAeApcu6Q5jUCHjAU5JqztQHgC+/7DNc8AAAAQQIeMBTkmrO1AeAL7/sM1z0CHkvUzWcdeQGCGBDaY7IgAAAACAAAABgByAGUAZAAAAAEAAAABAAAAGAAAAzIAAAEDAAAAAgA1AAAAAgAAABwAbABpAGcAaAB0AHMAdABlAGUAbABiAGwAdQBlAAAAAQAAAAEAAAAQQHXlrblAXKRAYPmHKeYuIEB9ZarQO/TNQGEGvfpHhRAAAAAQQH1lqtA79M1AYQa9+keFEEB9WBFVgnG6QHfzWP+lW7wAAAAQQH1YEVWCcbpAd/NY/6VbvEB12BQ+htmRQHfsvZd0sEQAAAAQQHXYFD6G2ZFAd+y9l3SwREB15a25QFykQGD5hynmLiAAAAACAAAABgByAGUAZAAAAAEAAAABAAAAGAAAAZkAAAEEAAAAAgA2AAAAJAAAACgAYwBvAG4AbgBlAGMAdABpAHYAaQB0AHkAXwBiAGkAbgBhAHIAeQBB"
+                                },
+                                "show_grid": {
+                                    "bool": false
+                                },
+                                "src_image": {
+                                    "supl": "convert3Dto8MA.image"
+                                },
+                                "tolerance": [
+                                ],
+                                "userdata": {
+                                    "handle": {
+                                        "showInProgramTree": false
+                                    },
+                                    "image": {
+                                        "showInProgramTree": false
+                                    },
+                                    "pass": {
+                                        "showInProgramTree": false
+                                    },
+                                    "window_geometry": {
+                                        "hScroll": 0,
+                                        "height": 624,
+                                        "maximized": false,
+                                        "posx": 520,
+                                        "posy": 7,
+                                        "vScroll": 0,
+                                        "width": 660,
+                                        "zoom": 0.5
+                                    }
+                                }
+                            },
+                            "id": "system:imageworkspace_m8",
+                            "instr": "workspace_mono8A"
+                        }
+                    ],
+                    "name": "main",
+                    "run_count": {
+                        "number": 44693
+                    },
+                    "run_on": {
+                        "number": 0
+                    },
+                    "runs_per_second": {
+                        "number": 0.026740269747602838
+                    },
+                    "tab_index": {
+                        "number": 0
+                    },
+                    "time_since_last_call": {
+                        "number": 1334.994400024414
+                    }
+                },
+                "id": "system:subroutine",
+                "instr": "main"
+            }
+        ],
+        "serialMgr": {
+            "__valueOrder": [
+                "serialPortA",
+                "serialPortB"
+            ],
+            "serialPortA": {
+                "baud_rate": {
+                    "number": 9600
+                },
+                "create_id": "serial_port",
+                "data_bits": {
+                    "number": 8
+                },
+                "device": {
+                    "string": "COM3"
+                },
+                "driver": {
+                    "string": "Serial port driver"
+                },
+                "driver_path": {
+                    "string": "C:/Program Files/Teledyne DALSA/Sherlock8x64/bin/drivers-bin/ipeserialportdrv.dll"
+                },
+                "flow_control": {
+                    "number": 0
+                },
+                "index": {
+                    "number": 0
+                },
+                "name": "serialPortA",
+                "parity": {
+                    "number": 0
+                },
+                "stop_bits": {
+                    "number": 1
+                }
+            },
+            "serialPortB": {
+                "baud_rate": {
+                    "number": 9600
+                },
+                "create_id": "serial_port",
+                "data_bits": {
+                    "number": 8
+                },
+                "device": {
+                    "string": "n/a"
+                },
+                "driver": {
+                    "string": "n/a"
+                },
+                "driver_path": {
+                    "string": "n/a"
+                },
+                "flow_control": {
+                    "number": 0
+                },
+                "index": {
+                    "number": 1
+                },
+                "name": "serialPortB",
+                "parity": {
+                    "number": 0
+                },
+                "stop_bits": {
+                    "number": 1
+                }
+            }
+        },
+        "variableMgr": {
+            "Cavity_Count": {
+                "create_id": "number",
+                "name": "Cavity_Count",
+                "userdata": {
+                    "value": {
+                        "gr_data_workspace_mono8A": {
+                            "x": 848,
+                            "y": 920
+                        },
+                        "gr_windows": [
+                            "workspace_mono8A"
+                        ]
+                    }
+                },
+                "value": {
+                    "number": 7
+                }
+            },
+            "__valueOrder": [
+                "Cavity_Count",
+                "display_annotation"
+            ],
+            "display_annotation": {
+                "create_id": "string",
+                "name": "display_annotation",
+                "userdata": {
+                    "value": {
+                        "gr_data_workspace_mono8A": {
+                            "x": 512,
+                            "y": 918
+                        },
+                        "gr_windows": [
+                            "workspace_mono8A"
+                        ]
+                    }
+                },
+                "value": {
+                    "string": "Cavity count ="
+                }
+            }
+        }
+    },
+    "info": {
+        "engine build": "x86_64 Aug  5 2019 16:15:57",
+        "engine storage version": 1,
+        "engine version": 1,
+        "os running": "x86_64 Windows 10 (10.0)",
+        "program save time": "21 Aug 2019 12:51:39 -0400"
+    },
+    "tabbedMode": false,
+    "watchedValues": [
+        "Cavity_Count.value"
+    ]
+}

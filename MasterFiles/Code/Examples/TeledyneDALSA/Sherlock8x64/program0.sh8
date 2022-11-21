@@ -1,0 +1,773 @@
+{
+    "engine": {
+        "imageSourceMgr": {
+            "__valueOrder": [
+                "dirA"
+            ],
+            "dirA": {
+                "acquired_lines": {
+                    "number": 1
+                },
+                "bitspp": {
+                    "number": 0
+                },
+                "bytespp": {
+                    "number": 2
+                },
+                "create_id": "dir",
+                "current_file": {
+                    "string": "image0004.tif"
+                },
+                "delay_time": {
+                    "number": 30
+                },
+                "device": {
+                    "string": "n/a"
+                },
+                "dir": {
+                    "string": "./1d_program0"
+                },
+                "driver": {
+                    "string": "n/a"
+                },
+                "driver_config": {
+                    "string": "n/a"
+                },
+                "driver_path": {
+                    "string": "n/a"
+                },
+                "height": {
+                    "number": 1
+                },
+                "name": "dirA",
+                "name_filters": {
+                    "string": "*.png *.jpg *.bmp *.tif"
+                },
+                "type": {
+                    "string": "area"
+                },
+                "width": {
+                    "number": 3004
+                }
+            }
+        },
+        "program": [
+            {
+                "data": {
+                    "children": [
+                        {
+                            "data": {
+                                "bytespp": {
+                                    "number": 2
+                                },
+                                "height": {
+                                    "number": 1
+                                },
+                                "image_source": {
+                                    "supl": "dirA.handle"
+                                },
+                                "name": "acquireA",
+                                "status": {
+                                    "bool": true
+                                },
+                                "timeout": {
+                                    "number": 5000
+                                },
+                                "width": {
+                                    "number": 3004
+                                }
+                            },
+                            "id": "image:acquire",
+                            "instr": "acquireA"
+                        },
+                        {
+                            "data": {
+                                "children": [
+                                    {
+                                        "data": {
+                                            "children": [
+                                                {
+                                                    "data": {
+                                                        "angle": {
+                                                            "number": -0.1048997546141707
+                                                        },
+                                                        "circle0_fit_percent": {
+                                                            "number": 20
+                                                        },
+                                                        "circle0_quality": {
+                                                            "number": 29
+                                                        },
+                                                        "circle0_radius": {
+                                                            "number": 8574
+                                                        },
+                                                        "circle1_fit_percent": {
+                                                            "number": 20
+                                                        },
+                                                        "circle1_quality": {
+                                                            "number": 5
+                                                        },
+                                                        "circle1_radius": {
+                                                            "number": 4060
+                                                        },
+                                                        "distance": {
+                                                            "number": 23972
+                                                        },
+                                                        "name": "circle_circle_distA",
+                                                        "pt0": {
+                                                            "point": "16527.17382812500000000 15108.71093750000000000"
+                                                        },
+                                                        "pt1": {
+                                                            "point": "40367.17187500000000000 12598.68750000000000000"
+                                                        },
+                                                        "userdata": {
+                                                            "pt0": {
+                                                                "gr_data_workspace_1dA": {
+                                                                    "hi": false,
+                                                                    "label": true,
+                                                                    "label_x": 12,
+                                                                    "label_y": 12
+                                                                },
+                                                                "gr_windows": [
+                                                                ]
+                                                            },
+                                                            "pt1": {
+                                                                "gr_data_workspace_1dA": {
+                                                                    "hi": false,
+                                                                    "label": true,
+                                                                    "label_x": 12,
+                                                                    "label_y": 12
+                                                                },
+                                                                "gr_windows": [
+                                                                ]
+                                                            }
+                                                        },
+                                                        "x_distance": {
+                                                            "number": 23840
+                                                        },
+                                                        "z_distance": {
+                                                            "number": 2510
+                                                        }
+                                                    },
+                                                    "id": "1D:2rect_circle_circle_dist",
+                                                    "instr": "circle_circle_distA"
+                                                },
+                                                {
+                                                    "data": {
+                                                        "center_x": {
+                                                            "number": 28170
+                                                        },
+                                                        "center_z": {
+                                                            "number": 20233
+                                                        },
+                                                        "distance": {
+                                                            "number": 25091
+                                                        },
+                                                        "distance_x": {
+                                                            "number": 24060
+                                                        },
+                                                        "distance_z": {
+                                                            "number": 7118
+                                                        },
+                                                        "name": "two_rect_featuresA",
+                                                        "roi0_feature": {
+                                                            "number": 5
+                                                        },
+                                                        "roi0_point": {
+                                                            "point": "16140.00000000000000000 23792.00000000000000000"
+                                                        },
+                                                        "roi1_feature": {
+                                                            "number": 5
+                                                        },
+                                                        "roi1_point": {
+                                                            "point": "40200.00000000000000000 16674.00000000000000000"
+                                                        },
+                                                        "userdata": {
+                                                            "roi0_feature": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            },
+                                                            "roi0_point": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            },
+                                                            "roi1_feature": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            },
+                                                            "roi1_point": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    "id": "1D:2rect_features",
+                                                    "instr": "two_rect_featuresA"
+                                                }
+                                            ],
+                                            "cx0": {
+                                                "number": 19533.333333333336
+                                            },
+                                            "cx1": {
+                                                "number": 38500
+                                            },
+                                            "cy0": {
+                                                "number": 21333.333333333954
+                                            },
+                                            "cy1": {
+                                                "number": 14800.000000000466
+                                            },
+                                            "h0": {
+                                                "number": 6000
+                                            },
+                                            "h1": {
+                                                "number": 5733.333333333023
+                                            },
+                                            "lock_movement": {
+                                                "bool": false
+                                            },
+                                            "name": "a",
+                                            "pass": {
+                                                "bool": true
+                                            },
+                                            "proc_slots": {
+                                                "boolvector": [
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    true,
+                                                    true,
+                                                    false,
+                                                    false,
+                                                    false
+                                                ]
+                                            },
+                                            "roi_in_image": {
+                                                "bool": true
+                                            },
+                                            "tolerance": [
+                                            ],
+                                            "userdata": {
+                                                "pass": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "roi_in_image": {
+                                                    "showInProgramTree": false
+                                                }
+                                            },
+                                            "w0": {
+                                                "number": 10666.666666666666
+                                            },
+                                            "w1": {
+                                                "number": 5933.333333333336
+                                            }
+                                        },
+                                        "id": "roi:1d:rectanglex2",
+                                        "instr": "a"
+                                    },
+                                    {
+                                        "data": {
+                                            "children": [
+                                                {
+                                                    "data": {
+                                                        "center_x": {
+                                                            "number": 29450
+                                                        },
+                                                        "center_z": {
+                                                            "number": 7305
+                                                        },
+                                                        "distance": {
+                                                            "number": 10505
+                                                        },
+                                                        "distance_x": {
+                                                            "number": 10500
+                                                        },
+                                                        "distance_z": {
+                                                            "number": 312
+                                                        },
+                                                        "name": "two_rect_featuresB",
+                                                        "roi0_feature": {
+                                                            "number": 4
+                                                        },
+                                                        "roi0_point": {
+                                                            "point": "24200.00000000000000000 7149.00000000000000000"
+                                                        },
+                                                        "roi1_feature": {
+                                                            "number": 4
+                                                        },
+                                                        "roi1_point": {
+                                                            "point": "34700.00000000000000000 7461.00000000000000000"
+                                                        },
+                                                        "userdata": {
+                                                            "roi0_point": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            },
+                                                            "roi1_point": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    "id": "1D:2rect_features",
+                                                    "instr": "two_rect_featuresB"
+                                                }
+                                            ],
+                                            "cx0": {
+                                                "number": 24820
+                                            },
+                                            "cx1": {
+                                                "number": 35180
+                                            },
+                                            "cy0": {
+                                                "number": 7360
+                                            },
+                                            "cy1": {
+                                                "number": 7480
+                                            },
+                                            "h0": {
+                                                "number": 1200
+                                            },
+                                            "h1": {
+                                                "number": 1280
+                                            },
+                                            "lock_movement": {
+                                                "bool": false
+                                            },
+                                            "name": "b",
+                                            "pass": {
+                                                "bool": true
+                                            },
+                                            "proc_slots": {
+                                                "boolvector": [
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    true,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false
+                                                ]
+                                            },
+                                            "roi_in_image": {
+                                                "bool": true
+                                            },
+                                            "tolerance": [
+                                            ],
+                                            "userdata": {
+                                                "pass": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "roi_in_image": {
+                                                    "showInProgramTree": false
+                                                }
+                                            },
+                                            "w0": {
+                                                "number": 1560
+                                            },
+                                            "w1": {
+                                                "number": 1560
+                                            }
+                                        },
+                                        "id": "roi:1d:rectanglex2",
+                                        "instr": "b"
+                                    },
+                                    {
+                                        "data": {
+                                            "a": {
+                                                "number": 0
+                                            },
+                                            "children": [
+                                                {
+                                                    "data": {
+                                                        "corner": {
+                                                            "point": "32540.00000000000000000 7464.00000000000000000"
+                                                        },
+                                                        "corner_type": {
+                                                            "number": 3
+                                                        },
+                                                        "detector_size": {
+                                                            "number": 8
+                                                        },
+                                                        "min_strength": {
+                                                            "number": 50
+                                                        },
+                                                        "name": "cornerB",
+                                                        "strength": {
+                                                            "number": -1457
+                                                        },
+                                                        "userdata": {
+                                                            "corner": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    "id": "1D:corner",
+                                                    "instr": "cornerB"
+                                                },
+                                                {
+                                                    "data": {
+                                                        "corner": {
+                                                            "point": "30460.00000000000000000 7434.00000000000000000"
+                                                        },
+                                                        "corner_type": {
+                                                            "number": 1
+                                                        },
+                                                        "detector_size": {
+                                                            "number": 8
+                                                        },
+                                                        "min_strength": {
+                                                            "number": 50
+                                                        },
+                                                        "name": "cornerA",
+                                                        "strength": {
+                                                            "number": -1728
+                                                        },
+                                                        "userdata": {
+                                                            "corner": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    "id": "1D:corner",
+                                                    "instr": "cornerA"
+                                                }
+                                            ],
+                                            "cx": {
+                                                "number": 31258.333333333336
+                                            },
+                                            "cy": {
+                                                "number": 8550
+                                            },
+                                            "h": {
+                                                "number": 3000
+                                            },
+                                            "lock_movement": {
+                                                "bool": false
+                                            },
+                                            "name": "c",
+                                            "pass": {
+                                                "bool": true
+                                            },
+                                            "proc_slots": {
+                                                "boolvector": [
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    true,
+                                                    true,
+                                                    false,
+                                                    false,
+                                                    false
+                                                ]
+                                            },
+                                            "roi_in_image": {
+                                                "bool": true
+                                            },
+                                            "tolerance": [
+                                            ],
+                                            "userdata": {
+                                                "pass": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "roi_in_image": {
+                                                    "showInProgramTree": false
+                                                }
+                                            },
+                                            "w": {
+                                                "number": 3350
+                                            }
+                                        },
+                                        "id": "roi:1d:rectangle",
+                                        "instr": "c"
+                                    },
+                                    {
+                                        "data": {
+                                            "code": {
+                                                "script": "ve.numberB.value = ve.circle_circle_distA.circle0_radius/1000;\nve.numberD.value = ve.circle_circle_distA.circle1_radius/1000;\n\nvar point = {\"x\":0, \"y\":0};\n\npoint = ve.two_rect_featuresA.roi0_point;\nve.numberG.value = point.y;\npoint = ve.two_rect_featuresB.roi0_point;\nve.numberG.value -= point.y;\nve.numberG.value /= 1000;\n\npoint = ve.two_rect_featuresA.roi1_point;\nve.numberH.value = point.y;\npoint = ve.two_rect_featuresB.roi1_point;\nve.numberH.value -= point.y;\nve.numberH.value /= 1000;\nvar line = {\"x1\":0, \"y1\":0, \"x2\":0, \"y2\":0}\npoint = ve.cornerB.corner;\nve.numberE.value = point.x;\nline.x1 = point.x;\npoint = ve.cornerA.corner;\nline.x2 = point.x\nve.numberE.value -= point.x;\nve.numberE.value /= 1000;\n\n\nline.ay = 200;\nline.by = 200;\n//ve.lineA.value = line;\nve.lineA.value.x1 = 2000;\n\n\n\n"
+                                            },
+                                            "name": "scriptA"
+                                        },
+                                        "id": "system:script",
+                                        "instr": "scriptA"
+                                    }
+                                ],
+                                "name": "workspace_1dA",
+                                "pass": {
+                                    "bool": true
+                                },
+                                "plugin_data": {
+                                    "overlay_data": "AAAAAgAAABIAdAB1AHIAcQB1AG8AaQBzAGUAAAAZAAAAAQAAABBA0CPLIAAAAEDNglsAAAAAQOO15YAAAABAyJtYAAAAAAAAACEAAAAMAHkAZQBsAGwAbwB3AAAAFUC/EMqAAAAAQLmGVAAAAABA0L8xAAAAAEDQvzEAAAAAAAAAFUDhulikAAAAQMCtJJAAAABAv7jNwAAAAEC/uM3AAAAA"
+                                },
+                                "src_image": {
+                                    "supl": "acquireA.image"
+                                },
+                                "tolerance": [
+                                ],
+                                "userdata": {
+                                    "handle": {
+                                        "showInProgramTree": false
+                                    },
+                                    "image": {
+                                        "showInProgramTree": false
+                                    },
+                                    "pass": {
+                                        "showInProgramTree": false
+                                    },
+                                    "window_geometry": {
+                                        "hScroll": 196,
+                                        "height": 660,
+                                        "maximized": true,
+                                        "posx": 0,
+                                        "posy": 0,
+                                        "vScroll": -66438,
+                                        "width": 943,
+                                        "zoom": 1.5
+                                    }
+                                }
+                            },
+                            "id": "system:imageworkspace_1d",
+                            "instr": "workspace_1dA"
+                        }
+                    ],
+                    "name": "main",
+                    "run_count": {
+                        "number": 201
+                    },
+                    "run_on": {
+                        "number": 0
+                    },
+                    "runs_per_second": {
+                        "number": 22.2862829046117
+                    },
+                    "tab_index": {
+                        "number": 0
+                    },
+                    "time_since_last_call": {
+                        "number": 38.30400002002716
+                    }
+                },
+                "id": "system:subroutine",
+                "instr": "main"
+            }
+        ],
+        "serialMgr": {
+            "__valueOrder": [
+                "serialPortA"
+            ],
+            "serialPortA": {
+                "baud_rate": {
+                    "number": 9600
+                },
+                "create_id": "serial_port",
+                "data_bits": {
+                    "number": 8
+                },
+                "device": {
+                    "string": "COM1"
+                },
+                "driver": {
+                    "string": "Serial port driver"
+                },
+                "driver_path": {
+                    "string": "D:/Sherlock8/x64/debug/drivers-bin/ipeserialportdrv.dll"
+                },
+                "flow_control": {
+                    "number": 0
+                },
+                "index": {
+                    "number": 0
+                },
+                "name": "serialPortA",
+                "parity": {
+                    "number": 0
+                },
+                "stop_bits": {
+                    "number": 1
+                }
+            }
+        },
+        "variableMgr": {
+            "__valueOrder": [
+                "numberA",
+                "numberB",
+                "numberC",
+                "numberD",
+                "numberE",
+                "numberF",
+                "numberG",
+                "numberH",
+                "lineA"
+            ],
+            "lineA": {
+                "create_id": "line",
+                "name": "lineA",
+                "value": {
+                    "line": "2000.00000000000000000 0.00000000000000000 0.00000000000000000 0.00000000000000000"
+                }
+            },
+            "numberA": {
+                "comment": "<<prefix: Arc Length: |postfix: mm|fgcolor: white|font_family: Courier New|font_weight: Bold| font_size: 11>>",
+                "create_id": "number",
+                "name": "numberA",
+                "userdata": {
+                    "value": {
+                        "gr_data_workspace_1dA": {
+                            "x": 16600,
+                            "y": 27800
+                        },
+                        "gr_windows": [
+                        ]
+                    }
+                },
+                "value": {
+                    "number": 0
+                }
+            },
+            "numberB": {
+                "comment": "<<prefix: Radius: |postfix: mm|fgcolor: white|font_family: Courier New|font_weight: Bold| font_size: 11>>",
+                "create_id": "number",
+                "name": "numberB",
+                "userdata": {
+                    "value": {
+                        "gr_data_workspace_1dA": {
+                            "x": 14800,
+                            "y": 11986.666666666628
+                        },
+                        "gr_windows": [
+                            "workspace_1dA"
+                        ]
+                    }
+                },
+                "value": {
+                    "number": 8.574
+                }
+            },
+            "numberC": {
+                "comment": "<<prefix: Arc Length: |postfix: mm|fgcolor: white|font_family: Courier New|font_weight: Bold| font_size: 11>>",
+                "create_id": "number",
+                "name": "numberC",
+                "value": {
+                    "number": 0
+                }
+            },
+            "numberD": {
+                "comment": "<<prefix: Radius: |postfix: mm|fgcolor: white|font_family: Courier New|font_weight: Bold| font_size: 11>>",
+                "create_id": "number",
+                "name": "numberD",
+                "userdata": {
+                    "value": {
+                        "gr_data_workspace_1dA": {
+                            "x": 37813.33333333349,
+                            "y": 11126.666666666686
+                        },
+                        "gr_windows": [
+                            "workspace_1dA"
+                        ]
+                    }
+                },
+                "value": {
+                    "number": 4.06
+                }
+            },
+            "numberE": {
+                "comment": "<<prefix: Width: |postfix: mm|fgcolor: white|font_family: Courier New|font_weight: Bold| font_size: 11>>",
+                "create_id": "number",
+                "name": "numberE",
+                "userdata": {
+                    "value": {
+                        "gr_data_workspace_1dA": {
+                            "x": 28876.666666666744,
+                            "y": 6590
+                        },
+                        "gr_windows": [
+                            "workspace_1dA"
+                        ]
+                    }
+                },
+                "value": {
+                    "number": 2.08
+                }
+            },
+            "numberF": {
+                "comment": "<<prefix: dZ: |postfix: mm|fgcolor: white|font_family: Courier New|font_weight: Bold| font_size: 11>>",
+                "create_id": "number",
+                "name": "numberF",
+                "value": {
+                    "number": 0
+                }
+            },
+            "numberG": {
+                "comment": "<<prefix: Height: |postfix: mm|fgcolor: white|font_family: Courier New|font_weight: Bold| font_size: 11>>",
+                "create_id": "number",
+                "name": "numberG",
+                "userdata": {
+                    "value": {
+                        "gr_data_workspace_1dA": {
+                            "x": 14000,
+                            "y": 24400
+                        },
+                        "gr_windows": [
+                            "workspace_1dA"
+                        ]
+                    }
+                },
+                "value": {
+                    "number": 16.643
+                }
+            },
+            "numberH": {
+                "comment": "<<prefix: Height: |postfix: mm|fgcolor: white|font_family: Courier New|font_weight: Bold| font_size: 11>>",
+                "create_id": "number",
+                "name": "numberH",
+                "userdata": {
+                    "value": {
+                        "gr_data_workspace_1dA": {
+                            "x": 35340,
+                            "y": 17713.333333333256
+                        },
+                        "gr_windows": [
+                            "workspace_1dA"
+                        ]
+                    }
+                },
+                "value": {
+                    "number": 9.213
+                }
+            }
+        }
+    },
+    "info": {
+        "engine build": "x86_64 Aug 13 2019 14:01:21",
+        "engine storage version": 1,
+        "engine version": 1,
+        "os running": "x86_64 Windows 10 (10.0)",
+        "program save time": "13 Aug 2019 14:06:35 -0400"
+    },
+    "tabbedMode": false,
+    "watchedValues": [
+    ]
+}

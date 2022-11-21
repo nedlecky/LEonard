@@ -1,0 +1,1368 @@
+{
+    "engine": {
+        "digitalInputMgr": {
+            "__valueOrder": [
+                "input_LP1_1120_R2_Beta_010_Line3",
+                "input_LP1_1120_R2_Beta_010_Line4"
+            ],
+            "input_LP1_1120_R2_Beta_010_Line3": {
+                "create_id": "dio_input",
+                "index": {
+                    "number": 0
+                },
+                "name": "input_LP1_1120_R2_Beta_010_Line3",
+                "state": {
+                    "number": -1
+                }
+            },
+            "input_LP1_1120_R2_Beta_010_Line4": {
+                "create_id": "dio_input",
+                "index": {
+                    "number": 1
+                },
+                "name": "input_LP1_1120_R2_Beta_010_Line4",
+                "state": {
+                    "number": -1
+                }
+            }
+        },
+        "digitalOutputMgr": {
+            "__valueOrder": [
+                "output_LP1_1120_R2_Beta_010_Line5",
+                "output_LP1_1120_R2_Beta_010_Line6"
+            ],
+            "output_LP1_1120_R2_Beta_010_Line5": {
+                "create_id": "dio_output",
+                "index": {
+                    "number": 0
+                },
+                "name": "output_LP1_1120_R2_Beta_010_Line5",
+                "state": {
+                    "number": -1
+                }
+            },
+            "output_LP1_1120_R2_Beta_010_Line6": {
+                "create_id": "dio_output",
+                "index": {
+                    "number": 1
+                },
+                "name": "output_LP1_1120_R2_Beta_010_Line6",
+                "state": {
+                    "number": -1
+                }
+            }
+        },
+        "imageSourceMgr": {
+            "__valueOrder": [
+                "dirA"
+            ],
+            "dirA": {
+                "acquired_lines": {
+                    "number": 1000
+                },
+                "bitspp": {
+                    "number": 0
+                },
+                "bytespp": {
+                    "number": 2
+                },
+                "create_id": "dir",
+                "current_file": {
+                    "string": "image0000.tif"
+                },
+                "delay_time": {
+                    "number": 30
+                },
+                "device": {
+                    "string": "n/a"
+                },
+                "dir": {
+                    "string": "C:/ProgramData/Teledyne DALSA/Sherlock8x64/images/3DSet1"
+                },
+                "driver": {
+                    "string": "n/a"
+                },
+                "driver_config": {
+                    "string": "n/a"
+                },
+                "driver_path": {
+                    "string": "n/a"
+                },
+                "height": {
+                    "number": 1000
+                },
+                "name": "dirA",
+                "name_filters": {
+                    "string": "*.png *.jpg *.bmp *.tif"
+                },
+                "type": {
+                    "string": "area"
+                },
+                "width": {
+                    "number": 1472
+                }
+            }
+        },
+        "program": [
+            {
+                "data": {
+                    "children": [
+                        {
+                            "data": {
+                                "bytespp": {
+                                    "number": 2
+                                },
+                                "height": {
+                                    "number": 1000
+                                },
+                                "image_source": {
+                                    "supl": "dirA.handle"
+                                },
+                                "name": "acquireA",
+                                "status": {
+                                    "bool": true
+                                },
+                                "timeout": {
+                                    "number": 30000
+                                },
+                                "width": {
+                                    "number": 1472
+                                }
+                            },
+                            "id": "image:acquire",
+                            "instr": "acquireA"
+                        },
+                        {
+                            "data": {
+                                "display_bits": {
+                                    "number": 16
+                                },
+                                "name": "workspace_3dA",
+                                "pass": {
+                                    "bool": true
+                                },
+                                "plugin_data": {
+                                    "overlay_data": ""
+                                },
+                                "src_image": {
+                                    "supl": "acquireA.image"
+                                },
+                                "tolerance": [
+                                ],
+                                "userdata": {
+                                    "handle": {
+                                        "showInProgramTree": false
+                                    },
+                                    "image": {
+                                        "showInProgramTree": false
+                                    },
+                                    "pass": {
+                                        "showInProgramTree": false
+                                    },
+                                    "window_geometry": {
+                                        "hScroll": 0,
+                                        "height": 500,
+                                        "maximized": false,
+                                        "posx": 0,
+                                        "posy": 0,
+                                        "vScroll": 0,
+                                        "width": 660,
+                                        "zoom": 0.5
+                                    }
+                                }
+                            },
+                            "id": "system:imageworkspace_3d",
+                            "instr": "workspace_3dA"
+                        },
+                        {
+                            "data": {
+                                "gray_to_um_scaler": {
+                                    "number": 23.4375
+                                },
+                                "name": "convert3Dto8MA",
+                                "range_bottom_um": {
+                                    "number": 37000
+                                },
+                                "range_top_um": {
+                                    "number": 43000
+                                },
+                                "src_image": {
+                                    "supl": "acquireA.image"
+                                }
+                            },
+                            "id": "image:convert3Dto8M",
+                            "instr": "convert3Dto8MA"
+                        },
+                        {
+                            "data": {
+                                "grid_size": {
+                                    "number": 50
+                                },
+                                "name": "workspace_mono8B",
+                                "pass": {
+                                    "bool": true
+                                },
+                                "plugin_data": {
+                                    "overlay_data": ""
+                                },
+                                "show_grid": {
+                                    "bool": false
+                                },
+                                "src_image": {
+                                    "supl": "convert3Dto8MA.image"
+                                },
+                                "tolerance": [
+                                ],
+                                "userdata": {
+                                    "handle": {
+                                        "showInProgramTree": false
+                                    },
+                                    "image": {
+                                        "showInProgramTree": false
+                                    },
+                                    "pass": {
+                                        "showInProgramTree": false
+                                    },
+                                    "window_geometry": {
+                                        "hScroll": 0,
+                                        "height": 500,
+                                        "maximized": false,
+                                        "posx": 206,
+                                        "posy": 0,
+                                        "vScroll": 0,
+                                        "width": 660,
+                                        "zoom": 0.5
+                                    }
+                                }
+                            },
+                            "id": "system:imageworkspace_m8",
+                            "instr": "workspace_mono8B"
+                        },
+                        {
+                            "data": {
+                                "children": [
+                                    {
+                                        "data": {
+                                            "a": {
+                                                "number": 0.026037245569229702
+                                            },
+                                            "children": [
+                                                {
+                                                    "data": {
+                                                        "in_value_inclusive": {
+                                                            "number": -1
+                                                        },
+                                                        "name": "threshold_bandA",
+                                                        "out_value": {
+                                                            "number": 0
+                                                        },
+                                                        "threshold_high": {
+                                                            "number": 165
+                                                        },
+                                                        "threshold_low": {
+                                                            "number": 30
+                                                        },
+                                                        "userdata": {
+                                                            "image": {
+                                                                "showInProgramTree": false
+                                                            }
+                                                        }
+                                                    },
+                                                    "id": "preprocessor:threshold_band",
+                                                    "instr": "threshold_bandA"
+                                                }
+                                            ],
+                                            "cx": {
+                                                "number": 697
+                                            },
+                                            "cy": {
+                                                "number": 439.9999999999998
+                                            },
+                                            "error_on_roi_outside": {
+                                                "bool": false
+                                            },
+                                            "h": {
+                                                "number": 671.6681925892298
+                                            },
+                                            "interpolation": {
+                                                "number": 1
+                                            },
+                                            "lock_movement": {
+                                                "bool": false
+                                            },
+                                            "mask_input": {
+                                                "bool": false
+                                            },
+                                            "mask_output": {
+                                                "bool": false
+                                            },
+                                            "modify_image": {
+                                                "bool": true
+                                            },
+                                            "name": "Find_Circle_Top",
+                                            "pass": {
+                                                "bool": true
+                                            },
+                                            "plugin_data": {
+                                                "mask_descr": {
+                                                    "invert": false
+                                                }
+                                            },
+                                            "proc_slots": {
+                                                "boolvector": [
+                                                    true,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false
+                                                ]
+                                            },
+                                            "roi_in_image": {
+                                                "bool": true
+                                            },
+                                            "tolerance": [
+                                            ],
+                                            "userdata": {
+                                                "image": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "parent_image": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "pass": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "roi_in_image": {
+                                                    "showInProgramTree": false
+                                                }
+                                            },
+                                            "w": {
+                                                "number": 730.3053053784537
+                                            }
+                                        },
+                                        "id": "roi:rectangle",
+                                        "instr": "Find_Circle_Top"
+                                    },
+                                    {
+                                        "data": {
+                                            "children": [
+                                                {
+                                                    "data": {
+                                                        "detector_size": {
+                                                            "number": 10
+                                                        },
+                                                        "distance_from_starting_pt": {
+                                                            "numbervector": [
+                                                                80.4090909090909,
+                                                                79.3125,
+                                                                78.35,
+                                                                77.25,
+                                                                76.08333333333334,
+                                                                73.66666666666667,
+                                                                73.28571428571429,
+                                                                71.62962962962963,
+                                                                70.6923076923077,
+                                                                71,
+                                                                69.75,
+                                                                68.75555555555556,
+                                                                67.42105263157895,
+                                                                64.83333333333333,
+                                                                65.70833333333333,
+                                                                62.925925925925924,
+                                                                63.52380952380952,
+                                                                62.6875,
+                                                                62.33333333333333,
+                                                                60.58064516129032,
+                                                                59.650000000000006,
+                                                                58.69230769230769,
+                                                                57.33333333333333,
+                                                                56.32142857142857,
+                                                                55.47826086956522,
+                                                                54.72,
+                                                                55.3,
+                                                                54.611111111111114,
+                                                                54.63636363636364,
+                                                                54.2,
+                                                                54.04347826086956,
+                                                                54,
+                                                                54.2,
+                                                                53.480000000000004,
+                                                                53.53333333333333,
+                                                                52.599999999999994,
+                                                                50.89285714285714,
+                                                                53.5,
+                                                                52.14285714285714,
+                                                                52.849999999999994,
+                                                                53.1304347826087,
+                                                                52.95652173913044,
+                                                                53.90909090909091,
+                                                                53.63636363636364,
+                                                                53.84615384615384,
+                                                                55.57692307692308,
+                                                                55.04166666666667,
+                                                                55.75,
+                                                                55.78125,
+                                                                57.67857142857143,
+                                                                58.34615384615384,
+                                                                59.57142857142857,
+                                                                60.769230769230774,
+                                                                62.38461538461539,
+                                                                62.756097560975604,
+                                                                63.86666666666666,
+                                                                65,
+                                                                66,
+                                                                67.73529411764706,
+                                                                68.93939393939394,
+                                                                70.65714285714286,
+                                                                70.72,
+                                                                72.76470588235294,
+                                                                73.27272727272727,
+                                                                75.16666666666667,
+                                                                76.29411764705883,
+                                                                78.38888888888889,
+                                                                80.45833333333334,
+                                                                81.36842105263159,
+                                                                82.70270270270271,
+                                                                84.52631578947368,
+                                                                85.86666666666667,
+                                                                86.2,
+                                                                87.45,
+                                                                88.41176470588235,
+                                                                90.54545454545455,
+                                                                91.2,
+                                                                92,
+                                                                92.4,
+                                                                92.88888888888889,
+                                                                93.63636363636363,
+                                                                94.6,
+                                                                78.38888888888889,
+                                                                95.54545454545455,
+                                                                80.15384615384616,
+                                                                96.3076923076923,
+                                                                82.85714285714286,
+                                                                96.86666666666667,
+                                                                97.53846153846155,
+                                                                78.21052631578948,
+                                                                82.28571428571428,
+                                                                93.5,
+                                                                92.5,
+                                                                81.1,
+                                                                81.57142857142857,
+                                                                90.3076923076923,
+                                                                89.5,
+                                                                81.71428571428572,
+                                                                79.8125,
+                                                                87.65,
+                                                                80.35135135135135,
+                                                                80.89655172413794,
+                                                                86.72727272727272,
+                                                                80.26086956521739,
+                                                                80.8,
+                                                                80.52941176470588,
+                                                                79.36363636363637,
+                                                                77.57142857142857
+                                                            ]
+                                                        },
+                                                        "edge_detected": {
+                                                            "boolvector": [
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                false,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                false,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                false,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                false,
+                                                                false,
+                                                                false,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                                true
+                                                            ]
+                                                        },
+                                                        "edge_profile": {
+                                                            "number": 0
+                                                        },
+                                                        "edge_type": {
+                                                            "number": 2
+                                                        },
+                                                        "find_edge": {
+                                                            "number": 0
+                                                        },
+                                                        "ignore_segments": {
+                                                            "bool": true
+                                                        },
+                                                        "min_edge_strength": {
+                                                            "number": 52
+                                                        },
+                                                        "name": "find_edge_compositeA",
+                                                        "position": {
+                                                            "pointvector": [
+                                                                "544.59538516836641975 356.36033127003742038",
+                                                                "540.85564458893213668 366.61671103678747841",
+                                                                "537.58470944356236032 376.95957182837037180",
+                                                                "535.03703804141366618 387.45917420732706660",
+                                                                "533.15314304498326692 398.04196825878580057",
+                                                                "533.09426654733874784 408.90090469986171229",
+                                                                "531.64308262608483346 419.31709009295036594",
+                                                                "532.04015294715986784 429.89366960015593122",
+                                                                "532.30686059327979365 440.31475399471474930",
+                                                                "531.90291107468749487 450.67640010969091691",
+                                                                "533.62465251551839174 460.94731203544847631",
+                                                                "535.64919118101488493 471.07199156561279096",
+                                                                "538.55422712755421344 480.95354665979465381",
+                                                                "543.20146687504950478 490.29182005229250763",
+                                                                "545.00424247468322392 500.22522295068245057",
+                                                                "550.80370251039619234 508.83946552200109181",
+                                                                "553.90444417586047621 518.30755583962456967",
+                                                                "558.82146896850008488 526.98472487943934084",
+                                                                "563.76770388877616824 535.57429263071549030",
+                                                                "575.85595658545958031 551.21199147325535250",
+                                                                "582.52645118228065257 558.41567497476944482",
+                                                                "589.57039877109355075 565.18383736043710996",
+                                                                "597.22252056673551124 571.23049932138496843",
+                                                                "604.91113186280711034 577.05480506778349081",
+                                                                "612.76132764687326926 582.54305629381951803",
+                                                                "620.81572809687645531 587.63197991724280200",
+                                                                "628.39208428832114350 593.37982172004910808",
+                                                                "636.91537852289116017 597.60751915298612857",
+                                                                "653.95227268527639808 605.87000549019717255",
+                                                                "662.93683459395197133 608.86208291852017283",
+                                                                "671.97105038829351997 611.61584905269239698",
+                                                                "681.10915978372452173 613.97563653340989731",
+                                                                "690.31873452303636896 616.06773601939255514",
+                                                                "699.75018313684427085 616.73750365400746887",
+                                                                "709.11491576196715414 617.65478218007524447",
+                                                                "718.52807150641615408 617.06826998772373827",
+                                                                "727.80775709435408771 615.19204029281343082",
+                                                                "737.31087889980369710 617.10668828348798343",
+                                                                "746.43142658393708189 614.56039628970438571",
+                                                                "755.75699091676949593 613.54762848743860104",
+                                                                "764.93818266011578544 611.60178981505646334",
+                                                                "773.86950912353631793 608.71757524713905241",
+                                                                "783.03356404304645366 606.39658648646843631",
+                                                                "791.59151243296162193 602.44073529127103939",
+                                                                "800.13077066801213277 598.45259289937303038",
+                                                                "809.23184144626281977 595.29751296264885241",
+                                                                "816.95179020388457047 589.72034661832503843",
+                                                                "825.08352296764246603 584.73204968754089350",
+                                                                "832.51856676315264849 578.76412792478959091",
+                                                                "840.90354980580059419 573.74414379581457979",
+                                                                "848.17589904710155224 567.35435062568024023",
+                                                                "855.53680092617230457 560.90465164368436035",
+                                                                "862.55120916219323135 553.98987810265259668",
+                                                                "869.55960914879074153 546.87694060977241861",
+                                                                "875.14143191437551650 538.68138234169805401",
+                                                                "880.92953590669822006 530.51270613441886326",
+                                                                "886.30625076398303008 521.99181481402558802",
+                                                                "891.10501640888037400 513.08211578131829356",
+                                                                "896.12375440396863269 504.09565132157774769",
+                                                                "900.15299814954755675 494.61940265167885400",
+                                                                "904.17239477635666844 484.97412468244488082",
+                                                                "906.03377769568328404 474.78631147398147050",
+                                                                "909.30499577900650365 464.69000927082379349",
+                                                                "910.48667639623829473 454.25976145985492849",
+                                                                "912.47793100741375838 443.72695732504126909",
+                                                                "913.11672701460497592 433.05238021640928991",
+                                                                "914.11960019424975599 422.17305736259839932",
+                                                                "914.47879078073356141 411.14559518929240767",
+                                                                "913.07957558619079919 400.27772143206260580",
+                                                                "911.47661349846794110 389.33218600823425959",
+                                                                "909.70973304177766749 378.25450035384506009",
+                                                                "906.85399550073270802 367.38751233212428815",
+                                                                "902.47034979734405624 357.07357799821653543",
+                                                                "898.31468121009299921 346.54962311115730245",
+                                                                "893.30729893701925448 336.36695603495616069",
+                                                                "888.66749539177101269 325.74651812870746426",
+                                                                "882.22785384681412779 316.23401377800479395",
+                                                                "875.35845829144113850 306.96576457193901888",
+                                                                "867.67690731263473936 298.34223024665084267",
+                                                                "859.57488986145710896 290.07338432374081094",
+                                                                "851.16974365165424388 282.04352139366960728",
+                                                                "842.42686750478412705 274.28768546065828104",
+                                                                "814.81044075660145154 276.06612378645382933",
+                                                                "812.70305294841705290 255.66216948077749294",
+                                                                "796.08450317090216686 265.05794697497037760",
+                                                                "757.21276767163510613 236.94454225244041368",
+                                                                "743.96780452079667612 248.57439801637423216",
+                                                                "733.88934713473349802 233.58118479105434062",
+                                                                "722.10469688262128329 232.47464125896374298",
+                                                                "711.15595948809038873 251.99838673099509379",
+                                                                "700.00352646084661501 248.73352607925932034",
+                                                                "687.35592485847496391 239.06440973513122117",
+                                                                "676.14734353297853886 242.16251563570642702",
+                                                                "667.91668545405673285 255.89381223504040008",
+                                                                "657.30619947760987998 258.61214987821961131",
+                                                                "643.79836609601954933 254.23383864701318657",
+                                                                "633.61987520923025841 259.46422685795334928",
+                                                                "627.04882852336186261 271.39526166843972987",
+                                                                "618.48406348549372069 278.41802824625875701",
+                                                                "604.93258491557435264 277.79065031095188942",
+                                                                "600.20207443126332691 290.19377900186566421",
+                                                                "591.37861723478170006 296.62311727472382472",
+                                                                "579.25025681662668831 299.72622145754593248",
+                                                                "576.05451265729664101 312.13335261099774698",
+                                                                "568.41758922434280521 319.92746901066794862",
+                                                                "561.85111216647260335 328.63931693890765473",
+                                                                "556.52796794266168945 338.18406289929066588",
+                                                                "552.31242623711443684 348.27138723873196113"
+                                                            ]
+                                                        },
+                                                        "scan_direction": {
+                                                            "number": 1
+                                                        },
+                                                        "smoothing": {
+                                                            "number": 0
+                                                        },
+                                                        "strength": {
+                                                            "numbervector": [
+                                                                73,
+                                                                72,
+                                                                72,
+                                                                66,
+                                                                60,
+                                                                61,
+                                                                58,
+                                                                66,
+                                                                56,
+                                                                62,
+                                                                70,
+                                                                76,
+                                                                67,
+                                                                57,
+                                                                61,
+                                                                61,
+                                                                62,
+                                                                66,
+                                                                84,
+                                                                111,
+                                                                99,
+                                                                62,
+                                                                65,
+                                                                80,
+                                                                81,
+                                                                113,
+                                                                61,
+                                                                65,
+                                                                60,
+                                                                94,
+                                                                109,
+                                                                108,
+                                                                72,
+                                                                116,
+                                                                70,
+                                                                104,
+                                                                110,
+                                                                112,
+                                                                113,
+                                                                110,
+                                                                114,
+                                                                114,
+                                                                115,
+                                                                117,
+                                                                120,
+                                                                123,
+                                                                116,
+                                                                122,
+                                                                111,
+                                                                112,
+                                                                111,
+                                                                108,
+                                                                99,
+                                                                110,
+                                                                99,
+                                                                80,
+                                                                94,
+                                                                64,
+                                                                85,
+                                                                70,
+                                                                64,
+                                                                66,
+                                                                80,
+                                                                58,
+                                                                60,
+                                                                61,
+                                                                63,
+                                                                67,
+                                                                60,
+                                                                72,
+                                                                62,
+                                                                60,
+                                                                55,
+                                                                61,
+                                                                57,
+                                                                57,
+                                                                53,
+                                                                53,
+                                                                53,
+                                                                54,
+                                                                54,
+                                                                55,
+                                                                62,
+                                                                53,
+                                                                59,
+                                                                54,
+                                                                53,
+                                                                56,
+                                                                55,
+                                                                68,
+                                                                60,
+                                                                54,
+                                                                53,
+                                                                66,
+                                                                69,
+                                                                53,
+                                                                53,
+                                                                69,
+                                                                82,
+                                                                53,
+                                                                92,
+                                                                88,
+                                                                94,
+                                                                96,
+                                                                104,
+                                                                114,
+                                                                118,
+                                                                97
+                                                            ]
+                                                        },
+                                                        "userdata": {
+                                                            "image": {
+                                                                "showInProgramTree": false
+                                                            },
+                                                            "position": {
+                                                                "gr_windows": [
+                                                                ]
+                                                            }
+                                                        },
+                                                        "wide_edge": {
+                                                            "number": 5
+                                                        }
+                                                    },
+                                                    "id": "comp_algorithm:find_edge",
+                                                    "instr": "find_edge_compositeA"
+                                                }
+                                            ],
+                                            "close_ends": {
+                                                "bool": true
+                                            },
+                                            "error_on_roi_outside": {
+                                                "bool": false
+                                            },
+                                            "interpolation": {
+                                                "number": 1
+                                            },
+                                            "length_angle": {
+                                                "number": -360
+                                            },
+                                            "lock_movement": {
+                                                "bool": false
+                                            },
+                                            "name": "Find_Circle",
+                                            "pass": {
+                                                "bool": true
+                                            },
+                                            "proc_slots": {
+                                                "boolvector": [
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    true,
+                                                    false,
+                                                    false,
+                                                    false,
+                                                    false
+                                                ]
+                                            },
+                                            "r": {
+                                                "number": 117.23589884763425
+                                            },
+                                            "roi_in_image": {
+                                                "bool": true
+                                            },
+                                            "sensor_spacing": {
+                                                "number": 14
+                                            },
+                                            "start_angle": {
+                                                "number": -152.6250735555574
+                                            },
+                                            "tolerance": [
+                                            ],
+                                            "userdata": {
+                                                "image": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "parent_image": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "pass": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "roi_in_image": {
+                                                    "showInProgramTree": false
+                                                }
+                                            },
+                                            "w": {
+                                                "number": 140.07656150339187
+                                            },
+                                            "x": {
+                                                "number": 720.1074349555824
+                                            },
+                                            "y": {
+                                                "number": 447.239714825527
+                                            }
+                                        },
+                                        "id": "roi:spoke",
+                                        "instr": "Find_Circle"
+                                    },
+                                    {
+                                        "data": {
+                                            "avg_fit_error": {
+                                                "number": 1.3808192955890544
+                                            },
+                                            "bottom_left": {
+                                                "point": "531.64329598705023727 616.86696557269056029"
+                                            },
+                                            "bottom_right": {
+                                                "point": "913.89492766732416840 616.86696557269056029"
+                                            },
+                                            "center": {
+                                                "point": "722.76911182718720283 425.74114973255359473"
+                                            },
+                                            "circularity": {
+                                                "number": 95.794851154031
+                                            },
+                                            "diameter": {
+                                                "number": 382.251631680274
+                                            },
+                                            "draw_circle": {
+                                                "bool": true
+                                            },
+                                            "draw_included": {
+                                                "bool": true
+                                            },
+                                            "draw_outliers": {
+                                                "bool": true
+                                            },
+                                            "max_diameter": {
+                                                "number": 387.40779557944194
+                                            },
+                                            "min_diameter": {
+                                                "number": 371.11672113443905
+                                            },
+                                            "name": "points_to_best_circleA",
+                                            "outliers": {
+                                                "pointvector": [
+                                                    "711.15595948809038873 251.99838673099509379",
+                                                    "814.81044075660145154 276.06612378645382933",
+                                                    "796.08450317090216686 265.05794697497037760",
+                                                    "743.96780452079667612 248.57439801637423216",
+                                                    "700.00352646084661501 248.73352607925932034",
+                                                    "667.91668545405673285 255.89381223504040008",
+                                                    "657.30619947760987998 258.61214987821961131",
+                                                    "618.48406348549372069 278.41802824625875701",
+                                                    "627.04882852336186261 271.39526166843972987",
+                                                    "600.20207443126332691 290.19377900186566421",
+                                                    "591.37861723478170006 296.62311727472382472"
+                                                ]
+                                            },
+                                            "ovality": {
+                                                "number": 2.1477320885526447
+                                            },
+                                            "percent_outliers": {
+                                                "number": 10
+                                            },
+                                            "points": {
+                                                "supl": "find_edge_compositeA.position"
+                                            },
+                                            "points_included": {
+                                                "number": 97
+                                            },
+                                            "points_used": {
+                                                "pointvector": [
+                                                    "544.59538516836641975 356.36033127003742038",
+                                                    "540.85564458893213668 366.61671103678747841",
+                                                    "537.58470944356236032 376.95957182837037180",
+                                                    "535.03703804141366618 387.45917420732706660",
+                                                    "533.15314304498326692 398.04196825878580057",
+                                                    "533.09426654733874784 408.90090469986171229",
+                                                    "531.64308262608483346 419.31709009295036594",
+                                                    "532.04015294715986784 429.89366960015593122",
+                                                    "532.30686059327979365 440.31475399471474930",
+                                                    "531.90291107468749487 450.67640010969091691",
+                                                    "533.62465251551839174 460.94731203544847631",
+                                                    "535.64919118101488493 471.07199156561279096",
+                                                    "538.55422712755421344 480.95354665979465381",
+                                                    "543.20146687504950478 490.29182005229250763",
+                                                    "545.00424247468322392 500.22522295068245057",
+                                                    "550.80370251039619234 508.83946552200109181",
+                                                    "553.90444417586047621 518.30755583962456967",
+                                                    "558.82146896850008488 526.98472487943934084",
+                                                    "563.76770388877616824 535.57429263071549030",
+                                                    "575.85595658545958031 551.21199147325535250",
+                                                    "582.52645118228065257 558.41567497476944482",
+                                                    "589.57039877109355075 565.18383736043710996",
+                                                    "597.22252056673551124 571.23049932138496843",
+                                                    "604.91113186280711034 577.05480506778349081",
+                                                    "612.76132764687326926 582.54305629381951803",
+                                                    "620.81572809687645531 587.63197991724280200",
+                                                    "628.39208428832114350 593.37982172004910808",
+                                                    "636.91537852289116017 597.60751915298612857",
+                                                    "653.95227268527639808 605.87000549019717255",
+                                                    "662.93683459395197133 608.86208291852017283",
+                                                    "671.97105038829351997 611.61584905269239698",
+                                                    "681.10915978372452173 613.97563653340989731",
+                                                    "690.31873452303636896 616.06773601939255514",
+                                                    "699.75018313684427085 616.73750365400746887",
+                                                    "709.11491576196715414 617.65478218007524447",
+                                                    "718.52807150641615408 617.06826998772373827",
+                                                    "727.80775709435408771 615.19204029281343082",
+                                                    "737.31087889980369710 617.10668828348798343",
+                                                    "746.43142658393708189 614.56039628970438571",
+                                                    "755.75699091676949593 613.54762848743860104",
+                                                    "764.93818266011578544 611.60178981505646334",
+                                                    "773.86950912353631793 608.71757524713905241",
+                                                    "783.03356404304645366 606.39658648646843631",
+                                                    "791.59151243296162193 602.44073529127103939",
+                                                    "800.13077066801213277 598.45259289937303038",
+                                                    "809.23184144626281977 595.29751296264885241",
+                                                    "816.95179020388457047 589.72034661832503843",
+                                                    "825.08352296764246603 584.73204968754089350",
+                                                    "832.51856676315264849 578.76412792478959091",
+                                                    "840.90354980580059419 573.74414379581457979",
+                                                    "848.17589904710155224 567.35435062568024023",
+                                                    "855.53680092617230457 560.90465164368436035",
+                                                    "862.55120916219323135 553.98987810265259668",
+                                                    "869.55960914879074153 546.87694060977241861",
+                                                    "875.14143191437551650 538.68138234169805401",
+                                                    "880.92953590669822006 530.51270613441886326",
+                                                    "886.30625076398303008 521.99181481402558802",
+                                                    "891.10501640888037400 513.08211578131829356",
+                                                    "896.12375440396863269 504.09565132157774769",
+                                                    "900.15299814954755675 494.61940265167885400",
+                                                    "904.17239477635666844 484.97412468244488082",
+                                                    "906.03377769568328404 474.78631147398147050",
+                                                    "909.30499577900650365 464.69000927082379349",
+                                                    "910.48667639623829473 454.25976145985492849",
+                                                    "912.47793100741375838 443.72695732504126909",
+                                                    "913.11672701460497592 433.05238021640928991",
+                                                    "914.11960019424975599 422.17305736259839932",
+                                                    "914.47879078073356141 411.14559518929240767",
+                                                    "913.07957558619079919 400.27772143206260580",
+                                                    "911.47661349846794110 389.33218600823425959",
+                                                    "909.70973304177766749 378.25450035384506009",
+                                                    "906.85399550073270802 367.38751233212428815",
+                                                    "902.47034979734405624 357.07357799821653543",
+                                                    "898.31468121009299921 346.54962311115730245",
+                                                    "893.30729893701925448 336.36695603495616069",
+                                                    "888.66749539177101269 325.74651812870746426",
+                                                    "882.22785384681412779 316.23401377800479395",
+                                                    "875.35845829144113850 306.96576457193901888",
+                                                    "867.67690731263473936 298.34223024665084267",
+                                                    "859.57488986145710896 290.07338432374081094",
+                                                    "851.16974365165424388 282.04352139366960728",
+                                                    "842.42686750478412705 274.28768546065828104",
+                                                    "812.70305294841705290 255.66216948077749294",
+                                                    "757.21276767163510613 236.94454225244041368",
+                                                    "733.88934713473349802 233.58118479105434062",
+                                                    "722.10469688262128329 232.47464125896374298",
+                                                    "687.35592485847496391 239.06440973513122117",
+                                                    "676.14734353297853886 242.16251563570642702",
+                                                    "643.79836609601954933 254.23383864701318657",
+                                                    "633.61987520923025841 259.46422685795334928",
+                                                    "604.93258491557435264 277.79065031095188942",
+                                                    "579.25025681662668831 299.72622145754593248",
+                                                    "576.05451265729664101 312.13335261099774698",
+                                                    "568.41758922434280521 319.92746901066794862",
+                                                    "561.85111216647260335 328.63931693890765473",
+                                                    "556.52796794266168945 338.18406289929066588",
+                                                    "552.31242623711443684 348.27138723873196113"
+                                                ]
+                                            },
+                                            "preprocess": {
+                                                "bool": false
+                                            },
+                                            "std_deviation": {
+                                                "number": 1.64913181697491
+                                            },
+                                            "tolerance": {
+                                                "number": 1
+                                            },
+                                            "top_left": {
+                                                "point": "531.64329598705023727 234.61533389241660075"
+                                            },
+                                            "top_right": {
+                                                "point": "913.89492766732416840 234.61533389241660075"
+                                            },
+                                            "userdata": {
+                                                "avg_fit_error": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "bottom_left": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "bottom_right": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "diameter": {
+                                                    "gr_data_workspace_mono8A": {
+                                                        "x": 1124,
+                                                        "y": 668
+                                                    },
+                                                    "gr_windows": [
+                                                    ]
+                                                },
+                                                "outliers": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "points_included": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "points_used": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "top_left": {
+                                                    "showInProgramTree": false
+                                                },
+                                                "top_right": {
+                                                    "showInProgramTree": false
+                                                }
+                                            }
+                                        },
+                                        "id": "geometric:points_to_best_circle",
+                                        "instr": "points_to_best_circleA"
+                                    },
+                                    {
+                                        "data": {
+                                            "n1": {
+                                                "number": 0,
+                                                "supl": "points_to_best_circleA.diameter"
+                                            },
+                                            "n2": {
+                                                "number": 0,
+                                                "supl": "Xscale.value"
+                                            },
+                                            "name": "Calculate_Diameter",
+                                            "product": {
+                                                "number": 25.993110954258633
+                                            },
+                                            "userdata": {
+                                                "product": {
+                                                    "gr_data_workspace_mono8A": {
+                                                        "x": 895.333333333333,
+                                                        "y": 748.6666666666665
+                                                    },
+                                                    "gr_windows": [
+                                                        "workspace_mono8A"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "id": "number:multiply",
+                                        "instr": "Calculate_Diameter"
+                                    }
+                                ],
+                                "grid_size": {
+                                    "number": 50
+                                },
+                                "name": "workspace_mono8A",
+                                "pass": {
+                                    "bool": true
+                                },
+                                "plugin_data": {
+                                    "overlay_data": "AAAAIwAAACgAZgBpAG4AZABfAGUAZABnAGUAXwBjAG8AbQBwAG8AcwBpAHQAZQBBAAAAAgAAAAYAcgBlAGQAAAACAAAAAQAAABBAg0AAAAAAAUB4lVVVVVVWQH6somRymwNAdIf/zS5p0gAAACQAAAAoAGYAaQBuAGQAXwBlAGQAZwBlAF8AYwBvAG0AcABvAHMAaQB0AGUAQQAAACMAAAAsAHAAbwBpAG4AdABzAF8AdABvAF8AYgBlAHMAdABfAGMAaQByAGMAbABlAEEAAAAIAAAAAAAAAAIAAAAOAG0AYQBnAGUAbgB0AGEAAAACAAAAAwAAABVAgJ0leF3QO0BtU7DQtAGXQHfkBq7w1qFAd+QGrvDWoQAAABxAhpYnJBoF40B6m9u/0mwcAAAAAAAAAAIAAAAMAHkAZQBsAGwAbwB3AAAAAgAAAAEAAAAOQIY5P2ewJstAb3/yyLrMTAAAAA5AiXZ7yF0Hl0BxQQ7X0MTpAAAADkCI4K0P/5t3QHCQ7VnOpmYAAAAOQIc/vhBL7fFAbxJhd/Lm3gAAAA5AheAHOOGQDkBvF3kLryXSAAAADkCE31VfLu8kQG/8mhwdyGwAAAAOQISKcxi2MxhAcCnLXauzQgAAAA5Ag1PfXK07EUBxZrA+YufFAAAADkCDmGQANXecQHD2Uv3mNPoAAAAOQILBndkzDRJAciMZuAK6ogAAAA5AgnsHaHkIt0ByifhJ0cgvAAAAAgAAAAgAYgBsAHUAZQAAAAIAAAABAAAADkCBBMNZTJVCQHZFw+q4yJcAAAAOQIDm2Fwws7RAduneDGRhWgAAAA5AgMytfCUOGkB3j1pn/VA4AAAADkCAuEvamcSjQHg3WMcNui8AAAAOQICpOaMPjoFAeOCr5uivSAAAAA5AgKjBDtHPakB5jmobC+uAAAAADkCAnSUIgP1IQHo1Es0PsbgAAAAOQICgUju1Vx5Aet5MeH6hlgAAAA5AgKJ0c1Oki0B7hQk7fBldAAAADkCAnzkpcQfVQHwq0ojr4iIAAAAOQICs/0nRbCBAfM8oMKo1vAAAAA5AgL0xiyVafEB9cSbgoL5RAAAADkCA1G8Oods2QH4PQbokcHMAAAAOQID5nJqqPIVAfqSrS4DOnQAAAA5AgQgIsEdQJkB/Q5qDYXfWAAAADkCBNm37lO7rQH/NbnNmMdQAAAAOQIFPPE06YwdAgDJ139YHDQAAAA5AgXaSXlKTGECAd+C3cAX/AAAADkCBniRB77pyQIC8mCa8Gg4AAAAOQIH+2P/EKsJAgTmyKJXlTQAAAA5AgjQ2LAmWsECBc1NNZrM0AAAADkCCbJAtOxw0QIGpeH+41uIAAAAOQIKpx7jc5ohAgdnYEAc4ygAAAA5AgudJ/4CIzUCCCHA9o65IAAAADkCDJhcy8wbkQII0WC3l7rwAAAAOQINmhpxz1BpAgl0OS3yiSwAAAA5Ag6Mi/RZc60CCiwnf+E9fAAAADkCD51Kx+Zo6QIKs3DMAbicAAAAOQIRvnkEkQRdAgu71xXA95gAAAA5AhLd+oyK2SECDBuWLuqvgAAAADkCE/8S2EOPpQIMc7UJEpLEAAAAOQIVI348qKRVAgy/OGobeOgAAAA5AhZKMxK+EYUCDQIq5LqBrAAAADkCF3gBgBDYOQINF5mhQ1SQAAAAOQIYo61j0e41Ag008/nCLagAAAA5AhnQ5fY3QDkCDSIvRIqSTAAAADkCGvnZJWfrnQIM5iUxryS8AAAAOQIcKfK4TnWNAg0jaf2MDlAAAAA5Ah1Nzj8flFECDNHuxDMikAAAADkCHng5RQPcnQIMsYYsLX0EAAAAOQIfngWXpFvlAgxzQdy213gAAAA5AiC70wTMJTECDBb2YF1cNAAAADkCIeES9OZmmQILzLDWJK1cAAAAOQIi8u2re1ftAgtOGoDlxngAAAA5AiQEL0X3zG0CCs57pBqmsAAAADkCJSdrPsCxzQIKaYU555bQAAAAOQImHnUQusrNAgm3DRRZ77AAAAA5AicirDhbz6kCCRds83dhIAAAADkCKBCYGVMREQIIWHO8Z93QAAAAOQIpHOnhSEcRAge30AamUXAAAAA5AioFoPcJ1l0CButW1x+TpAAAADkCKvEteSLL7QIGHPLoAPy0AAAAOQIr0aOBZZwFAgU/rRTXvWwAAAA5Aiyx6FFyEykCBFwP5cDwOAAAADkCLWSGnDjbUQIDVc3iVzVIAAAAOQIuHb7CFfdBAgJQaBax+TQAAAA5Ai7JzM5m9dUCAT+88mu9tAAAADkCL2NcS1816QIAIqCxRmfsAAAAOQIwA/XLy7kBAf4GHya4f7gAAAA5AjCE5VxgFPkB+6ekSwUBDAAAADkCMQWEQgzOgQH5PlgPDVTwAAAAOQIxQRS09klpAfayUu1cThQAAAA5AjGpwoaCCAkB9CwpHKUIAAAAADkCMc+S2mCyhQHxkJ/uh7WkAAAAOQIyD0s199LFAe7uhngEKPQAAAA5AjIjvDpKyTkB7ENaMo0b3AAAADkCMkPTw8lcvQHpixNfMCxMAAAAOQIyT1JBCxwRAebJUW58HdAAAAA5AjIii+IZh/0B5BHGMB0G3AAAADkCMe9AavOYEQHhVUKJGmOEAAAAOQIxtrYiEWptAd6QSbvaJXAAAAA5AjFbU+5fUoEB29jNAIZRUAAAADkCMM8NGwSovQHZRLWAfgLkAAAAOQIwShHeVEB9AdajLQZp4vgAAAA5Ai+p1WSUkv0B1Bd8NSpNOAAAADkCLxVcH0u8ZQHRb8bz+SrcAAAAOQIuR0qUJoq1Ac8O+hTs1gQAAAA5Ai1reH2F1wkBzL3PFjUHRAAAADkCLHWpOYZGEQHKlecZsURQAAAAOQIrcmV/bDhVAciEslQpoGAAAAA5Aiplboo9EeEBxoLJDfSfMAAAADkCKU2o5gqYvQHEkmlwR0P4AAAAOQIlln9o5ZnZAb/Uwfg0LKAAAAA5Ah6mzv4l6jUBtnjmwrH1/AAAADkCG7x1iB9PGQG0ymRDY0FoAAAAOQIaQ1mtRttBAbQ8wQt2SnAAAAA5AhXrY7yHX3kBt4g+lAT3YAAAADkCFIS3CcjtcQG5FM1P9jlQAAAAOQIQeYw3DhR1Ab8d7my+uzQAAAA5Ag8z1gSI59kBwN215JE1aAAAADkCC53XvFIkUQHFcpoDwwcUAAAAOQIIaAIalWBpAcruemmQdAwAAAA5AggBvpFUCdUBzgiI2WPElAAAADkCBw1c5BO23QHP+1um+zfUAAAAOQIGOzxPlQdJAdIo6pGYGMgAAAA5AgWQ5R0G4jEB1IvHr8E3EAAAADkCBQn/ZU7aNQHXEV5olLn0AAAAkAAAALABwAG8AaQBuAHQAcwBfAHQAbwBfAGIAZQBzAHQAXwBjAGkAcgBjAGwAZQBB"
+                                },
+                                "show_grid": {
+                                    "bool": false
+                                },
+                                "src_image": {
+                                    "supl": "convert3Dto8MA.image"
+                                },
+                                "tolerance": [
+                                ],
+                                "userdata": {
+                                    "handle": {
+                                        "showInProgramTree": false
+                                    },
+                                    "image": {
+                                        "showInProgramTree": false
+                                    },
+                                    "pass": {
+                                        "showInProgramTree": false
+                                    },
+                                    "window_geometry": {
+                                        "hScroll": 0,
+                                        "height": 574,
+                                        "maximized": true,
+                                        "posx": 0,
+                                        "posy": 0,
+                                        "vScroll": 0,
+                                        "width": 1171,
+                                        "zoom": 0.75
+                                    }
+                                }
+                            },
+                            "id": "system:imageworkspace_m8",
+                            "instr": "workspace_mono8A"
+                        }
+                    ],
+                    "name": "main",
+                    "run_count": {
+                        "number": 44666
+                    },
+                    "run_on": {
+                        "number": 0
+                    },
+                    "runs_per_second": {
+                        "number": 1.4449559969068917e-05
+                    },
+                    "tab_index": {
+                        "number": 0
+                    },
+                    "time_since_last_call": {
+                        "number": 737.0236999988556
+                    }
+                },
+                "id": "system:subroutine",
+                "instr": "main"
+            }
+        ],
+        "serialMgr": {
+            "__valueOrder": [
+                "serialPortA",
+                "serialPortB"
+            ],
+            "serialPortA": {
+                "baud_rate": {
+                    "number": 9600
+                },
+                "create_id": "serial_port",
+                "data_bits": {
+                    "number": 8
+                },
+                "device": {
+                    "string": "COM3"
+                },
+                "driver": {
+                    "string": "Serial port driver"
+                },
+                "driver_path": {
+                    "string": "C:/Program Files/Teledyne DALSA/Sherlock8x64/bin/drivers-bin/ipeserialportdrv.dll"
+                },
+                "flow_control": {
+                    "number": 0
+                },
+                "index": {
+                    "number": 0
+                },
+                "name": "serialPortA",
+                "parity": {
+                    "number": 0
+                },
+                "stop_bits": {
+                    "number": 1
+                }
+            },
+            "serialPortB": {
+                "baud_rate": {
+                    "number": 9600
+                },
+                "create_id": "serial_port",
+                "data_bits": {
+                    "number": 8
+                },
+                "device": {
+                    "string": "n/a"
+                },
+                "driver": {
+                    "string": "n/a"
+                },
+                "driver_path": {
+                    "string": "n/a"
+                },
+                "flow_control": {
+                    "number": 0
+                },
+                "index": {
+                    "number": 1
+                },
+                "name": "serialPortB",
+                "parity": {
+                    "number": 0
+                },
+                "stop_bits": {
+                    "number": 1
+                }
+            }
+        },
+        "variableMgr": {
+            "Annotation": {
+                "create_id": "string",
+                "name": "Annotation",
+                "userdata": {
+                    "value": {
+                        "gr_data_workspace_mono8A": {
+                            "x": 545.3333333333335,
+                            "y": 747.333333333333
+                        },
+                        "gr_windows": [
+                            "workspace_mono8A"
+                        ]
+                    }
+                },
+                "value": {
+                    "string": "Circle Diameter "
+                }
+            },
+            "Circle_Diameter": {
+                "create_id": "number",
+                "name": "Circle_Diameter",
+                "value": {
+                    "number": 0
+                }
+            },
+            "Xscale": {
+                "create_id": "number",
+                "name": "Xscale",
+                "value": {
+                    "number": 0.068
+                }
+            },
+            "__valueOrder": [
+                "Annotation",
+                "Circle_Diameter",
+                "Xscale"
+            ]
+        }
+    },
+    "info": {
+        "engine build": "x86_64 Aug 15 2019 15:44:17",
+        "engine storage version": 1,
+        "engine version": 1,
+        "os running": "x86_64 Windows 10 (10.0)",
+        "program save time": "21 Aug 2019 13:04:18 -0400"
+    },
+    "tabbedMode": true,
+    "watchedValues": [
+        "points_to_best_circleA.diameter",
+        "Calculate_Diameter.product"
+    ]
+}

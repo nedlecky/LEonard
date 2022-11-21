@@ -40,7 +40,7 @@ namespace LEonard
                 Disconnect();
 
             myPortname = portname;
-            log.Debug("{0} Connect({1})", logPrefix, myPortname);
+            log.Info("{0} Connect({1})", logPrefix, myPortname);
 
             port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
             port.Handshake = Handshake.XOnXOff;
