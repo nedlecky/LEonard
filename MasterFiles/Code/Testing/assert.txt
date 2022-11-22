@@ -4,11 +4,13 @@ foo1 = 123
 assertEqual(foo1,123)
 
 using_java()
-assertEqual(true)  // Should pass
-assertEqual(false) // Should fail
-assertEqual(foo1 == 123)
+assertTrue(true)
+assertFalse(false)
+assertTrue(foo1 == 123)
+assertFalse(foo1 == 223)
 
 using_python()
-assertEqual(True)  # Should pass
-assertEqual(False) # Should fail
-assertEqual(foo1 == '123') # Should pass
+assertTrue(True)
+assertFalse(False)
+assertTrue(foo1 == '123')
+assertFalse(foo1 == '1123')

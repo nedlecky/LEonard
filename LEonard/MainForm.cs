@@ -22,8 +22,6 @@ using Jint;
 using Jint.Native;
 using Microsoft.Win32;
 using NLog;
-using static IronPython.Modules._ast;
-using static IronPython.Modules.PythonWeakRef;
 #endregion
 
 namespace LEonard
@@ -257,7 +255,7 @@ namespace LEonard
             StartupTmr.Interval = 2000;
             StartupTmr.Enabled = true;
 
-            SetRecipeState(RecipeState.NEW);
+            SetSequenceState(SequenceState.NEW);
             SetState(RunState.IDLE);
             // TODO Is this OK... how do we get to READY!
             SetState(RunState.READY);
@@ -335,11 +333,11 @@ namespace LEonard
 
             if (!e.Cancel)
             {
-                if (RecipeWasModified())
+                if (SequenceWasModified())
                 {
-                    var result = ConfirmMessageBox($"Closing Application!\nRecipe [{LoadLEScriptBtn.Text}] has changed.\nSave changes before exit?");
+                    var result = ConfirmMessageBox($"Closing Application!\nSequence [{LoadSequenceBtn.Text}] has changed.\nSave changes before exit?");
                     if (result == DialogResult.OK)
-                        SaveLEonardScriptBtn_Click(null, null);
+                        SaveSequenceBtn_Click(null, null);
                 }
 
                 if (JavaCodeRTB.Modified)
@@ -377,11 +375,11 @@ namespace LEonard
             MessageTmr.Enabled = true;
 
 
-            // Load the last recipe if there was one loaded in LoadPersistent()
-            if (recipeFileToAutoload != "")
-                if (LoadLEonardScriptFile(recipeFileToAutoload))
+            // Load the last Sequence if there was one loaded in LoadPersistent()
+            if (sequenceFileToAutoload != "")
+                if (LoadSequenceFile(sequenceFileToAutoload))
                 {
-                    SetRecipeState(RecipeState.LOADED);
+                    SetSequenceState(SequenceState.LOADED);
                     SetState(RunState.READY);
                 }
 
@@ -445,7 +443,7 @@ namespace LEonard
 
         static bool robotReady = false;
         static DateTime runStartedTime;   // When did the user hit run?
-        static DateTime stepStartedTime;  // When did the current recipe line start executing?
+        static DateTime stepStartedTime;  // When did the current Sequence line start executing?
         static DateTime stepEndTimeEstimate;  // When do we think it will end?
         private void HeartbeatTmr_Tick(object sender, EventArgs e)
         {
@@ -779,10 +777,10 @@ namespace LEonard
                     SetManualMoveButtons(true);
                     SetVariableEditing(true);
 
-                    LoadLEScriptBtn.Enabled = true;
-                    NewLEonardScriptBtn.Enabled = true;
-                    SaveLEonardScriptBtn.Enabled = RecipeWasModified();
-                    SaveAsLEonardScriptBtn.Enabled = true;
+                    LoadSequenceBtn.Enabled = true;
+                    NewSequenceBtn.Enabled = true;
+                    SaveSequenceBtn.Enabled = SequenceWasModified();
+                    SaveSequenceAsBtn.Enabled = true;
 
                     SetupTab.Enabled = true;
 
@@ -818,10 +816,10 @@ namespace LEonard
                     SetManualMoveButtons(true);
                     SetVariableEditing(true);
 
-                    LoadLEScriptBtn.Enabled = true;
-                    NewLEonardScriptBtn.Enabled = true;
-                    SaveLEonardScriptBtn.Enabled = RecipeWasModified();
-                    SaveAsLEonardScriptBtn.Enabled = true;
+                    LoadSequenceBtn.Enabled = true;
+                    NewSequenceBtn.Enabled = true;
+                    SaveSequenceBtn.Enabled = SequenceWasModified();
+                    SaveSequenceAsBtn.Enabled = true;
 
                     SetupTab.Enabled = true;
 
@@ -864,10 +862,10 @@ namespace LEonard
                     SetManualMoveButtons(false);
                     SetVariableEditing(false);
 
-                    LoadLEScriptBtn.Enabled = false;
-                    NewLEonardScriptBtn.Enabled = false;
-                    SaveLEonardScriptBtn.Enabled = false;
-                    SaveAsLEonardScriptBtn.Enabled = false;
+                    LoadSequenceBtn.Enabled = false;
+                    NewSequenceBtn.Enabled = false;
+                    SaveSequenceBtn.Enabled = false;
+                    SaveSequenceAsBtn.Enabled = false;
 
                     SetupTab.Enabled = false;
 
@@ -907,10 +905,10 @@ namespace LEonard
                     SetManualMoveButtons(false);
                     SetVariableEditing(false);
 
-                    LoadLEScriptBtn.Enabled = false;
-                    NewLEonardScriptBtn.Enabled = false;
-                    SaveLEonardScriptBtn.Enabled = false;
-                    SaveAsLEonardScriptBtn.Enabled = false;
+                    LoadSequenceBtn.Enabled = false;
+                    NewSequenceBtn.Enabled = false;
+                    SaveSequenceBtn.Enabled = false;
+                    SaveSequenceAsBtn.Enabled = false;
 
                     SetupTab.Enabled = true;
 
@@ -940,10 +938,10 @@ namespace LEonard
             ColorEnableButtonGreen(MoveToolMountBtn);
             ColorEnableButtonGreen(MoveToolHomeBtn);
 
-            ColorEnableButtonGreen(LoadLEScriptBtn);
-            ColorEnableButtonGreen(NewLEonardScriptBtn);
-            ColorEnableButtonGreen(SaveLEonardScriptBtn);
-            ColorEnableButtonGreen(SaveAsLEonardScriptBtn);
+            ColorEnableButtonGreen(LoadSequenceBtn);
+            ColorEnableButtonGreen(NewSequenceBtn);
+            ColorEnableButtonGreen(SaveSequenceBtn);
+            ColorEnableButtonGreen(SaveSequenceAsBtn);
 
             ColorEnableButtonGreen(StartBtn);
             ColorEnableButton(PauseBtn, Color.DarkOrange);
@@ -1320,7 +1318,7 @@ namespace LEonard
             if (PrepareToRun())
             {
                 isSingleStep = false;
-                SetRecipeState(RecipeState.RUNNING);
+                SetSequenceState(SequenceState.RUNNING);
                 SetState(RunState.RUNNING);
             }
         }
@@ -1370,7 +1368,7 @@ namespace LEonard
                     if (PrepareToRun())
                     {
                         isSingleStep = true;
-                        SetRecipeState(RecipeState.RUNNING);
+                        SetSequenceState(SequenceState.RUNNING);
                         SetState(RunState.RUNNING);
                     }
                     break;
@@ -1397,14 +1395,14 @@ namespace LEonard
             log.Info("StopBtn_Click(...)");
             RobotSendHalt();
 
-            UnboldRecipe();
+            UnboldSequence();
             SetState(RunState.READY);
-            SetRecipeState(recipeStateAtRun);
+            SetSequenceState(sequenceStateAtRun);
         }
         #endregion ===== RUN FUNCTIONS                     ==============================================================================================================================
 
         #region ===== LESCRIPT / CODE EDIT SUPPORT      ==============================================================================================================================
-        private enum RecipeState
+        private enum SequenceState
         {
             INIT,
             NEW,
@@ -1412,68 +1410,68 @@ namespace LEonard
             MODIFIED,
             RUNNING
         }
-        RecipeState recipeState = RecipeState.INIT;
-        RecipeState recipeStateAtRun = RecipeState.INIT;
-        private void SetRecipeState(RecipeState s)
+        SequenceState sequenceState = SequenceState.INIT;
+        SequenceState sequenceStateAtRun = SequenceState.INIT;
+        private void SetSequenceState(SequenceState s)
         {
-            if (recipeState != s)
+            if (sequenceState != s)
             {
-                log.Debug("SetRecipeState({0})", s.ToString());
+                log.Debug("SetSequenceState({0})", s.ToString());
 
-                RecipeState oldRecipeState = recipeState;
-                recipeState = s;
+                SequenceState oldSequenceState = sequenceState;
+                sequenceState = s;
 
-                switch (recipeState)
+                switch (sequenceState)
                 {
-                    case RecipeState.NEW:
-                        NewLEonardScriptBtn.Enabled = false;
-                        LoadLEScriptBtn.Enabled = true;
-                        SaveLEonardScriptBtn.Enabled = false;
-                        SaveAsLEonardScriptBtn.Enabled = true;
+                    case SequenceState.NEW:
+                        NewSequenceBtn.Enabled = false;
+                        LoadSequenceBtn.Enabled = true;
+                        SaveSequenceBtn.Enabled = false;
+                        SaveSequenceAsBtn.Enabled = true;
                         break;
-                    case RecipeState.LOADED:
-                        NewLEonardScriptBtn.Enabled = true;
-                        LoadLEScriptBtn.Enabled = true;
-                        SaveLEonardScriptBtn.Enabled = false;
-                        SaveAsLEonardScriptBtn.Enabled = true;
+                    case SequenceState.LOADED:
+                        NewSequenceBtn.Enabled = true;
+                        LoadSequenceBtn.Enabled = true;
+                        SaveSequenceBtn.Enabled = false;
+                        SaveSequenceAsBtn.Enabled = true;
                         break;
-                    case RecipeState.MODIFIED:
-                        NewLEonardScriptBtn.Enabled = true;
-                        LoadLEScriptBtn.Enabled = true;
-                        SaveLEonardScriptBtn.Enabled = true;
-                        SaveAsLEonardScriptBtn.Enabled = true;
+                    case SequenceState.MODIFIED:
+                        NewSequenceBtn.Enabled = true;
+                        LoadSequenceBtn.Enabled = true;
+                        SaveSequenceBtn.Enabled = true;
+                        SaveSequenceAsBtn.Enabled = true;
                         break;
-                    case RecipeState.RUNNING:
-                        recipeStateAtRun = oldRecipeState;
-                        NewLEonardScriptBtn.Enabled = false;
-                        LoadLEScriptBtn.Enabled = false;
-                        SaveLEonardScriptBtn.Enabled = false;
-                        SaveAsLEonardScriptBtn.Enabled = false;
+                    case SequenceState.RUNNING:
+                        sequenceStateAtRun = oldSequenceState;
+                        NewSequenceBtn.Enabled = false;
+                        LoadSequenceBtn.Enabled = false;
+                        SaveSequenceBtn.Enabled = false;
+                        SaveSequenceAsBtn.Enabled = false;
                         break;
                 }
-                NewLEonardScriptBtn.BackColor = NewLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
-                LoadLEScriptBtn.BackColor = LoadLEScriptBtn.Enabled ? Color.Green : Color.Gray;
-                SaveLEonardScriptBtn.BackColor = SaveLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
-                SaveAsLEonardScriptBtn.BackColor = SaveAsLEonardScriptBtn.Enabled ? Color.Green : Color.Gray;
+                NewSequenceBtn.BackColor = NewSequenceBtn.Enabled ? Color.Green : Color.Gray;
+                LoadSequenceBtn.BackColor = LoadSequenceBtn.Enabled ? Color.Green : Color.Gray;
+                SaveSequenceBtn.BackColor = SaveSequenceBtn.Enabled ? Color.Green : Color.Gray;
+                SaveSequenceAsBtn.BackColor = SaveSequenceAsBtn.Enabled ? Color.Green : Color.Gray;
             }
         }
 
 
-        private string recipeAsLoaded = "";  // As it was when loaded so we can test for actual mods
-        private bool RecipeWasModified()
+        private string sequenceAsLoaded = "";  // As it was when loaded so we can test for actual mods
+        private bool SequenceWasModified()
         {
-            return recipeAsLoaded != SequenceRTB.Text;
+            return sequenceAsLoaded != SequenceRTB.Text;
         }
-        bool LoadLEonardScriptFile(string file)
+        bool LoadSequenceFile(string file)
         {
-            log.Info("LoadRecipeFile({0})", file);
-            LEScriptFilenameLbl.Text = "";
+            log.Info("LoadSequenceFile({0})", file);
+            SequenceFilenameLbl.Text = "";
             SequenceRTB.Text = "";
             try
             {
                 SequenceRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-                LEScriptFilenameLbl.Text = file;
-                recipeAsLoaded = SequenceRTB.Text;
+                SequenceFilenameLbl.Text = file;
+                sequenceAsLoaded = SequenceRTB.Text;
                 return true;
             }
             catch (Exception ex)
@@ -1483,88 +1481,88 @@ namespace LEonard
             }
         }
 
-        private void NewLEonardScriptBtn_Click(object sender, EventArgs e)
+        private void NewSequenceBtn_Click(object sender, EventArgs e)
         {
-            log.Info("NewRecipeBtn_Click(...)");
-            if (RecipeWasModified())
+            log.Info("NewSequenceBtn_Click(...)");
+            if (SequenceWasModified())
             {
-                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEScriptBtn.Text));
+                var result = ConfirmMessageBox(String.Format("Sequence [{0}] has changed.\nSave changes?", LoadSequenceBtn.Text));
                 if (result == DialogResult.OK)
-                    SaveLEonardScriptBtn_Click(null, null);
+                    SaveSequenceBtn_Click(null, null);
             }
 
-            SetRecipeState(RecipeState.NEW);
+            SetSequenceState(SequenceState.NEW);
             SetState(RunState.IDLE);
-            LEScriptFilenameLbl.Text = "Untitled";
+            SequenceFilenameLbl.Text = "Untitled";
             SequenceRTB.Clear();
-            recipeAsLoaded = "";
+            sequenceAsLoaded = "";
             MainTab.SelectedIndex = 1; // = "Program";
         }
 
-        private void LoadLEonardScriptBtn_Click(object sender, EventArgs e)
+        private void LoadSequenceBtn_Click(object sender, EventArgs e)
         {
-            log.Info("LoadRecipeBtn_Click(...)");
-            if (RecipeWasModified())
+            log.Info("LoadSequenceBtn_Click(...)");
+            if (SequenceWasModified())
             {
-                var result = ConfirmMessageBox(String.Format("LEonardScript [{0}] has changed.\nSave changes?", LoadLEScriptBtn.Text));
+                var result = ConfirmMessageBox(String.Format("Sequence [{0}] has changed.\nSave changes?", LoadSequenceBtn.Text));
                 if (result == DialogResult.OK)
-                    SaveLEonardScriptBtn_Click(null, null);
+                    SaveSequenceBtn_Click(null, null);
             }
 
             string initialDirectory;
-            if (LEScriptFilenameLbl.Text != "Untitled" && LEScriptFilenameLbl.Text.Length > 0)
-                initialDirectory = System.IO.Path.GetDirectoryName(LEScriptFilenameLbl.Text);
+            if (SequenceFilenameLbl.Text != "Untitled" && SequenceFilenameLbl.Text.Length > 0)
+                initialDirectory = System.IO.Path.GetDirectoryName(SequenceFilenameLbl.Text);
             else
                 initialDirectory = System.IO.Path.Combine(LEonardRoot, CodeFolder);
 
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
-                Title = "Open a LEonard Recipe",
+                Title = "Open a LEonard Sequence",
                 Filter = "*.txt",
                 InitialDirectory = initialDirectory
             };
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                if (LoadLEonardScriptFile(dialog.FileName))
+                if (LoadSequenceFile(dialog.FileName))
                 {
-                    SetRecipeState(RecipeState.LOADED);
+                    SetSequenceState(SequenceState.LOADED);
                     SetState(RunState.READY);
                 }
             }
         }
 
-        private void SaveLEonardScriptBtn_Click(object sender, EventArgs e)
+        private void SaveSequenceBtn_Click(object sender, EventArgs e)
         {
-            log.Info("SaveRecipeBtn_Click(...)");
-            if (LEScriptFilenameLbl.Text == "Untitled" || LEScriptFilenameLbl.Text == "")
-                SaveAsLEonardScriptBtn_Click(null, null);
+            log.Info("SaveSequenceBtn_Click(...)");
+            if (SequenceFilenameLbl.Text == "Untitled" || SequenceFilenameLbl.Text == "")
+                SaveSequenceAsBtn_Click(null, null);
             else
             {
-                log.Info("Save Recipe program to {0}", LEScriptFilenameLbl.Text);
-                SequenceRTB.SaveFile(LEScriptFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
-                recipeAsLoaded = SequenceRTB.Text;
-                SetRecipeState(RecipeState.LOADED);
+                log.Info("Save Sequence to {0}", SequenceFilenameLbl.Text);
+                SequenceRTB.SaveFile(SequenceFilenameLbl.Text, System.Windows.Forms.RichTextBoxStreamType.PlainText);
+                sequenceAsLoaded = SequenceRTB.Text;
+                SetSequenceState(SequenceState.LOADED);
                 SetState(RunState.READY);
             }
         }
 
-        private void SaveAsLEonardScriptBtn_Click(object sender, EventArgs e)
+        private void SaveSequenceAsBtn_Click(object sender, EventArgs e)
         {
-            log.Info("SaveAsRecipeBtn_Click(...)");
+            log.Info("SaveSequenceAsBtn_Click(...)");
 
             string initialDirectory;
-            if (LEScriptFilenameLbl.Text != "Untitled" && LEScriptFilenameLbl.Text.Length > 0)
-                initialDirectory = System.IO.Path.GetDirectoryName(LEScriptFilenameLbl.Text);
+            if (SequenceFilenameLbl.Text != "Untitled" && SequenceFilenameLbl.Text.Length > 0)
+                initialDirectory = System.IO.Path.GetDirectoryName(SequenceFilenameLbl.Text);
             else
                 initialDirectory = System.IO.Path.Combine(LEonardRoot, CodeFolder);
 
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {
-                Title = "Save a LEonardScript program As...",
+                Title = "Save a LEonard Sequence As...",
                 Filter = "*.txt",
                 InitialDirectory = initialDirectory,
-                FileName = LEScriptFilenameLbl.Text,
+                FileName = SequenceFilenameLbl.Text,
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -1580,18 +1578,18 @@ namespace LEonard
                     }
                     if (okToSave)
                     {
-                        LEScriptFilenameLbl.Text = filename;
-                        SaveLEonardScriptBtn_Click(null, null);
+                        SequenceFilenameLbl.Text = filename;
+                        SaveSequenceBtn_Click(null, null);
                     }
                 }
             }
         }
         private void LEonardScriptRTB_ModifiedChanged(object sender, EventArgs e)
         {
-            SetRecipeState(RecipeState.MODIFIED);
+            SetSequenceState(SequenceState.MODIFIED);
         }
 
-        // Below 2 functions could be used to try to keep the scrolls of the two recipe windows in sync someday
+        // Below 2 functions could be used to try to keep the scrolls of the two Sequence windows in sync someday
         // Some complexity here.......
         private void LEonardScriptRTBCopy_VScroll(object sender, EventArgs e)
         {
@@ -1612,17 +1610,16 @@ namespace LEonard
             CurrentLineLblCopy.Text = CurrentLineLbl.Text;
         }
 
-        private void RecipeFilenameLbl_TextChanged(object sender, EventArgs e)
+        private void SequenceFilenameLbl_TextChanged(object sender, EventArgs e)
         {
-            LoadLEScriptBtn.Text = System.IO.Path.GetFileNameWithoutExtension(LEScriptFilenameLbl.Text);
+            LoadSequenceBtn.Text = System.IO.Path.GetFileNameWithoutExtension(SequenceFilenameLbl.Text);
         }
 
-        private void RecipeRTB_TextChanged(object sender, EventArgs e)
+        private void SequenceRTB_TextChanged(object sender, EventArgs e)
         {
             if (runState != RunState.RUNNING)
             {
-                SetRecipeState(RecipeState.MODIFIED);
-                //UnboldRecipe();
+                SetSequenceState(SequenceState.MODIFIED);
             }
             SequenceRTBCopy.Text = SequenceRTB.Text;
         }
@@ -1660,7 +1657,7 @@ namespace LEonard
             log.Info("BigEditBtn_Click(...)");
             BigEditDialog bigeditForm = new BigEditDialog(this)
             {
-                Title = LEScriptFilenameLbl.Text,
+                Title = SequenceFilenameLbl.Text,
                 ScreenWidth = Width,
                 ScreenHeight = Height,
                 Program = SequenceRTB.Text
@@ -1743,7 +1740,7 @@ namespace LEonard
                 if (result == DialogResult.OK)
                 {
                     System.IO.Directory.CreateDirectory(LEonardRoot);
-                    recipeFileToAutoload = "";
+                    sequenceFileToAutoload = "";
                 }
                 else
                 {
@@ -1754,7 +1751,7 @@ namespace LEonard
             }
         }
 
-        private string recipeFileToAutoload = "";
+        private string sequenceFileToAutoload = "";
         void LoadPersistent()
         {
             // Pull setup info from registry.... these are overwritten on exit or with various config save operations
@@ -1819,8 +1816,8 @@ namespace LEonard
             // Load the variables table
             LoadVariables();
 
-            // Autoload file is the last loaded recipe
-            recipeFileToAutoload = (string)AppNameKey.GetValue("LEonardScriptFilenameLbl.Text", "");
+            // Autoload file is the last loaded Sequence
+            sequenceFileToAutoload = (string)AppNameKey.GetValue("SequenceFilenameLbl.Text", "");
 
             // Retrieve currently mounted tool
             MountedToolBox.Text = (string)AppNameKey.GetValue("MountedToolBox.Text", "");
@@ -1884,8 +1881,8 @@ namespace LEonard
             // Save the variables table
             SaveVariables();
 
-            // Save currently loaded recipe
-            AppNameKey.SetValue("LEonardScriptFilenameLbl.Text", LEScriptFilenameLbl.Text);
+            // Save currently loaded Sequence
+            AppNameKey.SetValue("SequenceFilenameLbl.Text", SequenceFilenameLbl.Text);
 
             // Save current part geometry tool
             AppNameKey.SetValue("PartGeometryBox.Text", PartGeometryBox.Text);
@@ -3837,7 +3834,7 @@ namespace LEonard
             if (name == "DateTime")
                 return DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss");
             if (name == "LEScriptFilename")
-                return System.IO.Path.GetFileNameWithoutExtension(LEScriptFilenameLbl.Text).Replace(' ', '_').ToLower();
+                return System.IO.Path.GetFileNameWithoutExtension(SequenceFilenameLbl.Text).Replace(' ', '_').ToLower();
             if (name == "LEonardLanguage")
                 return LEonardLanguage.ToString();
             if (name == "LEonardRoot")
@@ -4361,7 +4358,7 @@ namespace LEonard
                 StopBtn_Click(null, null);
         }
         /// <summary>
-        /// Is the line a recipe label? This means starting with alpha, followed by 0 or more alphanum, followed by :
+        /// Is the line a label? This means starting with alpha, followed by 0 or more alphanum, followed by :
         /// </summary>
         /// <param name="line">Input Line</param>
         /// <returns>(bool Success, string Value if matched else null)</returns>
@@ -4416,12 +4413,8 @@ namespace LEonard
             return true;
         }
 
-        // 1-index line curently executing in recipe (1 is first line)
+        // 1-based line number currently executing in Sequence (1 is first line)
         static int lineCurrentlyExecuting = 0;
-        /// <summary>
-        /// Set the lineCurrentlyExecuting to n and highlight it in the RecipeRTB
-        /// </summary>
-        /// <param name="n">Line number to start executing</param>
         private string SetCurrentLine(int n)
         {
             lineCurrentlyExecuting = n;
@@ -4525,7 +4518,7 @@ namespace LEonard
             waitingForOperatorMessageForm.ShowDialog();
         }
 
-        private void UnboldRecipe()
+        private void UnboldSequence()
         {
             SequenceRTB.SelectAll();
             SequenceRTB.SelectionFont = new Font(SequenceRTB.Font, FontStyle.Regular);
@@ -4596,8 +4589,8 @@ namespace LEonard
                 log.Info($"EXEC  {lineCurrentlyExecuting:00000}: End of Sequence");
                 ReportStepTimeStats();
 
-                UnboldRecipe();
-                SetRecipeState(recipeStateAtRun);
+                UnboldSequence();
+                SetSequenceState(sequenceStateAtRun);
                 SetState(RunState.READY);
             }
             else
@@ -4629,13 +4622,15 @@ namespace LEonard
                         isSingleStep = false;
                         SetState(RunState.PAUSED);
                     }
+                    /* This isn't how this works anymore!
                     if (!fContinue)
                     {
                         log.Info("EXEC Execution ending");
-                        UnboldRecipe();
-                        SetRecipeState(recipeStateAtRun);
+                        UnboldSequence();
+                        SetSequenceState(sequenceStateAtRun);
                         SetState(RunState.READY);
                     }
+                    */
                 }
             }
         }
@@ -5183,7 +5178,10 @@ namespace LEonard
             // le_stop
             if (command == "le_stop()")
             {
-                return false;
+                le_stop();
+                // TODO this whole business of returning whether you should continue is now deprecated!
+                // return false;
+                return true;
             }
 
             // le_prompt
@@ -5901,6 +5899,13 @@ namespace LEonard
             consoleForm.Clear();
         }
 
+        public void le_stop()
+        {
+            UnboldSequence();
+            SetSequenceState(sequenceStateAtRun);
+            SetState(RunState.READY);
+        }
+
         private bool assertTrue(bool f)
         {
             if (!f)
@@ -5955,7 +5960,7 @@ namespace LEonard
             {
                 if (LeDeviceBase.currentDevice == null)
                 {
-                    log.Error($"le_send(me,...): Could not identify 'me'");
+                    ExecError($"le_send(me,...): Could not identify 'me'");
                     return 10;
                 }
                 else
@@ -5966,18 +5971,18 @@ namespace LEonard
                 DataRow row = FindName(devName, devices);
                 if (row == null)
                 {
-                    log.Error($"le_send: Could not find device {devName}");
+                    ExecError($"le_send: Could not find device {devName}");
                     return 11;
                 }
 
                 if (interfaces[(int)row["ID"]] == null)
                 {
-                    log.Error($"le_send: {devName} exists but is not instantiated for connection");
+                    ExecError($"le_send: {devName} exists but is not instantiated for connection");
                     return 12;
                 }
                 if (!interfaces[(int)row["ID"]].IsConnected())
                 {
-                    log.Error($"le_send: {devName} exists but is not connected");
+                    ExecError($"le_send: {devName} exists but is not connected");
                     return 13;
                 }
 
@@ -5989,19 +5994,19 @@ namespace LEonard
             DataRow row = FindName(devName, devices);
             if (row == null)
             {
-                log.Error($"le_ask: Could not find device {devName}");
+                ExecError($"le_ask: Could not find device {devName}");
                 return null;
             }
 
             if (interfaces[(int)row["ID"]] == null)
             {
-                log.Error($"le_ask: {devName} exists but is not instantiated for connection");
+                ExecError($"le_ask: {devName} exists but is not instantiated for connection");
                 return null;
             }
 
             if (!interfaces[(int)row["ID"]].IsConnected())
             {
-                log.Error($"le_ask: {devName} exists but is not connected");
+                ExecError($"le_ask: {devName} exists but is not connected");
                 return null;
             }
 
@@ -6277,7 +6282,7 @@ namespace LEonard
             .SetValue("le_log_error", new Action<string>(s => log.Error(s)))
 
             .SetValue("le_pause", new Action(() => RobotAndSystemPause()))
-            .SetValue("le_stop", new Action(() => SetState(RunState.READY)))
+            .SetValue("le_stop", new Action(() => le_stop()))
             .SetValue("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)))
             .SetValue("jump", new Action<string>((string labelName) => PerformJump(labelName)))
             .SetValue("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
@@ -6687,7 +6692,7 @@ namespace LEonard
             pythonScope.SetVariable("le_log_error", new Action<string>(s => log.Error(s)));
 
             pythonScope.SetVariable("le_pause", new Action(() => RobotAndSystemPause()));
-            pythonScope.SetVariable("le_stop", new Action(() => SetState(RunState.READY)));
+            pythonScope.SetVariable("le_stop", new Action(() => le_stop()));
             pythonScope.SetVariable("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)));
             pythonScope.SetVariable("jump", new Action<string>((string labelName) => PerformJump(labelName)));
             pythonScope.SetVariable("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)));
@@ -7004,18 +7009,15 @@ namespace LEonard
         bool PythonExec(string pythonScript)
         {
             Microsoft.Scripting.Hosting.ScriptSource script = pythonScope.Engine.CreateScriptSourceFromString(pythonScript);
-            //Microsoft.Scripting.Hosting.ScriptSource script = pythonEngine.CreateScriptSourceFromString(pythonScript);
 
             try
             {
                 script.Execute(pythonScope);
-                //script.Execute();
                 return true;
             }
-            catch //(Exception ex)
+            catch (Exception ex)
             {
-                //ExecError("Cannot interpret line");
-                //ErrorMessageBox($"PythonExec Error: {ex}");
+                ErrorMessageBox($"JavaExec Error: {ex}");
                 return false;
             }
         }
@@ -7577,8 +7579,8 @@ namespace LEonard
             int closeParenIndex = command.IndexOf(")");
             if (openParenIndex > -1 && closeParenIndex > openParenIndex)
             {
-                string commandInRecipe = command.Substring(0, openParenIndex);
-                if (robotFunctionConversionDictionary.TryGetValue(commandInRecipe, out CommandSpec commandSpec))
+                string commandInSequence = command.Substring(0, openParenIndex);
+                if (robotFunctionConversionDictionary.TryGetValue(commandInSequence, out CommandSpec commandSpec))
                 {
                     string parameters = ExtractParameters(command, commandSpec.nParams);
                     // Must be all numeric: Really, all (nnn,nnn,nnn)

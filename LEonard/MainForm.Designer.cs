@@ -39,11 +39,11 @@
             this.StopBtn = new System.Windows.Forms.Button();
             this.PauseBtn = new System.Windows.Forms.Button();
             this.StartBtn = new System.Windows.Forms.Button();
-            this.LEScriptFilenameLbl = new System.Windows.Forms.Label();
-            this.SaveAsLEonardScriptBtn = new System.Windows.Forms.Button();
-            this.NewLEonardScriptBtn = new System.Windows.Forms.Button();
-            this.LoadLEScriptBtn = new System.Windows.Forms.Button();
-            this.SaveLEonardScriptBtn = new System.Windows.Forms.Button();
+            this.SequenceFilenameLbl = new System.Windows.Forms.Label();
+            this.SaveSequenceAsBtn = new System.Windows.Forms.Button();
+            this.NewSequenceBtn = new System.Windows.Forms.Button();
+            this.LoadSequenceBtn = new System.Windows.Forms.Button();
+            this.SaveSequenceBtn = new System.Windows.Forms.Button();
             this.HeartbeatTmr = new System.Windows.Forms.Timer(this.components);
             this.StartupTmr = new System.Windows.Forms.Timer(this.components);
             this.CloseTmr = new System.Windows.Forms.Timer(this.components);
@@ -379,7 +379,7 @@
             this.SequenceRTB.TabIndex = 72;
             this.SequenceRTB.Text = "";
             this.SequenceRTB.VScroll += new System.EventHandler(this.LEonardScriptRTB_VScroll);
-            this.SequenceRTB.TextChanged += new System.EventHandler(this.RecipeRTB_TextChanged);
+            this.SequenceRTB.TextChanged += new System.EventHandler(this.SequenceRTB_TextChanged);
             // 
             // StepBtn
             // 
@@ -445,80 +445,80 @@
             this.StartBtn.UseVisualStyleBackColor = false;
             this.StartBtn.Click += new System.EventHandler(this.StartBtn_Click);
             // 
-            // LEScriptFilenameLbl
+            // SequenceFilenameLbl
             // 
-            this.LEScriptFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LEScriptFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LEScriptFilenameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LEScriptFilenameLbl.Location = new System.Drawing.Point(2, 0);
-            this.LEScriptFilenameLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.LEScriptFilenameLbl.Name = "LEScriptFilenameLbl";
-            this.LEScriptFilenameLbl.Size = new System.Drawing.Size(517, 84);
-            this.LEScriptFilenameLbl.TabIndex = 77;
-            this.LEScriptFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LEScriptFilenameLbl.TextChanged += new System.EventHandler(this.RecipeFilenameLbl_TextChanged);
+            this.SequenceFilenameLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SequenceFilenameLbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SequenceFilenameLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SequenceFilenameLbl.Location = new System.Drawing.Point(2, 0);
+            this.SequenceFilenameLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.SequenceFilenameLbl.Name = "SequenceFilenameLbl";
+            this.SequenceFilenameLbl.Size = new System.Drawing.Size(517, 84);
+            this.SequenceFilenameLbl.TabIndex = 77;
+            this.SequenceFilenameLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SequenceFilenameLbl.TextChanged += new System.EventHandler(this.SequenceFilenameLbl_TextChanged);
             // 
-            // SaveAsLEonardScriptBtn
+            // SaveSequenceAsBtn
             // 
-            this.SaveAsLEonardScriptBtn.BackColor = System.Drawing.Color.Gray;
-            this.SaveAsLEonardScriptBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveAsLEonardScriptBtn.Enabled = false;
-            this.SaveAsLEonardScriptBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveAsLEonardScriptBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveAsLEonardScriptBtn.Location = new System.Drawing.Point(745, 2);
-            this.SaveAsLEonardScriptBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.SaveAsLEonardScriptBtn.Name = "SaveAsLEonardScriptBtn";
-            this.SaveAsLEonardScriptBtn.Size = new System.Drawing.Size(150, 94);
-            this.SaveAsLEonardScriptBtn.TabIndex = 4;
-            this.SaveAsLEonardScriptBtn.Text = "Save As...";
-            this.SaveAsLEonardScriptBtn.UseVisualStyleBackColor = false;
-            this.SaveAsLEonardScriptBtn.Click += new System.EventHandler(this.SaveAsLEonardScriptBtn_Click);
+            this.SaveSequenceAsBtn.BackColor = System.Drawing.Color.Gray;
+            this.SaveSequenceAsBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveSequenceAsBtn.Enabled = false;
+            this.SaveSequenceAsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveSequenceAsBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveSequenceAsBtn.Location = new System.Drawing.Point(745, 2);
+            this.SaveSequenceAsBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.SaveSequenceAsBtn.Name = "SaveSequenceAsBtn";
+            this.SaveSequenceAsBtn.Size = new System.Drawing.Size(150, 94);
+            this.SaveSequenceAsBtn.TabIndex = 4;
+            this.SaveSequenceAsBtn.Text = "Save As...";
+            this.SaveSequenceAsBtn.UseVisualStyleBackColor = false;
+            this.SaveSequenceAsBtn.Click += new System.EventHandler(this.SaveSequenceAsBtn_Click);
             // 
-            // NewLEonardScriptBtn
+            // NewSequenceBtn
             // 
-            this.NewLEonardScriptBtn.BackColor = System.Drawing.Color.Gray;
-            this.NewLEonardScriptBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NewLEonardScriptBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewLEonardScriptBtn.ForeColor = System.Drawing.Color.White;
-            this.NewLEonardScriptBtn.Location = new System.Drawing.Point(437, 2);
-            this.NewLEonardScriptBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.NewLEonardScriptBtn.Name = "NewLEonardScriptBtn";
-            this.NewLEonardScriptBtn.Size = new System.Drawing.Size(150, 94);
-            this.NewLEonardScriptBtn.TabIndex = 2;
-            this.NewLEonardScriptBtn.Text = "New";
-            this.NewLEonardScriptBtn.UseVisualStyleBackColor = false;
-            this.NewLEonardScriptBtn.Click += new System.EventHandler(this.NewLEonardScriptBtn_Click);
+            this.NewSequenceBtn.BackColor = System.Drawing.Color.Gray;
+            this.NewSequenceBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NewSequenceBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewSequenceBtn.ForeColor = System.Drawing.Color.White;
+            this.NewSequenceBtn.Location = new System.Drawing.Point(437, 2);
+            this.NewSequenceBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.NewSequenceBtn.Name = "NewSequenceBtn";
+            this.NewSequenceBtn.Size = new System.Drawing.Size(150, 94);
+            this.NewSequenceBtn.TabIndex = 2;
+            this.NewSequenceBtn.Text = "New";
+            this.NewSequenceBtn.UseVisualStyleBackColor = false;
+            this.NewSequenceBtn.Click += new System.EventHandler(this.NewSequenceBtn_Click);
             // 
-            // LoadLEScriptBtn
+            // LoadSequenceBtn
             // 
-            this.LoadLEScriptBtn.BackColor = System.Drawing.Color.Gray;
-            this.LoadLEScriptBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LoadLEScriptBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadLEScriptBtn.ForeColor = System.Drawing.Color.White;
-            this.LoadLEScriptBtn.Location = new System.Drawing.Point(22, 2);
-            this.LoadLEScriptBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.LoadLEScriptBtn.Name = "LoadLEScriptBtn";
-            this.LoadLEScriptBtn.Size = new System.Drawing.Size(411, 94);
-            this.LoadLEScriptBtn.TabIndex = 1;
-            this.LoadLEScriptBtn.Text = "Untitled";
-            this.LoadLEScriptBtn.UseVisualStyleBackColor = false;
-            this.LoadLEScriptBtn.Click += new System.EventHandler(this.LoadLEonardScriptBtn_Click);
+            this.LoadSequenceBtn.BackColor = System.Drawing.Color.Gray;
+            this.LoadSequenceBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoadSequenceBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadSequenceBtn.ForeColor = System.Drawing.Color.White;
+            this.LoadSequenceBtn.Location = new System.Drawing.Point(22, 2);
+            this.LoadSequenceBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.LoadSequenceBtn.Name = "LoadSequenceBtn";
+            this.LoadSequenceBtn.Size = new System.Drawing.Size(411, 94);
+            this.LoadSequenceBtn.TabIndex = 1;
+            this.LoadSequenceBtn.Text = "Untitled";
+            this.LoadSequenceBtn.UseVisualStyleBackColor = false;
+            this.LoadSequenceBtn.Click += new System.EventHandler(this.LoadSequenceBtn_Click);
             // 
-            // SaveLEonardScriptBtn
+            // SaveSequenceBtn
             // 
-            this.SaveLEonardScriptBtn.BackColor = System.Drawing.Color.Gray;
-            this.SaveLEonardScriptBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaveLEonardScriptBtn.Enabled = false;
-            this.SaveLEonardScriptBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveLEonardScriptBtn.ForeColor = System.Drawing.Color.White;
-            this.SaveLEonardScriptBtn.Location = new System.Drawing.Point(591, 2);
-            this.SaveLEonardScriptBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.SaveLEonardScriptBtn.Name = "SaveLEonardScriptBtn";
-            this.SaveLEonardScriptBtn.Size = new System.Drawing.Size(150, 94);
-            this.SaveLEonardScriptBtn.TabIndex = 3;
-            this.SaveLEonardScriptBtn.Text = "Save";
-            this.SaveLEonardScriptBtn.UseVisualStyleBackColor = false;
-            this.SaveLEonardScriptBtn.Click += new System.EventHandler(this.SaveLEonardScriptBtn_Click);
+            this.SaveSequenceBtn.BackColor = System.Drawing.Color.Gray;
+            this.SaveSequenceBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaveSequenceBtn.Enabled = false;
+            this.SaveSequenceBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveSequenceBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveSequenceBtn.Location = new System.Drawing.Point(591, 2);
+            this.SaveSequenceBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.SaveSequenceBtn.Name = "SaveSequenceBtn";
+            this.SaveSequenceBtn.Size = new System.Drawing.Size(150, 94);
+            this.SaveSequenceBtn.TabIndex = 3;
+            this.SaveSequenceBtn.Text = "Save";
+            this.SaveSequenceBtn.UseVisualStyleBackColor = false;
+            this.SaveSequenceBtn.Click += new System.EventHandler(this.SaveSequenceBtn_Click);
             // 
             // HeartbeatTmr
             // 
@@ -1924,7 +1924,7 @@
             this.FileBigEditPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.FileBigEditPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.FileBigEditPanel.Controls.Add(this.BigEditBtn, 1, 0);
-            this.FileBigEditPanel.Controls.Add(this.LEScriptFilenameLbl, 0, 0);
+            this.FileBigEditPanel.Controls.Add(this.SequenceFilenameLbl, 0, 0);
             this.FileBigEditPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FileBigEditPanel.Location = new System.Drawing.Point(3, 711);
             this.FileBigEditPanel.Name = "FileBigEditPanel";
@@ -4075,10 +4075,10 @@
             this.TopButtonLayoutPanel.Controls.Add(this.FootswitchPressedLbl, 7, 0);
             this.TopButtonLayoutPanel.Controls.Add(this.DoorClosedLbl, 6, 0);
             this.TopButtonLayoutPanel.Controls.Add(this.JogRunBtn, 5, 0);
-            this.TopButtonLayoutPanel.Controls.Add(this.SaveAsLEonardScriptBtn, 4, 0);
-            this.TopButtonLayoutPanel.Controls.Add(this.SaveLEonardScriptBtn, 3, 0);
-            this.TopButtonLayoutPanel.Controls.Add(this.NewLEonardScriptBtn, 2, 0);
-            this.TopButtonLayoutPanel.Controls.Add(this.LoadLEScriptBtn, 1, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.SaveSequenceAsBtn, 4, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.SaveSequenceBtn, 3, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.NewSequenceBtn, 2, 0);
+            this.TopButtonLayoutPanel.Controls.Add(this.LoadSequenceBtn, 1, 0);
             this.TopButtonLayoutPanel.Location = new System.Drawing.Point(421, 7);
             this.TopButtonLayoutPanel.Name = "TopButtonLayoutPanel";
             this.TopButtonLayoutPanel.RowCount = 1;
@@ -4205,10 +4205,10 @@
         private System.Windows.Forms.Timer HeartbeatTmr;
         private System.Windows.Forms.Timer StartupTmr;
         private System.Windows.Forms.Timer CloseTmr;
-        private System.Windows.Forms.Button SaveAsLEonardScriptBtn;
-        private System.Windows.Forms.Button NewLEonardScriptBtn;
-        private System.Windows.Forms.Button LoadLEScriptBtn;
-        private System.Windows.Forms.Button SaveLEonardScriptBtn;
+        private System.Windows.Forms.Button SaveSequenceAsBtn;
+        private System.Windows.Forms.Button NewSequenceBtn;
+        private System.Windows.Forms.Button LoadSequenceBtn;
+        private System.Windows.Forms.Button SaveSequenceBtn;
         private System.Windows.Forms.Button StepBtn;
         private System.Windows.Forms.Button StopBtn;
         private System.Windows.Forms.Button PauseBtn;
@@ -4236,7 +4236,7 @@
         private System.Windows.Forms.Button ClearPositionsBtn;
         private System.Windows.Forms.DataGridView PositionsGrd;
         private System.Windows.Forms.ComboBox UserModeBox;
-        private System.Windows.Forms.Label LEScriptFilenameLbl;
+        private System.Windows.Forms.Label SequenceFilenameLbl;
         private System.Windows.Forms.TabPage manualPage;
         private System.Windows.Forms.Button RobotModeBtn;
         private System.Windows.Forms.Button RobotSafetyStatusBtn;

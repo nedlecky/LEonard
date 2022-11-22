@@ -1,7 +1,7 @@
 # le_stop
 
 le_print(LEScript 1)
-#le_stop()
+le_stop()
 le_print(LEScript 2)
 
 
