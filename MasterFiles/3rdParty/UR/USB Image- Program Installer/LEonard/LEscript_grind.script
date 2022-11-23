@@ -3,7 +3,7 @@
 # Author: Ned Lecky, Lecky Engineering LLC
 # Purpose: LEonard Grinding Support
 
-global version_grind = "LEscript_grind.script 2022-07-01"
+global version_grind = "LEscript_grind.script 2022-11-23"
 
 global grind_ready = True
 # grind_contact_enable:  0=No Contact   1=Touch but no tool/coolant on or force  2=Touch, Tool, Coolant, and Force
@@ -88,7 +88,7 @@ def set_grind_variable():
   elif command[2] == 8:
     global response = "set grind_linear_accel_mmpss"
     if command[3] > 0:
-      global grind_linear_accel_mpss = command[3] / 1000.0
+      global grind_linear_accel_mpss = ceil(command[3]) / 1000.0
     end
     socket_send_number("grind_linear_accel_mmpss", grind_linear_accel_mpss * 1000.0)
   elif command[2] == 9:

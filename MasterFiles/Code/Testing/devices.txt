@@ -1,5 +1,7 @@
 # devices
 
+le_clear_console()
+le_print(LEScript)
 le_disconnect_all()
 
 le_connect(Command)
@@ -11,8 +13,7 @@ le_ask(UR-5eDash,robotmode,200)
 le_print(Dash={le_ask_response})
 
 le_disconnect(UR-5eDash)
-# now this should fail!
-le_ask(UR-5eDash,robotmode,200)
+le_ask(UR-5eDash,robotmode,200) # should fail
 le_print(Dash={le_ask_response})
 
 le_connect_all()
@@ -21,6 +22,7 @@ le_ask(UR-5eDash,robotmode,200)
 le_print(Dash={le_ask_response})
 
 using_java()
+le_print('Java')
 le_disconnect_all()
 
 le_connect('Command')
@@ -31,12 +33,31 @@ le_connect('UR-5eDash')
 response=le_ask('UR-5eDash','robotmode',200)
 le_print('Dash=' + response)
 
-le_disconnect(UR-5eDash)
-# now this should fail!
-le_ask(UR-5eDash,robotmode,200)
-le_print(Dash={le_ask_response})
+le_disconnect('UR-5eDash')
+response=le_ask('UR-5eDash','robotmode',200) // should fail
+le_print('Dash=' + response)
 
 le_connect_all()
-# And should work again
-le_ask(UR-5eDash,robotmode,200)
-le_print(Dash={le_ask_response})
+response=le_ask('UR-5eDash','robotmode',200)
+le_print('Dash=' + response)
+
+using_python()
+le_print('Python')
+le_disconnect_all()
+
+le_connect('Command')
+sleep(2)
+le_send('Command','Python test message')
+
+le_connect('UR-5eDash')
+response=le_ask('UR-5eDash','robotmode',200)
+le_print('Dash=' + str(response))
+
+le_disconnect('UR-5eDash')
+response=le_ask('UR-5eDash','robotmode',200) # should fail
+le_print('Dash=' + str(response))
+
+le_connect_all()
+response=le_ask('UR-5eDash','robotmode',200)
+le_print('Dash=' + str(response))
+

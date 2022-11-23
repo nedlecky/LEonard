@@ -1,0 +1,18 @@
+# set_grind_parameters
+
+using_java()
+using_python()
+grind_contact_enable(0)
+grind_touch_retract(1.5)
+grind_touch_speed(5.5)
+grind_force_dwell(200.5)
+grind_max_wait(200.5)
+grind_max_blend_radius(13.5)
+grind_trial_speed(20.5)
+grind_linear_accel(100.5)
+grind_point_frequency(2.5)
+grind_jog_speed(20.5)
+grind_jog_accel(102.5)
+grind_force_mode_damping(0.85)
+grind_force_mode_gain_scaling(0.85)
+

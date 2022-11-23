@@ -1,0 +1,12 @@
+# set_robot_parameters
+
+#using_java()
+#using_python()
+set_linear_speed(104.5)
+set_linear_accel(11.5)
+set_blend_radius(3.6)
+set_joint_speed(103.5)
+set_joint_accel(12.5)
+set_part_geometry(SPHERE,110.5)
+set_part_geometry_N(2,120.5)
+

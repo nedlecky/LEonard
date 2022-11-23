@@ -977,8 +977,8 @@ namespace LEonard
         {
             if (LeUrCommand.uiFocusInstance != null)
             {
-                ExecuteLEScriptLine(-1, String.Format("set_part_geometry_N({0},{1})", PartGeometryBox.SelectedIndex + 1, DiameterLbl.Text));
-                WriteVariable("robot_geometry", String.Format("{0},{1}", PartGeometryBox.SelectedItem, DiameterLbl.Text));
+                PerformRobotCommand($"set_part_geometry_N({PartGeometryBox.SelectedIndex + 1},{DiameterLbl.Text})");
+                WriteVariable("robot_geometry", $"{PartGeometryBox.SelectedItem},{DiameterLbl.Text}");
             }
         }
 
@@ -5563,9 +5563,9 @@ namespace LEonard
                         writer.WriteLine("grind_linear_vel_mmps,{0}", ReadVariable("grind_linear_vel_mmps", "???"));
                         writer.WriteLine("grind_linear_accel_mmpss,{0}", ReadVariable("grind_linear_accel_mmpss", "???"));
                         writer.WriteLine("grind_linear_blend_radius_mm,{0}", ReadVariable("grind_linear_blend_radius_mm", "???"));
-                        writer.WriteLine("grind_ang_vel_rps,{0}", ReadVariable("grind_ang_vel_rps", "???"));
-                        writer.WriteLine("grind_ang_accel_rpss,{0}", ReadVariable("grind_ang_accel_rpss", "???"));
-                        writer.WriteLine("grind_ang_blend_radius_rad,{0}", ReadVariable("grind_ang_blend_radius_rad", "???"));
+                        writer.WriteLine("grind_angular_vel_rps,{0}", ReadVariable("grind_angular_vel_rps", "???"));
+                        writer.WriteLine("grind_angular_accel_rpss,{0}", ReadVariable("grind_angular_accel_rpss", "???"));
+                        writer.WriteLine("grind_angular_blend_radius_rad,{0}", ReadVariable("grind_angular_blend_radius_rad", "???"));
 
                         writer.Close();
                     }
@@ -6359,12 +6359,12 @@ namespace LEonard
                     (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_part({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")))
 
             // Set Robot Variables
-            .SetValue("set_linear_speed", new Func<double, bool>((double speed_mmps) => PerformRobotCommand($"set_linear_speed({speed_mmps:0.000})")))
-            .SetValue("set_linear_accel", new Func<double, bool>((double accel_mmpss) => PerformRobotCommand($"set_linear_accel({accel_mmpss:0.000})")))
-            .SetValue("set_blend_radius", new Func<double, bool>((double blend_radius_mm) => PerformRobotCommand($"set_blend_radius({blend_radius_mm:0.000})")))
-            .SetValue("set_joint_speed", new Func<double, bool>((double speed_dps) => PerformRobotCommand($"set_joint_speed({speed_dps:0.000})")))
-            .SetValue("set_joint_accel", new Func<double, bool>((double accel_dpss) => PerformRobotCommand($"set_joint_accel({accel_dpss:0.000})")))
-            .SetValue("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.000})")))
+            .SetValue("set_linear_speed", new Func<int, bool>((int speed_mmps) => PerformRobotCommand($"set_linear_speed({speed_mmps})")))
+            .SetValue("set_linear_accel", new Func<int, bool>((int accel_mmpss) => PerformRobotCommand($"set_linear_accel({accel_mmpss})")))
+            .SetValue("set_blend_radius", new Func<double, bool>((double blend_radius_mm) => PerformRobotCommand($"set_blend_radius({blend_radius_mm:0.0})")))
+            .SetValue("set_joint_speed", new Func<int, bool>((int speed_dps) => PerformRobotCommand($"set_joint_speed({speed_dps})")))
+            .SetValue("set_joint_accel", new Func<int, bool>((int accel_dpss) => PerformRobotCommand($"set_joint_accel({accel_dpss})")))
+            .SetValue("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.0})")))
 
             // Robot I/O
             .SetValue("set_output", new Func<int, int, bool>((int dig_out, int state) => PerformRobotCommand($"set_output({dig_out},{state})")))
@@ -6769,12 +6769,12 @@ namespace LEonard
                     (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_part({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")));
 
             // Set Robot Variables
-            pythonScope.SetVariable("set_linear_speed", new Func<double, bool>((double speed_mmps) => PerformRobotCommand($"set_linear_speed({speed_mmps:0.000})")));
-            pythonScope.SetVariable("set_linear_accel", new Func<double, bool>((double accel_mmpss) => PerformRobotCommand($"set_linear_accel({accel_mmpss:0.000})")));
-            pythonScope.SetVariable("set_blend_radius", new Func<double, bool>((double blend_radius_mm) => PerformRobotCommand($"set_blend_radius({blend_radius_mm:0.000})")));
-            pythonScope.SetVariable("set_joint_speed", new Func<double, bool>((double speed_dps) => PerformRobotCommand($"set_joint_speed({speed_dps:0.000})")));
-            pythonScope.SetVariable("set_joint_accel", new Func<double, bool>((double accel_dpss) => PerformRobotCommand($"set_joint_accel({accel_dpss:0.000})")));
-            pythonScope.SetVariable("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.000})")));
+            pythonScope.SetVariable("set_linear_speed", new Func<int, bool>((int speed_mmps) => PerformRobotCommand($"set_linear_speed({speed_mmps})")));
+            pythonScope.SetVariable("set_linear_accel", new Func<int, bool>((int accel_mmpss) => PerformRobotCommand($"set_linear_accel({accel_mmpss})")));
+            pythonScope.SetVariable("set_blend_radius", new Func<double, bool>((double blend_radius_mm) => PerformRobotCommand($"set_blend_radius({blend_radius_mm:0.0})")));
+            pythonScope.SetVariable("set_joint_speed", new Func<int, bool>((int speed_dps) => PerformRobotCommand($"set_joint_speed({speed_dps})")));
+            pythonScope.SetVariable("set_joint_accel", new Func<int, bool>((int accel_dpss) => PerformRobotCommand($"set_joint_accel({accel_dpss})")));
+            pythonScope.SetVariable("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.0})")));
 
             // Robot I/O
             pythonScope.SetVariable("set_output", new Func<int, int, bool>((int dig_out, int state) => PerformRobotCommand($"set_output({dig_out},{state})")));
