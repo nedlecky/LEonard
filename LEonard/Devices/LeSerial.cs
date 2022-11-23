@@ -96,7 +96,7 @@ namespace LEonard
 
         public int Send(string message)
         {
-            log.Info("{0} ==> {1}", logPrefix, message);
+            log.Debug("{0} ==> {1}", logPrefix, message);
             port.Write(TxPrefix + message + TxSuffix);
             return 0;
         }
@@ -114,7 +114,7 @@ namespace LEonard
         }
         public string Ask(string message, int timeoutMs = 50)
         {
-            log.Error($"{logPrefix} LeSerial::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
+            log.Error($"{logPrefix} LeSerial::Ask({message}, {timeoutMs}) NOT IMPLEMENTED");
 
             return null;
         }
@@ -133,7 +133,7 @@ namespace LEonard
                     try
                     {
                         data = port.ReadLine();
-                        log.Info("{0} <== {1} Line {2}", logPrefix, data, lineNo);
+                        log.Debug("{0} <== {1} Line {2}", logPrefix, data, lineNo);
                         receiveCallback(logPrefix, data, this);
                         lineNo++;
                     }

@@ -2531,6 +2531,10 @@ namespace LEonard
             DeviceConnect(row);
         }
 
+        void SetMeDevice(LeDeviceInterface dev)
+        {
+            LeDeviceBase.currentDevice = dev;
+        }
         private void DeviceDisconnect(DataRow row)
         {
             if (!(bool)row["Connected"])
@@ -2544,6 +2548,8 @@ namespace LEonard
             row["Connected"] = false;
             if (interfaces[ID] != null)
             {
+                SetMeDevice(interfaces[ID]);
+
                 string execLEonardMessageOnDisconnect = (string)row["OnDisconnectExec"];
                 if (execLEonardMessageOnDisconnect.Length > 0)
                     if (!ExecuteLEonardStatement((string)row["MessageTag"], execLEonardMessageOnDisconnect, (interfaces[ID])))
@@ -2606,7 +2612,7 @@ namespace LEonard
             start.Arguments = (string)row["RuntimeArguments"];
 
             if (interfaces[currentDeviceRowIndex] == null)
-                log.Error("Device not connected");
+                log.Error($"Device in row {currentDeviceRowIndex} not connected");
             else
             {
                 interfaces[currentDeviceRowIndex].StartRuntimeProcess(start);
@@ -3963,12 +3969,12 @@ namespace LEonard
                     break;
                 case "robot_starting":
                     // This gets sent to us by command_validate on the UR. It means command valueTrimmed is going to start executing
-                    log.Info("UR<== EXEC {0} STARTING", valueTrimmed);
+                    log.Info("R.<== EXEC {0} STARTING", valueTrimmed);
                     break;
                 case "robot_completed":
                     // This gets sent to us by PolyScope on the UR after command valueTrimmed has finished executing
                     RobotCompletedLbl.Text = valueTrimmed;
-                    log.Info("UR<== EXEC {0} COMPLETED", valueTrimmed);
+                    log.Info("R.<== EXEC {0} COMPLETED", valueTrimmed);
 
                     // Color us green if we're caught up!
                     if (RobotSentLbl.Text == RobotCompletedLbl.Text)
@@ -4505,7 +4511,8 @@ namespace LEonard
         /// Put up MessageForm dialog. Execution will pause until the operator handles the response
         private void le_prompt(string message, bool closeOnReady = false, bool isMotionWait = false)
         {
-            log.Info("le_prompt(message={0}, closeOnReady={1}, isMotioWait={2}", message, closeOnReady, isMotionWait);
+            log.Info($"le_prompt(message={message.Replace('\n', ' ')}, closeOnReady={closeOnReady}, isMotionWait={isMotionWait}");
+
             waitingForOperatorMessageForm = new MessageDialog(this)
             {
                 Title = "LEonard Prompt",
@@ -4641,33 +4648,13 @@ namespace LEonard
             // TODO: This is WIP since shouldn't need to call receive once callbacks work
             // TODO: do we really need to keep polling for message receipt?
             foreach (LeDeviceInterface device in interfaces)
-                device?.Receive(true);  // Only calls receive for interfaces with a callback!
-
-            // The original method
-            /*
-            bool fRobotError = true;
-            if (robotCommandServer != null)
-                if (robotCommandServer.IsConnected())
-                {
-                    robotCommandServer.Receive();
-                    fRobotError = false;
-                }
-            if (fRobotError)
             {
-                RobotReadyLbl.BackColor = Color.Red;
-                GrindReadyLbl.BackColor = Color.Red;
-                GrindProcessStateLbl.BackColor = Color.Red;
-            }
-
-            if (gocator != null)
-                if (gocator.IsConnected())
-                    gocator.Receive();
-                else
+                if (device != null)
                 {
-                    GocatorConnectBtn.BackColor = Color.Red;
-                    GocatorConnectBtn.Text = "Gocator OFF";
+                    SetMeDevice(device);
+                    device.Receive(true); // true ==> fProcessCallBackOnly
                 }
-            */
+            }
         }
 
         #endregion ===== EXECUTIVE FUNCTIONS               ==============================================================================================================================
@@ -5960,7 +5947,7 @@ namespace LEonard
             {
                 if (LeDeviceBase.currentDevice == null)
                 {
-                    ExecError($"le_send(me,...): Could not identify 'me'");
+                    ExecError($"le_send(me,...): Could not determine who 'me' is");
                     return 10;
                 }
                 else
@@ -6618,7 +6605,7 @@ namespace LEonard
         bool ExecuteJavaScript(string code, LeDeviceInterface dev)
         {
             //log.Info($"Java Execute: {code}");
-            LeDeviceBase.currentDevice = dev;
+            //LeDeviceBase.currentDevice = dev;
             return JavaExec(code);
         }
 
@@ -7042,7 +7029,7 @@ namespace LEonard
             //log.Info($"Python Execute: {code}");
             try
             {
-                LeDeviceBase.currentDevice = dev;
+                //LeDeviceBase.currentDevice = dev;
                 return PythonExec(code);
             }
             catch (Exception ex)

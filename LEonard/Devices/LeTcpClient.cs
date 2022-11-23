@@ -158,10 +158,10 @@ namespace LEonard
             fSendBusy = false;
             return 0;
         }
-        public string Receive(bool fProcessCallbackOnly = false)
+        public string Receive(bool fProcessCallBackOnly = false)
         {
             // If only supposed to process callbacks and there is no callback, ignore
-            if (fProcessCallbackOnly && receiveCallback == null) return "";
+            if (fProcessCallBackOnly && receiveCallback == null) return "";
 
             if (stream == null) return null;
             int length = 0;

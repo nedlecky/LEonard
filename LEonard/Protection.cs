@@ -299,10 +299,13 @@ namespace LEonard
             ret += $"WINDOWS GUID {BoolOkFail(goodGuid)}\n  {license.machineGuid}\n\n";
 
             ret += $"DAYS REMAINING {BoolOkFail(goodDateTime)}\n";
+            double days = (license.expirationDateTime - dateTime).TotalDays;
+            int days_int = (int)days;
+            double hours = (days - days_int) * 24.0;
             if (license.expirationDateTime == new DateTime(0))
                 ret += $"  PERPETUAL\n";
             else
-                ret += $"  {(license.expirationDateTime - dateTime).TotalDays:0.0000} days\n";
+                ret += $"  {days_int} days {hours:0.00} hours\n";
 
             ret += $"\nOPTIONS:\n";
             ret += $"  Java: {BoolEnabledDisabled(license.hasJava)}\n";
