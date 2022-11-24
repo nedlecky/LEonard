@@ -23,12 +23,12 @@ move_linear('cp_align_aligned')
 # Offset to probe
 
 offset_to_probe()
-le_prompt('Hit enter to align to top surface')
+prompt('Hit enter to align to top surface')
 movel_incr_part(0,0,0.005,0,0,0)
-le_prompt('Hit enter to insert')
+prompt('Hit enter to insert')
 movel_incr_part(0,0,0.025,0,0,0)
-le_prompt('Hit enter to extract')
+prompt('Hit enter to extract')
 movel_incr_part(0,0,-0.030,0,0,0)
-le_prompt('Hit enter to return to origin')
+prompt('Hit enter to return to origin')
 
 end_operation()

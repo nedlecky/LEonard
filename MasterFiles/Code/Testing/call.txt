@@ -39,7 +39,7 @@ callif(3>4,'psub1')
 call('psub2')
 callif(4>3,'psub2')
 
-le_stop()
+stop()
 
 psub1:
 le_print('Python Sub 1')

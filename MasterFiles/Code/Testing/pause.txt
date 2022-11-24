@@ -1,0 +1,36 @@
+# pause
+
+le_print(LEScript 1)
+pause()
+le_print(LEScript 2)
+pauseif()
+le_print(LEScript 3)
+pauseif(false)
+le_print(LEScript 4)
+pauseif(true)
+le_print(LEScript 5)
+
+
+using_java()
+le_print('Java1')
+pause()
+le_print('Java2')
+pauseif()
+le_print('Java3')
+pauseif(false)
+le_print('Java4')
+pauseif(true)
+le_print('Java5')
+
+
+using_python()
+le_print('Python1')
+pause()
+le_print('Python2')
+pauseif()
+le_print('Python3')
+pauseif(False)
+le_print('Python4')
+pauseif(True)
+le_print('Python5')
+

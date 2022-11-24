@@ -49,7 +49,7 @@ gocator_write_data({filename})
 
 # Insertion Routine
 {offset_to_probe}
-#le_prompt(Hit enter to insert)
+#prompt(Hit enter to insert)
 movel_incr_part(0,0,0.030,0,0,0)
 movel_incr_part(0,0,-0.030,0,0,0)
 movel_incr_part(0,0,0.030,0,0,0)

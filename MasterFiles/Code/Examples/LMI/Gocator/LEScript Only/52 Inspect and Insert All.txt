@@ -22,19 +22,19 @@ gocator_ID={infile_p1}_initial
 gocator_trigger(1000)
 gocator_write_data({filename})
 
-#le_prompt(align 3?)
+#prompt(align 3?)
 gocator_ID={infile_p1}_adjust_3-1
 gocator_adjust(3)
 gocator_trigger(1000)
 gocator_write_data({filename})
 
-#le_prompt(align 3?)
+#prompt(align 3?)
 gocator_ID={infile_p1}_adjust_1-2
 gocator_adjust(3)
 gocator_trigger(1000)
 gocator_write_data({filename})
 
-#le_prompt(align 1?)
+#prompt(align 1?)
 gocator_ID={infile_p1}_adjust_1
 gocator_adjust(1)
 gocator_trigger(1000)
@@ -42,7 +42,7 @@ gocator_write_data({filename})
 
 # Insertion Routine
 {offset_to_probe}
-#le_prompt(Hit enter to insert)
+#prompt(Hit enter to insert)
 movel_incr_part(0,0,0.030,0,0,0)
 movel_incr_part(0,0,-0.030,0,0,0)
 movel_incr_part(0,0,0.030,0,0,0)

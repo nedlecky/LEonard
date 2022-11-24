@@ -12,7 +12,7 @@ call(sub_b)
 counter -= 1
 jump_gt_zero(counter,repeat)
 
-le_stop()
+stop()
 
 sub_a:
 le_print(sub_a)

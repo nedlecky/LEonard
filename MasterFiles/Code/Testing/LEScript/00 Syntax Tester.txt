@@ -8,14 +8,14 @@ assertEqual(a,5)
 assertEqual(a, 5)
 assertEqual( a , 5 )
 
-le_prompt(But keep these spaces!)
+prompt(But keep these spaces!)
 
 # lasd gasd sadkf
 
 garbage should fail
 
 # Below should fail two commands on a line
-le_prompt(abc)le_prompt(def)
+prompt(abc)prompt(def)
 # Below is actually one line line-wrapped!
 set_part_geometry(FLAT,0)
 set_part_geometry(FLAT,0)set_part_geometry(CYLINDER,500)

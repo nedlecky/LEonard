@@ -1322,12 +1322,6 @@ namespace LEonard
                 SetState(RunState.RUNNING);
             }
         }
-
-        private void RobotAndSystemPause()
-        {
-            RobotSendHalt();
-            SetState(RunState.PAUSED);
-        }
         private void PauseBtn_Click(object sender, EventArgs e)
         {
             log.Info("PauseBtn{0}_Click(...)", PauseBtn.Text);
@@ -1335,7 +1329,7 @@ namespace LEonard
             {
                 case RunState.RUNNING:
                     // Perform PAUSE function
-                    RobotAndSystemPause();
+                    PerformPause();
                     break;
                 case RunState.PAUSED:
                     // Perform CONTINUE function
@@ -2713,7 +2707,7 @@ namespace LEonard
                 interfaces[currentDeviceRowIndex].StartSetupProcess(start);
 
                 // TODO: This wait for start is a little kludgey
-                le_prompt("Waiting for app to start...", false, false);
+                PerformPrompt("Waiting for app to start...", false, false);
                 for (int i = 0; i < 50; i++)
                 {
                     Thread.Sleep(100);
@@ -3293,7 +3287,7 @@ namespace LEonard
                 string position = SelectedRow(ToolsGrd)["MountPosition"].ToString();
                 log.Info("Joint Move Tool Mount to {0}", position.ToString());
                 GotoPositionJoint(position);
-                le_prompt("Wait for move to tool mount position complete", true, true);
+                PerformPrompt("Wait for move to tool mount position complete", true, true);
             }
         }
 
@@ -3307,7 +3301,7 @@ namespace LEonard
                 string position = SelectedRow(ToolsGrd)["HomePosition"].ToString();
                 log.Info("Joint Move Tool Home to {0}", position);
                 GotoPositionJoint(position);
-                le_prompt("Wait for move to tool home complete", true, true);
+                PerformPrompt("Wait for move to tool home complete", true, true);
             }
         }
 
@@ -3475,13 +3469,13 @@ namespace LEonard
         private void MoveToolMountBtn_Click(object sender, EventArgs e)
         {
             GotoPositionJoint(MoveToolMountBtn.Text);
-            le_prompt("Wait for move to tool mount position complete", true, true);
+            PerformPrompt("Wait for move to tool mount position complete", true, true);
         }
 
         private void MoveToolHomeBtn_Click(object sender, EventArgs e)
         {
             GotoPositionJoint(MoveToolHomeBtn.Text);
-            le_prompt("Wait for move to tool home complete", true, true);
+            PerformPrompt("Wait for move to tool home complete", true, true);
         }
 
         private void SetDoorClosedInputBtn_Click(object sender, EventArgs e)
@@ -3781,7 +3775,7 @@ namespace LEonard
             else
             {
                 GotoPositionPose(name);
-                le_prompt(String.Format("Wait for robot linear move to {0} complete", name), true, true);
+                PerformPrompt(String.Format("Wait for robot linear move to {0} complete", name), true, true);
             }
         }
 
@@ -3793,7 +3787,7 @@ namespace LEonard
             else
             {
                 GotoPositionJoint(name);
-                le_prompt(String.Format("Wait for robot joint move to {0} complete", name), true, true);
+                PerformPrompt(String.Format("Wait for robot joint move to {0} complete", name), true, true);
             }
         }
         #endregion ===== POSITIONS DATABASE CODE           ==============================================================================================================================
@@ -3965,7 +3959,7 @@ namespace LEonard
                     break;
                 case "robot_response":
                     if (valueTrimmed.Contains("ERROR"))
-                        le_prompt($"Received error message from robot: {valueTrimmed}");
+                        PerformPrompt($"Received error message from robot: {valueTrimmed}");
                     break;
                 case "robot_starting":
                     // This gets sent to us by command_validate on the UR. It means command valueTrimmed is going to start executing
@@ -4508,23 +4502,6 @@ namespace LEonard
             }
         }
 
-        /// Put up MessageForm dialog. Execution will pause until the operator handles the response
-        private void le_prompt(string message, bool closeOnReady = false, bool isMotionWait = false)
-        {
-            log.Info($"le_prompt(message={message.Replace('\n', ' ')}, closeOnReady={closeOnReady}, isMotionWait={isMotionWait}");
-
-            waitingForOperatorMessageForm = new MessageDialog(this)
-            {
-                Title = "LEonard Prompt",
-                Label = message,
-                OkText = isMotionWait ? "STOP MOTION" : "&Continue Execution",
-                CancelText = isMotionWait ? "STOP MOTION" : "&Abort",
-                IsMotionWait = isMotionWait,
-            };
-            closeOperatorFormOnIndex = closeOnReady;
-            waitingForOperatorMessageForm.ShowDialog();
-        }
-
         private void UnboldSequence()
         {
             SequenceRTB.SelectAll();
@@ -4835,7 +4812,7 @@ namespace LEonard
         {
             string report = message + $"\nLine {errorLineNumber:000}: {errorOrigLine}";
             log.Error("EXEC " + report.Replace('\n', ' '));
-            le_prompt("ERROR:\n" + report);
+            PerformPrompt("ERROR:\n" + report);
         }
 
         Random random = new Random();
@@ -5155,27 +5132,58 @@ namespace LEonard
             }
 
             // Flow Control
-            // le_pause
-            if (command == "le_pause()")
+            // pause
+            if (command == "pause()")
             {
-                RobotAndSystemPause();
+                PerformPause();
                 return true;
             }
 
-            // le_stop
-            if (command == "le_stop()")
+            // pauseif
+            if (command.StartsWith("pauseif("))
             {
-                le_stop();
-                // TODO this whole business of returning whether you should continue is now deprecated!
-                // return false;
+                string arg = ExtractParameters(command);
+                if (arg.Length < 1)
+                    ExecError("Expected pauseif(True|False)");
+                else
+                    PerformPauseIf(String.Equals(arg, "true", StringComparison.OrdinalIgnoreCase));
                 return true;
             }
 
-            // le_prompt
-            if (command.StartsWith("le_prompt("))
+            // stop
+            if (command == "stop()")
+            {
+                PerformStop();
+                return true;
+            }
+
+            // stopif
+            if (command.StartsWith("stopif("))
+            {
+                string arg = ExtractParameters(command);
+                if (arg.Length < 1)
+                    ExecError("Expected stopif(True|False)");
+                else
+                    PerformStopIf(String.Equals(arg, "true", StringComparison.OrdinalIgnoreCase));
+                return true;
+            }
+
+            // prompt
+            if (command.StartsWith("prompt("))
             {
                 // This just displays the dialog. ExecTmr will wait for it to close
-                le_prompt(ExtractParameters(command, -1, false));
+                PerformPrompt(ExtractParameters(command, -1, false));
+                return true;
+            }
+
+            // promptif
+            if (command.StartsWith("promptif("))
+            {
+                string[] args = ExtractParameters(command).Split(',');
+                if (args.Length < 2)
+                    ExecError("Expected promptif(True|False, message)");
+                else
+                    PerformPromptIf(String.Equals(args[0], "true", StringComparison.OrdinalIgnoreCase), args[1]);
                 return true;
             }
 
@@ -5886,13 +5894,47 @@ namespace LEonard
             consoleForm.Clear();
         }
 
-        public void le_stop()
+        private void PerformPause()
+        {
+            RobotSendHalt();
+            SetState(RunState.PAUSED);
+        }
+        private void PerformPauseIf(bool f)
+        {
+            if (f) PerformPause();
+        }
+
+        public void PerformStop()
         {
             UnboldSequence();
             SetSequenceState(sequenceStateAtRun);
             SetState(RunState.READY);
         }
+        public void PerformStopIf(bool f)
+        {
+            if (f) PerformStop();
+        }
 
+        /// Put up MessageForm dialog. Execution will pause until the operator provides a response.
+        private void PerformPrompt(string message, bool closeOnReady = false, bool isMotionWait = false)
+        {
+            log.Info($"le_prompt(message={message.Replace('\n', ' ')}, closeOnReady={closeOnReady}, isMotionWait={isMotionWait}");
+
+            waitingForOperatorMessageForm = new MessageDialog(this)
+            {
+                Title = "LEonard Prompt",
+                Label = message,
+                OkText = isMotionWait ? "STOP MOTION" : "&Continue Execution",
+                CancelText = isMotionWait ? "STOP MOTION" : "&Abort",
+                IsMotionWait = isMotionWait,
+            };
+            closeOperatorFormOnIndex = closeOnReady;
+            waitingForOperatorMessageForm.ShowDialog();
+        }
+        private void PerformPromptIf(bool f, string message, bool closeOnReady = false, bool isMotionWait = false)
+        {
+            if (f) PerformPrompt(message, closeOnReady, isMotionWait);
+        }
         private bool assertTrue(bool f)
         {
             if (!f)
@@ -6084,7 +6126,7 @@ namespace LEonard
         {
             if (GotoPositionJoint(positionName))
             {
-                le_prompt($"Wait for move_joint({positionName}) complete", true, true);
+                PerformPrompt($"Wait for move_joint({positionName}) complete", true, true);
                 return 0;
             }
             else
@@ -6097,7 +6139,7 @@ namespace LEonard
         {
             if (GotoPositionPose(positionName))
             {
-                le_prompt($"Wait for move_linear({positionName}) complete", true, true);
+                PerformPrompt($"Wait for move_linear({positionName}) complete", true, true);
                 return 0;
             }
             else
@@ -6268,9 +6310,12 @@ namespace LEonard
             .SetValue("le_log_info", new Action<string>((string msg) => log.Info(msg)))
             .SetValue("le_log_error", new Action<string>(s => log.Error(s)))
 
-            .SetValue("le_pause", new Action(() => RobotAndSystemPause()))
-            .SetValue("le_stop", new Action(() => le_stop()))
-            .SetValue("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)))
+            .SetValue("pause", new Action(() => PerformPause()))
+            .SetValue("pauseif", new Action<bool>((bool f) => PerformPauseIf(f)))
+            .SetValue("stop", new Action(() => PerformStop()))
+            .SetValue("stopif", new Action<bool>((bool f) => PerformStopIf(f)))
+            .SetValue("prompt", new Action<string>((string prompt) => PerformPrompt(prompt)))
+            .SetValue("promptif", new Action<bool, string>((bool f, string prompt) => PerformPromptIf(f, prompt)))
             .SetValue("jump", new Action<string>((string labelName) => PerformJump(labelName)))
             .SetValue("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)))
             .SetValue("call", new Action<string>((string labelName) => PerformCall(labelName)))
@@ -6678,9 +6723,12 @@ namespace LEonard
             pythonScope.SetVariable("le_log_info", new Action<string>((string msg) => log.Info(msg)));
             pythonScope.SetVariable("le_log_error", new Action<string>(s => log.Error(s)));
 
-            pythonScope.SetVariable("le_pause", new Action(() => RobotAndSystemPause()));
-            pythonScope.SetVariable("le_stop", new Action(() => le_stop()));
-            pythonScope.SetVariable("le_prompt", new Action<string>((string prompt) => le_prompt(prompt)));
+            pythonScope.SetVariable("pause", new Action(() => PerformPause()));
+            pythonScope.SetVariable("pauseif", new Action<bool>((bool f) => PerformPauseIf(f)));
+            pythonScope.SetVariable("stop", new Action(() => PerformStop()));
+            pythonScope.SetVariable("stopif", new Action<bool>((bool f) => PerformStopIf(f)));
+            pythonScope.SetVariable("prompt", new Action<string>((string prompt) => PerformPrompt(prompt)));
+            pythonScope.SetVariable("promptif", new Action<bool, string>((bool f, string prompt) => PerformPromptIf(f, prompt)));
             pythonScope.SetVariable("jump", new Action<string>((string labelName) => PerformJump(labelName)));
             pythonScope.SetVariable("jumpif", new Action<bool, string>((bool condition, string labelName) => PerformJumpIf(condition, labelName)));
             pythonScope.SetVariable("call", new Action<string>((string labelName) => PerformCall(labelName)));
@@ -7004,7 +7052,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                ErrorMessageBox($"JavaExec Error: {ex}");
+                ErrorMessageBox($"PythonExec Error: {ex}");
                 return false;
             }
         }

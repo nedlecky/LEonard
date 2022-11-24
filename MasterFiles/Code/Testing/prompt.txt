@@ -1,0 +1,11 @@
+# prompt
+
+prompt(Operator Prompt from LEScript)
+
+using_java()
+prompt('Operator Prompt from Java')
+
+
+using_python()
+a=prompt('Operator Prompt from Python')
+

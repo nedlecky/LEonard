@@ -25,7 +25,7 @@ row = row + 1
 jumpif(row < len(rows), 'next_hole')
 
 end_operation()
-le_stop()
+stop()
 
 
 inspect:

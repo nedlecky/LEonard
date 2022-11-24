@@ -10,7 +10,7 @@ infile_readline()
 jump_gt_zero(infile_lineno, inspect)
 
 infile_close()
-le_stop()
+stop()
 
 inspect:
 le_print(Name {infile_p1} {infile_p2})
