@@ -1,1 +1,0 @@
-gocator_trigger(1000)
