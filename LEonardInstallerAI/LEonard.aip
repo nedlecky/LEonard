@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="20.0" version="20.1" Modules="professional" RootPath="." Language="en" Id="{49B3B8B1-D7B7-4CF0-89D7-CBC65BB3377A}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="20.0" version="20.1.1" Modules="professional" RootPath="." Language="en" Id="{49B3B8B1-D7B7-4CF0-89D7-CBC65BB3377A}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="AppXProductDetailsComponent;AppXDependenciesComponent;AppXAppDetailsComponent;AppXVisualAssetsComponent;AppXCapabilitiesComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;MsiDriverPackagesComponent;UserAccountsComponent;ScheduledTasksComponent;SqlConnectionComponent;AutorunComponent;FirewallExceptionComponent;GameUxComponent;MsiDirectEditorComponent;SharePointSlnComponent;SilverlightSlnComponent;MultipleInstancesComponent;SccmComponent;ActSyncAppComponent;CPLAppletComponent;FixupComponent;MsiXDiffComponent;MsixManifestEditorComponent"/>
   </COMPONENT>
@@ -11,7 +11,7 @@
     <ROW Property="AI_CLEAN_RESOURCES_USER_PROMPT_FULL_UI" Value="1"/>
     <ROW Property="AI_CURRENT_YEAR" Value="2022" ValueLocId="-"/>
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
-    <ROW Property="AI_PACKAGING_TOOL" Value="Advanced Installer 20.1 build 87d75adb" ValueLocId="-"/>
+    <ROW Property="AI_PACKAGING_TOOL" Value="Advanced Installer 20.1.1 build 68535b5e" ValueLocId="-"/>
     <ROW Property="AI_PRODUCTNAME_ARP" Value="LEonard"/>
     <ROW Property="AI_UNINSTALLER" Value="msiexec.exe"/>
     <ROW Property="ALLUSERS" Value="1"/>
@@ -24,18 +24,18 @@
     <ROW Property="ProductCode" Value="1033:{20C0E0E1-0279-473E-AD72-DCADB8085C00} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="LEonard"/>
-    <ROW Property="ProductVersion" Value="22.11.1.1"/>
+    <ROW Property="ProductVersion" Value="22.11.1.1" Options="16"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{BCBC6783-1AED-4581-A426-C3D3A4683B6B}"/>
-    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
-    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME#MsiBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME#MsiBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT" MultiBuildValue="DefaultBuild:Windows 9x/ME/NT/2000/XP/Vista/Windows 7/Windows 8 x86/Windows 8.1 x86/Windows 10 x86" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0#MsiBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0#MsiBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000#MsiBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000#MsiBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003#MsiBuild:Windows XP/2003" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003#MsiBuild:Windows XP/2003" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT64" MultiBuildValue="DefaultBuild:Windows Vista x64, Windows Server 2008 x64, Windows Server 2008 R2 x64, Windows Server 2012 x64, Windows Server 2012 R2 x64, Windows Server x64" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT64Display" MultiBuildValue="DefaultBuild:Windows Vista x64, Windows Server 2008 x64, Windows Server 2008 R2 x64, Windows Server 2012 x64, Windows Server 2012 R2 x64, Windows Server x64" ValueLocId="-"/>
     <ROW Property="WindowsTypeNTDisplay" MultiBuildValue="DefaultBuild:32-bit Windows versions" ValueLocId="-"/>
@@ -43,47 +43,59 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
     <ROW Directory="Code_Dir" Directory_Parent="LEonard_Dir" DefaultDir="Code"/>
+    <ROW Directory="Cognex_Dir" Directory_Parent="Examples_Dir" DefaultDir="Cognex"/>
     <ROW Directory="Config_Dir" Directory_Parent="LEonard_Dir" DefaultDir="Config"/>
     <ROW Directory="Data_Dir" Directory_Parent="LEonard_Dir" DefaultDir="Data"/>
+    <ROW Directory="Dataman_Dir" Directory_Parent="Cognex_Dir" DefaultDir="Dataman"/>
     <ROW Directory="Debug_1_Dir" Directory_Parent="obj_Dir" DefaultDir="Debug"/>
     <ROW Directory="Debug_2_Dir" Directory_Parent="bin_1_Dir" DefaultDir="Debug"/>
     <ROW Directory="Debug_Dir" Directory_Parent="bin_Dir" DefaultDir="Debug"/>
     <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
     <ROW Directory="Documentation_Dir" Directory_Parent="LEonard_Dir" DefaultDir="DOCUME~1|Documentation"/>
     <ROW Directory="Examples_Dir" Directory_Parent="Code_Dir" DefaultDir="Examples"/>
-    <ROW Directory="Functions_Dir" Directory_Parent="Examples_Dir" DefaultDir="FUNCTI~1|Functions"/>
-    <ROW Directory="Gocator_1_Dir" Directory_Parent="Examples_Dir" DefaultDir="Gocator"/>
+    <ROW Directory="FS40_Dir" Directory_Parent="Zebra_Dir" DefaultDir="FS40"/>
+    <ROW Directory="Gocator_2_Dir" Directory_Parent="LMI_Dir" DefaultDir="Gocator"/>
     <ROW Directory="Gocator_Dir" Directory_Parent="rdParty_Dir" DefaultDir="Gocator"/>
     <ROW Directory="Grinding_Dir" Directory_Parent="UR_1_Dir" DefaultDir="Grinding"/>
+    <ROW Directory="HALCON_Dir" Directory_Parent="MVTec_Dir" DefaultDir="HALCON"/>
+    <ROW Directory="Java_1_Dir" Directory_Parent="Testing_Dir" DefaultDir="Java"/>
     <ROW Directory="Java_Dir" Directory_Parent="Examples_Dir" DefaultDir="Java"/>
     <ROW Directory="Jint.2.11.58_Dir" Directory_Parent="packages_Dir" DefaultDir="JINT21~1.58|Jint.2.11.58"/>
+    <ROW Directory="LEScript_1_Dir" Directory_Parent="Testing_Dir" DefaultDir="LEScript"/>
     <ROW Directory="LEScript_Dir" Directory_Parent="Examples_Dir" DefaultDir="LEScript"/>
     <ROW Directory="LEonardClient_Dir" Directory_Parent="LEonard_Dir" DefaultDir="LEONAR~1|LEonardClient"/>
     <ROW Directory="LEonard_1_Dir" Directory_Parent="USBImageProgramInstaller_Dir" DefaultDir="LEonard"/>
     <ROW Directory="LEonard_2_Dir" Directory_Parent="APPDIR" DefaultDir="LEonard"/>
     <ROW Directory="LEonard_Dir" Directory_Parent="PublicFolder" DefaultDir="LEonard"/>
+    <ROW Directory="LMI_Dir" Directory_Parent="Examples_Dir" DefaultDir="LMI"/>
     <ROW Directory="LeckyEngineering_Dir" Directory_Parent="ProgramMenuFolder" DefaultDir="LECKYE~1|Lecky Engineering"/>
     <ROW Directory="Lib_1_Dir" Directory_Parent="LEonard_2_Dir" DefaultDir="Lib"/>
     <ROW Directory="Lib_Dir" Directory_Parent="Code_Dir" DefaultDir="Lib"/>
+    <ROW Directory="MVTec_Dir" Directory_Parent="Examples_Dir" DefaultDir="MVTec"/>
     <ROW Directory="NLog.4.7.13_Dir" Directory_Parent="packages_Dir" DefaultDir="NLOG47~1.13|NLog.4.7.13"/>
     <ROW Directory="NLog.Windows.Forms.4.5.0_Dir" Directory_Parent="packages_Dir" DefaultDir="NLOGWI~1.0|NLog.Windows.Forms.4.5.0"/>
     <ROW Directory="NewFolder_Dir" Directory_Parent="LEonard_Dir" DefaultDir="Logs"/>
-    <ROW Directory="OriginalTesting_Dir" Directory_Parent="Gocator_1_Dir" DefaultDir="ORIGIN~1|Original Testing"/>
+    <ROW Directory="OriginalTesting_1_Dir" Directory_Parent="Gocator_2_Dir" DefaultDir="ORIGIN~1|Original Testing"/>
     <ROW Directory="ProgramMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~1|ProgramMenuFolder" IsPseudoRoot="1"/>
     <ROW Directory="Properties_Dir" Directory_Parent="LEonardClient_Dir" DefaultDir="PROPER~1|Properties"/>
     <ROW Directory="PublicFolder" Directory_Parent="TARGETDIR" DefaultDir="PUBLIC~1|PublicFolder" IsPseudoRoot="1"/>
+    <ROW Directory="Python_1_Dir" Directory_Parent="Testing_Dir" DefaultDir="Python"/>
     <ROW Directory="Python_Dir" Directory_Parent="Examples_Dir" DefaultDir="Python"/>
     <ROW Directory="Release_1_Dir" Directory_Parent="obj_Dir" DefaultDir="Release"/>
     <ROW Directory="Release_2_Dir" Directory_Parent="bin_1_Dir" DefaultDir="Release"/>
     <ROW Directory="Release_Dir" Directory_Parent="bin_Dir" DefaultDir="Release"/>
-    <ROW Directory="System_Dir" Directory_Parent="Examples_Dir" DefaultDir="System"/>
+    <ROW Directory="Sherlock8x64_Dir" Directory_Parent="TeledyneDALSA_Dir" DefaultDir="SHERLO~1|Sherlock8x64"/>
+    <ROW Directory="Sherlockx64_Dir" Directory_Parent="TeledyneDALSA_Dir" DefaultDir="SHERLO~2|Sherlockx64"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="TeledyneDALSA_Dir" Directory_Parent="Examples_Dir" DefaultDir="TELEDY~1|TeledyneDALSA"/>
     <ROW Directory="TempPE_1_Dir" Directory_Parent="Release_1_Dir" DefaultDir="TempPE"/>
     <ROW Directory="TempPE_Dir" Directory_Parent="Debug_1_Dir" DefaultDir="TempPE"/>
+    <ROW Directory="Testing_Dir" Directory_Parent="Code_Dir" DefaultDir="Testing"/>
     <ROW Directory="UR_1_Dir" Directory_Parent="Examples_Dir" DefaultDir="UR"/>
     <ROW Directory="UR_Dir" Directory_Parent="rdParty_Dir" DefaultDir="UR"/>
     <ROW Directory="USBImageProgramInstaller_Dir" Directory_Parent="UR_Dir" DefaultDir="USBIMA~1|USB Image- Program Installer"/>
     <ROW Directory="USBImageVNCInstall_Dir" Directory_Parent="UR_Dir" DefaultDir="USBIMA~2|USB Image- VNC Install"/>
+    <ROW Directory="Zebra_Dir" Directory_Parent="Examples_Dir" DefaultDir="Zebra"/>
     <ROW Directory="_bundled_Dir" Directory_Parent="ensurepip_Dir" DefaultDir="_bundled"/>
     <ROW Directory="app.publish_1_Dir" Directory_Parent="Release_2_Dir" DefaultDir="APP~1.PUB|app.publish"/>
     <ROW Directory="app.publish_Dir" Directory_Parent="Debug_2_Dir" DefaultDir="APP~1.PUB|app.publish"/>
@@ -151,7 +163,10 @@
     <ROW Component="App.config_1" ComponentId="{94CB6BC6-6273-4D8B-BF52-5DC3AC771C5F}" Directory_="Debug_Dir" Attributes="0" KeyPath="App.config_1" Type="0"/>
     <ROW Component="App.config_2" ComponentId="{3228EF28-0F1F-4775-A292-E03E76FC485F}" Directory_="Release_Dir" Attributes="0" KeyPath="App.config_2" Type="0"/>
     <ROW Component="AssemblyInfo.cs" ComponentId="{A9913906-4D1B-492A-BCE3-177629F46B41}" Directory_="Properties_Dir" Attributes="0" KeyPath="AssemblyInfo.cs" Type="0"/>
+    <ROW Component="AutoSaveRectBalgB" ComponentId="{38C35843-8D83-4EE7-8174-385633F370AF}" Directory_="Sherlockx64_Dir" Attributes="0" KeyPath="AutoSaveRectBalgB" Type="0"/>
     <ROW Component="Config" ComponentId="{3D4B8689-F54A-4A1B-B97C-34FE8FFD659A}" Directory_="Config_Dir" Attributes="0"/>
+    <ROW Component="DSet1.sh8" ComponentId="{175493D4-0588-4FA5-90CA-05F91283C2A5}" Directory_="Sherlock8x64_Dir" Attributes="0" KeyPath="DSet1.sh8" Type="0"/>
+    <ROW Component="Dataman1.dmb" ComponentId="{1FC69BAF-DD24-4C24-863C-A4C021C06EB4}" Directory_="Dataman_Dir" Attributes="0" KeyPath="Dataman1.dmb" Type="0"/>
     <ROW Component="GIBInterfaceTester.exe" ComponentId="{1701E56C-45F6-4080-B8B4-C9FEAE781D9E}" Directory_="Release_1_Dir" Attributes="0" KeyPath="GIBInterfaceTester.exe"/>
     <ROW Component="IronPython.Modules.dll" ComponentId="{6EADE878-3D4D-40C2-AF16-FD7D7EA13752}" Directory_="Debug_2_Dir" Attributes="0" KeyPath="IronPython.Modules.dll"/>
     <ROW Component="IronPython.Modules.dll_1" ComponentId="{E25AECCA-C695-428C-97D9-91F26066E5B7}" Directory_="Release_2_Dir" Attributes="0" KeyPath="IronPython.Modules.dll_1"/>
@@ -172,6 +187,7 @@
     <ROW Component="Jint.dll_7" ComponentId="{AD69C501-481C-4497-AA7A-49DE51B3D234}" Directory_="netstandard1.3_Dir" Attributes="0" KeyPath="Jint.dll_7"/>
     <ROW Component="Jint.dll_8" ComponentId="{6FCEA004-7F4C-42D7-9FEA-BEBD5D1D8FC9}" Directory_="netstandard2.0_Dir" Attributes="0" KeyPath="Jint.dll_8"/>
     <ROW Component="Jint.dll_9" ComponentId="{98F09DF5-C3AC-47B4-AD17-7811F7BEA828}" Directory_="Release_2_Dir" Attributes="0" KeyPath="Jint.dll_9"/>
+    <ROW Component="Job_FS40_FS40DemoTest_2022.11.20.zjob" ComponentId="{F526AE82-9C59-4CD5-96EA-337C22E3366D}" Directory_="FS40_Dir" Attributes="0" KeyPath="Job_FS40_FS40DemoTest_1D_2022.11.23.zjob" Type="0"/>
     <ROW Component="LEonard" ComponentId="{9BA5086C-D2A7-4E97-B5A0-4FDB2057DD71}" Directory_="LEonard_Dir" Attributes="0"/>
     <ROW Component="LEonard.exe" ComponentId="{1FDC382B-9A2C-49AE-9C4E-AC69D3C75B1D}" Directory_="app.publish_Dir" Attributes="0" KeyPath="LEonard.exe"/>
     <ROW Component="LEonard.exe_1" ComponentId="{93942D73-20DB-4527-9B58-241335889AFA}" Directory_="Debug_2_Dir" Attributes="0" KeyPath="LEonard.exe_1"/>
@@ -233,27 +249,30 @@
     <ROW Component="NLog.xml_8" ComponentId="{77E3954B-4C51-40F7-BEA7-9B0C47629840}" Directory_="sl5_Dir" Attributes="0" KeyPath="NLog.xml_12" Type="0"/>
     <ROW Component="NLog.xml_9" ComponentId="{C9894547-A957-4F00-8B5B-B4B71BB7ECC6}" Directory_="wp8_Dir" Attributes="0" KeyPath="NLog.xml_13" Type="0"/>
     <ROW Component="NewFolder" ComponentId="{ECECAD26-7182-436A-9EAE-54ADCC113220}" Directory_="NewFolder_Dir" Attributes="0"/>
-    <ROW Component="Origin.txt" ComponentId="{323E1B00-7DCF-4D04-B890-5507C3437C1B}" Directory_="OriginalTesting_Dir" Attributes="0" KeyPath="Origin.txt" Type="0"/>
+    <ROW Component="Origin.txt_1" ComponentId="{E84176C5-20F3-40C8-B613-58B000492BA8}" Directory_="OriginalTesting_1_Dir" Attributes="0" KeyPath="Origin.txt_1" Type="0"/>
     <ROW Component="ProductInformation" ComponentId="{F5FB1E97-157D-449A-9C27-B9B67AFDCB67}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
     <ROW Component="Properties.Resources.Designer.cs.dll" ComponentId="{BF2856A1-4988-4DC6-AF53-3983146D497C}" Directory_="TempPE_Dir" Attributes="0" KeyPath="Properties.Resources.Designer.cs.dll"/>
     <ROW Component="Properties.Resources.Designer.cs.dll_1" ComponentId="{D07D7FA4-7A12-4863-8FB0-80E3AAEA678B}" Directory_="TempPE_1_Dir" Attributes="0" KeyPath="Properties.Resources.Designer.cs.dll_1"/>
     <ROW Component="README.txt" ComponentId="{C80CF3E0-50B8-4784-8E50-2F2DAE9DFA2D}" Directory_="sitepackages_Dir" Attributes="0" KeyPath="README.txt_1" Type="0"/>
-    <ROW Component="ReadMe.txt" ComponentId="{BD216D30-7D26-43EA-9B5D-A64B8D98A416}" Directory_="USBImageVNCInstall_Dir" Attributes="0" KeyPath="ReadMe.txt" Type="0"/>
-    <ROW Component="SyntaxTester.txt" ComponentId="{DAA8FC21-C4DF-4B8F-9457-CAB693ED91D5}" Directory_="LEScript_Dir" Attributes="0" KeyPath="SyntaxTester.txt" Type="0"/>
+    <ROW Component="ReadMe.txt" ComponentId="{BD216D30-7D26-43EA-9B5D-A64B8D98A416}" Directory_="USBImageVNCInstall_Dir" Attributes="0" KeyPath="urmagic_x11vnc.sh" Type="0"/>
+    <ROW Component="SyntaxTester.txt" ComponentId="{DAA8FC21-C4DF-4B8F-9457-CAB693ED91D5}" Directory_="LEScript_Dir" Attributes="0" KeyPath="Globals.txt" Type="0"/>
+    <ROW Component="SyntaxTester.txt_1" ComponentId="{B6234056-8C9C-431B-9B8F-72D70F384CCE}" Directory_="LEScript_1_Dir" Attributes="0" KeyPath="SyntaxTester.txt" Type="0"/>
     <ROW Component="TCPClient.exe" ComponentId="{DE3D2CE7-85C5-47BC-A7C0-07FE21B1825E}" Directory_="Debug_1_Dir" Attributes="0" KeyPath="TCPClient.exe"/>
     <ROW Component="TCPListener.exe" ComponentId="{74F42421-7E45-44D4-93CC-D5348E9DA682}" Directory_="Debug_1_Dir" Attributes="0" KeyPath="TCPListener.exe"/>
     <ROW Component="URDashboardTest.txt" ComponentId="{6B8997DD-EA9A-4595-8C46-E2854110B3AF}" Directory_="UR_1_Dir" Attributes="0" KeyPath="URDashboardTest.txt" Type="0"/>
+    <ROW Component="USBImageVNCInstall.zip" ComponentId="{185EF50C-BC0B-4D7A-9321-3552DB5633E4}" Directory_="UR_Dir" Attributes="0" KeyPath="USBImageVNCInstall.zip" Type="0"/>
     <ROW Component="UsingLMIGocatorswithLEonard.pdf" ComponentId="{BC2CCA60-4FDC-4D11-85B4-CABD44D37EB3}" Directory_="Documentation_Dir" Attributes="0" KeyPath="UsingLMIGocatorswithLEonard.pdf"/>
     <ROW Component="UsingUniversalRobotswithLEonard.pdf" ComponentId="{91EF3C16-A92D-4EBA-93AA-14FB5AC4FA20}" Directory_="Documentation_Dir" Attributes="0" KeyPath="UsingUniversalRobotswithLEonard.pdf"/>
     <ROW Component="__init__.py" ComponentId="{49990CBE-4792-4212-A0B6-4CD2A6DE2426}" Directory_="importlib_Dir" Attributes="0" KeyPath="__init__.py_8" Type="0"/>
     <ROW Component="__init__.py_1" ComponentId="{6250E18E-FA4E-498E-AAB8-552E84133B36}" Directory_="xml_Dir" Attributes="0" KeyPath="__init__.py_24" Type="0"/>
     <ROW Component="_uninstall.py" ComponentId="{C0537685-33F9-4BD0-885D-E356D201904D}" Directory_="ensurepip_Dir" Attributes="0" KeyPath="_uninstall.py" Type="0"/>
-    <ROW Component="aa.txt" ComponentId="{34E435AA-B7D4-40E1-AEA9-669F91E9005B}" Directory_="Code_Dir" Attributes="0" KeyPath="CommandInit.js" Type="0"/>
+    <ROW Component="aa.txt" ComponentId="{34E435AA-B7D4-40E1-AEA9-669F91E9005B}" Directory_="Code_Dir" Attributes="0" KeyPath="MoveTest.txt_1" Type="0"/>
     <ROW Component="abc.py" ComponentId="{D6D976B5-9754-4E3E-9DC0-EA9FD1418D31}" Directory_="Lib_1_Dir" Attributes="0" KeyPath="abc.py" Type="0"/>
+    <ROW Component="acqtest.hdev" ComponentId="{084D129E-58D2-41D9-932C-777ABF6AC707}" Directory_="HALCON_Dir" Attributes="0" KeyPath="acqtest.hdev" Type="0"/>
     <ROW Component="aliases.py" ComponentId="{727897C4-71B4-4A1F-82A4-4C0DB4B30483}" Directory_="encodings_Dir" Attributes="0" KeyPath="aliases.py" Type="0"/>
     <ROW Component="application.py" ComponentId="{6FB9BA5B-5981-41C1-AC22-34F7F46A9CCF}" Directory_="mime_Dir" Attributes="0" KeyPath="application.py" Type="0"/>
     <ROW Component="archive_util.py" ComponentId="{26CEC387-AA88-4845-AB98-9085A39113D2}" Directory_="distutils_Dir" Attributes="0" KeyPath="archive_util.py" Type="0"/>
-    <ROW Component="assert.txt" ComponentId="{673571AC-E2B9-4798-B94C-C09B974AA3A6}" Directory_="Functions_Dir" Attributes="0" KeyPath="assert.txt" Type="0"/>
+    <ROW Component="assert.txt" ComponentId="{B9AD3A14-F0FD-4B9E-9CFE-70732F1216DF}" Directory_="Testing_Dir" Attributes="0" KeyPath="assert.txt" Type="0"/>
     <ROW Component="base64mime.py" ComponentId="{EE0AADEA-D41A-4846-9390-CE95C6B5D886}" Directory_="email_Dir" Attributes="0" KeyPath="base64mime.py" Type="0"/>
     <ROW Component="bdist.py" ComponentId="{E13AF539-AD0A-46F0-8E40-82825B4FDDC2}" Directory_="command_Dir" Attributes="0" KeyPath="bdist.py" Type="0"/>
     <ROW Component="btm_matcher.py" ComponentId="{811F4185-EFA2-4D88-BAE0-55902E4C45C9}" Directory_="lib2to3_Dir" Attributes="0" KeyPath="btm_matcher.py" Type="0"/>
@@ -274,16 +293,17 @@
     <ROW Component="fix_apply.py" ComponentId="{2AFAE387-C5DE-466B-9798-FCC4F8589DA0}" Directory_="fixes_Dir" Attributes="0" KeyPath="fix_apply.py" Type="0"/>
     <ROW Component="globals.txt" ComponentId="{927D2ACC-A3CB-45F4-BFB3-A816076E475E}" Directory_="Examples_Dir" Attributes="0" KeyPath="HelloWorlds.txt" Type="0"/>
     <ROW Component="handlers.py" ComponentId="{1AF3C090-EC0F-4B64-9CEB-70E8CDE4BCBB}" Directory_="wsgiref_Dir" Attributes="0" KeyPath="handlers.py_1" Type="0"/>
-    <ROW Component="leSendTestsJava.txt" ComponentId="{5C17C18B-14C2-45F4-85D3-F3DD1E40C8A1}" Directory_="Java_Dir" Attributes="0" KeyPath="leSendTestsJava.txt" Type="0"/>
-    <ROW Component="leSendTestsLEScript.txt" ComponentId="{75641D2C-AA0C-4BF7-B0B9-A58AA5E027E6}" Directory_="System_Dir" Attributes="0" KeyPath="leSendTestsLEScript.txt" Type="0"/>
-    <ROW Component="leSendTestsPython.txt" ComponentId="{5335D390-8BB2-4253-9CC3-1B43A0736CB2}" Directory_="Python_Dir" Attributes="0" KeyPath="leSendTestsPython.txt" Type="0"/>
+    <ROW Component="leSendTestsJava.txt" ComponentId="{5C17C18B-14C2-45F4-85D3-F3DD1E40C8A1}" Directory_="Java_Dir" Attributes="0" KeyPath="JavaPrint1.js" Type="0"/>
+    <ROW Component="leSendTestsPython.txt" ComponentId="{5335D390-8BB2-4253-9CC3-1B43A0736CB2}" Directory_="Python_Dir" Attributes="0" KeyPath="PythonPrint1.py" Type="0"/>
     <ROW Component="libavahiclient3_0.6.233lenny3_i386.deb" ComponentId="{1A5EEB20-75DB-4832-AE5F-1FF1B32BE0CC}" Directory_="package_Dir" Attributes="0" KeyPath="libavahiclient3_0.6.233lenny3_i386.deb" Type="0"/>
-    <ROW Component="pOrigin.txt" ComponentId="{B1614261-00FF-417A-A3EA-71693D2B9A2E}" Directory_="Gocator_1_Dir" Attributes="0" KeyPath="pOrigin.txt" Type="0"/>
+    <ROW Component="pOrigin.txt_1" ComponentId="{A54843BE-662A-4878-92AD-80E8356BF07C}" Directory_="Gocator_2_Dir" Attributes="0" KeyPath="pOrigin.txt_1" Type="0"/>
     <ROW Component="p_static_repeatability.csv" ComponentId="{D32C3F6E-9BA1-444A-BDED-9C8E574A6B20}" Directory_="Data_Dir" Attributes="0" KeyPath="HoleData.csv" Type="0"/>
     <ROW Component="pip19.2.3py2.py3noneany.whl" ComponentId="{C0966602-FE75-4ECF-B77F-29D665B89747}" Directory_="_bundled_Dir" Attributes="0" KeyPath="pip19.2.3py2.py3noneany.whl" Type="0"/>
     <ROW Component="signature.p7s" ComponentId="{80A9AABF-532C-4ACC-A080-BB4AAA040DD4}" Directory_="Jint.2.11.58_Dir" Attributes="0" KeyPath="signature.p7s" Type="0"/>
     <ROW Component="signature.p7s_1" ComponentId="{D6AA4B89-A7D6-40B0-8AB0-8BCA34503321}" Directory_="NLog.4.7.13_Dir" Attributes="0" KeyPath="signature.p7s_1" Type="0"/>
     <ROW Component="signature.p7s_2" ComponentId="{31ED4C54-CE80-4830-8133-79AB2C67F10E}" Directory_="NLog.Windows.Forms.4.5.0_Dir" Attributes="0" KeyPath="signature.p7s_2" Type="0"/>
+    <ROW Component="simple_comm.js" ComponentId="{459940B9-CDE5-4235-B191-E202FBAA3C29}" Directory_="Java_1_Dir" Attributes="0" KeyPath="simple_comm.js" Type="0"/>
+    <ROW Component="simple_comm.py" ComponentId="{1323DD7B-4899-4D8A-900C-EC39B2AD193D}" Directory_="Python_1_Dir" Attributes="0" KeyPath="simple_comm.py" Type="0"/>
     <ROW Component="topics.py" ComponentId="{C13FB896-576C-4DDA-98B2-68FA368C2B9B}" Directory_="pydoc_data_Dir" Attributes="0" KeyPath="topics.py" Type="0"/>
     <ROW Component="util.py" ComponentId="{961EBA93-E5CE-403F-9645-9C30CC53E559}" Directory_="ctypes_Dir" Attributes="0" KeyPath="util.py" Type="0"/>
     <ROW Component="x11vnc" ComponentId="{B9F9F967-EB97-47FF-B097-250A891BBD3B}" Directory_="script_Dir" Attributes="0" KeyPath="x11vnc" Type="0"/>
@@ -311,69 +331,9 @@
     <ROW File="libssl0.9.8_0.9.8o7ubuntu3.2.14.04.1_i386.deb" Component_="libavahiclient3_0.6.233lenny3_i386.deb" FileName="LIBSSL~1.DEB|libssl0.9.8_0.9.8o-7ubuntu3.2.14.04.1_i386.deb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install\package\libssl0.9.8_0.9.8o-7ubuntu3.2.14.04.1_i386.deb" SelfReg="false"/>
     <ROW File="libvncserver0_0.9.3.dfsg.11_i386.deb" Component_="libavahiclient3_0.6.233lenny3_i386.deb" FileName="LIBVNC~1.DEB|libvncserver0_0.9.3.dfsg.1-1_i386.deb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install\package\libvncserver0_0.9.3.dfsg.1-1_i386.deb" SelfReg="false"/>
     <ROW File="x11vnc_0.9.3.dfsg.11_i386.deb" Component_="libavahiclient3_0.6.233lenny3_i386.deb" FileName="X11VNC~1.DEB|x11vnc_0.9.3.dfsg.1-1_i386.deb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install\package\x11vnc_0.9.3.dfsg.1-1_i386.deb" SelfReg="false"/>
-    <ROW File="ReadMe.txt" Component_="ReadMe.txt" FileName="ReadMe.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install\ReadMe.txt" SelfReg="false"/>
     <ROW File="x11vnc" Component_="x11vnc" FileName="x11vnc" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install\script\x11vnc" SelfReg="false"/>
     <ROW File="urmagic_x11vnc.sh" Component_="ReadMe.txt" FileName="URMAGI~1.SH|urmagic_x11vnc.sh" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install\urmagic_x11vnc.sh" SelfReg="false"/>
-    <ROW File="CommandInit.js" Component_="aa.txt" FileName="COMMAN~1.JS|CommandInit.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\CommandInit.js" SelfReg="false"/>
-    <ROW File="CommandInit.py" Component_="aa.txt" FileName="COMMAN~1.PY|CommandInit.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\CommandInit.py" SelfReg="false"/>
-    <ROW File="datamantrigger.js" Component_="aa.txt" FileName="DATAMA~1.JS|datamantrigger.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\datamantrigger.js" SelfReg="false"/>
-    <ROW File="pOrigin.txt" Component_="pOrigin.txt" FileName="00PORI~1.TXT|00p Origin.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\00p Origin.txt" SelfReg="false"/>
-    <ROW File="pProbeAlignment.txt" Component_="pOrigin.txt" FileName="01PPRO~1.TXT|01p Probe Alignment.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\01p Probe Alignment.txt" SelfReg="false"/>
-    <ROW File="pStaticRepeatability.txt" Component_="pOrigin.txt" FileName="10PSTA~1.TXT|10p Static Repeatability.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\10p Static Repeatability.txt" SelfReg="false"/>
-    <ROW File="pRobotRepeatability.txt" Component_="pOrigin.txt" FileName="11PROB~1.TXT|11p Robot Repeatability.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\11p Robot Repeatability.txt" SelfReg="false"/>
-    <ROW File="pXYZAlignmentSunk.txt" Component_="pOrigin.txt" FileName="12PXYZ~1.TXT|12p XYZ Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\12p XYZ Alignment Sunk.txt" SelfReg="false"/>
-    <ROW File="pXYZAlignmentThru.txt" Component_="pOrigin.txt" FileName="13PXYZ~1.TXT|13p XYZ Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\13p XYZ Alignment Thru.txt" SelfReg="false"/>
-    <ROW File="pNormalAlignmentSunk.txt" Component_="pOrigin.txt" FileName="14PNOR~1.TXT|14p Normal Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\14p Normal Alignment Sunk.txt" SelfReg="false"/>
-    <ROW File="pNormalAlignmentThru.txt" Component_="pOrigin.txt" FileName="15PNOR~1.TXT|15p Normal Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\15p Normal Alignment Thru.txt" SelfReg="false"/>
-    <ROW File="pBothAlignmentSunk.txt" Component_="pOrigin.txt" FileName="16PBOT~1.TXT|16p Both Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\16p Both Alignment Sunk.txt" SelfReg="false"/>
-    <ROW File="pBothAlignmentThru.txt" Component_="pOrigin.txt" FileName="17PBOT~1.TXT|17p Both Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\17p Both Alignment Thru.txt" SelfReg="false"/>
-    <ROW File="GocatorComm1.txt" Component_="pOrigin.txt" FileName="201GOC~1.TXT|201 Gocator Comm 1.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\201 Gocator Comm 1.txt" SelfReg="false"/>
-    <ROW File="pInspectAll.txt" Component_="pOrigin.txt" FileName="50PINS~1.TXT|50p Inspect All.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\50p Inspect All.txt" SelfReg="false"/>
-    <ROW File="pInspectAllPerturbed.txt" Component_="pOrigin.txt" FileName="51PINS~1.TXT|51p Inspect All Perturbed.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\51p Inspect All Perturbed.txt" SelfReg="false"/>
-    <ROW File="pInspectandInsertAll.txt" Component_="pOrigin.txt" FileName="52PINS~1.TXT|52p Inspect and Insert All.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\52p Inspect and Insert All.txt" SelfReg="false"/>
-    <ROW File="pInspectandInsertAllPerturbed.txt" Component_="pOrigin.txt" FileName="53PINS~1.TXT|53p Inspect and Insert All Perturbed.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\53p Inspect and Insert All Perturbed.txt" SelfReg="false"/>
-    <ROW File="Origin.txt" Component_="Origin.txt" FileName="00ORIG~1.TXT|00 Origin.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\00 Origin.txt" SelfReg="false"/>
-    <ROW File="ProbeAlignment.txt" Component_="Origin.txt" FileName="01PROB~1.TXT|01 Probe Alignment.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\01 Probe Alignment.txt" SelfReg="false"/>
-    <ROW File="StaticRepeatability.txt" Component_="Origin.txt" FileName="10STAT~1.TXT|10 Static Repeatability.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\10 Static Repeatability.txt" SelfReg="false"/>
-    <ROW File="RobotRepeatability.txt" Component_="Origin.txt" FileName="11ROBO~1.TXT|11 Robot Repeatability.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\11 Robot Repeatability.txt" SelfReg="false"/>
-    <ROW File="XYZAlignmentSunk.txt" Component_="Origin.txt" FileName="12XYZA~1.TXT|12 XYZ Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\12 XYZ Alignment Sunk.txt" SelfReg="false"/>
-    <ROW File="XYZAlignmentThru.txt" Component_="Origin.txt" FileName="13XYZA~1.TXT|13 XYZ Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\13 XYZ Alignment Thru.txt" SelfReg="false"/>
-    <ROW File="NormalAlignmentSunk.txt" Component_="Origin.txt" FileName="14NORM~1.TXT|14 Normal Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\14 Normal Alignment Sunk.txt" SelfReg="false"/>
-    <ROW File="NormalAlignmentThru.txt" Component_="Origin.txt" FileName="15NORM~1.TXT|15 Normal Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\15 Normal Alignment Thru.txt" SelfReg="false"/>
-    <ROW File="BothAlignmentSunk.txt" Component_="Origin.txt" FileName="16BOTH~1.TXT|16 Both Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\16 Both Alignment Sunk.txt" SelfReg="false"/>
-    <ROW File="BothAlignmentThru.txt" Component_="Origin.txt" FileName="17BOTH~1.TXT|17 Both Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\17 Both Alignment Thru.txt" SelfReg="false"/>
-    <ROW File="InspectAll.txt" Component_="Origin.txt" FileName="50INSP~1.TXT|50 Inspect All.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\50 Inspect All.txt" SelfReg="false"/>
-    <ROW File="InspectAllPerturbed.txt" Component_="Origin.txt" FileName="51INSP~1.TXT|51 Inspect All Perturbed.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\51 Inspect All Perturbed.txt" SelfReg="false"/>
-    <ROW File="InspectandInsertAll.txt" Component_="Origin.txt" FileName="52INSP~1.TXT|52 Inspect and Insert All.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\52 Inspect and Insert All.txt" SelfReg="false"/>
-    <ROW File="InspectandInsertAllPerturbed.txt" Component_="Origin.txt" FileName="53INSP~1.TXT|53 Inspect and Insert All Perturbed.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Original Testing\53 Inspect and Insert All Perturbed.txt" SelfReg="false"/>
-    <ROW File="TriggerOnly.txt" Component_="pOrigin.txt" FileName="TRIGGE~1.TXT|Trigger Only.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Gocator\Trigger Only.txt" SelfReg="false"/>
     <ROW File="HelloWorlds.txt" Component_="globals.txt" FileName="HELLO_~1.TXT|Hello, Worlds!.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Hello, Worlds!.txt" SelfReg="false"/>
-    <ROW File="leSendTestsJava.txt" Component_="leSendTestsJava.txt" FileName="100LES~1.TXT|100 leSend Tests Java.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Java\100 leSend Tests Java.txt" SelfReg="false"/>
-    <ROW File="Sample1.js" Component_="leSendTestsJava.txt" FileName="100SAM~1.JS|100 Sample 1.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Java\100 Sample 1.js" SelfReg="false"/>
-    <ROW File="_Sample_1.js" Component_="leSendTestsJava.txt" FileName="100_SA~1.JS|100_Sample_1.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Java\100_Sample_1.js" SelfReg="false"/>
-    <ROW File="SyntaxTester.txt" Component_="SyntaxTester.txt" FileName="00SYNT~1.TXT|00 Syntax Tester.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\00 Syntax Tester.txt" SelfReg="false"/>
-    <ROW File="CommentsAndJumps.txt" Component_="SyntaxTester.txt" FileName="01COMM~1.TXT|01 Comments And Jumps.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\01 Comments And Jumps.txt" SelfReg="false"/>
-    <ROW File="ImportTest.txt" Component_="SyntaxTester.txt" FileName="02IMPO~1.TXT|02 Import Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\02 Import Test.txt" SelfReg="false"/>
-    <ROW File="AssertTester.txt" Component_="SyntaxTester.txt" FileName="03ASSE~1.TXT|03 Assert Tester.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\03 Assert Tester.txt" SelfReg="false"/>
-    <ROW File="VariableTest.txt" Component_="SyntaxTester.txt" FileName="04VARI~1.TXT|04 Variable Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\04 Variable Test.txt" SelfReg="false"/>
-    <ROW File="SleepTest.txt" Component_="SyntaxTester.txt" FileName="07SLEE~1.TXT|07 Sleep Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\07 Sleep Test.txt" SelfReg="false"/>
-    <ROW File="LineManagementTest.txt" Component_="SyntaxTester.txt" FileName="08LINE~1.TXT|08 Line Management Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\08 Line Management Test.txt" SelfReg="false"/>
-    <ROW File="LongLineScrollTest.txt" Component_="SyntaxTester.txt" FileName="09LONG~1.TXT|09 Long Line Scroll Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\09 Long Line Scroll Test.txt" SelfReg="false"/>
-    <ROW File="LongRecipeScrollTest.txt" Component_="SyntaxTester.txt" FileName="14LONG~1.TXT|14 Long Recipe Scroll Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\14 Long Recipe Scroll Test.txt" SelfReg="false"/>
-    <ROW File="UserTimerTest.txt" Component_="SyntaxTester.txt" FileName="16USER~1.TXT|16 User Timer Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\16 User Timer Test.txt" SelfReg="false"/>
-    <ROW File="FileTest.txt" Component_="SyntaxTester.txt" FileName="18FILE~1.TXT|18 File Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\18 File Test.txt" SelfReg="false"/>
-    <ROW File="CallTest.txt" Component_="SyntaxTester.txt" FileName="19CALL~1.TXT|19 Call Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\19 Call Test.txt" SelfReg="false"/>
-    <ROW File="CrashRestartTest.txt" Component_="SyntaxTester.txt" FileName="80CRAS~1.TXT|80 Crash Restart Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\80 Crash Restart Test.txt" SelfReg="false"/>
-    <ROW File="LanguageCalls.txt" Component_="SyntaxTester.txt" FileName="90LANG~1.TXT|90 Language Calls.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\90 Language Calls.txt" SelfReg="false"/>
-    <ROW File="leSendTestsPython.txt" Component_="leSendTestsPython.txt" FileName="100LES~1.TXT|100 leSend Tests Python.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\100 leSend Tests Python.txt" SelfReg="false"/>
-    <ROW File="leSendTests.txt" Component_="leSendTestsPython.txt" FileName="100LES~2.TXT|100 leSend Tests.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\100 leSend Tests.txt" SelfReg="false"/>
-    <ROW File="Sample1.py" Component_="leSendTestsPython.txt" FileName="100SAM~1.PY|100 Sample 1.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\100 Sample 1.py" SelfReg="false"/>
-    <ROW File="_Sample_1.py" Component_="leSendTestsPython.txt" FileName="100_SA~1.PY|100_Sample_1.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\100_Sample_1.py" SelfReg="false"/>
-    <ROW File="PathImportLoad.txt" Component_="leSendTestsPython.txt" FileName="101PAT~1.TXT|101 Path Import Load.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\101 Path Import Load.txt" SelfReg="false"/>
-    <ROW File="JumpandCallTests.txt" Component_="leSendTestsPython.txt" FileName="120JUM~1.TXT|120 Jump and Call Tests.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\120 Jump and Call Tests.txt" SelfReg="false"/>
-    <ROW File="samplefuncs.py" Component_="leSendTestsPython.txt" FileName="SAMPLE~1.PY|samplefuncs.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\samplefuncs.py" SelfReg="false"/>
-    <ROW File="leSendTestsLEScript.txt" Component_="leSendTestsLEScript.txt" FileName="100LES~1.TXT|100 leSend Tests LEScript.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\System\100 leSend Tests LEScript.txt" SelfReg="false"/>
-    <ROW File="DevicesTest.txt" Component_="leSendTestsLEScript.txt" FileName="200DEV~1.TXT|200 Devices Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\System\200 Devices Test.txt" SelfReg="false"/>
     <ROW File="URDashboardTest.txt" Component_="URDashboardTest.txt" FileName="01URDA~1.TXT|01 UR Dashboard Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\UR\01 UR Dashboard Test.txt" SelfReg="false"/>
     <ROW File="MoveTest.txt" Component_="URDashboardTest.txt" FileName="05MOVE~1.TXT|05 Move Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\UR\05 Move Test.txt" SelfReg="false"/>
     <ROW File="Parameters.txt" Component_="URDashboardTest.txt" FileName="06PARA~1.TXT|06 Parameters.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\UR\06 Parameters.txt" SelfReg="false"/>
@@ -411,17 +371,8 @@
     <ROW File="CirclePatternTest.txt" Component_="LineSpeedTest.txt" FileName="55CIRC~1.TXT|55 Circle Pattern Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\UR\Grinding\55 Circle Pattern Test.txt" SelfReg="false"/>
     <ROW File="SpiralPatternTest.txt" Component_="LineSpeedTest.txt" FileName="56SPIR~1.TXT|56 Spiral Pattern Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\UR\Grinding\56 Spiral Pattern Test.txt" SelfReg="false"/>
     <ROW File="Bug184SerpSpeedIssue.txt" Component_="LineSpeedTest.txt" FileName="BUG184~1.TXT|Bug 184 Serp Speed Issue.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\UR\Grinding\Bug 184 Serp Speed Issue.txt" SelfReg="false"/>
-    <ROW File="ExecTest.txt" Component_="aa.txt" FileName="EXECTE~1.TXT|Exec Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Exec Test.txt" SelfReg="false"/>
-    <ROW File="filetest.py" Component_="aa.txt" FileName="filetest.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\filetest.py" SelfReg="false"/>
-    <ROW File="filetest.txt_1" Component_="aa.txt" FileName="filetest.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\filetest.txt" SelfReg="false"/>
-    <ROW File="gc_trigger.txt" Component_="aa.txt" FileName="GC_TRI~1.TXT|gc_trigger.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\gc_trigger.txt" SelfReg="false"/>
-    <ROW File="gocatortrigger.js" Component_="aa.txt" FileName="GOCATO~1.JS|gocator trigger.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\gocator trigger.js" SelfReg="false"/>
-    <ROW File="inch_conversions.txt" Component_="aa.txt" FileName="INCH_C~1.TXT|inch_conversions.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\inch_conversions.txt" SelfReg="false"/>
     <ROW File="csv_addons.py" Component_="csv_addons.py" FileName="CSV_AD~1.PY|csv_addons.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Lib\csv_addons.py" SelfReg="false"/>
     <ROW File="leGocatorSupport.py" Component_="csv_addons.py" FileName="LEGOCA~1.PY|leGocatorSupport.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Lib\leGocatorSupport.py" SelfReg="false"/>
-    <ROW File="Manual001LEScriptExample.txt" Component_="aa.txt" FileName="MANUAL~1.TXT|Manual001 LEScript Example.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Manual001 LEScript Example.txt" SelfReg="false"/>
-    <ROW File="Manual002JavaExample.txt" Component_="aa.txt" FileName="MANUAL~2.TXT|Manual002 Java Example.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Manual002 Java Example.txt" SelfReg="false"/>
-    <ROW File="Manual003PythonExample.txt" Component_="aa.txt" FileName="MANUAL~3.TXT|Manual003 Python Example.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Manual003 Python Example.txt" SelfReg="false"/>
     <ROW File="MoveTest.txt_1" Component_="aa.txt" FileName="MoveTest.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\MoveTest.txt" SelfReg="false"/>
     <ROW File="ur_init.py" Component_="aa.txt" FileName="ur_init.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\ur_init.py" SelfReg="false"/>
     <ROW File="LEonardUserManual.pdf" Component_="LEonardUserManual.pdf" FileName="LEONAR~1.PDF|LEonard User Manual.pdf" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Documentation\LEonard User Manual.pdf" SelfReg="false"/>
@@ -1070,24 +1021,10 @@
     <ROW File="_weakrefset.py" Component_="abc.py" FileName="_WEAKR~1.PY|_weakrefset.py" Attributes="0" SourcePath="..\LEonard\Lib\_weakrefset.py" SelfReg="false"/>
     <ROW File="__future__.py" Component_="abc.py" FileName="__FUTU~1.PY|__future__.py" Attributes="0" SourcePath="..\LEonard\Lib\__future__.py" SelfReg="false"/>
     <ROW File="__phello__.foo.py" Component_="abc.py" FileName="__PHEL~1.PY|__phello__.foo.py" Attributes="0" SourcePath="..\LEonard\Lib\__phello__.foo.py" SelfReg="false"/>
-    <ROW File="aa.txt" Component_="aa.txt" FileName="aa.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\aa.txt" SelfReg="false"/>
-    <ROW File="assert.txt" Component_="assert.txt" FileName="assert.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\assert.txt" SelfReg="false"/>
-    <ROW File="console.txt" Component_="assert.txt" FileName="console.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\console.txt" SelfReg="false"/>
-    <ROW File="exec_java.txt" Component_="assert.txt" FileName="EXEC_J~1.TXT|exec_java.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\exec_java.txt" SelfReg="false"/>
-    <ROW File="exec_python.txt" Component_="assert.txt" FileName="EXEC_P~1.TXT|exec_python.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\exec_python.txt" SelfReg="false"/>
-    <ROW File="import_test_data.txt" Component_="assert.txt" FileName="IMPORT~1.TXT|import_test_data.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\import_test_data.txt" SelfReg="false"/>
-    <ROW File="le_clear_variables.txt" Component_="assert.txt" FileName="LE_CLE~1.TXT|le_clear_variables.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\le_clear_variables.txt" SelfReg="false"/>
-    <ROW File="le_import_variables.txt" Component_="assert.txt" FileName="LE_IMP~1.TXT|le_import_variables.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\le_import_variables.txt" SelfReg="false"/>
-    <ROW File="log.txt" Component_="assert.txt" FileName="log.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\log.txt" SelfReg="false"/>
-    <ROW File="random.txt" Component_="assert.txt" FileName="random.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\random.txt" SelfReg="false"/>
-    <ROW File="using_languages.txt" Component_="assert.txt" FileName="USING_~1.TXT|using_languages.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\using_languages.txt" SelfReg="false"/>
-    <ROW File="variables.txt" Component_="assert.txt" FileName="VARIAB~1.TXT|variables.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Functions\variables.txt" SelfReg="false"/>
     <ROW File="JavaPrint1.js" Component_="leSendTestsJava.txt" FileName="JAVAPR~1.JS|JavaPrint1.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Java\JavaPrint1.js" SelfReg="false"/>
     <ROW File="JavaPrint2.js" Component_="leSendTestsJava.txt" FileName="JAVAPR~2.JS|JavaPrint2.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Java\JavaPrint2.js" SelfReg="false"/>
     <ROW File="PythonPrint1.py" Component_="leSendTestsPython.txt" FileName="PYTHON~1.PY|PythonPrint1.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\PythonPrint1.py" SelfReg="false"/>
     <ROW File="PythonPrint2.py" Component_="leSendTestsPython.txt" FileName="PYTHON~2.PY|PythonPrint2.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\PythonPrint2.py" SelfReg="false"/>
-    <ROW File="footest.py" Component_="aa.txt" FileName="footest.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\footest.py" SelfReg="false"/>
-    <ROW File="tt1.py" Component_="aa.txt" FileName="tt1.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\tt1.py" SelfReg="false"/>
     <ROW File="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="NETFRA~1.CS|.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" SelfReg="false"/>
     <ROW File="NETFrameworkVersionv4.8.AssemblyAttributes.cs" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="NETFRA~2.CS|.NETFramework,Version=v4.8.AssemblyAttributes.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" SelfReg="false"/>
     <ROW File="DesignTimeResolveAssemblyReferences.cache" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs" FileName="DESIGN~1.CAC|DesignTimeResolveAssemblyReferences.cache" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Debug\DesignTimeResolveAssemblyReferences.cache" SelfReg="false"/>
@@ -1160,6 +1097,140 @@
     <ROW File="TemporaryGeneratedFile_5937a6700e604077877bf7221da3dda1.cs_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TEMPOR~2.CS|TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" SelfReg="false"/>
     <ROW File="TemporaryGeneratedFile_E7A71F730F8D4B9BB56E8E70B10BC5D3.cs_1" Component_="NETFrameworkVersionv4.8.AssemblyAttributes.cs" FileName="TEMPOR~3.CS|TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" SelfReg="false"/>
     <ROW File="Properties.Resources.Designer.cs.dll_1" Component_="Properties.Resources.Designer.cs.dll_1" FileName="PROPER~1.DLL|Properties.Resources.Designer.cs.dll" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\LEonardClient\obj\Release\TempPE\Properties.Resources.Designer.cs.dll" SelfReg="false"/>
+    <ROW File="USBImageVNCInstall.zip" Component_="USBImageVNCInstall.zip" FileName="USBIMA~1.ZIP|USB Image- VNC Install.zip" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\3rdParty\UR\USB Image- VNC Install.zip" SelfReg="false"/>
+    <ROW File="Dataman1.dmb" Component_="Dataman1.dmb" FileName="Dataman1.dmb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Cognex\Dataman\Dataman1.dmb" SelfReg="false"/>
+    <ROW File="Dataman2.dmb" Component_="Dataman1.dmb" FileName="Dataman2.dmb" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Cognex\Dataman\Dataman2.dmb" SelfReg="false"/>
+    <ROW File="basic_comm.js" Component_="leSendTestsJava.txt" FileName="BASIC_~1.JS|basic_comm.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Java\basic_comm.js" SelfReg="false"/>
+    <ROW File="Globals.txt" Component_="SyntaxTester.txt" FileName="Globals.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\Globals.txt" SelfReg="false"/>
+    <ROW File="LEScriptPrint1.txt" Component_="SyntaxTester.txt" FileName="LESCRI~1.TXT|LEScriptPrint1.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\LEScriptPrint1.txt" SelfReg="false"/>
+    <ROW File="LEScriptPrint2.txt" Component_="SyntaxTester.txt" FileName="LESCRI~2.TXT|LEScriptPrint2.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LEScript\LEScriptPrint2.txt" SelfReg="false"/>
+    <ROW File="pOrigin.txt_1" Component_="pOrigin.txt_1" FileName="00PORI~1.TXT|00p Origin.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\00p Origin.txt" SelfReg="false"/>
+    <ROW File="pProbeAlignment.txt_1" Component_="pOrigin.txt_1" FileName="01PPRO~1.TXT|01p Probe Alignment.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\01p Probe Alignment.txt" SelfReg="false"/>
+    <ROW File="pStaticRepeatability.txt_1" Component_="pOrigin.txt_1" FileName="10PSTA~1.TXT|10p Static Repeatability.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\10p Static Repeatability.txt" SelfReg="false"/>
+    <ROW File="pRobotRepeatability.txt_1" Component_="pOrigin.txt_1" FileName="11PROB~1.TXT|11p Robot Repeatability.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\11p Robot Repeatability.txt" SelfReg="false"/>
+    <ROW File="pXYZAlignmentSunk.txt_1" Component_="pOrigin.txt_1" FileName="12PXYZ~1.TXT|12p XYZ Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\12p XYZ Alignment Sunk.txt" SelfReg="false"/>
+    <ROW File="pXYZAlignmentThru.txt_1" Component_="pOrigin.txt_1" FileName="13PXYZ~1.TXT|13p XYZ Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\13p XYZ Alignment Thru.txt" SelfReg="false"/>
+    <ROW File="pNormalAlignmentSunk.txt_1" Component_="pOrigin.txt_1" FileName="14PNOR~1.TXT|14p Normal Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\14p Normal Alignment Sunk.txt" SelfReg="false"/>
+    <ROW File="pNormalAlignmentThru.txt_1" Component_="pOrigin.txt_1" FileName="15PNOR~1.TXT|15p Normal Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\15p Normal Alignment Thru.txt" SelfReg="false"/>
+    <ROW File="pBothAlignmentSunk.txt_1" Component_="pOrigin.txt_1" FileName="16PBOT~1.TXT|16p Both Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\16p Both Alignment Sunk.txt" SelfReg="false"/>
+    <ROW File="pBothAlignmentThru.txt_1" Component_="pOrigin.txt_1" FileName="17PBOT~1.TXT|17p Both Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\17p Both Alignment Thru.txt" SelfReg="false"/>
+    <ROW File="GocatorComm1.txt_1" Component_="pOrigin.txt_1" FileName="201GOC~1.TXT|201 Gocator Comm 1.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\201 Gocator Comm 1.txt" SelfReg="false"/>
+    <ROW File="pInspectAll.txt_1" Component_="pOrigin.txt_1" FileName="50PINS~1.TXT|50p Inspect All.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\50p Inspect All.txt" SelfReg="false"/>
+    <ROW File="pInspectAllPerturbed.txt_1" Component_="pOrigin.txt_1" FileName="51PINS~1.TXT|51p Inspect All Perturbed.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\51p Inspect All Perturbed.txt" SelfReg="false"/>
+    <ROW File="pInspectandInsertAll.txt_1" Component_="pOrigin.txt_1" FileName="52PINS~1.TXT|52p Inspect and Insert All.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\52p Inspect and Insert All.txt" SelfReg="false"/>
+    <ROW File="pInspectandInsertAllPerturbed.txt_1" Component_="pOrigin.txt_1" FileName="53PINS~1.TXT|53p Inspect and Insert All Perturbed.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\53p Inspect and Insert All Perturbed.txt" SelfReg="false"/>
+    <ROW File="Origin.txt_1" Component_="Origin.txt_1" FileName="00ORIG~1.TXT|00 Origin.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\00 Origin.txt" SelfReg="false"/>
+    <ROW File="ProbeAlignment.txt_1" Component_="Origin.txt_1" FileName="01PROB~1.TXT|01 Probe Alignment.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\01 Probe Alignment.txt" SelfReg="false"/>
+    <ROW File="StaticRepeatability.txt_1" Component_="Origin.txt_1" FileName="10STAT~1.TXT|10 Static Repeatability.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\10 Static Repeatability.txt" SelfReg="false"/>
+    <ROW File="RobotRepeatability.txt_1" Component_="Origin.txt_1" FileName="11ROBO~1.TXT|11 Robot Repeatability.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\11 Robot Repeatability.txt" SelfReg="false"/>
+    <ROW File="XYZAlignmentSunk.txt_1" Component_="Origin.txt_1" FileName="12XYZA~1.TXT|12 XYZ Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\12 XYZ Alignment Sunk.txt" SelfReg="false"/>
+    <ROW File="XYZAlignmentThru.txt_1" Component_="Origin.txt_1" FileName="13XYZA~1.TXT|13 XYZ Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\13 XYZ Alignment Thru.txt" SelfReg="false"/>
+    <ROW File="NormalAlignmentSunk.txt_1" Component_="Origin.txt_1" FileName="14NORM~1.TXT|14 Normal Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\14 Normal Alignment Sunk.txt" SelfReg="false"/>
+    <ROW File="NormalAlignmentThru.txt_1" Component_="Origin.txt_1" FileName="15NORM~1.TXT|15 Normal Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\15 Normal Alignment Thru.txt" SelfReg="false"/>
+    <ROW File="BothAlignmentSunk.txt_1" Component_="Origin.txt_1" FileName="16BOTH~1.TXT|16 Both Alignment Sunk.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\16 Both Alignment Sunk.txt" SelfReg="false"/>
+    <ROW File="BothAlignmentThru.txt_1" Component_="Origin.txt_1" FileName="17BOTH~1.TXT|17 Both Alignment Thru.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\17 Both Alignment Thru.txt" SelfReg="false"/>
+    <ROW File="InspectAll.txt_1" Component_="Origin.txt_1" FileName="50INSP~1.TXT|50 Inspect All.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\50 Inspect All.txt" SelfReg="false"/>
+    <ROW File="InspectAllPerturbed.txt_1" Component_="Origin.txt_1" FileName="51INSP~1.TXT|51 Inspect All Perturbed.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\51 Inspect All Perturbed.txt" SelfReg="false"/>
+    <ROW File="InspectandInsertAll.txt_1" Component_="Origin.txt_1" FileName="52INSP~1.TXT|52 Inspect and Insert All.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\52 Inspect and Insert All.txt" SelfReg="false"/>
+    <ROW File="InspectandInsertAllPerturbed.txt_1" Component_="Origin.txt_1" FileName="53INSP~1.TXT|53 Inspect and Insert All Perturbed.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Original Testing\53 Inspect and Insert All Perturbed.txt" SelfReg="false"/>
+    <ROW File="TriggerOnly.txt_1" Component_="pOrigin.txt_1" FileName="TRIGGE~1.TXT|Trigger Only.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\LMI\Gocator\Trigger Only.txt" SelfReg="false"/>
+    <ROW File="Manual001LEScriptExample.txt_1" Component_="globals.txt" FileName="MANUAL~1.TXT|Manual001 LEScript Example.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Manual001 LEScript Example.txt" SelfReg="false"/>
+    <ROW File="Manual002JavaExample.txt_1" Component_="globals.txt" FileName="MANUAL~2.TXT|Manual002 Java Example.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Manual002 Java Example.txt" SelfReg="false"/>
+    <ROW File="Manual003PythonExample.txt_1" Component_="globals.txt" FileName="MANUAL~3.TXT|Manual003 Python Example.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Manual003 Python Example.txt" SelfReg="false"/>
+    <ROW File="acqtest.hdev" Component_="acqtest.hdev" FileName="ACQTES~1.HDE|acqtest.hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\acqtest.hdev" SelfReg="false"/>
+    <ROW File="edgefindtest.hdev" Component_="acqtest.hdev" FileName="EDGEFI~1.HDE|edgefind test.hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\edgefind test.hdev" SelfReg="false"/>
+    <ROW File="func1.hdvp" Component_="acqtest.hdev" FileName="FUNC1~1.HDV|func1.hdvp" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\func1.hdvp" SelfReg="false"/>
+    <ROW File="IACVisionSkillsCopy.hdev" Component_="acqtest.hdev" FileName="IACVIS~1.HDE|IAC Vision Skills - Copy.hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\IAC Vision Skills - Copy.hdev" SelfReg="false"/>
+    <ROW File="IACVisionSkills.hdev" Component_="acqtest.hdev" FileName="IACVIS~2.HDE|IAC Vision Skills.hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\IAC Vision Skills.hdev" SelfReg="false"/>
+    <ROW File="IACVisionSkills.pdf" Component_="acqtest.hdev" FileName="IACVIS~1.PDF|IAC Vision Skills.pdf" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\IAC Vision Skills.pdf" SelfReg="false"/>
+    <ROW File="iac_caltab.descr" Component_="acqtest.hdev" FileName="IAC_CA~1.DES|iac_caltab.descr" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\iac_caltab.descr" SelfReg="false"/>
+    <ROW File="iac_caltab.ps" Component_="acqtest.hdev" FileName="IAC_CA~1.PS|iac_caltab.ps" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\iac_caltab.ps" SelfReg="false"/>
+    <ROW File="iac_extrinsic_cal.dat" Component_="acqtest.hdev" FileName="IAC_EX~1.DAT|iac_extrinsic_cal.dat" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\iac_extrinsic_cal.dat" SelfReg="false"/>
+    <ROW File="iac_intrinsic_camera_parameters.dat" Component_="acqtest.hdev" FileName="IAC_IN~1.DAT|iac_intrinsic_camera_parameters.dat" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\iac_intrinsic_camera_parameters.dat" SelfReg="false"/>
+    <ROW File="LE01SocketTestAuto.hdev" Component_="acqtest.hdev" FileName="LE01SO~1.HDE|LE01 Socket Test (Auto).hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\LE01 Socket Test (Auto).hdev" SelfReg="false"/>
+    <ROW File="LE01SocketTest.hdev" Component_="acqtest.hdev" FileName="LE01SO~2.HDE|LE01 Socket Test.hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\LE01 Socket Test.hdev" SelfReg="false"/>
+    <ROW File="README.md" Component_="acqtest.hdev" FileName="README.md" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\README.md" SelfReg="false"/>
+    <ROW File="stringsplitdemo.hdev" Component_="acqtest.hdev" FileName="STRING~1.HDE|string split demo.hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\string split demo.hdev" SelfReg="false"/>
+    <ROW File="tcp_client.hdev" Component_="acqtest.hdev" FileName="TCP_CL~1.HDE|tcp_client.hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\tcp_client.hdev" SelfReg="false"/>
+    <ROW File="test1.hdev" Component_="acqtest.hdev" FileName="TEST1~1.HDE|test1.hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\test1.hdev" SelfReg="false"/>
+    <ROW File="test2.hdev" Component_="acqtest.hdev" FileName="TEST2~1.HDE|test2.hdev" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\MVTec\HALCON\test2.hdev" SelfReg="false"/>
+    <ROW File="basic_comm.py" Component_="leSendTestsPython.txt" FileName="BASIC_~1.PY|basic_comm.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Python\basic_comm.py" SelfReg="false"/>
+    <ROW File="DSet1.sh8" Component_="DSet1.sh8" FileName="3DSet1.sh8" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlock8x64\3DSet1.sh8" SelfReg="false"/>
+    <ROW File="DSet2.sh8" Component_="DSet1.sh8" FileName="3DSet2.sh8" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlock8x64\3DSet2.sh8" SelfReg="false"/>
+    <ROW File="DSet3.sh8" Component_="DSet1.sh8" FileName="3DSet3.sh8" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlock8x64\3DSet3.sh8" SelfReg="false"/>
+    <ROW File="barcode1.sh8" Component_="DSet1.sh8" FileName="barcode1.sh8" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlock8x64\barcode1.sh8" SelfReg="false"/>
+    <ROW File="program0.sh8" Component_="DSet1.sh8" FileName="program0.sh8" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlock8x64\program0.sh8" SelfReg="false"/>
+    <ROW File="program1.sh8" Component_="DSet1.sh8" FileName="program1.sh8" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlock8x64\program1.sh8" SelfReg="false"/>
+    <ROW File="program2.sh8" Component_="DSet1.sh8" FileName="program2.sh8" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlock8x64\program2.sh8" SelfReg="false"/>
+    <ROW File="simple0.sh8" Component_="DSet1.sh8" FileName="simple0.sh8" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlock8x64\simple0.sh8" SelfReg="false"/>
+    <ROW File="simple1.sh8" Component_="DSet1.sh8" FileName="simple1.sh8" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlock8x64\simple1.sh8" SelfReg="false"/>
+    <ROW File="AutoSaveRectBalgB" Component_="AutoSaveRectBalgB" FileName="AUTOSA~1|AutoSave-RectB-algB" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\AutoSave-RectB-algB" SelfReg="false"/>
+    <ROW File="AutoSaveRectCalgC" Component_="AutoSaveRectBalgB" FileName="AUTOSA~2|AutoSave-RectC-algC" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\AutoSave-RectC-algC" SelfReg="false"/>
+    <ROW File="AutoSaveRectDalgD" Component_="AutoSaveRectBalgB" FileName="AUTOSA~3|AutoSave-RectD-algD" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\AutoSave-RectD-algD" SelfReg="false"/>
+    <ROW File="AutoSave.ivs" Component_="AutoSaveRectBalgB" FileName="AutoSave.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\AutoSave.ivs" SelfReg="false"/>
+    <ROW File="BarcodeLive1.ivs" Component_="AutoSaveRectBalgB" FileName="BARCOD~1.IVS|BarcodeLive1.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\BarcodeLive1.ivs" SelfReg="false"/>
+    <ROW File="BarcodeReaderRectAalgA" Component_="AutoSaveRectBalgB" FileName="BARCOD~1|BarcodeReader-RectA-algA" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\BarcodeReader-RectA-algA" SelfReg="false"/>
+    <ROW File="BarcodeReaderRectBalgB" Component_="AutoSaveRectBalgB" FileName="BARCOD~2|BarcodeReader-RectB-algB" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\BarcodeReader-RectB-algB" SelfReg="false"/>
+    <ROW File="BarcodeReaderRectCalgC" Component_="AutoSaveRectBalgB" FileName="BARCOD~3|BarcodeReader-RectC-algC" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\BarcodeReader-RectC-algC" SelfReg="false"/>
+    <ROW File="BarcodeReaderRectDalgD" Component_="AutoSaveRectBalgB" FileName="BARCOD~4|BarcodeReader-RectD-algD" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\BarcodeReader-RectD-algD" SelfReg="false"/>
+    <ROW File="BarcodeReader.ivs" Component_="AutoSaveRectBalgB" FileName="BARCOD~2.IVS|BarcodeReader.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\BarcodeReader.ivs" SelfReg="false"/>
+    <ROW File="BarcodeReader2.ivs" Component_="AutoSaveRectBalgB" FileName="BARCOD~3.IVS|BarcodeReader2.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\BarcodeReader2.ivs" SelfReg="false"/>
+    <ROW File="BarcodeReader3.ivs" Component_="AutoSaveRectBalgB" FileName="BARCOD~4.IVS|BarcodeReader3.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\BarcodeReader3.ivs" SelfReg="false"/>
+    <ROW File="BarcodeReader4.ivs" Component_="AutoSaveRectBalgB" FileName="BARCOD~5.IVS|BarcodeReader4.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\BarcodeReader4.ivs" SelfReg="false"/>
+    <ROW File="Color1RectAalgA.ucc" Component_="AutoSaveRectBalgB" FileName="COLOR1~1.UCC|Color1-RectA-algA.ucc" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\Color1-RectA-algA.ucc" SelfReg="false"/>
+    <ROW File="Color1.ivs" Component_="AutoSaveRectBalgB" FileName="Color1.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\Color1.ivs" SelfReg="false"/>
+    <ROW File="NewBarcodeRectCalgC.cob2" Component_="AutoSaveRectBalgB" FileName="NEWBAR~1.COB|NewBarcode-RectC-algC.cob2" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\NewBarcode-RectC-algC.cob2" SelfReg="false"/>
+    <ROW File="NewBarcode.ivs" Component_="AutoSaveRectBalgB" FileName="NEWBAR~1.IVS|NewBarcode.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\NewBarcode.ivs" SelfReg="false"/>
+    <ROW File="scripttest.ivs" Component_="AutoSaveRectBalgB" FileName="SCRIPT~1.IVS|scripttest.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\scripttest.ivs" SelfReg="false"/>
+    <ROW File="Simple0.ivs" Component_="AutoSaveRectBalgB" FileName="Simple0.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\Simple0.ivs" SelfReg="false"/>
+    <ROW File="Simple1.ivs" Component_="AutoSaveRectBalgB" FileName="Simple1.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\Simple1.ivs" SelfReg="false"/>
+    <ROW File="Simple2.ivs" Component_="AutoSaveRectBalgB" FileName="Simple2.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\Simple2.ivs" SelfReg="false"/>
+    <ROW File="Simple3.ivs" Component_="AutoSaveRectBalgB" FileName="Simple3.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\Simple3.ivs" SelfReg="false"/>
+    <ROW File="Simple4.ivs" Component_="AutoSaveRectBalgB" FileName="Simple4.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\Simple4.ivs" SelfReg="false"/>
+    <ROW File="test1.ivs" Component_="AutoSaveRectBalgB" FileName="test1.ivs" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\TeledyneDALSA\Sherlockx64\test1.ivs" SelfReg="false"/>
+    <ROW File="UserTimerTest.txt" Component_="LineSpeedTest.txt" FileName="16USER~1.TXT|16 User Timer Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\UR\Grinding\16 User Timer Test.txt" SelfReg="false"/>
+    <ROW File="assert.txt" Component_="assert.txt" FileName="assert.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\assert.txt" SelfReg="false"/>
+    <ROW File="call.txt" Component_="assert.txt" FileName="call.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\call.txt" SelfReg="false"/>
+    <ROW File="console.txt" Component_="assert.txt" FileName="console.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\console.txt" SelfReg="false"/>
+    <ROW File="devices.txt" Component_="assert.txt" FileName="devices.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\devices.txt" SelfReg="false"/>
+    <ROW File="execline_java.txt" Component_="assert.txt" FileName="EXECLI~1.TXT|execline_java.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\execline_java.txt" SelfReg="false"/>
+    <ROW File="execline_lescript.txt" Component_="assert.txt" FileName="EXECLI~2.TXT|execline_lescript.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\execline_lescript.txt" SelfReg="false"/>
+    <ROW File="execline_python.txt" Component_="assert.txt" FileName="EXECLI~3.TXT|execline_python.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\execline_python.txt" SelfReg="false"/>
+    <ROW File="exec_java.txt" Component_="assert.txt" FileName="EXEC_J~1.TXT|exec_java.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\exec_java.txt" SelfReg="false"/>
+    <ROW File="exec_lescript.txt" Component_="assert.txt" FileName="EXEC_L~1.TXT|exec_lescript.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\exec_lescript.txt" SelfReg="false"/>
+    <ROW File="exec_python.txt" Component_="assert.txt" FileName="EXEC_P~1.TXT|exec_python.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\exec_python.txt" SelfReg="false"/>
+    <ROW File="import_test_data.txt" Component_="assert.txt" FileName="IMPORT~1.TXT|import_test_data.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\import_test_data.txt" SelfReg="false"/>
+    <ROW File="infile.txt" Component_="assert.txt" FileName="infile.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\infile.txt" SelfReg="false"/>
+    <ROW File="simple_comm.js" Component_="simple_comm.js" FileName="SIMPLE~1.JS|simple_comm.js" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\Java\simple_comm.js" SelfReg="false"/>
+    <ROW File="jump.txt" Component_="assert.txt" FileName="jump.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\jump.txt" SelfReg="false"/>
+    <ROW File="SyntaxTester.txt" Component_="SyntaxTester.txt_1" FileName="00SYNT~1.TXT|00 Syntax Tester.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\00 Syntax Tester.txt" SelfReg="false"/>
+    <ROW File="CommentsAndJumps.txt" Component_="SyntaxTester.txt_1" FileName="01COMM~1.TXT|01 Comments And Jumps.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\01 Comments And Jumps.txt" SelfReg="false"/>
+    <ROW File="ImportTest.txt" Component_="SyntaxTester.txt_1" FileName="02IMPO~1.TXT|02 Import Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\02 Import Test.txt" SelfReg="false"/>
+    <ROW File="AssertTester.txt" Component_="SyntaxTester.txt_1" FileName="03ASSE~1.TXT|03 Assert Tester.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\03 Assert Tester.txt" SelfReg="false"/>
+    <ROW File="VariableTest.txt" Component_="SyntaxTester.txt_1" FileName="04VARI~1.TXT|04 Variable Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\04 Variable Test.txt" SelfReg="false"/>
+    <ROW File="SleepTest.txt" Component_="SyntaxTester.txt_1" FileName="07SLEE~1.TXT|07 Sleep Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\07 Sleep Test.txt" SelfReg="false"/>
+    <ROW File="LineManagementTest.txt" Component_="SyntaxTester.txt_1" FileName="08LINE~1.TXT|08 Line Management Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\08 Line Management Test.txt" SelfReg="false"/>
+    <ROW File="LongLineScrollTest.txt" Component_="SyntaxTester.txt_1" FileName="09LONG~1.TXT|09 Long Line Scroll Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\09 Long Line Scroll Test.txt" SelfReg="false"/>
+    <ROW File="LongRecipeScrollTest.txt" Component_="SyntaxTester.txt_1" FileName="14LONG~1.TXT|14 Long Recipe Scroll Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\14 Long Recipe Scroll Test.txt" SelfReg="false"/>
+    <ROW File="FileTest.txt" Component_="SyntaxTester.txt_1" FileName="18FILE~1.TXT|18 File Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\18 File Test.txt" SelfReg="false"/>
+    <ROW File="CallTest.txt" Component_="SyntaxTester.txt_1" FileName="19CALL~1.TXT|19 Call Test.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\LEScript\19 Call Test.txt" SelfReg="false"/>
+    <ROW File="le_clear_variables.txt" Component_="assert.txt" FileName="LE_CLE~1.TXT|le_clear_variables.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\le_clear_variables.txt" SelfReg="false"/>
+    <ROW File="le_import_variables.txt" Component_="assert.txt" FileName="LE_IMP~1.TXT|le_import_variables.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\le_import_variables.txt" SelfReg="false"/>
+    <ROW File="le_pause.txt" Component_="assert.txt" FileName="le_pause.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\le_pause.txt" SelfReg="false"/>
+    <ROW File="le_prompt.txt" Component_="assert.txt" FileName="LE_PRO~1.TXT|le_prompt.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\le_prompt.txt" SelfReg="false"/>
+    <ROW File="le_stop.txt" Component_="assert.txt" FileName="le_stop.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\le_stop.txt" SelfReg="false"/>
+    <ROW File="log.txt" Component_="assert.txt" FileName="log.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\log.txt" SelfReg="false"/>
+    <ROW File="simple_comm.py" Component_="simple_comm.py" FileName="SIMPLE~1.PY|simple_comm.py" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\Python\simple_comm.py" SelfReg="false"/>
+    <ROW File="random.txt" Component_="assert.txt" FileName="random.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\random.txt" SelfReg="false"/>
+    <ROW File="set_grind_parameters.txt" Component_="assert.txt" FileName="SET_GR~1.TXT|set_grind_parameters.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\set_grind_parameters.txt" SelfReg="false"/>
+    <ROW File="set_robot_parameters.txt" Component_="assert.txt" FileName="SET_RO~1.TXT|set_robot_parameters.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\set_robot_parameters.txt" SelfReg="false"/>
+    <ROW File="sleep.txt" Component_="assert.txt" FileName="sleep.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\sleep.txt" SelfReg="false"/>
+    <ROW File="using_languages.txt" Component_="assert.txt" FileName="USING_~1.TXT|using_languages.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\using_languages.txt" SelfReg="false"/>
+    <ROW File="variables.txt" Component_="assert.txt" FileName="VARIAB~1.TXT|variables.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\variables.txt" SelfReg="false"/>
+    <ROW File="write_cyline_data.txt" Component_="assert.txt" FileName="WRITE_~1.TXT|write_cyline_data.txt" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Testing\write_cyline_data.txt" SelfReg="false"/>
+    <ROW File="Job_FS40_FS40DemoTest_1D_2022.11.23.zjob" Component_="Job_FS40_FS40DemoTest_2022.11.20.zjob" FileName="JOB_FS~2.ZJO|Job_FS40_FS40DemoTest_1D_2022.11.23.zjob" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Zebra\FS40\Job_FS40_FS40DemoTest_1D_2022.11.23.zjob" SelfReg="false"/>
+    <ROW File="Job_FS40_FS40DemoTest_2DA_2022.11.23.zjob" Component_="Job_FS40_FS40DemoTest_2022.11.20.zjob" FileName="JOB_FS~3.ZJO|Job_FS40_FS40DemoTest_2DA_2022.11.23.zjob" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Zebra\FS40\Job_FS40_FS40DemoTest_2DA_2022.11.23.zjob" SelfReg="false"/>
+    <ROW File="Job_FS40_FS40DemoTest_2DZ_2022.11.23.zjob" Component_="Job_FS40_FS40DemoTest_2022.11.20.zjob" FileName="JOB_FS~4.ZJO|Job_FS40_FS40DemoTest_2DZ_2022.11.23.zjob" Attributes="0" SourcePath="..\..\..\..\Public\LEonard\Code\Examples\Zebra\FS40\Job_FS40_FS40DemoTest_2DZ_2022.11.23.zjob" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiRemoveFileComponent">
     <ROW RemoveFile="_" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)" Options="3"/>
@@ -1171,11 +1242,15 @@
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="Setup Files" PackageFileName="LEonard_22_11_1_1" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install" UseLargeSchema="true" MsiPackageType="x64"/>
+    <ROW BuildKey="DefaultBuild" BuildName="SingleExe" BuildOrder="1" BuildType="0" PackageFolder="Setup Files" PackageFileName="LEonard_22_11_1_1" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install" UseLargeSchema="true" MsiPackageType="x64"/>
+    <ROW BuildKey="MsiBuild" BuildName="MsiBuild" BuildOrder="2" BuildType="0" PackageFolder="LEonard-MsiBuild-SetupFiles" PackageFileName="LEonard_22_11_1_1" Languages="en" InstallationType="4" UseLargeSchema="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
     <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DynamicPropertyComponent">
+    <ROW Property="ProductVersion" Type="0" SourcePath="..\LEonard\bin\Release\LEonard.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
@@ -1339,12 +1414,9 @@
     <ROW Feature_="MainFeature" Component_="x11vnc"/>
     <ROW Feature_="MainFeature" Component_="aa.txt"/>
     <ROW Feature_="MainFeature" Component_="globals.txt"/>
-    <ROW Feature_="MainFeature" Component_="pOrigin.txt"/>
-    <ROW Feature_="MainFeature" Component_="Origin.txt"/>
     <ROW Feature_="MainFeature" Component_="leSendTestsJava.txt"/>
     <ROW Feature_="MainFeature" Component_="SyntaxTester.txt"/>
     <ROW Feature_="MainFeature" Component_="leSendTestsPython.txt"/>
-    <ROW Feature_="MainFeature" Component_="leSendTestsLEScript.txt"/>
     <ROW Feature_="MainFeature" Component_="URDashboardTest.txt"/>
     <ROW Feature_="MainFeature" Component_="LineSpeedTest.txt"/>
     <ROW Feature_="MainFeature" Component_="csv_addons.py"/>
@@ -1441,7 +1513,6 @@
     <ROW Feature_="MainFeature" Component_="expatreader.py"/>
     <ROW Feature_="MainFeature" Component_="__init__.py_1"/>
     <ROW Feature_="MainFeature" Component_="UsingLMIGocatorswithLEonard.pdf"/>
-    <ROW Feature_="MainFeature" Component_="assert.txt"/>
     <ROW Feature_="MainFeature" Component_="NETFrameworkVersionv4.6.1.AssemblyAttributes.cs"/>
     <ROW Feature_="MainFeature" Component_="LEonardClient.exe_2"/>
     <ROW Feature_="MainFeature" Component_="LEonardInterfaceTester.exe"/>
@@ -1452,6 +1523,18 @@
     <ROW Feature_="MainFeature" Component_="GIBInterfaceTester.exe"/>
     <ROW Feature_="MainFeature" Component_="LEonardClient.exe_3"/>
     <ROW Feature_="MainFeature" Component_="Properties.Resources.Designer.cs.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="USBImageVNCInstall.zip"/>
+    <ROW Feature_="MainFeature" Component_="Dataman1.dmb"/>
+    <ROW Feature_="MainFeature" Component_="pOrigin.txt_1"/>
+    <ROW Feature_="MainFeature" Component_="Origin.txt_1"/>
+    <ROW Feature_="MainFeature" Component_="acqtest.hdev"/>
+    <ROW Feature_="MainFeature" Component_="DSet1.sh8"/>
+    <ROW Feature_="MainFeature" Component_="AutoSaveRectBalgB"/>
+    <ROW Feature_="MainFeature" Component_="Job_FS40_FS40DemoTest_2022.11.20.zjob"/>
+    <ROW Feature_="MainFeature" Component_="assert.txt"/>
+    <ROW Feature_="MainFeature" Component_="simple_comm.js"/>
+    <ROW Feature_="MainFeature" Component_="SyntaxTester.txt_1"/>
+    <ROW Feature_="MainFeature" Component_="simple_comm.py"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="LEonard.exe" SourcePath="..\LEonard\LEonardIcon.ico" Index="0"/>
@@ -1493,10 +1576,10 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
     <ROW Condition="( Version9X OR ( NOT VersionNT64 ) OR ( VersionNT64 AND ((VersionNT64 &lt;&gt; 600) OR (MsiNTProductType &lt;&gt; 1)) AND ((VersionNT64 &lt;&gt; 600) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 601) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 602) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 603) OR (MsiNTProductType = 1)) AND ((VersionNT64 &lt;&gt; 1000) OR (MsiNTProductType = 1)) ) )" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNT64Display]." DescriptionLocId="AI.LaunchCondition.NoSpecificNT64" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="( Version9X OR VersionNT64 )" Description="[ProductName] cannot be installed on [WindowsTypeNTDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT" IsPredefined="true" Builds="DefaultBuild"/>
-    <ROW Condition="((VersionNT &lt;&gt; 501) AND (VersionNT &lt;&gt; 502))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
-    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
-    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
-    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="((VersionNT &lt;&gt; 501) AND (VersionNT &lt;&gt; 502))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild;MsiBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild;MsiBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild;MsiBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild;MsiBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegLocatorComponent">
     <ROW Signature_="AI_EXE_PATH_CU" Root="1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>

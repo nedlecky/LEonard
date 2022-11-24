@@ -5737,7 +5737,7 @@ namespace LEonard
                 string filename;
                 string tagName;
 
-                // Can put in (filename,tagName) or just (fuilename), in which case tagName = ReadVariable("gocator_ID", "Null")
+                // Can put in (filename,tagName) or just (filename), in which case tagName = ReadVariable("gocator_ID", "Null")
                 string[] parameters = ExtractParameters(command).Split(',');
                 if (parameters.Length == 2)
                 {
