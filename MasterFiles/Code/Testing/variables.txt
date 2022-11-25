@@ -1,6 +1,6 @@
 # variables
 
-le_clear_variables()
+clear_variables()
 jump(tryme)
 
 abc=13
@@ -38,7 +38,7 @@ speed1 = 2.1
 Jeff1 = fred 
 
 assertEqual(xx,abc) # should pass
-le_clear_variables()
+clear_variables()
 assertEqual(xx,abc) # should fail
 
 tryme:

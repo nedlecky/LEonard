@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -3603,24 +3604,29 @@ namespace LEonard
             positions.WriteXml(filename, XmlWriteMode.WriteSchema, true);
         }
 
+        int ClearNonSystemPositions()
+        {
+            while (DeleteFirstNonSystemEntry(positions)) ;
+            return 0;
+        }
         private void ClearPositionsBtn_Click(object sender, EventArgs e)
         {
             if (DialogResult.OK == ConfirmMessageBox("This will clear all non-system positions. Proceed?"))
-                while (DeleteFirstNonSystemEntry(positions)) ;
+                ClearNonSystemPositions();
         }
 
         private void CreateDefaultPositions()
         {
-            positions.Rows.Add(new object[] { "spindle_mount", "[-2.68179,-1.90227,-1.42486,-2.95848,-1.70261,0.000928376]", "p[-0.928515, -0.296863, 0.369036, 1.47493, 2.77222, 0.00280416]" });
-            positions.Rows.Add(new object[] { "spindle_home", "[-2.71839,-0.892528,-2.14111,-3.27621,-1.68817,-0.019554]", "p[-0.410055, -0.0168446, 0.429258, -1.54452, -2.73116, -0.0509774]" });
-            positions.Rows.Add(new object[] { "sander_mount", "[-2.53006,-2.15599,-1.18223,-1.37402,1.57131,0.124]", "p[-0.933321, -0.442727, 0.284064, 1.61808, 2.6928, 0.000150004]" });
-            positions.Rows.Add(new object[] { "sander_home", "[-2.57091,-0.82644,-2.14277,-1.743,1.57367,-0.999559]", "p[-0.319246, 0.00105911, 0.464005, -5.0997e-05, 3.14151, 3.32468e-05]" });
-            positions.Rows.Add(new object[] { "gocator_mount", "[-1.994536,-1.693767,-2.011792,-1.301532,1.941065,2.864294]", "p[-0.105517,-0.335526,-0.082677,2.218557,1.817424,0.612817]" });
-            positions.Rows.Add(new object[] { "gocator_home", "[-0.44141,-1.262893,-2.062313,-1.387395,1.571761,2.704165]", "p[0.266735,-0.271784,0.01577,0.000065,-3.141466,-0.00004]" });
-            positions.Rows.Add(new object[] { "cp_origin", "[-0.746832,-1.629936,-1.676383,-1.406107,1.571093,2.426708]", "p[0.286752,-0.444909,0.042253,0.043984,3.141235,-0.000046]" });
-            positions.Rows.Add(new object[] { "grind1", "[-0.964841,-1.56224,-2.25801,-2.46721,-0.975704,0.0351043]", "p[0.115668, -0.664968, 0.149296, -0.0209003, 3.11011, 0.00405717]" });
-            positions.Rows.Add(new object[] { "grind2", "[-1.19025,-1.54723,-2.28053,-2.45891,-1.20106,0.0341677]", "p[0.00572967, -0.666445, 0.145823, -0.0208504, 3.11009, 0.004073]" });
-            positions.Rows.Add(new object[] { "grind3", "[-1.41341,-1.57357,-2.26161,-2.45085,-1.42422,0.0333479]", "p[-0.0942147, -0.667831, 0.142729, -0.0208677, 3.1101, 0.00394188]" });
+            positions.Rows.Add(new object[] { "spindle_mount", "[-2.68179,-1.90227,-1.42486,-2.95848,-1.70261,0.000928376]", "p[-0.928515, -0.296863, 0.369036, 1.47493, 2.77222, 0.00280416]", true });
+            positions.Rows.Add(new object[] { "spindle_home", "[-2.71839,-0.892528,-2.14111,-3.27621,-1.68817,-0.019554]", "p[-0.410055, -0.0168446, 0.429258, -1.54452, -2.73116, -0.0509774]", true });
+            positions.Rows.Add(new object[] { "sander_mount", "[-2.53006,-2.15599,-1.18223,-1.37402,1.57131,0.124]", "p[-0.933321, -0.442727, 0.284064, 1.61808, 2.6928, 0.000150004]", true });
+            positions.Rows.Add(new object[] { "sander_home", "[-2.57091,-0.82644,-2.14277,-1.743,1.57367,-0.999559]", "p[-0.319246, 0.00105911, 0.464005, -5.0997e-05, 3.14151, 3.32468e-05]", true });
+            positions.Rows.Add(new object[] { "gocator_mount", "[-1.994536,-1.693767,-2.011792,-1.301532,1.941065,2.864294]", "p[-0.105517,-0.335526,-0.082677,2.218557,1.817424,0.612817]", true });
+            positions.Rows.Add(new object[] { "gocator_home", "[-0.44141,-1.262893,-2.062313,-1.387395,1.571761,2.704165]", "p[0.266735,-0.271784,0.01577,0.000065,-3.141466,-0.00004]", true });
+            positions.Rows.Add(new object[] { "cp_origin", "[-0.746832,-1.629936,-1.676383,-1.406107,1.571093,2.426708]", "p[0.286752,-0.444909,0.042253,0.043984,3.141235,-0.000046]", true });
+            positions.Rows.Add(new object[] { "grind1", "[-0.964841,-1.56224,-2.25801,-2.46721,-0.975704,0.0351043]", "p[0.115668, -0.664968, 0.149296, -0.0209003, 3.11011, 0.00405717]", false });
+            positions.Rows.Add(new object[] { "grind2", "[-1.19025,-1.54723,-2.28053,-2.45891,-1.20106,0.0341677]", "p[0.00572967, -0.666445, 0.145823, -0.0208504, 3.11009, 0.004073]", false });
+            positions.Rows.Add(new object[] { "grind3", "[-1.41341,-1.57357,-2.26161,-2.45085,-1.42422,0.0333479]", "p[-0.0942147, -0.667831, 0.142729, -0.0208677, 3.1101, 0.00394188]", false });
         }
         private void ClearAndInitializePositions()
         {
@@ -4890,7 +4896,7 @@ namespace LEonard
             catch (Exception ex)
             {
                 // User decides if continue!
-                ExecError($"Python Error: {line}\n{ex}");
+                ExecError($"Python Line Error: {line}\n{ex}");
                 return true; // false;
             }
         }
@@ -5029,14 +5035,14 @@ namespace LEonard
 
             // Variable Management Functions
             // clear_variables
-            if (command == "le_clear_variables()")
+            if (command == "clear_variables()")
             {
                 ClearNonSystemVariables();
                 return true;
             }
 
             // import_variables
-            if (command.StartsWith("le_import_variables("))
+            if (command.StartsWith("import_variables("))
             {
                 string file = ExtractParameters(command);
                 if (file.Length > 1)
@@ -5045,13 +5051,13 @@ namespace LEonard
                         ExecError($"File import error");
                 }
                 else
-                    ExecError("Invalid import command");
+                    ExecError("Invalid import_variables command");
 
                 return true;
             }
 
             // system_variable
-            if (command.StartsWith("le_system_variable("))
+            if (command.StartsWith("system_variable("))
             {
                 string[] parameters = ExtractParameters(command, 2).Split(',');
                 if (parameters.Length != 2)
@@ -5179,7 +5185,7 @@ namespace LEonard
             // promptif
             if (command.StartsWith("promptif("))
             {
-                string[] args = ExtractParameters(command).Split(',');
+                string[] args = ExtractParameters(command,2,false).Split(',');
                 if (args.Length < 2)
                     ExecError("Expected promptif(True|False, message)");
                 else
@@ -5447,7 +5453,7 @@ namespace LEonard
                     string devName = values[0];
                     string message = values[1];
                     int timeoutMs = Convert.ToInt32(values[2]);
-                    response = le_ask(devName, message);
+                    response = le_ask(devName, message,timeoutMs);
                 }
 
                 WriteVariable("le_ask_response", response);
@@ -5586,6 +5592,7 @@ namespace LEonard
                 return true;
             }
 
+            // UR Functions
             // ur_dashboard
             if (command.StartsWith("ur_dashboard("))
             {
@@ -5604,67 +5611,6 @@ namespace LEonard
                 catch { }
                 string response = ur_dashboard(p[0], timeout_ms);
                 WriteVariable("ur_dashboard_response", response); ;
-                return true;
-            }
-
-            // save_position
-            if (command.StartsWith("save_position("))
-            {
-                string positionName = ExtractParameters(command);
-                if (positionName.Length < 1)
-                {
-                    ExecError("No position name specified");
-                    return true;
-                }
-
-                save_position(positionName);
-                return true;
-            }
-
-            // system_position
-            if (command.StartsWith("system_position("))
-            {
-                string[] parameters = ExtractParameters(command, 2).Split(',');
-                if (parameters.Length != 2)
-                {
-                    ExecError("Unrecognized system_position command");
-                    return true;
-                }
-                string positionName = parameters[0];
-
-                system_position(positionName, parameters[1] == "True");
-                return true;
-            }
-
-            // move_joint
-            if (command.StartsWith("move_joint("))
-            {
-                string positionName = ExtractParameters(command);
-
-                move_joint(positionName);
-                return true;
-            }
-
-            // move_linear
-            if (command.StartsWith("move_linear("))
-            {
-                string positionName = ExtractParameters(command);
-
-                move_linear(positionName);
-                return true;
-            }
-
-            // move_tool_home
-            if (command.StartsWith("move_tool_home()"))
-            {
-                move_tool_home();
-                return true;
-            }
-
-            // move_tool_mount
-            if (command.StartsWith("move_tool_mount()"))
-            {
-                move_tool_mount();
                 return true;
             }
 
@@ -5706,6 +5652,75 @@ namespace LEonard
                 return true;
             }
 
+            // save_position
+            if (command.StartsWith("save_position("))
+            {
+                string positionName = ExtractParameters(command);
+                if (positionName.Length < 1)
+                {
+                    ExecError("No position name specified");
+                    return true;
+                }
+
+                save_position(positionName);
+                return true;
+            }
+
+            // system_position
+            if (command.StartsWith("system_position("))
+            {
+                string[] parameters = ExtractParameters(command, 2).Split(',');
+                if (parameters.Length != 2)
+                {
+                    ExecError("Unrecognized system_position command");
+                    return true;
+                }
+                string positionName = parameters[0];
+
+                system_position(positionName, parameters[1] == "True");
+                return true;
+            }
+
+            // clear_positions
+            if (command == "clear_positions()")
+            {
+                ClearNonSystemPositions();
+                return true;
+            }
+
+            // move_joint
+            if (command.StartsWith("move_joint("))
+            {
+                string positionName = ExtractParameters(command);
+
+                move_joint(positionName);
+                return true;
+            }
+
+            // move_linear
+            if (command.StartsWith("move_linear("))
+            {
+                string positionName = ExtractParameters(command);
+
+                move_linear(positionName);
+                return true;
+            }
+
+            // move_tool_home
+            if (command.StartsWith("move_tool_home()"))
+            {
+                move_tool_home();
+                return true;
+            }
+
+            // move_tool_mount
+            if (command.StartsWith("move_tool_mount()"))
+            {
+                move_tool_mount();
+                return true;
+            }
+
+            // Gocator Functions
             // gocator_send
             if (command.StartsWith("gocator_send("))
             {
@@ -6337,22 +6352,6 @@ namespace LEonard
             // Dashboard Communication
             .SetValue("ur_dashboard", new Func<string, int, string>((string msg, int timeout) => ur_dashboard(msg, timeout)))
 
-            // PolyScope Communication
-            .SetValue("send_robot", new Func<string, bool>((string msg) => PerformRobotCommand($"send_robot({msg})")))
-            .SetValue("robot_socket_reset", new Func<bool>(() => PerformRobotCommand("robot_socket_reset()")))
-            .SetValue("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")))
-
-            // Position and Tool Interface
-            .SetValue("save_position", new Func<string, int>((string posName) => save_position(posName)))
-            .SetValue("system_position", new Func<string, bool, int>((string posName, bool f) => system_position(posName, f)))
-            .SetValue("move_joint", new Func<string, int>((string posName) => move_joint(posName)))
-            .SetValue("move_linear", new Func<string, int>((string posName) => move_linear(posName)))
-            .SetValue("move_tool_home", new Func<int>(() => move_tool_home()))
-            .SetValue("move_tool_mount", new Func<int>(() => move_tool_mount()))
-            .SetValue("select_tool", new Func<string, int>((string toolName) => select_tool(toolName)))
-            .SetValue("set_part_geometry", new Func<string, double, int>((string geometryName, double diam_mm) => set_part_geometry(geometryName, diam_mm)))
-            .SetValue("free_drive", new Func<int, bool>((int x) => PerformRobotCommand($"free_drive({x})")))
-
             // Core Motion
             .SetValue("movej",
                 new Func<double, double, double, double, double, double, bool>(
@@ -6373,6 +6372,9 @@ namespace LEonard
             .SetValue("set_payload",
                 new Func<double, double, double, double, bool>(
                     (double mass_kg, double cog_x_m, double cog_y_m, double cog_z_m) => PerformRobotCommand($"set_payload({mass_kg:0.000000},{cog_x_m:0.000000},{cog_y_m:0.000000},{cog_z_m:0.000000})")))
+            .SetValue("free_drive",
+                new Func<bool, int, bool, bool, bool, bool, bool, bool, bool>(
+                    (bool enable, int axis, bool a1, bool a2, bool a3, bool a4, bool a5, bool a6) => PerformRobotCommand($"free_drive({enable},{axis},{a1},{a2},{a3},{a4},{a5},{a6})")))
 
             // Movel Incremental
             .SetValue("movel_incr_base",
@@ -6403,20 +6405,38 @@ namespace LEonard
                 new Func<double, double, double, double, double, double, bool>(
                     (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_part({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")))
 
-            // Set Robot Variables
+            // Tool Interface
+            .SetValue("select_tool", new Func<string, int>((string toolName) => select_tool(toolName)))
+            .SetValue("tool_on", new Func<bool>(() => PerformRobotCommand("tool_on()")))
+            .SetValue("tool_off", new Func<bool>(() => PerformRobotCommand("tool_off()")))
+            .SetValue("coolant_on", new Func<bool>(() => PerformRobotCommand("coolant_on()")))
+            .SetValue("coolant_off", new Func<bool>(() => PerformRobotCommand("coolant_off()")))
+
+            // Position Interface
+            .SetValue("save_position", new Func<string, int>((string posName) => save_position(posName)))
+            .SetValue("system_position", new Func<string, bool, int>((string posName, bool f) => system_position(posName, f)))
+            .SetValue("clear_positions", new Func<int>(() => ClearNonSystemPositions()))
+            .SetValue("move_joint", new Func<string, int>((string posName) => move_joint(posName)))
+            .SetValue("move_linear", new Func<string, int>((string posName) => move_linear(posName)))
+            .SetValue("move_tool_home", new Func<int>(() => move_tool_home()))
+            .SetValue("move_tool_mount", new Func<int>(() => move_tool_mount()))
+
+            // Set Motion Variables
+            .SetValue("set_part_geometry", new Func<string, double, int>((string geometryName, double diam_mm) => set_part_geometry(geometryName, diam_mm)))
+            .SetValue("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.0})")))
             .SetValue("set_linear_speed", new Func<int, bool>((int speed_mmps) => PerformRobotCommand($"set_linear_speed({speed_mmps})")))
             .SetValue("set_linear_accel", new Func<int, bool>((int accel_mmpss) => PerformRobotCommand($"set_linear_accel({accel_mmpss})")))
             .SetValue("set_blend_radius", new Func<double, bool>((double blend_radius_mm) => PerformRobotCommand($"set_blend_radius({blend_radius_mm:0.0})")))
             .SetValue("set_joint_speed", new Func<int, bool>((int speed_dps) => PerformRobotCommand($"set_joint_speed({speed_dps})")))
             .SetValue("set_joint_accel", new Func<int, bool>((int accel_dpss) => PerformRobotCommand($"set_joint_accel({accel_dpss})")))
-            .SetValue("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.0})")))
 
             // Robot I/O
             .SetValue("set_output", new Func<int, int, bool>((int dig_out, int state) => PerformRobotCommand($"set_output({dig_out},{state})")))
-            .SetValue("tool_on", new Func<bool>(() => PerformRobotCommand("tool_on()")))
-            .SetValue("tool_off", new Func<bool>(() => PerformRobotCommand("tool_off()")))
-            .SetValue("coolant_on", new Func<bool>(() => PerformRobotCommand("coolant_on()")))
-            .SetValue("coolant_off", new Func<bool>(() => PerformRobotCommand("coolant_off()")))
+
+            // PolyScope Communication
+            .SetValue("send_robot", new Func<string, bool>((string msg) => PerformRobotCommand($"send_robot({msg})")))
+            .SetValue("robot_socket_reset", new Func<bool>(() => PerformRobotCommand("robot_socket_reset()")))
+            .SetValue("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")))
 
             // Grinding Patterns
             // TODO Should these look at license?
@@ -6638,7 +6658,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                ErrorMessageBox($"JavaExec Error: {ex}");
+                //ErrorMessageBox($"JavaExec Error: {ex}");
                 return false;
             }
         }
@@ -6750,22 +6770,6 @@ namespace LEonard
             // Dashboard Communication
             pythonScope.SetVariable("ur_dashboard", new Func<string, int, string>((string msg, int timeout) => ur_dashboard(msg, timeout)));
 
-            // PolyScope Communication
-            pythonScope.SetVariable("send_robot", new Func<string, bool>((string msg) => PerformRobotCommand($"send_robot({msg})")));
-            pythonScope.SetVariable("robot_socket_reset", new Func<bool>(() => PerformRobotCommand("robot_socket_reset()")));
-            pythonScope.SetVariable("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")));
-
-            // Position and Tool Interface
-            pythonScope.SetVariable("save_position", new Func<string, int>((string posName) => save_position(posName)));
-            pythonScope.SetVariable("system_position", new Func<string, bool, int>((string posName, bool f) => system_position(posName, f)));
-            pythonScope.SetVariable("move_joint", new Func<string, int>((string posName) => move_joint(posName)));
-            pythonScope.SetVariable("move_linear", new Func<string, int>((string posName) => move_linear(posName)));
-            pythonScope.SetVariable("move_tool_home", new Func<int>(() => move_tool_home()));
-            pythonScope.SetVariable("move_tool_mount", new Func<int>(() => move_tool_mount()));
-            pythonScope.SetVariable("select_tool", new Func<string, int>((string toolName) => select_tool(toolName)));
-            pythonScope.SetVariable("set_part_geometry", new Func<string, double, int>((string geometryName, double diam_mm) => set_part_geometry(geometryName, diam_mm)));
-            pythonScope.SetVariable("free_drive", new Func<int, bool>((int x) => PerformRobotCommand($"free_drive({x})")));
-
             // Core Motion
             pythonScope.SetVariable("movej",
                 new Func<double, double, double, double, double, double, bool>(
@@ -6816,20 +6820,41 @@ namespace LEonard
                 new Func<double, double, double, double, double, double, bool>(
                     (double x, double y, double z, double rx, double ry, double rz) => PerformRobotCommand($"movel_rel_part({x:0.000000},{y:0.000000},{z:0.000000},{rx:0.000000},{ry:0.000000},{rz:0.000000})")));
 
-            // Set Robot Variables
+            // Tool Interface
+            pythonScope.SetVariable("select_tool", new Func<string, int>((string toolName) => select_tool(toolName)));
+            pythonScope.SetVariable("tool_on", new Func<bool>(() => PerformRobotCommand("tool_on()")));
+            pythonScope.SetVariable("tool_off", new Func<bool>(() => PerformRobotCommand("tool_off()")));
+            pythonScope.SetVariable("coolant_on", new Func<bool>(() => PerformRobotCommand("coolant_on()")));
+            pythonScope.SetVariable("coolant_off", new Func<bool>(() => PerformRobotCommand("coolant_off()")));
+
+            // Position Interface
+            pythonScope.SetVariable("save_position", new Func<string, int>((string posName) => save_position(posName)));
+            pythonScope.SetVariable("system_position", new Func<string, bool, int>((string posName, bool f) => system_position(posName, f)));
+            pythonScope.SetVariable("clear_position", new Func<int>(() => ClearNonSystemPositions()));
+            pythonScope.SetVariable("move_joint", new Func<string, int>((string posName) => move_joint(posName)));
+            pythonScope.SetVariable("move_linear", new Func<string, int>((string posName) => move_linear(posName)));
+            pythonScope.SetVariable("move_tool_home", new Func<int>(() => move_tool_home()));
+            pythonScope.SetVariable("move_tool_mount", new Func<int>(() => move_tool_mount()));
+            pythonScope.SetVariable("free_drive",
+                new Func<bool, int, bool, bool, bool, bool, bool, bool, bool>(
+                    (bool enable, int axis, bool a1, bool a2, bool a3, bool a4, bool a5, bool a6) => PerformRobotCommand($"free_drive({enable},{axis},{a1},{a2},{a3},{a4},{a5},{a6})")));
+
+            // Set Motion Variables
+            pythonScope.SetVariable("set_part_geometry", new Func<string, double, int>((string geometryName, double diam_mm) => set_part_geometry(geometryName, diam_mm)));
+            pythonScope.SetVariable("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.0})")));
             pythonScope.SetVariable("set_linear_speed", new Func<int, bool>((int speed_mmps) => PerformRobotCommand($"set_linear_speed({speed_mmps})")));
             pythonScope.SetVariable("set_linear_accel", new Func<int, bool>((int accel_mmpss) => PerformRobotCommand($"set_linear_accel({accel_mmpss})")));
             pythonScope.SetVariable("set_blend_radius", new Func<double, bool>((double blend_radius_mm) => PerformRobotCommand($"set_blend_radius({blend_radius_mm:0.0})")));
             pythonScope.SetVariable("set_joint_speed", new Func<int, bool>((int speed_dps) => PerformRobotCommand($"set_joint_speed({speed_dps})")));
             pythonScope.SetVariable("set_joint_accel", new Func<int, bool>((int accel_dpss) => PerformRobotCommand($"set_joint_accel({accel_dpss})")));
-            pythonScope.SetVariable("set_part_geometry_N", new Func<int, double, bool>((int N, double diam_mm) => PerformRobotCommand($"set_part_geometry_N({N},{diam_mm:0.0})")));
 
             // Robot I/O
             pythonScope.SetVariable("set_output", new Func<int, int, bool>((int dig_out, int state) => PerformRobotCommand($"set_output({dig_out},{state})")));
-            pythonScope.SetVariable("tool_on", new Func<bool>(() => PerformRobotCommand("tool_on()")));
-            pythonScope.SetVariable("tool_off", new Func<bool>(() => PerformRobotCommand("tool_off()")));
-            pythonScope.SetVariable("coolant_on", new Func<bool>(() => PerformRobotCommand("coolant_on()")));
-            pythonScope.SetVariable("coolant_off", new Func<bool>(() => PerformRobotCommand("coolant_off()")));
+
+            // PolyScope Communication
+            pythonScope.SetVariable("send_robot", new Func<string, bool>((string msg) => PerformRobotCommand($"send_robot({msg})")));
+            pythonScope.SetVariable("robot_socket_reset", new Func<bool>(() => PerformRobotCommand("robot_socket_reset()")));
+            pythonScope.SetVariable("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")));
 
             // Grinding Patterns
             // TODO Should these look at license?
@@ -7052,7 +7077,7 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                ErrorMessageBox($"PythonExec Error: {ex}");
+                //ErrorMessageBox($"PythonExec Error: {ex}");
                 return false;
             }
         }
@@ -7601,7 +7626,7 @@ namespace LEonard
             return true;
         }
 
-        bool PerformRobotCommand(string command)
+        public bool PerformRobotCommand(string command)
         {
             // Handle all of the other robot commands (which just use send_robot, some prefix params, and any other specified params)
             // Example:
@@ -7683,7 +7708,7 @@ namespace LEonard
             {"tool_off",                        new CommandSpec(){nParams=0,  prefix="30,16" } },
             {"coolant_on",                      new CommandSpec(){nParams=0,  prefix="30,17" } },
             {"coolant_off",                     new CommandSpec(){nParams=0,  prefix="30,18" } },
-            {"free_drive",                      new CommandSpec(){nParams=1,  prefix="30,19" } },
+            {"free_drive",                      new CommandSpec(){nParams=8,  prefix="30,19" } },
             {"set_tcp",                         new CommandSpec(){nParams=6,  prefix="30,20" } },
             {"set_payload",                     new CommandSpec(){nParams=4,  prefix="30,21" } },
             {"set_footswitch_pressed_input",    new CommandSpec(){nParams=2,  prefix="30,22" } },

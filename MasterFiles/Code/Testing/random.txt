@@ -1,6 +1,6 @@
 # random
 
-le_clear_variables()
+clear_variables()
 
 le_random(3,10,20)
 

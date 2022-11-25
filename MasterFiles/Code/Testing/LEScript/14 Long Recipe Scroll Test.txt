@@ -1,5 +1,5 @@
 # 14 Long Recipe Scroll Test
-le_clear_variables()
+clear_variables()
 a=0
 
 # Test1

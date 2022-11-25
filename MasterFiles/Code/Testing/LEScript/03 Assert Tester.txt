@@ -1,6 +1,6 @@
 # 03 Assert Tester
 
-le_clear_variables()
+clear_variables()
 assertEqual(a,1) # should fail no var
 
 a=2

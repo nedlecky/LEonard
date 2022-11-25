@@ -1,11 +1,20 @@
 # prompt
 
 prompt(Operator Prompt from LEScript)
+promptif() # should fail
+promptif(false,No prompt expected)
+promptif(true,This prompt is expected)
 
 using_java()
 prompt('Operator Prompt from Java')
+promptif() // Java passes this
+promptif(false,'No prompt expected')
+promptif(true,'This prompt is expected')
 
 
 using_python()
 a=prompt('Operator Prompt from Python')
+promptif() # Should fail
+promptif(False,'No prompt expected')
+promptif(True,'This prompt is expected')
 

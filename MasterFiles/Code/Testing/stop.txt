@@ -1,18 +1,29 @@
 # stop
 
-le_print(LEScript 1)
-stop()
-le_print(LEScript 2)
+le_print(LEScript1)
+#stop()
+le_print(LEScript2)
+stopif() # should fail
+stopif(false)
+#stopif(true)
+le_print(LEScript3)
 
 
 using_java()
 le_print('Java1')
 //stop()
 le_print('Java2')
-
+stopif() // Java passes this since arg is undefined
+stopif(false)
+//stopif(true)
+le_print('Java3')
 
 using_python()
 le_print('Python1')
-stop()
+#stop()
 le_print('Python2')
+stopif() # Should fail
+stopif(False)
+#stopif(True)
+le_print('Python3')
 

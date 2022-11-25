@@ -1,0 +1,17 @@
+# clear_variables
+
+a = 123
+sysa = 234
+system_variable(sysa,True)
+
+assertEqual(a,123)
+assertEqual(sysa,234)
+
+clear_variables()
+assertNotEqual(a,123)
+assertEqual(sysa,234)
+
+system_variable(sysa,False)
+assertEqual(sysa,234)
+clear_variables()
+assertNotEqual(sysa,234)

@@ -1,6 +1,6 @@
 # 00 Syntax Tester
 
-le_clear_variables()
+clear_variables()
 a=5
 
 # These spaces shouldn't matter!

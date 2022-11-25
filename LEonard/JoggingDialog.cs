@@ -373,7 +373,8 @@ namespace LEonard
             freeAxes += "," + (FreeRxChk.Checked ? "1" : "0");
             freeAxes += "," + (FreeRyChk.Checked ? "1" : "0");
             freeAxes += "," + (FreeRzChk.Checked ? "1" : "0");
-            mainForm.RobotSend("30,19,1," + CoordBox.SelectedIndex.ToString() + "," + freeAxes);
+            //mainForm.RobotSend("30,19,1," + CoordBox.SelectedIndex.ToString() + "," + freeAxes);
+            mainForm.PerformRobotCommand($"free_drive(1,{CoordBox.SelectedIndex},{freeAxes})");
         }
 
         private void FreedriveOn()
@@ -401,7 +402,8 @@ namespace LEonard
             FreedriveGrp.Enabled = false;
             ClickJogGrp.Enabled = true;
 
-            mainForm.RobotSend("30,19,0");
+            mainForm.PerformRobotCommand("free_drive(0,0,0,0,0,0,0,0)");
+            //mainForm.RobotSend("30,19,0");
 
             FreedriveBtn.Text = "Freedrive";
             FreedriveBtn.BackColor = Color.Green;

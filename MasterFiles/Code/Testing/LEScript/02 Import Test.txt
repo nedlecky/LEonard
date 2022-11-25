@@ -1,11 +1,11 @@
 # 02 Import Test
 
-le_clear_variables()
+clear_variables()
 assertNotEqual(diam3,41) # should fail
 
-le_import_variables(Examples/LEScript/Globals.txt)
-le_import_variables(xyz) # should fail
-le_import_variables()    # should fail
+import_variables(Examples/LEScript/Globals.txt)
+import_variables(xyz) # should fail
+import_variables()    # should fail
 
 assertEqual(tool1,400grit)
 assertEqual(diam2,7)

@@ -1,0 +1,13 @@
+# import_variables
+
+foo1 = stuff
+assertEqual(foo1,stuff)
+clear_variables()
+assertNotEqual(foo1,stuff)
+
+import_variables()    # should fail
+import_variables(xyz) # should fail
+import_variables(Testing/import_test_data.txt)  # should pass
+
+assertEqual(foo1,123)
+assertEqual(foo2,234abc)

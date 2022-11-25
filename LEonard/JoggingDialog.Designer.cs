@@ -438,7 +438,7 @@
             "25",
             "50",
             "100"});
-            this.XyJogDistanceBox.Location = new System.Drawing.Point(407, 219);
+            this.XyJogDistanceBox.Location = new System.Drawing.Point(407, 234);
             this.XyJogDistanceBox.Name = "XyJogDistanceBox";
             this.XyJogDistanceBox.Size = new System.Drawing.Size(177, 54);
             this.XyJogDistanceBox.TabIndex = 84;
@@ -461,7 +461,7 @@
             "10.0",
             "22.5",
             "45.0"});
-            this.AngleBox.Location = new System.Drawing.Point(407, 510);
+            this.AngleBox.Location = new System.Drawing.Point(407, 525);
             this.AngleBox.Name = "AngleBox";
             this.AngleBox.Size = new System.Drawing.Size(177, 54);
             this.AngleBox.TabIndex = 85;
@@ -510,7 +510,7 @@
             "10",
             "15",
             "20"});
-            this.ZJogDistanceBox.Location = new System.Drawing.Point(407, 25);
+            this.ZJogDistanceBox.Location = new System.Drawing.Point(407, 40);
             this.ZJogDistanceBox.Name = "ZJogDistanceBox";
             this.ZJogDistanceBox.Size = new System.Drawing.Size(177, 54);
             this.ZJogDistanceBox.TabIndex = 89;

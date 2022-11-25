@@ -1,6 +1,6 @@
 # 04 Variable Test
 
-le_clear_variables()
+clear_variables()
 
 abc=13
 assertEqual(abc,13)
@@ -37,5 +37,5 @@ speed1 = 2.1
 Jeff1 = fred 
 
 assertEqual(xx,abc)
-le_clear_variables()
+clear_variables()
 assertNotEqual(xx,abc)
