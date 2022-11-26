@@ -1513,7 +1513,7 @@ namespace LEonard
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
                 Title = "Open a LEonard Sequence",
-                Filter = "*.leseq",
+                Filter = "*.lescript",
                 InitialDirectory = initialDirectory
             };
 
@@ -1555,7 +1555,7 @@ namespace LEonard
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {
                 Title = "Save a LEonard Sequence As...",
-                Filter = "*.leseq",
+                Filter = "*.lescript",
                 InitialDirectory = initialDirectory,
                 FileName = SequenceFilenameLbl.Text,
             };
@@ -1564,7 +1564,7 @@ namespace LEonard
                 if (dialog.FileName != "")
                 {
                     string filename = dialog.FileName;
-                    if (!filename.EndsWith(".leseq")) filename += ".leseq";
+                    if (!filename.EndsWith(".lescript")) filename += ".lescript";
                     bool okToSave = true;
                     if (File.Exists(filename))
                     {

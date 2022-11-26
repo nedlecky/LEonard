@@ -1,8 +1,8 @@
 # exec_lescript
 # Test running LEScript files
 
-file1 = Examples/LEScript/LEScriptPrint1.leseq
-file2 = Examples/LEScript/LEScriptPrint2.leseq
+file1 = Examples/LEScript/LEScriptPrint1.lescript
+file2 = Examples/LEScript/LEScriptPrint2.lescript
 
 le_print(le_language = {le_language})
 exec_lescript({file1})
