@@ -4,6 +4,7 @@
 // Copyright 2021, 2022, 2023
 // Purpose: Custom Save As dialog with large buttons for use with touch screen
 
+using Microsoft.Scripting.Utils;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace LEonard
         public string Filter { get; set; }
         public string InitialDirectory { get; set; }
         public string FileName { get; set; }
-        public string Extension { get; set; } = ".txt";
+        public string Extension { get; set; } = "SEQUENCE";
 
         private string[] fileList;
         private List<string> directoryList;
@@ -114,11 +115,17 @@ namespace LEonard
             if (FileListBox.SelectedIndex < 0)
             {
                 string filename = Path.Combine(DirectoryNameLbl.Text, FileNameTxt.Text);
-                FileName = Path.ChangeExtension(filename, Extension);
+                log.Error($"{filename} {Extension}");
+                if (Extension != "SEQUENCE")
+                {
+                    FileName = Path.ChangeExtension(filename, Extension);
+                    log.Error($"CHANGED {filename} {Extension}");
+                }
+                else
+                    FileName = filename;
             }
             else
             {
-
                 //FileName = fileList[FileListBox.SelectedIndex];
                 FileName = Path.Combine(DirectoryNameLbl.Text, FileListBox.SelectedItem.ToString());
             }
@@ -153,7 +160,6 @@ namespace LEonard
                 log.Info($"Folder Created: {createDirectory}");
                 LoadDirectory(DirectoryNameLbl.Text);
             }
-
         }
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
@@ -208,7 +214,20 @@ namespace LEonard
         // **********************************************************************************************
         private void LoadFiles(string path, string nameStartsWith = null)
         {
-            fileList = Directory.GetFiles(path, Filter);
+            if (Filter == "SEQUENCE")
+            {
+                string[] fileList1 = Directory.GetFiles(path, "*.lescript");
+                string[] fileList2 = Directory.GetFiles(path, "*.js");
+                string[] fileList3 = Directory.GetFiles(path, "*.py");
+                fileList = new string[fileList1.Length + fileList2.Length + fileList3.Length];
+                fileList1.CopyTo(fileList, 0);
+                fileList2.CopyTo(fileList, fileList1.Length);
+                fileList3.CopyTo(fileList, fileList1.Length + fileList2.Length);
+                Array.Sort(fileList);
+            }
+            else
+                fileList = Directory.GetFiles(path, Filter);
+
             FileListBox.Items.Clear();
             foreach (string file in fileList)
             {

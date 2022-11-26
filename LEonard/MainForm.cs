@@ -1251,8 +1251,12 @@ namespace LEonard
             GrindNCyclesLbl.Text = "";
             StepTimeEstimateLbl.Text = "";
 
-            // We start in LEScript mode!
-            SetLanguage(LEonardLanguages.LEScript);
+            // Set initial language
+            string sequenceFilename = SequenceFilenameLbl.Text;
+            LEonardLanguages lang = LEonardLanguages.LEScript;
+            if (sequenceFilename.EndsWith(".js")) lang = LEonardLanguages.Java;
+            if (sequenceFilename.EndsWith(".py")) lang = LEonardLanguages.Python;
+            SetLanguage(lang);
 
             // Wipe the engines
             InitializeJavaEngine();
@@ -1513,7 +1517,7 @@ namespace LEonard
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
                 Title = "Open a LEonard Sequence",
-                Filter = "*.lescript",
+                Filter = "SEQUENCE",
                 InitialDirectory = initialDirectory
             };
 
@@ -1555,7 +1559,8 @@ namespace LEonard
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {
                 Title = "Save a LEonard Sequence As...",
-                Filter = "*.lescript",
+                Filter = "SEQUENCE",
+                Extension = "SEQUENCE",
                 InitialDirectory = initialDirectory,
                 FileName = SequenceFilenameLbl.Text,
             };
@@ -1564,11 +1569,17 @@ namespace LEonard
                 if (dialog.FileName != "")
                 {
                     string filename = dialog.FileName;
-                    if (!filename.EndsWith(".lescript")) filename += ".lescript";
+                    log.Error($"{filename}");
+                    bool fExtensionOK = false;
+                    if (filename.EndsWith(".lescript")) fExtensionOK = true;
+                    if (filename.EndsWith(".js")) fExtensionOK = true;
+                    if (filename.EndsWith(".py")) fExtensionOK = true;
+
+                    if (!fExtensionOK) filename += ".lescript";
                     bool okToSave = true;
                     if (File.Exists(filename))
                     {
-                        if (DialogResult.OK != ConfirmMessageBox(string.Format("File {0} already exists. Overwrite?", filename)))
+                        if (DialogResult.OK != ConfirmMessageBox($"File {filename} already exists. Overwrite?"))
                             okToSave = false;
                     }
                     if (okToSave)
@@ -1607,7 +1618,7 @@ namespace LEonard
 
         private void SequenceFilenameLbl_TextChanged(object sender, EventArgs e)
         {
-            LoadSequenceBtn.Text = System.IO.Path.GetFileNameWithoutExtension(SequenceFilenameLbl.Text);
+            LoadSequenceBtn.Text = Path.GetFileName(SequenceFilenameLbl.Text);
         }
 
         private void SequenceRTB_TextChanged(object sender, EventArgs e)
@@ -1681,7 +1692,7 @@ namespace LEonard
             log.Info("BigEditBtn_Click(...)");
 
             //if (0 == RunVSCode(SequenceFilenameLbl.Text)) return;
-            if (0 == RunVSCode(Path.Combine(LEonardRoot,"Code","LEonard-code.code-workspace"))) return;
+            if (0 == RunVSCode(Path.Combine(LEonardRoot, "Code", "LEonard-code.code-workspace"))) return;
 
             // The old BigEdit for users who don't have VS Code
             BigEditDialog bigeditForm = new BigEditDialog(this)
