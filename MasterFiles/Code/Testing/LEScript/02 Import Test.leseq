@@ -3,7 +3,7 @@
 clear_variables()
 assertNotEqual(diam3,41) # should fail
 
-import_variables(Examples/LEScript/Globals.txt)
+import_variables(Examples/LEScript/Globals.leseq)
 import_variables(xyz) # should fail
 import_variables()    # should fail
 

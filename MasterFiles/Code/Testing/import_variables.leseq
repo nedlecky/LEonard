@@ -7,7 +7,7 @@ assertNotEqual(foo1,stuff)
 
 import_variables()    # should fail
 import_variables(xyz) # should fail
-import_variables(Testing/import_test_data.txt)  # should pass
+import_variables(Testing/import_test_data.leseq)  # should pass
 
 assertEqual(foo1,123)
 assertEqual(foo2,234abc)

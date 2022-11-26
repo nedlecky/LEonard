@@ -1,4 +1,4 @@
-# Globals.txt
+# Globals.leseq
 # Example global variable import for LEScript
 tool1 = 400grit
 diam2 = 7

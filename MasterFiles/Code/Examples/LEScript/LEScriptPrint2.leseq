@@ -1,4 +1,4 @@
-// LEScriptPrint2.txt
+// LEScriptPrint2.leseq
 lescriptprint2_count += 1
 
 le_print(lescriptprint2_count = {lescriptprint2_count})

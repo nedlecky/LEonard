@@ -1513,7 +1513,7 @@ namespace LEonard
             FileOpenDialog dialog = new FileOpenDialog(this)
             {
                 Title = "Open a LEonard Sequence",
-                Filter = "*.txt",
+                Filter = "*.leseq",
                 InitialDirectory = initialDirectory
             };
 
@@ -1555,7 +1555,7 @@ namespace LEonard
             FileSaveAsDialog dialog = new FileSaveAsDialog(this)
             {
                 Title = "Save a LEonard Sequence As...",
-                Filter = "*.txt",
+                Filter = "*.leseq",
                 InitialDirectory = initialDirectory,
                 FileName = SequenceFilenameLbl.Text,
             };
@@ -1564,7 +1564,7 @@ namespace LEonard
                 if (dialog.FileName != "")
                 {
                     string filename = dialog.FileName;
-                    if (!filename.EndsWith(".txt")) filename += ".txt";
+                    if (!filename.EndsWith(".leseq")) filename += ".leseq";
                     bool okToSave = true;
                     if (File.Exists(filename))
                     {
@@ -1646,10 +1646,44 @@ namespace LEonard
             ShowPDF("Using LMI Gocators with LEonard.pdf");
         }
 
+        public int RunVSCode(string filename)
+        {
+            /*
+            string full_filename = $@"{LEonardRoot}\Code\{filename}";
+            try
+            {
+                System.Diagnostics.Process.Start(full_filename);
+                return 0;
+            }
+            catch
+            {
+                log.Error($"Could not execute {full_filename}");
+                return 1;
+            }*/
+
+
+
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.WorkingDirectory = $@"\{LEonardRoot}\Code\";
+            startInfo.FileName = "code";
+            startInfo.Arguments = filename;
+            process.StartInfo = startInfo;
+            process.Start();
+            return 0;
+        }
+
+
         private void BigEditBtn_Click(object sender, EventArgs e)
         {
 
             log.Info("BigEditBtn_Click(...)");
+
+            //if (0 == RunVSCode(SequenceFilenameLbl.Text)) return;
+            if (0 == RunVSCode(Path.Combine(LEonardRoot,"Code","LEonard-code.code-workspace"))) return;
+
+            // The old BigEdit for users who don't have VS Code
             BigEditDialog bigeditForm = new BigEditDialog(this)
             {
                 Title = SequenceFilenameLbl.Text,
@@ -5185,7 +5219,7 @@ namespace LEonard
             // promptif
             if (command.StartsWith("promptif("))
             {
-                string[] args = ExtractParameters(command,2,false).Split(',');
+                string[] args = ExtractParameters(command, 2, false).Split(',');
                 if (args.Length < 2)
                     ExecError("Expected promptif(True|False, message)");
                 else
@@ -5453,7 +5487,7 @@ namespace LEonard
                     string devName = values[0];
                     string message = values[1];
                     int timeoutMs = Convert.ToInt32(values[2]);
-                    response = le_ask(devName, message,timeoutMs);
+                    response = le_ask(devName, message, timeoutMs);
                 }
 
                 WriteVariable("le_ask_response", response);
