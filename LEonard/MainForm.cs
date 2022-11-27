@@ -23,6 +23,7 @@ using Jint;
 using Jint.Native;
 using Microsoft.Win32;
 using NLog;
+using static IronPython.Modules._ast;
 #endregion
 
 namespace LEonard
@@ -2584,6 +2585,9 @@ namespace LEonard
             }
             int ID = (int)row["ID"];
 
+            // Setup the "me" device
+            LeDeviceBase.currentDevice = interfaces[ID];
+
             log.Info("Disconnecting {0}", (string)row["Name"]); ;
             row["Connected"] = false;
             if (interfaces[ID] != null)
@@ -4932,6 +4936,7 @@ namespace LEonard
             {
                 bool ret = false;
                 if (line != null) ret = PythonExec(line);
+                PythonUpdateVariablesRTB();
                 if (!ret)
                 {
                     ExecError($"Cannot execute Python line {lineNumber:0000}: {line}");
@@ -6321,31 +6326,6 @@ namespace LEonard
         #endregion ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
 
         #region ===== JAVA SUPPORT CODE                 ==============================================================================================================================
-        private void JavaUpdateVariablesRTB()
-        {
-            string finalUpdate = "";
-
-            foreach (KeyValuePair<string, Jint.Runtime.Descriptors.PropertyDescriptor> kp in javaEngine.Global.GetOwnProperties())
-            {
-
-                string varType = "";
-                if (kp.Value.Value.IsString()) varType = "S";
-                else if (kp.Value.Value.IsNumber()) varType = "N";
-                else if (kp.Value.Value.IsBoolean()) varType = "B";
-                if (varType.Length > 0)
-                {
-                    finalUpdate += varType + " " + kp.Key.ToString() + " = " + kp.Value.Value.ToString() + "\n";
-                }
-            }
-            JavaVariablesRTB.Text = finalUpdate;
-        }
-
-        private void le_print_java(string msg)
-        {
-            CrawlRTB(JavaConsoleRTB, msg);
-            log.Info("JPR:" + msg);
-            Console.WriteLine(msg);
-        }
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
@@ -6545,7 +6525,35 @@ namespace LEonard
             .SetValue("gocator_adjust", new Func<int, int>((int version) => gocator_adjust(version)))
             .SetValue("gocator_write_data", new Func<string, string, int>((string filename, string tagName) => gocator_write_data(filename, tagName)))
             ;
+
+            // Push all the LEonard variables down
+            foreach (DataRow row in variables.Rows)
+                ExecuteJavaScript($"{row["name"]} = '{row["value"]}'", null);
         }
+        private void le_print_java(string msg)
+        {
+            CrawlRTB(JavaConsoleRTB, msg);
+            log.Info("JPR:" + msg);
+            Console.WriteLine(msg);
+        }
+        private void JavaUpdateVariablesRTB()
+        {
+            string finalUpdate = "";
+
+            foreach (KeyValuePair<string, Jint.Runtime.Descriptors.PropertyDescriptor> kp in javaEngine.Global.GetOwnProperties().Reverse())
+            {
+                string typeName = kp.Value.Value.GetType().Name;
+
+                if (kp.Value.Value.IsString())
+                    finalUpdate += $"{kp.Key} = \"{kp.Value.Value}\"\n";
+                else if (kp.Value.Value.IsNumber() || kp.Value.Value.IsBoolean())
+                    finalUpdate += $"{kp.Key} = {kp.Value.Value}\n";
+                else if (!kp.Value.Value.ToString().StartsWith("function()"))
+                    finalUpdate += $"{kp.Key}:{typeName} = {kp.Value.Value}\n";
+            }
+            JavaVariablesRTB.Text = finalUpdate;
+        }
+
         private void JavaNewBtn_Click(object sender, EventArgs e)
         {
             log.Info("JavaNewBtn_Click(...)");
@@ -6712,6 +6720,12 @@ namespace LEonard
             JavaExec(JavaCodeRTB.Text);
             JavaUpdateVariablesRTB();
         }
+        private void JavaRestartBtn_Click(object sender, EventArgs e)
+        {
+            InitializeJavaEngine();
+            JavaUpdateVariablesRTB();
+        }
+
         bool ExecuteJavaScript(string code, LeDeviceInterface dev)
         {
             //log.Info($"Java Execute: {code}");
@@ -6744,12 +6758,6 @@ namespace LEonard
         #endregion ===== JAVA SUPPORT CODE                 ==============================================================================================================================
 
         #region ===== PYTHON SUPPORT CODE               ==============================================================================================================================
-        private void le_print_python(string msg)
-        {
-            CrawlRTB(PythonConsoleRTB, msg);
-            log.Info("PPR:" + msg);
-            Console.WriteLine(msg);
-        }
         private void InitializePythonEngine()
         {
             pythonEngine = Python.CreateEngine();
@@ -6962,7 +6970,45 @@ namespace LEonard
             pythonScope.SetVariable("gocator_trigger", new Func<int, int>((int preDelay_ms) => gocator_trigger(preDelay_ms)));
             pythonScope.SetVariable("gocator_adjust", new Func<int, int>((int version) => gocator_adjust(version)));
             pythonScope.SetVariable("gocator_write_data", new Func<string, string, int>((string filename, string tagName) => gocator_write_data(filename, tagName)));
+
+            // Push all the LEonard variables down
+            foreach (DataRow row in variables.Rows)
+                ExecutePythonScript($"{row["name"]} = '{row["value"]}'", null);
+
         }
+        private void le_print_python(string msg)
+        {
+            CrawlRTB(PythonConsoleRTB, msg);
+            log.Info("PPR:" + msg);
+            Console.WriteLine(msg);
+        }
+        private void PythonUpdateVariablesRTB()
+        {
+            string finalUpdate = "";
+
+            foreach (string varName in pythonScope.GetVariableNames().Reverse())
+            {
+                var val = pythonScope.GetVariable(varName);
+                string typeName = "??";
+                try
+                {
+                    typeName = val.GetType().Name;
+                    if (typeName == "String")
+                        finalUpdate += $"{varName} = \"{val}\"\n";
+                    else if (typeName == "Int32")
+                        finalUpdate += $"{varName} = {val}\n";
+                    else if (!(typeName.StartsWith("Action") || typeName.StartsWith("Func") || typeName.StartsWith("__")))
+                        finalUpdate += $"{varName}::{typeName} = {val}\n";
+                }
+                catch
+                {
+                    finalUpdate += $"ERROR {varName}::{typeName} = {val}\n";
+                }
+            }
+
+            PythonVariablesRTB.Text = finalUpdate;
+        }
+
         private void PythonNewBtn_Click(object sender, EventArgs e)
         {
             log.Info("PythonNewBtn_Click(...)");
@@ -7136,10 +7182,12 @@ namespace LEonard
             {
                 ErrorMessageBox($"PythonRunBtn Error: {ex}");
             }
+            PythonUpdateVariablesRTB();
         }
         private void PythonRestartBtn_Click(object sender, EventArgs e)
         {
             InitializePythonEngine();
+            PythonUpdateVariablesRTB();
         }
 
         bool ExecutePythonScript(string code, LeDeviceInterface dev)
@@ -8415,6 +8463,7 @@ namespace LEonard
         }
 
         #endregion ===== GOCATOR INTERFACE CODE            ==============================================================================================================================
+
     }
 }
 

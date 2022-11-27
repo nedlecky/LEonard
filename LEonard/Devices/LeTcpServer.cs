@@ -145,7 +145,7 @@ namespace LEonard
                 Thread.Sleep(10);
             fSendBusy = true;
 
-            log.Debug($"{logPrefix}==> ({message})");
+            log.Debug($"{logPrefix}==> {message}");
             try
             {
                 string msg = TxPrefix + message + TxSuffix;

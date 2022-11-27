@@ -79,6 +79,7 @@
             this.JavaConsoleRTB = new System.Windows.Forms.RichTextBox();
             this.JavaVariablesRTB = new System.Windows.Forms.RichTextBox();
             this.JavaCodeRTB = new System.Windows.Forms.RichTextBox();
+            this.JavaRestartBtn = new System.Windows.Forms.Button();
             this.pythonEnginePage = new System.Windows.Forms.TabPage();
             this.PythonScreenLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.PythonFilenameLbl = new System.Windows.Forms.Label();
@@ -867,6 +868,7 @@
             this.JavaScreenLayoutPanel.Controls.Add(this.JavaConsoleRTB, 0, 3);
             this.JavaScreenLayoutPanel.Controls.Add(this.JavaVariablesRTB, 3, 3);
             this.JavaScreenLayoutPanel.Controls.Add(this.JavaCodeRTB, 0, 1);
+            this.JavaScreenLayoutPanel.Controls.Add(this.JavaRestartBtn, 1, 2);
             this.JavaScreenLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JavaScreenLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.JavaScreenLayoutPanel.Name = "JavaScreenLayoutPanel";
@@ -983,6 +985,17 @@
             this.JavaCodeRTB.TabIndex = 9;
             this.JavaCodeRTB.Text = "";
             this.JavaCodeRTB.TextChanged += new System.EventHandler(this.JavaCodeRTB_TextChanged);
+            // 
+            // JavaRestartBtn
+            // 
+            this.JavaRestartBtn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JavaRestartBtn.Location = new System.Drawing.Point(173, 479);
+            this.JavaRestartBtn.Name = "JavaRestartBtn";
+            this.JavaRestartBtn.Size = new System.Drawing.Size(164, 48);
+            this.JavaRestartBtn.TabIndex = 10;
+            this.JavaRestartBtn.Text = "Restart";
+            this.JavaRestartBtn.UseVisualStyleBackColor = true;
+            this.JavaRestartBtn.Click += new System.EventHandler(this.JavaRestartBtn_Click);
             // 
             // pythonEnginePage
             // 
@@ -4460,6 +4473,7 @@
         private System.Windows.Forms.Button URManualBtn;
         private System.Windows.Forms.TableLayoutPanel RuntimeAppHelperLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel SetupAppHelperLayoutPanel1;
+        private System.Windows.Forms.Button JavaRestartBtn;
     }
 }
 
