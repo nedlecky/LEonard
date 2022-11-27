@@ -1,6 +1,6 @@
 # 16p Both Alignment Sunk
 exec_python(Lib/leGocatorSupport.py)
-output_datafile = {LEScriptFilename}
+output_datafile = {sysSequenceFilename}
 using_python()
 import random
 

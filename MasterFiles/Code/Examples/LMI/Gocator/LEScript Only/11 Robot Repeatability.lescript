@@ -1,7 +1,7 @@
 # 11 Robot Repeatability
 
 clear()
-filename = {LEScriptFilename}
+filename = {sysSequenceFilename}
 
 gocator_ID=move_and_return
 

@@ -1,7 +1,7 @@
 # 17 Both Alignment Thru
 
 clear()
-filename = {LEScriptFilename}
+filename = {sysSequenceFilename}
 
 count=5
 

@@ -1,13 +1,12 @@
 # 50p Inspect All
 exec_python(Lib/leGocatorSupport.py)
-output_datafile = {LEScriptFilename}
+output_datafile = {sysSequenceFilename}
 using_python()
 import csv_addons as cp
 
 start_operation()
 
-root = le_read_var('LEonardRoot')
-datafile = root + '/Data/HoleData.csv'
+datafile = sysLEonardRoot + '/Data/HoleData.csv'
 rows = cp.import_location_database(datafile)
 
 row = 1

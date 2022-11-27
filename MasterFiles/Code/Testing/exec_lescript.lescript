@@ -4,21 +4,21 @@
 file1 = Examples/LEScript/LEScriptPrint1.lescript
 file2 = Examples/LEScript/LEScriptPrint2.lescript
 
-le_print(le_language = {le_language})
+le_print(sysLanguage = {sysLanguage})
 exec_lescript({file1})
 exec_lescript({file2})
 exec_lescript({file1})
 exec_lescript({file2})
 
 using_java()
-le_print('le_language = ' + le_language)
+le_print('sysLanguage = ' + sysLanguage)
 exec_lescript(file1)
 exec_lescript(file2)
 exec_lescript(file1)
 exec_lescript(file2)
 
 using_python()
-le_print('le_language = ' + le_language)
+le_print('sysLanguage = ' + sysLanguage)
 exec_lescript(file1)
 exec_lescript(file2)
 exec_lescript(file1)

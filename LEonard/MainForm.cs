@@ -23,6 +23,7 @@ using Jint;
 using Jint.Native;
 using Microsoft.Win32;
 using NLog;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static IronPython.Modules._ast;
 #endregion
 
@@ -237,6 +238,7 @@ namespace LEonard
 
             InitializeJavaEngine();
             InitializePythonEngine();
+            SetLEonardRoot(LEonardRoot);
 
             // Flag that we're starting
             log.Info("================================================================");
@@ -1251,6 +1253,8 @@ namespace LEonard
             GrindCycleLbl.Text = "";
             GrindNCyclesLbl.Text = "";
             StepTimeEstimateLbl.Text = "";
+            WriteVariable("sysStartTime", runStartedTime.ToString("yyyy-MM-ddTHH-mm-ss"), true, true);
+
 
             // Set initial language
             string sequenceFilename = SequenceFilenameLbl.Text;
@@ -1456,6 +1460,15 @@ namespace LEonard
             }
         }
 
+        public void SetupSequenceDefaults()
+        {
+            // Write System variables and set presumed language
+            WriteVariable("sysSequenceFilename", Path.GetFileName(SequenceFilenameLbl.Text), true, true);
+            WriteVariable("sysSequencePath", Path.GetDirectoryName(SequenceFilenameLbl.Text).Replace('\\','/'), true, true);
+            if (SequenceFilenameLbl.Text.EndsWith(".js")) SetLanguage(LEonardLanguages.Java);
+            else if (SequenceFilenameLbl.Text.EndsWith(".py")) SetLanguage(LEonardLanguages.Python);
+            else SetLanguage(LEonardLanguages.LEScript);
+        }
 
         private string sequenceAsLoaded = "";  // As it was when loaded so we can test for actual mods
         private bool SequenceWasModified()
@@ -1472,6 +1485,9 @@ namespace LEonard
                 SequenceRTB.LoadFile(file, System.Windows.Forms.RichTextBoxStreamType.PlainText);
                 SequenceFilenameLbl.Text = file;
                 sequenceAsLoaded = SequenceRTB.Text;
+
+                SetupSequenceDefaults();
+
                 return true;
             }
             catch (Exception ex)
@@ -1586,6 +1602,7 @@ namespace LEonard
                     if (okToSave)
                     {
                         SequenceFilenameLbl.Text = filename;
+                        SetupSequenceDefaults();
                         SaveSequenceBtn_Click(null, null);
                     }
                 }
@@ -1724,8 +1741,7 @@ namespace LEonard
             if (DialogResult.OK != ConfirmMessageBox("This will reset the General Configuration settings. Proceed?"))
                 return;
 
-            LEonardRoot = DEFAULT_LEonardRoot;
-            LEonardRootLbl.Text = LEonardRoot;
+            SetLEonardRoot(DEFAULT_LEonardRoot);
         }
         private void LoadConfigBtn_Click(object sender, EventArgs e)
         {
@@ -1771,9 +1787,6 @@ namespace LEonard
             RegistryKey AppNameKey = GetAppNameKey();
 
             LEonardRoot = (string)AppNameKey.GetValue("LEonardRoot", @"C:\Users\Public\LEonard");
-
-            // User is not allowed to manually change anymore (for now?)
-            //ChangeRootDirectoryBtn.Visible = false;
 
             if (!Directory.Exists(LEonardRoot))
             {
@@ -1935,6 +1948,12 @@ namespace LEonard
             AppNameKey.SetValue("PythonFilenameLbl.Text", PythonFilenameLbl.Text);
         }
 
+        void SetLEonardRoot(string path)
+        {
+            LEonardRoot = path;
+            LEonardRootLbl.Text = path;
+            WriteVariable("sysLEonardRoot", path.Replace('\\', '/'), true);
+        }
         private void ChangeRootDirectoryBtn_Click(object sender, EventArgs e)
         {
             log.Info("ChangeRootDirectoryBtn_Click(...)");
@@ -1946,8 +1965,7 @@ namespace LEonard
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 log.Info("New LEonardRoot={0}", dialog.SelectedPath);
-                LEonardRoot = dialog.SelectedPath;
-                LEonardRootLbl.Text = LEonardRoot;
+                SetLEonardRoot(dialog.SelectedPath);
 
                 MakeStandardSubdirectories();
             }
@@ -3886,6 +3904,7 @@ namespace LEonard
         }
         public string ReadVariable(string name, string defaultValue = null)
         {
+            /*
             if (name == "DateTime")
                 return DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss");
             if (name == "LEScriptFilename")
@@ -3894,6 +3913,7 @@ namespace LEonard
                 return LEonardLanguage.ToString();
             if (name == "LEonardRoot")
                 return LEonardRoot;
+            */
 
             foreach (DataRow row in variables.Rows)
             {
@@ -5933,7 +5953,7 @@ namespace LEonard
         void SetLanguage(LEonardLanguages language)
         {
             LEonardLanguage = language;
-            WriteVariable("le_language", LEonardLanguage.ToString(), true, true); // This is a system variable and gets pushed to Java and Python
+            WriteVariable("sysLanguage", LEonardLanguage.ToString(), true, true); // This is a system variable and gets pushed to Java and Python
         }
         public void using_lescript()
         {
@@ -8463,7 +8483,6 @@ namespace LEonard
         }
 
         #endregion ===== GOCATOR INTERFACE CODE            ==============================================================================================================================
-
     }
 }
 

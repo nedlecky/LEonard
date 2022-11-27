@@ -1,7 +1,7 @@
 # 51 Inspect All Perturbed
 
 clear()
-filename = {LEScriptFilename}_{DateTime}
+filename = {sysSequenceFilename}_{sysStartTime}
 
 infile_open(HoleData.csv)
 infile_scale(2,0.0254,3,0.0254,4,0.0254)

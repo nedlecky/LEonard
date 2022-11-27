@@ -5,21 +5,21 @@ file1 = Examples/Java/JavaPrint1.js
 file2 = Examples/Java/JavaPrint2.js
 
 le_print(using_language)
-le_print(le_language = {le_language})
+le_print(sysLanguage = {sysLanguage})
 exec_java({file1})
 exec_java({file2})
 exec_java({file1})
 exec_java({file2})
 
 using_java()
-le_print('le_language = ' + le_language)
+le_print('sysLanguage = ' + sysLanguage)
 exec_java(file1)
 exec_java(file2)
 exec_java(file1)
 exec_java(file2)
 
 using_python()
-le_print('le_language = ' + le_language)
+le_print('sysLanguage = ' + sysLanguage)
 exec_java(file1)
 exec_java(file2)
 exec_java(file1)

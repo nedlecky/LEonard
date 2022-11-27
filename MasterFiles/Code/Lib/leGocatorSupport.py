@@ -275,7 +275,8 @@ def append_data(filename, tag_name):
 
 # Creates or appends latest Gocator data to filename
 def write_results(filename, tag_name):
-  root = le_read_var('LEonardRoot').replace(os.sep, '/')
+  #root = le_read_var('sysLEonardRoot').replace(os.sep, '/')
+  root = sysLEonardRoot.replace(os.sep, '/')
   full_filename = root + '/Data/' + filename + '.csv'
   le_log_info('write_results(' + filename + ',' + tag_name + ') ==> ' + full_filename)
 

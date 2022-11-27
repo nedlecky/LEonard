@@ -5,21 +5,21 @@ file1 = Examples/Python/PythonPrint1.py
 file2 = Examples/Python/PythonPrint2.py
 
 le_print(using_language)
-le_print(le_language = {le_language})
+le_print(sysLanguage = {sysLanguage})
 exec_python({file1})
 exec_python({file2})
 exec_python({file1})
 exec_python({file2})
 
 using_java()
-le_print('le_language = ' + le_language)
+le_print('sysLanguage = ' + sysLanguage)
 exec_python(file1)
 exec_python(file2)
 exec_python(file1)
 exec_python(file2)
 
 using_python()
-le_print('le_language = ' + le_language)
+le_print('sysLanguage = ' + sysLanguage)
 exec_python(file1)
 exec_python(file2)
 exec_python(file1)

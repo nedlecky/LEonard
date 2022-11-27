@@ -1,0 +1,25 @@
+# sysvar.lescript
+# Test the system variables
+
+le_print(sysvar)
+
+le_print(sysLanguage = {sysLanguage})
+le_print(sysLEonardRoot = {sysLEonardRoot})
+le_print(sysSequenceFilename = {sysSequenceFilename})
+le_print(sysSequencePath = {sysSequencePath})
+le_print(sysStartTime = {sysStartTime})
+
+using_java()
+le_print('sysLanguage = ' + sysLanguage)
+le_print('sysLEonardRoot = ' + sysLEonardRoot)
+le_print('sysSequenceFilename = ' + sysSequenceFilename)
+le_print('sysSequencePath = ' + sysSequencePath)
+le_print('sysStartTime = ' + sysStartTime)
+
+
+using_python()
+le_print('sysLanguage = ' + sysLanguage)
+le_print('sysLEonardRoot = ' + sysLEonardRoot)
+le_print('sysSequenceFilename = ' + sysSequenceFilename)
+le_print('sysSequencePath = ' + sysSequencePath)
+le_print('sysStartTime = ' + sysStartTime)

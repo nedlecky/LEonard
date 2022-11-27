@@ -2,16 +2,16 @@
 # Test running LEScript lines
 
 x = 0
-le_print(le_language = {le_language})
+le_print(sysLanguage = {sysLanguage})
 execline_lescript(x+=2)
 #execline_lescript(le_print({x}))
 
 using_java()
-le_print('le_language = ' + le_language)
+le_print('sysLanguage = ' + sysLanguage)
 execline_lescript('x+=2')
 execline_lescript('le_print({x})')
 
 using_python()
-le_print('le_language = ' + le_language)
+le_print('sysLanguage = ' + sysLanguage)
 execline_lescript('x+=2')
 execline_lescript('le_print({x})')

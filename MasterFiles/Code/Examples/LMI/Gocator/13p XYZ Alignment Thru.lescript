@@ -1,6 +1,6 @@
 # 13p XYZ Alignment Thru
 exec_python(Lib/leGocatorSupport.py)
-output_datafile = {LEScriptFilename}
+output_datafile = {sysSequenceFilename}
 using_python()
 import random
 

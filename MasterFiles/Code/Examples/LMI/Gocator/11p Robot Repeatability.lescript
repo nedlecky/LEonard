@@ -1,6 +1,6 @@
 # 11p Robot Repeatability
 exec_python(Lib/leGocatorSupport.py)
-output_datafile = {LEScriptFilename}
+output_datafile = {sysSequenceFilename}
 using_python()
 
 start_operation()

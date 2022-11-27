@@ -1,7 +1,7 @@
 # 14 Normal Alignment Sunk
 
 clear()
-filename = {LEScriptFilename}
+filename = {sysSequenceFilename}
 
 count=5
 loop:
