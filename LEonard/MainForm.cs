@@ -1710,9 +1710,11 @@ namespace LEonard
             log.Info("BigEditBtn_Click(...)");
 
             //if (0 == RunVSCode(SequenceFilenameLbl.Text)) return;
-            if (0 == RunVSCode(Path.Combine(LEonardRoot, "Code", "LEonard-code.code-workspace"))) return;
+            if (UseVSCodeChk.Checked)
+                if(0 == RunVSCode(Path.Combine(LEonardRoot, "Code", "LEonard-code.code-workspace")))
+                    return;
 
-            // The old BigEdit for users who don't have VS Code
+            // The old BigEdit for users who don't have (or want) VS Code
             BigEditDialog bigeditForm = new BigEditDialog(this)
             {
                 Title = SequenceFilenameLbl.Text,
@@ -1742,6 +1744,7 @@ namespace LEonard
                 return;
 
             SetLEonardRoot(DEFAULT_LEonardRoot);
+            UseVSCodeChk.Checked = true;
         }
         private void LoadConfigBtn_Click(object sender, EventArgs e)
         {
@@ -1832,6 +1835,7 @@ namespace LEonard
             WindowState = (FormWindowState)UIKey.GetValue("WindowState", FormWindowState.Normal);
 
             LEonardRootLbl.Text = LEonardRoot;
+            UseVSCodeChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("UseVSCodeChk.Checked", "True"));
 
             StartupDevicesLbl.Text = (string)AppNameKey.GetValue("StartupDevicesLbl.Text", "");
             AutoConnectOnLoadChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoConnectOnLoadChk.Checked", "False"));
@@ -1913,6 +1917,7 @@ namespace LEonard
 
             // From Setup Tab
             AppNameKey.SetValue("LEonardRoot", LEonardRoot);
+            AppNameKey.SetValue("UseVSCodeChk.Checked", UseVSCodeChk.Checked);
             SavePersistentStartupDevices();
 
             // Operator Mode
