@@ -1480,7 +1480,7 @@ namespace LEonard
         {
             // Write System variables and set presumed language
             WriteVariable("sysSequenceFilename", Path.GetFileName(SequenceFilenameLbl.Text), true, true);
-            WriteVariable("sysSequencePath", Path.GetDirectoryName(SequenceFilenameLbl.Text).Replace('\\','/'), true, true);
+            WriteVariable("sysSequencePath", Path.GetDirectoryName(SequenceFilenameLbl.Text).Replace('\\', '/'), true, true);
             if (SequenceFilenameLbl.Text.EndsWith(".js")) SetLanguage(LEonardLanguages.Java);
             else if (SequenceFilenameLbl.Text.EndsWith(".py")) SetLanguage(LEonardLanguages.Python);
             else SetLanguage(LEonardLanguages.LEScript);
@@ -1727,7 +1727,7 @@ namespace LEonard
 
             //if (0 == RunVSCode(SequenceFilenameLbl.Text)) return;
             if (UseVSCodeChk.Checked)
-                if(0 == RunVSCode(Path.Combine(LEonardRoot, "Code", "LEonard-code.code-workspace")))
+                if (0 == RunVSCode(Path.Combine(LEonardRoot, "Code", "LEonard-code.code-workspace")))
                     return;
 
             // The old BigEdit for users who don't have (or want) VS Code
@@ -2537,7 +2537,7 @@ namespace LEonard
             }
 
             // Set the name and use as current "me" device
-            interfaces[ID].Name= name;
+            interfaces[ID].Name = name;
             SetMeDevice(interfaces[ID]);
 
             // STEP 2: Start any requested runtime
@@ -3115,7 +3115,20 @@ namespace LEonard
 
         void ScaleUiText(double scalePct)
         {
-            foreach (Control c in allFontResizableList) RescaleFont(c, scalePct);
+            foreach (Control c in allFontResizableList)
+            {
+                // If we resize an RTB font, that shouldn't set Modified for the control
+                // But leave it set if it was already set!
+                bool wasModified = false;
+                if (c.GetType() == typeof(RichTextBox))
+                    wasModified = ((RichTextBox)c).Modified;
+
+                RescaleFont(c, scalePct);
+
+                // "But leave it set if it was already set!"
+                if (c.GetType() == typeof(RichTextBox))
+                    ((RichTextBox)c).Modified = wasModified;
+            }
         }
 
         readonly string displaysFilename = "Displays.xml";
