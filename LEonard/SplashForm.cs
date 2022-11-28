@@ -7,7 +7,10 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
+using static IronPython.Modules._ast;
+using static LEonard.MainForm;
 
 namespace LEonard
 {
@@ -26,6 +29,13 @@ namespace LEonard
 
         private void SplashForm_Load(object sender, EventArgs e)
         {
+            //Activated += SplashForm_Activated;
+
+            //Visible = false;
+            //ShowWindowAsync(Handle, SW_SHOWMINIMIZED);
+
+            DoubleBuffered = true;
+            TopMost = true;
             string companyName = Application.CompanyName;
             string appName = Application.ProductName;
             string productVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -44,11 +54,20 @@ namespace LEonard
                 Left = mainForm.Left + (mainForm.Width - Width) / 2;
                 Top = mainForm.Top + (mainForm.Height - Height) / 2;
                 CloseBtn.Visible = false;
-                CloseTmr.Interval = 10000;
+                CloseTmr.Interval = 7000;
                 CloseTmr.Enabled = true;
             }
             else
                 CloseBtn.Visible = true;
+
+            //ShowTmr.Interval = 1000;
+            //ShowTmr.Enabled = true;
+        }
+
+        private void SplashForm_Activated(object sender, EventArgs e)
+        {
+            //ShowWindowAsync(Handle, SW_SHOWNORMAL);
+            //Show();
         }
 
         // Form closes with the Close button, a close timer, or any click anywhere in the form!
@@ -65,6 +84,12 @@ namespace LEonard
         private void SplashForm_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void ShowTmr_Tick(object sender, EventArgs e)
+        {
+            Show(mainForm);
+            ShowTmr.Enabled = false;
         }
     }
 }

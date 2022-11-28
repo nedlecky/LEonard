@@ -153,6 +153,7 @@
             this.SetupTab = new System.Windows.Forms.TabControl();
             this.devicesPage = new System.Windows.Forms.TabPage();
             this.SetupDevicesLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.label5 = new System.Windows.Forms.Label();
             this.DeviceReconnectBtn = new System.Windows.Forms.Button();
             this.DeviceConnectBtn = new System.Windows.Forms.Button();
             this.DeviceDisconnectBtn = new System.Windows.Forms.Button();
@@ -171,6 +172,7 @@
             this.SaveDevicesBtn = new System.Windows.Forms.Button();
             this.LoadDevicesBtn = new System.Windows.Forms.Button();
             this.ReloadDevicesBtn = new System.Windows.Forms.Button();
+            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
             this.speedBtnsGrp = new System.Windows.Forms.GroupBox();
             this.SpeedSendBtn1 = new System.Windows.Forms.Button();
             this.lbl4 = new System.Windows.Forms.Label();
@@ -243,6 +245,8 @@
             this.LEonardRootLbl = new System.Windows.Forms.Label();
             this.DefaultConfigBtn = new System.Windows.Forms.Button();
             this.ChangeRootDirectoryBtn = new System.Windows.Forms.Button();
+            this.UseVSCodeChk = new LEonard.MyCheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.licensePage = new System.Windows.Forms.TabPage();
             this.SetupLicenseLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.LicenseStatusLbl = new System.Windows.Forms.Label();
@@ -290,10 +294,6 @@
             this.DiamVersionLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.TopButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.AutoConnectOnLoadChk = new LEonard.MyCheckBox();
-            this.UseVSCodeChk = new LEonard.MyCheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.MonitorTab.SuspendLayout();
             this.positionsPage.SuspendLayout();
             this.PositionLayoutPanel.SuspendLayout();
@@ -1688,7 +1688,7 @@
             this.RunStateLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.RunCenterColumnLayoutPanel.SetColumnSpan(this.RunStateLbl, 2);
             this.RunStateLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RunStateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RunStateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RunStateLbl.ForeColor = System.Drawing.Color.White;
             this.RunStateLbl.Location = new System.Drawing.Point(3, 159);
             this.RunStateLbl.Name = "RunStateLbl";
@@ -1714,7 +1714,7 @@
             this.CurrentLineLblCopy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.RunCenterColumnLayoutPanel.SetColumnSpan(this.CurrentLineLblCopy, 2);
             this.CurrentLineLblCopy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CurrentLineLblCopy.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrentLineLblCopy.Font = new System.Drawing.Font("Courier New", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CurrentLineLblCopy.Location = new System.Drawing.Point(3, 212);
             this.CurrentLineLblCopy.Name = "CurrentLineLblCopy";
             this.CurrentLineLblCopy.Size = new System.Drawing.Size(646, 149);
@@ -2070,6 +2070,19 @@
             this.SetupDevicesLayoutPanel.Size = new System.Drawing.Size(1874, 694);
             this.SetupDevicesLayoutPanel.TabIndex = 0;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.SetupDevicesLayoutPanel.SetColumnSpan(this.label5, 2);
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(1563, 508);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(308, 47);
+            this.label5.TabIndex = 123;
+            this.label5.Text = "Connect On Load?";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // DeviceReconnectBtn
             // 
             this.DeviceReconnectBtn.BackColor = System.Drawing.Color.Green;
@@ -2334,6 +2347,16 @@
             this.ReloadDevicesBtn.Text = "Reload";
             this.ReloadDevicesBtn.UseVisualStyleBackColor = false;
             this.ReloadDevicesBtn.Click += new System.EventHandler(this.ReloadDevicesBtn_Click);
+            // 
+            // AutoConnectOnLoadChk
+            // 
+            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Right;
+            this.AutoConnectOnLoadChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1515, 511);
+            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
+            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(42, 41);
+            this.AutoConnectOnLoadChk.TabIndex = 118;
+            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
             // 
             // speedBtnsGrp
             // 
@@ -2706,7 +2729,7 @@
             // 
             this.SetDoorClosedInputBtn.BackColor = System.Drawing.Color.Green;
             this.SetDoorClosedInputBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetDoorClosedInputBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SetDoorClosedInputBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetDoorClosedInputBtn.ForeColor = System.Drawing.Color.White;
             this.SetDoorClosedInputBtn.Location = new System.Drawing.Point(513, 616);
             this.SetDoorClosedInputBtn.Name = "SetDoorClosedInputBtn";
@@ -2720,7 +2743,7 @@
             // 
             this.SetFootswitchPressedInputBtn.BackColor = System.Drawing.Color.Green;
             this.SetFootswitchPressedInputBtn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetFootswitchPressedInputBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SetFootswitchPressedInputBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetFootswitchPressedInputBtn.ForeColor = System.Drawing.Color.White;
             this.SetFootswitchPressedInputBtn.Location = new System.Drawing.Point(3, 616);
             this.SetFootswitchPressedInputBtn.Name = "SetFootswitchPressedInputBtn";
@@ -3398,6 +3421,27 @@
             this.ChangeRootDirectoryBtn.Text = "...";
             this.ChangeRootDirectoryBtn.UseVisualStyleBackColor = true;
             this.ChangeRootDirectoryBtn.Click += new System.EventHandler(this.ChangeRootDirectoryBtn_Click);
+            // 
+            // UseVSCodeChk
+            // 
+            this.UseVSCodeChk.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UseVSCodeChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UseVSCodeChk.Location = new System.Drawing.Point(316, 91);
+            this.UseVSCodeChk.Name = "UseVSCodeChk";
+            this.UseVSCodeChk.Size = new System.Drawing.Size(307, 36);
+            this.UseVSCodeChk.TabIndex = 119;
+            this.UseVSCodeChk.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label4.Location = new System.Drawing.Point(83, 88);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(227, 42);
+            this.label4.TabIndex = 120;
+            this.label4.Text = "Use VS Code?";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // licensePage
             // 
@@ -4122,50 +4166,6 @@
             this.ExitBtn.Text = "Exit";
             this.ExitBtn.UseVisualStyleBackColor = false;
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
-            // 
-            // AutoConnectOnLoadChk
-            // 
-            this.AutoConnectOnLoadChk.Dock = System.Windows.Forms.DockStyle.Right;
-            this.AutoConnectOnLoadChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AutoConnectOnLoadChk.Location = new System.Drawing.Point(1515, 511);
-            this.AutoConnectOnLoadChk.Name = "AutoConnectOnLoadChk";
-            this.AutoConnectOnLoadChk.Size = new System.Drawing.Size(42, 41);
-            this.AutoConnectOnLoadChk.TabIndex = 118;
-            this.AutoConnectOnLoadChk.UseVisualStyleBackColor = true;
-            // 
-            // UseVSCodeChk
-            // 
-            this.UseVSCodeChk.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UseVSCodeChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UseVSCodeChk.Location = new System.Drawing.Point(316, 91);
-            this.UseVSCodeChk.Name = "UseVSCodeChk";
-            this.UseVSCodeChk.Size = new System.Drawing.Size(307, 36);
-            this.UseVSCodeChk.TabIndex = 119;
-            this.UseVSCodeChk.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label4.Location = new System.Drawing.Point(83, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(227, 42);
-            this.label4.TabIndex = 120;
-            this.label4.Text = "Use VS Code?";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.SetupDevicesLayoutPanel.SetColumnSpan(this.label5, 2);
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1563, 508);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(308, 47);
-            this.label5.TabIndex = 123;
-            this.label5.Text = "Connect On Load?";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 

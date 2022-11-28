@@ -34,12 +34,13 @@ namespace LEonard
         #region ===== MAINFORM VARIABLES                ==============================================================================================================================
         private static NLog.Logger log;
         [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
-
+        public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        [DllImport("user32.dll")]
+        public static extern IntPtr LockWindowUpdate(IntPtr Handle);
 
         enum LEonardLanguages
         {
@@ -148,31 +149,6 @@ namespace LEonard
         OperatorMode operatorModeOverride = OperatorMode.OPERATOR;
         bool useOperatorModeOverride = false;
 
-
-        // TODO is this worth expanding???
-        private void TextLargerButtonHandler(object sender, EventArgs e)
-        {
-
-        }
-        void SetupRTB(RichTextBox rtb)
-        {
-            // This is handled in the Designer
-            //rtb.DetectUrls= false;
-
-            /*
-                Button b = new Button();
-                b.Location = new System.Drawing.Point(100, 100);
-                b.Name = rtb.Name + "UpBtn";
-                b.Size = new System.Drawing.Size(100, 100);
-                b.TabIndex = rtb.TabIndex + 1;
-                b.Text = "UP";
-                b.UseVisualStyleBackColor = true;
-                b.Click += new System.EventHandler(TextLargerButtonHandler);
-
-                this.Controls.Add(b);
-            */
-        }
-
         public MainForm(string[] args)
         {
             if (args.Length > 1)
@@ -190,15 +166,21 @@ namespace LEonard
                 }
             }
 
+            DoubleBuffered = true;
+
             InitializeComponent();
-
-            SetupRTB(SequenceRTB);
-            SetupRTB(SequenceRTBCopy);
-
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Hide();
+
+            splashForm = new SplashForm(this)
+            {
+                AutoClose = true,
+            };
+            splashForm.Show();
+
             consoleForm = new ConsoleForm(this);
 
             // Startup logging system (which also displays messages)
@@ -231,10 +213,6 @@ namespace LEonard
             // Suppress all the optional controls!
             UpdateAnnunciators();
 
-            splashForm = new SplashForm(this)
-            {
-                AutoClose = true,
-            };
 
             InitializeJavaEngine();
             InitializePythonEngine();
@@ -265,6 +243,8 @@ namespace LEonard
             SetState(RunState.READY);
 
             ResumeLayout();
+            Show();
+
 
             // Make fonts scale as they should!
             //MainForm_Resize(null, null);
@@ -369,15 +349,11 @@ namespace LEonard
         #region ===== TIMERS                            ==============================================================================================================================
         private void StartupTmr_Tick(object sender, EventArgs e)
         {
-            Thread.Sleep(250);
-            splashForm.Show();
-
             log.Info("StartupTmr()...");
             StartupTmr.Enabled = false;
 
             MessageTmr.Interval = 100;
             MessageTmr.Enabled = true;
-
 
             // Load the last Sequence if there was one loaded in LoadPersistent()
             if (sequenceFileToAutoload != "")
@@ -1394,6 +1370,7 @@ namespace LEonard
                     break;
                 case RunState.PAUSED:
                     // Perform STEP function
+                    /*
                     MessageDialog messageForm = new MessageDialog(this)
                     {
                         Title = "System Question",
@@ -1403,6 +1380,7 @@ namespace LEonard
                     };
                     DialogResult result = messageForm.ShowDialog();
                     if (result == DialogResult.OK) lineCurrentlyExecuting--;
+                    */
                     RobotSendHalt();
                     isSingleStep = true;
                     SetState(RunState.RUNNING);
@@ -1660,8 +1638,8 @@ namespace LEonard
             if (runState != RunState.RUNNING)
             {
                 SetSequenceState(SequenceState.MODIFIED);
+                SequenceRTBCopy.Text = SequenceRTB.Text;
             }
-            SequenceRTBCopy.Text = SequenceRTB.Text;
         }
 
         public void ShowPDF(string filename)
@@ -1839,16 +1817,27 @@ namespace LEonard
             // Window State
             RegistryKey UIKey = AppNameKey.CreateSubKey("UI");
             SuspendLayout();
-            Left = (Int32)UIKey.GetValue("Left", 0);
-            Top = (Int32)UIKey.GetValue("Top", 0);
-            Width = (Int32)UIKey.GetValue("Width", screenDesignWidth);
-            Height = (Int32)UIKey.GetValue("Height", screenDesignHeight);
+
+            // Restore displays table and set display mode
+            LoadDisplaysBtn_Click(null, null);
+            SelectedDisplayLbl.Text = (string)AppNameKey.GetValue("SelectedDisplayLbl.Text", "Default");
+            uiUpdatesAreLive = true;
+            SelectDisplayMode(SelectedDisplayLbl.Text);
+            uiUpdatesAreLive = false;
+
+            if (true) // TODO Should only worry if resizable window??
+            {
+                Left = (Int32)UIKey.GetValue("Left", 0);
+                Top = (Int32)UIKey.GetValue("Top", 0);
+                Width = (Int32)UIKey.GetValue("Width", screenDesignWidth);
+                Height = (Int32)UIKey.GetValue("Height", screenDesignHeight);
+                FormBorderStyle = (FormBorderStyle)UIKey.GetValue("BorderStyle", FormBorderStyle.None);
+                ControlBox = Convert.ToBoolean(UIKey.GetValue("ControlBox", "False"));
+                MaximizeBox = Convert.ToBoolean(UIKey.GetValue("MaximizeBox", "False"));
+                MinimizeBox = Convert.ToBoolean(UIKey.GetValue("MinimizeBox", "False"));
+                WindowState = (FormWindowState)UIKey.GetValue("WindowState", FormWindowState.Normal);
+            }
             ResumeLayout();
-            FormBorderStyle = (FormBorderStyle)UIKey.GetValue("BorderStyle", FormBorderStyle.None);
-            ControlBox = Convert.ToBoolean(UIKey.GetValue("ControlBox", "False"));
-            MaximizeBox = Convert.ToBoolean(UIKey.GetValue("MaximizeBox", "False"));
-            MinimizeBox = Convert.ToBoolean(UIKey.GetValue("MinimizeBox", "False"));
-            WindowState = (FormWindowState)UIKey.GetValue("WindowState", FormWindowState.Normal);
 
             LEonardRootLbl.Text = LEonardRoot;
             UseVSCodeChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("UseVSCodeChk.Checked", "True"));
@@ -1874,12 +1863,6 @@ namespace LEonard
             else
                 LogLevelCombo.Text = "Info";
 
-            // Restore displays table and set display mode
-            LoadDisplaysBtn_Click(null, null);
-            SelectedDisplayLbl.Text = (string)AppNameKey.GetValue("SelectedDisplayLbl.Text", "Default");
-            uiUpdatesAreLive = true;
-            SelectDisplayMode(SelectedDisplayLbl.Text);
-            uiUpdatesAreLive = false;
 
             // Load the tools table
             LoadToolsBtn_Click(null, null);
@@ -2038,10 +2021,10 @@ namespace LEonard
         #endregion
 
         #region ===== DEVICES DATABASE SUPPORT CODE     ==============================================================================================================================
-        private const int SW_SHOWMINIMIZED = 2;
-        private const int SW_SHOWMAXIMIZED = 3;
-        private const int SW_SHOWNORMAL = 5;
-        private const int SW_RESTORE = 9;
+        public const int SW_SHOWMINIMIZED = 2;
+        public const int SW_SHOWMAXIMIZED = 3;
+        public const int SW_SHOWNORMAL = 5;
+        public const int SW_RESTORE = 9;
 
         private void ClearAndInitializeDevices()
         {
@@ -4522,6 +4505,8 @@ namespace LEonard
 
         // 1-based line number currently executing in Sequence (1 is first line)
         static int lineCurrentlyExecuting = 0;
+        static int oldStart = 0;
+        static int oldLength = 0;
         private string SetCurrentLine(int n)
         {
             lineCurrentlyExecuting = n;
@@ -4530,18 +4515,41 @@ namespace LEonard
             {
                 (int start, int length) = SequenceRTB.GetLineExtents(lineCurrentlyExecuting - 1);
 
-                SequenceRTB.SelectAll();
+                //SequenceRTB.SuspendLayout();
+                //SequenceRTB.
+
+                //SequenceRTB.SelectAll();
+                //SequenceRTB.Visible = false;
+                LockWindowUpdate(Handle);
+                SequenceRTB.Select(oldStart, oldLength);
                 SequenceRTB.SelectionFont = new Font(SequenceRTB.Font, FontStyle.Regular);
 
                 SequenceRTB.Select(start, length);
                 SequenceRTB.SelectionFont = new Font(SequenceRTB.Font, FontStyle.Bold);
                 SequenceRTB.ScrollToCaret();
                 SequenceRTB.ScrollToCaret();
+                //SequenceRTB.Visible = true;
+
+                //SequenceRTB.ResumeLayout();
+
+                //SequenceRTBCopy.SuspendLayout();
+
+                //SequenceRTBCopy.SelectAll();
+                //SequenceRTBCopy.Visible = false;
+                SequenceRTBCopy.Select(oldStart, oldLength);
+                SequenceRTBCopy.SelectionFont = new Font(SequenceRTB.Font, FontStyle.Regular);
 
                 SequenceRTBCopy.Select(start, length);
                 SequenceRTBCopy.SelectionFont = new Font(SequenceRTBCopy.Font, FontStyle.Bold);
                 SequenceRTBCopy.ScrollToCaret();
                 SequenceRTBCopy.ScrollToCaret();
+                //SequenceRTBCopy.Visible = true;
+                LockWindowUpdate(IntPtr.Zero);
+
+                //SequenceRTBCopy.ResumeLayout();
+                oldStart = start;
+                oldLength = length;
+
                 return SequenceRTB.Lines[lineCurrentlyExecuting - 1];
             }
             return null;
@@ -4690,7 +4698,8 @@ namespace LEonard
 
                 string line = SetCurrentLine(lineCurrentlyExecuting + 1);
 
-                if (labels.ContainsValue(lineCurrentlyExecuting))
+                // If this line is blank or shows up in the label list, it gets skipped
+                if (line.Trim().Length < 1 || labels.ContainsValue(lineCurrentlyExecuting))
                     log.Info($"EXEC  {lineCurrentlyExecuting:00000}: Label {line}");
                 else
                 {
@@ -4713,15 +4722,6 @@ namespace LEonard
                         isSingleStep = false;
                         SetState(RunState.PAUSED);
                     }
-                    /* This isn't how this works anymore!
-                    if (!fContinue)
-                    {
-                        log.Info("EXEC Execution ending");
-                        UnboldSequence();
-                        SetSequenceState(sequenceStateAtRun);
-                        SetState(RunState.READY);
-                    }
-                    */
                 }
             }
         }
@@ -7742,17 +7742,17 @@ namespace LEonard
         {
             if (LeUrCommand.uiFocusInstance == null)
             {
-                ErrorMessageBox($"RobotSend({command}) failed. focusLeUrCommand is null.");
+                ExecError($"RobotSend({command}) failed. focusLeUrCommand is null.");
                 return false;
             }
             if (!LeUrCommand.uiFocusInstance.IsClientConnected)
             {
-                ErrorMessageBox($"RobotSend({command}) failed. focusLeUrCommand is not connected.");
+                ExecError($"RobotSend({command}) failed. focusLeUrCommand is not connected.");
                 return false;
             }
             if (!RobotProgramStateBtn.Text.StartsWith("PLAYING"))
             {
-                ErrorMessageBox($"RobotSend({command}) failed. Program not running.");
+                ExecError($"RobotSend({command}) failed. Program not running.");
                 return false;
             }
 

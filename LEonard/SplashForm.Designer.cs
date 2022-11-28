@@ -88,6 +88,7 @@
             this.DeveloperLogoPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.DeveloperLogoPic.TabIndex = 85;
             this.DeveloperLogoPic.TabStop = false;
+            this.DeveloperLogoPic.WaitOnLoad = true;
             // 
             // VersionLbl
             // 
@@ -115,6 +116,11 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 88;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.WaitOnLoad = true;
+            // 
+            // ShowTmr
+            // 
+            this.ShowTmr.Tick += new System.EventHandler(this.ShowTmr_Tick);
             // 
             // tableLayoutPanel
             // 

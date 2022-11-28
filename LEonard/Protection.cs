@@ -343,7 +343,7 @@ namespace LEonard
 
             foreach (ManagementObject mo in moc)
             {
-                log.Info($"mo =  {mo.ToString()}");
+                log.Trace($"mo =  {mo}");
                 cpuInfo = mo.Properties["processorID"].Value.ToString();
                 break;
             }
