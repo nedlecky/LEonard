@@ -1,6 +1,6 @@
 # 38 Large Circle Test
 
-clear()
+clear_variables()
 diam = 110
 count = 1
 speed = 20

@@ -3,7 +3,7 @@
 # Can be run on a flat table area to test force control
 prompt(abc)
 
-clear()
+clear_variables()
 size1=40
 size2=10
 count=3

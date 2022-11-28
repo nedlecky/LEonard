@@ -1,7 +1,7 @@
 # 35 Force Change Test
 # BE CAREFUL: Robot will move and positions are expected to be OK
 
-clear()
+clear_variables()
 count=1
 speed=5
 force1=3

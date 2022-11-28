@@ -5,7 +5,7 @@
 # At trial grind speed of 20mm/s
 # 10s ==> 200m circum ==> 63.6mm diam
 
-clear()
+clear_variables()
 diam=63.6
 n_sides=7
 count=1

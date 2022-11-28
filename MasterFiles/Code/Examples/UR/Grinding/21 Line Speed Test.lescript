@@ -2,7 +2,7 @@
 # BE CAREFUL: Robot will move and positions are expected to be OK
 # All should take ~2s
 
-clear()
+clear_variables()
 count=3
 speed=10
 force=5

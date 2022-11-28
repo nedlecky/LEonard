@@ -1,0 +1,33 @@
+# 01 Probe Alignment.py
+exec_python('Lib/leGocatorSupport.py')
+
+start_operation()
+
+# Goto alignment hole at approx (9.000", 1.00")
+movel_rel_part(0.229,0.025,0,0,0,0)
+save_position('cp_align_approx')
+gocator_trigger(1000)
+
+# Adjust alignment
+adjust_alignment(3)
+gocator_trigger(1000)
+adjust_alignment(3)
+gocator_trigger(1000)
+adjust_alignment(1)
+
+save_position('cp_align_aligned')
+
+move_linear('cp_align_aligned')
+
+# Offset to probe
+
+offset_to_probe()
+prompt('Hit enter to align to top surface')
+movel_incr_part(0,0,0.005,0,0,0)
+prompt('Hit enter to insert')
+movel_incr_part(0,0,0.025,0,0,0)
+prompt('Hit enter to extract')
+movel_incr_part(0,0,-0.030,0,0,0)
+prompt('Hit enter to return to origin')
+
+end_operation()

@@ -1,6 +1,6 @@
 # 36B Small Circle Special
 
-clear()
+clear_variables()
 diam = 9
 count = 1
 speed = 5

@@ -1,6 +1,6 @@
 # 37 Small Rect Test
 
-clear()
+clear_variables()
 x_max = 20
 y_max = 20
 count = 1

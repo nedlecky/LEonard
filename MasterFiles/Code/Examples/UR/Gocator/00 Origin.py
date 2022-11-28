@@ -1,0 +1,29 @@
+# 00 Origin.py
+exec_python('Lib/leGocatorSupport.py')
+
+# Coupon is 762mm diam (32in)
+coupon_diameter = 762.0
+
+select_tool('gocator3210')
+set_part_geometry('CYLINDER',coupon_diameter)
+
+# Force all speeds and accelerations to good inspection ones!
+linear_speed = 100
+linear_accel = 100
+joint_speed = 20
+joint_accel = 10
+blend_radius = 2
+
+set_linear_speed(linear_speed)
+set_linear_accel(linear_accel)
+set_joint_speed(joint_speed)
+set_joint_accel(joint_accel)
+set_blend_radius(blend_radius)
+
+grind_trial_speed(linear_speed)
+grind_linear_accel(linear_accel)
+grind_max_blend_radius(blend_radius)
+
+start_operation()
+
+end_operation()

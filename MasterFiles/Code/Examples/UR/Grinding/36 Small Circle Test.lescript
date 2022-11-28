@@ -1,6 +1,6 @@
 # 36 Small Circle Test
 
-clear()
+clear_variables()
 diam = 12
 count = 1
 speed = 5

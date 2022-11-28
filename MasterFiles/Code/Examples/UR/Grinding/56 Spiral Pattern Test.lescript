@@ -1,6 +1,6 @@
 # 56 Spiral Pattern Test
 
-clear()
+clear_variables()
 cycles=1
 speed=10
 force=3

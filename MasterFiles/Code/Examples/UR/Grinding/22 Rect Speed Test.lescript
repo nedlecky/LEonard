@@ -2,7 +2,7 @@
 # BE CAREFUL: Robot will move and positions are expected to be OK
 # All should alternate ~3s, ~2s per side
 
-clear()
+clear_variables()
 count=1
 speed=20
 force=5

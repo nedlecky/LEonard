@@ -1,11 +1,10 @@
-# Hello, Worlds!
-# Execution always starts in LEScript
+# Hello, Worlds!.lescript
+# Execution starts in LEScript
 le_clear_console()
 le_show_console(True)
 le_print(Hello, World! from LEScript)
 var1 = 12345
 le_print(var1 = {var1})
-
 
 using_java()
 le_print('Hello, World! from Java')

@@ -5845,7 +5845,7 @@ namespace LEonard
             }
 
             // gocator_adjust
-            if (command.StartsWith("gocator_adjust_("))
+            if (command.StartsWith("gocator_adjust("))
             {
                 int version;
                 if (ExtractIntParameter(command, out version))
@@ -5863,7 +5863,7 @@ namespace LEonard
                 string tagName;
 
                 // Can put in (filename,tagName) or just (filename), in which case tagName = ReadVariable("gocator_ID", "Null")
-                string[] parameters = ExtractParameters(command).Split(',');
+                string[] parameters = ExtractParameters(command, -1, false).Split(',');
                 if (parameters.Length == 2)
                 {
                     filename = parameters[0];
