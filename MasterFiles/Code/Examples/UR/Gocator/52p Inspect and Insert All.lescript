@@ -32,24 +32,24 @@ movel_rel_part(X,Y,Z,0,0,0)
 gocator_trigger(1000)
 write_results(output_datafile, ID + '_initial')
 
-#prompt(align 3?)
+#prompt('align 3?')
 adjust_alignment(3)
 gocator_trigger(1000)
 write_results(output_datafile, ID + '_adjust_3-1')
 
-#prompt(align 3-2?)
+#prompt('align 3-2?')
 adjust_alignment(3)
 gocator_trigger(1000)
 write_results(output_datafile, ID + '_adjust_3-2')
 
-#prompt(align 1?)
+#prompt('align 1?')
 adjust_alignment(1)
 gocator_trigger(1000)
 write_results(output_datafile, ID + '_adjust_1')
 
 # Insertion Routine
 offset_to_probe()
-#prompt(Hit enter to insert)
+#prompt('Hit enter to insert')
 movel_incr_part(0,0,0.030,0,0,0)
 movel_incr_part(0,0,-0.030,0,0,0)
 movel_incr_part(0,0,0.030,0,0,0)

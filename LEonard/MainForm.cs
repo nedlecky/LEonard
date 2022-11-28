@@ -454,7 +454,7 @@ namespace LEonard
             // Update current time
             DateTime now = DateTime.Now;
             Time2Lbl.Text = now.ToString();
-            TimeLbl.Text = now.ToString("MM-dd-yy HH:mm:ss");
+            TimeLbl.Text = now.ToString("MM/dd/yy HH:mm:ss");
 
             // Update elapsed time panel
             if (runState == RunState.RUNNING || runState == RunState.PAUSED)
@@ -579,12 +579,9 @@ namespace LEonard
                     robotReady = newRobotReady;
                     if (robotReady)
                     {
-                        log.Info("Changing robot connection to READY");
+                        log.Info("Changing robot connection to OK");
                         LeUrCommand.uiFocusInstance.status = LeUrCommand.Status.OK;
                         UrCommandAnnounce();
-
-                        //log.Error("Hacky time delay.....");
-                        //Thread.Sleep(1000);
 
                         // Send persistent values (or defaults) for speeds, accelerations, I/O, etc.
                         ExecuteLEScriptLine(-1, "grind_contact_enable(0)");  // Set contact enabled = No Touch No Grind
@@ -616,8 +613,6 @@ namespace LEonard
                         MountedToolBox_SelectedIndexChanged(null, null);
                         PartGeometryBox_SelectedIndexChanged(null, null);
 
-                        RobotCommandStatusLbl.BackColor = Color.Green;
-                        RobotCommandStatusLbl.Text = "Command Ready";
                         // Restore all button settings with same current state
                         SetState(runState, true);
                     }
@@ -1270,7 +1265,7 @@ namespace LEonard
         {
             // Mark and display the start time, set counters to 0
             runStartedTime = DateTime.Now;
-            RunStartedTimeLbl.Text = runStartedTime.ToString("MM-dd-yy HH:mm:ss");
+            RunStartedTimeLbl.Text = runStartedTime.ToString("MM/dd/yy HH:mm:ss");
             GrindCycleLbl.Text = "";
             GrindNCyclesLbl.Text = "";
             StepTimeEstimateLbl.Text = "";
@@ -7518,7 +7513,7 @@ namespace LEonard
             switch (status)
             {
                 case LeUrCommand.Status.OK:
-                    RobotCommandStatusLbl.Text = "READY";
+                    RobotCommandStatusLbl.Text = "Comm OK";
                     RobotCommandStatusLbl.BackColor = Color.Green;
                     RobotReadyLbl.BackColor = Color.Green;
                     GrindReadyLbl.BackColor = Color.Green;

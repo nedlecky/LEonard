@@ -8,8 +8,6 @@ coupon_diameter = 762.0
 select_tool('gocator3210')
 set_part_geometry('CYLINDER',coupon_diameter)
 
-start_operation()
-
 # Force all speeds and accelerations to good inspection ones!
 linear_speed = 100
 linear_accel = 100
@@ -26,5 +24,7 @@ set_blend_radius(blend_radius)
 grind_trial_speed(linear_speed)
 grind_linear_accel(linear_accel)
 grind_max_blend_radius(blend_radius)
+
+start_operation()
 
 end_operation()
