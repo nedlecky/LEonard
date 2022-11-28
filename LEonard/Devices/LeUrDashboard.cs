@@ -34,7 +34,7 @@ namespace LEonard
 
         public LeUrDashboard(MainForm form, string prefix = "", string connectExec = "") : base(form, prefix, connectExec)
         {
-            log.Debug($"{prefix} LeUrDashboard(form, \"{prefix}\", \"{connectExec}\") nInstances will be {nInstances+1}");
+            log.Debug($"{prefix} LeUrDashboard(form, \"{prefix}\", \"{connectExec}\") nInstances will be {nInstances + 1}");
 
             uiFocusInstance = this;
             nInstances++;
@@ -43,7 +43,7 @@ namespace LEonard
         }
         ~LeUrDashboard()
         {
-            log.Debug($"{logPrefix} ~LeUrDashboard() nInstances={nInstances}");
+            log.Debug($"{LogPrefix} ~LeUrDashboard() nInstances={nInstances}");
 
             nInstances--;
             if (nInstances == 0 || uiFocusInstance == this) uiFocusInstance = null;
@@ -51,7 +51,7 @@ namespace LEonard
 
         public override int Connect(string dashIP, string dashPort)
         {
-            log.Debug($"{logPrefix} LeUrDashboard::Connect({dashIP}, {dashPort})");
+            log.Debug($"{LogPrefix} LeUrDashboard::Connect({dashIP}, {dashPort})");
             int ret = base.Connect(dashIP, dashPort);
             if (ret != 0)
             {
@@ -60,7 +60,7 @@ namespace LEonard
                 myForm.ErrorMessageBox($"Cannot start UR dashboard on {dashIP}:{dashPort}");
                 return ret;
             }
-            log.Info($"{logPrefix} Dashboard connection ready");
+            log.Info($"{LogPrefix} Dashboard connection ready");
             Thread.Sleep(50);
             string response = Receive();
             if (response != "Connected: Universal Robots Dashboard Server")
@@ -73,8 +73,11 @@ namespace LEonard
             myForm.UrDashboardAnnounce();
 
             if (execLEonardMessageOnConnect.Length > 0)
-                if (!myForm.ExecuteLEonardStatement(logPrefix, execLEonardMessageOnConnect, this))
+            {
+                myForm.SetMeDevice(this);
+                if (!myForm.ExecuteLEonardStatement(LogPrefix, execLEonardMessageOnConnect))
                     return 1;
+            }
 
             // TODO all the below could be in this onConnectExec
             string closeSafetyPopupResponse = Ask("close safety popup", 1000);
@@ -126,7 +129,7 @@ namespace LEonard
 
         public override int Disconnect()
         {
-            log.Debug($"{logPrefix} LeUrDashboard::Disconnect()");
+            log.Debug($"{LogPrefix} LeUrDashboard::Disconnect()");
 
             myForm.WriteVariable("robot_ready", false, true);
 

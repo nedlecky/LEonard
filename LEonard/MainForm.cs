@@ -452,7 +452,9 @@ namespace LEonard
         private void HeartbeatTmr_Tick(object sender, EventArgs e)
         {
             // Update current time
-            Time2Lbl.Text = TimeLbl.Text = DateTime.Now.ToString();
+            DateTime now = DateTime.Now;
+            Time2Lbl.Text = now.ToString();
+            TimeLbl.Text = now.ToString("MM-dd-yy HH:mm:ss");
 
             // Update elapsed time panel
             if (runState == RunState.RUNNING || runState == RunState.PAUSED)
@@ -468,7 +470,11 @@ namespace LEonard
                 else
                 {
                     // Any responses received?
+                    string logLevel = LogLevelCombo.Text;
+                    ChangeLogLevel("WARN");
                     string dashResponse = LeUrDashboard.uiFocusInstance.Receive();
+                    ChangeLogLevel(logLevel);
+
                     if (dashResponse != null)
                     {
                         log.Trace("DASH received {0}", dashResponse.Replace('\n', ' '));
@@ -524,6 +530,19 @@ namespace LEonard
                         log.Warn("Missed {0} responses from programstate", nUnansweredProgramstateRequests);
 
 
+                    logLevel = LogLevelCombo.Text;
+                    ChangeLogLevel("WARN");
+                    // New Way- do them all each second
+                    LeUrDashboard.uiFocusInstance.Send("robotmode");
+                    LeUrDashboard.uiFocusInstance.Send("safetystatus");
+                    LeUrDashboard.uiFocusInstance.Send("programstate");
+                    nUnansweredRobotmodeRequests++;
+                    nUnansweredSafetystatusRequests++;
+                    nUnansweredProgramstateRequests++;
+                    ChangeLogLevel(logLevel);
+
+                    // Old way, alternating-ish
+                    /*
                     switch (dashboardCycle++)
                     {
                         case 0:
@@ -542,6 +561,8 @@ namespace LEonard
                             break;
 
                     }
+                    ChangeLogLevel(logLevel);
+                    */
                 }
 
             // When the robot connects, get us ready to go!  Or, if it disconnects, put us in WAIT
@@ -1249,7 +1270,7 @@ namespace LEonard
         {
             // Mark and display the start time, set counters to 0
             runStartedTime = DateTime.Now;
-            RunStartedTimeLbl.Text = runStartedTime.ToString();
+            RunStartedTimeLbl.Text = runStartedTime.ToString("MM-dd-yy HH:mm:ss");
             GrindCycleLbl.Text = "";
             GrindNCyclesLbl.Text = "";
             StepTimeEstimateLbl.Text = "";
@@ -2520,8 +2541,9 @@ namespace LEonard
                     return 3;
             }
 
-            // Setup the "me" device
-            LeDeviceBase.currentDevice = interfaces[ID];
+            // Set the name and use as current "me" device
+            interfaces[ID].Name= name;
+            SetMeDevice(interfaces[ID]);
 
             // STEP 2: Start any requested runtime
             if ((bool)row["RuntimeAutostart"])
@@ -2595,7 +2617,7 @@ namespace LEonard
             DeviceConnect(row);
         }
 
-        void SetMeDevice(LeDeviceInterface dev)
+        public void SetMeDevice(LeDeviceInterface dev)
         {
             LeDeviceBase.currentDevice = dev;
         }
@@ -2608,9 +2630,6 @@ namespace LEonard
             }
             int ID = (int)row["ID"];
 
-            // Setup the "me" device
-            LeDeviceBase.currentDevice = interfaces[ID];
-
             log.Info("Disconnecting {0}", (string)row["Name"]); ;
             row["Connected"] = false;
             if (interfaces[ID] != null)
@@ -2619,7 +2638,7 @@ namespace LEonard
 
                 string execLEonardMessageOnDisconnect = (string)row["OnDisconnectExec"];
                 if (execLEonardMessageOnDisconnect.Length > 0)
-                    if (!ExecuteLEonardStatement((string)row["MessageTag"], execLEonardMessageOnDisconnect, (interfaces[ID])))
+                    if (!ExecuteLEonardStatement((string)row["MessageTag"], execLEonardMessageOnDisconnect))
                         log.Error($"DeviceDisconnect cannot execute OnDisconnectExec {execLEonardMessageOnDisconnect}");
 
                 interfaces[ID].Disconnect();
@@ -2933,7 +2952,7 @@ namespace LEonard
         public void GeneralCallback(string prefix, string message, LeDeviceInterface dev)
         {
             log.Debug($"GeneralCallback({prefix}, {message}, {dev})");
-            ExecuteLEonardMessage(prefix, message, dev);
+            ExecuteLEonardMessage(prefix, message);
         }
 
         void DashboardCallback(string prefix, string message)
@@ -3993,8 +4012,8 @@ namespace LEonard
             if (pushToEngines)
             {
                 //javaEngine.SetValue(name, value);
-                ExecuteJavaScript($"{name} = '{value}'", null);
-                ExecutePythonScript($"{name} = '{value}'", null);
+                ExecuteJavaScript($"{name} = '{value}'");
+                ExecutePythonScript($"{name} = '{value}'");
                 //pythonScope.SetVariable(name, value);
                 //pythonEngine.Runtime.Globals.SetVariable(name, value);
             }
@@ -5870,21 +5889,21 @@ namespace LEonard
             ExecError("Cannot interpret line");
             return true;
         }
-        public bool ExecuteLEonardMessage(string prefix, string message, LeDeviceInterface dev)
+        public bool ExecuteLEonardMessage(string prefix, string message)
         {
-            log.Trace($"{prefix}: {message} {dev}");
+            log.Trace($"{prefix}: {message}");
 
             // TODO This gets broken if the user tries to do anything else with '#' TODO isn't this supposed to follow <SEP>??
             string[] statements = message.Split('#');
             foreach (string statement in statements)
-                if (!ExecuteLEonardStatement(prefix, statement, dev))
+                if (!ExecuteLEonardStatement(prefix, statement))
                 {
                     log.Error($"{prefix} Illegal LEonardStatement({prefix}, {statement})");
                     return false;
                 }
             return true;
         }
-        public bool ExecuteLEonardStatement(string prefix, string statement, LeDeviceInterface dev = null)
+        public bool ExecuteLEonardStatement(string prefix, string statement)
         {
             // {script.....}
             if (statement.EndsWith(".js") && statement.Length > 3)
@@ -5899,17 +5918,17 @@ namespace LEonard
             }
             if (statement.StartsWith("LE:") && statement.Length > 5)
             {
-                ExecuteLEScriptLine(-1, statement.Substring(3), dev);
+                ExecuteLEScriptLine(-1, statement.Substring(3));
                 return true;
             }
             if (statement.StartsWith("JE:") && statement.Length > 5)
             {
-                ExecuteJavaScript(statement.Substring(3), dev);
+                ExecuteJavaScript(statement.Substring(3));
                 return true;
             }
             if (statement.StartsWith("PE:") && statement.Length > 5)
             {
-                ExecutePythonScript(statement.Substring(3), dev);
+                ExecutePythonScript(statement.Substring(3));
                 return true;
             }
 
@@ -5932,9 +5951,9 @@ namespace LEonard
                     string varName = statement.Substring(4).Trim();
                     string value = ReadVariable(varName);
                     string response = $"{varName}={value}";
-                    if (dev != null)
-                        if (dev.IsConnected())
-                            dev.Send(response);
+                    if (LeDeviceBase.currentDevice != null)
+                        if (LeDeviceBase.currentDevice.IsConnected())
+                            LeDeviceBase.currentDevice.Send(response);
                 }
                 else
                     log.Error($"{prefix} Illegal GET statement: {statement}");
@@ -6083,7 +6102,10 @@ namespace LEonard
                     return 10;
                 }
                 else
+                {
+                    log.Debug($"le_send(me,{msg}) with me={LeDeviceBase.currentDevice.Name}");
                     return LeDeviceBase.currentDevice.Send(msg);
+                }
             }
             else
             {
@@ -6553,7 +6575,7 @@ namespace LEonard
 
             // Push all the LEonard variables down
             foreach (DataRow row in variables.Rows)
-                ExecuteJavaScript($"{row["name"]} = '{row["value"]}'", null);
+                ExecuteJavaScript($"{row["name"]} = '{row["value"]}'");
         }
         private void le_print_java(string msg)
         {
@@ -6734,7 +6756,7 @@ namespace LEonard
                 javaEngine.Execute(javaScript);
                 return true;
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 //ErrorMessageBox($"JavaExec Error: {ex}");
                 return false;
@@ -6751,7 +6773,7 @@ namespace LEonard
             JavaUpdateVariablesRTB();
         }
 
-        bool ExecuteJavaScript(string code, LeDeviceInterface dev)
+        bool ExecuteJavaScript(string code)
         {
             //log.Info($"Java Execute: {code}");
             //LeDeviceBase.currentDevice = dev;
@@ -6998,7 +7020,7 @@ namespace LEonard
 
             // Push all the LEonard variables down
             foreach (DataRow row in variables.Rows)
-                ExecutePythonScript($"{row["name"]} = '{row["value"]}'", null);
+                ExecutePythonScript($"{row["name"]} = '{row["value"]}'");
 
         }
         private void le_print_python(string msg)
@@ -7191,7 +7213,7 @@ namespace LEonard
                 script.Execute(pythonScope);
                 return true;
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 //ErrorMessageBox($"PythonExec Error: {ex}");
                 return false;
@@ -7215,7 +7237,7 @@ namespace LEonard
             PythonUpdateVariablesRTB();
         }
 
-        bool ExecutePythonScript(string code, LeDeviceInterface dev)
+        bool ExecutePythonScript(string code)
         {
             //log.Info($"Python Execute: {code}");
             try

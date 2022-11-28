@@ -42,7 +42,7 @@ namespace LEonard
         }
         ~LeUrCommand()
         {
-            log.Debug($"{logPrefix} ~LeUrCommand() nInstances={nInstances}");
+            log.Debug($"{LogPrefix} ~LeUrCommand() nInstances={nInstances}");
 
             nInstances--;
             if (nInstances == 0 || uiFocusInstance == this) uiFocusInstance = null;

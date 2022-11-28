@@ -19,10 +19,11 @@ namespace LEonard
     {
         protected static readonly NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         protected MainForm myForm;
-        protected string logPrefix;
         protected string execLEonardMessageOnConnect;
         public static LeDeviceInterface currentDevice = null;
 
+        public string Name { get; set; } = "??";
+        public string LogPrefix { get; set; } = "??";
         public string TxPrefix { get; set; } = "";
         public string TxSuffix { get; set; } = "";
         public string RxTerminator { get; set; } = "";
@@ -34,20 +35,20 @@ namespace LEonard
         {
             log.Debug($"{prefix} LeDeviceBase(form, \"{prefix}\", \"{connectExec}\")");
             myForm = form;
-            logPrefix = prefix;
+            LogPrefix = prefix;
             execLEonardMessageOnConnect = connectExec;
             currentDevice = (LeDeviceInterface)this;
         }
 
         ~LeDeviceBase()
         {
-            log.Debug($"{logPrefix} ~LeDeviceBase()");
+            log.Debug($"{LogPrefix} ~LeDeviceBase()");
             EndSetupProcess();
             EndRuntimeProcess();
         }
         public virtual int Connect(string IPport)
         {
-            log.Debug($"{logPrefix} LeDeviceBase::Connect({IPport})");
+            log.Debug($"{LogPrefix} LeDeviceBase::Connect({IPport})");
 
             if (IPport.StartsWith("COM"))
                 return Connect(IPport, "0");
@@ -62,7 +63,7 @@ namespace LEonard
         }
         public virtual int Connect(string IP, string port)
         {
-            log.Debug($"{logPrefix} LeDeviceBase::Connect({IP}, {port})");
+            log.Debug($"{LogPrefix} LeDeviceBase::Connect({IP}, {port})");
 
             currentDevice = (LeDeviceInterface)this;
 
@@ -70,7 +71,7 @@ namespace LEonard
         }
         public virtual int Disconnect()
         {
-            log.Debug($"{logPrefix} LeDeviceBase::Disconnect()");
+            log.Debug($"{LogPrefix} LeDeviceBase::Disconnect()");
 
             if (currentDevice == (LeDeviceInterface)this)
                 currentDevice = null;

@@ -15,6 +15,8 @@ namespace LEonard
 {
     public interface LeDeviceInterface
     {
+        string Name { get; set; }
+
         string TxPrefix { get; set; }
         string TxSuffix { get; set; }
         string RxTerminator { get; set; }

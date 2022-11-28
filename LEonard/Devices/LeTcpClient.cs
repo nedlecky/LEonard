@@ -35,7 +35,7 @@ namespace LEonard
         }
         ~LeTcpClient()
         {
-            log.Debug($"{logPrefix} ~LeTcpClient()");
+            log.Debug($"{LogPrefix} ~LeTcpClient()");
             inputBuffer = null;
         }
         public override int Connect(string IP, string port)
@@ -44,23 +44,23 @@ namespace LEonard
             myIp = IP;
             myPort = port;
 
-            log.Info("{0} LeTcpClient::Connect({1}, {2})", logPrefix, myIp, myPort);
+            log.Info("{0} LeTcpClient::Connect({1}, {2})", LogPrefix, myIp, myPort);
             if (client != null) Disconnect();
 
             try
             {
                 Ping ping = new Ping();
                 PingReply PR = ping.Send(myIp, 500);
-                log.Debug("{0} Connect Ping returns {1}", logPrefix, PR.Status);
+                log.Debug("{0} Connect Ping returns {1}", LogPrefix, PR.Status);
                 if (PR.Status != IPStatus.Success)
                 {
-                    log.Error("{0} Could not ping {1}: {2}", logPrefix, myIp, PR.Status);
+                    log.Error("{0} Could not ping {1}: {2}", LogPrefix, myIp, PR.Status);
                     return 2;
                 }
             }
             catch
             {
-                log.Error("{0} Ping {1} failed", logPrefix, myIp);
+                log.Error("{0} Ping {1} failed", LogPrefix, myIp);
                 return 1;
             }
 
@@ -75,7 +75,7 @@ namespace LEonard
             }
             catch
             {
-                log.Error("{0} Could not connect", logPrefix);
+                log.Error("{0} Could not connect", LogPrefix);
                 return 2;
             }
 
@@ -85,8 +85,11 @@ namespace LEonard
             fConnected = true;
 
             if (execLEonardMessageOnConnect.Length > 0)
-                if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+            {
+                myForm.SetMeDevice(this);
+                if (!myForm.ExecuteLEonardMessage(LogPrefix, execLEonardMessageOnConnect))
                     return 1;
+            }
 
             return base.Connect(IP, port);
         }
@@ -97,7 +100,7 @@ namespace LEonard
 
         public override int Disconnect()
         {
-            log.Info("{0} LeTcpClient::Disconnect()", logPrefix);
+            log.Info("{0} LeTcpClient::Disconnect()", LogPrefix);
 
             if (stream != null)
             {
@@ -124,11 +127,11 @@ namespace LEonard
             fSendBusy = true;
             if (stream == null)
             {
-                log.Error("{0} Not connected... stream==null", logPrefix);
+                log.Error("{0} Not connected... stream==null", LogPrefix);
                 ++sendErrorCount;
                 if (sendErrorCount > 5)
                 {
-                    log.Error("{0} Trying to bounce socket 1", logPrefix);
+                    log.Error("{0} Trying to bounce socket 1", LogPrefix);
                     Disconnect();
                     Connect(myIp, myPort);
                     sendErrorCount = 0;
@@ -137,7 +140,7 @@ namespace LEonard
                 return 1;
             }
 
-            log.Debug("{0} ==> {1}", logPrefix, request);
+            log.Debug("{0} ==> {1}", LogPrefix, request);
             try
             {
                 string sendMessage = TxPrefix + request + TxSuffix;
@@ -145,11 +148,11 @@ namespace LEonard
             }
             catch
             {
-                log.Error("{0} Send(...) failed", logPrefix);
+                log.Error("{0} Send(...) failed", LogPrefix);
                 ++sendErrorCount;
                 if (sendErrorCount > 5)
                 {
-                    log.Error("{0} Trying to bounce socket 2", logPrefix);
+                    log.Error("{0} Trying to bounce socket 2", LogPrefix);
                     Disconnect();
                     Connect(myIp, myPort);
                     sendErrorCount = 0;
@@ -176,10 +179,10 @@ namespace LEonard
                 string cleanLine = line.Trim();
                 if (cleanLine.Length > 0)
                 {
-                    log.Debug("{0} <== {1} Line {2}", logPrefix, cleanLine, lineNo);
+                    log.Debug("{0} <== {1} Line {2}", LogPrefix, cleanLine, lineNo);
 
                     if (receiveCallback != null)
-                        receiveCallback(logPrefix, cleanLine, this);
+                        receiveCallback(LogPrefix, cleanLine, this);
                 }
                 lineNo++;
             }
@@ -192,7 +195,7 @@ namespace LEonard
             string response = Receive();
             if (response != null)
             {
-                log.Warn("{0} Already had a response waiting: {1}", logPrefix, response.Replace(RxTerminator[0], ' '));
+                log.Warn("{0} Already had a response waiting: {1}", LogPrefix, response.Replace(RxTerminator[0], ' '));
             }
 
             Stopwatch timer = new Stopwatch();
@@ -204,22 +207,22 @@ namespace LEonard
 
             if (response == null)
             {
-                log.Info("{0} IR({1}) waited {2} mS. Retrying...", logPrefix, inquiry, timeoutMs);
+                log.Info("{0} IR({1}) waited {2} mS. Retrying...", LogPrefix, inquiry, timeoutMs);
 
                 // Let's just wait a bit more?
                 while ((response = Receive()) == null && timer.ElapsedMilliseconds < timeoutMs * 2) ;
                 timer.Stop();
                 if (response != null)
                 {
-                    log.Info("{0} IR({1}) Retry succeeded = {2}. [{3} mS]", logPrefix, inquiry, response, timer.ElapsedMilliseconds);
+                    log.Info("{0} IR({1}) Retry succeeded = {2}. [{3} mS]", LogPrefix, inquiry, response, timer.ElapsedMilliseconds);
                     return response;
                 }
-                log.Warn("{0} IR({1}) Retry failed. [{2} mS]", logPrefix, inquiry, timer.ElapsedMilliseconds);
+                log.Warn("{0} IR({1}) Retry failed. [{2} mS]", LogPrefix, inquiry, timer.ElapsedMilliseconds);
                 return null;
             }
             timer.Stop();
 
-            log.Trace("{0} {1}={2} [{3} mS]", logPrefix, inquiry, response, timer.ElapsedMilliseconds);
+            log.Trace("{0} {1}={2} [{3} mS]", LogPrefix, inquiry, response, timer.ElapsedMilliseconds);
             return response;
         }
     }

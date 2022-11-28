@@ -13,6 +13,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LEonard
 {
@@ -53,7 +54,7 @@ namespace LEonard
         }
         ~LeTcpClientAsync()
         {
-            log.Debug($"{logPrefix} ~LeTcpClientAsync()");
+            log.Debug($"{LogPrefix} ~LeTcpClientAsync()");
         }
 
         public override int Connect(string IP, string port)
@@ -63,23 +64,23 @@ namespace LEonard
             myPort = port;
 
             // Connect to a remote device.  
-            log.Info("{0} Connect({1}, {2})", logPrefix, myIp, myPort);
+            log.Info("{0} Connect({1}, {2})", LogPrefix, myIp, myPort);
             if (client != null) Disconnect();
 
             try
             {
                 Ping ping = new Ping();
                 PingReply PR = ping.Send(myIp, 500);
-                log.Debug("{0} Connect Ping returns {1}", logPrefix, PR.Status);
+                log.Debug("{0} Connect Ping returns {1}", LogPrefix, PR.Status);
                 if (PR.Status != IPStatus.Success)
                 {
-                    log.Error("{0} Could not ping {1}: {2}", logPrefix, myIp, PR.Status);
+                    log.Error("{0} Could not ping {1}: {2}", LogPrefix, myIp, PR.Status);
                     return 2;
                 }
             }
             catch
             {
-                log.Error("{0} Ping {1} failed", logPrefix, myIp);
+                log.Error("{0} Ping {1} failed", LogPrefix, myIp);
                 return 1;
             }
 
@@ -109,10 +110,13 @@ namespace LEonard
             fConnected = true;
 
             if (execLEonardMessageOnConnect.Length > 0)
-                if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+            {
+                myForm.SetMeDevice(this);
+                if (!myForm.ExecuteLEonardMessage(LogPrefix, execLEonardMessageOnConnect))
                     return 1;
+            }
 
-            return base.Connect(IP,port);
+            return base.Connect(IP, port);
         }
         public bool IsConnected()
         {
@@ -120,7 +124,7 @@ namespace LEonard
         }
         public override int Disconnect()
         {
-            log.Info("{0} Disconnect()", logPrefix);
+            log.Info("{0} Disconnect()", LogPrefix);
 
             // Release the socket.  
             if (client != null)
@@ -143,7 +147,7 @@ namespace LEonard
                 // Complete the connection.  
                 client.EndConnect(ar);
 
-                log.Info("{0} Socket connected to {1}", logPrefix, client.RemoteEndPoint.ToString());
+                log.Info("{0} Socket connected to {1}", LogPrefix, client.RemoteEndPoint.ToString());
 
                 // Signal that the connection has been made.  
                 connectDone.Set();
@@ -156,14 +160,14 @@ namespace LEonard
             }
         }
 
-        public string Receive(bool fProcessCallBackOnly=false)
+        public string Receive(bool fProcessCallBackOnly = false)
         {
             // If only supposed to process callbacks and there is no callback, ignore
             if (fProcessCallBackOnly && receiveCallback == null) return "";
 
             if (client == null) return "";
 
-            log.Info("{0} Receive()", logPrefix);
+            log.Info("{0} Receive()", LogPrefix);
 
             try
             {
@@ -179,14 +183,14 @@ namespace LEonard
             }
             catch (Exception ex)
             {
-                log.Error(ex, "{0} {1}", logPrefix, ex.ToString());
+                log.Error(ex, "{0} {1}", LogPrefix, ex.ToString());
                 return "";
             }
         }
 
         public string Ask(string message, int timeoutMs = 50)
         {
-            log.Error($"{logPrefix} LeTcpClientAsync::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
+            log.Error($"{LogPrefix} LeTcpClientAsync::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
 
             return null;
         }
@@ -204,15 +208,15 @@ namespace LEonard
                 // Read data from the remote device.  
                 int bytesRead = client.EndReceive(ar);
 
-                log.Info("{0} Received {1} bytes", logPrefix, bytesRead.ToString());
+                log.Info("{0} Received {1} bytes", LogPrefix, bytesRead.ToString());
                 if (bytesRead > 0)
                 {
                     // There might be more data, so store the data received so far.  
                     state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
-                    log.Info("{0} <== {1} Line", logPrefix, state.sb);
+                    log.Info("{0} <== {1} Line", LogPrefix, state.sb);
 
                     if (receiveCallback != null)
-                        receiveCallback(state.sb.ToString(), logPrefix, this);
+                        receiveCallback(state.sb.ToString(), LogPrefix, this);
 
                     // Get the rest of the data.  
                     client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
@@ -223,10 +227,10 @@ namespace LEonard
                     // All the data has arrived; put it in response.  
                     if (state.sb.Length > 1)
                     {
-                        log.Info("{0} <== {1} Line", logPrefix, state.sb);
+                        log.Info("{0} <== {1} Line", LogPrefix, state.sb);
 
                         if (receiveCallback != null)
-                            receiveCallback(state.sb.ToString(), logPrefix, this);
+                            receiveCallback(state.sb.ToString(), LogPrefix, this);
                     }
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
@@ -261,14 +265,14 @@ namespace LEonard
 
                 // Complete sending the data to the remote device.  
                 int bytesSent = client.EndSend(ar);
-                log.Info("{0} Sent {1} bytes to server.", logPrefix, bytesSent);
+                log.Info("{0} Sent {1} bytes to server.", LogPrefix, bytesSent);
 
                 // Signal that all bytes have been sent.  
                 sendDone.Set();
             }
             catch (Exception ex)
             {
-                log.Error(ex, "{0} {1}", logPrefix, ex.ToString());
+                log.Error(ex, "{0} {1}", LogPrefix, ex.ToString());
             }
         }
     }

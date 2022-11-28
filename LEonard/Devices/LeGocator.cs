@@ -40,7 +40,7 @@ namespace LEonard
         }
         ~LeGocator()
         {
-            log.Debug($"{logPrefix} ~LeGocator() nInstances={nInstances}");
+            log.Debug($"{LogPrefix} ~LeGocator() nInstances={nInstances}");
 
             nInstances--;
             if (nInstances == 0 || uiFocusInstance == this) uiFocusInstance = null;
@@ -60,7 +60,7 @@ namespace LEonard
 
         public override int Connect(string IP, string port)
         {
-            log.Debug($"{logPrefix} LeGocator::Connect({IP}, {port})");
+            log.Debug($"{LogPrefix} LeGocator::Connect({IP}, {port})");
             int ret = base.Connect(IP, port);
             if (ret != 0)
             {
@@ -70,8 +70,11 @@ namespace LEonard
             else
             {
                 if (execLEonardMessageOnConnect.Length > 0)
-                    if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+                {
+                    myForm.SetMeDevice(this);
+                    if (!myForm.ExecuteLEonardMessage(LogPrefix, execLEonardMessageOnConnect))
                         return 1;
+                }
 
                 int GocatorConnectError(string error)
                 {
@@ -140,7 +143,7 @@ namespace LEonard
         {
             string response = "ERROR";
             response = Ask(inquiry, 1000);
-            log.Info($"{logPrefix}: {inquiry} GETS {response}");
+            log.Info($"{LogPrefix}: {inquiry} GETS {response}");
             return response;
         }
 

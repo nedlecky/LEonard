@@ -31,7 +31,7 @@ namespace LEonard
 
         ~LeSerial()
         {
-            log.Debug($"{logPrefix} ~LeSerial() {myPortname}");
+            log.Debug($"{LogPrefix} ~LeSerial() {myPortname}");
         }
         public override int Connect(string portname)
         {
@@ -40,7 +40,7 @@ namespace LEonard
                 Disconnect();
 
             myPortname = portname;
-            log.Info("{0} Connect({1})", logPrefix, myPortname);
+            log.Info("{0} Connect({1})", LogPrefix, myPortname);
 
             port = new SerialPort(myPortname, 115200, Parity.None, 8, StopBits.One);
             port.Handshake = Handshake.XOnXOff;
@@ -57,13 +57,13 @@ namespace LEonard
 
                 if (!port.IsOpen)
                 {
-                    log.Error("{0} Port {1} did not open", logPrefix, portname);
+                    log.Error("{0} Port {1} did not open", LogPrefix, portname);
                     return 2;
                 }
             }
             catch (Exception ex)
             {
-                log.Error(ex, "{0} port.Open() failed {1}", logPrefix, portname);
+                log.Error(ex, "{0} port.Open() failed {1}", LogPrefix, portname);
                 return 1;
             }
 
@@ -71,8 +71,11 @@ namespace LEonard
             fConnected = true;
 
             if (execLEonardMessageOnConnect.Length > 0)
-                if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+            {
+                myForm.SetMeDevice(this);
+                if (!myForm.ExecuteLEonardMessage(LogPrefix, execLEonardMessageOnConnect))
                     return 1;
+            }
 
             return base.Connect(portname);
         }
@@ -84,7 +87,7 @@ namespace LEonard
 
         public override int Disconnect()
         {
-            log.Info("{0} Disconnect(): {1}", logPrefix, myPortname);
+            log.Info("{0} Disconnect(): {1}", LogPrefix, myPortname);
 
             if (port != null)
                 port.Close();
@@ -96,7 +99,7 @@ namespace LEonard
 
         public int Send(string message)
         {
-            log.Debug("{0} ==> {1}", logPrefix, message);
+            log.Debug("{0} ==> {1}", LogPrefix, message);
             port.Write(TxPrefix + message + TxSuffix);
             return 0;
         }
@@ -114,7 +117,7 @@ namespace LEonard
         }
         public string Ask(string message, int timeoutMs = 50)
         {
-            log.Error($"{logPrefix} LeSerial::Ask({message}, {timeoutMs}) NOT IMPLEMENTED");
+            log.Error($"{LogPrefix} LeSerial::Ask({message}, {timeoutMs}) NOT IMPLEMENTED");
 
             return null;
         }
@@ -133,8 +136,8 @@ namespace LEonard
                     try
                     {
                         data = port.ReadLine();
-                        log.Debug("{0} <== {1} Line {2}", logPrefix, data, lineNo);
-                        receiveCallback(logPrefix, data, this);
+                        log.Debug("{0} <== {1} Line {2}", LogPrefix, data, lineNo);
+                        receiveCallback(LogPrefix, data, this);
                         lineNo++;
                     }
                     catch

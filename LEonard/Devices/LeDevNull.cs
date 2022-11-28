@@ -27,29 +27,32 @@ namespace LEonard
 
         ~LeDevNull()
         {
-            log.Debug($"{logPrefix} ~LeDevNull()");
+            log.Debug($"{LogPrefix} ~LeDevNull()");
         }
         public override int Connect(string portname)
         {
-            log.Debug("{0} Connect({1})", logPrefix, portname);
+            log.Debug("{0} Connect({1})", LogPrefix, portname);
 
             fConnected = true;
 
             if (execLEonardMessageOnConnect.Length > 0)
-                if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
+            {
+                LeDeviceBase.currentDevice= this;
+                if (!myForm.ExecuteLEonardMessage(LogPrefix, execLEonardMessageOnConnect))
                     return 1;
+            }
 
             return base.Connect(portname);
         }
         public bool IsConnected()
         {
-            log.Debug("{0} IsConnected()", logPrefix);
+            log.Debug("{0} IsConnected()", LogPrefix);
             return fConnected;
         }
 
         public override int Disconnect()
         {
-            log.Info("{0} Disconnect()", logPrefix);
+            log.Info("{0} Disconnect()", LogPrefix);
 
 
             fConnected = false;
@@ -60,7 +63,7 @@ namespace LEonard
         string sentMessage = "";
         public int Send(string message)
         {
-            log.Debug($"{logPrefix} DevNull::Send({message})");
+            log.Debug($"{LogPrefix} DevNull::Send({message})");
             sentMessage = message;
 
             return 0;
@@ -70,14 +73,14 @@ namespace LEonard
             // Simulating loopback of whatever was last sent
             if (sentMessage == "") return "";
 
-            log.Debug($"{logPrefix} DevNull::Receive()");
+            log.Debug($"{LogPrefix} DevNull::Receive()");
             string ret = sentMessage;
             sentMessage = "";
             return ret;
         }
         public string Ask(string message, int timeoutMs = 50)
         {
-            log.Debug($"{logPrefix} DevNull::InquiryResponse({message}, {timeoutMs})");
+            log.Debug($"{LogPrefix} DevNull::InquiryResponse({message}, {timeoutMs})");
             return null;
         }
     }

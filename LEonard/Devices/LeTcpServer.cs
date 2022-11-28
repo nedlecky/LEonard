@@ -40,7 +40,7 @@ namespace LEonard
 
         ~LeTcpServer()
         {
-            log.Debug($"{logPrefix} ~LeTcpServer()");
+            log.Debug($"{LogPrefix} ~LeTcpServer()");
         }
 
         public override int Connect(string IP, string port)
@@ -48,7 +48,7 @@ namespace LEonard
             myIp = IP;
             myPort = port;
 
-            log.Info($"{logPrefix} LeTcpServer::Connect({IP}, {port})");
+            log.Info($"{LogPrefix} LeTcpServer::Connect({IP}, {port})");
             if (server != null) Disconnect();
             IsClientConnected = false;
 
@@ -62,10 +62,10 @@ namespace LEonard
             }
             catch
             {
-                log.Error("{0} Couldn't start server", logPrefix);
+                log.Error("{0} Couldn't start server", LogPrefix);
                 return 1;
             }
-            log.Info($"{logPrefix} Server: Waiting for client...");
+            log.Info($"{LogPrefix} Server: Waiting for client...");
             return base.Connect(IP,port);
         }
         public virtual bool IsConnected()
@@ -80,7 +80,7 @@ namespace LEonard
 
         public override int Disconnect()
         {
-            log.Info("{0} Disconnect()", logPrefix);
+            log.Info("{0} Disconnect()", LogPrefix);
             CloseConnection();
             if (server != null)
             {
@@ -101,16 +101,19 @@ namespace LEonard
                     {
                         client = server.EndAcceptTcpClient(result);
                         stream = client.GetStream();
-                        log.Info("{0} Client connected", logPrefix);
+                        log.Info("{0} Client connected", LogPrefix);
                         IsClientConnected = true;
 
                         if (execLEonardMessageOnConnect.Length > 0)
-                            if (!myForm.ExecuteLEonardMessage(logPrefix, execLEonardMessageOnConnect, this))
-                                log.Error($"{logPrefix} Client connected but bad exec: {execLEonardMessageOnConnect}");
+                        {
+                            myForm.SetMeDevice(this);
+                            if (!myForm.ExecuteLEonardMessage(LogPrefix, execLEonardMessageOnConnect))
+                                log.Error($"{LogPrefix} Client connected but bad exec: {execLEonardMessageOnConnect}");
+                        }
                     }
                     catch
                     {
-                        log.Error($"{logPrefix} Client connection error");
+                        log.Error($"{LogPrefix} Client connection error");
                     }
                 }
             }
@@ -120,7 +123,7 @@ namespace LEonard
         }
         void CloseConnection()
         {
-            log.Debug("{0} CloseConnection()", logPrefix);
+            log.Debug("{0} CloseConnection()", LogPrefix);
 
             if (stream != null)
             {
@@ -145,7 +148,7 @@ namespace LEonard
                 Thread.Sleep(10);
             fSendBusy = true;
 
-            log.Debug($"{logPrefix}==> {message}");
+            log.Debug($"{LogPrefix}==> {message}");
             try
             {
                 string msg = TxPrefix + message + TxSuffix;
@@ -153,7 +156,7 @@ namespace LEonard
             }
             catch
             {
-                log.Error($"{logPrefix} Send({message}) could not write to socket");
+                log.Error($"{LogPrefix} Send({message}) could not write to socket");
             }
             fSendBusy = false;
             return 0;
@@ -169,7 +172,7 @@ namespace LEonard
             if (stream == null) return "";
             if (!IsConnected())
             {
-                log.Error($"Lost {logPrefix} connection");
+                log.Error($"Lost {LogPrefix} connection");
                 Disconnect();
                 Connect(myIp, myPort);
                 return "";
@@ -203,13 +206,13 @@ namespace LEonard
                 if (line.Length > 0)
                 {
                     if (nLines > 1)
-                        log.Debug($"{logPrefix}<== {line} Line {lineNo} of {nLines}");
+                        log.Debug($"{LogPrefix}<== {line} Line {lineNo} of {nLines}");
                     else
-                        log.Debug($"{logPrefix}<== {line}");
+                        log.Debug($"{LogPrefix}<== {line}");
                     if (receiveCallback == null)
                         return line;
                     else
-                        receiveCallback?.Invoke(logPrefix, line, this);
+                        receiveCallback?.Invoke(LogPrefix, line, this);
                 }
                 lineNo++;
             }
@@ -218,7 +221,7 @@ namespace LEonard
 
         public string Ask(string message, int timeoutMs = 50)
         {
-            log.Error($"{logPrefix} LeTcpServer::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
+            log.Error($"{LogPrefix} LeTcpServer::InquiryResponse({message}, {timeoutMs}) NOT IMPLEMENTED");
 
             return null;
         }
