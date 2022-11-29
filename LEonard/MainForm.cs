@@ -1683,18 +1683,22 @@ namespace LEonard
                 log.Error($"Could not execute {full_filename}");
                 return 1;
             }*/
-
-
-
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.WorkingDirectory = $@"\{LEonardRoot}\Code\";
-            startInfo.FileName = "code";
-            startInfo.Arguments = filename;
-            process.StartInfo = startInfo;
-            process.Start();
-            return 0;
+            try
+            {
+                Process process = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                startInfo.WorkingDirectory = $@"\{LEonardRoot}\Code\";
+                startInfo.FileName = "code";
+                startInfo.Arguments = filename;
+                process.StartInfo = startInfo;
+                process.Start();
+                return 0;
+            }
+            catch
+            {
+                return 1;
+            }
         }
 
 
@@ -1738,7 +1742,7 @@ namespace LEonard
                 return;
 
             SetLEonardRoot(DEFAULT_LEonardRoot);
-            UseVSCodeChk.Checked = true;
+            UseVSCodeChk.Checked = false;
         }
         private void LoadConfigBtn_Click(object sender, EventArgs e)
         {
@@ -1753,7 +1757,7 @@ namespace LEonard
         public void MakeStandardSubdirectories()
         {
             // If ConfigDir doesn't exist, wipe out any default devices file!
-            if (System.IO.Directory.Exists(System.IO.Path.Combine(LEonardRoot, ConfigFolder)))
+            if (Directory.Exists(System.IO.Path.Combine(LEonardRoot, ConfigFolder)))
                 log.Info("Config Folder Exists!");
             else
             {
@@ -1840,7 +1844,7 @@ namespace LEonard
             ResumeLayout();
 
             LEonardRootLbl.Text = LEonardRoot;
-            UseVSCodeChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("UseVSCodeChk.Checked", "True"));
+            UseVSCodeChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("UseVSCodeChk.Checked", "False"));
 
             StartupDevicesLbl.Text = (string)AppNameKey.GetValue("StartupDevicesLbl.Text", "");
             AutoConnectOnLoadChk.Checked = Convert.ToBoolean(AppNameKey.GetValue("AutoConnectOnLoadChk.Checked", "False"));
