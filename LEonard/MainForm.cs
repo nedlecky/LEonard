@@ -64,7 +64,7 @@ namespace LEonard
 
         FileManager fileManager = null;
 
-        // TODO: This needs to dynamically resize and the code that does it doesn't!!
+#warning Should dynamically resize and the code that does it doesn't!!
         // These map 1:1 with the rows in devices.... I hope (Using ID field in row but this is a bit fragile)
         LeDeviceInterface[] interfaces = { null, null, null, null, null, null, null, null, null, null, null, null, null };
         int currentDeviceRowIndex = -1;
@@ -239,7 +239,7 @@ namespace LEonard
 
             SetSequenceState(SequenceState.NEW);
             SetState(RunState.IDLE);
-            // TODO Is this OK... how do we get to READY!
+#warning  Is this OK... how do we get to READY?
             SetState(RunState.READY);
 
             ResumeLayout();
@@ -1260,7 +1260,7 @@ namespace LEonard
             InitializePythonEngine();
 
             // Gocator
-            // TODO this needs to be generalized
+#warning This needs to be generalized for n Gocators or if want to ignore gocator
             LeGocator.uiFocusInstance?.PrepareToRun();
 
             SetCurrentLine(0);
@@ -1828,8 +1828,8 @@ namespace LEonard
             uiUpdatesAreLive = true;
             SelectDisplayMode(SelectedDisplayLbl.Text);
             uiUpdatesAreLive = false;
-
-            if (true) // TODO Should only worry if resizable window??
+#warning Is keeping this true OK?
+            if (true)
             {
                 Left = (Int32)UIKey.GetValue("Left", 0);
                 Top = (Int32)UIKey.GetValue("Top", 0);
@@ -2316,7 +2316,7 @@ namespace LEonard
                 }
                 currentDeviceRowIndex = 0;
 
-                // TODO this needs to be re-enabled AND needs a fail safe
+#warning This needs a fail safe so if you can't startup you can get back in!
                 if (AutoConnectOnLoadChk.Checked)
                 {
                     log.Info("Autoconnecting all devices");
@@ -2660,7 +2660,7 @@ namespace LEonard
         void SetWindowOnTop(IntPtr hWnd)
         {
             log.Info("SetWindowOnTop({0})", hWnd);
-            // TODO: The SetWindowPos constants below should be defined!
+#warning These hardcoded WINDOW constants should be replaced
             SetWindowPos(hWnd, (System.IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0040);
         }
 
@@ -2685,16 +2685,16 @@ namespace LEonard
             {
                 interfaces[currentDeviceRowIndex].StartRuntimeProcess(start);
 
-                // TODO: This wait for start is a little kludgey
+#warning Does this wait for start properly??
+                // Kludgey
                 //PromptOperator("Waiting for app to start...", false, false);
-
 
                 for (int i = 0; i < 10; i++)
                 {
                     Thread.Sleep(100);
                     try
                     {
-                        // TODO
+#warning What should be done here?
                         //log.Error($"ERROR UNKNOWN HERE");
 
                         IntPtr hWnd = interfaces[currentDeviceRowIndex].runtimeProcess.MainWindowHandle;
@@ -2780,7 +2780,8 @@ namespace LEonard
             {
                 interfaces[currentDeviceRowIndex].StartSetupProcess(start);
 
-                // TODO: This wait for start is a little kludgey
+#warning Does this wait for start properly??
+                // Kludgey
                 PerformPrompt("Waiting for app to start...", false, false);
                 for (int i = 0; i < 50; i++)
                 {
@@ -2907,7 +2908,8 @@ namespace LEonard
                 b.UseVisualStyleBackColor = true;
                 b.Click += new System.EventHandler(SpeedSendBtn1_Click);
 
-                // TODO does this set the correct size??
+#warning What is the issue here?
+                // Does this set the correct size??
                 ControlInfo controlInfo = new ControlInfo();
                 controlInfo.originalFont = SpeedSendBtn1.Font;
                 b.Tag = controlInfo;
@@ -2968,9 +2970,9 @@ namespace LEonard
         }
 
 
-        #endregion ===== DEVICES DATABASE SUPPORT CODE     ==============================================================================================================================
+#endregion ===== DEVICES DATABASE SUPPORT CODE     ==============================================================================================================================
 
-        #region ===== DISPLAY MANAGEMENT CODE           ==============================================================================================================================
+#region ===== DISPLAY MANAGEMENT CODE           ==============================================================================================================================
         public double GlobalFontScaleOverridePct { get; set; } = 100.0;
         double suggestedSystemScalePct = 100.0;
         bool uiUpdatesAreLive = false;
@@ -3091,7 +3093,7 @@ namespace LEonard
             returnList = returnList.Concat(datagridviewList);
             returnList = returnList.Concat(labelList);
             returnList = returnList.Concat(richtextboxList);
-            // TODO Tabs don't resize so we shouldn't resize their text for now!
+            // Tabs don't resize so we shouldn't resize their text for now!
             // returnList = returnList.Concat(tabcontrolList);
             returnList = returnList.Concat(textboxList);
             returnList = returnList.Concat(listboxList);
@@ -3240,8 +3242,8 @@ namespace LEonard
             if (isFullscreen)
             {
                 // Fullscreen
-
-                // TODO- not 0,0 if on other monitor!
+#warning Doesn't honor second monitor (left != 0)
+                // But not 0,0 if on other monitor!
                 Left = 0;
                 Top = 0;
                 Width = screenRect.Width;
@@ -3250,8 +3252,8 @@ namespace LEonard
             else
             {
                 // Not Fullscreen
-
-                // Todo- not 0,0 if on other monitor!
+#warning Doesn't honor second monitor (left != 0)
+                // But not 0,0 if on other monitor!
                 Left = 0;
                 Top = 0;
                 Width = width;
@@ -3324,9 +3326,9 @@ namespace LEonard
             rtb.ScrollToCaret();
         }
 
-        #endregion ===== DISPLAY MANAGEMENT CODE           ==============================================================================================================================
+#endregion ===== DISPLAY MANAGEMENT CODE           ==============================================================================================================================
 
-        #region ===== TOOL DATABASE CODE                ==============================================================================================================================
+#region ===== TOOL DATABASE CODE                ==============================================================================================================================
         private DataRow SelectedRow(DataGridView dg)
         {
             if (dg.SelectedCells.Count < 1) return null;
@@ -3588,9 +3590,9 @@ namespace LEonard
             return null;
         }
 
-        #endregion ===== TOOL DATABASE CODE                ==============================================================================================================================
+#endregion ===== TOOL DATABASE CODE                ==============================================================================================================================
 
-        #region ===== POSITIONS DATABASE CODE           ==============================================================================================================================
+#region ===== POSITIONS DATABASE CODE           ==============================================================================================================================
         readonly string positionsFilename = "Positions.xml";
 
         private string ReadPositionJoint(string name)
@@ -3882,9 +3884,9 @@ namespace LEonard
                 PerformPrompt(String.Format("Wait for robot joint move to {0} complete", name), true, true);
             }
         }
-        #endregion ===== POSITIONS DATABASE CODE           ==============================================================================================================================
+#endregion ===== POSITIONS DATABASE CODE           ==============================================================================================================================
 
-        #region ===== VARIABLE MANAGEMENT CODE          ==============================================================================================================================
+#region ===== VARIABLE MANAGEMENT CODE          ==============================================================================================================================
         readonly string variablesFilename = "Variables.xml";
 
         public double ReadVariableDouble(string name, double defaultValue = 0)
@@ -4436,9 +4438,9 @@ namespace LEonard
             if (DialogResult.OK == ConfirmMessageBox("This will clear all variables INCLUDING system variables. Proceed?"))
                 ClearAndInitializeVariables();
         }
-        #endregion ===== VARIABLE MANAGEMENT CODE          ==============================================================================================================================
+#endregion ===== VARIABLE MANAGEMENT CODE          ==============================================================================================================================
 
-        #region ===== EXECUTIVE FUNCTIONS               ==============================================================================================================================
+#region ===== EXECUTIVE FUNCTIONS               ==============================================================================================================================
         // Something isn't right. If we're running, select PAUSE
         private void EnsureNotRunning()
         {
@@ -4733,8 +4735,6 @@ namespace LEonard
         {
             if (interfaces.Length == 0) return;
 
-            // TODO: This is WIP since shouldn't need to call receive once callbacks work
-            // TODO: do we really need to keep polling for message receipt?
             foreach (LeDeviceInterface device in interfaces)
             {
                 if (device != null)
@@ -4745,9 +4745,9 @@ namespace LEonard
             }
         }
 
-        #endregion ===== EXECUTIVE FUNCTIONS               ==============================================================================================================================
+#endregion ===== EXECUTIVE FUNCTIONS               ==============================================================================================================================
 
-        #region ===== LESCRIPT DECODE AND EXECUTE       ==============================================================================================================================
+#region ===== LESCRIPT DECODE AND EXECUTE       ==============================================================================================================================
         /// <summary>
         /// Return the characters enclosed in the first set of matching ( ) in a string
         /// Example: "speed (13.0)" returns 13.0 
@@ -5905,7 +5905,8 @@ namespace LEonard
         {
             log.Trace($"{prefix}: {message}");
 
-            // TODO This gets broken if the user tries to do anything else with '#' TODO isn't this supposed to follow <SEP>??
+#warning Isn't this supposed to follow <SEP>??
+            // This gets broken if the user tries to do anything else with '#' 
             string[] statements = message.Split('#');
             foreach (string statement in statements)
                 if (!ExecuteLEonardStatement(prefix, statement))
@@ -5972,7 +5973,7 @@ namespace LEonard
                 return true;
             }
 
-            // TODO this is quite naive and restrictive
+#warning This is quite naive and restrictive
             // varName=value
             if (statement.Contains("="))
             {
@@ -5983,9 +5984,9 @@ namespace LEonard
             //log.Error($"{prefix} Illegal LEonardStatement statement: {statement}");
             return false;
         }
-        #endregion ===== LESCRIPT DECODE AND EXECUTE       ==============================================================================================================================
+#endregion ===== LESCRIPT DECODE AND EXECUTE       ==============================================================================================================================
 
-        #region ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
+#region ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
         void SetLanguage(LEonardLanguages language)
         {
             LEonardLanguage = language;
@@ -6382,9 +6383,9 @@ namespace LEonard
             UpdateGeometryToRobot();
             return 0;
         }
-        #endregion ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
+#endregion ===== SHARED SUPPORT FOR JAVA, PYTHON, LESCRIPT   ====================================================================================================================
 
-        #region ===== JAVA SUPPORT CODE                 ==============================================================================================================================
+#region ===== JAVA SUPPORT CODE                 ==============================================================================================================================
         private void InitializeJavaEngine()
         {
             javaEngine = new Engine()
@@ -6432,7 +6433,7 @@ namespace LEonard
             .SetValue("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)))
 
             // Universal Robots
-            // TODO Should these look at license?
+#warning Shouldn't these look at the license?
             // Dashboard Communication
             .SetValue("ur_dashboard", new Func<string, int, string>((string msg, int timeout) => ur_dashboard(msg, timeout)))
 
@@ -6523,7 +6524,7 @@ namespace LEonard
             .SetValue("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")))
 
             // Grinding Patterns
-            // TODO Should these look at license?
+#warning Shouldn't these look at the license?
             // grind_line(dx_mm, dy_mm, n_cycles, speed_mm/s, force_N, stay_in_contact)
             .SetValue("grind_line",
                 new Func<double, double, int, double, double, int, bool>(
@@ -6578,7 +6579,7 @@ namespace LEonard
             .SetValue("grind_force_mode_gain_scaling", new Func<double, bool>((double x) => PerformRobotCommand($"grind_force_mode_gain_scaling({x})")))
 
             // LMI Gocator
-            // TODO Should these look at license
+#warning Shouldn't these look at the license?
             .SetValue("gocator_send", new Func<string, int>((string message) => gocator_send(message)))
             .SetValue("gocator_trigger", new Func<int, int>((int preDelay_ms) => gocator_trigger(preDelay_ms)))
             .SetValue("gocator_adjust", new Func<int, int>((int version) => gocator_adjust(version)))
@@ -6814,9 +6815,9 @@ namespace LEonard
             ExecError($"File {filename} does not exist");
             return false;
         }
-        #endregion ===== JAVA SUPPORT CODE                 ==============================================================================================================================
+#endregion ===== JAVA SUPPORT CODE                 ==============================================================================================================================
 
-        #region ===== PYTHON SUPPORT CODE               ==============================================================================================================================
+#region ===== PYTHON SUPPORT CODE               ==============================================================================================================================
         private void InitializePythonEngine()
         {
             pythonEngine = Python.CreateEngine();
@@ -6878,7 +6879,7 @@ namespace LEonard
             pythonScope.SetVariable("le_ask", new Func<string, string, int, string>((string devName, string msg, int timeoutMs) => le_ask(devName, msg, timeoutMs)));
 
             // Universal Robots
-            // TODO Should these look at license?
+#warning Shouldn't these look at the license?
             // Dashboard Communication
             pythonScope.SetVariable("ur_dashboard", new Func<string, int, string>((string msg, int timeout) => ur_dashboard(msg, timeout)));
 
@@ -6969,7 +6970,7 @@ namespace LEonard
             pythonScope.SetVariable("send_program_exit", new Func<bool>(() => PerformRobotCommand("send_program_exit()")));
 
             // Grinding Patterns
-            // TODO Should these look at license?
+#warning Shouldn't these look at the license?
             // grind_line(dx_mm, dy_mm, n_cycles, speed_mm/s, force_N, stay_in_contact)
             pythonScope.SetVariable("grind_line",
                 new Func<double, double, int, double, double, int, bool>(
@@ -7024,7 +7025,7 @@ namespace LEonard
             pythonScope.SetVariable("grind_force_mode_gain_scaling", new Func<double, bool>((double x) => PerformRobotCommand($"grind_force_mode_gain_scaling({x})")));
 
             // LMI Gocator
-            // TODO Should these look at license
+#warning Shouldn't these look at the license?
             pythonScope.SetVariable("gocator_send", new Func<string, int>((string message) => gocator_send(message)));
             pythonScope.SetVariable("gocator_trigger", new Func<int, int>((int preDelay_ms) => gocator_trigger(preDelay_ms)));
             pythonScope.SetVariable("gocator_adjust", new Func<int, int>((int version) => gocator_adjust(version)));
@@ -7033,7 +7034,6 @@ namespace LEonard
             // Push all the LEonard variables down
             foreach (DataRow row in variables.Rows)
                 ExecutePythonScript($"{row["name"]} = '{row["value"]}'");
-
         }
         private void le_print_python(string msg)
         {
@@ -7297,9 +7297,9 @@ namespace LEonard
             //ErrorMessageBox($"ExecutePythonFile({filename}) file does not exist");
             return false;
         }
-        #endregion ===== PYTHON SUPPORT CODE               ==============================================================================================================================
+#endregion ===== PYTHON SUPPORT CODE               ==============================================================================================================================
 
-        #region ===== LICENSING CODE                    ==============================================================================================================================
+#region ===== LICENSING CODE                    ==============================================================================================================================
         private void GetLicenseStatus()
         {
             LicenseStatusLbl.Text = protection.GetStatus();
@@ -7405,9 +7405,9 @@ namespace LEonard
             UpdateAnnunciators();
         }
 
-        #endregion ===== LICENSING CODE                    ==============================================================================================================================
+#endregion ===== LICENSING CODE                    ==============================================================================================================================
 
-        #region ===== UR INTERFACE CODE                 ==============================================================================================================================
+#region ===== UR INTERFACE CODE                 ==============================================================================================================================
         enum ProgramState
         {
             UNKNOWN,
@@ -8277,9 +8277,9 @@ namespace LEonard
                 LeUrDashboard.uiFocusInstance?.Send("play");
             }
         }
-        #endregion ===== UR INTERFACE CODE                 ==============================================================================================================================
+#endregion ===== UR INTERFACE CODE                 ==============================================================================================================================
 
-        #region ===== GOCATOR INTERFACE CODE            ==============================================================================================================================
+#region ===== GOCATOR INTERFACE CODE            ==============================================================================================================================
         public void GocatorAnnounce()
         {
             log.Debug($"GocatorAnnounce nInstances={LeGocator.nInstances}");
@@ -8427,7 +8427,7 @@ namespace LEonard
                     else
                     {
                         PerformRobotCommand($"movel_incr_part({dx:0.000000},{dy:0.000000},{dz:0.000000},0,0,0)");
-                        // TODO this should be a wait complete
+#warning This should be a wait for complete
                         Thread.Sleep(1000);
                         PerformRobotCommand($"movel_incr_tool(0,0,0,{deg2rad(drx):0.000000},{deg2rad(dry):0.000000},0)");
                         return 0;
@@ -8521,7 +8521,7 @@ namespace LEonard
             }
         }
 
-        #endregion ===== GOCATOR INTERFACE CODE            ==============================================================================================================================
+#endregion ===== GOCATOR INTERFACE CODE            ==============================================================================================================================
     }
 }
 

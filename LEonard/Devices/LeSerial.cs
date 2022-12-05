@@ -106,7 +106,7 @@ namespace LEonard
         public string Receive(bool fProcessCallbackOnly = false)
         {
             //log.Error("NOT IMPLEMENTED Receive(): " + myPortname);
-            // TODO: Currently this is only done through callback and it gets called constantly for serial devices
+#warning Currently this is only done through callback and it gets called constantly for serial devices
             return "";
             /*
             if (port.BytesToRead > 0)
@@ -128,11 +128,11 @@ namespace LEonard
             {
                 string data = "";
                 // Read all lines in the buffer
-                // TODO: Doesn't this block and timeout if there are bytes but no newline?
+#warning  Doesn't this block and timeout if there are bytes but no newline?
                 int lineNo = 1;
                 while (port.IsOpen && port.BytesToRead > 0)
                 {
-                    // TODO: if the port.NewLine isn't in the buffer this blocks... needs to timeout almost instantly?
+#warning  If the port.NewLine isn't in the buffer this blocks... needs to timeout almost instantly?
                     try
                     {
                         data = port.ReadLine();
