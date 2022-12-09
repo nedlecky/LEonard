@@ -93,6 +93,7 @@ namespace LEonard
 
             return base.Connect(IP, port);
         }
+#warning Shouldn't this be override, not virtual?
         public virtual bool IsConnected()
         {
             return fConnected;
